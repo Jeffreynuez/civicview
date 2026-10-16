@@ -39,6 +39,7 @@ checks the order, the badge and the wording.
 | `incumbent_candidate_id` | The candidate who holds the seat now, or null |
 | `open_seat` | True when nobody on the list holds the seat now |
 | `notes` | Shown on the race. Fixed wording: "Open seat. The current representative, {name}, is not on the November ballot for this district.", "Open seat. Sen. {name} is not on the November ballot.", "Open seat. Gov. {name} is not on the November ballot.", "Open seat. The seat is vacant.", "Governor and Lieutenant Governor run together on one ticket.", "In {state}, the top two primary finishers advance to November, whatever their party." (California, Washington), "In Alaska, the top four primary finishers advance to November, whatever their party, and voters rank the candidates.", and for a special election the term it fills |
+| `ranked_choice`, `ranked_choice_source_url` | A ranked choice general election, from the state's own page (every Alaska race; Maine's federal races). The race says "Rank the candidates" instead of "Choose 1" (E-13) |
 | `open_primary`, `open_primary_source_url` | The November ballot is an open primary for this office (Louisiana, U.S. House): every qualified candidate is listed, several of one party allowed, with the official page that says so (E-13) |
 | `general_candidates_note` | Data only: which list, and that write-ins are not listed |
 

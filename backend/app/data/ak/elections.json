@@ -66,7 +66,6 @@
       "jurisdiction": "AK",
       "seat_type": "executive",
       "term_length_years": 4,
-      "primary_candidates": {},
       "general_candidates_note": "Every candidate on State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
       "_roster_source": "State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026)",
       "roster_status": "verified_nominees",
@@ -81,7 +80,10 @@
       ],
       "incumbent_candidate_id": null,
       "open_seat": true,
-      "notes": "Open seat. Gov. Mike Dunleavy is not on the November ballot. Governor and Lieutenant Governor run together on one ticket. In Alaska, the top four primary finishers advance to November, whatever their party, and voters rank the candidates."
+      "notes": "Open seat. Gov. Mike Dunleavy is not on the November ballot. Governor and Lieutenant Governor run together on one ticket. In Alaska, the top four primary finishers advance to November, whatever their party, and voters rank the candidates.",
+      "primary_candidates": {},
+      "ranked_choice": true,
+      "ranked_choice_source_url": "https://www.elections.alaska.gov/election/2026/General/SampleBallots/HD1-JD1.pdf"
     },
     {
       "id": "ak-2026-us-senate",
@@ -90,7 +92,6 @@
       "jurisdiction": "AK",
       "seat_type": "legislative",
       "term_length_years": 6,
-      "primary_candidates": {},
       "general_candidates_note": "Every candidate on State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
       "_roster_source": "State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026)",
       "roster_status": "verified_nominees",
@@ -105,7 +106,10 @@
       ],
       "incumbent_candidate_id": "ak-cand-dan-s-sullivan-sen",
       "open_seat": false,
-      "notes": "In Alaska, the top four primary finishers advance to November, whatever their party, and voters rank the candidates."
+      "notes": "In Alaska, the top four primary finishers advance to November, whatever their party, and voters rank the candidates.",
+      "primary_candidates": {},
+      "ranked_choice": true,
+      "ranked_choice_source_url": "https://www.elections.alaska.gov/election/2026/General/SampleBallots/HD1-JD1.pdf"
     },
     {
       "id": "ak-2026-us-house-AL",
@@ -115,7 +119,6 @@
       "seat_type": "legislative",
       "congressional_district": "AL",
       "term_length_years": 2,
-      "primary_candidates": {},
       "general_candidates_note": "Every candidate on State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
       "_roster_source": "State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026)",
       "roster_status": "verified_nominees",
@@ -130,7 +133,10 @@
       ],
       "incumbent_candidate_id": "ak-cand-nick-begich-hAL",
       "open_seat": false,
-      "notes": "In Alaska, the top four primary finishers advance to November, whatever their party, and voters rank the candidates."
+      "notes": "In Alaska, the top four primary finishers advance to November, whatever their party, and voters rank the candidates.",
+      "primary_candidates": {},
+      "ranked_choice": true,
+      "ranked_choice_source_url": "https://www.elections.alaska.gov/election/2026/General/SampleBallots/HD1-JD1.pdf"
     }
   ],
   "ballot_measures": {}

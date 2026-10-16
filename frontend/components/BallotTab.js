@@ -919,6 +919,9 @@ function RaceCard({
   // council races, judicial slates, etc.).
   const seatsToFill = Math.max(1, Number(race.seats_to_fill) || 1);
   const chooseLabel = `Choose ${seatsToFill}`;
+  // A ranked choice general election (Alaska; Maine for federal offices,
+  // race.ranked_choice from the state's own page) is not "Choose 1".
+  const generalLabel = race.ranked_choice ? 'Rank the candidates' : chooseLabel;
 
   // Group primary candidates by party for visual clarity
   const groupedPrimary = useMemo(() => {
@@ -953,7 +956,7 @@ function RaceCard({
                 marginTop: 4,
               }}
             >
-              {chooseLabel}
+              {generalLabel}
             </div>
           )}
           <div style={{ display: 'flex', gap: '6px', marginTop: '5px', flexWrap: 'wrap' }}>
@@ -1354,7 +1357,6 @@ function CandidateRow({
   race, stateCode, electionPhase, onNotify,
   isFocused, isHighlighted, onFocusCandidateConsumed, onHighlightConsumed,
 }) {
-  const isMobileRow = useIsMobile();
   const party = candidate.party || 'NP';
   const partyColor = PARTY_TEXT[party] || '#666';
   const partyBg = PARTY_BG[party] || '#eef';
@@ -1423,11 +1425,27 @@ function CandidateRow({
               <span style={{
                 marginLeft: '6px', fontSize: '0.62rem', fontWeight: 800,
                 padding: '1px 6px', borderRadius: '8px', background: '#f4a261', color: 'white',
+                whiteSpace: 'nowrap',
               }}>
                 INCUMBENT
               </span>
             )}
           </div>
+          {/* The party exactly as the state's list prints it; the code only
+              picks the color. Printed labels run long (Minnesota's
+              "Democratic-Farmer-Labor", Alaska's "Registered Democrat /
+              Nonpartisan"), so the chip sits under the name rather than
+              beside it. A list that prints no party for a candidate
+              (party_label "") gets no chip. */}
+          {partyText && (
+            <span style={{
+              display: 'inline-block', marginTop: '3px',
+              padding: '1px 8px', borderRadius: '9px', fontSize: '0.66rem', fontWeight: 800,
+              background: partyBg, color: partyColor, lineHeight: 1.3, maxWidth: '100%',
+            }}>
+              {partyText}
+            </span>
+          )}
           <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
             {candidate.running_mate
               ? `Running mate: ${candidate.running_mate}`
@@ -1436,18 +1454,6 @@ function CandidateRow({
         </div>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
-        {/* The party exactly as the state's list prints it; the code only
-            picks the color. A list that prints no party for a candidate
-            (party_label "") gets no chip. */}
-        {partyText && (
-          <span style={{
-            padding: '1px 8px', borderRadius: '9px', fontSize: '0.66rem', fontWeight: 800,
-            background: partyBg, color: partyColor,
-            maxWidth: isMobileRow ? 110 : 160, whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.25,
-          }}>
-            {partyText}
-          </span>
-        )}
         <FollowButton member={followTarget} size="sm" onNotify={onNotify} />
         <CompareButton
           member={followTarget}
@@ -1531,10 +1537,16 @@ function winnerName(race, winner) {
 // The previous inline version took the first two tokens, which is wrong
 // for anyone with a middle name on the ballot.
 function ballotInitials(name) {
-  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  // First letter of the first and last word, skipping quotes, brackets
+  // and suffixes: Louisiana prints nicknames first ('"Jamie" Davis',
+  // which read '"D' before), and "Larry Davis III" is LD.
+  const parts = String(name || '').trim().split(/\s+/)
+    .filter((w) => !/^(jr|sr|ii|iii|iv)\.?,?$/i.test(w))
+    .map((w) => (w.match(/\p{L}/u) || [''])[0])
+    .filter(Boolean);
   if (parts.length === 0) return '?';
-  if (parts.length === 1) return parts[0][0].toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  if (parts.length === 1) return parts[0].toUpperCase();
+  return (parts[0] + parts[parts.length - 1]).toUpperCase();
 }
 
 // ─── Ballot-measure card ─────────────────────────────────────────────

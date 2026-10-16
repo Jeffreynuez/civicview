@@ -51,7 +51,9 @@ Elections (every <state>/elections.json):
        2026-10-16: "Every race is complete or not shown." A race marked
        open_primary (several candidates of one party on the ballot, as on
        Louisiana's November ballot for U.S. House) cites the official page
-       that says so in open_primary_source_url.
+       that says so in open_primary_source_url, and a ranked_choice race
+       (the Ballot tab says "Rank the candidates" instead of "Choose 1")
+       cites it in ranked_choice_source_url.
   E-14 nobody appears twice: a candidate id is on at most one race's
        general list in a state, and no general list names the same person
        twice
@@ -406,6 +408,8 @@ def lint_rosters(doc: dict, cands: dict, where: str) -> None:
             _check_dates(f"{where} {rid}.roster_retrieved", str(race.get("roster_retrieved") or ""))
         if race.get("open_primary") and not _official(race.get("open_primary_source_url")):
             problem("E-13", f"{where} {rid}", "open_primary needs an official https open_primary_source_url")
+        if race.get("ranked_choice") and not _official(race.get("ranked_choice_source_url")):
+            problem("E-13", f"{where} {rid}", "ranked_choice needs an official https ranked_choice_source_url")
         people = set()
         for cid in general:
             if cid in on_general:

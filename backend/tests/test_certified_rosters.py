@@ -18,6 +18,8 @@ Covers:
   * one sitting member of Congress is linked to one candidate only
   * Your Ballot finds the U.S. House race for an at-large state and for a
     district written "7", "07" or "CA-7"
+  * ranked choice is marked only where the state's own page says so:
+    every Alaska race, and Maine's federal races but not its Governor
 """
 import logging
 import os
@@ -182,6 +184,13 @@ def main() -> int:
     for cd in ("7", "07", "CA-7"):
         check(f"8 California District 7 is on Your Ballot for {cd!r}",
               house_races("CA", cd) == ["ca-2026-us-house-7"], str(house_races("CA", cd)))
+
+    # 9. Ranked choice where the state says so, and only there.
+    ranked = sorted(r["id"] for st in svc.list_states_with_elections()
+                    for r in svc._elections_by_state[st]["races"] if r.get("ranked_choice"))
+    check("9 ranked choice: Alaska's three races and Maine's federal races only",
+          ranked == ["ak-2026-gov", "ak-2026-us-house-AL", "ak-2026-us-senate",
+                     "me-2026-us-house-1", "me-2026-us-house-2", "me-2026-us-senate"], str(ranked))
 
     print()
     if FAILS:
