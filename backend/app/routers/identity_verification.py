@@ -313,8 +313,5 @@ def verification_callback(
             citizen_id,
         )
 
-    logger.info(
-        "ID.me verification completed for citizen id=%s state=%s city=%s",
-        citizen_id, citizen.state, citizen.city,
-    )
+    logger.info("ID.me verification completed for citizen id=%s", citizen_id)
     return RedirectResponse(f"{bounce_base}&via=id.me", status_code=303)

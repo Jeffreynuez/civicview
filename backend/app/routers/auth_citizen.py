@@ -490,10 +490,9 @@ def demo_signup(
     db.commit()
     db.refresh(citizen)
 
-    logger.info(
-        "Demo citizen created: id=%d, display_name=%r, state=%s, district=%s",
-        citizen.id, citizen.display_name, citizen.state, citizen.congressional_district,
-    )
+    # The account number only: its name, state and district stay in the
+    # database, not in the logs (2026-10-16).
+    logger.info("Demo citizen created: id=%d", citizen.id)
 
     # "Email me my sign-in details" (2026-10-03): the sign-in email and a
     # link to choose a new password, to the contact address. Best effort:
@@ -731,7 +730,7 @@ def set_location(
     db.add(citizen)
     db.commit()
     db.refresh(citizen)
-    logger.info("Citizen id=%d set location %s (moved state: %s)", citizen.id, district, moved)
+    logger.info("Citizen id=%d set location (moved state: %s)", citizen.id, moved)
     return CitizenMeResponse.model_validate(citizen)
 
 

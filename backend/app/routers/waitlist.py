@@ -36,6 +36,7 @@ from app.db import get_db
 from app.models.pages import CitizenWaitlist
 from app.schemas.pages import WaitlistSignup, WaitlistStatus
 from app.services.brevo_service import sync_waitlist_contact
+from app.services.log_redaction import mask_email
 
 
 logger = logging.getLogger(__name__)
@@ -87,7 +88,7 @@ def join_waitlist(
     if first_time_for_email:
         bg.add_task(sync_waitlist_contact, email, state, clicked_from)
     logger.info(
-        "Waitlist signup — email=%s clicked_from=%s state=%s note_len=%d",
-        email, clicked_from, state, len(note or ""),
+        "Waitlist signup: email=%s clicked_from=%s state=%s note_len=%d",
+        mask_email(email), clicked_from, state, len(note or ""),
     )
     return WaitlistStatus(ok=True, already_subscribed=bool(same_context))

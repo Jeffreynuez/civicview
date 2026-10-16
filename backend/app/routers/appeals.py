@@ -67,6 +67,7 @@ from app.models.pages import (
     RepAccount,
 )
 from app.services.admin_auth import get_current_admin
+from app.services.log_redaction import mask_email
 
 
 logger = logging.getLogger(__name__)
@@ -330,8 +331,8 @@ def submit_suspension_appeal(
     # confirmation, but doesn't tell an attacker which step failed.
     if appellant_kind is None:
         logger.info(
-            "Suspension appeal: no eligible suspended account matched email=%r",
-            email,
+            "Suspension appeal: no eligible suspended account matched email=%s",
+            mask_email(email),
         )
         return SuspensionAppealResponse(
             ok=True,
@@ -786,7 +787,7 @@ def _decide_appeal(
     db.commit()
     logger.warning(
         "Admin %s %s appeal id=%d (target_restored=%s).",
-        actor["email"], decision, appeal_id, restored,
+        mask_email(actor["email"]), decision, appeal_id, restored,
     )
 
     # Email the appellant. Resolve their account email — the appeal

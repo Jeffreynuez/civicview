@@ -50,6 +50,7 @@ from app.models.pages import (
 )
 from app.services.admin_auth import get_current_admin
 from app.services.citizen_polls_service import poll_is_publicly_visible
+from app.services.log_redaction import mask_email
 
 
 logger = logging.getLogger(__name__)
@@ -463,7 +464,7 @@ def dismiss_report(
     )
     logger.info(
         "Admin %s dismissed %s report id=%d.",
-        actor["email"], kind, report_id,
+        mask_email(actor["email"]), kind, report_id,
     )
     return ActionResult(ok=True, target_hidden=hidden)
 
@@ -502,7 +503,7 @@ def hide_target(
     logger.warning(
         "Admin %s hid %s target_id=%d (via report id=%d, newly_hidden=%s, "
         "resolved %d open report(s) against the target).",
-        actor["email"], kind, getattr(target, "id", -1), report_id,
+        mask_email(actor["email"]), kind, getattr(target, "id", -1), report_id,
         newly_hidden, resolved_n,
     )
     return ActionResult(ok=True, target_hidden=True)
@@ -528,7 +529,7 @@ def unhide_target(
     db.commit()
     logger.warning(
         "Admin %s un-hid %s target_id=%d (newly_unhidden=%s).",
-        actor["email"], kind, target_id, newly_unhidden,
+        mask_email(actor["email"]), kind, target_id, newly_unhidden,
     )
     return ActionResult(ok=True, target_hidden=False)
 
@@ -838,7 +839,7 @@ def suspend_user(
     db.commit()
     logger.warning(
         "Admin %s suspended %s user_id=%d (reason=%r, cascade=%s, hidden=%s, resolved=%s).",
-        actor["email"], kind, user_id, acc.suspended_reason,
+        mask_email(actor["email"]), kind, user_id, acc.suspended_reason,
         payload.cascade_hide, hidden_counts, resolved_reports,
     )
     return UserActionResult(
@@ -869,7 +870,7 @@ def unsuspend_user(
     db.commit()
     logger.warning(
         "Admin %s un-suspended %s user_id=%d.",
-        actor["email"], kind, user_id,
+        mask_email(actor["email"]), kind, user_id,
     )
     return UserActionResult(ok=True, suspended=False)
 
