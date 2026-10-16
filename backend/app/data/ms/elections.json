@@ -1,5 +1,5 @@
 {
-  "_note": "Mississippi 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Mississippi 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "MS",
   "state_name": "Mississippi",
   "cycle": "2026",
@@ -66,6 +66,116 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "ms-2026-us-senate",
+      "office": "U.S. Senate, Mississippi",
+      "level": "federal",
+      "jurisdiction": "MS",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.ms.gov/content/documents/Elections/2026/Sample%20Ballot%209-9-26.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ms-cand-scott-colom-sen",
+        "ms-cand-cindy-hyde-smith-sen",
+        "ms-cand-ty-pinkins-sen"
+      ],
+      "incumbent_candidate_id": "ms-cand-cindy-hyde-smith-sen",
+      "open_seat": false
+    },
+    {
+      "id": "ms-2026-us-house-1",
+      "office": "U.S. House, MS-1",
+      "level": "federal",
+      "jurisdiction": "MS",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.ms.gov/content/documents/Elections/2026/Sample%20Ballot%209-9-26.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ms-cand-johnny-baucom-h1",
+        "ms-cand-cliff-johnson-h1",
+        "ms-cand-trent-kelly-h1"
+      ],
+      "incumbent_candidate_id": "ms-cand-trent-kelly-h1",
+      "open_seat": false
+    },
+    {
+      "id": "ms-2026-us-house-2",
+      "office": "U.S. House, MS-2",
+      "level": "federal",
+      "jurisdiction": "MS",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.ms.gov/content/documents/Elections/2026/Sample%20Ballot%209-9-26.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ms-cand-ron-eller-h2",
+        "ms-cand-bennie-g-thompson-h2",
+        "ms-cand-bennie-foster-h2"
+      ],
+      "incumbent_candidate_id": "ms-cand-bennie-g-thompson-h2",
+      "open_seat": false
+    },
+    {
+      "id": "ms-2026-us-house-3",
+      "office": "U.S. House, MS-3",
+      "level": "federal",
+      "jurisdiction": "MS",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.ms.gov/content/documents/Elections/2026/Sample%20Ballot%209-9-26.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ms-cand-michael-a-chiaradio-h3",
+        "ms-cand-michael-guest-h3",
+        "ms-cand-erik-kiehle-h3"
+      ],
+      "incumbent_candidate_id": "ms-cand-michael-guest-h3",
+      "open_seat": false
+    },
+    {
+      "id": "ms-2026-us-house-4",
+      "office": "U.S. House, MS-4",
+      "level": "federal",
+      "jurisdiction": "MS",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Mississippi Secretary of State, SAMPLE Official Election Ballot, State of Mississippi, Federal and Judicial Election, Tuesday, November 3, 2026 (file dated 9-9-26)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.ms.gov/content/documents/Elections/2026/Sample%20Ballot%209-9-26.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ms-cand-mike-ezell-h4",
+        "ms-cand-jeffrey-hulum-iii-h4",
+        "ms-cand-carl-boyanton-h4"
+      ],
+      "incumbent_candidate_id": "ms-cand-mike-ezell-h4",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

@@ -16,6 +16,8 @@ from pathlib import Path
 from typing import Optional
 
 import httpx
+
+from app.services.ballot_status import is_on_ballot
 from dotenv import load_dotenv
 
 from app.services.congress_selection import annotate_members, annotate_selection
@@ -442,9 +444,14 @@ class CongressService:
                 cands = raw.get("candidates", {}) or {}
                 for cid, payload in cands.items():
                     bg = payload.get("bioguide_id")
-                    if not bg:
+                    if not bg or payload.get("duplicate_of"):
                         continue
                     entry = {"id": cid, **payload}
+                    # Two records can share a member (an old filer record
+                    # and the certified one): the one on the ballot wins.
+                    prev = self._candidacies_by_bioguide.get(bg)
+                    if prev and is_on_ballot(prev.get("id")) and not is_on_ballot(cid):
+                        continue
                     self._candidacies_by_bioguide[bg] = entry
             except (json.JSONDecodeError, OSError) as e:
                 logger.error("CongressService: failed to load %s: %s", c_path, e)
@@ -502,8 +509,10 @@ class CongressService:
         if sidecar and sidecar.get("former_member") and not detail.get("former_member"):
             detail["former_member"] = True
 
-        # Cross-nav pointer — minimal shape; the frontend hydrates as needed
-        if candidacy and not detail.get("active_candidacy"):
+        # Cross-nav pointer (the "On ballot" badge), minimal shape. Only for
+        # a record on a verified November list: a member who lost, withdrew
+        # or is not running has a candidate record but is not on the ballot.
+        if candidacy and not detail.get("active_candidacy") and is_on_ballot(candidacy.get("id")):
             detail["active_candidacy"] = {
                 "candidate_id": candidacy.get("id"),
                 "seeking_office": candidacy.get("seeking_office"),

@@ -1,5 +1,5 @@
 {
-  "_note": "Delaware 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Delaware 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "DE",
   "state_name": "Delaware",
   "cycle": "2026",
@@ -70,6 +70,50 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "de-2026-us-senate",
+      "office": "U.S. Senate, Delaware",
+      "level": "federal",
+      "jurisdiction": "DE",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Delaware Department of Elections, General Election 11/3/2026, Filed Candidates by Office (last updated 2026-10-15 07:56 PM) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Delaware Department of Elections, General Election 11/3/2026, Filed Candidates by Office (last updated 2026-10-15 07:56 PM)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.delaware.gov/candidates/candidatelist/genl_fcddt_2026.html",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://elections.delaware.gov/candidates/candidatelist/genl_wcddt_2026.html",
+      "general_candidates": [
+        "de-cand-chris-coons-sen",
+        "de-cand-michael-dr-mike-katz-sen"
+      ],
+      "incumbent_candidate_id": "de-cand-chris-coons-sen",
+      "open_seat": false
+    },
+    {
+      "id": "de-2026-us-house-AL",
+      "office": "U.S. House, DE-AL",
+      "level": "federal",
+      "jurisdiction": "DE",
+      "seat_type": "legislative",
+      "congressional_district": "AL",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Delaware Department of Elections, General Election 11/3/2026, Filed Candidates by Office (last updated 2026-10-15 07:56 PM) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Delaware Department of Elections, General Election 11/3/2026, Filed Candidates by Office (last updated 2026-10-15 07:56 PM)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.delaware.gov/candidates/candidatelist/genl_fcddt_2026.html",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://elections.delaware.gov/candidates/candidatelist/genl_wcddt_2026.html",
+      "general_candidates": [
+        "de-cand-sarah-mcbride-hAL",
+        "de-cand-joseph-dr-joe-arminio-hAL"
+      ],
+      "incumbent_candidate_id": "de-cand-sarah-mcbride-hAL",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

@@ -1,5 +1,5 @@
 {
-  "_note": "South Dakota 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "South Dakota 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "SD",
   "state_name": "South Dakota",
   "cycle": "2026",
@@ -61,6 +61,70 @@
       "vote_by_mail_request_deadline_general": "17:00"
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "sd-2026-gov",
+      "office": "Governor of South Dakota",
+      "level": "state",
+      "jurisdiction": "SD",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Dakota Secretary of State, Voter Information Portal, 2026 General Election Candidate List for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Dakota Secretary of State, Voter Information Portal, 2026 General Election Candidate List",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vip.sdsos.gov/CandidateList.aspx?eid=774",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sd-cand-larry-rhoden",
+        "sd-cand-dan-ahlers"
+      ],
+      "incumbent_candidate_id": "sd-cand-larry-rhoden",
+      "open_seat": false,
+      "notes": "Governor and Lieutenant Governor run together on one ticket."
+    },
+    {
+      "id": "sd-2026-us-senate",
+      "office": "U.S. Senate, South Dakota",
+      "level": "federal",
+      "jurisdiction": "SD",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Dakota Secretary of State, Voter Information Portal, 2026 General Election Candidate List for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Dakota Secretary of State, Voter Information Portal, 2026 General Election Candidate List",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vip.sdsos.gov/CandidateList.aspx?eid=774",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sd-cand-mike-rounds-sen",
+        "sd-cand-brian-l-bengs-sen"
+      ],
+      "incumbent_candidate_id": "sd-cand-mike-rounds-sen",
+      "open_seat": false
+    },
+    {
+      "id": "sd-2026-us-house-AL",
+      "office": "U.S. House, SD-AL",
+      "level": "federal",
+      "jurisdiction": "SD",
+      "seat_type": "legislative",
+      "congressional_district": "AL",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Dakota Secretary of State, Voter Information Portal, 2026 General Election Candidate List for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Dakota Secretary of State, Voter Information Portal, 2026 General Election Candidate List",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vip.sdsos.gov/CandidateList.aspx?eid=774",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sd-cand-marty-jackley-hAL",
+        "sd-cand-nicole-nikki-gronli-hAL"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Dusty Johnson, is not on the November ballot for this district."
+    }
+  ],
   "ballot_measures": {}
 }

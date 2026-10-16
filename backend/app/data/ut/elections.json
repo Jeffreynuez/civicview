@@ -1,5 +1,5 @@
 {
-  "_note": "Utah 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Utah 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "UT",
   "state_name": "Utah",
   "cycle": "2026",
@@ -73,6 +73,110 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "ut-2026-us-house-1",
+      "office": "U.S. House, UT-1",
+      "level": "federal",
+      "jurisdiction": "UT",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Utah Office of the Lieutenant Governor, Amended 2026 General Election Certification (signed September 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Utah Office of the Lieutenant Governor, Amended 2026 General Election Certification (signed September 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vote.utah.gov/wp-content/uploads/2026/09/2026-General-Election-Certification-Amended-09-21.pdf",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://vote.utah.gov/wp-content/uploads/2026/09/2026-Write-In-Certification.pdf",
+      "general_candidates": [
+        "ut-cand-jesse-west-h1",
+        "ut-cand-ben-mcadams-h1",
+        "ut-cand-elias-henry-montgomery-h1",
+        "ut-cand-riley-owen-h1"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Blake D. Moore, is not on the November ballot for this district."
+    },
+    {
+      "id": "ut-2026-us-house-2",
+      "office": "U.S. House, UT-2",
+      "level": "federal",
+      "jurisdiction": "UT",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Utah Office of the Lieutenant Governor, Amended 2026 General Election Certification (signed September 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Utah Office of the Lieutenant Governor, Amended 2026 General Election Certification (signed September 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vote.utah.gov/wp-content/uploads/2026/09/2026-General-Election-Certification-Amended-09-21.pdf",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://vote.utah.gov/wp-content/uploads/2026/09/2026-Write-In-Certification.pdf",
+      "general_candidates": [
+        "ut-cand-peter-crosby-h2",
+        "ut-cand-daniel-cottam-h2",
+        "ut-cand-robert-m-moesinger-h2",
+        "ut-cand-blake-d-moore-h2",
+        "ut-cand-carlton-e-bowen-h2"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Celeste Maloy, is not on the November ballot for this district."
+    },
+    {
+      "id": "ut-2026-us-house-3",
+      "office": "U.S. House, UT-3",
+      "level": "federal",
+      "jurisdiction": "UT",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Utah Office of the Lieutenant Governor, Amended 2026 General Election Certification (signed September 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Utah Office of the Lieutenant Governor, Amended 2026 General Election Certification (signed September 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vote.utah.gov/wp-content/uploads/2026/09/2026-General-Election-Certification-Amended-09-21.pdf",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://vote.utah.gov/wp-content/uploads/2026/09/2026-Write-In-Certification.pdf",
+      "general_candidates": [
+        "ut-cand-kent-s-udell-h3",
+        "ut-cand-cassie-easley-h3",
+        "ut-cand-celeste-maloy-h3",
+        "ut-cand-ayden-scott-h3",
+        "ut-cand-michael-r-stoddard-h3",
+        "ut-cand-adonis-hooslyn-h3"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Mike Kennedy, is not on the November ballot for this district."
+    },
+    {
+      "id": "ut-2026-us-house-4",
+      "office": "U.S. House, UT-4",
+      "level": "federal",
+      "jurisdiction": "UT",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Utah Office of the Lieutenant Governor, Amended 2026 General Election Certification (signed September 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Utah Office of the Lieutenant Governor, Amended 2026 General Election Certification (signed September 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vote.utah.gov/wp-content/uploads/2026/09/2026-General-Election-Certification-Amended-09-21.pdf",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://vote.utah.gov/wp-content/uploads/2026/09/2026-Write-In-Certification.pdf",
+      "general_candidates": [
+        "ut-cand-taylor-wright-h4",
+        "ut-cand-jonny-larsen-h4",
+        "ut-cand-steven-burt-h4",
+        "ut-cand-mike-kennedy-h4"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Burgess Owens, is not on the November ballot for this district."
+    }
+  ],
   "ballot_measures": {}
 }

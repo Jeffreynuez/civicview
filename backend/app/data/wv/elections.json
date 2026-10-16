@@ -1,5 +1,5 @@
 {
-  "_note": "West Virginia 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "West Virginia 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "WV",
   "state_name": "West Virginia",
   "cycle": "2026",
@@ -70,6 +70,74 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "wv-2026-us-senate",
+      "office": "U.S. Senate, West Virginia",
+      "level": "federal",
+      "jurisdiction": "WV",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on West Virginia Secretary of State, Candidates Listing by Office, election \"11/03/2026 - GENERAL 2026\", Regular Candidates (the \"2026 Candidates Listing\" linked from the SOS candidate search page; retrieved 2026-10-16) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "West Virginia Secretary of State, Candidates Listing by Office, election \"11/03/2026 - GENERAL 2026\", Regular Candidates (the \"2026 Candidates Listing\" linked from the SOS candidate search page; retrieved 2026-10-16)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://candidates.wvsos.gov/",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://candidates.wvsos.gov/write-in",
+      "general_candidates": [
+        "wv-cand-shelley-moore-capito-sen",
+        "wv-cand-rachel-fetty-anderson-sen",
+        "wv-cand-s-marshall-wilson-sen"
+      ],
+      "incumbent_candidate_id": "wv-cand-shelley-moore-capito-sen",
+      "open_seat": false
+    },
+    {
+      "id": "wv-2026-us-house-1",
+      "office": "U.S. House, WV-1",
+      "level": "federal",
+      "jurisdiction": "WV",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on West Virginia Secretary of State, Candidates Listing by Office, election \"11/03/2026 - GENERAL 2026\", Regular Candidates (the \"2026 Candidates Listing\" linked from the SOS candidate search page; retrieved 2026-10-16) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "West Virginia Secretary of State, Candidates Listing by Office, election \"11/03/2026 - GENERAL 2026\", Regular Candidates (the \"2026 Candidates Listing\" linked from the SOS candidate search page; retrieved 2026-10-16)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://candidates.wvsos.gov/",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://candidates.wvsos.gov/write-in",
+      "general_candidates": [
+        "wv-cand-carol-miller-h1",
+        "wv-cand-vince-george-h1",
+        "wv-cand-belinda-fox-spencer-h1"
+      ],
+      "incumbent_candidate_id": "wv-cand-carol-miller-h1",
+      "open_seat": false
+    },
+    {
+      "id": "wv-2026-us-house-2",
+      "office": "U.S. House, WV-2",
+      "level": "federal",
+      "jurisdiction": "WV",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on West Virginia Secretary of State, Candidates Listing by Office, election \"11/03/2026 - GENERAL 2026\", Regular Candidates (the \"2026 Candidates Listing\" linked from the SOS candidate search page; retrieved 2026-10-16) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "West Virginia Secretary of State, Candidates Listing by Office, election \"11/03/2026 - GENERAL 2026\", Regular Candidates (the \"2026 Candidates Listing\" linked from the SOS candidate search page; retrieved 2026-10-16)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://candidates.wvsos.gov/",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://candidates.wvsos.gov/write-in",
+      "general_candidates": [
+        "wv-cand-riley-moore-h2",
+        "wv-cand-ace-parsi-h2"
+      ],
+      "incumbent_candidate_id": "wv-cand-riley-moore-h2",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

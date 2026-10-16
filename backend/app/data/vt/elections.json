@@ -1,5 +1,5 @@
 {
-  "_note": "Vermont 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Vermont 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "VT",
   "state_name": "Vermont",
   "cycle": "2026",
@@ -63,6 +63,55 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "vt-2026-gov",
+      "office": "Governor of Vermont",
+      "level": "state",
+      "jurisdiction": "VT",
+      "seat_type": "executive",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Vermont Secretary of State, Elections Division, 2026 General Election Candidate Listing/Financial Disclosure (qualified candidates, last updated 9/23/2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Vermont Secretary of State, Elections Division, 2026 General Election Candidate Listing/Financial Disclosure (qualified candidates, last updated 9/23/2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://outside.vermont.gov/dept/sos/Elections_Division/election_info_resources/candidates/2026_general_election_qualified_candidates.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "vt-cand-june-goodband",
+        "vt-cand-amanda-janoo",
+        "vt-cand-brian-judd",
+        "vt-cand-dean-roy",
+        "vt-cand-phil-scott"
+      ],
+      "incumbent_candidate_id": "vt-cand-phil-scott",
+      "open_seat": false
+    },
+    {
+      "id": "vt-2026-us-house-AL",
+      "office": "U.S. House, VT-AL",
+      "level": "federal",
+      "jurisdiction": "VT",
+      "seat_type": "legislative",
+      "congressional_district": "AL",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Vermont Secretary of State, Elections Division, 2026 General Election Candidate Listing/Financial Disclosure (qualified candidates, last updated 9/23/2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Vermont Secretary of State, Elections Division, 2026 General Election Candidate Listing/Financial Disclosure (qualified candidates, last updated 9/23/2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://outside.vermont.gov/dept/sos/Elections_Division/election_info_resources/candidates/2026_general_election_qualified_candidates.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "vt-cand-phoenix-k-altair-hAL",
+        "vt-cand-becca-balint-hAL",
+        "vt-cand-gerald-malloy-hAL",
+        "vt-cand-adam-ortiz-hAL",
+        "vt-cand-suzanne-suz-seymour-hAL",
+        "vt-cand-ryan-p-walton-hAL"
+      ],
+      "incumbent_candidate_id": "vt-cand-becca-balint-hAL",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

@@ -1,5 +1,5 @@
 {
-  "_note": "Connecticut 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Connecticut 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "CT",
   "state_name": "Connecticut",
   "cycle": "2026",
@@ -64,6 +64,137 @@
       "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day."
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "ct-2026-gov",
+      "office": "Governor of Connecticut",
+      "level": "state",
+      "jurisdiction": "CT",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://portal.ct.gov/-/media/sots/electionservices/town_ballots/2026/nov-ada-2026/westport_sample_ada.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ct-cand-ned-lamont",
+        "ct-cand-ryan-fazio"
+      ],
+      "incumbent_candidate_id": "ct-cand-ned-lamont",
+      "open_seat": false,
+      "notes": "Governor and Lieutenant Governor run together on one ticket."
+    },
+    {
+      "id": "ct-2026-us-house-1",
+      "office": "U.S. House, CT-1",
+      "level": "federal",
+      "jurisdiction": "CT",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://portal.ct.gov/-/media/sots/electionservices/town_ballots/2026/nov-ada-2026/west_hartford_sample_ada.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ct-cand-luke-bronin-h1",
+        "ct-cand-amy-chai-h1",
+        "ct-cand-mary-l-sanders-h1"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, John B. Larson, is not on the November ballot for this district."
+    },
+    {
+      "id": "ct-2026-us-house-2",
+      "office": "U.S. House, CT-2",
+      "level": "federal",
+      "jurisdiction": "CT",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://portal.ct.gov/-/media/sots/electionservices/town_ballots/2026/nov-ada-2026/eastford_sample_ada.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ct-cand-joe-courtney-h2",
+        "ct-cand-george-patrick-austin-h2"
+      ],
+      "incumbent_candidate_id": "ct-cand-joe-courtney-h2",
+      "open_seat": false
+    },
+    {
+      "id": "ct-2026-us-house-3",
+      "office": "U.S. House, CT-3",
+      "level": "federal",
+      "jurisdiction": "CT",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://portal.ct.gov/-/media/sots/electionservices/town_ballots/2026/nov-ada-2026/hamden_sample_ada.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ct-cand-rosa-l-delauro-h3",
+        "ct-cand-christopher-lancia-h3",
+        "ct-cand-thomas-egan-h3"
+      ],
+      "incumbent_candidate_id": "ct-cand-rosa-l-delauro-h3",
+      "open_seat": false
+    },
+    {
+      "id": "ct-2026-us-house-4",
+      "office": "U.S. House, CT-4",
+      "level": "federal",
+      "jurisdiction": "CT",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://portal.ct.gov/-/media/sots/electionservices/town_ballots/2026/nov-ada-2026/westport_sample_ada.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ct-cand-jim-himes-h4",
+        "ct-cand-michael-ted-goldstein-h4",
+        "ct-cand-benjamin-wesley-h4"
+      ],
+      "incumbent_candidate_id": "ct-cand-jim-himes-h4",
+      "open_seat": false
+    },
+    {
+      "id": "ct-2026-us-house-5",
+      "office": "U.S. House, CT-5",
+      "level": "federal",
+      "jurisdiction": "CT",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Connecticut Secretary of the State, November 3, 2026, State Election, Sample Town Ballots (official party-row ballots posted by the Secretary of the State)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://portal.ct.gov/-/media/sots/electionservices/town_ballots/2026/nov-ada-2026/cornwall_sample_ada.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ct-cand-jahana-hayes-h5",
+        "ct-cand-chris-shea-h5"
+      ],
+      "incumbent_candidate_id": "ct-cand-jahana-hayes-h5",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

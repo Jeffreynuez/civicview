@@ -1,5 +1,5 @@
 {
-  "_note": "Washington 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Washington 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "WA",
   "state_name": "Washington",
   "cycle": "2026",
@@ -64,6 +64,227 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "wa-2026-us-house-1",
+      "office": "U.S. House, WA-1",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-suzan-delbene-h1",
+        "wa-cand-mary-silva-h1"
+      ],
+      "incumbent_candidate_id": "wa-cand-suzan-delbene-h1",
+      "open_seat": false,
+      "notes": "In Washington, the top two primary finishers advance to November, whatever their party."
+    },
+    {
+      "id": "wa-2026-us-house-2",
+      "office": "U.S. House, WA-2",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-rick-larsen-h2",
+        "wa-cand-edwin-h-feller-h2"
+      ],
+      "incumbent_candidate_id": "wa-cand-rick-larsen-h2",
+      "open_seat": false,
+      "notes": "In Washington, the top two primary finishers advance to November, whatever their party."
+    },
+    {
+      "id": "wa-2026-us-house-3",
+      "office": "U.S. House, WA-3",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-john-braun-h3",
+        "wa-cand-marie-gluesenkamp-perez-h3"
+      ],
+      "incumbent_candidate_id": "wa-cand-marie-gluesenkamp-perez-h3",
+      "open_seat": false,
+      "notes": "In Washington, the top two primary finishers advance to November, whatever their party."
+    },
+    {
+      "id": "wa-2026-us-house-4",
+      "office": "U.S. House, WA-4",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-amanda-mckinney-h4",
+        "wa-cand-john-duresky-h4"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Dan Newhouse, is not on the November ballot for this district. In Washington, the top two primary finishers advance to November, whatever their party."
+    },
+    {
+      "id": "wa-2026-us-house-5",
+      "office": "U.S. House, WA-5",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-michael-baumgartner-h5",
+        "wa-cand-carmela-conroy-h5"
+      ],
+      "incumbent_candidate_id": "wa-cand-michael-baumgartner-h5",
+      "open_seat": false,
+      "notes": "In Washington, the top two primary finishers advance to November, whatever their party."
+    },
+    {
+      "id": "wa-2026-us-house-6",
+      "office": "U.S. House, WA-6",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-emily-randall-h6",
+        "wa-cand-teresa-fox-h6"
+      ],
+      "incumbent_candidate_id": "wa-cand-emily-randall-h6",
+      "open_seat": false,
+      "notes": "In Washington, the top two primary finishers advance to November, whatever their party."
+    },
+    {
+      "id": "wa-2026-us-house-7",
+      "office": "U.S. House, WA-7",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "7",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-pramila-jayapal-h7",
+        "wa-cand-nirav-sheth-h7"
+      ],
+      "incumbent_candidate_id": "wa-cand-pramila-jayapal-h7",
+      "open_seat": false,
+      "notes": "In Washington, the top two primary finishers advance to November, whatever their party."
+    },
+    {
+      "id": "wa-2026-us-house-8",
+      "office": "U.S. House, WA-8",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "8",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-kim-schrier-h8",
+        "wa-cand-spencer-meline-h8"
+      ],
+      "incumbent_candidate_id": "wa-cand-kim-schrier-h8",
+      "open_seat": false,
+      "notes": "In Washington, the top two primary finishers advance to November, whatever their party."
+    },
+    {
+      "id": "wa-2026-us-house-9",
+      "office": "U.S. House, WA-9",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "9",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-adam-smith-h9",
+        "wa-cand-doug-basler-h9"
+      ],
+      "incumbent_candidate_id": "wa-cand-adam-smith-h9",
+      "open_seat": false,
+      "notes": "In Washington, the top two primary finishers advance to November, whatever their party."
+    },
+    {
+      "id": "wa-2026-us-house-10",
+      "office": "U.S. House, WA-10",
+      "level": "federal",
+      "jurisdiction": "WA",
+      "seat_type": "legislative",
+      "congressional_district": "10",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Washington Secretary of State, VoteWA Candidate List, GENERAL 2026 (11/03/2026), Export to CSV (General Election candidates display after the Primary is certified; matches the Certification of Candidates to General Election dated August 21, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://voter.votewa.gov/CandidateList.aspx?e=899",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wa-cand-marilyn-strickland-h10",
+        "wa-cand-chris-d-chung-h10"
+      ],
+      "incumbent_candidate_id": "wa-cand-marilyn-strickland-h10",
+      "open_seat": false,
+      "notes": "In Washington, the top two primary finishers advance to November, whatever their party."
+    }
+  ],
   "ballot_measures": {}
 }

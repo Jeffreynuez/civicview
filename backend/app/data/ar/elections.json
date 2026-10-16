@@ -1,5 +1,5 @@
 {
-  "_note": "Arkansas 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Arkansas 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "AR",
   "state_name": "Arkansas",
   "cycle": "2026",
@@ -75,6 +75,135 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "ar-2026-gov",
+      "office": "Governor of Arkansas",
+      "level": "state",
+      "jurisdiction": "AR",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://candidates.arkansas.gov/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ar-cand-fred-love",
+        "ar-cand-colt-shelby",
+        "ar-cand-sarah-huckabee-sanders"
+      ],
+      "incumbent_candidate_id": "ar-cand-sarah-huckabee-sanders",
+      "open_seat": false
+    },
+    {
+      "id": "ar-2026-us-senate",
+      "office": "U.S. Senate, Arkansas",
+      "level": "federal",
+      "jurisdiction": "AR",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://candidates.arkansas.gov/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ar-cand-tom-cotton-sen",
+        "ar-cand-jeff-wadlin-sen",
+        "ar-cand-hallie-shoffner-sen"
+      ],
+      "incumbent_candidate_id": "ar-cand-tom-cotton-sen",
+      "open_seat": false
+    },
+    {
+      "id": "ar-2026-us-house-1",
+      "office": "U.S. House, AR-1",
+      "level": "federal",
+      "jurisdiction": "AR",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://candidates.arkansas.gov/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ar-cand-terri-yarbrough-green-h1",
+        "ar-cand-rick-crawford-h1",
+        "ar-cand-steve-g-parsons-h1"
+      ],
+      "incumbent_candidate_id": "ar-cand-rick-crawford-h1",
+      "open_seat": false
+    },
+    {
+      "id": "ar-2026-us-house-2",
+      "office": "U.S. House, AR-2",
+      "level": "federal",
+      "jurisdiction": "AR",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://candidates.arkansas.gov/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ar-cand-french-hill-h2",
+        "ar-cand-chris-jones-h2"
+      ],
+      "incumbent_candidate_id": "ar-cand-french-hill-h2",
+      "open_seat": false
+    },
+    {
+      "id": "ar-2026-us-house-3",
+      "office": "U.S. House, AR-3",
+      "level": "federal",
+      "jurisdiction": "AR",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://candidates.arkansas.gov/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ar-cand-bobby-wilson-h3",
+        "ar-cand-robb-ryerse-h3",
+        "ar-cand-steve-womack-h3"
+      ],
+      "incumbent_candidate_id": "ar-cand-steve-womack-h3",
+      "open_seat": false
+    },
+    {
+      "id": "ar-2026-us-house-4",
+      "office": "U.S. House, AR-4",
+      "level": "federal",
+      "jurisdiction": "AR",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Arkansas Secretary of State, Candidate Information, Search Candidate Filings (2026 cycle), retrieved 2026-10-16, cross-checked against the Secretary of State official results site setup for the 2026 General Election and Judicial Runoff (November 3, 2026) and the official 2026 Preferential Primary results",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://candidates.arkansas.gov/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ar-cand-james-rus-russell-iii-h4",
+        "ar-cand-bruce-westerman-h4"
+      ],
+      "incumbent_candidate_id": "ar-cand-bruce-westerman-h4",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

@@ -78,8 +78,11 @@ READ_ONLY = "read_only"    # left, day 30 to the archive
 ARCHIVED = "archived"      # frozen, off discovery, readable by link
 FORMER_STAGES = (FAREWELL, READ_ONLY, ARCHIVED)
 
-EVENTS = ("left_office", "lost_primary", "lost_general", "withdrew", "won")
-CANDIDATE_ENDINGS = ("lost_primary", "lost_general", "withdrew")
+EVENTS = ("left_office", "lost_primary", "lost_general", "withdrew", "not_on_ballot", "won")
+# not_on_ballot: the person is not on the state's certified general
+# election list and no official source gives a reason (lost, withdrew,
+# disqualified). It reads neutrally everywhere; it never claims a loss.
+CANDIDATE_ENDINGS = ("lost_primary", "lost_general", "withdrew", "not_on_ballot")
 
 STATE_NAMES = {
     "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas",
@@ -139,6 +142,12 @@ def long_date(day: Optional[date]) -> str:
     if not day:
         return ""
     return f"{calendar.month_name[day.month]} {day.day}, {day.year}"
+
+
+def ballot_phrase(t) -> str:
+    """ "the 2026 general election ballot", the same words for everyone."""
+    year = getattr(t, "election_year", None)
+    return f"the {year} general election ballot" if year else "the general election ballot"
 
 
 # ── titles ───────────────────────────────────────────────────────────
@@ -352,6 +361,9 @@ class Transition:
             }.get(self.event, "On")
             return f"{verb} {long_date(self.event_on)}"
         if self.recorded_on:
+            if self.event == "not_on_ballot":
+                return (f"CivicView recorded on {long_date(self.recorded_on)} that this candidate "
+                        f"isn't on {ballot_phrase(self)}")
             what = "a departure from office" if self.event == "left_office" else "the end of this campaign"
             return f"CivicView recorded {what} on {long_date(self.recorded_on)}"
         return None
@@ -449,7 +461,12 @@ def _candidate_transitions() -> Iterable[Transition]:
                 continue
             if not (c.get("withdrawn") or c.get("eliminated")):
                 continue
-            event = "withdrew" if c.get("withdrawn") else "lost_primary"
+            if c.get("withdrawn"):
+                event = "withdrew"
+            elif c.get("ended_reason") == "not_on_ballot":
+                event = "not_on_ballot"
+            else:
+                event = "lost_primary"
             event_on = parse_date(c.get("ended_on"))
             yield Transition(
                 page_id=cid,
@@ -701,6 +718,8 @@ def _ended_sentence(t: Transition) -> str:
     if t.page_kind == "official":
         when = f"on {long_date(t.event_on)}" if t.event_on else "when you left office"
         return f"Your time as {_office_phrase(t)} ended {when}."
+    if t.event == "not_on_ballot":
+        return f"You aren't on {ballot_phrase(t)} for {t.office_label}."
     when = f"on {long_date(t.event_on)}" if t.event_on else ""
     return f"Your campaign for {t.office_label} ended {when}".rstrip() + "."
 
@@ -833,6 +852,9 @@ def tracking_refusal(db, page_id: Optional[str]):
     if t.page_kind == "official":
         return LifecycleRefusal(409, "tracking_closed",
                                 f"{name} is no longer in office, so the page can't be tracked anymore.")
+    if t.event == "not_on_ballot":
+        return LifecycleRefusal(409, "tracking_closed",
+                                f"{name} isn't on {ballot_phrase(t)}, so the page can't be tracked anymore.")
     return LifecycleRefusal(409, "tracking_closed",
                             f"{name}'s campaign has ended, so the page can't be tracked anymore.")
 

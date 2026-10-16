@@ -52,6 +52,29 @@ Elections (every <state>/elections.json):
        when one page has the date and another the rule) is for a key
        date with its own source, and each page has an official https
        url and a retrieved date.
+  E-13 a race that lists general election candidates is a verified
+       roster: roster_status "verified_nominees", an https roster_source_url
+       on an official site and a real roster_retrieved date. Otherwise it
+       lists none (the Ballot tab says the candidates aren't listed yet),
+       so no race mixes certified and unchecked candidates. Jeffrey,
+       2026-10-16: "Every race is complete or not shown." A race marked
+       open_primary (several candidates of one party on the ballot, as on
+       Louisiana's November ballot for U.S. House) cites the official page
+       that says so in open_primary_source_url, and a ranked_choice race
+       (the Ballot tab says "Rank the candidates" instead of "Choose 1")
+       cites it in ranked_choice_source_url.
+  E-14 nobody appears twice: a candidate id is on at most one race's
+       general list in a state, and no general list names the same person
+       twice
+  E-15 an incumbent is one of the race's general candidates, and an
+       incumbent's bioguide_id is a current member in
+       federal/congress_profiles.json
+  E-16 write-in candidates are not listed in races (house rule: left out,
+       and every verified race says so)
+  E-17 a general candidate is not marked eliminated, and an ended
+       campaign (withdrawn or eliminated) carries a source and an
+       ended_recorded_on or ended_on date, so its page is not stuck
+       read-only
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -122,6 +145,7 @@ Everywhere:
 import datetime as _dt
 import json
 import re
+import unicodedata
 import sys
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -151,7 +175,16 @@ HTTP_ONLY_HOSTS = {
 #   arizona.vote: the Arizona Secretary of State's voter portal
 #     (my.arizona.vote); azsos.gov sends voters there to find their voting
 #     location and track their ballot, 2026-10-16.
-OFFICIAL_HOST_SUFFIXES = ("myflorida.com", "flsenate.gov", "myfloridahouse.gov", "dcboe.org", "arizona.vote")
+OFFICIAL_HOST_SUFFIXES = (
+    "myflorida.com", "flsenate.gov", "myfloridahouse.gov", "dcboe.org", "arizona.vote",
+    # The Tennessee Secretary of State's 2026 Candidate Lists page
+    # (sos.tn.gov/elections/2026-candidate-lists) serves its PDFs from
+    # this host.
+    "tnsosgovfiles.com",
+    # The Michigan Bureau of Elections' public candidate report, linked
+    # from michigan.gov/sos/elections.
+    "mi-boe.entellitrak.com",
+)
 
 # Party codes frontend/lib/party.js maps to a label (rule O-4).
 PARTY_CODES = {"R", "D", "I", "NP", "U", "NA", "NPA", "UNE", "TM", "F", "L", "G"}
@@ -357,6 +390,65 @@ def lint_reminder_sources(doc: dict, where: str) -> None:
                     "needs a reason, an https source_url on an official site and a retrieved date")
 
 
+def _person(name) -> str:
+    words = [w for w in re.split(r"[^a-z]+", unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().lower())
+             if w and w not in ("jr", "sr", "ii", "iii", "iv")]
+    return f"{words[0]} {words[-1]}" if len(words) >= 2 else ""
+
+
+def _current_members() -> set:
+    path = DATA / "federal" / "congress_profiles.json"
+    profiles = _load(path) if path.exists() else {}
+    return {bg for bg, prof in (profiles or {}).items() if not (prof or {}).get("former_member")}
+
+
+def lint_rosters(doc: dict, cands: dict, where: str) -> None:
+    members = _current_members()
+    on_general: dict = {}
+    for race in doc.get("races") or []:
+        rid = race.get("id")
+        general = race.get("general_candidates") or []
+        if general:
+            if race.get("roster_status") != "verified_nominees":
+                problem("E-13", f"{where} {rid}", "lists general candidates but is not a verified roster")
+            url = race.get("roster_source_url")
+            if not (isinstance(url, str) and url.startswith("https://") and _official(url)):
+                problem("E-13", f"{where} {rid}", f"roster_source_url {url!r} is not an official https page")
+            _check_dates(f"{where} {rid}.roster_retrieved", str(race.get("roster_retrieved") or ""))
+        if race.get("open_primary") and not _official(race.get("open_primary_source_url")):
+            problem("E-13", f"{where} {rid}", "open_primary needs an official https open_primary_source_url")
+        if race.get("ranked_choice") and not _official(race.get("ranked_choice_source_url")):
+            problem("E-13", f"{where} {rid}", "ranked_choice needs an official https ranked_choice_source_url")
+        people = set()
+        for cid in general:
+            if cid in on_general:
+                problem("E-14", f"{where} {rid}", f"{cid} is also on {on_general[cid]}")
+            on_general[cid] = rid
+            key = _person((cands.get(cid) or {}).get("name"))
+            if key and key in people:
+                problem("E-14", f"{where} {rid}", f"{cid} names a person already on this list")
+            people.add(key)
+            if (cands.get(cid) or {}).get("eliminated"):
+                problem("E-17", f"{where} {rid}", f"{cid} is marked eliminated")
+        inc = race.get("incumbent_candidate_id")
+        if inc and general and inc not in general:
+            problem("E-15", f"{where} {rid}", f"incumbent {inc} is not a general candidate")
+        if inc and inc in cands:
+            bg = cands[inc].get("bioguide_id")
+            if bg and race.get("level") == "federal" and bg not in members:
+                problem("E-15", f"{where} {rid}", f"incumbent {inc} has bioguide_id {bg}, not a current member")
+        if race.get("write_in_candidates"):
+            problem("E-16", f"{where} {rid}", "lists write-in candidates")
+    for cid, c in cands.items():
+        if not isinstance(c, dict) or not (c.get("withdrawn") or c.get("eliminated")) or c.get("duplicate_of"):
+            continue
+        src = c.get("withdrawn_source") if c.get("withdrawn") else c.get("eliminated_source")
+        if not (isinstance(src, str) and src.startswith("https://")):
+            problem("E-17", f"{where} {cid}", "ended campaign has no https source")
+        if not (c.get("ended_recorded_on") or c.get("ended_on")):
+            problem("E-17", f"{where} {cid}", "ended campaign has no ended_recorded_on or ended_on date")
+
+
 def lint_all_key_date_sources(doc: dict, where: str) -> None:
     """E-12. Every key date of an election still ahead has an official
     source and the day it was read, and the 2026 general election is on
@@ -461,6 +553,8 @@ def lint_elections(state_dir: Path) -> None:
         term = race.get("term_length_years")
         if term is not None and not (isinstance(term, int) and 1 <= term <= 6):
             problem("E-7", f"{where} {rid}", f"term_length_years {term!r}")
+
+    lint_rosters(doc, cands, where)
 
     for key, value in (doc.get("key_dates") or {}).items():
         if isinstance(value, str) and not key.startswith("_"):

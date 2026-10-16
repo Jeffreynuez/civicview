@@ -1,5 +1,5 @@
 {
-  "_note": "North Dakota 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "North Dakota 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "ND",
   "state_name": "North Dakota",
   "cycle": "2026",
@@ -56,6 +56,30 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "nd-2026-us-house-AL",
+      "office": "U.S. House, ND-AL",
+      "level": "federal",
+      "jurisdiction": "ND",
+      "seat_type": "legislative",
+      "congressional_district": "AL",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Dakota Secretary of State, 2026 General Election Contest/Candidate List (Representative in Congress) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Dakota Secretary of State, 2026 General Election Contest/Candidate List (Representative in Congress)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vip.sos.nd.gov/candidatelist.aspx?eid=348",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nd-cand-julie-fedorchak-hAL",
+        "nd-cand-trygve-hammer-hAL",
+        "nd-cand-helene-neville-hAL",
+        "nd-cand-charles-tuttle-hAL"
+      ],
+      "incumbent_candidate_id": "nd-cand-julie-fedorchak-hAL",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

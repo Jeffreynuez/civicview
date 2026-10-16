@@ -1,5 +1,5 @@
 {
-  "_note": "Oregon 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Oregon 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "OR",
   "state_name": "Oregon",
   "cycle": "2026",
@@ -62,6 +62,178 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "or-2026-gov",
+      "office": "Governor of Oregon",
+      "level": "state",
+      "jurisdiction": "OR",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "or-cand-brett-smith",
+        "or-cand-tina-kotek",
+        "or-cand-christine-drazan"
+      ],
+      "incumbent_candidate_id": "or-cand-tina-kotek",
+      "open_seat": false
+    },
+    {
+      "id": "or-2026-us-senate",
+      "office": "U.S. Senate, Oregon",
+      "level": "federal",
+      "jurisdiction": "OR",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "or-cand-david-brock-smith-sen",
+        "or-cand-jeff-merkley-sen",
+        "or-cand-gary-lyndon-dye-sen",
+        "or-cand-chris-henry-sen"
+      ],
+      "incumbent_candidate_id": "or-cand-jeff-merkley-sen",
+      "open_seat": false
+    },
+    {
+      "id": "or-2026-us-house-1",
+      "office": "U.S. House, OR-1",
+      "level": "federal",
+      "jurisdiction": "OR",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "or-cand-barbara-j-kahl-h1",
+        "or-cand-suzanne-bonamici-h1"
+      ],
+      "incumbent_candidate_id": "or-cand-suzanne-bonamici-h1",
+      "open_seat": false
+    },
+    {
+      "id": "or-2026-us-house-2",
+      "office": "U.S. House, OR-2",
+      "level": "federal",
+      "jurisdiction": "OR",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "or-cand-chris-beck-h2",
+        "or-cand-cliff-bentz-h2"
+      ],
+      "incumbent_candidate_id": "or-cand-cliff-bentz-h2",
+      "open_seat": false
+    },
+    {
+      "id": "or-2026-us-house-3",
+      "office": "U.S. House, OR-3",
+      "level": "federal",
+      "jurisdiction": "OR",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "or-cand-maxine-e-dexter-h3",
+        "or-cand-loran-ayles-h3"
+      ],
+      "incumbent_candidate_id": "or-cand-maxine-e-dexter-h3",
+      "open_seat": false
+    },
+    {
+      "id": "or-2026-us-house-4",
+      "office": "U.S. House, OR-4",
+      "level": "federal",
+      "jurisdiction": "OR",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "or-cand-monique-despain-h4",
+        "or-cand-val-hoyle-h4",
+        "or-cand-justin-filip-h4"
+      ],
+      "incumbent_candidate_id": "or-cand-val-hoyle-h4",
+      "open_seat": false
+    },
+    {
+      "id": "or-2026-us-house-5",
+      "office": "U.S. House, OR-5",
+      "level": "federal",
+      "jurisdiction": "OR",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "or-cand-janelle-s-bynum-h5",
+        "or-cand-andrea-townsend-h5",
+        "or-cand-patti-adair-h5"
+      ],
+      "incumbent_candidate_id": "or-cand-janelle-s-bynum-h5",
+      "open_seat": false
+    },
+    {
+      "id": "or-2026-us-house-6",
+      "office": "U.S. House, OR-6",
+      "level": "federal",
+      "jurisdiction": "OR",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "or-cand-andrea-salinas-h6",
+        "or-cand-david-russ-h6"
+      ],
+      "incumbent_candidate_id": "or-cand-andrea-salinas-h6",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

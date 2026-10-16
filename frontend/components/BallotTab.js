@@ -290,6 +290,7 @@ export default function BallotTab({
             highlightCandidateId={highlightCandidateId}
             onFocusCandidateConsumed={onFocusCandidateConsumed}
             onHighlightConsumed={onHighlightConsumed}
+            primaryResultsUrl={view?.primary_status?.results_source_url || null}
           />
         ))
       )}
@@ -331,13 +332,14 @@ function buildElections(view, mode, stateCode) {
     })
     .filter(Boolean);
 
+  // A general race with no candidates listed stays: its card says the
+  // candidates aren't listed yet and points to the official sample
+  // ballot, instead of the race silently disappearing.
   const generalRaces = races
     .map((r) => {
       const cands = (r.general_candidates || []).filter(Boolean);
-      if (!cands.length) return null;
       return { ...r, _displayCandidates: cands, _phase: 'general' };
-    })
-    .filter(Boolean);
+    });
 
   // Closed-primary state? Backend returns this on the elections payload
   // (see ElectionsService); we stamp it onto the primary election so the
@@ -518,7 +520,7 @@ function ElectionCard({
   election, defaultOpen, tourAnchor = false, onCandidateSelect, onCompareToggle, compareIds,
   mode, stateCode, stateName, onNotify,
   forceOpenRaceId, focusCandidateId, highlightCandidateId,
-  onFocusCandidateConsumed, onHighlightConsumed,
+  onFocusCandidateConsumed, onHighlightConsumed, primaryResultsUrl = null,
 }) {
   // Persisted: closing the primary dropdown used to last exactly as long
   // as the component stayed mounted. Keyed on the election id, never on
@@ -608,6 +610,8 @@ function ElectionCard({
             <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '4px' }}>
               {raceCount === 0 && measureCount === 0 && !isPast ? (
                 'Key dates and official links'
+              ) : isPrimary && isPast && raceCount === 0 && primaryResultsUrl ? (
+                'Official results'
               ) : (
                 <>
                   {raceCount} race{raceCount === 1 ? '' : 's'}
@@ -630,6 +634,17 @@ function ElectionCard({
 
       {open && (
         <div style={{ padding: '12px 12px 10px' }}>
+          {/* A completed primary links to the state's official results,
+              the same line for every state. */}
+          {isPrimary && isPast && primaryResultsUrl && (
+            <div style={{ fontSize: '0.78rem', color: 'var(--cl-text)', marginBottom: '10px', lineHeight: 1.45 }}>
+              This primary is over.{' '}
+              <a href={primaryResultsUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cl-accent)', fontWeight: 600 }}>
+                See the official results
+              </a>
+              .
+            </div>
+          )}
           {/* Closed-primary disclosure — load-bearing per the design
               system (BallotTab review §2). Closed-primary states (FL,
               NY, etc.) only let registered partisans vote in their
@@ -752,6 +767,7 @@ function ElectionCard({
                     electionPhase={election.phase}
                     onNotify={onNotify}
                     forceExpanded={forceOpenRaceId === r.id}
+                    electionLinks={election.links}
                     focusCandidateId={focusCandidateId}
                     highlightCandidateId={highlightCandidateId}
                     onFocusCandidateConsumed={onFocusCandidateConsumed}
@@ -872,7 +888,7 @@ function RaceCard({
   race, displayCandidates, phase, onCandidateSelect, onCompareToggle,
   compareIds, stateCode, electionPhase, onNotify,
   forceExpanded, focusCandidateId, highlightCandidateId,
-  onFocusCandidateConsumed, onHighlightConsumed,
+  onFocusCandidateConsumed, onHighlightConsumed, electionLinks,
 }) {
   const isMobile = useIsMobile();
   const [expanded, setExpanded] = useDisclosure(
@@ -891,6 +907,11 @@ function RaceCard({
   }, [forceExpanded]);
   const incumbent = race.incumbent || null;
   const candidates = displayCandidates || [];
+  const noneListed = phase === 'general' && candidates.length === 0;
+  const raceSampleBallotUrl = (electionLinks || []).find((l) => l.key === 'sample_ballot')?.url || null;
+  // Every verified race says the same thing about write-ins, with a link
+  // to the state's own list (house rule: write-ins are left out).
+  const writeInListUrl = race.write_in_list_url || race.roster_source_url || null;
   const badgeColor = race.level === 'federal' ? '#6c3ec1' : (race.level === 'local' ? '#e76f51' : '#457b9d');
 
   // "Choose N" voting instruction. Per the BallotTab design review:
@@ -900,6 +921,9 @@ function RaceCard({
   // council races, judicial slates, etc.).
   const seatsToFill = Math.max(1, Number(race.seats_to_fill) || 1);
   const chooseLabel = `Choose ${seatsToFill}`;
+  // A ranked choice general election (Alaska; Maine for federal offices,
+  // race.ranked_choice from the state's own page) is not "Choose 1".
+  const generalLabel = race.ranked_choice ? 'Rank the candidates' : chooseLabel;
 
   // Group primary candidates by party for visual clarity
   const groupedPrimary = useMemo(() => {
@@ -934,7 +958,7 @@ function RaceCard({
                 marginTop: 4,
               }}
             >
-              {chooseLabel}
+              {generalLabel}
             </div>
           )}
           <div style={{ display: 'flex', gap: '6px', marginTop: '5px', flexWrap: 'wrap' }}>
@@ -963,6 +987,7 @@ function RaceCard({
             )}
           </div>
         </div>
+        {!noneListed && (
         <button
           onClick={() => setExpanded((v) => !v)}
           style={{
@@ -977,11 +1002,29 @@ function RaceCard({
         >
           {expanded ? 'Hide' : `${candidates.length} candidate${candidates.length === 1 ? '' : 's'}`}
         </button>
+        )}
       </div>
 
       {race.notes && (
         <div style={{ fontSize: '0.76rem', color: 'var(--cl-text-light)', fontStyle: 'italic', marginTop: '6px' }}>
           {race.notes}
+        </div>
+      )}
+
+      {noneListed && (
+        <div data-tutorial="race-none-listed" style={{ fontSize: '0.78rem', color: 'var(--cl-text)', marginTop: '6px', lineHeight: 1.45 }}>
+          Candidates for this race aren&apos;t listed yet.{' '}
+          {raceSampleBallotUrl ? (
+            <>
+              Your{' '}
+              <a href={raceSampleBallotUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cl-accent)', fontWeight: 600 }}>
+                official sample ballot
+              </a>
+              {' '}shows them.
+            </>
+          ) : (
+            'Your official sample ballot shows them.'
+          )}
         </div>
       )}
 
@@ -1292,11 +1335,17 @@ function RaceCard({
               not printed on the ballot: voters write them on a blank line.
               Listing them as ordinary rows would describe a ballot that
               does not exist, so they get one plain line instead. */}
-          {phase !== 'primary' && (race.write_in_candidates || []).length > 0 && (
+          {phase !== 'primary' && race.roster_status === 'verified_nominees' && (
             <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', marginTop: '6px', lineHeight: 1.45 }}>
-              <strong style={{ color: 'var(--cl-text)' }}>Qualified write-in candidates:</strong>{' '}
-              {race.write_in_candidates.map((c) => c.name).join(', ')}.
-              {' '}Their names are not printed; the ballot has a blank line for a write-in vote.
+              Write-in candidates aren&apos;t listed.
+              {writeInListUrl && (
+                <>
+                  {' '}
+                  <a href={writeInListUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cl-accent)', fontWeight: 600 }}>
+                    Official candidate list
+                  </a>
+                </>
+              )}
             </div>
           )}
         </div>
@@ -1313,6 +1362,7 @@ function CandidateRow({
   const party = candidate.party || 'NP';
   const partyColor = PARTY_TEXT[party] || '#666';
   const partyBg = PARTY_BG[party] || '#eef';
+  const partyText = candidate.party_label != null ? candidate.party_label : party;
   const followTarget = toCandidateMember(candidate, race, stateCode, electionPhase);
 
   // Scroll + pulse when this row is the focus/highlight target. We run once
@@ -1377,23 +1427,35 @@ function CandidateRow({
               <span style={{
                 marginLeft: '6px', fontSize: '0.62rem', fontWeight: 800,
                 padding: '1px 6px', borderRadius: '8px', background: '#f4a261', color: 'white',
+                whiteSpace: 'nowrap',
               }}>
                 INCUMBENT
               </span>
             )}
           </div>
+          {/* The party exactly as the state's list prints it; the code only
+              picks the color. Printed labels run long (Minnesota's
+              "Democratic-Farmer-Labor", Alaska's "Registered Democrat /
+              Nonpartisan"), so the chip sits under the name rather than
+              beside it. A list that prints no party for a candidate
+              (party_label "") gets no chip. */}
+          {partyText && (
+            <span style={{
+              display: 'inline-block', marginTop: '3px',
+              padding: '1px 8px', borderRadius: '9px', fontSize: '0.66rem', fontWeight: 800,
+              background: partyBg, color: partyColor, lineHeight: 1.3, maxWidth: '100%',
+            }}>
+              {partyText}
+            </span>
+          )}
           <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '2px' }}>
-            {candidate.current_office || candidate.hometown || ''}
+            {candidate.running_mate
+              ? `Running mate: ${candidate.running_mate}`
+              : (candidate.current_office || candidate.hometown || '')}
           </div>
         </div>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
-        <span style={{
-          padding: '1px 8px', borderRadius: '9px', fontSize: '0.66rem', fontWeight: 800,
-          background: partyBg, color: partyColor,
-        }}>
-          {party}
-        </span>
         <FollowButton member={followTarget} size="sm" onNotify={onNotify} />
         <CompareButton
           member={followTarget}
@@ -1477,10 +1539,16 @@ function winnerName(race, winner) {
 // The previous inline version took the first two tokens, which is wrong
 // for anyone with a middle name on the ballot.
 function ballotInitials(name) {
-  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  // First letter of the first and last word, skipping quotes, brackets
+  // and suffixes: Louisiana prints nicknames first ('"Jamie" Davis',
+  // which read '"D' before), and "Larry Davis III" is LD.
+  const parts = String(name || '').trim().split(/\s+/)
+    .filter((w) => !/^(jr|sr|ii|iii|iv)\.?,?$/i.test(w))
+    .map((w) => (w.match(/\p{L}/u) || [''])[0])
+    .filter(Boolean);
   if (parts.length === 0) return '?';
-  if (parts.length === 1) return parts[0][0].toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  if (parts.length === 1) return parts[0].toUpperCase();
+  return (parts[0] + parts[parts.length - 1]).toUpperCase();
 }
 
 // ─── Ballot-measure card ─────────────────────────────────────────────

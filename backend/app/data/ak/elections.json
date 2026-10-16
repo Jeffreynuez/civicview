@@ -1,5 +1,5 @@
 {
-  "_note": "Alaska 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Alaska 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "AK",
   "state_name": "Alaska",
   "cycle": "2026",
@@ -58,6 +58,86 @@
       "retrieved": "2026-10-15"
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "ak-2026-gov",
+      "office": "Governor of Alaska",
+      "level": "state",
+      "jurisdiction": "AK",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "general_candidates_note": "Every candidate on State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.alaska.gov/candidates/?election=26genr",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://www.elections.alaska.gov/candidates/?election=26genr",
+      "general_candidates": [
+        "ak-cand-dave-bronson",
+        "ak-cand-jonathan-s-jkt-kreiss-tomkins",
+        "ak-cand-treg-taylor",
+        "ak-cand-bernadette-m-wilson"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Gov. Mike Dunleavy is not on the November ballot. Governor and Lieutenant Governor run together on one ticket. The November field is the state's certified list. When a top-four finisher withdraws, the next finisher may take the place.",
+      "primary_candidates": {},
+      "ranked_choice": true,
+      "ranked_choice_source_url": "https://www.elections.alaska.gov/election/2026/General/SampleBallots/HD1-JD1.pdf"
+    },
+    {
+      "id": "ak-2026-us-senate",
+      "office": "U.S. Senate, Alaska",
+      "level": "federal",
+      "jurisdiction": "AK",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "general_candidates_note": "Every candidate on State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.alaska.gov/candidates/?election=26genr",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://www.elections.alaska.gov/candidates/?election=26genr",
+      "general_candidates": [
+        "ak-cand-gerald-l-heikes-sen",
+        "ak-cand-mary-peltola-sen",
+        "ak-cand-dan-s-sullivan-sen",
+        "ak-cand-daniel-j-sullivan-jr-sen"
+      ],
+      "incumbent_candidate_id": "ak-cand-dan-s-sullivan-sen",
+      "open_seat": false,
+      "notes": "The November field is the state's certified list. When a top-four finisher withdraws, the next finisher may take the place.",
+      "primary_candidates": {},
+      "ranked_choice": true,
+      "ranked_choice_source_url": "https://www.elections.alaska.gov/election/2026/General/SampleBallots/HD1-JD1.pdf"
+    },
+    {
+      "id": "ak-2026-us-house-AL",
+      "office": "U.S. House, AK-AL",
+      "level": "federal",
+      "jurisdiction": "AK",
+      "seat_type": "legislative",
+      "congressional_district": "AL",
+      "term_length_years": 2,
+      "general_candidates_note": "Every candidate on State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "State of Alaska, Division of Elections, Candidate List, 2026 General Election (page last updated September 25, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.alaska.gov/candidates/?election=26genr",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://www.elections.alaska.gov/candidates/?election=26genr",
+      "general_candidates": [
+        "ak-cand-nick-begich-hAL",
+        "ak-cand-eric-hafner-hAL",
+        "ak-cand-bill-hill-hAL",
+        "ak-cand-james-c-jim-mcdermott-hAL"
+      ],
+      "incumbent_candidate_id": "ak-cand-nick-begich-hAL",
+      "open_seat": false,
+      "notes": "The November field is the state's certified list. When a top-four finisher withdraws, the next finisher may take the place.",
+      "primary_candidates": {},
+      "ranked_choice": true,
+      "ranked_choice_source_url": "https://www.elections.alaska.gov/election/2026/General/SampleBallots/HD1-JD1.pdf"
+    }
+  ],
   "ballot_measures": {}
 }

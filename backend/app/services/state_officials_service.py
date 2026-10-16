@@ -14,9 +14,27 @@ import logging
 from pathlib import Path
 from typing import Optional
 
+from app.services.ballot_status import is_on_ballot
+
 logger = logging.getLogger(__name__)
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+
+
+def _drop_stale_candidacies(node) -> None:
+    """An `active_candidacy` written into an officials file (the "On
+    ballot" badge) stays only while that candidate is on a verified
+    November list. The file is left as it is; the served copy drops a
+    pointer to someone who lost, withdrew or is not on the ballot."""
+    if isinstance(node, dict):
+        ac = node.get("active_candidacy")
+        if isinstance(ac, dict) and not is_on_ballot(ac.get("candidate_id")):
+            node.pop("active_candidacy", None)
+        for v in node.values():
+            _drop_stale_candidacies(v)
+    elif isinstance(node, list):
+        for v in node:
+            _drop_stale_candidacies(v)
 
 
 class StateOfficialsService:
@@ -46,6 +64,7 @@ class StateOfficialsService:
                 with path.open("r", encoding="utf-8") as fh:
                     raw = json.load(fh)
                 state_code = (raw.get("state") or state_dir.name).upper()
+                _drop_stale_candidacies(raw)
                 self._by_state[state_code] = raw
                 logger.info(
                     "StateOfficialsService: loaded %s (%d senators, %d reps)",
@@ -85,7 +104,11 @@ class StateOfficialsService:
                     if scope != "state" or not oid:
                         continue
                     entry = {"id": cid, **payload}
-                    self._candidacies_by_official[(state_code, oid)] = entry
+                    key = (state_code, oid)
+                    prev = self._candidacies_by_official.get(key)
+                    if prev and is_on_ballot(prev.get("id")) and not is_on_ballot(cid):
+                        continue
+                    self._candidacies_by_official[key] = entry
             except (json.JSONDecodeError, OSError) as e:
                 logger.error("StateOfficialsService: failed to load %s: %s", c_path, e)
         if self._candidacies_by_official:
@@ -202,7 +225,7 @@ class StateOfficialsService:
             return person
         key = ((state_code or "").upper(), pid)
         candidacy = self._candidacies_by_official.get(key)
-        if candidacy and not person.get("active_candidacy"):
+        if candidacy and not person.get("active_candidacy") and is_on_ballot(candidacy.get("id")):
             person["active_candidacy"] = {
                 "candidate_id": candidacy.get("id"),
                 "seeking_office": candidacy.get("seeking_office"),

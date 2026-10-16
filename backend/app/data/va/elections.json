@@ -1,5 +1,5 @@
 {
-  "_note": "Virginia 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Virginia 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "VA",
   "state_name": "Virginia",
   "cycle": "2026",
@@ -65,6 +65,272 @@
       "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "va-2026-us-senate",
+      "office": "U.S. Senate, Virginia",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-mark-r-warner-sen",
+        "va-cand-bert-mizusawa-sen"
+      ],
+      "incumbent_candidate_id": "va-cand-mark-r-warner-sen",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-1",
+      "office": "U.S. House, VA-1",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-shannon-l-taylor-h1",
+        "va-cand-robert-j-rob-wittman-h1"
+      ],
+      "incumbent_candidate_id": "va-cand-robert-j-rob-wittman-h1",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-2",
+      "office": "U.S. House, VA-2",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-elaine-g-luria-h2",
+        "va-cand-jen-a-kiggans-h2",
+        "va-cand-geral-d-bishop-staten-h2",
+        "va-cand-j-matt-baker-h2"
+      ],
+      "incumbent_candidate_id": "va-cand-jen-a-kiggans-h2",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-3",
+      "office": "U.S. House, VA-3",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-robert-c-bobby-scott-h3",
+        "va-cand-edwin-rivera-jr-h3",
+        "va-cand-makiba-a-gaines-h3",
+        "va-cand-stephen-c-woll-h3"
+      ],
+      "incumbent_candidate_id": "va-cand-robert-c-bobby-scott-h3",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-4",
+      "office": "U.S. House, VA-4",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-jennifer-l-mcclellan-h4",
+        "va-cand-robert-p-family-man-murray-jr-h4",
+        "va-cand-joan-e-andrews-bell-h4"
+      ],
+      "incumbent_candidate_id": "va-cand-jennifer-l-mcclellan-h4",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-5",
+      "office": "U.S. House, VA-5",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-tom-s-p-perriello-h5",
+        "va-cand-john-j-mcguire-iii-h5",
+        "va-cand-cooke-c-harvey-h5"
+      ],
+      "incumbent_candidate_id": "va-cand-john-j-mcguire-iii-h5",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-6",
+      "office": "U.S. House, VA-6",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-beth-a-macy-h6",
+        "va-cand-ben-l-cline-h6"
+      ],
+      "incumbent_candidate_id": "va-cand-ben-l-cline-h6",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-7",
+      "office": "U.S. House, VA-7",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "7",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-eugene-s-vindman-h7",
+        "va-cand-doug-a-ollivant-h7",
+        "va-cand-taner-e-demirci-lopez-h7",
+        "va-cand-alaha-ahrar-h7",
+        "va-cand-joshua-e-ertle-h7",
+        "va-cand-randall-a-terry-h7"
+      ],
+      "incumbent_candidate_id": "va-cand-eugene-s-vindman-h7",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-8",
+      "office": "U.S. House, VA-8",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "8",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-donald-s-beyer-jr-h8",
+        "va-cand-tony-a-sabio-h8",
+        "va-cand-shelly-m-arnoldi-h8",
+        "va-cand-tim-s-sharman-h8"
+      ],
+      "incumbent_candidate_id": "va-cand-donald-s-beyer-jr-h8",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-9",
+      "office": "U.S. House, VA-9",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "9",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-joy-a-powers-h9",
+        "va-cand-h-morgan-griffith-h9"
+      ],
+      "incumbent_candidate_id": "va-cand-h-morgan-griffith-h9",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-10",
+      "office": "U.S. House, VA-10",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "10",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-suhas-subramanyam-h10",
+        "va-cand-dave-t-beckwith-h10",
+        "va-cand-ahsen-mujeeb-malik-h10"
+      ],
+      "incumbent_candidate_id": "va-cand-suhas-subramanyam-h10",
+      "open_seat": false
+    },
+    {
+      "id": "va-2026-us-house-11",
+      "office": "U.S. House, VA-11",
+      "level": "federal",
+      "jurisdiction": "VA",
+      "seat_type": "legislative",
+      "congressional_district": "11",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Virginia Department of Elections, 2026 November Federal Offices Candidate List, November 3, 2026 General Election (updated 10/6/26; download file 2026-November-Federal-Offices-Candidate-List-(rev-10-6-2026).xlsx)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.virginia.gov/casting-a-ballot/candidate-list/november-3-2026-gen-elect-federal-offices/",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "va-cand-james-r-walkinshaw-h11",
+        "va-cand-arthur-g-purves-h11",
+        "va-cand-dianne-l-blais-h11"
+      ],
+      "incumbent_candidate_id": "va-cand-james-r-walkinshaw-h11",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }
