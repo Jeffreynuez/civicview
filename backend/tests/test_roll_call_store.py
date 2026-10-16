@@ -848,12 +848,17 @@ async def _sync_checks(db):
 
     http.fetch = refusing
     r4 = await rcs.run_pass()
+    # Exact comparisons (not substring checks on a host name, which
+    # CodeQL reads as URL sanitizing).
+    stop_why = f"{rcs.HOST_ERROR_LIMIT} errors in a row, last status 403"
     check("failing site left alone after five errors in a row",
-          "clerk.house.gov" in r4["sites_stopped"] and len(clerk_calls) <= rcs.FETCH_BATCH, f"{len(clerk_calls)} {r4['sites_stopped']}")
-    check("the Senate kept going", r4["added_senate"] == 0 and "senate.gov" not in r4["sites_stopped"], str(r4))
+          r4["sites_stopped"] == {rcs._HOSTS["h"]: stop_why} and len(clerk_calls) <= rcs.FETCH_BATCH,
+          f"{len(clerk_calls)} {r4['sites_stopped']}")
+    check("the Senate kept going", r4["added_senate"] == 0, str(r4))
     h_state = db.query(RollCallSyncState).filter_by(chamber="h", congress=119, session=2).one()
     db.refresh(h_state)
-    check("the stop is recorded for the admin view", "clerk.house.gov" in (h_state.last_error or ""), str(h_state.last_error))
+    check("the stop is recorded for the admin view",
+          h_state.last_error == f"stopped: {rcs._HOSTS['h']} gave {stop_why}", str(h_state.last_error))
     http.fetch = real_fake
     counts[(119, 2)] = 3
 
