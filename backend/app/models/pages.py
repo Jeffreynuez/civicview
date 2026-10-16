@@ -1388,6 +1388,13 @@ class CitizenAccount(Base):
     contact_email_prompt_dismissed_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime, default=None,
     )
+    # When the person ticked "I'm 18 or older" at sign-up (2026-10-16).
+    # CivicView is for adults (Terms section 1, /child-safety), and every
+    # sign-up now has to confirm it. Nullable: accounts created before
+    # the checkbox existed are left as they are.
+    age_confirmed_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
 
     # Address blob. `address_line1` is optional in schema but present in
     # the demo seed so the UI can render "123 Gulf Shore Blvd · Naples,

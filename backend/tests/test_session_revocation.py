@@ -117,7 +117,7 @@ def main() -> int:
         c.cookies.clear()
         r = c.post("/api/citizen-auth/demo-signup", json={
             "display_name": "Demo Deleter", "state": "FL",
-            "congressional_district": "FL-10", "city": "Orlando",
+            "congressional_district": "FL-10", "city": "Orlando", "age_confirmed": True,
         })
         assert r.status_code == 201, r.text
         demo = r.json()

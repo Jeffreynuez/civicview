@@ -159,6 +159,10 @@ class CitizenDemoSignupRequest(BaseModel):
     # and a link to choose a new password to contact_email. Never the
     # password. Ignored without a contact email.
     send_signin_email: bool = False
+    # The required "I'm 18 or older" checkbox (2026-10-16). A sign-up
+    # without it is refused; the time it was confirmed is stored on the
+    # account as age_confirmed_at.
+    age_confirmed: bool = False
 
 
 class CitizenDemoSignupResponse(BaseModel):
@@ -372,6 +376,14 @@ def demo_signup(
     from app.services.citizen_geo import normalize_district, normalize_state
     from app.services.display_names import clean_display_name, name_conflict
 
+    # Adults only (Terms section 1). Checked first, so nothing else about
+    # the sign-up is looked at without it.
+    if payload.age_confirmed is not True:
+        raise HTTPException(
+            status_code=422,
+            detail="Confirm that you're 18 or older. CivicView accounts are for adults.",
+        )
+
     try:
         display_name = clean_display_name(payload.display_name)
     except ValueError as e:
@@ -448,6 +460,7 @@ def demo_signup(
         congressional_district=district,
         verified=False,  # Always false for demo. ID.me flips this in v2.
         is_active=True,
+        age_confirmed_at=datetime.utcnow(),
         # ── Temporary demo-grant for subscription (Task #88) ──
         # Real billing isn't live yet (Stripe + ID.me both pending).
         # Demo citizens get is_subscribed=True so the subscriber-tier

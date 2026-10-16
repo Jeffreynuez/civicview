@@ -89,6 +89,9 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   // contact address. The email carries the generated sign-in email and
   // a link to choose a new password, never the password.
   const [demoSendEmail, setDemoSendEmail] = useState(false);
+  // Required "I'm 18 or older" box (2026-10-16). CivicView is for adults
+  // (Terms section 1); the backend refuses a sign-up without it.
+  const [demoAgeConfirmed, setDemoAgeConfirmed] = useState(false);
   const [demoBusy, setDemoBusy] = useState(false);
   const [demoErr, setDemoErr] = useState(null);
   // After a successful signup we surface the freshly-minted email +
@@ -130,6 +133,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
       setDemoLocation({ state: '', district: '', city: '' });
       setDemoContactEmail('');
       setDemoSendEmail(false);
+      setDemoAgeConfirmed(false);
       setDemoBusy(false);
       setDemoErr(null);
       setIssuedCreds(null);
@@ -228,7 +232,8 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
   // magic than "you're suddenly signed in with no idea how"), then
   // close the modal via onSuccess so they can start engaging.
   const demoContactOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(demoContactEmail.trim());
-  const canSubmitDemo = !!demoDisplayName.trim() && locationComplete(demoLocation) && !demoBusy;
+  const canSubmitDemo = !!demoDisplayName.trim() && locationComplete(demoLocation)
+    && demoAgeConfirmed && !demoBusy;
 
   const submitDemoSignup = async () => {
     const name = demoDisplayName.trim();
@@ -238,6 +243,10 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
     }
     if (!locationComplete(demoLocation)) {
       setDemoErr('Choose your state and congressional district.');
+      return;
+    }
+    if (!demoAgeConfirmed) {
+      setDemoErr("Confirm that you're 18 or older.");
       return;
     }
     const wantsEmail = demoSendEmail && demoContactOk;
@@ -250,6 +259,7 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
       city: demoLocation.city.trim() || null,
       contactEmail: demoContactEmail.trim() || null,
       sendSigninEmail: wantsEmail,
+      ageConfirmed: demoAgeConfirmed,
     });
     setDemoBusy(false);
     if (!result.ok) {
@@ -743,6 +753,38 @@ export default function CitizenLoginModal({ open, onClose, onSuccess }) {
               <span>
                 Email me my sign-in email and a link to set my password.
                 We never email passwords.
+              </span>
+            </label>
+
+            {/* Required (2026-10-16): CivicView is for adults, Terms
+                section 1. The backend refuses a sign-up without it and
+                stores when it was confirmed (privacy policy, Citizen
+                accounts). */}
+            <label
+              htmlFor="demo-age-confirmed"
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 8,
+                fontSize: 'var(--cl-text-xs)',
+                color: 'var(--cl-text)',
+                lineHeight: 1.45,
+                cursor: 'pointer',
+              }}
+            >
+              <input
+                id="demo-age-confirmed"
+                type="checkbox"
+                checked={demoAgeConfirmed}
+                onChange={(e) => { setDemoAgeConfirmed(e.target.checked); setDemoErr(null); }}
+                disabled={demoBusy}
+                required
+                aria-required="true"
+                style={{ marginTop: 2 }}
+              />
+              <span>
+                I&rsquo;m 18 or older. CivicView accounts are for adults
+                (see the <a href="/terms" target="_blank" rel="noopener noreferrer">Terms</a>).
               </span>
             </label>
 

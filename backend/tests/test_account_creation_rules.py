@@ -140,7 +140,7 @@ def main() -> int:
         def signup(**body):
             rate_limit.reset_all()
             c.cookies.clear()
-            payload = {"display_name": "Someone", "state": "FL", "congressional_district": "17"}
+            payload = {"display_name": "Someone", "state": "FL", "congressional_district": "17", "age_confirmed": True}
             payload.update(body)
             return c.post(url, json=payload)
 
@@ -201,12 +201,14 @@ def main() -> int:
         rate_limit.reset_all()
         c.cookies.clear()
         for _ in range(6):
-            c.post(url, json={"display_name": "Pat Citizen", "state": "FL", "congressional_district": "17"})
+            c.post(url, json={"display_name": "Pat Citizen", "state": "FL", "congressional_district": "17",
+                              "age_confirmed": True})
         made = []
         for i in range(6):
             c.cookies.clear()
             made.append(c.post(url, json={"display_name": f"Cap Test {i}", "state": "FL",
-                                          "congressional_district": "17"}).status_code)
+                                          "congressional_district": "17",
+                                          "age_confirmed": True}).status_code)
         check(made == [201] * 5 + [429], f"refusals don't use up the cap, which still holds: {made}")
 
         with SessionLocal() as db:
