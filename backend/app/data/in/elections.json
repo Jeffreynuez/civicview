@@ -1,5 +1,5 @@
 {
-  "_note": "Indiana 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Indiana 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "IN",
   "state_name": "Indiana",
   "cycle": "2026",
@@ -65,6 +65,199 @@
       "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "in-2026-us-house-1",
+      "office": "U.S. House, IN-1",
+      "level": "federal",
+      "jurisdiction": "IN",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.in.gov/sos/elections/files/Candidate_List_Abbreviated_20260922_011251PM.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "in-cand-frank-j-mrvan-h1",
+        "in-cand-barb-regnitz-h1"
+      ],
+      "incumbent_candidate_id": "in-cand-frank-j-mrvan-h1",
+      "open_seat": false
+    },
+    {
+      "id": "in-2026-us-house-2",
+      "office": "U.S. House, IN-2",
+      "level": "federal",
+      "jurisdiction": "IN",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.in.gov/sos/elections/files/Candidate_List_Abbreviated_20260922_011251PM.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "in-cand-jamee-decio-h2",
+        "in-cand-william-eric-henry-h2",
+        "in-cand-rudy-yakym-h2"
+      ],
+      "incumbent_candidate_id": "in-cand-rudy-yakym-h2",
+      "open_seat": false
+    },
+    {
+      "id": "in-2026-us-house-3",
+      "office": "U.S. House, IN-3",
+      "level": "federal",
+      "jurisdiction": "IN",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.in.gov/sos/elections/files/Candidate_List_Abbreviated_20260922_011251PM.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "in-cand-kelly-thompson-h3",
+        "in-cand-marlin-a-stutzman-h3"
+      ],
+      "incumbent_candidate_id": "in-cand-marlin-a-stutzman-h3",
+      "open_seat": false
+    },
+    {
+      "id": "in-2026-us-house-4",
+      "office": "U.S. House, IN-4",
+      "level": "federal",
+      "jurisdiction": "IN",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.in.gov/sos/elections/files/Candidate_List_Abbreviated_20260922_011251PM.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "in-cand-drew-cox-h4",
+        "in-cand-jim-baird-h4"
+      ],
+      "incumbent_candidate_id": "in-cand-jim-baird-h4",
+      "open_seat": false
+    },
+    {
+      "id": "in-2026-us-house-5",
+      "office": "U.S. House, IN-5",
+      "level": "federal",
+      "jurisdiction": "IN",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.in.gov/sos/elections/files/Candidate_List_Abbreviated_20260922_011251PM.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "in-cand-j-d-ford-h5",
+        "in-cand-victoria-spartz-h5"
+      ],
+      "incumbent_candidate_id": "in-cand-victoria-spartz-h5",
+      "open_seat": false
+    },
+    {
+      "id": "in-2026-us-house-6",
+      "office": "U.S. House, IN-6",
+      "level": "federal",
+      "jurisdiction": "IN",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.in.gov/sos/elections/files/Candidate_List_Abbreviated_20260922_011251PM.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "in-cand-cynthia-cinde-wirth-h6",
+        "in-cand-jefferson-shreve-h6"
+      ],
+      "incumbent_candidate_id": "in-cand-jefferson-shreve-h6",
+      "open_seat": false
+    },
+    {
+      "id": "in-2026-us-house-7",
+      "office": "U.S. House, IN-7",
+      "level": "federal",
+      "jurisdiction": "IN",
+      "seat_type": "legislative",
+      "congressional_district": "7",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.in.gov/sos/elections/files/Candidate_List_Abbreviated_20260922_011251PM.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "in-cand-andre-carson-h7",
+        "in-cand-james-m-sceniak-h7",
+        "in-cand-patrick-mcauley-h7"
+      ],
+      "incumbent_candidate_id": "in-cand-andre-carson-h7",
+      "open_seat": false
+    },
+    {
+      "id": "in-2026-us-house-8",
+      "office": "U.S. House, IN-8",
+      "level": "federal",
+      "jurisdiction": "IN",
+      "seat_type": "legislative",
+      "congressional_district": "8",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.in.gov/sos/elections/files/Candidate_List_Abbreviated_20260922_011251PM.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "in-cand-mary-allen-h8",
+        "in-cand-mark-messmer-h8"
+      ],
+      "incumbent_candidate_id": "in-cand-mark-messmer-h8",
+      "open_seat": false
+    },
+    {
+      "id": "in-2026-us-house-9",
+      "office": "U.S. House, IN-9",
+      "level": "federal",
+      "jurisdiction": "IN",
+      "seat_type": "legislative",
+      "congressional_district": "9",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Indiana Secretary of State, Election Division, 2026 General Election Candidate List (Candidate List, Abbreviated, all counties, 2026 General Election 11/3/2026; file generated September 22, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.in.gov/sos/elections/files/Candidate_List_Abbreviated_20260922_011251PM.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "in-cand-brad-a-meyer-h9",
+        "in-cand-tonya-l-hudson-h9",
+        "in-cand-erin-houchin-h9"
+      ],
+      "incumbent_candidate_id": "in-cand-erin-houchin-h9",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

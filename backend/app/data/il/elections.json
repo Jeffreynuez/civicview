@@ -1,5 +1,5 @@
 {
-  "_note": "Illinois 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Illinois 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "IL",
   "state_name": "Illinois",
   "cycle": "2026",
@@ -65,6 +65,415 @@
       "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through November 2."
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "il-2026-gov",
+      "office": "Governor of Illinois",
+      "level": "state",
+      "jurisdiction": "IL",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=4HJalchPb4g%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-jb-pritzker",
+        "il-cand-darren-bailey",
+        "il-cand-collin-corbett"
+      ],
+      "incumbent_candidate_id": "il-cand-jb-pritzker",
+      "open_seat": false,
+      "notes": "Governor and Lieutenant Governor run together on one ticket."
+    },
+    {
+      "id": "il-2026-us-senate",
+      "office": "U.S. Senate, Illinois",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=V9NWK5qGWEo%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-juliana-stratton-sen",
+        "il-cand-don-tracy-sen",
+        "il-cand-whitfield-harrington-jr-sen"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Sen. Richard J. Durbin is not on the November ballot."
+    },
+    {
+      "id": "il-2026-us-house-1",
+      "office": "U.S. House, IL-1",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-jonathan-l-jackson-h1",
+        "il-cand-christian-maxwell-h1"
+      ],
+      "incumbent_candidate_id": "il-cand-jonathan-l-jackson-h1",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-2",
+      "office": "U.S. House, IL-2",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-donna-miller-h2",
+        "il-cand-michael-scott-noack-h2"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Robin L. Kelly, is not on the November ballot for this district."
+    },
+    {
+      "id": "il-2026-us-house-3",
+      "office": "U.S. House, IL-3",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-delia-ramirez-h3",
+        "il-cand-angel-oakley-h3"
+      ],
+      "incumbent_candidate_id": "il-cand-delia-ramirez-h3",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-4",
+      "office": "U.S. House, IL-4",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-patty-garcia-h4",
+        "il-cand-lupe-castillo-h4",
+        "il-cand-ed-hershey-h4",
+        "il-cand-chris-getty-h4"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Jesús G. \"Chuy\" García, is not on the November ballot for this district."
+    },
+    {
+      "id": "il-2026-us-house-5",
+      "office": "U.S. House, IL-5",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-mike-quigley-h5",
+        "il-cand-tommy-hanson-h5"
+      ],
+      "incumbent_candidate_id": "il-cand-mike-quigley-h5",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-6",
+      "office": "U.S. House, IL-6",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-sean-casten-h6",
+        "il-cand-niki-conforti-h6"
+      ],
+      "incumbent_candidate_id": "il-cand-sean-casten-h6",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-7",
+      "office": "U.S. House, IL-7",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "7",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-la-shawn-k-ford-h7",
+        "il-cand-chad-koppie-h7"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Danny K. Davis, is not on the November ballot for this district."
+    },
+    {
+      "id": "il-2026-us-house-8",
+      "office": "U.S. House, IL-8",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "8",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-melissa-l-bean-h8",
+        "il-cand-jennifer-davis-h8"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Raja Krishnamoorthi, is not on the November ballot for this district."
+    },
+    {
+      "id": "il-2026-us-house-9",
+      "office": "U.S. House, IL-9",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "9",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-daniel-biss-h9",
+        "il-cand-john-elleson-h9"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Janice D. Schakowsky, is not on the November ballot for this district."
+    },
+    {
+      "id": "il-2026-us-house-10",
+      "office": "U.S. House, IL-10",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "10",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-brad-schneider-h10",
+        "il-cand-carl-lambrecht-h10"
+      ],
+      "incumbent_candidate_id": "il-cand-brad-schneider-h10",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-11",
+      "office": "U.S. House, IL-11",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "11",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-bill-foster-h11",
+        "il-cand-jeff-walter-h11"
+      ],
+      "incumbent_candidate_id": "il-cand-bill-foster-h11",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-12",
+      "office": "U.S. House, IL-12",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "12",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-julie-fortier-h12",
+        "il-cand-mike-bost-h12"
+      ],
+      "incumbent_candidate_id": "il-cand-mike-bost-h12",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-13",
+      "office": "U.S. House, IL-13",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "13",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-nikki-budzinski-h13",
+        "il-cand-jeff-wilson-h13"
+      ],
+      "incumbent_candidate_id": "il-cand-nikki-budzinski-h13",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-14",
+      "office": "U.S. House, IL-14",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "14",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-lauren-underwood-h14",
+        "il-cand-james-t-jim-marter-h14"
+      ],
+      "incumbent_candidate_id": "il-cand-lauren-underwood-h14",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-15",
+      "office": "U.S. House, IL-15",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "15",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-jennifer-todd-h15",
+        "il-cand-mary-e-miller-h15"
+      ],
+      "incumbent_candidate_id": "il-cand-mary-e-miller-h15",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-16",
+      "office": "U.S. House, IL-16",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "16",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-paul-nolley-h16",
+        "il-cand-darin-lahood-h16"
+      ],
+      "incumbent_candidate_id": "il-cand-darin-lahood-h16",
+      "open_seat": false
+    },
+    {
+      "id": "il-2026-us-house-17",
+      "office": "U.S. House, IL-17",
+      "level": "federal",
+      "jurisdiction": "IL",
+      "seat_type": "legislative",
+      "congressional_district": "17",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Illinois State Board of Elections, Candidate List, General Election 11/3/2026 (Website Candidate List, all candidates as of 10/15/2026 10:32 PM, with ballot status)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.elections.il.gov/ElectionOperations/CandidateList.aspx?ElectionID=sejIrI%2bQmww%3d&Status=P2wRQXkiFoo%3d&BallotGroup=FTIb1gd6z9Y%3d&QueryType=xF443FTCAJbIL3atac%2fUjEg7Y4yklgT1",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "il-cand-eric-sorensen-h17",
+        "il-cand-dillan-s-vancil-h17"
+      ],
+      "incumbent_candidate_id": "il-cand-eric-sorensen-h17",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

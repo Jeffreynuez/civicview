@@ -1,5 +1,5 @@
 {
-  "_note": "Kansas 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Kansas 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "KS",
   "state_name": "Kansas",
   "cycle": "2026",
@@ -60,6 +60,137 @@
       "retrieved": "2026-10-15"
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "ks-2026-gov",
+      "office": "Governor of Kansas",
+      "level": "state",
+      "jurisdiction": "KS",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\") for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\")",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://sos.ks.gov/elections/elections_upcoming_candidate.aspx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ks-cand-cindy-holscher",
+        "ks-cand-ty-masterson"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Gov. Laura Kelly is not on the November ballot. Governor and Lieutenant Governor run together on one ticket."
+    },
+    {
+      "id": "ks-2026-us-senate",
+      "office": "U.S. Senate, Kansas",
+      "level": "federal",
+      "jurisdiction": "KS",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\") for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\")",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://sos.ks.gov/elections/elections_upcoming_candidate.aspx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ks-cand-adam-hamilton-sen",
+        "ks-cand-roger-marshall-sen",
+        "ks-cand-david-c-graham-sen"
+      ],
+      "incumbent_candidate_id": "ks-cand-roger-marshall-sen",
+      "open_seat": false
+    },
+    {
+      "id": "ks-2026-us-house-1",
+      "office": "U.S. House, KS-1",
+      "level": "federal",
+      "jurisdiction": "KS",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\") for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\")",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://sos.ks.gov/elections/elections_upcoming_candidate.aspx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ks-cand-lauren-reinhold-h1",
+        "ks-cand-tracey-mann-h1",
+        "ks-cand-steven-jacob-h1"
+      ],
+      "incumbent_candidate_id": "ks-cand-tracey-mann-h1",
+      "open_seat": false
+    },
+    {
+      "id": "ks-2026-us-house-2",
+      "office": "U.S. House, KS-2",
+      "level": "federal",
+      "jurisdiction": "KS",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\") for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\")",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://sos.ks.gov/elections/elections_upcoming_candidate.aspx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ks-cand-don-coover-h2",
+        "ks-cand-derek-schmidt-h2",
+        "ks-cand-john-hauer-h2"
+      ],
+      "incumbent_candidate_id": "ks-cand-derek-schmidt-h2",
+      "open_seat": false
+    },
+    {
+      "id": "ks-2026-us-house-3",
+      "office": "U.S. House, KS-3",
+      "level": "federal",
+      "jurisdiction": "KS",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\") for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\")",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://sos.ks.gov/elections/elections_upcoming_candidate.aspx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ks-cand-sharice-l-davids-h3",
+        "ks-cand-eric-jenkins-h3",
+        "ks-cand-steven-a-hohe-h3"
+      ],
+      "incumbent_candidate_id": "ks-cand-sharice-l-davids-h3",
+      "open_seat": false
+    },
+    {
+      "id": "ks-2026-us-house-4",
+      "office": "U.S. House, KS-4",
+      "level": "federal",
+      "jurisdiction": "KS",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\") for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Kansas Secretary of State, Candidate Lists, Candidates for the 2026 General (official candidate list page, election \"2026 General\")",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://sos.ks.gov/elections/elections_upcoming_candidate.aspx",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ks-cand-katy-tyndell-h4",
+        "ks-cand-ron-estes-h4",
+        "ks-cand-drew-cranmer-h4"
+      ],
+      "incumbent_candidate_id": "ks-cand-ron-estes-h4",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

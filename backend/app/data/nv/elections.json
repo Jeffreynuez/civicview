@@ -1,5 +1,5 @@
 {
-  "_note": "Nevada 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Nevada 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "NV",
   "state_name": "Nevada",
   "cycle": "2026",
@@ -64,6 +64,119 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "nv-2026-gov",
+      "office": "Governor of Nevada",
+      "level": "state",
+      "jurisdiction": "NV",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.nvsos.gov/home/showpublisheddocument/20105/639232733439300000",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nv-cand-aaron-d-ford",
+        "nv-cand-danielle-ford",
+        "nv-cand-joseph-lombardo"
+      ],
+      "incumbent_candidate_id": "nv-cand-joseph-lombardo",
+      "open_seat": false
+    },
+    {
+      "id": "nv-2026-us-house-1",
+      "office": "U.S. House, NV-1",
+      "level": "federal",
+      "jurisdiction": "NV",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.nvsos.gov/home/showpublisheddocument/20105/639232733439300000",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nv-cand-carrie-ann-buck-h1",
+        "nv-cand-afzal-bobby-khan-h1",
+        "nv-cand-steven-chap-st-john-h1",
+        "nv-cand-dina-titus-h1"
+      ],
+      "incumbent_candidate_id": "nv-cand-dina-titus-h1",
+      "open_seat": false
+    },
+    {
+      "id": "nv-2026-us-house-2",
+      "office": "U.S. House, NV-2",
+      "level": "federal",
+      "jurisdiction": "NV",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.nvsos.gov/home/showpublisheddocument/20105/639232733439300000",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nv-cand-teresa-f-benitez-thompson-h2",
+        "nv-cand-lynn-chapman-h2",
+        "nv-cand-david-flippo-h2"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Mark E. Amodei, is not on the November ballot for this district."
+    },
+    {
+      "id": "nv-2026-us-house-3",
+      "office": "U.S. House, NV-3",
+      "level": "federal",
+      "jurisdiction": "NV",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.nvsos.gov/home/showpublisheddocument/20105/639232733439300000",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nv-cand-jon-kamerath-h3",
+        "nv-cand-susie-lee-h3",
+        "nv-cand-marty-o-donnell-h3"
+      ],
+      "incumbent_candidate_id": "nv-cand-susie-lee-h3",
+      "open_seat": false
+    },
+    {
+      "id": "nv-2026-us-house-4",
+      "office": "U.S. House, NV-4",
+      "level": "federal",
+      "jurisdiction": "NV",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Nevada Secretary of State, 2026 General Election Statewide Certified List of Candidates (document title '2026 Master General Statewide Certified List of Candidates.APPROVED', posted about August 25, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.nvsos.gov/home/showpublisheddocument/20105/639232733439300000",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nv-cand-russell-best-h4",
+        "nv-cand-steven-a-horsford-h4",
+        "nv-cand-william-johnson-h4",
+        "nv-cand-cody-k-whipple-h4"
+      ],
+      "incumbent_candidate_id": "nv-cand-steven-a-horsford-h4",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

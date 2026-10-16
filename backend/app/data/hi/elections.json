@@ -1,5 +1,5 @@
 {
-  "_note": "Hawaii 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Hawaii 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "HI",
   "state_name": "Hawaii",
   "cycle": "2026",
@@ -64,6 +64,72 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "hi-2026-gov",
+      "office": "Governor of Hawaii",
+      "level": "state",
+      "jurisdiction": "HI",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on State of Hawaii Office of Elections, 2026 Candidate Report with candidate status (page says last updated September 4, 2026), CSV export for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "State of Hawaii Office of Elections, 2026 Candidate Report with candidate status (page says last updated September 4, 2026), CSV export",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://olvr.hawaii.gov/Controls/CandidateFiling.aspx?elid=94",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "hi-cand-josh-green",
+        "hi-cand-gary-cordery"
+      ],
+      "incumbent_candidate_id": "hi-cand-josh-green",
+      "open_seat": false,
+      "notes": "Governor and Lieutenant Governor run together on one ticket."
+    },
+    {
+      "id": "hi-2026-us-house-1",
+      "office": "U.S. House, HI-1",
+      "level": "federal",
+      "jurisdiction": "HI",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on State of Hawaii Office of Elections, 2026 Candidate Report with candidate status (page says last updated September 4, 2026), CSV export for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "State of Hawaii Office of Elections, 2026 Candidate Report with candidate status (page says last updated September 4, 2026), CSV export",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://olvr.hawaii.gov/Controls/CandidateFiling.aspx?elid=94",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "hi-cand-nathan-m-berning-h1",
+        "hi-cand-ed-case-h1",
+        "hi-cand-jordan-s-conley-h1",
+        "hi-cand-adriel-c-lam-h1"
+      ],
+      "incumbent_candidate_id": "hi-cand-ed-case-h1",
+      "open_seat": false
+    },
+    {
+      "id": "hi-2026-us-house-2",
+      "office": "U.S. House, HI-2",
+      "level": "federal",
+      "jurisdiction": "HI",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on State of Hawaii Office of Elections, 2026 Candidate Report with candidate status (page says last updated September 4, 2026), CSV export for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "State of Hawaii Office of Elections, 2026 Candidate Report with candidate status (page says last updated September 4, 2026), CSV export",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://olvr.hawaii.gov/Controls/CandidateFiling.aspx?elid=94",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "hi-cand-brenton-awa-h2",
+        "hi-cand-jill-n-tokuda-h2"
+      ],
+      "incumbent_candidate_id": "hi-cand-jill-n-tokuda-h2",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

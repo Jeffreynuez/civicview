@@ -1,5 +1,5 @@
 {
-  "_note": "South Carolina 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "South Carolina 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "SC",
   "state_name": "South Carolina",
   "cycle": "2026",
@@ -61,6 +61,205 @@
       "vote_by_mail_request_deadline_general": "17:00"
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "sc-2026-gov",
+      "office": "Governor of South Carolina",
+      "level": "state",
+      "jurisdiction": "SC",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vrems.scvotes.sc.gov/Candidate/CandidateSearch?electionId=22596",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sc-cand-michael-addison",
+        "sc-cand-walid-hakim",
+        "sc-cand-jermaine-johnson",
+        "sc-cand-alan-wilson"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Gov. Henry McMaster is not on the November ballot. Governor and Lieutenant Governor run together on one ticket."
+    },
+    {
+      "id": "sc-2026-us-senate",
+      "office": "U.S. Senate, South Carolina",
+      "level": "federal",
+      "jurisdiction": "SC",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vrems.scvotes.sc.gov/Candidate/CandidateSearch?electionId=22596",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sc-cand-annie-andrews-sen",
+        "sc-cand-darline-graham-sen",
+        "sc-cand-mark-hackett-sen",
+        "sc-cand-kasie-whitener-sen"
+      ],
+      "incumbent_candidate_id": "sc-cand-darline-graham-sen",
+      "open_seat": false
+    },
+    {
+      "id": "sc-2026-us-house-1",
+      "office": "U.S. House, SC-1",
+      "level": "federal",
+      "jurisdiction": "SC",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vrems.scvotes.sc.gov/Candidate/CandidateSearch?electionId=22596",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sc-cand-jenny-costa-honeycutt-h1",
+        "sc-cand-nancy-lacore-h1",
+        "sc-cand-bill-reeside-h1"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Nancy Mace, is not on the November ballot for this district."
+    },
+    {
+      "id": "sc-2026-us-house-2",
+      "office": "U.S. House, SC-2",
+      "level": "federal",
+      "jurisdiction": "SC",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vrems.scvotes.sc.gov/Candidate/CandidateSearch?electionId=22596",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sc-cand-zyon-khalifa-h2",
+        "sc-cand-dayna-alane-smith-h2",
+        "sc-cand-joe-wilson-h2"
+      ],
+      "incumbent_candidate_id": "sc-cand-joe-wilson-h2",
+      "open_seat": false
+    },
+    {
+      "id": "sc-2026-us-house-3",
+      "office": "U.S. House, SC-3",
+      "level": "federal",
+      "jurisdiction": "SC",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vrems.scvotes.sc.gov/Candidate/CandidateSearch?electionId=22596",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sc-cand-sheri-biggs-h3",
+        "sc-cand-brian-corriea-h3",
+        "sc-cand-eunice-lehmacher-h3"
+      ],
+      "incumbent_candidate_id": "sc-cand-sheri-biggs-h3",
+      "open_seat": false
+    },
+    {
+      "id": "sc-2026-us-house-4",
+      "office": "U.S. House, SC-4",
+      "level": "federal",
+      "jurisdiction": "SC",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vrems.scvotes.sc.gov/Candidate/CandidateSearch?electionId=22596",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sc-cand-jessica-ethridge-h4",
+        "sc-cand-courtney-mcclain-h4",
+        "sc-cand-william-timmons-h4"
+      ],
+      "incumbent_candidate_id": "sc-cand-william-timmons-h4",
+      "open_seat": false
+    },
+    {
+      "id": "sc-2026-us-house-5",
+      "office": "U.S. House, SC-5",
+      "level": "federal",
+      "jurisdiction": "SC",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vrems.scvotes.sc.gov/Candidate/CandidateSearch?electionId=22596",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sc-cand-wes-climer-h5",
+        "sc-cand-mallory-dittmer-h5"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Ralph Norman, is not on the November ballot for this district."
+    },
+    {
+      "id": "sc-2026-us-house-6",
+      "office": "U.S. House, SC-6",
+      "level": "federal",
+      "jurisdiction": "SC",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vrems.scvotes.sc.gov/Candidate/CandidateSearch?electionId=22596",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sc-cand-james-e-jim-clyburn-h6",
+        "sc-cand-john-peterson-h6"
+      ],
+      "incumbent_candidate_id": "sc-cand-james-e-jim-clyburn-h6",
+      "open_seat": false
+    },
+    {
+      "id": "sc-2026-us-house-7",
+      "office": "U.S. House, SC-7",
+      "level": "federal",
+      "jurisdiction": "SC",
+      "seat_type": "legislative",
+      "congressional_district": "7",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "South Carolina State Election Commission, Candidate Tracking (Candidate Listing), 11/3/2026 Statewide General Election, searched by office (Governor and Lieutenant Governor, U.S. Senate, U.S. House of Representatives), with Candidate Status column, as of 2026-10-16",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://vrems.scvotes.sc.gov/Candidate/CandidateSearch?electionId=22596",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "sc-cand-russell-fry-h7",
+        "sc-cand-john-gregory-vincent-h7"
+      ],
+      "incumbent_candidate_id": "sc-cand-russell-fry-h7",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

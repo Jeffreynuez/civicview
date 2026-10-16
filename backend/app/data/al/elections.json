@@ -1,5 +1,5 @@
 {
-  "_note": "Alabama 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Alabama 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "AL",
   "state_name": "Alabama",
   "cycle": "2026",
@@ -67,6 +67,197 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "al-2026-gov",
+      "office": "Governor of Alabama",
+      "level": "state",
+      "jurisdiction": "AL",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "al-cand-doug-jones",
+        "al-cand-tommy-tuberville"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Gov. Kay Ivey is not on the November ballot."
+    },
+    {
+      "id": "al-2026-us-senate",
+      "office": "U.S. Senate, Alabama",
+      "level": "federal",
+      "jurisdiction": "AL",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "al-cand-everett-wess-sen",
+        "al-cand-barry-moore-sen"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Sen. Tommy Tuberville is not on the November ballot."
+    },
+    {
+      "id": "al-2026-us-house-1",
+      "office": "U.S. House, AL-1",
+      "level": "federal",
+      "jurisdiction": "AL",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "al-cand-clyde-jones-h1",
+        "al-cand-jerry-carl-h1"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Barry Moore, is not on the November ballot for this district."
+    },
+    {
+      "id": "al-2026-us-house-2",
+      "office": "U.S. House, AL-2",
+      "level": "federal",
+      "jurisdiction": "AL",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "al-cand-shomari-c-figures-h2",
+        "al-cand-rhett-marques-h2"
+      ],
+      "incumbent_candidate_id": "al-cand-shomari-c-figures-h2",
+      "open_seat": false
+    },
+    {
+      "id": "al-2026-us-house-3",
+      "office": "U.S. House, AL-3",
+      "level": "federal",
+      "jurisdiction": "AL",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "al-cand-lee-mcinnis-h3",
+        "al-cand-mike-rogers-h3"
+      ],
+      "incumbent_candidate_id": "al-cand-mike-rogers-h3",
+      "open_seat": false
+    },
+    {
+      "id": "al-2026-us-house-4",
+      "office": "U.S. House, AL-4",
+      "level": "federal",
+      "jurisdiction": "AL",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "al-cand-amanda-n-pusczek-h4",
+        "al-cand-robert-b-aderholt-h4"
+      ],
+      "incumbent_candidate_id": "al-cand-robert-b-aderholt-h4",
+      "open_seat": false
+    },
+    {
+      "id": "al-2026-us-house-5",
+      "office": "U.S. House, AL-5",
+      "level": "federal",
+      "jurisdiction": "AL",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "al-cand-andrew-sneed-h5",
+        "al-cand-dale-w-strong-h5"
+      ],
+      "incumbent_candidate_id": "al-cand-dale-w-strong-h5",
+      "open_seat": false
+    },
+    {
+      "id": "al-2026-us-house-6",
+      "office": "U.S. House, AL-6",
+      "level": "federal",
+      "jurisdiction": "AL",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "al-cand-maurice-mercer-h6",
+        "al-cand-gary-palmer-h6"
+      ],
+      "incumbent_candidate_id": "al-cand-gary-palmer-h6",
+      "open_seat": false
+    },
+    {
+      "id": "al-2026-us-house-7",
+      "office": "U.S. House, AL-7",
+      "level": "federal",
+      "jurisdiction": "AL",
+      "seat_type": "legislative",
+      "congressional_district": "7",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026 for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Alabama Secretary of State, 2026 Election Information, General Election November 3, 2026: State Certification of Democratic Party Candidates, State Certification of Republican Party Candidates and State Certification of Independent Candidate (all certified by State August 26, 2026), plus the Republican Party Amended Certification of Candidates accepted September 2, 2026",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.alabama.gov/alabama-votes/voter/election-information/2026",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "al-cand-terri-sewell-h7",
+        "al-cand-ammie-akin-h7"
+      ],
+      "incumbent_candidate_id": "al-cand-terri-sewell-h7",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

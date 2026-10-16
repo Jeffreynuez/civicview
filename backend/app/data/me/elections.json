@@ -1,5 +1,5 @@
 {
-  "_note": "Maine 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Maine 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "ME",
   "state_name": "Maine",
   "cycle": "2026",
@@ -63,6 +63,96 @@
       "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "me-2026-gov",
+      "office": "Governor of Maine",
+      "level": "state",
+      "jurisdiction": "ME",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Maine Department of the Secretary of State, Bureau of Corporations, Elections and Commissions, 2026 General Election Candidates List (FINAL, November 3, 2026; file last modified September 9, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Maine Department of the Secretary of State, Bureau of Corporations, Elections and Commissions, 2026 General Election Candidates List (FINAL, November 3, 2026; file last modified September 9, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/2026%20General%20Candidate%20List%20-%20FINAL.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/Nov26%20Declared%20Write%20in%20List.pdf",
+      "general_candidates": [
+        "me-cand-rick-bennett",
+        "me-cand-robert-b-charles",
+        "me-cand-hannah-m-pingree"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Gov. Janet Mills is not on the November ballot."
+    },
+    {
+      "id": "me-2026-us-senate",
+      "office": "U.S. Senate, Maine",
+      "level": "federal",
+      "jurisdiction": "ME",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Maine Department of the Secretary of State, Bureau of Corporations, Elections and Commissions, 2026 General Election Candidates List (FINAL, November 3, 2026; file last modified September 9, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Maine Department of the Secretary of State, Bureau of Corporations, Elections and Commissions, 2026 General Election Candidates List (FINAL, November 3, 2026; file last modified September 9, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/2026%20General%20Candidate%20List%20-%20FINAL.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/Nov26%20Declared%20Write%20in%20List.pdf",
+      "general_candidates": [
+        "me-cand-susan-m-collins-sen",
+        "me-cand-troy-d-jackson-sen"
+      ],
+      "incumbent_candidate_id": "me-cand-susan-m-collins-sen",
+      "open_seat": false
+    },
+    {
+      "id": "me-2026-us-house-1",
+      "office": "U.S. House, ME-1",
+      "level": "federal",
+      "jurisdiction": "ME",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Maine Department of the Secretary of State, Bureau of Corporations, Elections and Commissions, 2026 General Election Candidates List (FINAL, November 3, 2026; file last modified September 9, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Maine Department of the Secretary of State, Bureau of Corporations, Elections and Commissions, 2026 General Election Candidates List (FINAL, November 3, 2026; file last modified September 9, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/2026%20General%20Candidate%20List%20-%20FINAL.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/Nov26%20Declared%20Write%20in%20List.pdf",
+      "general_candidates": [
+        "me-cand-chellie-pingree-h1",
+        "me-cand-ronald-c-russell-h1"
+      ],
+      "incumbent_candidate_id": "me-cand-chellie-pingree-h1",
+      "open_seat": false
+    },
+    {
+      "id": "me-2026-us-house-2",
+      "office": "U.S. House, ME-2",
+      "level": "federal",
+      "jurisdiction": "ME",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Maine Department of the Secretary of State, Bureau of Corporations, Elections and Commissions, 2026 General Election Candidates List (FINAL, November 3, 2026; file last modified September 9, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Maine Department of the Secretary of State, Bureau of Corporations, Elections and Commissions, 2026 General Election Candidates List (FINAL, November 3, 2026; file last modified September 9, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/2026%20General%20Candidate%20List%20-%20FINAL.xlsx",
+      "roster_retrieved": "2026-10-16",
+      "write_in_list_url": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/Nov26%20Declared%20Write%20in%20List.pdf",
+      "general_candidates": [
+        "me-cand-matthew-g-dunlap-h2",
+        "me-cand-paul-r-lepage-h2"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Jared F. Golden, is not on the November ballot for this district."
+    }
+  ],
   "ballot_measures": {}
 }

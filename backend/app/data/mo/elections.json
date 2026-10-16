@@ -1,5 +1,5 @@
 {
-  "_note": "Missouri 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Missouri 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "MO",
   "state_name": "Missouri",
   "cycle": "2026",
@@ -63,6 +63,184 @@
       "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "mo-2026-us-house-1",
+      "office": "U.S. House, MO-1",
+      "level": "federal",
+      "jurisdiction": "MO",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.mo.gov/CMSImages/ElectionCandidates/2026GeneralElectionCertifiedCandidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "mo-cand-paul-berry-iii-h1",
+        "mo-cand-wesley-bell-h1",
+        "mo-cand-tom-schmitz-h1"
+      ],
+      "incumbent_candidate_id": "mo-cand-wesley-bell-h1",
+      "open_seat": false
+    },
+    {
+      "id": "mo-2026-us-house-2",
+      "office": "U.S. House, MO-2",
+      "level": "federal",
+      "jurisdiction": "MO",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.mo.gov/CMSImages/ElectionCandidates/2026GeneralElectionCertifiedCandidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "mo-cand-ann-wagner-h2",
+        "mo-cand-fred-wellman-h2",
+        "mo-cand-brandon-coulter-daugherty-h2"
+      ],
+      "incumbent_candidate_id": "mo-cand-ann-wagner-h2",
+      "open_seat": false
+    },
+    {
+      "id": "mo-2026-us-house-3",
+      "office": "U.S. House, MO-3",
+      "level": "federal",
+      "jurisdiction": "MO",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.mo.gov/CMSImages/ElectionCandidates/2026GeneralElectionCertifiedCandidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "mo-cand-bob-onder-h3",
+        "mo-cand-bethany-e-mann-h3",
+        "mo-cand-jim-higgins-h3"
+      ],
+      "incumbent_candidate_id": "mo-cand-bob-onder-h3",
+      "open_seat": false
+    },
+    {
+      "id": "mo-2026-us-house-4",
+      "office": "U.S. House, MO-4",
+      "level": "federal",
+      "jurisdiction": "MO",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.mo.gov/CMSImages/ElectionCandidates/2026GeneralElectionCertifiedCandidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "mo-cand-mark-alford-h4",
+        "mo-cand-jordan-herrera-h4",
+        "mo-cand-thomas-holbrook-h4"
+      ],
+      "incumbent_candidate_id": "mo-cand-mark-alford-h4",
+      "open_seat": false
+    },
+    {
+      "id": "mo-2026-us-house-5",
+      "office": "U.S. House, MO-5",
+      "level": "federal",
+      "jurisdiction": "MO",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.mo.gov/CMSImages/ElectionCandidates/2026GeneralElectionCertifiedCandidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "mo-cand-rick-brattin-h5",
+        "mo-cand-emanuel-cleaver-ii-h5",
+        "mo-cand-randall-randy-langkraehr-h5"
+      ],
+      "incumbent_candidate_id": "mo-cand-emanuel-cleaver-ii-h5",
+      "open_seat": false
+    },
+    {
+      "id": "mo-2026-us-house-6",
+      "office": "U.S. House, MO-6",
+      "level": "federal",
+      "jurisdiction": "MO",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.mo.gov/CMSImages/ElectionCandidates/2026GeneralElectionCertifiedCandidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "mo-cand-chris-stigall-h6",
+        "mo-cand-josh-smead-h6",
+        "mo-cand-andy-maidment-h6"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Sam Graves, is not on the November ballot for this district."
+    },
+    {
+      "id": "mo-2026-us-house-7",
+      "office": "U.S. House, MO-7",
+      "level": "federal",
+      "jurisdiction": "MO",
+      "seat_type": "legislative",
+      "congressional_district": "7",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.mo.gov/CMSImages/ElectionCandidates/2026GeneralElectionCertifiedCandidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "mo-cand-eric-w-burlison-h7",
+        "mo-cand-missi-hesketh-h7",
+        "mo-cand-kevin-craig-h7"
+      ],
+      "incumbent_candidate_id": "mo-cand-eric-w-burlison-h7",
+      "open_seat": false
+    },
+    {
+      "id": "mo-2026-us-house-8",
+      "office": "U.S. House, MO-8",
+      "level": "federal",
+      "jurisdiction": "MO",
+      "seat_type": "legislative",
+      "congressional_district": "8",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Missouri Secretary of State, Certification of Candidates and Party Emblems, General Election November 3, 2026 (certified August 25, 2026 by Secretary of State Denny Hoskins)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sos.mo.gov/CMSImages/ElectionCandidates/2026GeneralElectionCertifiedCandidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "mo-cand-jason-t-smith-h8",
+        "mo-cand-chris-reichard-h8",
+        "mo-cand-rebecca-sharpe-lombard-h8"
+      ],
+      "incumbent_candidate_id": "mo-cand-jason-t-smith-h8",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

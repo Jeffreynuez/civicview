@@ -1,5 +1,5 @@
 {
-  "_note": "Wyoming 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Wyoming 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "WY",
   "state_name": "Wyoming",
   "cycle": "2026",
@@ -60,6 +60,74 @@
       "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day."
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "wy-2026-gov",
+      "office": "Governor of Wyoming",
+      "level": "state",
+      "jurisdiction": "WY",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wyoming Secretary of State, Elections Division, 2026 General Election Candidate Roster (dated September 9, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wyoming Secretary of State, Elections Division, 2026 General Election Candidate Roster (dated September 9, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://sos.wyo.gov/Elections/Docs/2026/2026_WY_General_Election_Candidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wy-cand-eric-barlow",
+        "wy-cand-kenneth-r-casner",
+        "wy-cand-rebecca-bextel"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Gov. Mark Gordon is not on the November ballot."
+    },
+    {
+      "id": "wy-2026-us-senate",
+      "office": "U.S. Senate, Wyoming",
+      "level": "federal",
+      "jurisdiction": "WY",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wyoming Secretary of State, Elections Division, 2026 General Election Candidate Roster (dated September 9, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wyoming Secretary of State, Elections Division, 2026 General Election Candidate Roster (dated September 9, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://sos.wyo.gov/Elections/Docs/2026/2026_WY_General_Election_Candidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wy-cand-harriet-hageman-sen",
+        "wy-cand-james-byrd-sen"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Sen. Cynthia M. Lummis is not on the November ballot."
+    },
+    {
+      "id": "wy-2026-us-house-AL",
+      "office": "U.S. House, WY-AL",
+      "level": "federal",
+      "jurisdiction": "WY",
+      "seat_type": "legislative",
+      "congressional_district": "AL",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wyoming Secretary of State, Elections Division, 2026 General Election Candidate Roster (dated September 9, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wyoming Secretary of State, Elections Division, 2026 General Election Candidate Roster (dated September 9, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://sos.wyo.gov/Elections/Docs/2026/2026_WY_General_Election_Candidates.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wy-cand-chuck-gray-hAL",
+        "wy-cand-lisa-kinney-hAL",
+        "wy-cand-shawn-johnson-hAL",
+        "wy-cand-jeffrey-haggit-hAL"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Harriet M. Hageman, is not on the November ballot for this district."
+    }
+  ],
   "ballot_measures": {}
 }

@@ -1,5 +1,5 @@
 {
-  "_note": "Wisconsin 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "Wisconsin 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "WI",
   "state_name": "Wisconsin",
   "cycle": "2026",
@@ -72,6 +72,202 @@
       }
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "wi-2026-gov",
+      "office": "Governor of Wisconsin",
+      "level": "state",
+      "jurisdiction": "WI",
+      "seat_type": "executive",
+      "term_length_years": 4,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.wi.gov/media/41846/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wi-cand-tom-tiffany",
+        "wi-cand-david-crowley"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Gov. Tony Evers is not on the November ballot. Governor and Lieutenant Governor run together on one ticket."
+    },
+    {
+      "id": "wi-2026-us-house-1",
+      "office": "U.S. House, WI-1",
+      "level": "federal",
+      "jurisdiction": "WI",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.wi.gov/media/41846/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wi-cand-bryan-steil-h1",
+        "wi-cand-mitchell-berman-h1"
+      ],
+      "incumbent_candidate_id": "wi-cand-bryan-steil-h1",
+      "open_seat": false
+    },
+    {
+      "id": "wi-2026-us-house-2",
+      "office": "U.S. House, WI-2",
+      "level": "federal",
+      "jurisdiction": "WI",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.wi.gov/media/41846/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wi-cand-mark-pocan-h2"
+      ],
+      "incumbent_candidate_id": "wi-cand-mark-pocan-h2",
+      "open_seat": false
+    },
+    {
+      "id": "wi-2026-us-house-3",
+      "office": "U.S. House, WI-3",
+      "level": "federal",
+      "jurisdiction": "WI",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.wi.gov/media/41846/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wi-cand-derrick-van-orden-h3",
+        "wi-cand-rebecca-cooke-h3",
+        "wi-cand-alexander-valiensi-kent-h3",
+        "wi-cand-rustin-provance-h3"
+      ],
+      "incumbent_candidate_id": "wi-cand-derrick-van-orden-h3",
+      "open_seat": false
+    },
+    {
+      "id": "wi-2026-us-house-4",
+      "office": "U.S. House, WI-4",
+      "level": "federal",
+      "jurisdiction": "WI",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.wi.gov/media/41846/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wi-cand-tim-rogers-h4",
+        "wi-cand-gwen-moore-h4",
+        "wi-cand-arthur-burks-h4"
+      ],
+      "incumbent_candidate_id": "wi-cand-gwen-moore-h4",
+      "open_seat": false
+    },
+    {
+      "id": "wi-2026-us-house-5",
+      "office": "U.S. House, WI-5",
+      "level": "federal",
+      "jurisdiction": "WI",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.wi.gov/media/41846/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wi-cand-scott-fitzgerald-h5",
+        "wi-cand-andrew-beck-h5"
+      ],
+      "incumbent_candidate_id": "wi-cand-scott-fitzgerald-h5",
+      "open_seat": false
+    },
+    {
+      "id": "wi-2026-us-house-6",
+      "office": "U.S. House, WI-6",
+      "level": "federal",
+      "jurisdiction": "WI",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.wi.gov/media/41846/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wi-cand-glenn-grothman-h6",
+        "wi-cand-brad-smith-h6",
+        "wi-cand-matthew-arndt-h6",
+        "wi-cand-elizabeth-anne-fitzgibbon-h6",
+        "wi-cand-mike-thurow-h6"
+      ],
+      "incumbent_candidate_id": "wi-cand-glenn-grothman-h6",
+      "open_seat": false
+    },
+    {
+      "id": "wi-2026-us-house-7",
+      "office": "U.S. House, WI-7",
+      "level": "federal",
+      "jurisdiction": "WI",
+      "seat_type": "legislative",
+      "congressional_district": "7",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.wi.gov/media/41846/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wi-cand-michael-alfonso-h7",
+        "wi-cand-fred-clark-h7"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Thomas P. Tiffany, is not on the November ballot for this district."
+    },
+    {
+      "id": "wi-2026-us-house-8",
+      "office": "U.S. House, WI-8",
+      "level": "federal",
+      "jurisdiction": "WI",
+      "seat_type": "legislative",
+      "congressional_district": "8",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Wisconsin Elections Commission, All Contests and Candidates_November 3, 2026.xlsx (posted on the WEC Wisconsin Elections page, November 3, 2026 General Election files, page last modified 2026-10-06)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://elections.wi.gov/media/41846/download",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "wi-cand-tony-wied-h8",
+        "wi-cand-rick-crosson-h8"
+      ],
+      "incumbent_candidate_id": "wi-cand-tony-wied-h8",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

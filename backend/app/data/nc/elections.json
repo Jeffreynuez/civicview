@@ -1,5 +1,5 @@
 {
-  "_note": "North Carolina 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "_note": "North Carolina 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. The U.S. Senate, U.S. House and Governor races list every candidate on the state's certified list for the November 3 ballot (roster_source_url on each race), in alphabetical order by last name; write-in candidates are not listed.",
   "state": "NC",
   "state_name": "North Carolina",
   "cycle": "2026",
@@ -66,6 +66,335 @@
       "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
     }
   },
-  "races": [],
+  "races": [
+    {
+      "id": "nc-2026-us-senate",
+      "office": "U.S. Senate, North Carolina",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "term_length_years": 6,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-michael-dublin-sen",
+        "nc-cand-roy-cooper-sen",
+        "nc-cand-shannon-w-bray-sen",
+        "nc-cand-michael-whatley-sen"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. Sen. Thomas Tillis is not on the November ballot."
+    },
+    {
+      "id": "nc-2026-us-house-1",
+      "office": "U.S. House, NC-1",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "1",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-don-davis-h1",
+        "nc-cand-laurie-buckhout-h1",
+        "nc-cand-tom-bailey-h1"
+      ],
+      "incumbent_candidate_id": "nc-cand-don-davis-h1",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-2",
+      "office": "U.S. House, NC-2",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "2",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-eugene-f-douglass-h2",
+        "nc-cand-deborah-k-ross-h2",
+        "nc-cand-matthew-laszacs-h2"
+      ],
+      "incumbent_candidate_id": "nc-cand-deborah-k-ross-h2",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-3",
+      "office": "U.S. House, NC-3",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "3",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-daniel-cavender-h3",
+        "nc-cand-raymond-smith-h3",
+        "nc-cand-greg-murphy-h3"
+      ],
+      "incumbent_candidate_id": "nc-cand-greg-murphy-h3",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-4",
+      "office": "U.S. House, NC-4",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "4",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-valerie-p-foushee-h4",
+        "nc-cand-guy-meilleur-h4",
+        "nc-cand-mahesh-max-ganorkar-h4"
+      ],
+      "incumbent_candidate_id": "nc-cand-valerie-p-foushee-h4",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-5",
+      "office": "U.S. House, NC-5",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "5",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-virginia-foxx-h5",
+        "nc-cand-robert-b-luffman-h5",
+        "nc-cand-chuck-hubbard-h5"
+      ],
+      "incumbent_candidate_id": "nc-cand-virginia-foxx-h5",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-6",
+      "office": "U.S. House, NC-6",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "6",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-addison-mcdowell-h6",
+        "nc-cand-cyril-jefferson-h6"
+      ],
+      "incumbent_candidate_id": "nc-cand-addison-mcdowell-h6",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-7",
+      "office": "U.S. House, NC-7",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "7",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-maad-abu-ghazalah-h7",
+        "nc-cand-david-rouzer-h7",
+        "nc-cand-kimberly-hardy-h7"
+      ],
+      "incumbent_candidate_id": "nc-cand-david-rouzer-h7",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-8",
+      "office": "U.S. House, NC-8",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "8",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-bo-whitehead-h8",
+        "nc-cand-colby-watson-h8",
+        "nc-cand-mark-harris-h8"
+      ],
+      "incumbent_candidate_id": "nc-cand-mark-harris-h8",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-9",
+      "office": "U.S. House, NC-9",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "9",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-richard-n-ojeda-ii-h9",
+        "nc-cand-richard-hudson-h9"
+      ],
+      "incumbent_candidate_id": "nc-cand-richard-hudson-h9",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-10",
+      "office": "U.S. House, NC-10",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "10",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-steven-feldman-h10",
+        "nc-cand-ashley-bell-h10",
+        "nc-cand-pat-harrigan-h10"
+      ],
+      "incumbent_candidate_id": "nc-cand-pat-harrigan-h10",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-11",
+      "office": "U.S. House, NC-11",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "11",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-jennifer-capps-balkcom-h11",
+        "nc-cand-jamie-ager-h11",
+        "nc-cand-travis-groo-h11"
+      ],
+      "incumbent_candidate_id": null,
+      "open_seat": true,
+      "notes": "Open seat. The current representative, Chuck Edwards, is not on the November ballot for this district."
+    },
+    {
+      "id": "nc-2026-us-house-12",
+      "office": "U.S. House, NC-12",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "12",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-jack-codiga-h12",
+        "nc-cand-alma-s-adams-h12"
+      ],
+      "incumbent_candidate_id": "nc-cand-alma-s-adams-h12",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-13",
+      "office": "U.S. House, NC-13",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "13",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-paul-barringer-h13",
+        "nc-cand-steven-swinton-h13",
+        "nc-cand-brad-knott-h13"
+      ],
+      "incumbent_candidate_id": "nc-cand-brad-knott-h13",
+      "open_seat": false
+    },
+    {
+      "id": "nc-2026-us-house-14",
+      "office": "U.S. House, NC-14",
+      "level": "federal",
+      "jurisdiction": "NC",
+      "seat_type": "legislative",
+      "congressional_district": "14",
+      "term_length_years": 2,
+      "primary_candidates": {},
+      "general_candidates_note": "Every candidate on North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "North Carolina State Board of Elections, Candidate List Grouped by Contest, Election 11/03/2026, Federal and State Only (report generated Oct 13, 2026 12:25 pm), linked from https://www.ncsbe.gov/results-data/candidate-lists",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://dl.ncsbe.gov/Elections/2026/Candidate%20Filing/2026_general_candidate_list_by_contest_federal_and_state.pdf",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "nc-cand-lakesha-womack-h14",
+        "nc-cand-tim-moore-h14"
+      ],
+      "incumbent_candidate_id": "nc-cand-tim-moore-h14",
+      "open_seat": false
+    }
+  ],
   "ballot_measures": {}
 }

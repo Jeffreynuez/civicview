@@ -10,6 +10,14 @@ Covers:
     unopposed race; a stale active_candidacy in an officials file is dropped
   * a campaign ended with no official reason (not_on_ballot) reads
     neutrally in every notice and refusal, never as a loss
+  * every verified race passes the one nominee per party guard, and an
+    open primary (Louisiana's November ballot for U.S. House) may list
+    several candidates of one party without tripping it
+  * every candidate on a verified race carries the party label exactly as
+    the list prints it, an empty one when the list prints none
+  * one sitting member of Congress is linked to one candidate only
+  * Your Ballot finds the U.S. House race for an at-large state and for a
+    district written "7", "07" or "CA-7"
 """
 import logging
 import os
@@ -117,6 +125,63 @@ def main() -> int:
           t.title(today) == "Former candidate for U.S. House, Texas District 2 (2026)", t.title(today))
     check("4 the page is not stuck read-only: it archives three months after the recorded date",
           t.archive_on == date(2027, 1, 16), str(t.archive_on))
+
+    # 5. The guard on every verified race; open primaries.
+    flagged, open_primaries = [], []
+    for st in svc.list_states_with_elections():
+        for race in svc.get_elections(st)["races"]:
+            if race.get("roster_status") == "verified_nominees" and race.get("general_roster_unresolved"):
+                flagged.append(race["id"])
+            if race.get("open_primary"):
+                open_primaries.append(race)
+    check("5 no verified race trips the one nominee per party guard", not flagged, str(flagged[:5]))
+    crowded = [r for r in open_primaries
+               if max([sum(1 for c in r["general_candidates"] if c.get("party") == p) for p in ("R", "D")] or [0]) > 1]
+    check("5 an open primary lists several candidates of one party", bool(crowded))
+    raw = next(r for r in svc._elections_by_state["LA"]["races"] if r["id"] == "la-2026-us-house-5")
+    closed = dict(raw)
+    closed.pop("open_primary")
+    check("5 the same list without open_primary would be flagged",
+          svc._resolve_race(closed, state_code="LA")["general_roster_unresolved"]
+          and not svc._resolve_race(raw, state_code="LA")["general_roster_unresolved"])
+
+    # 6. Party labels as printed.
+    no_label = [c["id"] for st in svc.list_states_with_elections() for r in svc.get_elections(st)["races"]
+                if r.get("roster_status") == "verified_nominees" for c in r["general_candidates"]
+                if not isinstance(c.get("party_label"), str)]
+    check("6 every candidate on a verified race has the list's party label", not no_label, str(no_label[:5]))
+    oh4 = {c["name"]: c.get("party_label") for c in next(
+        r for r in svc.get_elections("OH")["races"] if r["id"] == "oh-2026-us-house-4")["general_candidates"]}
+    check("6 a candidate the list prints with no party keeps an empty label",
+          oh4.get("Tracy L. Tackett") == "" and oh4.get("Jim Jordan") == "Republican", str(oh4))
+
+    # 7. One member, one candidate.
+    by_member = {}
+    for st in svc.list_states_with_elections():
+        for race in svc._elections_by_state[st]["races"]:
+            if race.get("roster_status") != "verified_nominees":
+                continue
+            for cid in race.get("general_candidates") or []:
+                bg = cands.get(cid, {}).get("bioguide_id")
+                if bg:
+                    by_member.setdefault(bg, []).append(cid)
+    twice = {bg: ids for bg, ids in by_member.items() if len(ids) > 1}
+    check("7 no sitting member is linked to two candidates", not twice, str(twice))
+    check("7 the incumbent Dan S. Sullivan has the member link, not Daniel J. Sullivan Jr.",
+          by_member.get("S001198") == ["ak-cand-dan-s-sullivan-sen"], str(by_member.get("S001198")))
+    check("7 Trever Nehls is not linked to Rep. Troy Nehls",
+          not cands["tx-cand-trever-nehls-h22"].get("bioguide_id"))
+
+    # 8. Your Ballot matches the district however it is written.
+    def house_races(st, cd):
+        return [r["id"] for r in svc.get_personalized_ballot(st, congressional_district=cd)["races"]
+                if "us-house" in r["id"]]
+    for cd in ("At-Large", "WY-AL", "AL"):
+        check(f"8 Wyoming's at-large House race is on Your Ballot for {cd!r}",
+              house_races("WY", cd) == ["wy-2026-us-house-AL"], str(house_races("WY", cd)))
+    for cd in ("7", "07", "CA-7"):
+        check(f"8 California District 7 is on Your Ballot for {cd!r}",
+              house_races("CA", cd) == ["ca-2026-us-house-7"], str(house_races("CA", cd)))
 
     print()
     if FAILS:
