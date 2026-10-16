@@ -1,0 +1,68 @@
+{
+  "_note": "Vermont 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "VT",
+  "state_name": "Vermont",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_online_general": "No deadline",
+    "voter_registration_mail_general": "No deadline",
+    "voter_registration_in_person_general": "2026-11-02",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "Yes",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, when polls close",
+    "early_voting_window_general": "2026-09-19 to 2026-11-02"
+  },
+  "key_date_sources": {
+    "general": "https://outside.vermont.gov/dept/sos/Elections_Division/town_clerks_local_elections/election_procedure/elections_calendar.pdf",
+    "voter_registration_online_general": "https://sos.vermont.gov/elections/voters/voter-faqs/voter-registration-faqs/",
+    "voter_registration_mail_general": "https://sos.vermont.gov/elections/voters/voter-faqs/voter-registration-faqs/",
+    "voter_registration_in_person_general": "https://legislature.vermont.gov/statutes/section/17/043/02144",
+    "same_day_registration_general": "https://sos.vermont.gov/elections/voters/voter-faqs/voter-registration-faqs/",
+    "all_mail_general": "https://sos.vermont.gov/elections/voters/early-absentee-voting/",
+    "mail_ballot_return_deadline_general": "https://legislature.vermont.gov/statutes/section/17/051/02543",
+    "early_voting_window_general": "https://sos.vermont.gov/elections/voters/early-absentee-voting/"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://sos.vermont.gov/elections/voters/",
+    "links": {
+      "registration": "https://sos.vermont.gov/elections/voters/registration/",
+      "check_registration": "https://vote.vermont.gov/",
+      "mail_ballot": "https://sos.vermont.gov/elections/voters/early-absentee-voting/",
+      "early_voting": "https://sos.vermont.gov/elections/voters/early-absentee-voting/",
+      "polling_place": "https://vote.vermont.gov/",
+      "sample_ballot": "https://vote.vermont.gov/",
+      "track_ballot": "https://vote.vermont.gov/"
+    },
+    "poll_hours_vary": {
+      "text": "Vary by city or town",
+      "source_url": "https://sos.vermont.gov/elections/voters/",
+      "retrieved": "2026-10-15"
+    },
+    "no_reminder": {
+      "voter_registration_deadline_general": {
+        "reason": "Registration in Vermont stays open through Election Day.",
+        "source_url": "https://sos.vermont.gov/elections/voters/voter-faqs/voter-registration-faqs/",
+        "retrieved": "2026-10-15"
+      },
+      "vote_by_mail_request_deadline_general": {
+        "reason": "Every active registered voter in Vermont is mailed a ballot, so no request is needed.",
+        "source_url": "https://sos.vermont.gov/elections/voters/early-absentee-voting/",
+        "retrieved": "2026-10-15"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

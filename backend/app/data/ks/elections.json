@@ -1,0 +1,65 @@
+{
+  "_note": "Kansas 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "KS",
+  "state_name": "Kansas",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-13",
+    "voter_registration_online_general": "2026-10-13",
+    "voter_registration_mail_general": "2026-10-13, postmarked",
+    "voter_registration_in_person_general": "2026-10-13",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-27",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-06",
+    "early_voting_window_general": "2026-10-27 to 2026-11-02",
+    "early_voting_optional_general": "Counties may start as early as 2026-10-14"
+  },
+  "key_date_sources": {
+    "general": "https://sos.ks.gov/elections/important-election-dates.html",
+    "voter_registration_deadline_general": "https://sos.ks.gov/elections/important-election-dates.html",
+    "voter_registration_online_general": "https://sos.ks.gov/elections/important-election-dates.html",
+    "voter_registration_mail_general": "https://www.ksrevisor.gov/statutes/chapters/ch25/025_023_0011.html",
+    "voter_registration_in_person_general": "https://sos.ks.gov/elections/important-election-dates.html",
+    "same_day_registration_general": "https://sos.ks.gov/elections/voter-registration.html",
+    "all_mail_general": "https://sos.ks.gov/elections/election-faq.html",
+    "vote_by_mail_request_deadline_general": "https://www.ksrevisor.gov/statutes/chapters/ch25/025_011_0022.html",
+    "mail_ballot_return_deadline_general": "https://sos.ks.gov/elections/advance-voting-information.html",
+    "early_voting_window_general": "https://www.ksrevisor.gov/statutes/chapters/ch25/025_011_0022.html",
+    "early_voting_optional_general": "https://sos.ks.gov/elections/important-election-dates.html"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15",
+    "early_voting_optional_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://sos.ks.gov/elections/elections.html",
+    "links": {
+      "registration": "https://www.kdor.ks.gov/Apps/VoterReg",
+      "check_registration": "https://kansasvoterinfo.gov/VoterView",
+      "mail_ballot": "https://sos.ks.gov/elections/advance-voting-information.html",
+      "early_voting": "https://sos.ks.gov/elections/advance-voting-information.html",
+      "polling_place": "https://kansasvoterinfo.gov/VoterView",
+      "sample_ballot": "https://kansasvoterinfo.gov/VoterView",
+      "track_ballot": "https://kansasvoterinfo.gov/VoterView"
+    },
+    "poll_hours_vary": {
+      "text": "Vary by county",
+      "source_url": "https://sos.ks.gov/elections/voter-information.html",
+      "retrieved": "2026-10-15"
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

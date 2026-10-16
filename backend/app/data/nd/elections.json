@@ -1,0 +1,64 @@
+{
+  "_note": "North Dakota 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "ND",
+  "state_name": "North Dakota",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "same_day_registration_general": "No registration needed",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-11-02",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, when polls close",
+    "early_voting_rule_general": "Days set by each county"
+  },
+  "key_date_sources": {
+    "general": "https://www.sos.nd.gov/elections/voter/elections-currentpast",
+    "same_day_registration_general": "https://www.sos.nd.gov/elections/voter/voting-north-dakota",
+    "all_mail_general": "https://www.sos.nd.gov/elections/voter/voting-north-dakota/how-do-i-vote",
+    "vote_by_mail_request_deadline_general": "https://www.sos.nd.gov/elections/voter/elections-currentpast",
+    "mail_ballot_return_deadline_general": "https://www.sos.nd.gov/elections/voter/voting-north-dakota/how-do-i-vote/absentee-voting",
+    "early_voting_rule_general": "https://www.sos.nd.gov/elections/voter/voting-north-dakota/how-do-i-vote"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_rule_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.sos.nd.gov/elections/voter",
+    "links": {
+      "registration": "https://www.sos.nd.gov/elections/voter/voting-north-dakota",
+      "mail_ballot": "https://vip.sos.nd.gov/absentee/Default.aspx",
+      "early_voting": "https://vip.sos.nd.gov/Precincts.aspx?eid=348",
+      "polling_place": "https://vip.sos.nd.gov/WhereToVote.aspx?tab=AddressandVotingTimes&ptlPKID=7&ptlhPKID=50",
+      "sample_ballot": "https://www.sos.nd.gov/elections/voter/ballot-information",
+      "track_ballot": "https://vip.sos.nd.gov/AbsenteeTracker.aspx"
+    },
+    "poll_hours_vary": {
+      "text": "Vary by county",
+      "source_url": "https://ndlegis.gov/cencode/t16-1c01.pdf",
+      "retrieved": "2026-10-15"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+    },
+    "no_reminder": {
+      "voter_registration_deadline_general": {
+        "reason": "North Dakota has no voter registration.",
+        "source_url": "https://www.sos.nd.gov/elections/voter/voting-north-dakota",
+        "retrieved": "2026-10-15"
+      },
+      "early_voting_window_general": {
+        "reason": "Early in-person voting days in North Dakota are set by each county.",
+        "source_url": "https://www.sos.nd.gov/elections/voter/voting-north-dakota/how-do-i-vote",
+        "retrieved": "2026-10-15"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

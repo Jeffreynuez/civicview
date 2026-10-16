@@ -1,0 +1,68 @@
+{
+  "_note": "Montana 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "MT",
+  "state_name": "Montana",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-05",
+    "voter_registration_online_general": "Not available",
+    "voter_registration_mail_general": "2026-10-05, postmarked",
+    "voter_registration_in_person_general": "2026-10-05",
+    "same_day_registration_general": "At your local election office through Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-11-02",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 8 p.m.",
+    "early_voting_window_general": "2026-10-05 to 2026-11-02"
+  },
+  "key_date_sources": {
+    "general": "https://votemt.gov/voter-calendar/",
+    "voter_registration_deadline_general": "https://sosmt.gov/wp-content/uploads/wpfd/preview_files/2026-Federal-Election-Calendar(6fec86338c652319befedd4fd798de5b).pdf",
+    "voter_registration_online_general": "https://votemt.gov/frequently-asked-questions/",
+    "voter_registration_mail_general": "https://sosmt.gov/wp-content/uploads/wpfd/preview_files/2026-Federal-Election-Calendar(6fec86338c652319befedd4fd798de5b).pdf",
+    "voter_registration_in_person_general": "https://votemt.gov/voter-calendar/",
+    "same_day_registration_general": "https://votemt.gov/frequently-asked-questions/",
+    "all_mail_general": "https://votemt.gov/frequently-asked-questions/",
+    "vote_by_mail_request_deadline_general": "https://mca.legmt.gov/bills/mca/title_0130/chapter_0130/part_0020/section_0110/0130-0130-0020-0110.html",
+    "mail_ballot_return_deadline_general": "https://mca.legmt.gov/bills/mca/title_0130/chapter_0130/part_0020/section_0010/0130-0130-0020-0010.html",
+    "early_voting_window_general": "https://sosmt.gov/wp-content/uploads/wpfd/preview_files/2026-Federal-Election-Calendar(6fec86338c652319befedd4fd798de5b).pdf"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://votemt.gov/",
+    "links": {
+      "registration": "https://votemt.gov/voter-registration/",
+      "check_registration": "https://voterportal.mt.gov/WhereToVote.aspx",
+      "mail_ballot": "https://sosmt.gov/wp-content/uploads/wpfd/preview_files/Request-to-be-Added-or-Removed-from-the-Absentee-List(c0a1c2f30f0c2e32a7b8c9e23b68d730).pdf",
+      "early_voting": "https://votemt.gov/frequently-asked-questions/",
+      "polling_place": "https://voterportal.mt.gov/WhereToVote.aspx",
+      "sample_ballot": "https://voterportal.mt.gov/WhereToVote.aspx",
+      "track_ballot": "https://voterportal.mt.gov/WhereToVote.aspx"
+    },
+    "poll_hours_vary": {
+      "text": "Vary by location",
+      "source_url": "https://mca.legmt.gov/bills/mca/title_0130/chapter_0010/part_0010/section_0060/0130-0010-0010-0060.html",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "12:00"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person at your local election office through Election Day."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}
