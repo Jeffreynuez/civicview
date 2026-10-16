@@ -20,7 +20,7 @@ import { useEffect, useState } from 'react';
 
 export function TabStrip({ active, onChange }) {
   return (
-    <div className="tabstrip" role="tablist" aria-label="Feed">
+    <div className="tabstrip" role="tablist" aria-label="Feed" data-tutorial="feed-tabs">
       <button
         type="button"
         role="tab"

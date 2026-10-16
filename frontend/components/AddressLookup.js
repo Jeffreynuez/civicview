@@ -233,7 +233,7 @@ export default function AddressLookup({ onResult, onMemberSelect }) {
         <p style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', marginBottom: '10px' }}>
           Enter your home address to see exactly who represents you in Congress.
         </p>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div data-tutorial="address-lookup-field" style={{ display: 'flex', gap: '8px' }}>
           <input
             type="text"
             value={address}

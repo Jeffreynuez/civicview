@@ -470,7 +470,7 @@ function ProgressMeter() {
   const raised = CROWDFUND_LIVE ? 0 : 0;
   const pct = CROWDFUND_LIVE && goal > 0 ? Math.round((raised / goal) * 100) : 0;
   return (
-    <section className={`hb-progress ${CROWDFUND_LIVE ? '' : 'hb-progress--prelaunch'}`}>
+    <section className={`hb-progress ${CROWDFUND_LIVE ? '' : 'hb-progress--prelaunch'}`} data-tutorial="helpbuild-meter">
       <div>
         <div className="hb-progress__nums">
           {CROWDFUND_LIVE ? (

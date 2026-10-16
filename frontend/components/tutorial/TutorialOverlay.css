@@ -6,10 +6,10 @@
 
    z-index map: the app's overlay surfaces top out around 1200
    (ConstituentDashboard / PageView) with modals above that. The tour
-   must sit above ALL of them so the panel + close button stay
+   must sit above ALL of them so its card and close button stay
    reachable while a step has an overlay open:
-     spotlight  2990  (visual only, pointer-events none)
-     panel/sheet 3000
+     spotlight   2990  (visual only, pointer-events none)
+     card/sheet  3000
      coach mark  3000
 */
 
@@ -32,8 +32,21 @@
   50% { outline-color: rgba(255, 186, 8, 0.35); }
 }
 
+/* Screen-reader-only text (the step announcement, "Finished."). */
+.cvtour-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ── Navbar pulse dot ──────────────────────────────────────────────
-   Worn by the ☰ hamburger until the tour has been opened once.
+   Worn by the menu button until the tour has been opened once.
    Lives here (not in the navbar) because this stylesheet is loaded
    globally via the root-layout TutorialOverlay mount. */
 .cvtour-pulse-dot {
@@ -126,194 +139,110 @@
 }
 .cvtour-coach__cta:hover { opacity: 0.92; }
 
-/* ── Shared: close button ──────────────────────────────────────── */
-.cvtour-x {
+/* ── Card header (desktop card + phone sheet) ─────────────────── */
+.cvtour-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 8px 7px 12px;
+  background: rgba(27, 38, 59, 0.94);
+  border-radius: 12px 12px 0 0;
   flex-shrink: 0;
-  width: 30px;
+}
+
+.cvtour-head__meta {
+  min-width: 0;
+  color: white;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cvtour-head__btns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.cvtour-hbtn {
   height: 30px;
+  min-width: 30px;
+  padding: 0 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 8px;
   color: white;
-  font-size: 1.2rem;
+  font-family: var(--cl-font-sans);
+  font-size: 0.76rem;
+  font-weight: 700;
   line-height: 1;
   cursor: pointer;
 }
-.cvtour-x:hover { background: rgba(255, 255, 255, 0.22); }
+.cvtour-hbtn--icon { padding: 0; font-size: 1.2rem; }
+.cvtour-hbtn:hover { background: rgba(255, 255, 255, 0.22); }
 
-.cvtour-panel__brand {
-  color: white;
-  font-weight: 700;
-  font-size: 0.92rem;
-  letter-spacing: 0.02em;
+/* Keyboard focus is always visible on the tour's own controls. */
+.cvtour-ui button:focus-visible,
+.cvtour-ui a:focus-visible {
+  outline: 2px solid #ffba08;
+  outline-offset: 2px;
+}
+.cvtour-ui h2:focus { outline: none; }
+.cvtour-ui h2:focus-visible {
+  outline: 2px solid #ffba08;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* ── Desktop docked panel ──────────────────────────────────────── */
-.cvtour-panel {
-  position: fixed;
-  top: 56px; /* below the navbar — keep in sync with its height */
-  left: 0;
-  bottom: 0;
-  z-index: 3000;
-  width: 300px; /* keep in sync with PANEL_W in TutorialOverlay.js */
-  display: flex;
-  flex-direction: column;
-  /* Glassy — the map and page content stay visible behind the list.
-     backdrop-filter needs the translucent background to read well;
-     browsers without support just get the slightly-clearer rgba. */
-  background: rgba(255, 255, 255, 0.52);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-right: 1px solid rgba(27, 38, 59, 0.14);
-  box-shadow: 8px 0 28px rgba(0, 0, 0, 0.10);
-  font-family: var(--cl-font-sans);
-  animation: cvtour-slide-in 0.25s ease;
-}
-
-@keyframes cvtour-slide-in {
-  from { transform: translateX(-24px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-.cvtour-panel__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 12px;
-  background: rgba(27, 38, 59, 0.90); /* translucent navy over the map */
-  flex-shrink: 0;
-}
-
-.cvtour-panel__list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 6px;
-  min-height: 0;
-}
-
-/* ── Floating step callout (desktop) ───────────────────────────────
-   Small translucent window that positions itself NEXT TO the
-   spotlighted element (right → left → below → above; overlap only
-   as a last resort — see computeCalloutPos in TutorialOverlay.js). */
+/* ── Desktop floating card ─────────────────────────────────────────
+   Positions itself NEXT TO the spotlighted element (right → left →
+   below → above, else the far corner; see computeCalloutPos). No
+   docked list: the Topics button swaps the list into the card. */
 .cvtour-callout {
   position: fixed;
-  z-index: 3001;
-  width: 330px;
-  max-width: calc(100vw - 340px); /* never wider than the space right of the list */
-  background: rgba(255, 255, 255, 0.90);
+  z-index: 3000;
+  width: 340px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(9px);
   -webkit-backdrop-filter: blur(9px);
   border: 1px solid rgba(27, 38, 59, 0.16);
   border-radius: 12px;
-  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.24);
   font-family: var(--cl-font-sans);
   transition: top 0.25s ease, left 0.25s ease;
   animation: cvtour-pop 0.25s ease;
 }
 
-/* ── Segment rows ──────────────────────────────────────────────── */
-.cvtour-seg {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  width: 100%;
-  padding: 8px 9px;
-  background: transparent;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: left;
-  font-family: var(--cl-font-sans);
-}
-.cvtour-seg:hover { background: rgba(27, 38, 59, 0.07); }
-.cvtour-seg.is-current { background: rgba(69, 123, 157, 0.16); }
-
-.cvtour-seg__num {
-  flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: var(--cl-bg-soft, #f1f3f5);
-  color: var(--cl-text-light);
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-.cvtour-seg.is-current .cvtour-seg__num {
-  background: var(--cl-primary);
-  color: white;
-}
-.cvtour-seg.is-done .cvtour-seg__num {
-  background: var(--cl-accent);
-  color: white;
-}
-
-.cvtour-seg__title {
-  flex: 1;
-  min-width: 0;
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: var(--cl-text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.cvtour-seg.is-current .cvtour-seg__title { color: var(--cl-primary); }
-
-.cvtour-seg__badge {
-  flex-shrink: 0;
-  padding: 1px 7px;
-  border-radius: 10px;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  background: #fff4e6;
-  color: #b85c00;
-  border: 1px solid #ffd8a8;
-}
-
 /* ── Step body + controls ──────────────────────────────────────── */
 .cvtour-step { padding: 12px 14px 14px; }
 
-.cvtour-step__meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 4px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--cl-text-light);
-}
-
-.cvtour-step__dots { display: inline-flex; gap: 4px; }
-.cvtour-step__dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--cl-border, #dee2e6);
-}
-.cvtour-step__dot.is-on { background: var(--cl-primary); }
-
 .cvtour-step__title {
   margin: 0 0 6px;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   font-weight: 700;
+  line-height: 1.3;
   color: var(--cl-text);
 }
 
 .cvtour-step__body {
   margin: 0 0 12px;
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   line-height: 1.5;
   color: var(--cl-text);
 }
+.cvtour-step__body.is-pending { color: var(--cl-text-light); font-style: italic; }
 
 .cvtour-step__controls {
   display: flex;
@@ -321,28 +250,24 @@
   justify-content: space-between;
   gap: 10px;
 }
-
-.cvtour-step__progress {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--cl-text-light);
-  white-space: nowrap;
-}
-
-.cvtour-step__btns { display: flex; gap: 8px; }
+.cvtour-step__controls--end { justify-content: flex-end; }
 
 .cvtour-btn {
-  padding: 7px 14px;
+  padding: 8px 16px;
   border-radius: 8px;
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 700;
   cursor: pointer;
   font-family: var(--cl-font-sans);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .cvtour-btn:disabled { opacity: 0.4; cursor: default; }
 
 .cvtour-btn--ghost {
-  background: transparent;
+  background: white;
   border: 1px solid var(--cl-border);
   color: var(--cl-text);
 }
@@ -355,7 +280,89 @@
 }
 .cvtour-btn--primary:hover { opacity: 0.92; }
 
-/* ── Mobile / tablet bottom sheet ──────────────────────────────── */
+.cvtour-btn--video {
+  width: 100%;
+  margin: -2px 0 12px;
+  background: white;
+  border: 1px solid var(--cl-accent);
+  color: var(--cl-accent);
+}
+
+/* ── Topic list ────────────────────────────────────────────────── */
+.cvtour-list {
+  padding: 10px 10px 12px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.cvtour-list__title {
+  margin: 2px 4px 8px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--cl-text);
+}
+
+.cvtour-list__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cvtour-topic {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 8px 8px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--cl-font-sans);
+}
+.cvtour-topic:hover { background: rgba(27, 38, 59, 0.07); }
+.cvtour-topic.is-current { background: rgba(69, 123, 157, 0.16); }
+
+.cvtour-topic__num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cl-bg-soft, #f1f3f5);
+  color: var(--cl-text-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.cvtour-topic.is-current .cvtour-topic__num { background: var(--cl-primary); color: white; }
+.cvtour-topic.is-done .cvtour-topic__num { background: var(--cl-accent); color: white; }
+
+.cvtour-topic__title {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cl-text);
+}
+.cvtour-topic.is-current .cvtour-topic__title { color: var(--cl-primary); }
+
+.cvtour-topic__count {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--cl-text-light);
+  white-space: nowrap;
+}
+
+.cvtour-list__back { margin: 10px 4px 0; }
+
+/* ── Phones and tablets: bottom sheet ──────────────────────────────
+   Holds only the current step (no chip strip), so it stays short and
+   the page above it keeps most of the screen. Minimize shrinks it to
+   a slim bar with the step title and Next. */
 .cvtour-sheet {
   position: fixed;
   left: 0;
@@ -364,15 +371,13 @@
   z-index: 3000;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.62);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.97);
   border-top: 1px solid var(--cl-border);
   border-radius: 14px 14px 0 0;
   box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.24);
   font-family: var(--cl-font-sans);
-  max-height: 46vh;
-  /* Respect iOS home-indicator inset. */
+  max-height: 60vh;
+  /* Respect the iOS home-indicator inset. */
   padding-bottom: env(safe-area-inset-bottom, 0px);
   animation: cvtour-rise 0.25s ease;
 }
@@ -382,58 +387,55 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-.cvtour-sheet__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px;
-  background: rgba(27, 38, 59, 0.90);
-  border-radius: 14px 14px 0 0;
-  flex-shrink: 0;
-}
+.cvtour-head--sheet { border-radius: 14px 14px 0 0; }
 
-/* Chips + step copy need a touch of their own backing on the glassy
-   sheet so text stays readable over busy content behind it. */
-.cvtour-sheet__strip .cvtour-seg {
-  background: rgba(255, 255, 255, 0.65);
-}
-
-.cvtour-sheet__strip {
-  display: flex;
-  gap: 4px;
-  overflow-x: auto;
-  padding: 6px 8px;
-  border-bottom: 1px solid var(--cl-border);
-  flex-shrink: 0;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.cvtour-sheet__strip::-webkit-scrollbar { display: none; }
-
-/* Chips reuse the segment-row styles but compressed for the strip. */
-.cvtour-sheet__strip .cvtour-seg {
-  width: auto;
-  flex-shrink: 0;
-  padding: 5px 9px;
-  border: 1px solid var(--cl-border);
-  border-radius: 999px;
-  gap: 6px;
-}
-.cvtour-sheet__strip .cvtour-seg.is-current {
-  border-color: var(--cl-primary);
-  background: #e9f2fb;
-}
-.cvtour-sheet__strip .cvtour-seg__num {
-  width: 18px;
-  height: 18px;
-  font-size: 0.64rem;
-}
-.cvtour-sheet__strip .cvtour-seg__title {
-  font-size: 0.76rem;
-  max-width: 130px;
-}
-
-.cvtour-sheet__stepwrap {
+.cvtour-sheet__body {
   overflow-y: auto;
   min-height: 0;
+}
+
+.cvtour-sheet .cvtour-step { padding: 10px 14px 12px; }
+.cvtour-sheet .cvtour-step__title { font-size: 0.95rem; margin-bottom: 4px; }
+.cvtour-sheet .cvtour-step__body { font-size: 0.85rem; line-height: 1.45; margin-bottom: 10px; }
+.cvtour-sheet .cvtour-btn { padding: 9px 18px; }
+
+.cvtour-sheet--min {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)) 6px;
+  background: rgba(27, 38, 59, 0.96);
+  border-top: none;
+}
+
+.cvtour-sheet__expand {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 6px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--cl-font-sans);
+}
+
+.cvtour-sheet__mintitle {
+  min-width: 0;
+  font-size: 0.86rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cvtour-sheet--min .cvtour-btn--primary {
+  background: white;
+  color: var(--cl-primary);
+  border-color: white;
+  flex-shrink: 0;
 }

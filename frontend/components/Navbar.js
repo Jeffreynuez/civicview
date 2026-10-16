@@ -962,6 +962,7 @@ export default function Navbar({
             {!isCompact && !hidePollsLink && (
               <a
                 href="/polls"
+                data-tutorial="nav-polls"
                 title="Browse every active poll across the app"
                 style={{
                   display: 'flex', alignItems: 'center', gap: '6px',

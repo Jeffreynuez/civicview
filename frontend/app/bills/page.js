@@ -462,7 +462,7 @@ function VoteExplainer({ vote }) {
   const showAI = !!(body && body.has_ai);
 
   return (
-    <div className="cv-explain">
+    <div className="cv-explain" data-tutorial="bills-explainer">
       <button type="button" className="cv-explain__toggle" aria-expanded={open} onClick={toggle}>
         <span aria-hidden="true" className="cv-explain__chev">{open ? '▴' : '▾'}</span>
         {open ? 'Hide explanation' : 'What did this vote mean?'}
@@ -875,7 +875,7 @@ export default function BillsPage() {
       </div>
 
       <div className="cv-body">
-        <div className="cv-controls">
+        <div className="cv-controls" data-tutorial="bills-controls">
           <div className="cv-controls__l">
             <ChamberToggle value={chamber} onChange={onChamber} />
           </div>
@@ -914,7 +914,7 @@ export default function BillsPage() {
           <>
             <VoteHeader vote={vote} />
 
-            <section className="cv-card cv-chartcard">
+            <section className="cv-card cv-chartcard" data-tutorial="bills-chart">
               <div className="cv-chartcard__head">
                 <div>
                   <p className="cl-eyebrow">{chamber + ' roll-call'}</p>

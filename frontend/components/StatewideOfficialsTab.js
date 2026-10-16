@@ -235,7 +235,7 @@ export default function StatewideOfficialsTab({
 
       {/* State Senate — leadership + senators as nested collapsibles */}
       {(senLeadership.length > 0 || senMembers.length > 0) && (
-        <Collapsible title="State Senate" count={senLeadership.length + senMembers.length}>
+        <Collapsible title="State Senate" count={senLeadership.length + senMembers.length} tourAnchor="state-legislature">
           {senLeadership.length > 0 && (
             <NestedCollapsible title="Leadership" count={senLeadership.length} defaultOpen>
               {senLeadership.map((m) => (
@@ -278,7 +278,7 @@ export default function StatewideOfficialsTab({
 
       {/* State House */}
       {(houseLeadership.length > 0 || houseMembers.length > 0) && (
-        <Collapsible title="State House" count={houseLeadership.length + houseMembers.length}>
+        <Collapsible title="State House" count={houseLeadership.length + houseMembers.length} tourAnchor="state-legislature">
           {houseLeadership.length > 0 && (
             <NestedCollapsible title="Leadership" count={houseLeadership.length} defaultOpen>
               {houseLeadership.map((m) => (
@@ -320,7 +320,7 @@ export default function StatewideOfficialsTab({
 
       {/* Judiciary — Supreme Court */}
       {scMembers.length > 0 && (
-        <Collapsible title="Supreme Court" count={scMembers.length}>
+        <Collapsible title="Supreme Court" count={scMembers.length} tourAnchor="state-courts">
           <div style={{
             fontSize: '0.74rem', color: 'var(--cl-text-light)', padding: '2px 8px 8px',
             lineHeight: 1.4,
@@ -436,10 +436,10 @@ export default function StatewideOfficialsTab({
 }
 
 // ─── Collapsible primitives ──────────────────────────────────────────
-function Collapsible({ title, count, children, defaultOpen = false }) {
+function Collapsible({ title, count, children, defaultOpen = false, tourAnchor }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div style={{ marginBottom: '10px', border: '1px solid var(--cl-border)', borderRadius: '10px', background: 'white', overflow: 'hidden' }}>
+    <div data-tutorial={tourAnchor} style={{ marginBottom: '10px', border: '1px solid var(--cl-border)', borderRadius: '10px', background: 'white', overflow: 'hidden' }}>
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}

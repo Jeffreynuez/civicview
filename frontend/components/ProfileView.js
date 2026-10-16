@@ -1033,12 +1033,15 @@ export default function ProfileView({
           inline `scrollbarWidth`/`msOverflowStyle` (Firefox / IE) and
           a `cl-no-scrollbar` class for WebKit (defined in globals.css
           if needed; falls back to a thin scrollbar otherwise). */}
-      <TabStrip
-        isMobile={isMobile}
-        tabs={tabs}
-        activeId={activeTab}
-        onSelect={setActiveTab}
-      />
+      {/* Wrapped for the app tour's spotlight (data-tutorial anchor). */}
+      <div data-tutorial="profile-tabs" style={{ flexShrink: 0 }}>
+        <TabStrip
+          isMobile={isMobile}
+          tabs={tabs}
+          activeId={activeTab}
+          onSelect={setActiveTab}
+        />
+      </div>
 
       {/* Tab panel — wrapped in relative container by the tab strip
           above so fade indicators don't bleed into here. */}

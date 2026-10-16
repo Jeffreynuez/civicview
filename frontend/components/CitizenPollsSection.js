@@ -223,13 +223,16 @@ export default function CitizenPollsSection({
 
   return (
     <div style={sectionStyle}>
-      <SectionBanner
-        ownerName={ownerName}
-        pageClaimed={pageClaimed}
-        archivedCount={archived.length}
-        isOwner={isOwner}
-        onDismissArchive={handleDismissArchive}
-      />
+      {/* Wrapped for the app tour's spotlight (data-tutorial anchor). */}
+      <div data-tutorial="page-citizen-polls">
+        <SectionBanner
+          ownerName={ownerName}
+          pageClaimed={pageClaimed}
+          archivedCount={archived.length}
+          isOwner={isOwner}
+          onDismissArchive={handleDismissArchive}
+        />
+      </div>
 
       {showScopeFilter && (
         <ScopeChipRow

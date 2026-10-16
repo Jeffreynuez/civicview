@@ -43,6 +43,7 @@ export default function CompareButton({
   return (
     <button
       type="button"
+      data-tutorial="compare-button"
       onClick={handleClick}
       title={title}
       aria-label={title}
