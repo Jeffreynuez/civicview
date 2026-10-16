@@ -912,6 +912,7 @@ def delete_account(
     Hard delete archives the citizen's ID.me verification (preserving
     the cost-skip on a future re-signup) before dropping the row."""
     from app.services.account_deletion import (
+        SubscriptionCancelError,
         hard_delete_account,
         soft_delete_account,
         verify_email_confirmation,
@@ -930,7 +931,16 @@ def delete_account(
             detail="Enter your current password to delete this account.",
         )
     if payload.mode == "hard":
-        hard_delete_account(db, "citizen", citizen)
+        try:
+            hard_delete_account(db, "citizen", citizen)
+        except SubscriptionCancelError as e:
+            # Deleting now would leave the subscription charging with no
+            # account to cancel it from. Nothing was deleted.
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="We couldn't cancel your subscription with our payment provider, "
+                       "so your account was not deleted. Please try again in a few minutes.",
+            ) from e
         clear_citizen_cookie(response)
         return DeleteAccountResponse(mode="hard", purge_after=None)
     purge_at = soft_delete_account(db, "citizen", citizen)

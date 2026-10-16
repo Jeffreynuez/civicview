@@ -341,6 +341,43 @@ def close_page_account(db: Session, kind: AccountKind, account: AccountRow) -> d
     return removed
 
 
+# ── Stripe (citizens) ────────────────────────────────────────────────
+class SubscriptionCancelError(RuntimeError):
+    """Stripe couldn't cancel the citizen's subscription, so the account
+    was not deleted: deleting it would lose the only link to a
+    subscription that keeps charging. The caller retries later."""
+
+
+def cancel_citizen_subscriptions(account: CitizenAccount) -> list:
+    """Cancel, immediately, any Stripe subscription of a citizen whose
+    account is being deleted (2026-10-16). No call at all when the row
+    has no Stripe ids (every demo account) or Stripe isn't configured.
+    Logs ids only. Raises SubscriptionCancelError when Stripe fails."""
+    customer_id = getattr(account, "stripe_customer_id", None)
+    subscription_id = getattr(account, "stripe_subscription_id", None)
+    if not (customer_id or subscription_id):
+        return []
+    from app.services.stripe_service import StripeBillingError, get_billing_service
+
+    billing = get_billing_service()
+    if not billing.is_configured():
+        logger.warning(
+            "Deleting citizen id=%s: Stripe isn't configured, so its Stripe ids "
+            "(customer=%s subscription=%s) could not be checked or canceled",
+            account.id, customer_id, subscription_id,
+        )
+        return []
+    try:
+        canceled = billing.cancel_subscriptions(
+            stripe_customer_id=customer_id, stripe_subscription_id=subscription_id,
+        )
+    except StripeBillingError as e:
+        raise SubscriptionCancelError(f"citizen id={account.id}") from e
+    logger.info("Deleting citizen id=%s: canceled Stripe subscriptions %s",
+                account.id, canceled or "none active")
+    return canceled
+
+
 # ── Hard delete (immediate) ──────────────────────────────────────────
 def hard_delete_account(
     db: Session,
@@ -353,11 +390,15 @@ def hard_delete_account(
     polls, comments, etc.).
 
     Rep and candidate accounts are closed instead (close_page_account):
-    what they published stays on their page."""
+    what they published stays on their page.
+
+    A citizen's Stripe subscription is canceled first; if Stripe can't
+    do it, SubscriptionCancelError is raised and nothing is deleted."""
     if kind in ("rep", "candidate"):
         close_page_account(db, kind, account)
         return
     if kind == "citizen" and isinstance(account, CitizenAccount):
+        cancel_citizen_subscriptions(account)
         _archive_citizen_verification(db, account)
     account_id = account.id
     removed = delete_account_keyed_rows(db, kind, account_id, getattr(account, "email", None))
@@ -460,7 +501,15 @@ def purge_expired_accounts(db: Optional[Session] = None) -> dict:
                 # Same archive-then-delete path the hard delete uses
                 # so a soft-deleted citizen's verification still
                 # survives the eventual purge.
-                hard_delete_account(db, kind, acct)
+                try:
+                    hard_delete_account(db, kind, acct)
+                except SubscriptionCancelError:
+                    # Stripe is down or refused: keep this account until
+                    # its subscription is canceled; the next pass retries.
+                    # The other expired accounts still go.
+                    logger.error("Account purge: kept %s id=%s until its Stripe "
+                                 "subscription can be canceled", kind, acct.id)
+                    continue
                 counts[kind] += 1
         if any(counts.values()):
             logger.info(

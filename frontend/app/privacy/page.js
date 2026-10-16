@@ -28,8 +28,6 @@
  * the code gaps found in the audit are fixed separately, after which
  * these sections get simpler:
  *  - notices to trackers about former pages have no email opt-out
- *  - account deletion does not yet cancel a Stripe subscription (Stripe
- *    is not live, so this page only says subscriptions aren't available)
  *  - there is no in-app banner for policy changes (changes are announced
  *    by email and a notice on the site, which this page promises)
  * Keep this page true: when the code changes what is collected, shown,
@@ -202,7 +200,9 @@ export default function PrivacyPage() {
         Paid subscriptions aren&apos;t available yet. When they launch,
         Stripe will handle payment on its own pages. We&apos;ll keep your
         Stripe customer and subscription IDs, your subscription status
-        and renewal date, never your card number.
+        and renewal date, never your card number. When your account is
+        deleted, we cancel any subscription on it right away, so you
+        aren&apos;t charged again.
       </p>
 
       <h2 id="cookies">Cookies and storage on your device</h2>
