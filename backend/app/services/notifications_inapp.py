@@ -213,6 +213,8 @@ def emit_tracked_content_notifications(
         for (tid,) in trackers
     ]
     db.add_all(rows)
+    db.flush()  # assigns ids; read them now, before commit expires the rows
+    notification_ids = {n.recipient_id: n.id for n in rows}
     db.commit()
     logger.info(
         "tracked_post fan-out: official=%s post=%s -> %d citizens",
@@ -224,6 +226,16 @@ def emit_tracked_content_notifications(
     # disturb the bell notifications above.
     from app.services.push_service import push_tracked_post
 
+    # No push for a post the moderation screen flagged, or one already
+    # hidden or deleted (2026-10-16). The bell rows above stay: the
+    # post is still on the page, and the screen hides nothing yet.
+    held_back = push_held_back(db, post_id)
+    if held_back:
+        logger.info("tracked_post push held back: post=%s %s", post_id, held_back)
+        return len(rows)
+
+    # Each tracker's own bell row id rides on their push, so tapping
+    # it marks that row read (2026-10-16).
     push_tracked_post(
         db,
         [tid for (tid,) in trackers],
@@ -232,8 +244,42 @@ def emit_tracked_content_notifications(
         post_id=post_id,
         preview=_truncate(preview, 120),
         has_poll=has_poll,
+        notification_ids=notification_ids,
     )
     return len(rows)
+
+
+_FLAGGED = ("flag", "auto_hide")
+
+
+def push_held_back(db: Session, post_id: int) -> Optional[str]:
+    """Why a post must not be pushed, or None. Reads the moderation
+    verdicts recorded for the post and its poll (moderation runs before
+    the fan-out, routers/pages.create_post); a post with no verdict, or
+    only a 'skipped' one (AI unavailable), is pushed."""
+    from app.models.pages import ContentModerationVerdict, Poll, Post
+
+    post = db.get(Post, post_id)
+    if post is None or post.deleted_at is not None:
+        return "deleted"
+    if post.hide_reason:
+        return "hidden"
+    targets = [("post", post_id)]
+    poll_id = db.query(Poll.id).filter(Poll.post_id == post_id).scalar()
+    if poll_id:
+        targets.append(("poll", poll_id))
+    for content_type, content_id in targets:
+        decision = (
+            db.query(ContentModerationVerdict.decision)
+            .filter(ContentModerationVerdict.content_type == content_type,
+                    ContentModerationVerdict.content_id == content_id)
+            .order_by(ContentModerationVerdict.id.desc())
+            .limit(1)
+            .scalar()
+        )
+        if decision in _FLAGGED:
+            return f"moderation {decision} ({content_type})"
+    return None
 
 
 def emit_tracked_event_notifications(
@@ -302,6 +348,8 @@ def emit_tracked_event_notifications(
         for tid in opted
     ]
     db.add_all(notif_rows)
+    db.flush()
+    notification_ids = {n.recipient_id: n.id for n in notif_rows}
     db.commit()
     logger.info(
         "tracked_event fan-out: official=%s event=%s -> %d of %d tracker(s)",
@@ -317,6 +365,7 @@ def emit_tracked_event_notifications(
         title=_truncate(title, 120),
         start_at=start_at,
         location=location,
+        notification_ids=notification_ids,
     )
     return len(notif_rows)
 
@@ -431,6 +480,7 @@ def unread_count_for(
 def mark_read(
     db: Session, *, recipient_kind: str, recipient_id: int,
     notification_id: Optional[int] = None, all_for_user: bool = False,
+    only_ids: Optional[list] = None,
 ) -> int:
     """Mark a single notification (notification_id) or every unread
     notification for this user (all_for_user=True) as read. Returns
@@ -450,6 +500,11 @@ def mark_read(
         if notification_id is None:
             return 0
         q = q.filter(Notification.id == notification_id)
+    elif only_ids is not None:
+        # Only the rows the bell showed (2026-10-16).
+        if not only_ids:
+            return 0
+        q = q.filter(Notification.id.in_(list(only_ids)))
     now = datetime.utcnow()
     updated = q.update({Notification.read_at: now}, synchronize_session=False)
     db.commit()
@@ -458,6 +513,7 @@ def mark_read(
 
 def clear_all(
     db: Session, *, recipient_kind: str, recipient_id: int,
+    only_ids: Optional[list] = None,
 ) -> int:
     """Soft-clear every visible notification for this user: stamp
     cleared_at (and read_at where still unread — a cleared row is by
@@ -469,6 +525,11 @@ def clear_all(
         Notification.recipient_id == recipient_id,
         Notification.cleared_at.is_(None),
     )
+    if only_ids is not None:
+        # Only the rows the bell showed (2026-10-16).
+        if not only_ids:
+            return 0
+        base = base.filter(Notification.id.in_(list(only_ids)))
     cleared = base.filter(Notification.read_at.is_(None)).update(
         {Notification.read_at: now, Notification.cleared_at: now},
         synchronize_session=False,

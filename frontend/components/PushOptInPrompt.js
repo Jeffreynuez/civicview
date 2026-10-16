@@ -16,18 +16,38 @@
 // push, so devices never registered at all. Root mount = the card can
 // appear wherever the track action happens.
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useCitizenAuth } from '@/lib/citizenAuth';
-import { shouldOfferPush, enablePush, setPushChoice, refreshPushRegistration } from '@/lib/push';
+import {
+  shouldOfferPush, enablePush, setPushChoice, refreshPushRegistration,
+  bindPushToAccount, unbindPushDevice,
+} from '@/lib/push';
 
 export default function PushOptInPrompt() {
-  const { citizen } = useCitizenAuth();
+  const { citizen, isLoaded: citizenLoaded } = useCitizenAuth();
   const [visible, setVisible] = useState(false);
   const [busy, setBusy] = useState(false);
 
   // Refresh an existing registration on every app launch (token
   // rotation + citizen re-binding). Cheap no-op on the web.
   useEffect(() => { refreshPushRegistration(); }, []);
+
+  // Sign-in binds this phone to the citizen at once; sign-out (any
+  // path: the menu, sign out everywhere, an expired session) unbinds
+  // it, so a shared phone never keeps the last account's alerts
+  // (2026-10-16). Mounted at the root, so this sees every transition.
+  // The first value is the launch state, which the refresh above
+  // already registered.
+  const lastCitizenId = useRef(undefined);
+  useEffect(() => {
+    if (!citizenLoaded) return;
+    const id = citizen?.id || null;
+    const prev = lastCitizenId.current;
+    lastCitizenId.current = id;
+    if (prev === undefined || prev === id) return;
+    if (id) bindPushToAccount(id);
+    else unbindPushDevice();
+  }, [citizen?.id, citizenLoaded]);
 
   // Offer only when: native shell + plugin present + no prior choice +
   // a citizen is signed in (the agreed contextual trigger).

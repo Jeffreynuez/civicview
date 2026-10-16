@@ -18,9 +18,13 @@ but the limiter still blunts credential-less spray):
   • ENGAGE — comments, reactions, votes, reports:
       30 hits / 60s. A human power-user clicking through a feed stays
       far under this; a script hammering reactions trips it instantly.
-  • CREATE — poll + post creation:
+  • CREATE: poll, post and event creation (events since 2026-10-16:
+      each one fans out alerts and pushes):
       10 hits / 10 min. Nobody legitimately creates more than a poll
       a minute, sustained.
+  • PUSH: /api/push/register, /unbind, /unregister (2026-10-16):
+      60 hits / 10 min per account or IP. The app registers at launch,
+      at sign-in and a little after each track or untrack.
 
 A third bucket, AI, covers the routes that spend the daily AI budget
 (40 hits / 10 min, any method, anonymous callers keyed by IP). See
@@ -55,8 +59,10 @@ _ENGAGE_RE = re.compile(
 # Content creation — standalone + page-bound citizen polls, rep posts,
 # rep polls.
 _CREATE_RE = re.compile(
-    r"^/api/(citizen-polls|pages/[^/]+/(citizen-polls|posts|polls))$"
+    r"^/api/(citizen-polls|pages/[^/]+/(citizen-polls|posts|polls|events))$"
 )
+
+_PUSH_RE = re.compile(r"^/api/push/(register|unbind|unregister)$")
 
 # Routes that spend the shared daily AI budget. Unlike the engagement
 # routes these are open to anonymous callers, so the bucket is the
@@ -87,6 +93,7 @@ CREATE_LIMIT, CREATE_WINDOW = 10, 600.0
 AI_LIMIT, AI_WINDOW = 40, 600.0
 RESET_LIMIT, RESET_WINDOW = 5, 3600.0
 WAITLIST_LIMIT, WAITLIST_WINDOW = 5, 3600.0
+PUSH_LIMIT, PUSH_WINDOW = 60, 600.0
 
 
 def _caller_key(request: Request) -> str:
@@ -132,6 +139,8 @@ class EngagementRateLimitMiddleware(BaseHTTPMiddleware):
             scope, limit, window = "waitlist", WAITLIST_LIMIT, WAITLIST_WINDOW
         elif _CREATE_RE.match(path):
             scope, limit, window = "create", CREATE_LIMIT, CREATE_WINDOW
+        elif _PUSH_RE.match(path):
+            scope, limit, window = "push", PUSH_LIMIT, PUSH_WINDOW
         elif _ENGAGE_RE.match(path):
             scope, limit, window = "engage", ENGAGE_LIMIT, ENGAGE_WINDOW
         if scope is None:

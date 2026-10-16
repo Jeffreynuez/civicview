@@ -746,15 +746,17 @@ export async function markNotificationRead(notificationId) {
   return request(`/api/notifications/${notificationId}/read`, { method: 'POST' });
 }
 
-export async function markAllNotificationsRead() {
-  return request('/api/notifications/read-all', { method: 'POST' });
+// ids (2026-10-16): the rows the bell is showing, so "Mark as read" and
+// "Clear" never touch rows it does not show.
+export async function markAllNotificationsRead(ids) {
+  return request('/api/notifications/read-all', { method: 'POST', body: ids ? { ids } : undefined });
 }
 
 // Bell v3 "Clear" (2026-07-26): soft-clear — rows get cleared_at
 // server-side and disappear from the bell, but survive for the
 // dashboard notification archive below.
-export async function clearAllNotifications() {
-  return request('/api/notifications/clear-all', { method: 'POST' });
+export async function clearAllNotifications(ids) {
+  return request('/api/notifications/clear-all', { method: 'POST', body: ids ? { ids } : undefined });
 }
 
 // ── Activity archive (2026-07-26) ─────────────────────────────────────

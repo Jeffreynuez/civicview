@@ -19,6 +19,15 @@
  *
  * The UI walks `options` to render checkboxes and `sliders` to render
  * radios / segmented controls. Storage is keyed identically (`prefs[key]`).
+ *
+ * `enforced: true` (2026-10-16): the switch really does something today.
+ * My Tracked shows only those (enforcedOptions below); the rest stay in
+ * the schema, with their stored values, until work order 10 replaces
+ * them with a short per-type list. Enforced today:
+ *   on_event (representatives and candidates): the event alert
+ *     (services/notifications_inapp.emit_tracked_event_notifications);
+ *   the four election reminder switches, read by
+ *     services/election_reminders.py for a tracked election.
  */
 
 export const PREF_TYPES = {
@@ -61,6 +70,7 @@ export const PREF_SCHEMA = {
         label: 'Public event scheduled',
         description: 'Town halls, fundraisers, appearances near you.',
         default: false,
+        enforced: true,
       },
       {
         key: 'on_upcoming_election',
@@ -92,6 +102,7 @@ export const PREF_SCHEMA = {
         label: 'Campaign event',
         description: 'Rallies, debates, town halls, fundraisers.',
         default: false,
+        enforced: true,
       },
       {
         key: 'on_debate',
@@ -197,29 +208,34 @@ export const PREF_SCHEMA = {
   election: {
     label: 'Election',
     options: [
+      // Descriptions say what election_reminders.py sends (2026-10-16).
       {
         key: 'on_election_day',
         label: 'On election day',
-        description: 'Morning-of reminder to vote.',
+        description: 'A reminder the day before Election Day.',
         default: true,
+        enforced: true,
       },
       {
         key: 'on_registration_deadline',
         label: 'Voter registration deadline',
-        description: 'Alert a few days before registration closes.',
+        description: '3 days before and the day before registration closes.',
         default: true,
+        enforced: true,
       },
       {
         key: 'on_early_voting',
         label: 'Early voting window opens',
-        description: 'Alert when early / absentee voting begins.',
+        description: 'The day before early voting starts, where the state sets one date.',
         default: true,
+        enforced: true,
       },
       {
         key: 'on_mail_ballot_deadline',
         label: 'Mail-ballot deadlines',
-        description: 'Request + return deadlines for vote-by-mail.',
+        description: '3 days before the deadline to request a mail ballot.',
         default: true,
+        enforced: true,
       },
       {
         key: 'on_candidate_join',
@@ -258,6 +274,17 @@ export const PREF_SCHEMA = {
   },
 };
 
+/** The switches that really do something today (see `enforced` above). */
+export function enforcedOptions(type) {
+  const schema = PREF_SCHEMA[type];
+  return schema ? schema.options.filter((o) => o.enforced) : [];
+}
+
+/** True when a tracked item of this type has any switch worth showing. */
+export function hasEnforcedPrefs(type) {
+  return enforcedOptions(type).length > 0;
+}
+
 /**
  * Build a fresh prefs object for a given type using the declared defaults.
  * Safe to call when first tracking a new subject.
@@ -289,12 +316,16 @@ export function mergePrefs(type, stored) {
 export const CHANNEL_SCHEMA = {
   label: 'Delivery',
   options: [
+    // 'In-app toasts' (key in_app) was listed here until 2026-10-16, but
+    // nothing read it: there are no toasts. Hidden until there are; the
+    // key stays in stored prefs, unused.
     {
       key: 'in_app',
       label: 'In-app toasts',
       description: 'Show a banner inside CivicView while you\u2019re using it.',
       default: true,
       available: true,
+      hidden: true,
     },
     {
       key: 'desktop_push',
@@ -328,16 +359,21 @@ export const CHANNEL_SCHEMA = {
     {
       key: 'quiet_hours',
       label: 'Quiet hours',
-      description: 'Pause non-urgent alerts during these hours (local time).',
+      description: 'No push alerts during these hours, in your local time. Updates from officials you track arrive in one summary when they end.',
       choices: ['off', 'nights', 'nights_weekends', 'work_hours_only'],
       default: 'nights',
     },
+    // Push timing (2026-10-16). Was 'digest_cadence', default 'daily',
+    // which let one push a day through and silently dropped the rest.
+    // Now every update is pushed or summarized, never dropped; the
+    // server sends the summaries (services/push_summaries.py).
     {
-      key: 'digest_cadence',
-      label: 'Digest cadence',
-      description: 'How often to batch non-urgent alerts into a summary.',
+      key: 'push_cadence',
+      label: 'Push alerts',
+      description: 'Daily summary: one push at 6 p.m. Weekly summary: one push Saturday at 10 a.m. Your local time. Election reminders always come on their own.',
       choices: ['realtime', 'daily', 'weekly'],
-      default: 'daily',
+      choiceLabels: { realtime: 'As they happen', daily: 'Daily summary', weekly: 'Weekly summary' },
+      default: 'realtime',
     },
   ],
 };
@@ -349,8 +385,21 @@ export function defaultChannelPrefs() {
   return out;
 }
 
+/**
+ * The old 'digest_cadence' key, as saved in this browser or on the
+ * account before 2026-10-16: 'weekly' carries over, anything else
+ * ('daily' was the silent default nobody chose) becomes 'realtime'.
+ * The server's one-time migration does the same.
+ */
+export function migrateLegacyChannelPrefs(stored) {
+  if (!stored || typeof stored !== 'object' || !('digest_cadence' in stored)) return stored;
+  const { digest_cadence: legacy, ...rest } = stored;
+  if (!('push_cadence' in rest)) rest.push_cadence = legacy === 'weekly' ? 'weekly' : 'realtime';
+  return rest;
+}
+
 export function mergeChannelPrefs(stored) {
   const base = defaultChannelPrefs();
   if (!stored || typeof stored !== 'object') return base;
-  return { ...base, ...stored };
+  return { ...base, ...migrateLegacyChannelPrefs(stored) };
 }

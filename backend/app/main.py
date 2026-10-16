@@ -312,6 +312,57 @@ async def lifespan(app: FastAPI):
             logger.info("Election reminders disabled (set %s=true to send; the admin preview works either way).",
                         _er.ENV_FLAG)
 
+    # ── Former officials and candidates (2026-10-15, own loop 2026-10-16)
+    # The daily pass that sends the notices dates call for and ends
+    # tracking at the archive. It used to run inside the retention jobs,
+    # synchronously at boot. Now: FIRST_PASS_DELAY_SECONDS after boot,
+    # then once a day, and after RETRY_SECONDS when a pass left work (its
+    # per-pass limit, or a failure). A database lock keeps two instances
+    # from running it together; each notice is claimed per recipient.
+    lifecycle_task = None
+    if db_ready:
+        import asyncio as _lifecycle_asyncio
+        from app.services import page_lifecycle_job as _plj
+
+        async def _lifecycle_loop():
+            await _lifecycle_asyncio.sleep(_plj.FIRST_PASS_DELAY_SECONDS)
+            while True:
+                try:
+                    result = await _lifecycle_asyncio.to_thread(_plj.run_pass_with_session)
+                except Exception:
+                    logger.exception("Former pages pass raised; retrying soon.")
+                    result = {"work_left": True}
+                wait = _plj.RETRY_SECONDS if (result or {}).get("work_left") else _plj.INTERVAL_SECONDS
+                await _lifecycle_asyncio.sleep(wait)
+
+        lifecycle_task = _lifecycle_asyncio.get_event_loop().create_task(_lifecycle_loop())
+
+    # ── Summary pushes (2026-10-16) ──────────────────────────────────
+    # Every LOOP_INTERVAL_SECONDS: one summary push per device whose
+    # "Push alerts" setting is a daily or weekly summary, at its local
+    # time, and one when quiet hours end for updates they held. The
+    # first pass also runs the one-time digest_cadence -> push_cadence
+    # migration. Off the boot path; a database lock and a per-device
+    # claim keep an old and a new instance from both sending. See
+    # app/services/push_summaries.py.
+    summaries_task = None
+    if db_ready:
+        import asyncio as _summaries_asyncio
+        from app.services import push_summaries as _ps
+
+        async def _summaries_loop():
+            await _summaries_asyncio.sleep(_ps.FIRST_PASS_DELAY_SECONDS)
+            first = True
+            while True:
+                try:
+                    await _summaries_asyncio.to_thread(_ps.run_pass_with_session, first)
+                    first = False
+                except Exception:
+                    logger.exception("Summary push loop failed; retrying next interval.")
+                await _summaries_asyncio.sleep(_ps.LOOP_INTERVAL_SECONDS)
+
+        summaries_task = _summaries_asyncio.get_event_loop().create_task(_summaries_loop())
+
     # ── Official roll calls (2026-10-16) ─────────────────────────────
     # Keeps the stored House and Senate roll calls current and fills ten
     # years of history, from clerk.house.gov, senate.gov and Congress.gov
@@ -361,6 +412,10 @@ async def lifespan(app: FastAPI):
         digest_task.cancel()
     if reminders_task is not None:
         reminders_task.cancel()
+    if summaries_task is not None:
+        summaries_task.cancel()
+    if lifecycle_task is not None:
+        lifecycle_task.cancel()
     logger.info("CivicView API shutting down...")
 
 
@@ -569,6 +624,10 @@ app.include_router(photo_credits_router.router, prefix="/api/photo-credits", tag
 # works but sends log to stdout (DevPushService).
 from app.routers import push as push_router  # noqa: E402
 app.include_router(push_router.router, prefix="/api/push", tags=["Push"])
+app.include_router(push_router.admin_router, prefix="/api/admin/push", tags=["Admin"])
+# Email settings and one-click unsubscribe (2026-10-16).
+from app.routers import email_prefs as email_prefs_router  # noqa: E402
+app.include_router(email_prefs_router.router, prefix="/api/email", tags=["Email"])
 app.include_router(poll_demographics_router.router, prefix="/api/polls", tags=["Polls — Demographics"])
 
 # Native-app metadata — the force-update gate's version thresholds

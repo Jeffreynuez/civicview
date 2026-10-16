@@ -12,7 +12,8 @@
     "prebuild": "node scripts/copy-maplibre.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint app components lib scripts"
+    "lint": "eslint app components lib scripts",
+    "test:notifications": "node scripts/test-notifications.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.1",

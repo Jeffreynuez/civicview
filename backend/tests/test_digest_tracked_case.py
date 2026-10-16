@@ -11,7 +11,9 @@ followed either one got no digest about them.
 
   1. A post on a mixed-case state page ("vt-sen-Essex") is in the digest.
   2. A post on a member of Congress's page (uppercase bioguide) is in it.
-  3. A poll targeting a mixed-case page is listed with the new polls.
+  3. A poll on a post on a mixed-case page is listed with the new polls;
+     a citizen poll that only targets the page is not (since 2026-10-16
+     the digest lists what the officials did, not citizen polls).
   4. An upcoming event on a mixed-case page is listed.
   5. A post on a page the citizen does not follow stays out.
 """
@@ -59,6 +61,10 @@ def main() -> int:
         db.add(Post(official_id="vt-sen-Orange", body="Not followed", created_at=now))
         db.add(Poll(question="Should the bridge be rebuilt?", target_official_id="vt-sen-Essex",
                     author_kind="citizen", created_at=now))
+        survey = Post(official_id="vt-sen-Essex", body="Quick survey", created_at=now)
+        db.add(survey)
+        db.flush()
+        db.add(Poll(question="Which road first?", post_id=survey.id, created_at=now))
         db.add(RepEvent(official_id="vt-sen-Essex", title="Office hours",
                         start_at=(now + timedelta(days=3)).isoformat()))
         db.commit()
@@ -69,7 +75,8 @@ def main() -> int:
     check("1: post on vt-sen-Essex is in the digest", "Town meeting recap" in previews, str(previews))
     check("2: post on bioguide S001217 is in the digest", "Weekly update from Washington" in previews, str(previews))
     polls = [p.get("question") for p in digest.get("new_polls", [])]
-    check("3: poll targeting vt-sen-Essex is listed", "Should the bridge be rebuilt?" in polls, str(digest.get("new_polls")))
+    check("3: the official's poll on vt-sen-Essex is listed", "Which road first?" in polls, str(digest.get("new_polls")))
+    check("3: a citizen poll targeting it is not", "Should the bridge be rebuilt?" not in polls, str(polls))
     events = [e.get("title") for e in digest.get("events", [])]
     check("4: event on vt-sen-Essex is listed", "Office hours" in events, str(digest.get("events")))
     check("5: post on an unfollowed page stays out", "Not followed" not in previews, str(previews))

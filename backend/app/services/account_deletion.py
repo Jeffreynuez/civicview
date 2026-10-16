@@ -199,6 +199,10 @@ def _keyed_rows(kind: AccountKind, account_id: int, email: Optional[str]):
     for model in (TrackedBill, TrackedOfficial, TrackedElection, FeaturedTracked, SavedItem):
         specs.append((model, [model.tracker_kind == kind, model.tracker_id == account_id]))
     specs.append((Notification, [Notification.recipient_kind == kind, Notification.recipient_id == account_id]))
+    # Records of the former-pages notices sent to the account (2026-10-16).
+    from app.models.pages import PageNoticeDelivery
+    specs.append((PageNoticeDelivery, [PageNoticeDelivery.recipient_kind == kind,
+                                       PageNoticeDelivery.recipient_id == account_id]))
     specs.append((PasswordResetToken, [
         PasswordResetToken.identity_kind == kind, PasswordResetToken.account_id == account_id,
     ]))
@@ -230,12 +234,24 @@ def _keyed_rows(kind: AccountKind, account_id: int, email: Optional[str]):
         # Push devices are bound to citizens only. Dropping the row is
         # what stops pushes to a deleted user's phone; the app registers
         # the device again, anonymously, the next time it opens.
+        # Updates held for its summary push go first (2026-10-16).
+        from app.models.pages import PushHeldItem
+        specs.append((PushHeldItem, [PushHeldItem.device_token_id.in_(
+            db_select_device_ids(account_id))]))
         specs.append((DeviceToken, [DeviceToken.citizen_id == account_id]))
         # Election reminders already delivered (2026-10-16).
         from app.models.pages import ElectionReminderDelivery, ElectionReminderStop
         specs.append((ElectionReminderDelivery, [ElectionReminderDelivery.citizen_id == account_id]))
         specs.append((ElectionReminderStop, [ElectionReminderStop.citizen_id == account_id]))
     return specs
+
+
+def db_select_device_ids(citizen_id: int):
+    """The ids of a citizen's push devices, as a subquery."""
+    from sqlalchemy import select
+
+    from app.models.pages import DeviceToken
+    return select(DeviceToken.id).where(DeviceToken.citizen_id == citizen_id)
 
 
 def delete_account_keyed_rows(
@@ -426,8 +442,10 @@ def purge_orphaned_account_rows(db: Optional[Session] = None) -> dict:
         accounts = {"citizen": CitizenAccount, "rep": RepAccount, "candidate": CandidateAccount}
         pairs = [(m, m.tracker_kind, m.tracker_id) for m in
                  (TrackedBill, TrackedOfficial, TrackedElection, FeaturedTracked, SavedItem)]
+        from app.models.pages import PageNoticeDelivery
         pairs += [
             (Notification, Notification.recipient_kind, Notification.recipient_id),
+            (PageNoticeDelivery, PageNoticeDelivery.recipient_kind, PageNoticeDelivery.recipient_id),
             (PasswordResetToken, PasswordResetToken.identity_kind, PasswordResetToken.account_id),
             (LoginAttempt, LoginAttempt.identity_kind, LoginAttempt.identity_id),
         ]
@@ -447,6 +465,14 @@ def purge_orphaned_account_rows(db: Optional[Session] = None) -> dict:
         )
         if n:
             totals["device_tokens:citizen"] = n
+        from app.models.pages import PushHeldItem
+        n = (
+            db.query(PushHeldItem)
+            .filter(~PushHeldItem.device_token_id.in_(db.query(DeviceToken.id)))
+            .delete(synchronize_session=False)
+        )
+        if n:
+            totals["push_held_items:device"] = n
         from app.models.pages import ElectionReminderDelivery, ElectionReminderStop
         for model in (ElectionReminderDelivery, ElectionReminderStop):
             n = (

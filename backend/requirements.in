@@ -90,8 +90,12 @@ defusedxml>=0.7.1
 # manages topic subscriptions. Lazy-imported inside
 # services/push_service.FCMPushService so environments without
 # FIREBASE_SERVICE_ACCOUNT_JSON never import it — they fall back to
-# DevPushService (logs only). Floor 6.5 = stable send_each_for_multicast.
-firebase-admin>=6.5,<8
+# DevPushService (logs only). Floor 7.7.0 (2026-10-16): send_each
+# (one message per device) and the FCM topic management API that
+# replaced the Instance ID endpoints, so Google's 2027 Instance ID
+# shutdown does not affect topic calls. 7.7.0 is already the locked
+# version, so requirements.txt does not change.
+firebase-admin>=7.7.0,<8
 
 # Post images (2026-10-16): uploads are decoded and re-encoded without
 # their metadata (EXIF, including GPS location, XMP, comments, text

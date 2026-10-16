@@ -58,12 +58,19 @@ class EmailService(ABC):
         text_body: str,
         html_body: Optional[str] = None,
         reply_to: Optional[str] = None,
+        headers: Optional[dict] = None,
+        message_stream: Optional[str] = None,
     ) -> bool:
         """Send a single email. Returns True on success, False on
         failure. NEVER raises — email failures should degrade gracefully
         (the action that triggered the email succeeded; the email is
         a courtesy notification). Caller decides whether to log /
-        retry / surface to the user."""
+        retry / surface to the user.
+
+        headers (2026-10-16): extra message headers, e.g. List-Unsubscribe
+        and List-Unsubscribe-Post (services/email_unsubscribe.py).
+        message_stream: a Postmark stream for this message instead of
+        POSTMARK_MESSAGE_STREAM (the digest's POSTMARK_DIGEST_STREAM)."""
 
 
 # ─────────────────────────────────────────────────────────────────────
@@ -109,8 +116,16 @@ class PostmarkEmailService(EmailService):
         text_body: str,
         html_body: Optional[str] = None,
         reply_to: Optional[str] = None,
+        headers: Optional[dict] = None,
+        message_stream: Optional[str] = None,
     ) -> bool:
         try:
+            extra = {}
+            if headers:
+                # postmarker takes a dict and sends Postmark's Name/Value
+                # list; Postmark passes them through on transactional
+                # streams.
+                extra["Headers"] = dict(headers)
             self._client.emails.send(
                 From=self._from_email,
                 To=to,
@@ -118,7 +133,8 @@ class PostmarkEmailService(EmailService):
                 TextBody=text_body,
                 HtmlBody=html_body,
                 ReplyTo=reply_to or self._from_email,
-                MessageStream=self._stream,
+                MessageStream=(message_stream or "").strip() or self._stream,
+                **extra,
             )
             return True
         except Exception:
@@ -151,6 +167,8 @@ class DevEmailService(EmailService):
         text_body: str,
         html_body: Optional[str] = None,
         reply_to: Optional[str] = None,
+        headers: Optional[dict] = None,
+        message_stream: Optional[str] = None,
     ) -> bool:
         # In production this backend means Postmark is not configured:
         # log it as an error and report the message as not sent.

@@ -21,6 +21,7 @@
 //      account; anonymous => backend subscribes it to 'announcements'.
 
 import { request } from './http';
+import { openDeepLink, postDeepLink } from './deepLinks';
 
 const CHOICE_KEY = 'cv:push:choice'; // 'enabled' | 'declined' | 'denied'
 const TOKEN_KEY = 'cv:push:token';   // last FCM token we registered
@@ -62,12 +63,12 @@ export function shouldOfferPush() {
 
 /**
  * Optional v2 register fields (Notifications v2 parts 3+4):
- *   tracked — this device's tracked-official keys, so ANONYMOUS
+ *   tracked: this device's tracked-official keys, so ANONYMOUS
  *     installs get tracked-activity pushes too. The tracked store is
- *     in-memory (server-backed for signed-in identities), so we only
- *     send the list when it's non-empty — a launch-time re-register
- *     that runs before stores hydrate must not wipe the server-side
- *     copy. Omitted field = "leave stored value alone" server-side.
+ *     in-memory (server-backed for signed-in identities). Since
+ *     2026-10-16 the server ADDS these keys to the device's stored
+ *     list instead of replacing it (a new session's empty memory used
+ *     to wipe it); only tracked_remove, sent on untrack, takes one out.
  *   prefs — channel-prefs snapshot + tz offset for per-device
  *     quiet-hours/cadence enforcement while anonymous.
  * Dynamic imports keep this module cycle-free (trackedOfficials.js
@@ -108,6 +109,41 @@ async function postJson(path, body) {
  * refreshes the token binding server-side (e.g. after sign-in, call
  * again so an anonymous token re-binds to the citizen).
  */
+// The native 'registration' and 'registrationError' listeners are
+// installed once per app run (2026-10-16). enablePush() used to add a
+// new pair on every call (launch refresh, sign-in, the toggle), so each
+// token event ran every pair ever added. Callers now wait in a list
+// that the one pair settles.
+let registrationListenersInstalled = false;
+const registrationWaiters = [];
+
+function settleRegistration(result) {
+  while (registrationWaiters.length) {
+    const w = registrationWaiters.shift();
+    try { w(result); } catch { /* one waiter cannot block the rest */ }
+  }
+}
+
+function installRegistrationListeners(PN) {
+  if (registrationListenersInstalled) return;
+  registrationListenersInstalled = true;
+  PN.addListener('registration', async ({ value }) => {
+    // A token event with nobody waiting is a rotation: re-register it
+    // only while push is on.
+    if (!registrationWaiters.length && getPushChoice() !== 'enabled') return;
+    try {
+      const extra = await v2RegisterFields();
+      await postJson('/api/push/register', { token: value, platform: 'android', ...extra });
+      setPushChoice('enabled');
+      try { window.localStorage.setItem(TOKEN_KEY, value); } catch { /* private mode */ }
+      settleRegistration({ ok: true });
+    } catch { settleRegistration({ ok: false, reason: 'network' }); }
+  });
+  PN.addListener('registrationError', () => {
+    settleRegistration({ ok: false, reason: 'registration' });
+  });
+}
+
 export async function enablePush() {
   const PN = plugin();
   if (!PN) return { ok: false, reason: 'unsupported' };
@@ -120,27 +156,23 @@ export async function enablePush() {
     }
   } catch { return { ok: false, reason: 'permissions' }; }
 
+  try { installRegistrationListeners(PN); } catch { return { ok: false, reason: 'register' }; }
   return new Promise((resolve) => {
     let settled = false;
-    const finish = (result) => { if (!settled) { settled = true; resolve(result); } };
+    const finish = (result) => { if (!settled) { settled = true; clearTimeout(timer); resolve(result); } };
     // Registration is event-driven; guard with a timeout so a silent
     // native failure can't hang the caller's UI.
-    const timer = setTimeout(() => finish({ ok: false, reason: 'timeout' }), 15000);
-    PN.addListener('registration', async ({ value }) => {
-      clearTimeout(timer);
-      try {
-        const extra = await v2RegisterFields();
-        await postJson('/api/push/register', { token: value, platform: 'android', ...extra });
-        setPushChoice('enabled');
-        try { window.localStorage.setItem(TOKEN_KEY, value); } catch { /* private mode */ }
-        finish({ ok: true });
-      } catch { finish({ ok: false, reason: 'network' }); }
-    });
-    PN.addListener('registrationError', () => {
-      clearTimeout(timer);
-      finish({ ok: false, reason: 'registration' });
-    });
-    try { PN.register(); } catch { clearTimeout(timer); finish({ ok: false, reason: 'register' }); }
+    const timer = setTimeout(() => {
+      const i = registrationWaiters.indexOf(finish);
+      if (i >= 0) registrationWaiters.splice(i, 1);
+      finish({ ok: false, reason: 'timeout' });
+    }, 15000);
+    registrationWaiters.push(finish);
+    try { PN.register(); } catch {
+      const i = registrationWaiters.indexOf(finish);
+      if (i >= 0) registrationWaiters.splice(i, 1);
+      finish({ ok: false, reason: 'register' });
+    }
   });
 }
 
@@ -163,6 +195,53 @@ export async function disablePush() {
   }
   setPushChoice('declined');
   return { ok: true };
+}
+
+/**
+ * Sign-in and sign-out (2026-10-16). The device belongs to whoever is
+ * signed in on it. Before this, nothing re-registered on sign-out, so a
+ * shared phone kept getting the last account's alerts, and a sign-in
+ * only bound the phone at the next app launch.
+ *
+ * bindPushToAccount: re-register the saved token now, so the server
+ * binds it to the citizen who just signed in. No permission prompt, no
+ * native round trip. Runs once per citizen per app session.
+ *
+ * unbindPushDevice: the device stays registered (push keeps working for
+ * whoever uses the app next) but belongs to nobody, with an empty
+ * tracked list. The server also unbinds a bound token the next time the
+ * app registers without a citizen session (offline sign-out, an expired
+ * session).
+ */
+let lastBoundCitizenId = null;
+
+function savedToken() {
+  try { return window.localStorage.getItem(TOKEN_KEY); } catch { return null; }
+}
+
+export async function bindPushToAccount(citizenId) {
+  if (!isNativeApp() || getPushChoice() !== 'enabled') return false;
+  if (citizenId && citizenId === lastBoundCitizenId) return false;
+  const token = savedToken();
+  if (!token) return false;
+  try {
+    const extra = await v2RegisterFields();
+    delete extra.tracked; // a bound device's tracking lives on the account
+    await postJson('/api/push/register', { token, platform: 'android', ...extra });
+    lastBoundCitizenId = citizenId || null;
+    return true;
+  } catch { return false; }
+}
+
+export async function unbindPushDevice() {
+  lastBoundCitizenId = null;
+  if (!isNativeApp()) return false;
+  const token = savedToken();
+  if (!token) return false;
+  try {
+    await postJson('/api/push/unbind', { token });
+    return true;
+  } catch { return false; }
 }
 
 /**
@@ -202,12 +281,31 @@ export function refreshPushRegistration() {
  * that START the app. Module-level once-flag — the registration is
  * process-wide, not per-component.
  */
+async function markTappedRead(notificationId) {
+  const id = Number(notificationId);
+  if (!Number.isInteger(id) || id <= 0) return;
+  try {
+    const { markNotificationRead } = await import('./pagesApi');
+    await Promise.race([
+      markNotificationRead(id),
+      new Promise((resolve) => setTimeout(resolve, 1500)),
+    ]);
+  } catch { /* the bell row stays unread; nothing else depends on it */ }
+}
+
 let tapNavInstalled = false;
 export function initPushTapNavigation() {
   if (tapNavInstalled || !isNativeApp()) return;
   const PN = plugin();
   if (!PN) return;
   tapNavInstalled = true;
+  // A push that arrives while the app is open (2026-10-16): refresh the
+  // bell at once instead of at its next 60 s poll.
+  try {
+    PN.addListener('pushNotificationReceived', () => {
+      try { window.dispatchEvent(new CustomEvent('cv:notifications-refresh')); } catch { /* SSR */ }
+    });
+  } catch { /* plugin variant without the event */ }
   try {
     PN.addListener('pushNotificationActionPerformed', (action) => {
       try {
@@ -219,16 +317,25 @@ export function initPushTapNavigation() {
           window.location.assign('/?state=' + encodeURIComponent(String(d.state)));
           return;
         }
+        // tracked_summary (2026-10-16) → the bell, which lists the
+        // updates; a signed-out device has no bell, so its summary
+        // carries the newest update's page instead.
+        if (d.kind === 'tracked_summary') {
+          window.location.assign(d.official_id
+            ? '/?page=' + encodeURIComponent(String(d.official_id))
+            : '/?open=notifications');
+          return;
+        }
         // tracked_post → land ON the post (#post-<id> scroll+pulse);
         // tracked_event (2026-07-26) → land on the page, whose header
-        // + Events tab surface the upcoming event.
+        // + Events tab surface the upcoming event. The same link the
+        // bell uses (lib/deepLinks.js). The push carries the person's
+        // bell row id (2026-10-16), so the tap marks that row read
+        // first (briefly: navigation must not wait on the network).
         if (!d.official_id) return;
         if (d.kind !== 'tracked_post' && d.kind !== 'tracked_event') return;
-        let url = '/?page=' + encodeURIComponent(String(d.official_id));
-        if (d.kind === 'tracked_post' && d.post_id) {
-          url += '#post-' + encodeURIComponent(String(d.post_id));
-        }
-        window.location.assign(url);
+        const url = postDeepLink(d.official_id, d.kind === 'tracked_post' ? d.post_id : null);
+        markTappedRead(d.notification_id).finally(() => openDeepLink(url));
       } catch { /* malformed payload — open normally */ }
     });
   } catch { /* plugin variant without the event — fail open */ }
@@ -236,28 +343,36 @@ export function initPushTapNavigation() {
 
 /**
  * Lightweight server-side re-sync of this device's tracked list +
- * prefs snapshot — POSTs the cached token straight to /api/push/register
+ * prefs snapshot: POSTs the cached token straight to /api/push/register
  * with the v2 fields, no permission flow / native round-trip. Called
  * (debounced) by trackedOfficials.js after track/untrack so an
  * anonymous device's server-side tracked list follows its choices.
+ * Untracked keys travel as tracked_remove (2026-10-16): the server
+ * merges `tracked` and removes only what was untracked.
  * No-op on web, when push is off, or when no token is cached.
  */
 let syncTimer = null;
-export function syncPushRegistration() {
+const pendingRemovals = new Set();
+export function syncPushRegistration({ removed } = {}) {
   if (!isNativeApp() || getPushChoice() !== 'enabled') return;
+  if (removed) pendingRemovals.add(String(removed).toLowerCase());
   if (syncTimer) clearTimeout(syncTimer);
   syncTimer = setTimeout(async () => {
     syncTimer = null;
-    let token = null;
-    try { token = window.localStorage.getItem(TOKEN_KEY); } catch { /* private mode */ }
+    const token = savedToken();
     if (!token) return;
+    const removals = [...pendingRemovals];
+    pendingRemovals.clear();
     try {
       const extra = await v2RegisterFields();
-      // Untracking down to zero must clear server-side: send an
-      // explicit [] here (we KNOW the store is hydrated — the user
-      // just acted on it), unlike the launch-time omit-when-empty.
-      if (!extra.tracked) extra.tracked = [];
-      await postJson('/api/push/register', { token, platform: 'android', ...extra });
-    } catch { /* best effort — next launch re-registers anyway */ }
+      const body = { token, platform: 'android', ...extra };
+      const stillTracked = new Set(extra.tracked || []);
+      const gone = removals.filter((k) => !stillTracked.has(k));
+      if (gone.length) body.tracked_remove = gone;
+      await postJson('/api/push/register', body);
+    } catch {
+      // best effort: keep the removals for the next sync
+      removals.forEach((k) => pendingRemovals.add(k));
+    }
   }, 800);
 }

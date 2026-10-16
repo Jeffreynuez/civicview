@@ -69,7 +69,7 @@ verified candidate), each with its own permission scope.
 | Action | Free / unverified citizen | ID.me verified | ID.me verified + subscribed ($5/mo) |
 | --- | :---: | :---: | :---: |
 | Browse representatives, bills, votes, executive orders | ✅ | ✅ | ✅ |
-| Track reps / bills / elections (receive notifications) | ✅ | ✅ | ✅ |
+| Track reps / bills / elections (alerts when officials you track post or schedule events, and election reminders; no bill alerts yet) | ✅ | ✅ | ✅ |
 | Like / dislike posts and polls | — | ✅ | ✅ |
 | Vote on polls | — | ✅ | ✅ |
 | Comment on posts and polls | — | ✅ | ✅ |
@@ -349,7 +349,9 @@ categories:
   post summarization, poll classification, vote explainer — all
   powered by Claude Haiku via `services/ai_service.py`.
 - **Notifications** — Email (Postmark, scaffolded) + in-app bell with
-  cross-identity inbox.
+  cross-identity inbox. Android push with as-they-happen, daily or
+  weekly summaries, and one-click email unsubscribe (2026-10-16; see
+  **Push alerts and summaries**).
 - **Service scaffolds (inert until env vars set)** — Postmark (Task
   #87), Stripe ($5/mo subscription, hosted Checkout + Customer Portal +
   webhook, Task #88), ID.me OAuth + verification archive cost-skip
@@ -366,6 +368,20 @@ categories:
   Demo accounts created), plus a placeholder `/stats` page that an
   expanded analytics surface (engagement curves, growth by state)
   will absorb post-launch.
+
+---
+
+## Shipped 2026-10-16: notifications that do what they say
+
+Pushes were silently dropped by default (a hidden 'daily' cadence let
+one through per 20 hours), signing out never unhooked the phone, bell
+clicks didn't open the post, and many settings did nothing. Now pushes
+go as they happen by default, daily and weekly summaries and quiet hours
+hold updates instead of dropping them, the phone follows the signed-in
+account, every bell, archive and push link opens the post, only
+switches that work are shown, emails have one-click unsubscribe, and
+times are in the recipient's clock. Details in **Push alerts and
+summaries** below and `docs/push_notifications_runbook.md`.
 
 ---
 
@@ -453,6 +469,10 @@ Thirteen commits on `Updates_and_fixes`, all pushed. Tip `718f5ab`.
   **quiet-hours + cadence enforcement** in the send path (suppress, don't
   queue — Jeffrey's call; nights 22:00–08:00 local via tz offset,
   daily ≥20h / weekly ≥6d min-gap; **no prefs blob = no suppression**).
+  *Corrected 2026-10-16:* every registration and sign-in sends a prefs
+  blob, so the defaults applied to everyone and the daily min-gap dropped
+  pushes silently. The min-gap is gone: pushes go as they happen by
+  default, and daily, weekly and quiet-hour pushes go out as one summary.
 - **Desktop PWA (`4620059`).** civicview.app is installable on
   Windows/macOS/Linux/ChromeOS: the manifest's SVG-only icons (which fail
   Chromium's install check) got real 192/512 PNG + maskable icons from the
@@ -813,11 +833,11 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 103 | Audit follow-ups 2026-06-10 (verify + fix batch) | done (2026-06-12) | Completed 2026-06-12 (verify-and-fix pass over all four items). Original scope from the backend audit agent: (a) poll auto-supersede race under concurrent creates can exceed the 20-poll cap; (b) comment most-liked/disliked sort runs in Python — push into SQL; (c) confirm whether the posts feed omits candidate-authored posts (flagged, unverified); (d) `browseReps` in the dashboard only closes the overlay — consider scrolling to the officials panel. |
 | 104 | Weekly civic digest email | done (2026-06-10) — **sending gated on `DIGEST_ENABLED`** | Opt-in (`CitizenAccount.digest_opt_in`, default OFF) Saturday-9am-ET email: tracked officials' posts/polls this week, polls closing ≤7d, district events ≤14d. Empty digest = no send; demo-domain emails never sent; per-citizen `digest_last_sent_at` idempotency. In-process scheduler in `main.py` lifespan — set `DIGEST_ENABLED=true` in Render env to turn on. Preview: `GET /api/citizen-auth/me/digest/preview` + Settings card. |
 | 105 | Tracked-official in-app alerts | done (2026-06-10) | `emit_tracked_content_notifications` fans `kind='tracked_post'` rows to all tracking citizens when an official posts (BackgroundTask + own session, zero poster latency). Bell renders kind-aware copy. Email stays consolidated in the digest (#104). |
-| 106 | Notifications/digest follow-ups (deferred) | pending (e done) | (a) poll-close alerts — the #104 scheduler can host a daily pass; (b) per-item deep links in digest emails (post/poll URLs, not just the app link); (c) instant-email alert opt-in per alert type + unsubscribe handling; (d) compare share URLs (`/compare?a=…&b=…`); (e) ~~bell deep-link improvement~~ **done 2026-07-25** (`413c1e2` — `#post-` hash now drives PageView scroll+pulse for bell clicks AND push taps). |
+| 106 | Notifications/digest follow-ups (deferred) | pending (b, e done; c half done) | (a) poll-close alerts: the #104 scheduler can host a daily pass; (b) per-item deep links in digest emails (post/poll URLs, not just the app link), **done 2026-10-16** (every digest item names the official and links to it); (c) instant-email alert opt-in per alert type + unsubscribe handling, the unsubscribe half **done 2026-10-16** (one-click RFC 8058 links on every email a person can turn off); (d) compare share URLs (`/compare?a=…&b=…`); (e) ~~bell deep-link improvement~~ **done 2026-07-25** (`413c1e2`: `#post-` hash now drives PageView scroll+pulse for bell clicks AND push taps). |
 | 107 | CI hardening — CodeQL advanced + Bandit/ruff gate | done (2026-06-10) | CodeQL advanced setup + Bandit/ruff security gate added to CI; fixed the upload-permission failure (`9534fe8`). |
 | 29 | Congress data load-time / caching pass | done caching (2026-06-16) | Edge caching live + VERIFIED (`cf-cache-status: HIT`). `backend/app/main.py` Cache-Control middleware on public read-only endpoints + startup cache warmup; API served from Cloudflare-proxied **api.civicview.app** + a Cache Rule; `NEXT_PUBLIC_API_URL` switched. Deferred (optional, not currently needed): full per-member disk precompute of detail/bills/votes; frontend skeletons/prefetch. |
 
-| 38 | Notifications v2 (honest panel · synced prefs · anonymous pushes · quiet hours) | done (2026-07-24/25) | All four parts shipped + pushed (`7b0396d`, `01eb4f4`, `2e85866`); see the 2026-07-24/25 shipped block. Enforcement is opt-in-by-sync: accounts/devices that never synced prefs keep pre-v2 behavior. |
+| 38 | Notifications v2 (honest panel · synced prefs · anonymous pushes · quiet hours) | done (2026-07-24/25) | All four parts shipped + pushed (`7b0396d`, `01eb4f4`, `2e85866`); see the 2026-07-24/25 shipped block. Enforcement is opt-in-by-sync: accounts/devices that never synced prefs keep pre-v2 behavior. **Corrected 2026-10-16:** in practice every app registration and every signed-in account syncs prefs, so the old defaults (quiet hours nights, cadence daily) applied to everyone and dropped pushes; see "Push alerts and summaries" below. |
 | 108 | Microsoft Store listing (Windows desktop) | **LIVE** since mid-September 2026 (submitted 2026-07-25) | PWABuilder MSIX shell of the live PWA; web deploys need NO store resubmission. Post-cert checklist in runbook §6 (clean-machine install test, Store badge next to the Play badge, README/HelpBuild "Already built" row). Identity values in Pinecone (`2026-07-25-microsoft-store-identity`). |
 | 109 | Force-update gate — arm when needed | shipped OFF (2026-07-25) | `2cb77a9`. Gate is inert until `APP_MIN_VERSION_CODE` (hard block) / `APP_LATEST_VERSION_CODE` (nudge) are set in Render env + restart. Set LATEST when a new AAB ships; set MIN only when an old shell is genuinely broken. |
 
@@ -1005,6 +1025,22 @@ Eastern on January 3, 2027) and most legislatures seat new members.
 checklist: what switches by itself, then the state refresh below, the
 federal roster refresh (`backend/scripts/refresh_congress_roster.py`),
 and the checks.
+
+---
+
+## Push alerts and summaries
+
+The bell's **Push alerts** setting: As they happen (the default), Daily
+summary (6 p.m. local) or Weekly summary (Saturday 10 a.m. local).
+Nothing is dropped: updates not sent at once, including those that land
+in quiet hours, go out as one summary push that opens the bell. Election
+reminders always come on their own. A phone is bound to whoever is signed
+in on it and unbound on sign-out. Emails a person can turn off carry a
+one-click unsubscribe (RFC 8058) that turns off only that email type,
+and "Email me when a page I track changes" is on by default. How it
+works, the logs and the device checklist:
+[`docs/push_notifications_runbook.md`](./docs/push_notifications_runbook.md);
+the email side: [`docs/EMAIL-DELIVERABILITY.md`](./docs/EMAIL-DELIVERABILITY.md) 2.6.
 
 ---
 

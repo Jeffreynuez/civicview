@@ -152,6 +152,27 @@ Email service: Postmark backend active (from=civicview@civicview.app, stream=out
 If you see `Email service: Dev backend active`, double-check both env
 vars are set + non-empty.
 
+### 2.6 Unsubscribe links and the digest stream (2026-10-16)
+
+Every email a person can turn off (the weekly digest, notices about a
+page they track, election reminder emails) carries `List-Unsubscribe`
+with one https URL and `List-Unsubscribe-Post: List-Unsubscribe=One-Click`
+(RFC 8058), plus a visible footer link. The signed token in the link
+turns off only that one email type for that one account
+(`backend/app/services/email_unsubscribe.py`). Postmark passes custom
+headers through on transactional streams, so nothing has to be set up
+in Postmark for this.
+
+`POSTMARK_DIGEST_STREAM` (optional) sends the weekly digest through its
+own stream; unset, it uses `POSTMARK_MESSAGE_STREAM` as before. If you
+create a Broadcast stream for it, Postmark manages unsubscribes there
+itself by default: it adds its own link and suppression list and will
+not let you edit those headers. To keep CivicView's links and setting
+as the one source of truth, ask Postmark support to approve "Manage
+unsubscribes on your own" for that stream before pointing
+`POSTMARK_DIGEST_STREAM` at it. `PUBLIC_API_URL` (optional, default
+`https://api.civicview.app`) is the address the one-click links use.
+
 ---
 
 ## 3. Resend setup (admin notifications)

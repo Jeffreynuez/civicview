@@ -156,6 +156,10 @@ services:
         sync: false
       - key: POSTMARK_MESSAGE_STREAM
         sync: false           # optional, defaults to "outbound"
+      - key: POSTMARK_DIGEST_STREAM
+        sync: false           # optional; the weekly digest's own stream (unset: the stream above)
+      - key: PUBLIC_API_URL
+        sync: false           # optional, defaults to https://api.civicview.app (one-click unsubscribe links)
       - key: PASSWORD_RESET_URL_BASE
         sync: false           # optional, defaults to https://civicview.app
       # Waitlist mirror to Brevo.

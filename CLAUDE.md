@@ -155,7 +155,9 @@ disk precompute deferred (not needed). Auth cookies now live on api.civicview.ap
 synced channel prefs (`notification_prefs_json` + GET/PUT
 `/me/notification-prefs`), anonymous tracked pushes
 (`DeviceToken.tracked_json`), quiet-hours + cadence enforcement (SUPPRESS not
-queue; no synced prefs = no suppression). **Desktop PWA live** (PNG install
+queue; no synced prefs = no suppression; superseded 2026-10-16, see "Push
+alerts and summaries" below: every device syncs prefs, and nothing is
+dropped any more). **Desktop PWA live** (PNG install
 icons — SVG-only manifests fail Chromium's install check; minimal SW, no fetch
 handler). **Microsoft Store LIVE** since mid-September 2026 (company acct
 CIVICVIEW, INC. via DUNS same-day; PWABuilder MSIX v1.0.1.0; US-only, Teen,
@@ -341,6 +343,53 @@ production by accident.
   cached AI explanation per roll call.
 - **Clerk quirk:** a roll that doesn't exist answers HTTP 200 with a short
   "Error sanitizing file" body; check the body, not the status.
+
+## Push alerts and summaries (settled 2026-10-16, durable)
+
+Jeffrey's decisions, work order 8 (`fix/notifications`). Runbook:
+`docs/push_notifications_runbook.md`.
+
+- **Nothing is dropped silently.** "Push alerts: As they happen / Daily
+  summary / Weekly summary" (prefs key `push_cadence`, default
+  realtime). Daily is one push at 6 p.m. local, weekly Saturday 10 a.m.
+  local ("4 updates from officials you track"), opening the bell. Held
+  updates live in `push_held_items` until `services/push_summaries.py`
+  sends them. The old `digest_cadence` key (default 'daily', which
+  dropped pushes) was migrated once: 'daily' to realtime, 'weekly' kept.
+- **Quiet hours** suppress the push, never the bell row; tracked updates
+  held by quiet hours go out as one summary when they end (Jeffrey chose
+  this on 2026-10-16). Election reminders stay exempt from the timing
+  setting and are never summarized; inside quiet hours they get the
+  bell row only, as PR #271 built them.
+- **The phone belongs to whoever is signed in on it:** sign-in binds at
+  once, sign-out unbinds (`/api/push/unbind`), a register without a
+  session unbinds.
+- **One post link everywhere:** `/?page=<id>#post-<id>`
+  (`lib/deepLinks.js`) for the push tap, the bell and the activity
+  archive; PageView follows hashchange. Tracked pushes carry the
+  recipient's `notification_id`, and the tap marks it read.
+- **No push for a post the moderation screen flags**; the bell row stays.
+- **Only switches that work are shown:** in My Tracked, `on_event`
+  (officials and candidates) and the four election reminder switches
+  (`enforced: true` in `lib/notificationPrefs.js`); the rest wait for
+  work order 10. "In-app toasts" is hidden (there are none).
+  `tests/test_notification_switches.py` keeps the app and the backend
+  in step.
+- **Email:** every email a person can turn off (the weekly digest, the
+  notices about a page they track, election reminder emails) has
+  List-Unsubscribe + List-Unsubscribe-Post (RFC 8058) and a footer link,
+  with a signed token that turns off only that email type
+  (`services/email_unsubscribe.py`, `/unsubscribe` page). "Email me when
+  a page I track changes" (on by default) is a column, not a prefs key,
+  so a device sync cannot undo an unsubscribe. The digest lists only
+  what officials did (no citizen polls), names and links every item.
+- **Times** in pushes and emails are in the recipient's clock
+  (`tz_offset_minutes`), else Eastern with "ET" (`services/local_time.py`).
+- **The former-pages job** claims each notice per recipient
+  (`page_notice_deliveries`), runs in its own loop off the boot path,
+  skips suspended, self-deleted and closed accounts, sends in batches
+  (at most 5000 per pass), and Admin, Transitions previews a run before
+  it sends.
 
 ## Former officials and candidates (settled 2026-10-15, durable)
 

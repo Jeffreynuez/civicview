@@ -70,6 +70,12 @@ export function adminRunTransitions() {
   return request('/api/admin/transitions/run', { method: 'POST' });
 }
 
+// What the daily job would send today, before anything is sent
+// (2026-10-16).
+export function adminPreviewTransitionsRun() {
+  return request('/api/admin/transitions/run/preview');
+}
+
 export function adminApproveHandoff({ campaignPageId, officialPageId, role }) {
   return request('/api/admin/transitions/handoff', {
     method: 'POST',

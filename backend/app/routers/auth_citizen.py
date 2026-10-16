@@ -793,8 +793,8 @@ def digest_preview(
             "empty": True,
             "demo_email": is_demo_email(citizen.email),
             "reason": (
-                "Nothing to digest yet — track some officials and check back "
-                "after they post, poll, or schedule events."
+                "Nothing to digest yet. Track some officials and check back "
+                "after they post, run polls or schedule events."
             ),
         }
     subject, html_body, _text = render_digest(data)
@@ -871,6 +871,18 @@ def sanitize_notification_prefs(raw: object) -> dict:
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                 detail=f"prefs values must be bool, int, or string ({key!r})",
             )
+    # Push timing (2026-10-16): the old digest_cadence key (default
+    # 'daily', which silently dropped pushes) became push_cadence. A tab
+    # still running the old code saves the old key; read it the way the
+    # one-time migration did ('weekly' kept, anything else realtime) so
+    # it can never bring back the silent default.
+    from app.services.push_service import PUSH_CADENCES
+
+    if "digest_cadence" in out:
+        legacy = out.pop("digest_cadence")
+        out.setdefault("push_cadence", "weekly" if legacy == "weekly" else "realtime")
+    if "push_cadence" in out and out["push_cadence"] not in PUSH_CADENCES:
+        out["push_cadence"] = "realtime"
     return out
 
 

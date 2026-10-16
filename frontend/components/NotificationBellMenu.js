@@ -34,8 +34,11 @@ import {
 import { useAuth } from '@/lib/auth';
 import { useCitizenAuth } from '@/lib/citizenAuth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
+import { takeNotificationsOpenRequest } from '@/lib/notificationsOpen';
+import { openDeepLink, postDeepLink } from '@/lib/deepLinks';
 import LifecycleNotice, { LIFECYCLE_KINDS } from './LifecycleNotice';
 import ElectionReminderNotice, { ElectionRemindersToggle } from './ElectionReminderNotice';
+import PageChangeEmailToggle from './PageChangeEmailToggle';
 
 // Phase 5 MVP: poll the notification inbox at this cadence. 60s is
 // frequent enough for "rep replied to my comment" to feel responsive
@@ -62,8 +65,8 @@ const NOTIF_POLL_MS = 60000;
 
 /**
  * Navbar bell button that opens a dropdown of global delivery channel
- * preferences (in-app toasts, desktop push, email, SMS, mobile push) plus
- * quiet-hours and digest cadence sliders.
+ * preferences (desktop push, email, mobile push) plus the quiet hours
+ * and push alerts sliders. Options marked `hidden` are not shown.
  *
  * Channels marked `available: false` in CHANNEL_SCHEMA render as disabled
  * "coming soon" toggles so users can see what's on the roadmap.
@@ -144,13 +147,28 @@ export default function NotificationBellMenu() {
   useEffect(() => {
     refreshNotifs();
     const t = setInterval(refreshNotifs, NOTIF_POLL_MS);
-    return () => clearInterval(t);
+    // A push arriving while the app is open refreshes at once
+    // (lib/push.js, pushNotificationReceived; 2026-10-16).
+    const onPush = () => refreshNotifs();
+    window.addEventListener('cv:notifications-refresh', onPush);
+    return () => {
+      clearInterval(t);
+      window.removeEventListener('cv:notifications-refresh', onPush);
+    };
   }, []);
 
   // Refresh on open so the dropdown shows the freshest inbox.
   useEffect(() => {
     if (open) refreshNotifs();
   }, [open]);
+
+  // /?open=notifications (a summary push, 2026-10-16) opens the bell.
+  useEffect(() => {
+    if (takeNotificationsOpenRequest()) setOpen(true);
+    const onOpen = () => { if (takeNotificationsOpenRequest()) setOpen(true); };
+    window.addEventListener('cv:open-notifications', onOpen);
+    return () => window.removeEventListener('cv:open-notifications', onOpen);
+  }, []);
 
   // Refresh immediately when the active identity changes (login,
   // logout, identity-switch). Each hook publishes the current user
@@ -194,23 +212,11 @@ export default function NotificationBellMenu() {
       ));
       setUnreadCount((c) => Math.max(0, c - 1));
     }
-    // Deep-link to the post + comment when payload carries the
-    // anchor. Falls back to no-op when payload is missing fields.
+    // Open the post (or the page, for events and page notices) with the
+    // same deep link a push tap uses (lib/deepLinks.js, 2026-10-16).
     const p = n.payload || {};
-    if (p.official_id) {
-      // The simplest deep-link the existing app supports: jump to
-      // the page anchor (#post-<id>). PageView's selection model
-      // doesn't accept URLs directly today; using location.hash is
-      // a non-disruptive nudge — the user lands on the page and
-      // can scroll to the post. Improving this is a follow-up.
-      try {
-        const u = new URL(window.location.href);
-        u.searchParams.set('open_page', p.official_id);
-        if (p.post_id) u.hash = `#post-${p.post_id}`;
-        window.history.pushState({}, '', u.toString());
-      } catch { /* ignore */ }
-    }
     setOpen(false);
+    if (p.official_id) openDeepLink(postDeepLink(p.official_id, p.post_id));
   };
 
   // Bell v3.1 two-stage action (Jeffrey, 2026-07-26): while anything
@@ -220,19 +226,24 @@ export default function NotificationBellMenu() {
   // inbox server-side (rows keep living for the dashboard archive)
   // and empties the popover list. Individual clicks still mark
   // single rows read.
+  // Both act on the rows the bell is showing only (2026-10-16): the ids
+  // go with the request, and anything it does not show stays as it is.
   const onMarkAllRead = async () => {
-    await markAllNotificationsRead();
+    const shownUnread = notifItems.filter((it) => !it.read_at).map((it) => it.id);
+    await markAllNotificationsRead(notifItems.map((it) => it.id));
     setNotifItems((prev) => prev.map((it) =>
       it.read_at ? it : { ...it, read_at: new Date().toISOString() },
     ));
-    setUnreadCount(0);
+    setUnreadCount((c) => Math.max(0, c - shownUnread.length));
     clearDeliveredNotifications(); // native tray + icon badge; no-op on web
+    refreshNotifs();
   };
   const onClearAll = async () => {
-    await clearAllNotifications();
+    const shown = notifItems.map((it) => it.id);
+    await clearAllNotifications(shown);
     setNotifItems([]);
-    setUnreadCount(0);
     clearDeliveredNotifications();
+    refreshNotifs();
   };
 
   // Click outside to close
@@ -252,7 +263,10 @@ export default function NotificationBellMenu() {
     };
   }, [open]);
 
-  const enabledCount = schema.options.filter((o) => o.available && prefs[o.key]).length;
+  // The yellow dot means a delivery channel is on. Since the unused
+  // "In-app toasts" switch was hidden (2026-10-16), that is mobile push.
+  const enabledCount = schema.options.filter((o) => o.available && !o.hidden && prefs[o.key]).length
+    + (pushOn ? 1 : 0);
 
   return (
     <div ref={containerRef} style={{ position: 'relative' }}>
@@ -471,7 +485,7 @@ export default function NotificationBellMenu() {
           }}>
             Delivery channels
           </div>
-          {schema.options.map((opt) => {
+          {schema.options.filter((opt) => !opt.hidden).map((opt) => {
             // Live mobile push in the native app — overrides the
             // schema's available:false placeholder. Toggling on runs
             // the permission + FCM registration flow; off forgets the
@@ -505,13 +519,16 @@ export default function NotificationBellMenu() {
           {/* Election reminders (2026-10-16): a citizen setting stored on
               the account, not in the synced channel prefs blob. */}
           {citizen?.id && <ElectionRemindersToggle refreshKey={`${citizen.id}-${open}`} />}
+          {/* "Email me when a page I track changes" (2026-10-16), also an
+              account setting outside the synced prefs blob. */}
+          {citizen?.id && <PageChangeEmailToggle identity="citizen" refreshKey={`${citizen.id}-${open}`} />}
 
           <div style={{
             fontSize: '0.68rem', fontWeight: 800, color: 'var(--cl-text-light)',
             textTransform: 'uppercase', letterSpacing: '0.5px',
             margin: '10px 2px 4px',
           }}>
-            Cadence
+            Timing
           </div>
           {schema.sliders.map((s) => (
             <Slider
@@ -519,6 +536,7 @@ export default function NotificationBellMenu() {
               label={s.label}
               description={s.description}
               choices={s.choices}
+              choiceLabels={s.choiceLabels}
               value={prefs[s.key] || s.default}
               onChange={(v) => setChannelPrefs({ [s.key]: v })}
             />
@@ -529,9 +547,8 @@ export default function NotificationBellMenu() {
             padding: '8px 2px 2px', lineHeight: 1.4, borderTop: '1px solid var(--cl-border)',
             marginTop: '6px',
           }}>
-            In-app toasts are live today. Mobile push is live in the
-            CivicView Android app. Email digests arrive with launch;
-            desktop notifications are planned.
+            Mobile push is live in the CivicView Android app. Email
+            digests arrive with launch; desktop notifications are planned.
           </div>
         </div>
       )}
@@ -582,13 +599,14 @@ function ChannelToggle({ label, description, checked, disabled, onChange, badge 
   );
 }
 
-function Slider({ label, description, choices, value, onChange }) {
+function Slider({ label, description, choices, choiceLabels, value, onChange }) {
   const idx = Math.max(0, choices.indexOf(value));
+  const name = (c) => (choiceLabels && choiceLabels[c]) || String(c).replace(/_/g, ' ');
   return (
     <div style={{ padding: '6px 2px' }}>
       <div style={{ fontSize: '0.78rem', fontWeight: 700 }}>
-        {label}: <span style={{ color: 'var(--cl-accent)', textTransform: 'capitalize' }}>
-          {String(value).replace(/_/g, ' ')}
+        {label}: <span style={{ color: 'var(--cl-accent)', textTransform: choiceLabels ? 'none' : 'capitalize' }}>
+          {name(value)}
         </span>
       </div>
       {description && (
@@ -608,9 +626,9 @@ function Slider({ label, description, choices, value, onChange }) {
       <div style={{
         display: 'flex', justifyContent: 'space-between',
         fontSize: '0.62rem', color: 'var(--cl-text-light)',
-        textTransform: 'capitalize', marginTop: '2px', fontWeight: 600,
+        textTransform: choiceLabels ? 'none' : 'capitalize', marginTop: '2px', fontWeight: 600,
       }}>
-        {choices.map((c) => <span key={c}>{String(c).replace(/_/g, ' ')}</span>)}
+        {choices.map((c) => <span key={c}>{name(c)}</span>)}
       </div>
     </div>
   );

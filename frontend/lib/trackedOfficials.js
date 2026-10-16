@@ -124,7 +124,7 @@ export function untrackOfficial(member) {
     delete cache[key];
     notify();
     apiDeleteTrackedOfficial(key).catch(() => {});
-    _syncPushTrackedList();
+    _syncPushTrackedList(key);
   }
 }
 
@@ -135,9 +135,9 @@ export function untrackOfficial(member) {
 // the module cycle (push.js reads this store at register time);
 // syncPushRegistration itself no-ops on web / push-off / no token and
 // debounces, so this is free everywhere it doesn't apply.
-function _syncPushTrackedList() {
+function _syncPushTrackedList(removedKey) {
   import('./push')
-    .then((m) => m.syncPushRegistration && m.syncPushRegistration())
+    .then((m) => m.syncPushRegistration && m.syncPushRegistration(removedKey ? { removed: removedKey } : {}))
     .catch(() => { /* non-critical */ });
 }
 

@@ -234,15 +234,20 @@ def register_failure(
         triggered_lockout = True
 
         # Best-effort security alert email — never let an email
-        # failure block the lockout itself.
+        # failure block the lockout itself. Not to a demo account's
+        # generated address (2026-10-16): it receives no mail, so the
+        # send only bounced. The demo contact address is promised for
+        # other uses only, so it is not used here either.
         try:
+            from app.services.digest_service import is_demo_email
             from app.services.email_service import send_lockout_alert_email
-            send_lockout_alert_email(
-                to_email=account.email,
-                identity_kind=identity_kind,
-                ip_address=ip_address,
-                lockout_minutes=int(duration.total_seconds() / 60),
-            )
+            if not is_demo_email(account.email or ""):
+                send_lockout_alert_email(
+                    to_email=account.email,
+                    identity_kind=identity_kind,
+                    ip_address=ip_address,
+                    lockout_minutes=int(duration.total_seconds() / 60),
+                )
         except Exception:  # noqa: BLE001
             logger.exception(
                 "send_lockout_alert_email failed for %s account id=%s",

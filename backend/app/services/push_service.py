@@ -8,10 +8,16 @@
 # that logs to stdout so every environment boots cleanly.
 #
 # v1 scope (2026-07-24, agreed with Jeffrey): pushes mirror the
-# tracked-activity slice of the in-app bell — an official the citizen
-# tracks posting a post/poll. Anonymous devices (no citizen session)
-# are subscribed server-side to the ANNOUNCEMENTS_TOPIC broadcast
-# channel instead (launch news, election-day reminders — use sparingly).
+# tracked-activity slice of the in-app bell: an official the citizen
+# tracks posting a post/poll. Anonymous devices used to be subscribed to
+# the ANNOUNCEMENTS_TOPIC broadcast channel, which nothing ever sent to;
+# since 2026-10-16 new devices are not, and unsubscribe_announcements()
+# takes the old ones off.
+#
+# 2026-10-16: tracked-activity pushes go out one message per device
+# (send_messages), so each can carry its own data, and a push that is
+# not sent at once is held for a summary (services/push_summaries.py),
+# never dropped.
 
 from __future__ import annotations
 
@@ -19,6 +25,7 @@ import json
 import logging
 import os
 from abc import ABC, abstractmethod
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import Iterable, List, Optional
 
@@ -29,8 +36,34 @@ ANNOUNCEMENTS_TOPIC = "announcements"
 _BATCH = 500
 
 
+@dataclass
+class PushMessage:
+    """One push to one device."""
+    token: str
+    title: str
+    body: str
+    data: dict = field(default_factory=dict)
+    ttl_seconds: Optional[int] = None
+
+
+@dataclass
+class SendResult:
+    """What happened to each token in a send_messages call.
+    invalid: FCM says the token is dead (prune it). failed: a transient
+    error (keep the token; a summary caller keeps its held rows)."""
+    sent: set = field(default_factory=set)
+    invalid: set = field(default_factory=set)
+    failed: set = field(default_factory=set)
+
+
 class PushService(ABC):
     """Send push notifications to device tokens / topics."""
+
+    def send_messages(self, messages: List[PushMessage]) -> SendResult:
+        """Send each message to its own device. The default groups
+        identical messages into send_to_tokens calls; FCMPushService
+        sends them with send_each (one request per 500 messages)."""
+        return _send_grouped(self, messages)
 
     @abstractmethod
     def send_to_tokens(
@@ -121,13 +154,46 @@ class FCMPushService(PushService):
             for token, r in zip(batch, resp.responses):
                 if r.success:
                     continue
-                # Unregistered / invalid-argument => token is dead;
-                # report it for pruning. Other errors are transient.
-                exc = r.exception
-                name = type(exc).__name__ if exc else ""
-                if name in ("UnregisteredError", "InvalidArgumentError"):
+                # Only a token FCM itself reports dead is pruned
+                # (_is_dead_token_error). Other errors are transient or
+                # about the message, not the device.
+                if _is_dead_token_error(r.exception):
                     invalid.append(token)
         return invalid
+
+    def send_messages(self, messages):
+        from firebase_admin import messaging
+
+        result = SendResult()
+        for i in range(0, len(messages), _BATCH):
+            batch = messages[i:i + _BATCH]
+            fcm = [
+                messaging.Message(
+                    token=m.token,
+                    notification=messaging.Notification(title=m.title, body=m.body),
+                    data={k: str(v) for k, v in (m.data or {}).items()},
+                    android=(
+                        messaging.AndroidConfig(priority="high", ttl=int(m.ttl_seconds))
+                        if m.ttl_seconds is not None
+                        else messaging.AndroidConfig(priority="high")
+                    ),
+                )
+                for m in batch
+            ]
+            try:
+                resp = messaging.send_each(fcm, app=self._app)
+            except Exception:
+                logger.exception("FCM send_each failed (batch of %d)", len(batch))
+                result.failed.update(m.token for m in batch)
+                continue
+            for m, r in zip(batch, resp.responses):
+                if r.success:
+                    result.sent.add(m.token)
+                elif _is_dead_token_error(r.exception):
+                    result.invalid.add(m.token)
+                else:
+                    result.failed.add(m.token)
+        return result
 
     def subscribe_to_topic(self, tokens, topic):
         from firebase_admin import messaging
@@ -159,6 +225,58 @@ class FCMPushService(PushService):
             logger.exception("FCM topic send failed (%s)", topic)
 
 
+def _is_dead_token_error(exc) -> bool:
+    """True when FCM's error means this device token is dead.
+
+    UnregisteredError (the app was uninstalled or the token expired) and
+    SenderIdMismatchError (a token from another Firebase project) always
+    are. InvalidArgumentError only when FCM says it is the registration
+    token that is invalid: until 2026-10-16 any InvalidArgument pruned
+    the token, and an argument problem in the message itself (a bad TTL,
+    an oversized payload) answers InvalidArgument for every token in the
+    batch, so one bad message could forget every device."""
+    name = type(exc).__name__ if exc else ""
+    if name in ("UnregisteredError", "SenderIdMismatchError"):
+        return True
+    if name == "InvalidArgumentError":
+        return "registration token" in str(exc).lower()
+    return False
+
+
+def _send_grouped(svc, messages: List[PushMessage]) -> SendResult:
+    """send_messages for a backend that only has send_to_tokens (the
+    dev service, and test doubles): one call per identical message."""
+    result = SendResult()
+    groups: dict = {}
+    for m in messages:
+        key = (m.title, m.body, json.dumps(m.data or {}, sort_keys=True, default=str), m.ttl_seconds)
+        groups.setdefault(key, []).append(m.token)
+    for (title, body, data_raw, ttl), tokens in groups.items():
+        kwargs = {"title": title, "body": body, "data": json.loads(data_raw)}
+        if ttl is not None:
+            kwargs["ttl_seconds"] = ttl
+        try:
+            invalid = set(svc.send_to_tokens(tokens, **kwargs) or [])
+        except Exception:
+            logger.exception("push send failed (%d device(s))", len(tokens))
+            result.failed.update(tokens)
+            continue
+        result.invalid.update(invalid)
+        result.sent.update(t for t in tokens if t not in invalid)
+    return result
+
+
+def send_push_messages(messages: List[PushMessage]) -> SendResult:
+    """Send through the active service, whichever methods it has."""
+    if not messages:
+        return SendResult()
+    svc = get_push_service()
+    sender = getattr(svc, "send_messages", None)
+    if callable(sender):
+        return sender(messages)
+    return _send_grouped(svc, messages)
+
+
 _service: Optional[PushService] = None
 
 
@@ -186,23 +304,64 @@ def get_push_service() -> PushService:
     return _service
 
 
-# ── Quiet-hours + cadence enforcement (Notifications v2 part 4) ──────
-# Semantics agreed with Jeffrey 2026-07-24: SUPPRESS, don't queue.
-# A suppressed push is not lost information — the in-app bell row is
-# already committed by the time this runs; push is purely the
-# interruption channel, and quiet hours means "don't interrupt me."
-# Cadence is a min-gap throttle per device: 'daily' ≈ at most one push
-# per 20h, 'weekly' ≈ one per 6d (the slack absorbs clock drift and
-# posts that land a few minutes earlier than yesterday's).
+# ── Quiet hours and push timing (Notifications v2 part 4, 2026-10-16) ──
+# Quiet hours: no push inside the device's quiet window. The bell row is
+# already committed by the time this runs. Since 2026-10-16 (Jeffrey) a
+# tracked-activity push held by quiet hours is not lost either: it is
+# kept (models.PushHeldItem) and goes out in one summary push when quiet
+# hours end (services/push_summaries.py).
 #
-# Enforcement ONLY applies when a prefs blob exists (account-synced for
-# bound devices, register-time snapshot for anonymous ones). No prefs =
-# pre-v2 behavior (send everything) — devices/accounts opt into
-# enforcement by syncing, never by our assumption. quiet-hours checks
-# additionally require tz_offset_minutes, since "10pm" is meaningless
-# without knowing the device's local clock.
+# Push timing ("Push alerts" in the bell, prefs key push_cadence):
+#   realtime  each update at once (the default since 2026-10-16)
+#   daily     one summary push at 6 p.m. local time
+#   weekly    one summary push Saturday at 10 a.m. local time
+# Until 2026-10-16 the key was digest_cadence, defaulted to 'daily',
+# and 'daily'/'weekly' meant "at most one push per 20 hours / 6 days,
+# drop the rest". Stored 'daily' values were never chosen by anyone
+# (they were the silent default), so effective_cadence() reads a legacy
+# 'daily' as realtime and keeps 'weekly'.
+#
+# Every app registration and every signed-in account sync carries the
+# device's prefs (lib/push.js, lib/channelPrefs.js). A NULL blob only
+# exists for devices registered before 2026-07-24; it gets what the
+# server can apply without a clock: realtime, no quiet hours. Quiet
+# hours additionally require tz_offset_minutes, since "10pm" is
+# meaningless without knowing the device's local clock.
+#
+# Election reminders (push_election_reminder below) never come through
+# here: no timing setting, never held, quiet hours as before.
 
-_CADENCE_MIN_GAP_HOURS = {"daily": 20, "weekly": 6 * 24}
+PUSH_CADENCES = ("realtime", "daily", "weekly")
+
+# How long FCM keeps trying a phone that is off (2026-10-16): a post
+# about 3 days; an event until it starts (capped at FCM's 28 days).
+POST_TTL_SECONDS = 3 * 24 * 3600
+_MAX_TTL_SECONDS = 28 * 24 * 3600
+
+
+def event_ttl_seconds(start_at, now_utc: Optional[datetime] = None) -> Optional[int]:
+    """Seconds until the event starts, for its push TTL; None once it
+    has started (no push then). An unreadable time gets the post TTL."""
+    from app.services.local_time import parse_utc
+
+    start = parse_utc(start_at)
+    if start is None:
+        return POST_TTL_SECONDS
+    left = int((start - (now_utc or datetime.utcnow())).total_seconds())
+    if left < 60:
+        return None
+    return min(left, _MAX_TTL_SECONDS)
+
+
+def effective_cadence(prefs: Optional[dict]) -> str:
+    """The device's push timing: push_cadence when set, else the legacy
+    digest_cadence ('weekly' kept, anything else realtime)."""
+    if not isinstance(prefs, dict):
+        return "realtime"
+    value = prefs.get("push_cadence")
+    if value in PUSH_CADENCES:
+        return value
+    return "weekly" if prefs.get("digest_cadence") == "weekly" else "realtime"
 
 
 def _local_now(tz_offset_minutes: int, now_utc: Optional[datetime] = None) -> datetime:
@@ -235,18 +394,6 @@ def _in_quiet_hours(prefs: Optional[dict], now_utc: Optional[datetime] = None) -
     return False  # Unknown mode — fail open (send).
 
 
-def _cadence_gap_ok(prefs: Optional[dict], last_push_at) -> bool:
-    """True when this device's cadence throttle allows a push now.
-    'realtime' (or no prefs) always allows; 'daily'/'weekly' require
-    the min gap since the device's last actual push."""
-    if not prefs:
-        return True
-    gap_hours = _CADENCE_MIN_GAP_HOURS.get(prefs.get("digest_cadence") or "")
-    if not gap_hours or last_push_at is None:
-        return True
-    return datetime.utcnow() - last_push_at >= timedelta(hours=gap_hours)
-
-
 def _parse_json_or_none(raw: Optional[str]):
     if not raw:
         return None
@@ -256,29 +403,69 @@ def _parse_json_or_none(raw: Optional[str]):
         return None
 
 
+def device_prefs(row, account_prefs: dict) -> Optional[dict]:
+    """The prefs that govern one device: its account's synced prefs when
+    it is bound and the account has them, else its register snapshot."""
+    prefs = account_prefs.get(row.citizen_id) if row.citizen_id is not None else None
+    if prefs is None:
+        prefs = _parse_json_or_none(row.prefs_json)
+    return prefs if isinstance(prefs, dict) else None
+
+
+def _hold(db, row, *, reason: str, message: PushMessage, kind: str,
+          official_id: Optional[str], official_name: Optional[str],
+          notification_id: Optional[int], now: datetime) -> None:
+    from app.models.pages import PushHeldItem
+    db.add(PushHeldItem(
+        device_token_id=row.id, reason=reason, kind=kind,
+        official_id=official_id, official_name=(official_name or "")[:255] or None,
+        notification_id=notification_id, title=message.title[:255], body=message.body,
+        data_json=json.dumps(message.data or {}, ensure_ascii=False, default=str),
+        created_at=now,
+    ))
+
+
 def _deliver_tracked_push(
     db, citizen_ids: Iterable[int], *, anon_key: Optional[str],
     title: str, body: str, data: dict,
+    official_name: Optional[str] = None,
+    notification_ids: Optional[dict] = None,
+    body_for=None,
+    ttl_seconds: Optional[int] = None,
+    now_utc: Optional[datetime] = None,
 ) -> int:
     """Shared delivery engine for tracked-activity pushes (2026-07-26,
     extracted so tracked_event could ship without cloning 60 lines).
 
     Flow:
       1. Bound devices — tokens for the given citizens; per-account
-         quiet-hours/cadence prefs (CitizenAccount.notification_prefs_json,
-         falling back to the device's register-time snapshot).
+         prefs (CitizenAccount.notification_prefs_json, falling back to
+         the device's register-time snapshot).
       2. Anonymous devices — only when anon_key is provided: rows with
          citizen_id NULL whose tracked_json contains the key
          (Notifications v2 part 3). Callers pass anon_key=None to skip
          anonymous delivery (e.g. events, where the on_event pref is an
          explicit opt-in anonymous devices never expressed).
-      3. Suppression pass (quiet hours, cadence min-gap), send, prune
-         dead tokens, stamp last_push_at on the devices actually sent.
+      ttl_seconds: how long FCM keeps trying an offline device (posts
+      3 days, events until they start; 2026-10-16).
+      body_for(prefs), when given, builds each device's own body from
+      its prefs (event times in the recipient's local time).
+      notification_ids, {citizen_id: bell row id}, puts each bound
+      device's own bell row in its push data, so tapping the push marks
+      that row read (2026-10-16).
+      3. Each device: a daily or weekly "Push alerts" setting holds the
+         push for that device's summary; quiet hours hold it for the
+         summary when they end; otherwise it is sent now. Dead tokens
+         are pruned, last_push_at is stamped on the devices sent to,
+         and one log line counts all of it.
 
-    Raises freely — the public wrappers own the never-raise guarantee.
+    Returns the number of devices sent to now. Raises freely: the
+    public wrappers own the never-raise guarantee.
     """
-    from app.models.pages import CitizenAccount, DeviceToken
+    from app.models.pages import CitizenAccount, DeviceToken, PushHeldItem
 
+    now = now_utc or datetime.utcnow()
+    kind = data.get("kind", "tracked push")
     ids = list(citizen_ids)
 
     # 1. Bound devices for the tracking citizens. Accounts that are
@@ -330,58 +517,65 @@ def _deliver_tracked_push(
         # fan-out logged "-> N citizens" and then NOTHING, because
         # every device row was anonymous with no tracked_json. Say
         # so explicitly.
-        logger.info(
-            "%s: no registered devices for %d tracking citizen(s)",
-            data.get("kind", "tracked push"), len(ids),
-        )
+        logger.info("%s: no registered devices for %d tracking citizen(s)", kind, len(ids))
         return 0
 
-    # 3. Quiet-hours + cadence suppression (see module comment).
+    # 3. Send now, or hold for a summary.
     sendable = []
-    suppressed = 0
+    held_summary = held_quiet = 0
+    notification_ids = notification_ids or {}
     for row in rows:
-        prefs = None
-        if row.citizen_id is not None:
-            prefs = account_prefs.get(row.citizen_id)
-        if prefs is None:
-            prefs = _parse_json_or_none(row.prefs_json)
-        if _in_quiet_hours(prefs) or not _cadence_gap_ok(prefs, row.last_push_at):
-            suppressed += 1
+        prefs = device_prefs(row, account_prefs)
+        nid = notification_ids.get(row.citizen_id) if row.citizen_id is not None else None
+        row_data = dict(data)
+        if nid:
+            row_data["notification_id"] = nid
+        row_body = body_for(prefs) if body_for is not None else body
+        message = PushMessage(token=row.token, title=title, body=row_body, data=row_data,
+                              ttl_seconds=ttl_seconds)
+        cadence = effective_cadence(prefs)
+        reason = None
+        if cadence != "realtime":
+            reason = "summary"
+        elif _in_quiet_hours(prefs, now):
+            reason = "quiet"
+        if reason:
+            _hold(db, row, reason=reason, message=message, kind=kind,
+                  official_id=data.get("official_id"), official_name=official_name,
+                  notification_id=nid, now=now)
+            if reason == "summary":
+                held_summary += 1
+            else:
+                held_quiet += 1
             continue
-        sendable.append(row)
-    if suppressed:
-        logger.info(
-            "%s: %d device(s) suppressed (quiet hours / cadence)",
-            data.get("kind", "tracked push"), suppressed,
-        )
-    if not sendable:
-        return 0
+        sendable.append((row, message))
 
-    tokens = [r.token for r in sendable]
-    invalid = get_push_service().send_to_tokens(
-        tokens, title=title, body=body, data=data,
-    )
-    logger.info(
-        "%s: sent to %d device(s) (%d invalid)",
-        data.get("kind", "tracked push"), len(tokens), len(invalid),
-    )
-    invalid_set = set(invalid)
-    now = datetime.utcnow()
-    for row in sendable:
-        if row.token not in invalid_set:
+    result = send_push_messages([m for _row, m in sendable])
+    for row, _m in sendable:
+        if row.token in result.sent:
             row.last_push_at = now
-    if invalid:
-        db.query(DeviceToken).filter(DeviceToken.token.in_(invalid)).delete(
+    pruned = 0
+    if result.invalid:
+        dead_ids = [r.id for r in rows if r.token in result.invalid]
+        db.query(PushHeldItem).filter(PushHeldItem.device_token_id.in_(dead_ids)).delete(
             synchronize_session=False
         )
-        logger.info("pruned %d dead device token(s)", len(invalid))
+        pruned = db.query(DeviceToken).filter(DeviceToken.token.in_(result.invalid)).delete(
+            synchronize_session=False
+        )
     db.commit()
-    return len(tokens)
+    logger.info(
+        "push %s official=%s: sent=%d held_for_summary=%d held_quiet_hours=%d failed=%d pruned=%d",
+        kind, data.get("official_id"), len(result.sent), held_summary, held_quiet,
+        len(result.failed), pruned,
+    )
+    return len(result.sent)
 
 
 def push_tracked_post(
     db, citizen_ids: Iterable[int], *, official_id: str,
     official_name: str, post_id: int, preview: str, has_poll: bool,
+    notification_ids: Optional[dict] = None,
 ) -> int:
     """Device-push mirror of the tracked_post in-app fan-out.
     Never raises — a push failure must not disturb the in-app
@@ -398,8 +592,12 @@ def push_tracked_post(
                 "official_id": official_id,
                 "post_id": post_id,
             },
+            official_name=official_name,
+            notification_ids=notification_ids,
+            ttl_seconds=POST_TTL_SECONDS,
         )
     except Exception:
+        db.rollback()
         logger.exception("push_tracked_post failed (non-fatal)")
         return 0
 
@@ -408,28 +606,77 @@ def push_tracked_event(
     db, citizen_ids: Iterable[int], *, official_id: str,
     official_name: str, event_id: int, title: str,
     start_at: str, location: Optional[str],
+    notification_ids: Optional[dict] = None,
 ) -> int:
     """Device-push mirror of the tracked_event in-app fan-out.
     Bound devices only (anon_key=None): the on_event pref is a
     per-official opt-in that anonymous devices can't express, so
     they never receive event pushes. Never raises."""
     try:
-        when = (start_at or "")[:16].replace("T", " ")
-        body_bits = [b for b in (title, when, location) if b]
+        from app.services.local_time import format_when
+
+        def body_for(prefs):
+            # The start time in the recipient's own clock (2026-10-16),
+            # Eastern with "ET" when the device has no time zone.
+            when = format_when(start_at, prefs) if start_at else ""
+            return " · ".join(b for b in (title, when, location) if b)
+
+        ttl = event_ttl_seconds(start_at)
+        if ttl is None:
+            logger.info("push tracked_event official=%s: the event has started, no push", official_id)
+            return 0
         return _deliver_tracked_push(
             db, citizen_ids,
             anon_key=None,
             title=f"{official_name} scheduled an event",
-            body=" · ".join(body_bits),
+            body=body_for(None),
+            body_for=body_for,
+            ttl_seconds=ttl,
             data={
                 "kind": "tracked_event",
                 "official_id": official_id,
                 "event_id": event_id,
             },
+            official_name=official_name,
+            notification_ids=notification_ids,
         )
     except Exception:
+        db.rollback()
         logger.exception("push_tracked_event failed (non-fatal)")
         return 0
+
+
+def unsubscribe_announcements(db, batch: int = 1000) -> int:
+    """Take every device still on the old 'announcements' topic off it
+    (2026-10-16), once: anonymous devices were subscribed at
+    registration and nothing was ever sent to the topic. FCM accepts up
+    to 1000 tokens per call. Returns the devices handled. Never raises."""
+    from app.models.pages import DeviceToken
+
+    done = 0
+    try:
+        while True:
+            rows = (
+                db.query(DeviceToken)
+                .filter(DeviceToken.announcements_cleared_at.is_(None))
+                .order_by(DeviceToken.id.asc())
+                .limit(batch)
+                .all()
+            )
+            if not rows:
+                break
+            get_push_service().unsubscribe_from_topic([r.token for r in rows], ANNOUNCEMENTS_TOPIC)
+            now = datetime.utcnow()
+            for r in rows:
+                r.announcements_cleared_at = now
+            db.commit()
+            done += len(rows)
+        if done:
+            logger.info("push: %d device(s) taken off the unused '%s' topic", done, ANNOUNCEMENTS_TOPIC)
+    except Exception:
+        db.rollback()
+        logger.exception("push: announcements topic cleanup failed; it runs again on the next boot")
+    return done
 
 
 def push_election_reminder(

@@ -77,6 +77,13 @@ EXEMPT_PATHS: Set[str] = {
     "/api/postmark/webhook",
 }
 
+# One-click email unsubscribe (RFC 8058, 2026-10-16). The mail
+# provider POSTs here, sometimes from a browser that carries our
+# cookies but no CSRF header. The signed token in the path is the
+# authority, and all it can do is turn one email type off for one
+# account, so there is nothing for a forged request to gain.
+EXEMPT_PREFIXES = ("/api/email/unsubscribe/",)
+
 
 # Cookie names per identity track. See app/auth.py (cl_session),
 # app/auth_citizen.py (cl_citizen), and app/auth_candidate.py
@@ -147,7 +154,7 @@ class CsrfMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
 
         # Path exemptions — login endpoints + webhooks (see EXEMPT_PATHS).
-        if request.url.path in EXEMPT_PATHS:
+        if request.url.path in EXEMPT_PATHS or request.url.path.startswith(EXEMPT_PREFIXES):
             return await call_next(request)
 
         # No-session paths — nothing for an attacker to CSRF-forge.

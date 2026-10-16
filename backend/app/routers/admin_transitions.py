@@ -223,6 +223,15 @@ def set_transition(body: TransitionSet, db: Session = Depends(get_db), actor: di
     return _schedule_item(t, row, pl.today_et())
 
 
+@router.get("/run/preview")
+def run_preview(db: Session = Depends(get_db), actor: dict = Depends(get_current_admin)):
+    """What "Run the daily job now" would send today, before anything is
+    sent (2026-10-16): each notice, its recipients, how many by email,
+    the accounts that get nothing, the subject and the text."""
+    from app.services.page_lifecycle_job import preview_page_lifecycle
+    return preview_page_lifecycle(db)
+
+
 @router.post("/run")
 def run_now(db: Session = Depends(get_db), actor: dict = Depends(get_current_admin)):
     from app.services.page_lifecycle_job import run_page_lifecycle
@@ -298,6 +307,12 @@ def approve_handoff(body: HandoffRequest, db: Session = Depends(get_db),
     db.flush()
     pl.invalidate_cache()
     t = pl.get_transition(db, body.campaign_page_id)
+    # The hand-off itself is committed first: the followers' notices
+    # below are claimed and committed one person at a time (2026-10-16).
+    db.add(PageTransitionLog(page_id=body.campaign_page_id, action="handoff", before_json=json.dumps(before),
+                             after_json=json.dumps({**_row_dict(row), "rep_account_id": rep.id}),
+                             actor=actor.get("email")))
+    db.commit()
     sent = 0
     if row.followers_notice_at is None:
         sent = notify_followers_to_follow(db, t, official_page_id=body.official_page_id,
@@ -305,9 +320,6 @@ def approve_handoff(body: HandoffRequest, db: Session = Depends(get_db),
         row.followers_notice_at = datetime.utcnow()
     ended = end_tracking(db, body.campaign_page_id)
     row.tracking_ended_at = datetime.utcnow()
-    db.add(PageTransitionLog(page_id=body.campaign_page_id, action="handoff", before_json=json.dumps(before),
-                             after_json=json.dumps({**_row_dict(row), "rep_account_id": rep.id}),
-                             actor=actor.get("email")))
     db.commit()
     pl.invalidate_cache()
     logger.info("admin %s:%s approved the hand-off %s -> %s", actor.get("kind"), actor.get("id"),
