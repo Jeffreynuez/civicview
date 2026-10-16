@@ -27,7 +27,6 @@
  * page discloses it; the policy describes the app exactly as it is, and
  * the code gaps found in the audit are fixed separately, after which
  * these sections get simpler:
- *  - uploaded images keep their embedded metadata (no EXIF stripping)
  *  - notices to trackers about former pages have no email opt-out
  *  - account deletion does not yet cancel a Stripe subscription (Stripe
  *    is not live, so this page only says subscriptions aren't available)
@@ -145,7 +144,7 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>Account details.</strong> Sign-in email, password (as a one-way hash), display name, your role, the official or candidate page your account runs, and the state, district or city that page covers (from our records, not from you).</li>
         <li><strong>What you publish.</strong> Posts, polls, events and images, and the comments, likes and votes you make as the official or candidate. All of it is public, and it stays on the page as a public record (see <a href="#deleting">Deleting your account</a>). Edited or deleted posts keep their original text, hidden, for moderation review.</li>
-        <li><strong>Images.</strong> Stored as you upload them, including any details the file carries, such as where a photo was taken. Please remove those before uploading. Images taken out of a post may stay in storage.</li>
+        <li><strong>Images.</strong> We remove hidden details such as location from the images you upload before storing them. Images taken out of a post may stay in storage.</li>
         <li><strong>Claim requests.</strong> If you ask to claim a page, we keep your email, state and the details you send us (such as your name and your connection to the official), and add your email and state to our Brevo mailing list like a waitlist sign-up.</li>
       </ul>
 

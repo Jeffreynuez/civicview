@@ -148,6 +148,8 @@ flow.
 - **pyotp** + **cryptography (Fernet)** for TOTP 2FA
 - **httpx** for outbound HTTP (federal data, ID.me)
 - **boto3** for Cloudflare R2 (S3-compatible)
+- **Pillow** to strip hidden metadata (EXIF, GPS location) from uploaded
+  post images before they are stored
 - **postmarker** for transactional email
 - **stripe** for subscription billing
 - **anthropic** for AI features (Claude Haiku — bill summaries, vote

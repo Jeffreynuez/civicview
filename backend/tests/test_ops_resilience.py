@@ -73,8 +73,15 @@ def main() -> int:
         image_storage.get_storage = lambda: SlowStorage()
         upload_status = {}
 
+        # A real image: uploads are decoded to strip their metadata
+        # (2026-10-16), so a PNG signature followed by junk is refused.
+        import io
+        from PIL import Image
+        _buf = io.BytesIO()
+        Image.new("RGB", (4, 4), (10, 20, 30)).save(_buf, "PNG")
+        png = _buf.getvalue()
+
         def do_upload():
-            png = b"\x89PNG\r\n\x1a\n" + b"0" * 64
             r = client.post("/api/pages/images/upload", headers=headers,
                             files={"file": ("a.png", png, "image/png")})
             upload_status["code"] = r.status_code

@@ -2454,8 +2454,8 @@ def report_comment(
 # ── Post image upload / serve ────────────────────────────────────────
 # Limits kept modest for the demo; bump them when we swap the disk
 # sink for S3. Content-type allow-list protects against trivially-
-# hostile uploads; magic-byte sniffing would be a nice belt-and-
-# suspenders addition for production.
+# hostile uploads; the file is then decoded and re-encoded by
+# image_storage.strip_image_metadata, which also checks the real format.
 _ALLOWED_IMAGE_TYPES = {
     "image/jpeg": "jpg",
     "image/png":  "png",
@@ -2529,12 +2529,21 @@ def upload_post_image(
     if not data:
         raise HTTPException(status_code=400, detail="Empty file.")
 
+    # Re-encode from the pixels alone so no EXIF (GPS location, device,
+    # time), XMP or other embedded detail is stored (2026-10-16). The
+    # stored type is the file's real format, which also catches a file
+    # whose declared type doesn't match its contents.
+    from app.services.image_storage import ImageRejected, get_storage, strip_image_metadata
+    try:
+        data, ct = strip_image_metadata(data)
+    except ImageRejected as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
     ext = _ALLOWED_IMAGE_TYPES[ct]
     fname = f"{uuid.uuid4().hex}.{ext}"
     # Storage backend is the factory's choice — R2 in prod, LocalDisk
     # in dev. Either way the row stores just the filename; the storage
     # layer knows how to resolve it back to bytes / URL later.
-    from app.services.image_storage import get_storage
     try:
         get_storage().write(fname, data, ct)
     except Exception as e:

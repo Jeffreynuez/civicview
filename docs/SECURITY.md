@@ -327,6 +327,10 @@ to switch backends; just set the env vars and restart.
 - **Credential isolation.** The API token is bucket-scoped — a compromised
   token can read + write `civicview-images` only, not your other Cloudflare
   resources.
+- **No hidden metadata.** Every upload is re-encoded from its pixels before it
+  is stored (`image_storage.strip_image_metadata`), so EXIF (including GPS
+  location), XMP, comments and embedded profiles never reach R2. The EXIF
+  orientation is applied first, and the format is kept.
 - **No PII on the local filesystem.** Post images live in R2; the backend
   filesystem stays empty. Reduces blast radius if an attacker ever achieves
   read access to the Render instance.
