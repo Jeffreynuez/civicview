@@ -52,7 +52,6 @@
    "mail_ballot": "https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot",
    "early_voting": "https://www.pa.gov/agencies/vote/voter-support/mail-in-and-absentee-ballot/mail-ballot-before-election-day",
    "polling_place": "https://www.pavoterservices.pa.gov/Pages/PollingPlaceInfo.aspx",
-   "sample_ballot": "https://www.pa.gov/agencies/vote/contact-us/contact-your-election-officials",
    "track_ballot": "https://www.pavoterservices.pa.gov/Pages/BallotTracking.aspx"
   },
   "poll_hours": {

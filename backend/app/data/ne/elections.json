@@ -48,7 +48,6 @@
       "mail_ballot": "https://sos.nebraska.gov/elections/early-voting",
       "early_voting": "https://sos.nebraska.gov/elections/early-voting",
       "polling_place": "https://www.votercheck.necvr.ne.gov/voterview/",
-      "sample_ballot": "https://sos.nebraska.gov/elections/election-officials-contact-information",
       "track_ballot": "https://www.votercheck.necvr.ne.gov/voterview/"
     },
     "poll_hours_vary": {

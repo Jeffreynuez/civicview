@@ -52,7 +52,6 @@
    "mail_ballot": "https://elections.ny.gov/request-ballot",
    "early_voting": "https://voterlookup.elections.ny.gov/",
    "polling_place": "https://voterlookup.elections.ny.gov/",
-   "sample_ballot": "https://publicreporting.elections.ny.gov/CountyBoardRoster/CountyBoardRoster",
    "track_ballot": "https://voterlookup.elections.ny.gov/"
   },
   "poll_hours": {

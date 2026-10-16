@@ -120,7 +120,7 @@ Links: registration https://sdsos.gov/elections-voting/voting/register-to-vote/d
 | Early voting | 2026-10-06 to 2026-11-02 | https://sos.wyo.gov/Elections/Docs/2026/2026_Election_Calendar.pdf | 2026-10-15 |
 | Poll hours | 07:00 to 19:00 | https://sos.wyo.gov/Forms/Publications/ElectionCode_8.5x11.pdf | 2026-10-15 |
 
-Links: registration https://sos.wyo.gov/Elections/State/RegisteringToVote.aspx; check_registration https://sos.wyo.gov/Elections/Docs/WYCountyClerks.pdf; mail_ballot https://sos.wyo.gov/Elections/State/AbsenteeVoting.aspx; early_voting https://sos.wyo.gov/Elections/State/AbsenteeVoting.aspx; polling_place https://myelectionday.sos.wyo.gov/WYVOTES/Pages/VOSearch.aspx; sample_ballot https://myelectionday.sos.wyo.gov/WYVOTES/Pages/VOSearch.aspx; track_ballot https://myelectionday.sos.wyo.gov/WYVOTES/Pages/VoterRegistrationCheck.aspx
+Links: registration https://sos.wyo.gov/Elections/State/RegisteringToVote.aspx; mail_ballot https://sos.wyo.gov/Elections/State/AbsenteeVoting.aspx; early_voting https://sos.wyo.gov/Elections/State/AbsenteeVoting.aspx; polling_place https://myelectionday.sos.wyo.gov/WYVOTES/Pages/VOSearch.aspx; sample_ballot https://myelectionday.sos.wyo.gov/WYVOTES/Pages/VOSearch.aspx; track_ballot https://myelectionday.sos.wyo.gov/WYVOTES/Pages/VoterRegistrationCheck.aspx
 
 </details>
 
@@ -261,7 +261,7 @@ Links: registration https://voterregistration.ct.gov/OLVR/welcome.do; check_regi
 | Early voting | 2026-10-20 to 2026-11-02 | https://www.sos.mo.gov/elections/goVoteMissouri/howtovote | 2026-10-15 |
 | Poll hours | 06:00 to 19:00 | https://www.sos.mo.gov/elections/goVoteMissouri/howtovote | 2026-10-15 |
 
-Links: registration https://www.sos.mo.gov/elections/goVoteMissouri/register; check_registration https://voteroutreach.sos.mo.gov/portal/; mail_ballot https://www.sos.mo.gov/elections/goVoteMissouri/howtovote#absentee; early_voting https://www.sos.mo.gov/elections/goVoteMissouri/localelectionauthority; polling_place https://voteroutreach.sos.mo.gov/portal/; sample_ballot https://voteroutreach.sos.mo.gov/portal/; track_ballot https://www.sos.mo.gov/elections/goVoteMissouri/localelectionauthority
+Links: registration https://www.sos.mo.gov/elections/goVoteMissouri/register; check_registration https://voteroutreach.sos.mo.gov/portal/; mail_ballot https://www.sos.mo.gov/elections/goVoteMissouri/howtovote#absentee; early_voting https://www.sos.mo.gov/elections/goVoteMissouri/localelectionauthority; polling_place https://voteroutreach.sos.mo.gov/portal/; sample_ballot https://voteroutreach.sos.mo.gov/portal/
 
 </details>
 
@@ -482,7 +482,7 @@ Links: registration https://voteidaho.gov/voter-registration/; check_registratio
 | Early voting | 2026-10-05 to 2026-11-02 | https://sos.nebraska.gov/sites/default/files/doc/elections/2026/2026_Election_Calendar.pdf | 2026-10-15 |
 | Poll hours | Vary by time zone | https://sos.nebraska.gov/elections/election-day-faq | 2026-10-15 |
 
-Links: registration https://www.nebraska.gov/apps-sos-voter-registration/; check_registration https://www.votercheck.necvr.ne.gov/voterview/; mail_ballot https://sos.nebraska.gov/elections/early-voting; early_voting https://sos.nebraska.gov/elections/early-voting; polling_place https://www.votercheck.necvr.ne.gov/voterview/; sample_ballot https://sos.nebraska.gov/elections/election-officials-contact-information; track_ballot https://www.votercheck.necvr.ne.gov/voterview/
+Links: registration https://www.nebraska.gov/apps-sos-voter-registration/; check_registration https://www.votercheck.necvr.ne.gov/voterview/; mail_ballot https://sos.nebraska.gov/elections/early-voting; early_voting https://sos.nebraska.gov/elections/early-voting; polling_place https://www.votercheck.necvr.ne.gov/voterview/; track_ballot https://www.votercheck.necvr.ne.gov/voterview/
 
 </details>
 
@@ -623,7 +623,7 @@ Links: registration https://ovr.govote.tn.gov/; check_registration https://tnmap
 | Early voting | 2026-10-24 to 2026-11-01 | https://www.nj.gov/state/elections/assets/pdf/chrons/2026-chron-general-election-0109.pdf | 2026-10-15 |
 | Poll hours | 06:00 to 20:00 | https://www.nj.gov/state/elections/vote-3-ways-to-vote.shtml | 2026-10-15 |
 
-Links: registration https://voter.svrs.nj.gov/register; check_registration https://voter.svrs.nj.gov/registration-check; mail_ballot https://voter.svrs.nj.gov/mib-request; early_voting https://www.nj.gov/state/elections/vote-early-voting.shtml; polling_place https://voter.svrs.nj.gov/polling-place-search; sample_ballot https://www.nj.gov/state/elections/vote-county-election-officials.shtml; track_ballot https://www.nj.gov/state/elections/vote-track-my-ballot.shtml
+Links: registration https://voter.svrs.nj.gov/register; check_registration https://voter.svrs.nj.gov/registration-check; mail_ballot https://voter.svrs.nj.gov/mib-request; early_voting https://www.nj.gov/state/elections/vote-early-voting.shtml; polling_place https://voter.svrs.nj.gov/polling-place-search; track_ballot https://www.nj.gov/state/elections/vote-track-my-ballot.shtml
 
 </details>
 
@@ -785,7 +785,7 @@ Links: registration https://www.dcboe.org/voters/register-to-vote/register-updat
 | Early voting | 2026-10-04 to 2026-10-29 | https://www.maine.gov/sos/elections-voting/absentee-guide | 2026-10-15 |
 | Poll hours | Vary by city or town | https://www.maine.gov/sos/elections-voting/state-of-maine-voter-guide | 2026-10-15 |
 
-Links: registration https://registertovote.sos.maine.gov/; check_registration https://www.maine.gov/sos/elections-voting/find-a-municipal-clerk-or-registrar; mail_ballot https://absenteeballotrequest.sos.maine.gov/; early_voting https://www.maine.gov/sos/elections-voting/absentee-guide; polling_place https://www.maine.gov/portal/government/edemocracy/voter_lookup.php; sample_ballot https://www.maine.gov/portal/government/edemocracy/voter_lookup.php; track_ballot https://absenteeballotrequest.sos.maine.gov/BallotTracker/BallotTracker
+Links: registration https://registertovote.sos.maine.gov/; mail_ballot https://absenteeballotrequest.sos.maine.gov/; early_voting https://www.maine.gov/sos/elections-voting/absentee-guide; polling_place https://www.maine.gov/portal/government/edemocracy/voter_lookup.php; sample_ballot https://www.maine.gov/portal/government/edemocracy/voter_lookup.php; track_ballot https://absenteeballotrequest.sos.maine.gov/BallotTracker/BallotTracker
 
 </details>
 
@@ -885,7 +885,7 @@ Links: registration https://www.sos.ms.gov/elections-voting/voter-registration-i
 | No reminder: Mail ballot request | Every active registered voter in Oregon is mailed a ballot, so no request is needed. | https://sos.oregon.gov/elections/Pages/current-election.aspx | 2026-10-15 |
 | No reminder: Early voting | Oregon has no early in-person voting period. | https://sos.oregon.gov/elections/Pages/faq.aspx | 2026-10-15 |
 
-Links: registration https://sos.oregon.gov/elections/Pages/registration.aspx; check_registration https://sos.oregon.gov/elections/Pages/myvote.aspx?lang=en; mail_ballot https://sos.oregon.gov/elections/Pages/current-election.aspx; polling_place https://sos.oregon.gov/elections/Pages/drop-box-locator.aspx; sample_ballot https://sos.oregon.gov/elections/Pages/county-officials.aspx; track_ballot https://sos.oregon.gov/elections/Pages/track-your-ballot.aspx
+Links: registration https://sos.oregon.gov/elections/Pages/registration.aspx; check_registration https://sos.oregon.gov/elections/Pages/myvote.aspx?lang=en; mail_ballot https://sos.oregon.gov/elections/Pages/current-election.aspx; polling_place https://sos.oregon.gov/elections/Pages/drop-box-locator.aspx; track_ballot https://sos.oregon.gov/elections/Pages/track-your-ballot.aspx
 
 </details>
 
@@ -989,7 +989,7 @@ Links: registration https://registertovote.ca.gov/; check_registration https://v
 | Early voting | 2026-10-24 to 2026-11-01 | https://elections.ny.gov/early-voting | 2026-10-15 |
 | Poll hours | 06:00 to 21:00 | https://elections.ny.gov/ | 2026-10-15 |
 
-Links: registration https://elections.ny.gov/register-vote; check_registration https://voterlookup.elections.ny.gov/; mail_ballot https://elections.ny.gov/request-ballot; early_voting https://voterlookup.elections.ny.gov/; polling_place https://voterlookup.elections.ny.gov/; sample_ballot https://publicreporting.elections.ny.gov/CountyBoardRoster/CountyBoardRoster; track_ballot https://voterlookup.elections.ny.gov/
+Links: registration https://elections.ny.gov/register-vote; check_registration https://voterlookup.elections.ny.gov/; mail_ballot https://elections.ny.gov/request-ballot; early_voting https://voterlookup.elections.ny.gov/; polling_place https://voterlookup.elections.ny.gov/; track_ballot https://voterlookup.elections.ny.gov/
 
 </details>
 
@@ -1010,7 +1010,7 @@ Links: registration https://elections.ny.gov/register-vote; check_registration h
 | Poll hours | 07:00 to 20:00 | https://www.pa.gov/services/vote/find-your-local-polling-place | 2026-10-15 |
 | No reminder: Early voting | Pennsylvania has no early voting period. Voters can apply for and cast a mail ballot in one visit to their county election office once that county's ballots are ready, until 5 p.m. on October 27, 2026; the start date varies by county. | https://www.pa.gov/agencies/vote/voter-support/mail-in-and-absentee-ballot/mail-ballot-before-election-day | 2026-10-15 |
 
-Links: registration https://www.pa.gov/services/vote/register-to-vote; check_registration https://www.pavoterservices.pa.gov/Pages/voterregistrationstatus.aspx; mail_ballot https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot; early_voting https://www.pa.gov/agencies/vote/voter-support/mail-in-and-absentee-ballot/mail-ballot-before-election-day; polling_place https://www.pavoterservices.pa.gov/Pages/PollingPlaceInfo.aspx; sample_ballot https://www.pa.gov/agencies/vote/contact-us/contact-your-election-officials; track_ballot https://www.pavoterservices.pa.gov/Pages/BallotTracking.aspx
+Links: registration https://www.pa.gov/services/vote/register-to-vote; check_registration https://www.pavoterservices.pa.gov/Pages/voterregistrationstatus.aspx; mail_ballot https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot; early_voting https://www.pa.gov/agencies/vote/voter-support/mail-in-and-absentee-ballot/mail-ballot-before-election-day; polling_place https://www.pavoterservices.pa.gov/Pages/PollingPlaceInfo.aspx; track_ballot https://www.pavoterservices.pa.gov/Pages/BallotTracking.aspx
 
 </details>
 

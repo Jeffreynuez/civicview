@@ -48,7 +48,6 @@
       "mail_ballot": "https://voter.svrs.nj.gov/mib-request",
       "early_voting": "https://www.nj.gov/state/elections/vote-early-voting.shtml",
       "polling_place": "https://voter.svrs.nj.gov/polling-place-search",
-      "sample_ballot": "https://www.nj.gov/state/elections/vote-county-election-officials.shtml",
       "track_ballot": "https://www.nj.gov/state/elections/vote-track-my-ballot.shtml"
     },
     "poll_hours": {

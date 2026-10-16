@@ -44,7 +44,6 @@
     "official_site": "https://sos.wyo.gov/Elections/Voting.aspx",
     "links": {
       "registration": "https://sos.wyo.gov/Elections/State/RegisteringToVote.aspx",
-      "check_registration": "https://sos.wyo.gov/Elections/Docs/WYCountyClerks.pdf",
       "mail_ballot": "https://sos.wyo.gov/Elections/State/AbsenteeVoting.aspx",
       "early_voting": "https://sos.wyo.gov/Elections/State/AbsenteeVoting.aspx",
       "polling_place": "https://myelectionday.sos.wyo.gov/WYVOTES/Pages/VOSearch.aspx",

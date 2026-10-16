@@ -44,7 +44,6 @@
     "official_site": "https://www.maine.gov/sos/elections-voting",
     "links": {
       "registration": "https://registertovote.sos.maine.gov/",
-      "check_registration": "https://www.maine.gov/sos/elections-voting/find-a-municipal-clerk-or-registrar",
       "mail_ballot": "https://absenteeballotrequest.sos.maine.gov/",
       "early_voting": "https://www.maine.gov/sos/elections-voting/absentee-guide",
       "polling_place": "https://www.maine.gov/portal/government/edemocracy/voter_lookup.php",

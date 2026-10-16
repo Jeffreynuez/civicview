@@ -48,8 +48,7 @@
       "mail_ballot": "https://www.sos.mo.gov/elections/goVoteMissouri/howtovote#absentee",
       "early_voting": "https://www.sos.mo.gov/elections/goVoteMissouri/localelectionauthority",
       "polling_place": "https://voteroutreach.sos.mo.gov/portal/",
-      "sample_ballot": "https://voteroutreach.sos.mo.gov/portal/",
-      "track_ballot": "https://www.sos.mo.gov/elections/goVoteMissouri/localelectionauthority"
+      "sample_ballot": "https://voteroutreach.sos.mo.gov/portal/"
     },
     "poll_hours": {
       "open": "06:00",

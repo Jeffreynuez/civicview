@@ -44,7 +44,6 @@
       "check_registration": "https://sos.oregon.gov/elections/Pages/myvote.aspx?lang=en",
       "mail_ballot": "https://sos.oregon.gov/elections/Pages/current-election.aspx",
       "polling_place": "https://sos.oregon.gov/elections/Pages/drop-box-locator.aspx",
-      "sample_ballot": "https://sos.oregon.gov/elections/Pages/county-officials.aspx",
       "track_ballot": "https://sos.oregon.gov/elections/Pages/track-your-ballot.aspx"
     },
     "deadline_times": {
