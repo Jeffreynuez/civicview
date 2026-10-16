@@ -75,7 +75,7 @@ Links: registration https://mvic.sos.state.mi.us/RegisterVoter/Index; check_regi
 | Register in person | 2026-10-09 | https://oklahoma.gov/elections/voter-registration/register-to-vote.html | 2026-10-15 |
 | Same-day registration | Not available | https://oklahoma.gov/elections/voter-registration/register-to-vote.html | 2026-10-15 |
 | Every voter mailed a ballot | No | https://oklahoma.gov/elections/voters/absentee-voting.html | 2026-10-15 |
-| Mail ballot request | 2026-10-19 | https://oklahoma.gov/elections.html | 2026-10-15 |
+| Mail ballot request | 2026-10-19 | https://oklahoma.gov/elections/voters/absentee-voting.html | 2026-10-16 |
 | Mail ballot return | Received by 2026-11-03, 7 p.m. | https://oklahoma.gov/elections/voters/absentee-voting.html | 2026-10-15 |
 | Early voting | 2026-10-28 to 2026-10-31 | https://hosting.okelections.gov/earlyvote.html | 2026-10-15 |
 | Poll hours | 07:00 to 19:00 | https://oklahoma.gov/elections/elections-results/dates-and-deadlines.html | 2026-10-15 |
@@ -155,7 +155,7 @@ Links: registration https://vrsws.sos.ky.gov/ovrweb; check_registration https://
 | Register in person | 2026-10-09 | https://www.ncsbe.gov/voting/upcoming-election | 2026-10-15 |
 | Same-day registration | During early voting | https://www.ncsbe.gov/registering/how-register/voter-registration-deadlines | 2026-10-15 |
 | Every voter mailed a ballot | No | https://www.ncsbe.gov/voting/vote-mail | 2026-10-15 |
-| Mail ballot request | 2026-10-20 | https://www.ncsbe.gov/voting/upcoming-election | 2026-10-15 |
+| Mail ballot request | 2026-10-20 | https://www.ncsbe.gov/voting/vote-mail/detailed-instructions-vote-mail | 2026-10-16 |
 | Mail ballot return | Received by 2026-11-03, 7:30 p.m. | https://www.ncsbe.gov/voting/vote-mail/detailed-instructions-vote-mail | 2026-10-15 |
 | Early voting | 2026-10-15 to 2026-10-31 | https://www.ncsbe.gov/voting/vote-early-person | 2026-10-15 |
 | Poll hours | 06:30 to 19:30 | https://www.ncsbe.gov/voting/vote-person-election-day | 2026-10-15 |
@@ -594,11 +594,11 @@ Links: registration https://elections.maryland.gov/voter_registration/index.html
 | Election date | 2026-11-03 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Registration reminder date | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Register online | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
-| Register by mail | 2026-10-05, postmarked | https://sos.tn.gov/elections/calendar | 2026-10-15 |
+| Register by mail | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Register in person | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Same-day registration | Not available | https://sos.tn.gov/press-releases/tennessee-secretary-of-state-tre-hargett-reminds-eligible-tennesseans-today-is-the | 2026-10-15 |
 | Every voter mailed a ballot | No | https://sos.tn.gov/elections/guides/guide-to-absentee-voting | 2026-10-15 |
-| Mail ballot request | 2026-10-24 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
+| Mail ballot request | 2026-10-24 | https://sos.tn.gov/elections/guides/guide-to-absentee-voting | 2026-10-16 |
 | Mail ballot return | Received by 2026-11-03, when polls close | https://sos.tn.gov/elections/guides/guide-to-absentee-voting | 2026-10-15 |
 | Early voting | 2026-10-14 to 2026-10-29 | https://sos.tn.gov/govotetn | 2026-10-15 |
 | Poll hours | Vary by county | https://sos.tn.gov/newsroom/press-releases/everything-voters-need-to-know-for-the-august-6-election-this-thursday | 2026-10-15 |

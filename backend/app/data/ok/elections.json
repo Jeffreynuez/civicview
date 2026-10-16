@@ -23,7 +23,7 @@
     "voter_registration_in_person_general": "https://oklahoma.gov/elections/voter-registration/register-to-vote.html",
     "same_day_registration_general": "https://oklahoma.gov/elections/voter-registration/register-to-vote.html",
     "all_mail_general": "https://oklahoma.gov/elections/voters/absentee-voting.html",
-    "vote_by_mail_request_deadline_general": "https://oklahoma.gov/elections.html",
+    "vote_by_mail_request_deadline_general": "https://oklahoma.gov/elections/voters/absentee-voting.html",
     "mail_ballot_return_deadline_general": "https://oklahoma.gov/elections/voters/absentee-voting.html",
     "early_voting_window_general": "https://hosting.okelections.gov/earlyvote.html"
   },
@@ -35,12 +35,12 @@
     "voter_registration_in_person_general": "2026-10-15",
     "same_day_registration_general": "2026-10-15",
     "all_mail_general": "2026-10-15",
-    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-16",
     "mail_ballot_return_deadline_general": "2026-10-15",
     "early_voting_window_general": "2026-10-15"
   },
   "voter_info": {
-    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-16.",
     "official_site": "https://oklahoma.gov/elections.html",
     "links": {
       "registration": "https://oklahoma.gov/elections/voter-registration/register-to-vote.html",

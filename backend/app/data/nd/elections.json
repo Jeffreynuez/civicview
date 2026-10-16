@@ -43,9 +43,6 @@
       "source_url": "https://ndlegis.gov/cencode/t16-1c01.pdf",
       "retrieved": "2026-10-15"
     },
-    "reminder_notes": {
-      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
-    },
     "no_reminder": {
       "voter_registration_deadline_general": {
         "reason": "North Dakota has no voter registration.",

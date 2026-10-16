@@ -23,7 +23,7 @@
     "voter_registration_in_person_general": "https://www.ncsbe.gov/voting/upcoming-election",
     "same_day_registration_general": "https://www.ncsbe.gov/registering/how-register/voter-registration-deadlines",
     "all_mail_general": "https://www.ncsbe.gov/voting/vote-mail",
-    "vote_by_mail_request_deadline_general": "https://www.ncsbe.gov/voting/upcoming-election",
+    "vote_by_mail_request_deadline_general": "https://www.ncsbe.gov/voting/vote-mail/detailed-instructions-vote-mail",
     "mail_ballot_return_deadline_general": "https://www.ncsbe.gov/voting/vote-mail/detailed-instructions-vote-mail",
     "early_voting_window_general": "https://www.ncsbe.gov/voting/vote-early-person"
   },
@@ -35,12 +35,12 @@
     "voter_registration_in_person_general": "2026-10-15",
     "same_day_registration_general": "2026-10-15",
     "all_mail_general": "2026-10-15",
-    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-16",
     "mail_ballot_return_deadline_general": "2026-10-15",
     "early_voting_window_general": "2026-10-15"
   },
   "voter_info": {
-    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-16.",
     "official_site": "https://www.ncsbe.gov/voting/upcoming-election",
     "links": {
       "registration": "https://www.ncsbe.gov/registering/how-register",
