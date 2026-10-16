@@ -995,7 +995,7 @@ export default function PageView({
                 ) : (
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                     {events.map((evt) => {
-                      const d = evt.start_at ? new Date(evt.start_at.replace('Z', '')) : null;
+                      const d = evt.start_at ? new Date(evt.start_at) : null;
                       const when = d && !Number.isNaN(d.getTime())
                         ? d.toLocaleString(undefined, {
                             month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
@@ -1193,7 +1193,7 @@ export default function PageView({
             ) : (
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                 {events.map((evt) => {
-                  const d = evt.start_at ? new Date(evt.start_at.replace('Z', '')) : null;
+                  const d = evt.start_at ? new Date(evt.start_at) : null;
                   const when = d && !Number.isNaN(d.getTime())
                     ? d.toLocaleString(undefined, {
                         month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',

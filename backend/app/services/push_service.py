@@ -399,6 +399,7 @@ def _deliver_tracked_push(
     title: str, body: str, data: dict,
     official_name: Optional[str] = None,
     notification_ids: Optional[dict] = None,
+    body_for=None,
     now_utc: Optional[datetime] = None,
 ) -> int:
     """Shared delivery engine for tracked-activity pushes (2026-07-26,
@@ -413,6 +414,8 @@ def _deliver_tracked_push(
          (Notifications v2 part 3). Callers pass anon_key=None to skip
          anonymous delivery (e.g. events, where the on_event pref is an
          explicit opt-in anonymous devices never expressed).
+      body_for(prefs), when given, builds each device's own body from
+      its prefs (event times in the recipient's local time).
       notification_ids, {citizen_id: bell row id}, puts each bound
       device's own bell row in its push data, so tapping the push marks
       that row read (2026-10-16).
@@ -493,7 +496,8 @@ def _deliver_tracked_push(
         row_data = dict(data)
         if nid:
             row_data["notification_id"] = nid
-        message = PushMessage(token=row.token, title=title, body=body, data=row_data)
+        row_body = body_for(prefs) if body_for is not None else body
+        message = PushMessage(token=row.token, title=title, body=row_body, data=row_data)
         cadence = effective_cadence(prefs)
         reason = None
         if cadence != "realtime":
@@ -573,13 +577,20 @@ def push_tracked_event(
     per-official opt-in that anonymous devices can't express, so
     they never receive event pushes. Never raises."""
     try:
-        when = (start_at or "")[:16].replace("T", " ")
-        body_bits = [b for b in (title, when, location) if b]
+        from app.services.local_time import format_when
+
+        def body_for(prefs):
+            # The start time in the recipient's own clock (2026-10-16),
+            # Eastern with "ET" when the device has no time zone.
+            when = format_when(start_at, prefs) if start_at else ""
+            return " · ".join(b for b in (title, when, location) if b)
+
         return _deliver_tracked_push(
             db, citizen_ids,
             anon_key=None,
             title=f"{official_name} scheduled an event",
-            body=" · ".join(body_bits),
+            body=body_for(None),
+            body_for=body_for,
             data={
                 "kind": "tracked_event",
                 "official_id": official_id,

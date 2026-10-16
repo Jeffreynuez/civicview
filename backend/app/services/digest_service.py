@@ -164,6 +164,8 @@ def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
     closing_ids = {p.id for p in closing}
     return {
         "citizen_name": citizen.display_name,
+        # Dates and times in the citizen's own clock (2026-10-16).
+        "tz_prefs": citizen.notification_prefs_json,
         "tracked_count": len(keys),
         "posts": [
             {
@@ -197,17 +199,19 @@ def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
     }
 
 
-def _fmt_dt(dt) -> str:
-    """Accepts datetime OR ISO string (RepEvent.start_at is a string
-    column). No %-d — glibc-only, breaks on Windows dev machines."""
+def _fmt_dt(dt, prefs=None, *, with_time: bool = False) -> str:
+    """Accepts datetime (naive UTC) OR ISO string (RepEvent.start_at is
+    a string column). In the citizen's own time zone since 2026-10-16
+    (tz_offset_minutes from their settings), else Eastern with "ET" on
+    times; dates alone carry no label. No %-d: glibc-only, breaks on
+    Windows dev machines."""
     if not dt:
         return ""
-    if isinstance(dt, str):
-        try:
-            dt = datetime.fromisoformat(dt.replace("Z", "+00:00"))
-        except ValueError:
-            return dt[:10]
-    return f"{dt.strftime('%a, %b')} {dt.day}"
+    from app.services.local_time import format_when, parse_utc
+
+    if parse_utc(dt) is None:
+        return str(dt)[:10]
+    return format_when(dt, prefs, with_time=with_time)
 
 
 def render_digest(data: dict, app_url: str = "https://civicview.app") -> tuple[str, str, str]:
@@ -221,6 +225,8 @@ def render_digest(data: dict, app_url: str = "https://civicview.app") -> tuple[s
 
     def esc(s):
         return html.escape(str(s or ""))
+
+    tz = data.get("tz_prefs")
 
     sections_html: list[str] = []
     sections_text: list[str] = []
@@ -243,31 +249,31 @@ def render_digest(data: dict, app_url: str = "https://civicview.app") -> tuple[s
     section(
         "New posts from officials you track",
         [f"<p style=\"{row_style}\">{esc(p['preview'])}{'…' if len(p['preview']) >= 180 else ''}"
-         f"<br><span style=\"color:#6b7280;font-size:12px;\">{_fmt_dt(p['created_at'])}</span></p>"
+         f"<br><span style=\"color:#6b7280;font-size:12px;\">{_fmt_dt(p['created_at'], tz)}</span></p>"
          for p in data["posts"]],
-        [f"- {p['preview'][:100]} ({_fmt_dt(p['created_at'])})" for p in data["posts"]],
+        [f"- {p['preview'][:100]} ({_fmt_dt(p['created_at'], tz)})" for p in data["posts"]],
     )
     section(
         "New polls this week",
         [f"<p style=\"{row_style}\">{esc(p['question'])}"
-         + (f"<br><span style=\"color:#6b7280;font-size:12px;\">closes {_fmt_dt(p['closes_at'])}</span>" if p["closes_at"] else "")
+         + (f"<br><span style=\"color:#6b7280;font-size:12px;\">closes {_fmt_dt(p['closes_at'], tz, with_time=True)}</span>" if p["closes_at"] else "")
          + "</p>" for p in data["new_polls"]],
         [f"- {p['question']}" for p in data["new_polls"]],
     )
     section(
         "Polls closing soon — make your voice count",
         [f"<p style=\"{row_style}\">{esc(p['question'])}"
-         f"<br><span style=\"color:#b45309;font-size:12px;\">closes {_fmt_dt(p['closes_at'])}</span></p>"
+         f"<br><span style=\"color:#b45309;font-size:12px;\">closes {_fmt_dt(p['closes_at'], tz, with_time=True)}</span></p>"
          for p in data["closing_polls"]],
-        [f"- {p['question']} (closes {_fmt_dt(p['closes_at'])})" for p in data["closing_polls"]],
+        [f"- {p['question']} (closes {_fmt_dt(p['closes_at'], tz, with_time=True)})" for p in data["closing_polls"]],
     )
     section(
         "Upcoming in your district",
         [f"<p style=\"{row_style}\">{esc(e['title'])}"
-         f"<br><span style=\"color:#6b7280;font-size:12px;\">{_fmt_dt(e['start_at'])}"
+         f"<br><span style=\"color:#6b7280;font-size:12px;\">{_fmt_dt(e['start_at'], tz, with_time=True)}"
          + (f" · {esc(e['location'])}" if e["location"] else "") + "</span></p>"
          for e in data["events"]],
-        [f"- {e['title']} ({_fmt_dt(e['start_at'])})" for e in data["events"]],
+        [f"- {e['title']} ({_fmt_dt(e['start_at'], tz, with_time=True)})" for e in data["events"]],
     )
 
     html_body = (
