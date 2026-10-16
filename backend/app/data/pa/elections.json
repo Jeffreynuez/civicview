@@ -7,28 +7,53 @@
  "closed_primary": true,
  "key_dates": {
   "primary": "2026-05-19",
-  "general": "2026-11-03",
   "voter_registration_deadline_primary": "2026-05-04",
+  "general": "2026-11-03",
   "voter_registration_deadline_general": "2026-10-19",
-  "vote_by_mail_request_deadline_general": "2026-10-27"
+  "voter_registration_online_general": "2026-10-19",
+  "voter_registration_mail_general": "2026-10-19, received",
+  "voter_registration_in_person_general": "2026-10-19",
+  "same_day_registration_general": "Not available",
+  "all_mail_general": "No",
+  "vote_by_mail_request_deadline_general": "2026-10-27",
+  "mail_ballot_return_deadline_general": "Received by 2026-11-03, 8 p.m.",
+  "early_voting_rule_general": "Not available"
  },
  "key_date_sources": {
   "general": "https://www.pa.gov/agencies/vote/elections/upcoming-elections",
   "voter_registration_deadline_general": "https://www.pa.gov/agencies/vote/elections/upcoming-elections",
-  "vote_by_mail_request_deadline_general": "https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot"
+  "voter_registration_online_general": "https://www.pa.gov/agencies/dos/newsroom/-deadline-to-register-to-vote-in-the-general-election-is-approac",
+  "voter_registration_mail_general": "https://www.pa.gov/agencies/dos/newsroom/-deadline-to-register-to-vote-in-the-general-election-is-approac",
+  "voter_registration_in_person_general": "https://www.pa.gov/agencies/dos/newsroom/-deadline-to-register-to-vote-in-the-general-election-is-approac",
+  "same_day_registration_general": "https://www.pa.gov/services/vote/register-to-vote",
+  "all_mail_general": "https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot",
+  "vote_by_mail_request_deadline_general": "https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot",
+  "mail_ballot_return_deadline_general": "https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot",
+  "early_voting_rule_general": "https://www.pa.gov/agencies/vote/voter-support/mail-in-and-absentee-ballot/mail-ballot-before-election-day"
  },
  "key_date_retrieved": {
   "general": "2026-10-15",
   "voter_registration_deadline_general": "2026-10-15",
-  "vote_by_mail_request_deadline_general": "2026-10-15"
+  "voter_registration_online_general": "2026-10-15",
+  "voter_registration_mail_general": "2026-10-15",
+  "voter_registration_in_person_general": "2026-10-15",
+  "same_day_registration_general": "2026-10-15",
+  "all_mail_general": "2026-10-15",
+  "vote_by_mail_request_deadline_general": "2026-10-15",
+  "mail_ballot_return_deadline_general": "2026-10-15",
+  "early_voting_rule_general": "2026-10-15"
  },
  "voter_info": {
-  "_note": "Read by election reminders (backend/app/services/election_reminders.py). Every link is on a Pennsylvania Department of State site; every reminder date needs an https source in key_date_sources (data lint E-11). Checked on the official pages 2026-10-15. vote_by_mail_request_deadline_general is the deadline for a county to receive a mail-in or absentee ballot application.",
+  "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
   "official_site": "https://www.pa.gov/agencies/vote",
   "links": {
    "registration": "https://www.pa.gov/services/vote/register-to-vote",
+   "check_registration": "https://www.pavoterservices.pa.gov/Pages/voterregistrationstatus.aspx",
    "mail_ballot": "https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot",
-   "polling_place": "https://www.pavoterservices.pa.gov/Pages/PollingPlaceInfo.aspx"
+   "early_voting": "https://www.pa.gov/agencies/vote/voter-support/mail-in-and-absentee-ballot/mail-ballot-before-election-day",
+   "polling_place": "https://www.pavoterservices.pa.gov/Pages/PollingPlaceInfo.aspx",
+   "sample_ballot": "https://www.pa.gov/agencies/vote/contact-us/contact-your-election-officials",
+   "track_ballot": "https://www.pavoterservices.pa.gov/Pages/BallotTracking.aspx"
   },
   "poll_hours": {
    "open": "07:00",
@@ -37,10 +62,11 @@
    "retrieved": "2026-10-15"
   },
   "deadline_times": {
+   "voter_registration_deadline_general": "23:59",
    "vote_by_mail_request_deadline_general": "17:00"
   },
   "reminder_notes": {
-   "vote_by_mail_request_deadline_general": "Your application must be received by your county election office by 5 p.m."
+   "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
   },
   "no_reminder": {
    "early_voting_window_general": {
@@ -5762,7 +5788,7 @@
   "state": [],
   "counties": {}
  },
- "_measures_note": "Pennsylvania has no statewide ballot measures on the November 2026 ballot — PA constitutional amendments reach voters only after the legislature passes them in two consecutive sessions, and none are scheduled for 2026. Local/municipal questions vary by county and are not yet integrated (pending a certified source).",
+ "_measures_note": "Pennsylvania has no statewide ballot measures on the November 2026 ballot. PA constitutional amendments reach voters only after the legislature passes them in two consecutive sessions, and none are scheduled for 2026. Local/municipal questions vary by county and are not yet integrated (pending a certified source).",
  "_personalization_hints": {
   "match_keys": {
    "state": [

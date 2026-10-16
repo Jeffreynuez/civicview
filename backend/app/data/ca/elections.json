@@ -7,45 +7,72 @@
  "closed_primary": false,
  "key_dates": {
   "primary": "2026-06-02",
-  "general": "2026-11-03",
   "voter_registration_deadline_primary": "2026-05-18",
-  "voter_registration_deadline_general": "2026-10-19"
+  "general": "2026-11-03",
+  "voter_registration_deadline_general": "2026-10-19",
+  "voter_registration_online_general": "2026-10-19",
+  "voter_registration_mail_general": "2026-10-19, postmarked",
+  "voter_registration_in_person_general": "2026-10-19",
+  "same_day_registration_general": "During early voting and on Election Day",
+  "all_mail_general": "Yes",
+  "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-10",
+  "early_voting_window_general": "2026-10-24 to 2026-11-02",
+  "early_voting_optional_general": "Some counties opened early voting sites from 2026-10-05"
  },
  "key_date_sources": {
   "general": "https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines",
-  "voter_registration_deadline_general": "https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines"
+  "voter_registration_deadline_general": "https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines",
+  "voter_registration_online_general": "https://www.sos.ca.gov/elections/voting-resources/voting-california/election-dates-and-resources",
+  "voter_registration_mail_general": "https://www.sos.ca.gov/elections/voting-resources/voting-california/election-dates-and-resources",
+  "voter_registration_in_person_general": "https://www.sos.ca.gov/elections/frequently-asked-questions",
+  "same_day_registration_general": "https://www.sos.ca.gov/elections/voter-registration/same-day-reg",
+  "all_mail_general": "https://caearlyvoting.sos.ca.gov/",
+  "mail_ballot_return_deadline_general": "https://www.sos.ca.gov/elections/voting-resources/voting-california/election-dates-and-resources",
+  "early_voting_window_general": "https://caearlyvoting.sos.ca.gov/",
+  "early_voting_optional_general": "https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines"
  },
  "key_date_retrieved": {
   "general": "2026-10-15",
-  "voter_registration_deadline_general": "2026-10-15"
+  "voter_registration_deadline_general": "2026-10-15",
+  "voter_registration_online_general": "2026-10-15",
+  "voter_registration_mail_general": "2026-10-15",
+  "voter_registration_in_person_general": "2026-10-15",
+  "same_day_registration_general": "2026-10-15",
+  "all_mail_general": "2026-10-15",
+  "mail_ballot_return_deadline_general": "2026-10-15",
+  "early_voting_window_general": "2026-10-15",
+  "early_voting_optional_general": "2026-10-15"
  },
  "voter_info": {
-  "_note": "Read by election reminders (backend/app/services/election_reminders.py). Every link is on a California Secretary of State site; every reminder date needs an https source in key_date_sources (data lint E-11). Checked on the official pages 2026-10-15.",
+  "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
   "official_site": "https://www.sos.ca.gov/elections",
   "links": {
    "registration": "https://registertovote.ca.gov/",
+   "check_registration": "https://voterstatus.sos.ca.gov/",
    "mail_ballot": "https://www.sos.ca.gov/elections/voter-registration/vote-mail",
    "early_voting": "https://caearlyvoting.sos.ca.gov/",
-   "polling_place": "https://www.sos.ca.gov/elections/polling-place"
+   "polling_place": "https://www.sos.ca.gov/elections/polling-place",
+   "sample_ballot": "https://www.sos.ca.gov/elections/publications-and-resources/state-county-vig",
+   "track_ballot": "https://www.sos.ca.gov/elections/voter-registration/vote-mail"
   },
   "poll_hours": {
    "open": "07:00",
    "close": "20:00",
-   "source_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=ELEC&sectionNum=14212",
+   "source_url": "https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines",
    "retrieved": "2026-10-15"
   },
   "reminder_notes": {
-   "voter_registration_deadline_general": "After that, you can still register conditionally and vote a provisional ballot through Election Day."
+   "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day."
   },
   "no_reminder": {
    "vote_by_mail_request_deadline_general": {
-    "reason": "Every active registered California voter is mailed a ballot, and the Secretary of State sets no deadline to request one. It lists October 27, 2026 only as a recommended date to ask for a replacement ballot.",
-    "source_url": "https://www.sos.ca.gov/elections/voting-resources/voting-california/election-dates-and-resources",
+    "reason": "Every active registered voter in California is mailed a ballot, so no request is needed.",
+    "source_url": "https://caearlyvoting.sos.ca.gov/",
     "retrieved": "2026-10-15"
    },
    "early_voting_window_general": {
-    "reason": "No single statewide start date: early voting sites opened October 5, 2026, and vote centers in Voter's Choice Act counties open October 24 or October 31 depending on the county.",
-    "source_url": "https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines",
+    "reason": "California counties opened early voting on different days, some from October 5, 2026; every county has at least one early voting site from October 24, 2026.",
+    "source_url": "https://caearlyvoting.sos.ca.gov/",
     "retrieved": "2026-10-15"
    }
   }
@@ -3981,7 +4008,7 @@
   "state": [],
   "counties": {}
  },
- "_measures_note": "California decides statewide ballot propositions at the November general election. The certified 2026 proposition list (numbers, titles, and official summaries) is not yet integrated — pending the California Secretary of State's official measures list. Local/municipal measures are also not yet integrated.",
+ "_measures_note": "California decides statewide ballot propositions at the November general election. The certified 2026 proposition list (numbers, titles, and official summaries) is not yet integrated, pending the California Secretary of State's official measures list. Local/municipal measures are also not yet integrated.",
  "_personalization_hints": {
   "match_keys": {
    "state": [

@@ -8,49 +8,67 @@
   "_closed_primary_note": "Florida is a closed-primary state: only voters registered with a party can vote in that party's primary. Voters with no party affiliation can vote in nonpartisan contests and on ballot measures, but not in the partisan primaries. The BallotTab disclosure reads from this field.",
   "key_dates": {
     "primary": "2026-08-18",
-    "general": "2026-11-03",
     "voter_registration_deadline_primary": "2026-07-20",
-    "voter_registration_deadline_general": "2026-10-05",
     "vote_by_mail_request_deadline_primary": "2026-08-08",
+    "_source_url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.657.html",
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-05",
+    "voter_registration_online_general": "2026-10-05",
+    "voter_registration_mail_general": "2026-10-05, postmarked",
+    "voter_registration_in_person_general": "2026-10-05",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
     "vote_by_mail_request_deadline_general": "2026-10-22",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 7 p.m.",
     "early_voting_window_general": "2026-10-24 to 2026-10-31",
-    "early_voting_optional_general": "Counties may add days from 2026-10-19 and on 2026-11-01",
-    "_source_url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.657.html"
+    "early_voting_optional_general": "Counties may add days from 2026-10-19 and on 2026-11-01"
   },
   "key_date_sources": {
     "general": "https://dos.fl.gov/elections/for-voters/election-dates/",
     "voter_registration_deadline_general": "https://dos.fl.gov/elections/for-voters/election-dates/",
+    "voter_registration_online_general": "https://files.floridados.gov/media/711204/2026-calendar-20260713.pdf",
+    "voter_registration_mail_general": "https://files.floridados.gov/media/706383/ovr-faq-eng-v20220801-final.pdf",
+    "voter_registration_in_person_general": "https://files.floridados.gov/media/706383/ovr-faq-eng-v20220801-final.pdf",
+    "same_day_registration_general": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0000-0099/0097/Sections/0097.055.html",
+    "all_mail_general": "https://dos.fl.gov/elections/for-voters/voting/vote-by-mail/",
     "vote_by_mail_request_deadline_general": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.62.html",
+    "mail_ballot_return_deadline_general": "https://dos.fl.gov/elections/for-voters/voting/vote-by-mail/",
     "early_voting_window_general": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.657.html",
     "early_voting_optional_general": "https://dos.fl.gov/elections/for-voters/voting/early-voting-and-secure-ballot-intake-stations/"
   },
   "key_date_retrieved": {
     "general": "2026-10-15",
     "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
     "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
     "early_voting_window_general": "2026-10-15",
     "early_voting_optional_general": "2026-10-15"
   },
   "voter_info": {
-    "_note": "Read by election reminders (backend/app/services/election_reminders.py). Every link is on the Florida Division of Elections site; every reminder date needs an https source in key_date_sources (data lint E-11). Checked on the official pages 2026-10-15.",
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
     "official_site": "https://dos.fl.gov/elections/",
     "links": {
       "registration": "https://dos.fl.gov/elections/for-voters/voter-registration/",
+      "check_registration": "https://registration.dos.fl.gov/",
       "mail_ballot": "https://dos.fl.gov/elections/for-voters/voting/vote-by-mail/",
       "early_voting": "https://dos.fl.gov/elections/for-voters/voting/early-voting-and-secure-ballot-intake-stations/",
-      "polling_place": "https://dos.fl.gov/elections/for-voters/check-your-voter-status-and-polling-place/voter-precinct-lookup/"
+      "polling_place": "https://dos.fl.gov/elections/for-voters/check-your-voter-status-and-polling-place/voter-precinct-lookup/",
+      "sample_ballot": "https://registration.dos.fl.gov/",
+      "track_ballot": "https://dos.fl.gov/elections/for-voters/check-your-voter-status-and-polling-place/vote-by-mail-ballot-information-and-status-lookup/"
     },
     "poll_hours": {
       "open": "07:00",
       "close": "19:00",
-      "source_url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0100/Sections/0100.011.html",
+      "source_url": "https://dos.fl.gov/elections/for-voters/voting/election-day-voting/",
       "retrieved": "2026-10-15"
     },
     "deadline_times": {
       "vote_by_mail_request_deadline_general": "17:00"
-    },
-    "reminder_notes": {
-      "vote_by_mail_request_deadline_general": "This is the deadline to have a ballot mailed to you, and requests are due by 5 p.m. local time."
     },
     "reminder_text": {
       "early_voting_1d": {

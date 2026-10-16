@@ -909,3 +909,107 @@ Links: registration https://sos.vermont.gov/elections/voters/registration/; chec
 
 </details>
 
+<details><summary>FL Florida</summary>
+
+| Row | Value | Source | Read |
+| --- | --- | --- | --- |
+| Election date | 2026-11-03 | https://dos.fl.gov/elections/for-voters/election-dates/ | 2026-10-15 |
+| Registration reminder date | 2026-10-05 | https://dos.fl.gov/elections/for-voters/election-dates/ | 2026-10-15 |
+| Register online | 2026-10-05 | https://files.floridados.gov/media/711204/2026-calendar-20260713.pdf | 2026-10-15 |
+| Register by mail | 2026-10-05, postmarked | https://files.floridados.gov/media/706383/ovr-faq-eng-v20220801-final.pdf | 2026-10-15 |
+| Register in person | 2026-10-05 | https://files.floridados.gov/media/706383/ovr-faq-eng-v20220801-final.pdf | 2026-10-15 |
+| Same-day registration | Not available | https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0000-0099/0097/Sections/0097.055.html | 2026-10-15 |
+| Every voter mailed a ballot | No | https://dos.fl.gov/elections/for-voters/voting/vote-by-mail/ | 2026-10-15 |
+| Mail ballot request | 2026-10-22 | https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.62.html | 2026-10-15 |
+| Mail ballot return | Received by 2026-11-03, 7 p.m. | https://dos.fl.gov/elections/for-voters/voting/vote-by-mail/ | 2026-10-15 |
+| Early voting | 2026-10-24 to 2026-10-31 | https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.657.html | 2026-10-15 |
+| Optional early voting | Counties may add days from 2026-10-19 and on 2026-11-01 | https://dos.fl.gov/elections/for-voters/voting/early-voting-and-secure-ballot-intake-stations/ | 2026-10-15 |
+| Poll hours | 07:00 to 19:00 | https://dos.fl.gov/elections/for-voters/voting/election-day-voting/ | 2026-10-15 |
+
+Links: registration https://dos.fl.gov/elections/for-voters/voter-registration/; check_registration https://registration.dos.fl.gov/; mail_ballot https://dos.fl.gov/elections/for-voters/voting/vote-by-mail/; early_voting https://dos.fl.gov/elections/for-voters/voting/early-voting-and-secure-ballot-intake-stations/; polling_place https://dos.fl.gov/elections/for-voters/check-your-voter-status-and-polling-place/voter-precinct-lookup/; sample_ballot https://registration.dos.fl.gov/; track_ballot https://dos.fl.gov/elections/for-voters/check-your-voter-status-and-polling-place/vote-by-mail-ballot-information-and-status-lookup/
+
+</details>
+
+<details><summary>CA California</summary>
+
+| Row | Value | Source | Read |
+| --- | --- | --- | --- |
+| Election date | 2026-11-03 | https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines | 2026-10-15 |
+| Registration reminder date | 2026-10-19 | https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines | 2026-10-15 |
+| Register online | 2026-10-19 | https://www.sos.ca.gov/elections/voting-resources/voting-california/election-dates-and-resources | 2026-10-15 |
+| Register by mail | 2026-10-19, postmarked | https://www.sos.ca.gov/elections/voting-resources/voting-california/election-dates-and-resources | 2026-10-15 |
+| Register in person | 2026-10-19 | https://www.sos.ca.gov/elections/frequently-asked-questions | 2026-10-15 |
+| Same-day registration | During early voting and on Election Day | https://www.sos.ca.gov/elections/voter-registration/same-day-reg | 2026-10-15 |
+| Every voter mailed a ballot | Yes | https://caearlyvoting.sos.ca.gov/ | 2026-10-15 |
+| Mail ballot return | Postmarked by 2026-11-03, received by 2026-11-10 | https://www.sos.ca.gov/elections/voting-resources/voting-california/election-dates-and-resources | 2026-10-15 |
+| Early voting | 2026-10-24 to 2026-11-02 | https://caearlyvoting.sos.ca.gov/ | 2026-10-15 |
+| Optional early voting | Some counties opened early voting sites from 2026-10-05 | https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines | 2026-10-15 |
+| Poll hours | 07:00 to 20:00 | https://www.sos.ca.gov/elections/upcoming-elections/general-election-november-3-2026/key-dates-deadlines | 2026-10-15 |
+| No reminder: Mail ballot request | Every active registered voter in California is mailed a ballot, so no request is needed. | https://caearlyvoting.sos.ca.gov/ | 2026-10-15 |
+| No reminder: Early voting | California counties opened early voting on different days, some from October 5, 2026; every county has at least one early voting site from October 24, 2026. | https://caearlyvoting.sos.ca.gov/ | 2026-10-15 |
+
+Links: registration https://registertovote.ca.gov/; check_registration https://voterstatus.sos.ca.gov/; mail_ballot https://www.sos.ca.gov/elections/voter-registration/vote-mail; early_voting https://caearlyvoting.sos.ca.gov/; polling_place https://www.sos.ca.gov/elections/polling-place; sample_ballot https://www.sos.ca.gov/elections/publications-and-resources/state-county-vig; track_ballot https://www.sos.ca.gov/elections/voter-registration/vote-mail
+
+</details>
+
+<details><summary>NY New York</summary>
+
+| Row | Value | Source | Read |
+| --- | --- | --- | --- |
+| Election date | 2026-11-03 | https://elections.ny.gov/2026-political-calendar | 2026-10-15 |
+| Registration reminder date | 2026-10-24 | https://elections.ny.gov/registration-and-voting-deadlines | 2026-10-15 |
+| Register online | 2026-10-24 | https://elections.ny.gov/frequently-asked-questions | 2026-10-15 |
+| Register by mail | 2026-10-24, received | https://elections.ny.gov/registration-and-voting-deadlines | 2026-10-15 |
+| Register in person | 2026-10-24 | https://elections.ny.gov/registration-and-voting-deadlines | 2026-10-15 |
+| Same-day registration | Not available | https://elections.ny.gov/frequently-asked-questions | 2026-10-15 |
+| Every voter mailed a ballot | No | https://elections.ny.gov/request-ballot | 2026-10-15 |
+| Mail ballot request | 2026-10-24 | https://elections.ny.gov/2026-political-calendar | 2026-10-15 |
+| Mail ballot return | Postmarked by 2026-11-03, received by 2026-11-10 | https://elections.ny.gov/request-ballot | 2026-10-15 |
+| Early voting | 2026-10-24 to 2026-11-01 | https://elections.ny.gov/early-voting | 2026-10-15 |
+| Poll hours | 06:00 to 21:00 | https://elections.ny.gov/ | 2026-10-15 |
+
+Links: registration https://elections.ny.gov/register-vote; check_registration https://voterlookup.elections.ny.gov/; mail_ballot https://elections.ny.gov/request-ballot; early_voting https://voterlookup.elections.ny.gov/; polling_place https://voterlookup.elections.ny.gov/; sample_ballot https://publicreporting.elections.ny.gov/CountyBoardRoster/CountyBoardRoster; track_ballot https://voterlookup.elections.ny.gov/
+
+</details>
+
+<details><summary>PA Pennsylvania</summary>
+
+| Row | Value | Source | Read |
+| --- | --- | --- | --- |
+| Election date | 2026-11-03 | https://www.pa.gov/agencies/vote/elections/upcoming-elections | 2026-10-15 |
+| Registration reminder date | 2026-10-19 | https://www.pa.gov/agencies/vote/elections/upcoming-elections | 2026-10-15 |
+| Register online | 2026-10-19 | https://www.pa.gov/agencies/dos/newsroom/-deadline-to-register-to-vote-in-the-general-election-is-approac | 2026-10-15 |
+| Register by mail | 2026-10-19, received | https://www.pa.gov/agencies/dos/newsroom/-deadline-to-register-to-vote-in-the-general-election-is-approac | 2026-10-15 |
+| Register in person | 2026-10-19 | https://www.pa.gov/agencies/dos/newsroom/-deadline-to-register-to-vote-in-the-general-election-is-approac | 2026-10-15 |
+| Same-day registration | Not available | https://www.pa.gov/services/vote/register-to-vote | 2026-10-15 |
+| Every voter mailed a ballot | No | https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot | 2026-10-15 |
+| Mail ballot request | 2026-10-27 | https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot | 2026-10-15 |
+| Mail ballot return | Received by 2026-11-03, 8 p.m. | https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot | 2026-10-15 |
+| Early voting | Not available | https://www.pa.gov/agencies/vote/voter-support/mail-in-and-absentee-ballot/mail-ballot-before-election-day | 2026-10-15 |
+| Poll hours | 07:00 to 20:00 | https://www.pa.gov/services/vote/find-your-local-polling-place | 2026-10-15 |
+| No reminder: Early voting | Pennsylvania has no early voting period. Voters can apply for and cast a mail ballot in one visit to their county election office once that county's ballots are ready, until 5 p.m. on October 27, 2026; the start date varies by county. | https://www.pa.gov/agencies/vote/voter-support/mail-in-and-absentee-ballot/mail-ballot-before-election-day | 2026-10-15 |
+
+Links: registration https://www.pa.gov/services/vote/register-to-vote; check_registration https://www.pavoterservices.pa.gov/Pages/voterregistrationstatus.aspx; mail_ballot https://www.pa.gov/services/vote/apply-for-a-mail-in-or-absentee-ballot; early_voting https://www.pa.gov/agencies/vote/voter-support/mail-in-and-absentee-ballot/mail-ballot-before-election-day; polling_place https://www.pavoterservices.pa.gov/Pages/PollingPlaceInfo.aspx; sample_ballot https://www.pa.gov/agencies/vote/contact-us/contact-your-election-officials; track_ballot https://www.pavoterservices.pa.gov/Pages/BallotTracking.aspx
+
+</details>
+
+<details><summary>TX Texas</summary>
+
+| Row | Value | Source | Read |
+| --- | --- | --- | --- |
+| Election date | 2026-11-03 | https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml | 2026-10-15 |
+| Registration reminder date | 2026-10-05 | https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml | 2026-10-15 |
+| Register online | Not available | https://www.sos.state.tx.us/elections/voter/reqvr.shtml | 2026-10-15 |
+| Register by mail | 2026-10-05 | https://www.votetexas.gov/faq/index.html | 2026-10-15 |
+| Register in person | 2026-10-05 | https://www.votetexas.gov/register-to-vote/index.html | 2026-10-15 |
+| Same-day registration | Not available | https://www.votetexas.gov/register-to-vote/index.html | 2026-10-15 |
+| Every voter mailed a ballot | No | https://www.sos.state.tx.us/elections/voter/reqabbm.shtml | 2026-10-15 |
+| Mail ballot request | 2026-10-23 | https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml | 2026-10-15 |
+| Mail ballot return | Postmarked by 2026-11-03, received by 2026-11-04, 5 p.m. | https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml | 2026-10-15 |
+| Early voting | 2026-10-19 to 2026-10-30 | https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml | 2026-10-15 |
+| Poll hours | 07:00 to 19:00 | https://www.votetexas.gov/voting/where.html | 2026-10-15 |
+
+Links: registration https://www.votetexas.gov/register-to-vote/index.html; check_registration https://www.votetexas.gov/register-to-vote/index.html; mail_ballot https://www.votetexas.gov/voting-by-mail/index.html; early_voting https://www.votetexas.gov/voting/where.html; polling_place https://www.votetexas.gov/voting/where.html; sample_ballot https://www.sos.state.tx.us/elections/laws/2026-november-general-election.shtml; track_ballot https://www.votetexas.gov/voting-by-mail/track-my-ballot.html
+
+</details>
+
