@@ -64,8 +64,8 @@ const NOTIF_POLL_MS = 60000;
 
 /**
  * Navbar bell button that opens a dropdown of global delivery channel
- * preferences (in-app toasts, desktop push, email, SMS, mobile push) plus
- * quiet-hours and digest cadence sliders.
+ * preferences (desktop push, email, mobile push) plus the quiet hours
+ * and push alerts sliders. Options marked `hidden` are not shown.
  *
  * Channels marked `available: false` in CHANNEL_SCHEMA render as disabled
  * "coming soon" toggles so users can see what's on the roadmap.
@@ -250,7 +250,10 @@ export default function NotificationBellMenu() {
     };
   }, [open]);
 
-  const enabledCount = schema.options.filter((o) => o.available && prefs[o.key]).length;
+  // The yellow dot means a delivery channel is on. Since the unused
+  // "In-app toasts" switch was hidden (2026-10-16), that is mobile push.
+  const enabledCount = schema.options.filter((o) => o.available && !o.hidden && prefs[o.key]).length
+    + (pushOn ? 1 : 0);
 
   return (
     <div ref={containerRef} style={{ position: 'relative' }}>
@@ -469,7 +472,7 @@ export default function NotificationBellMenu() {
           }}>
             Delivery channels
           </div>
-          {schema.options.map((opt) => {
+          {schema.options.filter((opt) => !opt.hidden).map((opt) => {
             // Live mobile push in the native app — overrides the
             // schema's available:false placeholder. Toggling on runs
             // the permission + FCM registration flow; off forgets the
@@ -528,9 +531,8 @@ export default function NotificationBellMenu() {
             padding: '8px 2px 2px', lineHeight: 1.4, borderTop: '1px solid var(--cl-border)',
             marginTop: '6px',
           }}>
-            In-app toasts are live today. Mobile push is live in the
-            CivicView Android app. Email digests arrive with launch;
-            desktop notifications are planned.
+            Mobile push is live in the CivicView Android app. Email
+            digests arrive with launch; desktop notifications are planned.
           </div>
         </div>
       )}

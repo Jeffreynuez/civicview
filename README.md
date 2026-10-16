@@ -69,7 +69,7 @@ verified candidate), each with its own permission scope.
 | Action | Free / unverified citizen | ID.me verified | ID.me verified + subscribed ($5/mo) |
 | --- | :---: | :---: | :---: |
 | Browse representatives, bills, votes, executive orders | ✅ | ✅ | ✅ |
-| Track reps / bills / elections (receive notifications) | ✅ | ✅ | ✅ |
+| Track reps / bills / elections (alerts when officials you track post or schedule events, and election reminders; no bill alerts yet) | ✅ | ✅ | ✅ |
 | Like / dislike posts and polls | — | ✅ | ✅ |
 | Vote on polls | — | ✅ | ✅ |
 | Comment on posts and polls | — | ✅ | ✅ |

@@ -62,7 +62,7 @@ Find and follow your federal, state, and local representatives. See the bills th
 
 WHAT YOU CAN DO
 • Look up your representatives by address — all 50 states and 435 congressional districts
-• Track reps, bills, and elections, and get notified when something changes
+• Track reps, bills, and elections, with alerts when officials you track post or schedule events, and reminders before voting deadlines
 • Read neutral, sourced profiles for all 535 members of Congress, the executive branch, and the Supreme Court
 • Follow verified pages where representatives and candidates post updates, run polls, and host events
 • Vote in polls, react, and join the conversation as a verified constituent

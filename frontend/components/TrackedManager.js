@@ -17,7 +17,7 @@ import {
   useTrackedElections, untrackElection, setElectionPrefs,
 } from '@/lib/trackedElections';
 import { useFeaturedTracked, setFeatured, isFeatured } from '@/lib/featuredTracked';
-import { PREF_SCHEMA, PREF_TYPES, mergePrefs } from '@/lib/notificationPrefs';
+import { PREF_TYPES, enforcedOptions, hasEnforcedPrefs, mergePrefs } from '@/lib/notificationPrefs';
 import BillReactions from '@/components/bills/BillReactions';
 import { BillScopeProvider, useViewerGeo } from '@/components/bills/BillScope';
 import { partyInfo } from '@/lib/party';
@@ -417,36 +417,12 @@ function PrefCheckbox({ label, description, checked, onChange }) {
   );
 }
 
-function PrefSlider({ label, description, choices, value, onChange }) {
-  const idx = Math.max(0, choices.indexOf(value));
-  return (
-    <div style={{ padding: '6px 2px 10px' }}>
-      <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--cl-text)' }}>
-        {label}: <span style={{ color: 'var(--cl-accent)', textTransform: 'capitalize' }}>{value}</span>
-      </div>
-      {description && (
-        <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '2px', lineHeight: 1.35 }}>
-          {description}
-        </div>
-      )}
-      <input
-        type="range" min={0} max={choices.length - 1} step={1} value={idx}
-        onChange={(e) => onChange(choices[Number(e.target.value)])}
-        style={{ width: '100%', marginTop: '6px', accentColor: 'var(--cl-accent)', cursor: 'pointer' }}
-      />
-      <div style={{
-        display: 'flex', justifyContent: 'space-between', fontSize: '0.64rem',
-        color: 'var(--cl-text-light)', textTransform: 'capitalize', marginTop: '2px', fontWeight: 600,
-      }}>
-        {choices.map((c) => <span key={c}>{c}</span>)}
-      </div>
-    </div>
-  );
-}
-
+// Only the switches that really do something today (2026-10-16): the
+// event alert for officials and candidates, and the election reminder
+// switches. The rest are hidden until work order 10 replaces them.
 function PrefsPanel({ type, prefs, onPatch }) {
-  const schema = PREF_SCHEMA[type];
-  if (!schema) return null;
+  const options = enforcedOptions(type);
+  if (!options.length) return null;
   return (
     <div
       onClick={(e) => e.stopPropagation()}
@@ -461,17 +437,10 @@ function PrefsPanel({ type, prefs, onPatch }) {
       }}>
         Notify me when…
       </div>
-      {schema.options.map((opt) => (
+      {options.map((opt) => (
         <PrefCheckbox
           key={opt.key} label={opt.label} description={opt.description}
           checked={prefs[opt.key]} onChange={(v) => onPatch({ [opt.key]: v })}
-        />
-      ))}
-      {schema.sliders.map((s) => (
-        <PrefSlider
-          key={s.key} label={s.label} description={s.description}
-          choices={s.choices} value={prefs[s.key] || s.default}
-          onChange={(v) => onPatch({ [s.key]: v })}
         />
       ))}
     </div>
@@ -619,16 +588,19 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick, canFeature, starred
           {canFeature && (
             <FeatureStar starred={starred} onClick={() => onToggleFeature('bill', bill.key, bill.citation || bill.title)} />
           )}
-          <button
-            onClick={() => setExpanded((v) => !v)}
-            style={{
-              padding: '3px 9px', borderRadius: '8px',
-              background: expanded ? 'var(--cl-primary)' : 'white',
-              color: expanded ? 'white' : 'var(--cl-primary)',
-              border: '1px solid var(--cl-border)', cursor: 'pointer',
-              fontSize: '0.72rem', fontWeight: 700,
-            }}
-          >{expanded ? 'Hide alerts' : 'Alerts'}</button>
+          {/* No bill alert is sent yet (2026-10-16), so no Alerts button. */}
+          {hasEnforcedPrefs(PREF_TYPES.bill) && (
+            <button
+              onClick={() => setExpanded((v) => !v)}
+              style={{
+                padding: '3px 9px', borderRadius: '8px',
+                background: expanded ? 'var(--cl-primary)' : 'white',
+                color: expanded ? 'white' : 'var(--cl-primary)',
+                border: '1px solid var(--cl-border)', cursor: 'pointer',
+                fontSize: '0.72rem', fontWeight: 700,
+              }}
+            >{expanded ? 'Hide alerts' : 'Alerts'}</button>
+          )}
           <button
             onClick={onUntrack}
             aria-label="Stop tracking" title="Stop tracking"

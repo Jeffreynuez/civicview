@@ -143,7 +143,7 @@ Find and follow your federal, state, and local representatives. See the bills th
 
 WHAT YOU CAN DO
 • Look up your representatives by address — all 50 states and 435 congressional districts
-• Track reps, bills, and elections, and get notified when something changes
+• Track reps, bills, and elections, with alerts when officials you track post or schedule events, and reminders before voting deadlines
 • Read neutral, sourced profiles for all 535 members of Congress, the executive branch, and the Supreme Court
 • Follow verified pages where representatives and candidates post updates, run polls, and host events
 • Vote in polls, react, and join the conversation as a verified constituent
@@ -187,7 +187,7 @@ CivicView is an independent civic-information service and is not a government en
 **Product features** (short bullet list field — enter as separate rows):
 ```
 Look up your representatives by address — all 50 states, 435 districts
-Track reps, bills, and elections with notifications when things change
+Track reps, bills, and elections; alerts when officials you track post, and voting deadline reminders
 Neutral, sourced profiles for Congress, the executive branch, and SCOTUS
 Plain-English AI summaries of bills, votes, and executive orders
 Follow verified rep and candidate pages — posts, polls, and events

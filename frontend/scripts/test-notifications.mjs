@@ -9,6 +9,7 @@
 //      digest_cadence 'daily' default becomes realtime, 'weekly' stays.
 //   2. The tour's steps stay at 30 words or fewer.
 //   3. Bell, archive and push tap share one post deep link.
+//   4. Only the alert switches that work are shown.
 
 import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync } from 'node:fs';
@@ -86,6 +87,26 @@ await check('2 the tour describes push summaries', () => {
   assert.match(all, /daily or weekly summary/);
 });
 
+await check('4 My Tracked shows only the switches that work', () => {
+  const keys = (t) => prefs.enforcedOptions(t).map((o) => o.key);
+  assert.deepEqual(keys('representative'), ['on_event']);
+  assert.deepEqual(keys('candidate'), ['on_event']);
+  assert.deepEqual(keys('bill'), []);
+  assert.equal(prefs.hasEnforcedPrefs('bill'), false);
+  // services/election_reminders.py _ELECTION_PREF_KEYS
+  assert.deepEqual(keys('election').sort(),
+    ['on_early_voting', 'on_election_day', 'on_mail_ballot_deadline', 'on_registration_deadline']);
+});
+await check('4 election switch descriptions say what is sent', () => {
+  const d = Object.fromEntries(prefs.enforcedOptions('election').map((o) => [o.key, o.description]));
+  assert.equal(d.on_election_day, 'A reminder the day before Election Day.');
+  assert.ok(!/absentee|return deadline|Morning-of/i.test(Object.values(d).join(' ')));
+});
+await check('4 the in-app toasts switch is hidden', () => {
+  const opt = prefs.CHANNEL_SCHEMA.options.find((o) => o.key === 'in_app');
+  assert.equal(opt.hidden, true);
+});
+
 const links = await load('lib/deepLinks.js');
 await check('3 a post link is the same one the push tap uses', () => {
   assert.equal(links.postDeepLink('FL-SEN-1', 42), '/?page=FL-SEN-1#post-42');
@@ -99,7 +120,7 @@ await check('3 no official, no link', () => {
   assert.equal(links.postDeepLink('', 5), null);
 });
 
-const text = [JSON.stringify(prefs.CHANNEL_SCHEMA)].join('\n');
+const text = [JSON.stringify(prefs.CHANNEL_SCHEMA), JSON.stringify(prefs.PREF_SCHEMA.election)].join('\n');
 await check('copy has no em or en dashes', () => {
   assert.ok(!/[\u2013\u2014]/.test(text));
 });
