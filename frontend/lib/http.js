@@ -34,8 +34,8 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost
 
 // How long to wait before calling a request failed. Most public reads
 // are edge-cached and answer in well under a second, but a cold cache
-// can make the backend wait on Congress.gov, GovTrack or Open States,
-// so the default is generous; the slowest proxied reads pass
+// can make the backend wait on Congress.gov, the House Clerk, the
+// Senate or Open States, so the default is generous; the slowest proxied reads pass
 // UPSTREAM_TIMEOUT_MS. Cloudflare itself gives up at 100 seconds.
 export const PUBLIC_TIMEOUT_MS = 45000;
 export const UPSTREAM_TIMEOUT_MS = 90000;

@@ -9,7 +9,6 @@ Fetches real data from Congress.gov API with caching and fallback to sample data
 import asyncio
 import json
 import os
-import re
 import time
 import logging
 from collections import Counter
@@ -32,7 +31,6 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 CONGRESS_API_BASE = "https://api.congress.gov/v3"
-GOVTRACK_API_BASE = "https://www.govtrack.us/api/v2"
 # Comprehensive per-member contact data (DC + district offices, phones, socials).
 # Note: the legacy theunitedstates.io host returns 410 Gone; the github.io mirror
 # still serves the same community data files.
@@ -379,44 +377,6 @@ def _derive_bio(name: str, terms: list, current_member: Optional[bool] = None) -
         return f"{name} represents {state} in the U.S. House of Representatives{since}."
     except Exception:
         return f"{name} serves in the United States Congress."
-
-
-# Matches the bill-number prefix of a GovTrack vote question, e.g.
-#   "H.R. 1681: Expediting Federal Broadband Deployment Reviews Act"
-#   "H.R. 7024 (118th): Tax Relief for American Families and Workers Act"
-#   "S. 2226: National Defense Authorization Act"
-_BILL_NUMBER_RE = re.compile(
-    r"^\s*((?:H\.\s*R\.|S\.|H\.\s*J\.\s*Res\.|S\.\s*J\.\s*Res\.|"
-    r"H\.\s*Con\.\s*Res\.|S\.\s*Con\.\s*Res\.|H\.\s*Res\.|S\.\s*Res\.)\s*\d+)"
-    r"(?:\s*\((\d+)(?:st|nd|rd|th)?\))?\s*:\s*(.+)$",
-    re.IGNORECASE,
-)
-
-
-def _parse_bill_from_question(question: str, related_bill_id=None, congress=None):
-    """Extract a minimal bill descriptor from a GovTrack vote question.
-
-    Returns None if the question doesn't lead with a bill number.
-    Shape:
-        {display_number, title, congress, related_bill_id}
-    `display_number` is normalized to a compact "H.R. 1681" form.
-    """
-    if not question:
-        return None
-    m = _BILL_NUMBER_RE.match(question)
-    if not m:
-        return None
-    raw_number, paren_congress, title = m.group(1), m.group(2), m.group(3)
-    # Normalize whitespace inside the bill number ("H. R. 1681" → "H.R. 1681").
-    display_number = re.sub(r"\s+", "", raw_number)
-    # Re-insert a single space before the digit for readability.
-    display_number = re.sub(r"(Res\.|R\.|S\.)(\d)", r"\1 \2", display_number, flags=re.IGNORECASE)
-    return {
-        "display_number": display_number,
-        "title": title.strip(),
-        "congress": int(paren_congress) if paren_congress else (int(congress) if congress else None),
-        "related_bill_id": related_bill_id,
-    }
 
 
 class CongressService:
@@ -1012,66 +972,32 @@ class CongressService:
         year: Optional[int] = None,
         month: Optional[int] = None,
     ) -> list:
-        """Get the member's roll-call votes via GovTrack.
+        """The member's roll-call votes from the stored official records
+        (House Clerk and Senate, see services/roll_call_store.py).
 
         Modes:
-          - No year: return the ``limit`` most recent votes (default 10).
-            Cache key: ``votes:{bioguide}:recent:{limit}``.
-          - Year specified: return *all* votes cast by the member in that
-            calendar year (then filtered by ``month`` if provided). A full
-            year is pulled once and cached under ``votes:{bioguide}:{year}``
-            so repeated month-switches on the frontend are a cache hit.
+          - No year: the ``limit`` most recent votes (default 10).
+          - Year: every vote the member cast that calendar year, or one
+            month of it when ``month`` is given.
+
+        Each row: vote_id (h-/s-{congress}-{session}-{number}), question,
+        chamber, congress, result, category, date (YYYY-MM-DD),
+        position (Yea / Nay / Present / Not Voting), url (the official
+        roll-call page) and bill ({display_number, title, congress, ...}
+        or None). Raises when the database can't be read.
         """
-        # Step 1: translate bioguide → govtrack person id
-        person_id = await self._resolve_govtrack_id(bioguide_id)
-        if not person_id:
-            logger.info(f"Could not resolve govtrack id for {bioguide_id}")
-            return []
+        from app.services import roll_call_store as store
 
-        # Cache-key version suffix — bump whenever the per-row payload
-        # shape changes so post-deploy boots don't serve stale entries
-        # written by older code. v2 added synthesized vote_id +
-        # congress fields needed by the vote-explainer AI path.
-        cache_version = "v2"
+        return await asyncio.to_thread(
+            store.with_session, store.member_votes, bioguide_id,
+            limit=None if year is not None else limit, year=year, month=month if year is not None else None,
+        )
 
-        if year is None:
-            cache_key = f"votes:{bioguide_id}:recent:{limit}:{cache_version}"
-            cached = self._get_cached(cache_key)
-            if cached is not None:
-                return cached
-            votes = await self._fetch_govtrack_votes(person_id, limit=limit)
-            if votes:
-                self._set_cached(cache_key, votes)
-            return votes
+    async def get_member_vote_years(self, bioguide_id: str) -> list:
+        """Calendar years with stored votes for this member, newest first."""
+        from app.services import roll_call_store as store
 
-        # Year mode — pull the whole year once, then filter by month.
-        #
-        # Cache discipline: only cache non-empty responses. An empty
-        # list here could mean "GovTrack genuinely has no votes for
-        # this rep+year" OR "GovTrack hiccupped and returned nothing."
-        # The two are indistinguishable from inside this function, so
-        # we never cache the empty result — better to retry on the
-        # next request than persist a bad cache state for 30 minutes
-        # when GovTrack is briefly down.
-        cache_key = f"votes:{bioguide_id}:{year}:{cache_version}"
-        cached = self._get_cached(cache_key)
-        if cached is None or len(cached) == 0:
-            created_gte = f"{year}-01-01T00:00:00"
-            created_lt = f"{year + 1}-01-01T00:00:00"
-            cached = await self._fetch_govtrack_votes(
-                person_id,
-                limit=600,
-                created_gte=created_gte,
-                created_lt=created_lt,
-            )
-            if cached:
-                self._set_cached(cache_key, cached)
-
-        if month is None:
-            return cached or []
-        # Month filter is cheap and deterministic, do it in-process.
-        mm = f"{int(month):02d}"
-        return [v for v in (cached or []) if (v.get("date") or "")[5:7] == mm]
+        return await asyncio.to_thread(store.with_session, store.member_vote_years, bioguide_id)
 
     async def get_all_members(self) -> list:
         """Return a lightweight list of every current Congress member.
@@ -1160,37 +1086,52 @@ class CongressService:
         return members
 
     async def get_member_stats(self, bioguide_id: str, party: Optional[str] = None) -> dict:
-        """Get aggregate stats: party-line voting % and top issue areas.
+        """Get aggregate stats: the party-line figure and top issue areas.
 
         Returns a dict shaped like:
             {
-                "party_line_pct": int | None,   # 0-100 or None if uncomputable
-                "votes_analyzed": int,           # how many votes were checked
+                "party_line_pct": int | None,    # 0-100, None when not computed
+                "votes_analyzed": int,           # party-split votes it is based on
+                "party_line_congress": int,      # the Congress it covers
+                "party_line_method": "party_split",
+                "party_line_reason": None | "independent" | "not_enough" | "no_votes",
+                "party_line_party": "R" | "D" | "I" | None,  # on their latest vote
                 "top_issues": [{"name": str, "count": int}, ...],   # up to 5
             }
+
+        The party-line figure is computed the same way for every member
+        from the stored roll calls (roll_call_store.party_line); `party`
+        is accepted for compatibility and not needed. It is not cached
+        here because new votes can arrive at any time; the issue areas
+        (Congress.gov sponsored bills) are cached.
         """
-        cache_key = f"stats:{bioguide_id}:{party or '?'}"
+        party_stat, top_issues = await asyncio.gather(
+            self._compute_party_line(bioguide_id, party),
+            self._top_issues(bioguide_id),
+        )
+        return {
+            "bioguide_id": bioguide_id,
+            "party_line_pct": party_stat.get("pct"),
+            "votes_analyzed": party_stat.get("analyzed", 0),
+            "party_line_congress": party_stat.get("congress"),
+            "party_line_method": "party_split",
+            "party_line_reason": party_stat.get("reason"),
+            # The party on the member's most recent stored vote, which the
+            # figure is measured against (a party switcher counts only the
+            # votes cast in it).
+            "party_line_party": party_stat.get("party"),
+            "top_issues": top_issues,
+        }
+
+    async def _top_issues(self, bioguide_id: str) -> list:
+        cache_key = f"issues:{bioguide_id}"
         cached = self._get_cached(cache_key)
         if cached is not None:
             return cached
-
-        # Resolve party if not supplied (used to know which party majority to compare against)
-        if not party:
-            party = await self._lookup_party(bioguide_id)
-
-        # Run vote-stat computation and bills fetch in parallel
-        party_stat_task = self._compute_party_line(bioguide_id, party)
-        sponsored_task = self._fetch_legislation(
-            bioguide_id, "sponsored-legislation", "sponsoredLegislation", 25
+        sponsored, cosponsored = await asyncio.gather(
+            self._fetch_legislation(bioguide_id, "sponsored-legislation", "sponsoredLegislation", 25),
+            self._fetch_legislation(bioguide_id, "cosponsored-legislation", "cosponsoredLegislation", 25),
         )
-        cosponsored_task = self._fetch_legislation(
-            bioguide_id, "cosponsored-legislation", "cosponsoredLegislation", 25
-        )
-
-        party_stat, sponsored, cosponsored = await asyncio.gather(
-            party_stat_task, sponsored_task, cosponsored_task
-        )
-
         # Tally policy areas — sponsored bills are stronger signal so weight them 2x
         counter: Counter = Counter()
         for b in sponsored or []:
@@ -1201,22 +1142,10 @@ class CongressService:
             pa = (b.get("policy_area") or "").strip()
             if pa and pa not in _NON_SUBSTANTIVE_POLICY_AREAS:
                 counter[pa] += 1
-
-        top_issues = [
-            {"name": name, "count": count}
-            for name, count in counter.most_common(5)
-        ]
-
-        result = {
-            "bioguide_id": bioguide_id,
-            "party_line_pct": party_stat.get("pct"),
-            "votes_analyzed": party_stat.get("analyzed", 0),
-            "top_issues": top_issues,
-        }
-        # Cache only if we got at least one signal
-        if result["party_line_pct"] is not None or top_issues:
-            self._set_cached(cache_key, result)
-        return result
+        top_issues = [{"name": name, "count": count} for name, count in counter.most_common(5)]
+        if top_issues:
+            self._set_cached(cache_key, top_issues)
+        return top_issues
 
     # ------------------------------------------------------------------
     # Committees
@@ -1622,272 +1551,17 @@ class CongressService:
             logger.error(f"Error fetching {url}: {e}")
         return None
 
-    async def _resolve_govtrack_id(self, bioguide_id: str) -> Optional[int]:
-        """Look up a govtrack person id for a bioguide id.
+    async def _compute_party_line(self, bioguide_id: str, party: Optional[str] = None) -> dict:
+        """The party-line figure for the current Congress from the stored
+        roll calls; see roll_call_store.party_line for the method (the
+        same for every member). {pct, analyzed, congress, party, reason}."""
+        from app.services import roll_call_store as store
+        from app.services.congress_calendar import current_congress_session
 
-        GovTrack's /person?bioguideid=… endpoint has regressed and now
-        returns 400 on every query variant. legislators-current.json
-        (which we already cache for other lookups) carries a `govtrack`
-        id for every sitting member — so we resolve from there first and
-        only fall back to the live API lookup for former members or any
-        future case where it starts working again.
-        """
-        cache_key = f"govtrack_id:{bioguide_id}"
-        cached = self._get_cached(cache_key)
-        if cached is not None:
-            return cached
-
-        # Primary path — legislators-current.json sidecar (offline-safe,
-        # 100% coverage for sitting members).
-        data = await self._fetch_legislators_current()
-        if data:
-            for entry in data:
-                ids = entry.get("id", {}) or {}
-                if ids.get("bioguide") == bioguide_id:
-                    person_id = ids.get("govtrack")
-                    if person_id:
-                        self._set_cached(cache_key, person_id)
-                        return person_id
-                    break
-
-        # Fallback — live GovTrack API lookup (currently broken upstream
-        # but left intact so former members and retirees can still resolve
-        # if/when GovTrack restores the endpoint).
-        try:
-            async with httpx.AsyncClient(timeout=15.0) as client:
-                resp = await client.get(
-                    f"{GOVTRACK_API_BASE}/person",
-                    params={"bioguideid": bioguide_id, "limit": 1},
-                )
-                if resp.status_code != 200:
-                    logger.warning(f"GovTrack person lookup {resp.status_code} for {bioguide_id}")
-                    return None
-                body = resp.json()
-                objects = body.get("objects", [])
-                if not objects:
-                    return None
-                person_id = objects[0].get("id")
-                if person_id:
-                    self._set_cached(cache_key, person_id)
-                return person_id
-        except Exception as e:
-            logger.error(f"GovTrack person lookup failed for {bioguide_id}: {e}")
-            return None
-
-    async def _lookup_party(self, bioguide_id: str) -> Optional[str]:
-        """Resolve a member's current party letter (R/D/I) from legislators-current.json."""
-        data = await self._fetch_legislators_current()
-        if not data:
-            return None
-        for entry in data:
-            if entry.get("id", {}).get("bioguide") == bioguide_id:
-                terms = entry.get("terms", [])
-                if terms:
-                    party_name = (terms[-1].get("party") or "").lower()
-                    if "republican" in party_name:
-                        return "R"
-                    if "democrat" in party_name:
-                        return "D"
-                    return "I"
-        return None
-
-    async def _compute_party_line(self, bioguide_id: str, party: Optional[str]) -> dict:
-        """Compute party-line voting % across the member's recent roll-calls.
-
-        For each of the member's ~15 most recent votes we fetch every voter on
-        that roll-call and tally by party. If the member's party majority
-        position (more yes than no) matches the member's own position, we count
-        it toward their party-line %.
-
-        Votes where the party was effectively tied, where the member's position
-        was Present/Not Voting, or where the vote totals are missing, are
-        skipped.
-        """
-        if not party or party not in ("R", "D"):
-            return {"pct": None, "analyzed": 0}
-
-        person_id = await self._resolve_govtrack_id(bioguide_id)
-        if not person_id:
-            return {"pct": None, "analyzed": 0}
-
-        votes = await self._fetch_govtrack_votes(person_id, 15)
-        if not votes:
-            return {"pct": None, "analyzed": 0}
-
-        party_full = "Republican" if party == "R" else "Democrat"
-        yea_values = {"yes", "aye", "yea"}
-        nay_values = {"no", "nay"}
-
-        async with httpx.AsyncClient(timeout=20.0) as client:
-            async def party_totals_for_vote(vote_id):
-                try:
-                    resp = await client.get(
-                        f"{GOVTRACK_API_BASE}/vote_voter",
-                        params={"vote": vote_id, "limit": 600},
-                    )
-                    if resp.status_code != 200:
-                        return None
-                    yes = no = 0
-                    for row in resp.json().get("objects", []):
-                        role = row.get("person_role") or {}
-                        if role.get("party") != party_full:
-                            continue
-                        pos = (row.get("option", {}).get("value") or "").lower()
-                        if pos in yea_values:
-                            yes += 1
-                        elif pos in nay_values:
-                            no += 1
-                    return yes, no
-                except Exception as e:
-                    logger.debug(f"Party totals fetch failed for vote {vote_id}: {e}")
-                    return None
-
-            tallies = await asyncio.gather(
-                *(party_totals_for_vote(v.get("vote_id")) for v in votes if v.get("vote_id"))
-            )
-
-        matched = 0
-        analyzed = 0
-        for vote, tally in zip(votes, tallies):
-            if not tally:
-                continue
-            p_yes, p_no = tally
-            if p_yes == 0 and p_no == 0:
-                continue
-            if p_yes == p_no:
-                continue  # no clear party majority
-            position = (vote.get("position") or "").lower()
-            if position in yea_values:
-                member_yes = True
-            elif position in nay_values:
-                member_yes = False
-            else:
-                continue  # Present / Not Voting / procedural — skip
-            party_majority_yes = p_yes > p_no
-
-            analyzed += 1
-            if member_yes == party_majority_yes:
-                matched += 1
-
-        if analyzed == 0:
-            return {"pct": None, "analyzed": 0}
-        pct = round((matched / analyzed) * 100)
-        return {"pct": pct, "analyzed": analyzed}
-
-    async def _fetch_govtrack_votes(
-        self,
-        person_id: int,
-        limit: int,
-        created_gte: Optional[str] = None,
-        created_lt: Optional[str] = None,
-    ) -> list:
-        """Fetch vote_voter entries for a person from GovTrack.
-
-        When a date window is supplied, pulls the whole window by paginating
-        GovTrack's offset/limit in chunks (GovTrack caps each page at ~200).
-
-        Each returned row carries the related-bill subtree when GovTrack
-        reports one, so the frontend can deep-link to the underlying bill:
-            bill: { number, type, title, display_number, congress } | None
-        """
-        # Note: GovTrack's DRF filter exposes date range on vote_voter via
-        # the row's own `created` timestamp (created__gte / created__lt).
-        # The `vote__created__*` lookup is not whitelisted and returns 400.
-        base_params = {
-            "person": person_id,
-            "sort": "-created",
-        }
-        if created_gte:
-            base_params["created__gte"] = created_gte
-        if created_lt:
-            base_params["created__lt"] = created_lt
-
-        page_size = 200 if (created_gte or created_lt) else min(limit, 200)
-        results: list = []
-        offset = 0
-        try:
-            async with httpx.AsyncClient(timeout=25.0) as client:
-                while True:
-                    params = {
-                        **base_params,
-                        "limit": page_size,
-                        "offset": offset,
-                    }
-                    resp = await client.get(
-                        f"{GOVTRACK_API_BASE}/vote_voter",
-                        params=params,
-                    )
-                    if resp.status_code != 200:
-                        logger.warning(f"GovTrack votes {resp.status_code}")
-                        break
-                    data = resp.json()
-                    objects = data.get("objects", []) or []
-                    for vv in objects:
-                        vote = vv.get("vote") or {}
-                        option = vv.get("option") or {}
-                        # GovTrack's `related_bill` is a bare integer ID,
-                        # not an expanded object — not useful on its own.
-                        # The `question` field already carries the bill
-                        # display number (e.g. "H.R. 1681: Expediting …"),
-                        # so we parse that out for the frontend pill.
-                        question = vote.get("question") or ""
-                        bill_payload = _parse_bill_from_question(
-                            question,
-                            related_bill_id=vote.get("related_bill"),
-                            congress=vote.get("congress"),
-                        )
-                        # Build a stable vote_id from the canonical
-                        # (chamber, congress, number) tuple. GovTrack
-                        # doesn't expose its internal id on the
-                        # vote_voter endpoint — only chamber +
-                        # congress + number + a link URL — so we
-                        # synthesize the conventional "h114-310" /
-                        # "s119-42" identifier. This format is also
-                        # what GovTrack itself uses in its vote URLs,
-                        # so it's stable and round-trippable.
-                        gt_chamber = (vote.get("chamber") or "").lower()
-                        chamber_prefix = (
-                            "h" if gt_chamber.startswith("h")
-                            else "s" if gt_chamber.startswith("s")
-                            else ""
-                        )
-                        gt_congress = vote.get("congress")
-                        gt_number = vote.get("number")
-                        synthesized_id = None
-                        if chamber_prefix and gt_congress and gt_number is not None:
-                            synthesized_id = f"{chamber_prefix}{gt_congress}-{gt_number}"
-                        results.append({
-                            # Prefer GovTrack's id when present (some
-                            # endpoints / fixtures do include it);
-                            # fall back to the synthesized canonical
-                            # ID otherwise. Always coerce to string so
-                            # the Pydantic vote_id: Optional[str]
-                            # validation downstream is happy.
-                            "vote_id": str(vote.get("id")) if vote.get("id") is not None else synthesized_id,
-                            "question": vote.get("question"),
-                            "chamber": vote.get("chamber"),
-                            "congress": gt_congress,
-                            "result": vote.get("result"),
-                            "category": vote.get("category"),
-                            "date": (vote.get("created") or "")[:10],
-                            "position": option.get("value"),
-                            "url": vote.get("link"),
-                            "bill": bill_payload,
-                        })
-                    # Stop when: no more rows, no date window (single page),
-                    # or we've exceeded the requested limit.
-                    total = data.get("meta", {}).get("total_count", 0)
-                    if not objects:
-                        break
-                    if not (created_gte or created_lt):
-                        break
-                    offset += len(objects)
-                    if offset >= total or offset >= 1200:
-                        break
-                return results
-        except Exception as e:
-            logger.error(f"GovTrack votes fetch failed for {person_id}: {e}")
-            return results
+        congress = current_congress_session()[0]
+        # A database error is raised (the route answers 503), never shown
+        # as "Not enough recent roll-call votes to compute".
+        return await asyncio.to_thread(store.with_session, store.party_line, bioguide_id, congress)
 
     async def _fetch_members_from_api(self, state_code: str) -> Optional[list]:
         """Fetch members from the Congress.gov API."""

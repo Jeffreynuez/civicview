@@ -42,7 +42,16 @@ state that this file deliberately does NOT duplicate:
 
 ## Current state & open work (snapshot 2026-06-16)
 
-> **Newest (2026-09-24):** a full code and data audit, then its Wave 0
+> **Newest (2026-10-16): member votes come from stored official roll
+> calls; GovTrack is gone.** GovTrack began refusing our requests (403s),
+> which emptied every Votes tab, party-line figure and Compare. House
+> Clerk and Senate roll calls are now stored (`roll_calls` +
+> `roll_call_positions`), synced in the background with ten years of
+> history (`services/roll_call_sync.py`, admin `GET /api/admin/roll-calls`,
+> off switch `ROLL_CALL_SYNC_ENABLED=false`). See "Roll-call votes and the
+> party-line figure" below and the README section of the same name.
+>
+> **Earlier (2026-09-24):** a full code and data audit, then its Wave 0
 > and Wave 1 fixes, all MERGED to `main`: PR #249 (merge 19372cb, with
 > the CodeQL logging fix f778e16) and PR #250, which moved business
 > working files out of `docs/` (merge ba121f6). Start with Pinecone
@@ -285,6 +294,53 @@ production by accident.
   copy / download / password-manager options; an opt-in email sends
   the sign-in email plus a set-password link (never the password) to
   the contact address, and Forgot password accepts that address.
+
+## Roll-call votes and the party-line figure (settled 2026-10-16, durable)
+
+- **Official sources only:** clerk.house.gov, senate.gov and
+  api.congress.gov (plus the @unitedstates legislators files for the
+  Senate LIS-to-bioguide crosswalk). No third-party vote aggregator;
+  GovTrack was removed for good on 2026-10-16.
+- **Stored, fetched once:** `services/roll_call_sync.py` fills
+  `roll_calls` / `roll_call_positions` / `roll_call_choices` /
+  `roll_call_members` / `roll_call_sync_state`;
+  `services/roll_call_store.py` reads them for the Votes tab, Compare,
+  /bills and the explainer. Every request to the official sites goes
+  through `services/official_http.py` (one long-lived client per event
+  loop, User-Agent naming CivicView and civicview@civicview.app, two
+  requests at a time per host, retries with backoff). The sync takes a
+  Postgres advisory lock (`services/db_locks.py`), never runs on the
+  boot path, and is on by default in production only. A site failing
+  five times in a row is left alone for the rest of the pass; three
+  passes with no history progress drop back to the normal schedule.
+- **Don't let requests crawl the official sites** (the Clerk could block
+  us the way GovTrack did): only the current session is probed; a past
+  session's list is read from storage; an unstored vote is fetched on
+  request only inside the stored window, for a session not yet
+  complete, and not far beyond the highest stored number
+  (`roll_call_sync.may_fetch`).
+- **Speaker elections:** the Clerk records a name, not Yea or Nay. Stored
+  as position C plus `roll_call_choices`, shown as "Voted for {name}"
+  for every name alike, left out of the party-line figure.
+- **The party-line figure (Jeffrey approved 2026-10-16):** the current
+  Congress's party-split roll calls (most Republicans and most Democrats
+  on opposite sides); the share on which the member voted with most of
+  their own party; Yea and Nay only; at least 10 such votes. Wording:
+  "based on N party-split votes in the 119th Congress". Identical for
+  every member. Independents get no figure and the line "Not computed
+  for independents: there is no party majority to compare with."
+  **Party switchers (Jeffrey, 2026-10-16):** only the votes cast in the
+  member's current party count (the party on their most recent stored
+  vote), in either direction; if the current party is independent, no
+  figure (Kevin Kiley, K000401: "R" in 2025, "I" from September 2026, so
+  no figure). Ask Jeffrey before changing the method or how independents
+  or switchers are handled.
+- **One vote_id everywhere:** `h-{congress}-{session}-{roll}` /
+  `s-{congress}-{session}-{vote}`. The explainer builds its input from the
+  stored record when the vote is stored, so /bills and profiles share one
+  cached AI explanation per roll call.
+- **Clerk quirk:** a roll that doesn't exist answers HTTP 200 with a short
+  "Error sanitizing file" body; check the body, not the status.
 
 ## Former officials and candidates (settled 2026-10-15, durable)
 
@@ -625,6 +681,9 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
   BOOLEAN NOT NULL columns must use `server_default=expression.false()`
   or Postgres rejects the migration. See the "Failed to fetch"
   incident notes in the handoff.
+- **Member votes** (Votes tab, party-line figure, Compare) come from the
+  stored House Clerk and Senate roll calls, not a live third-party call;
+  `GET /api/admin/roll-calls` shows what is stored.
 - **Home page hero stats** are powered by `GET /api/stats/summary`
   (unauthenticated; `backend/app/routers/stats.py`). Returns
   structural constants (Senators=100, Representatives=435, SCOTUS=9)

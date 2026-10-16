@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><roll_call_vote>
+  <congress>119</congress>
+  <session>2</session>
+  <congress_year>2026</congress_year>
+  <vote_number>249</vote_number>
+  <vote_date>September 28, 2026,  09:21 PM</vote_date>
+  <modify_date>September 28, 2026,  09:51 PM</modify_date>
+  <vote_question_text>On the Amendment S.Amdt. 6835 to S.Amdt. 6776 to S. 4668 (No short title on file)</vote_question_text>
+  <vote_document_text>To establish certain standards with respect to coaches of varsity sports teams.</vote_document_text>
+  <vote_result_text>Amendment Rejected (47-52)</vote_result_text>
+  <question>On the Amendment</question>
+  <vote_title>Booker Amdt. No. 6835</vote_title>
+  <majority_requirement>1/2</majority_requirement>
+  <vote_result>Amendment Rejected</vote_result>
+  <document>
+    <document_congress>119</document_congress>
+    <document_type>S.Amdt.</document_type>
+    <document_number/>
+    <document_name/>
+    <document_title/>
+    <document_short_title/>
+  </document>
+  <amendment>
+    <amendment_number>S.Amdt. 6835</amendment_number>
+    <amendment_to_amendment_number>S.Amdt. 6776</amendment_to_amendment_number>
+    <amendment_to_amendment_to_amendment_number/>
+    <amendment_to_document_number>S. 4668</amendment_to_document_number>
+    <amendment_to_document_short_title>No short title on file</amendment_to_document_short_title>
+    <amendment_purpose>To establish certain standards with respect to coaches of varsity sports teams.</amendment_purpose>
+  </amendment>
+  <count>
+    <yeas>47</yeas>
+    <nays>52</nays>
+    <present/>
+    <absent>1</absent>
+  </count>
+  <tie_breaker>
+    <by_whom/>
+    <tie_breaker_vote/>
+  </tie_breaker>
+  <members>
+    <member>
+      <member_full>Alsobrooks (D-MD)</member_full>
+      <last_name>Alsobrooks</last_name>
+      <first_name>Angela</first_name>
+      <party>D</party>
+      <state>MD</state>
+      <vote_cast>Yea</vote_cast>
+      <lis_member_id>S428</lis_member_id>
+    </member>
+    <member>
+      <member_full>Armstrong (R-OK)</member_full>
+      <last_name>Armstrong</last_name>
+      <first_name>Alan</first_name>
+      <party>R</party>
+      <state>OK</state>
+      <vote_cast>Nay</vote_cast>
+      <lis_member_id>S440</lis_member_id>
+    </member>
+    <member>
+      <member_full>Baldwin (D-WI)</member_full>
+      <last_name>Baldwin</last_name>
+      <first_name>Tammy</first_name>
+      <party>D</party>
+      <state>WI</state>
+      <vote_cast>Yea</vote_cast>
+      <lis_member_id>S354</lis_member_id>
+    </member>
+    <member>
+      <member_full>Banks (R-IN)</member_full>
+      <last_name>Banks</last_name>
+      <first_name>Jim</first_name>
+      <party>R</party>
+      <state>IN</state>
+      <vote_cast>Nay</vote_cast>
+      <lis_member_id>S429</lis_member_id>
+    </member>
+    <member>
+      <member_full>Barrasso (R-WY)</member_full>
+      <last_name>Barrasso</last_name>
+      <first_name>John</first_name>
+      <party>R</party>
+      <state>WY</state>
+      <vote_cast>Nay</vote_cast>
+      <lis_member_id>S317</lis_member_id>
+    </member>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </members>
+</roll_call_vote>

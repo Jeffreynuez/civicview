@@ -312,7 +312,49 @@ async def lifespan(app: FastAPI):
             logger.info("Election reminders disabled (set %s=true to send; the admin preview works either way).",
                         _er.ENV_FLAG)
 
+    # ── Official roll calls (2026-10-16) ─────────────────────────────
+    # Keeps the stored House and Senate roll calls current and fills ten
+    # years of history, from clerk.house.gov, senate.gov and Congress.gov
+    # (no GovTrack). Starts two minutes after boot, never on the boot
+    # path; hourly on weekday daytimes, every 6 hours otherwise, every
+    # few minutes while history is still filling. A database advisory
+    # lock keeps an old and a new instance from both running it during a
+    # deploy. On by default in production only (off in tests and local
+    # runs); ROLL_CALL_SYNC_ENABLED=true or false overrides that.
+    # See app/services/roll_call_sync.py and GET /api/admin/roll-calls.
+    roll_call_task = None
+    if db_ready:
+        from app.services import roll_call_sync as _rcs
+
+        if _rcs.sync_enabled():
+            import asyncio as _rc_asyncio
+
+            async def _roll_call_loop():
+                await _rc_asyncio.sleep(_rcs.FIRST_PASS_DELAY_SECONDS)
+                while True:
+                    try:
+                        result = await _rcs.run_pass()
+                    except Exception:
+                        logger.exception("Roll-call sync pass raised; trying again after the short pause.")
+                        result = {"failed": True}
+                    await _rc_asyncio.sleep(_rcs.seconds_after_pass(result))
+
+            roll_call_task = _rc_asyncio.get_event_loop().create_task(_roll_call_loop())
+            logger.info("Roll-call sync ENABLED (first pass in %ss).", _rcs.FIRST_PASS_DELAY_SECONDS)
+        else:
+            logger.info("Roll-call sync off (on by default in production; set %s=true to run it here).",
+                        _rcs.ENV_FLAG)
+
     yield
+    if roll_call_task is not None:
+        roll_call_task.cancel()
+    try:
+        # The long-lived client for the official vote sites (also used by
+        # request-time fetches, so closed whether or not the sync ran).
+        from app.services import official_http as _oh
+        await _oh.aclose()
+    except Exception:
+        logger.debug("official_http client close failed", exc_info=True)
     if retention_task is not None:
         retention_task.cancel()
     if digest_task is not None:
@@ -464,6 +506,9 @@ app.include_router(admin_transitions_router.router, prefix="/api/admin/transitio
 # before the general admin router, and the citizen's on/off switch.
 app.include_router(election_reminders_router.admin_router, prefix="/api/admin/election-reminders",
                    tags=["Admin: election reminders"])
+# Official roll calls (2026-10-16): what the sync has stored and done.
+app.include_router(votes_router.admin_router, prefix="/api/admin/roll-calls",
+                   tags=["Admin: roll calls"])
 app.include_router(admin_router.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(election_reminders_router.router, prefix="/api/election-reminders",
                    tags=["Election reminders"])

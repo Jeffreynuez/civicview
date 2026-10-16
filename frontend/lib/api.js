@@ -405,9 +405,10 @@ export async function fetchMemberContact(bioguideId) {
 }
 
 // ─── Roll-call votes ──────────────────────────────────────────────────
-// Each vote: { vote_id, question, chamber, result, category, date,
-//              position, url, bill: {number, type, title, display_number,
-//                                    congress, link} | null }
+// From the stored official roll calls (the Clerk of the House and the
+// U.S. Senate). Each vote: { vote_id, question, chamber, congress, result,
+// category, date, position, url, bill: {type, number, display_number,
+// title, congress, url} | null }
 //
 // Modes:
 //   fetchMemberVotes(bioguideId)                   → 10 most recent
@@ -415,9 +416,12 @@ export async function fetchMemberContact(bioguideId) {
 //   fetchMemberVotes(bioguideId, { year: 2024 })   → full year
 //   fetchMemberVotes(bioguideId, { year, month })  → single month
 //
+// Every answer also carries `years`: the years with stored votes for
+// this member, newest first (the Votes tab offers only those).
+//
 // Per-year results are cached in-module so switching months in the UI
-// doesn't re-hit the backend (and the backend caches the year too).
-const _memberVoteCache = new Map(); // key: `${bioguide}:${year}` → array
+// doesn't re-hit the backend.
+const _memberVoteCache = new Map(); // key: `${bioguide}:${year}` → { votes, years }
 
 export async function fetchMemberVotes(bioguideId, opts = {}) {
   // Back-compat: older callers invoked fetchMemberVotes(id, 10).
@@ -426,54 +430,46 @@ export async function fetchMemberVotes(bioguideId, opts = {}) {
   const { year = null, month = null, limit = 10 } = opts;
 
   // Year mode → use (or populate) the per-year cache and filter locally.
-  //
-  // Cache discipline: we ONLY cache non-empty responses. An empty
-  // array here is indistinguishable from "fetch succeeded but
-  // GovTrack returned nothing" — could be a transient upstream
-  // failure, a rate-limit hiccup, or a real empty year. Caching
-  // empty means the next call serves the same empty result even if
-  // GovTrack is now answering normally. We'd rather pay the network
-  // round-trip on every retry than persist a bad cache state.
+  // Only non-empty years are cached, so a year that comes back empty is
+  // asked again next time rather than remembered as empty.
   if (year != null) {
     const cacheKey = `${bioguideId}:${year}`;
-    let yearVotes = _memberVoteCache.get(cacheKey);
-    if (!yearVotes || yearVotes.length === 0) {
+    let entry = _memberVoteCache.get(cacheKey);
+    if (!entry || entry.votes.length === 0) {
       try {
         const qs = new URLSearchParams({ year: String(year) }).toString();
         const data = await getJson(`/api/congress/members/${bioguideId}/votes?${qs}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
-        yearVotes = data.votes || [];
-        // Only cache when we got real data; empty results retry on
-        // next call rather than getting stuck.
-        if (yearVotes.length > 0) {
-          _memberVoteCache.set(cacheKey, yearVotes);
+        entry = { votes: data.votes || [], years: data.available_years || [] };
+        if (entry.votes.length > 0) {
+          _memberVoteCache.set(cacheKey, entry);
         }
       } catch (error) {
         console.warn('Member votes API unavailable:', error.message);
-        return { data: [], isLive: false, error: loadErrorText(error) };
+        return { data: [], years: [], isLive: false, error: loadErrorText(error) };
       }
     }
     const filtered = month == null
-      ? yearVotes
-      : yearVotes.filter((v) => {
+      ? entry.votes
+      : entry.votes.filter((v) => {
           const mm = (v.date || '').slice(5, 7);
           return mm === String(month).padStart(2, '0');
         });
-    return { data: filtered, isLive: true };
+    return { data: filtered, years: entry.years, isLive: true };
   }
 
-  // Recent-votes mode (unchanged behavior).
+  // Recent-votes mode.
   try {
     const data = await getJson(`/api/congress/members/${bioguideId}/votes?limit=${limit}`, { timeoutMs: UPSTREAM_TIMEOUT_MS });
-    return { data: data.votes || [], isLive: true };
+    return { data: data.votes || [], years: data.available_years || [], isLive: true };
   } catch (error) {
     console.warn('Member votes API unavailable:', error.message);
-    return { data: [], isLive: false, error: loadErrorText(error) };
+    return { data: [], years: [], isLive: false, error: loadErrorText(error) };
   }
 }
 
 // ─── Federal Bills & Votes (official roll-call data) ─────────────────
 // Backs the /bills page. Public, unauthenticated GETs against the
-// official-source endpoints (House Clerk + Senate LIS, GovTrack fallback).
+// official-source endpoints (House Clerk + Senate LIS, Congress.gov list).
 // See docs/bills-feature-prd.md + docs/bills-data-spike.md.
 
 // Per-vote member detail is immutable once a roll-call is recorded, so we
@@ -507,7 +503,18 @@ export async function fetchVoteMembers(voteId) {
 }
 
 // ─── Member stats (party-line % + top issue areas) ──────────────────
-// Returns { party_line_pct: int|null, votes_analyzed: int, top_issues: [{name, count}] }
+// Returns { party_line_pct: int|null, votes_analyzed: int,
+//           party_line_congress: int|null,
+//           party_line_reason: null|'independent'|'not_enough'|'no_votes'|'unavailable',
+//           party_line_party: 'R'|'D'|'I'|null,
+//           top_issues: [{name, count}] }
+// The party-line figure covers the current Congress's party-split votes
+// (most Republicans and most Democrats on opposite sides), the same way
+// for every member; votes_analyzed is how many it is based on. A member
+// who changed party is measured only on the votes cast in their current
+// party (party_line_party, from their latest vote). 'unavailable' means
+// the request failed, so the UI never mistakes an outage for "not enough
+// votes".
 export async function fetchMemberStats(bioguideId, party = null) {
   try {
     const qs = party ? `?party=${encodeURIComponent(party)}` : '';
@@ -516,6 +523,9 @@ export async function fetchMemberStats(bioguideId, party = null) {
       data: {
         party_line_pct: data.party_line_pct ?? null,
         votes_analyzed: data.votes_analyzed || 0,
+        party_line_congress: data.party_line_congress ?? null,
+        party_line_reason: data.party_line_reason ?? null,
+        party_line_party: data.party_line_party ?? null,
         top_issues: data.top_issues || [],
       },
       isLive: true,
@@ -523,7 +533,7 @@ export async function fetchMemberStats(bioguideId, party = null) {
   } catch (error) {
     console.warn('Member stats API unavailable:', error.message);
     return {
-      data: { party_line_pct: null, votes_analyzed: 0, top_issues: [] },
+      data: { party_line_pct: null, votes_analyzed: 0, party_line_congress: null, party_line_reason: 'unavailable', party_line_party: null, top_issues: [] },
       isLive: false,
       error: loadErrorText(error),
     };

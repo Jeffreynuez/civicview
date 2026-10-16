@@ -61,10 +61,10 @@ export const TOUR_VIDEO_URL = '';
 
 // The random demo picks require a non-empty profile: detail with a bio
 // and committees, plus sponsored bills. Recent votes are required too
-// only when this is true. It stays false while the member-votes feed
-// (GovTrack) returns nothing for every member; turn it on once it is
-// fixed.
-export const TOUR_REQUIRE_VOTES = false;
+// only when this is true. It was false while the GovTrack member-votes
+// feed returned nothing; votes now come from the stored official roll
+// calls (2026-10-16), so it is on again.
+export const TOUR_REQUIRE_VOTES = true;
 
 const tapOrClick = (ctx) => (ctx.compact ? 'Tap' : 'Click');
 

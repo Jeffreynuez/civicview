@@ -47,7 +47,7 @@ import LifecycleBanner from './LifecycleBanner';
 import BillReactions from './bills/BillReactions';
 import { BillScopeProvider } from './bills/BillScope';
 import { geoForMember } from '@/lib/billReactions';
-import { currentCongress } from '@/lib/congress';
+import { currentCongress, ordinal } from '@/lib/congress';
 import { partyInfo, partyStyle } from '@/lib/party';
 
 
@@ -302,7 +302,7 @@ export default function ProfileView({
   const partyFull = partyMeta?.label || '';
   const partyColors = partyStyle(party);
   // Photo URL — accept the three naming conventions in use across
-  // the codebase. Congress members loaded via GovTrack carry
+  // the codebase. Congress members from the roster carry
   // `image` (the unitedstates.github.io/images/congress/225x275
   // URL). Congress profile data may also carry `photoUrl`
   // (camelCase). Executive branch + judiciary + leadership from
@@ -1270,6 +1270,8 @@ function StatsBlock({ party, stats, loading }) {
   const partyText = partyStyle(party).text;
   const pct = stats?.party_line_pct;
   const analyzed = stats?.votes_analyzed || 0;
+  const plCongress = stats?.party_line_congress;
+  const plReason = stats?.party_line_reason;
   const issues = stats?.top_issues || [];
 
   // Helpful interpretation label for the %
@@ -1318,12 +1320,20 @@ function StatsBlock({ party, stats, loading }) {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '4px' }}>
               <span>{pctLabel}</span>
-              <span>based on last {analyzed} votes</span>
+              <span>
+                {/* Party-split votes: most Republicans and most Democrats
+                    on opposite sides (roll_call_store.party_line). */}
+                based on {analyzed} party-split votes{plCongress ? ` in the ${ordinal(plCongress)} Congress` : ''}
+              </span>
             </div>
           </>
         ) : (
           <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', fontStyle: 'italic', padding: '4px 0' }}>
-            Not enough recent roll-call votes to compute.
+            {plReason === 'unavailable'
+              ? 'Party-line figure temporarily unavailable.'
+              : plReason === 'independent' || /^i/i.test(String(party || ''))
+                ? 'Not computed for independents: there is no party majority to compare with.'
+                : 'Not enough recent roll-call votes to compute.'}
           </div>
         )}
       </div>
@@ -2527,9 +2537,11 @@ function websiteLabel(url) {
 }
 
 // ─── Votes ────────────────────────────────────────────────────────────
-// Roll-call votes from GovTrack, with year + month + category + search
-// filters. Year-level fetches are cached in lib/api so month-switching
-// and search are instant after the first year load.
+// Roll-call votes from the official records (the Clerk of the House and
+// the U.S. Senate, stored by the backend), with year + month + category +
+// search filters. The year picker offers only years with stored votes.
+// Year-level fetches are cached in lib/api so month-switching and search
+// are instant after the first year load.
 //
 // Category taxonomy:
 //   "Substantive" (default on) — passage, passage_suspension, cloture,
@@ -2579,16 +2591,18 @@ function VotesTab({ role, member }) {
 
 function MemberVotesTab({ role, member }) {
   const currentYear = new Date().getFullYear();
-  const startYear = parseInt(String(member.serving_since || currentYear).slice(0, 4), 10) || currentYear;
 
   const [year, setYear] = useState(currentYear);
+  // Years with stored votes for this member, newest first (from the
+  // backend's available_years); null until the first answer.
+  const [years, setYears] = useState(null);
   const [month, setMonth] = useState('all');
   const [search, setSearch] = useState('');
   const [showProcedural, setShowProcedural] = useState(false);
   const [loading, setLoading] = useState(false);
   const [votes, setVotes] = useState(null); // null = initial, [] = loaded+empty
   // Set when the year could not be loaded at all (outage, timeout), as
-  // opposed to GovTrack answering with no votes (audit B7).
+  // opposed to a year with no votes on record (audit B7).
   const [votesError, setVotesError] = useState(null);
   // AI search toggle (item 4). Plain mode = the substring search
   // below; AI mode = explicit Apply that semantic-filters the loaded
@@ -2609,8 +2623,16 @@ function MemberVotesTab({ role, member }) {
     let cancelled = false;
     setLoading(true);
     setVotesError(null);
-    fetchMemberVotes(member.bioguide_id, { year }).then(({ data, error }) => {
+    fetchMemberVotes(member.bioguide_id, { year }).then(({ data, years: ys, error }) => {
       if (cancelled) return;
+      const list = Array.isArray(ys) ? ys : [];
+      setYears(list);
+      // This year has no votes yet but earlier years do (for example in
+      // early January): open the newest year that has them instead.
+      if (!error && data.length === 0 && list.length > 0 && !list.includes(year)) {
+        setYear(list[0]);
+        return; // the effect runs again for that year
+      }
       setVotes(data);
       setVotesError(error || null);
       setLoading(false);
@@ -2641,9 +2663,11 @@ function MemberVotesTab({ role, member }) {
     setAiLabel(res.explanation || '');
   };
 
-  // Build year dropdown: from member's first year served up through current.
-  const yearOptions = [];
-  for (let y = currentYear; y >= startYear; y--) yearOptions.push(y);
+  // Year dropdown: only years with stored votes (plus the year on
+  // screen while the first answer is loading).
+  const yearOptions = years && years.length
+    ? (years.includes(year) ? years : [year, ...years])
+    : [year];
 
   const filtered = (votes || []).filter((v) => {
     const cat = (v.category || 'unknown').toLowerCase();
@@ -2792,10 +2816,7 @@ function MemberVotesTab({ role, member }) {
       {!loading && !votesError && votes !== null && votes.length === 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
           <EmptyState
-            message={
-              `No votes returned for ${member.name} in ${year}. ` +
-              `This is sometimes a temporary GovTrack outage — try reloading.`
-            }
+            message={`No roll-call votes on record for ${member.name} in ${year}.`}
           />
           <button
             type="button"
@@ -2838,6 +2859,9 @@ const selectStyle = {
 function VoteRow({ vote }) {
   const position = (vote.position || vote.vote || '').toString();
   const posLower = position.toLowerCase();
+  // An election of the Speaker: "Voted for {name}", shown the same
+  // neutral way for every name (no Yea / Nay color).
+  const isChoice = Boolean(vote.choice);
   let posColor = 'var(--cl-text-light)';
   let posBg = '#eef0f2';
   if (posLower === 'yea' || posLower === 'aye' || posLower === 'yes') {
@@ -2977,7 +3001,7 @@ function VoteRow({ vote }) {
             fontSize: '0.72rem', padding: '3px 8px', borderRadius: '10px',
             whiteSpace: 'nowrap', letterSpacing: '0.03em',
           }}>
-            {position.toUpperCase()}
+            {isChoice ? position : position.toUpperCase()}
           </span>
         )}
       </div>

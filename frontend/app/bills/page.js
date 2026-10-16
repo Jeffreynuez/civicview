@@ -12,7 +12,7 @@
  * list row to reach that member's ProfileView profile window.
  *
  * Wired to the official-source backend:
- *   GET /api/votes/recent?chamber=        (Senate menu / House via GovTrack)
+ *   GET /api/votes/recent?chamber=        (Senate menu / House via Congress.gov)
  *   GET /api/votes/{vote_id}/members       (seat-chart backbone)
  *
  * Class names + layout match the Claude Design export. Styles in ./bills.css.

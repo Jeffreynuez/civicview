@@ -49,7 +49,7 @@ the gap.
 
 Every source CivicView draws on is named here.
 
-Government sources: Congress.gov; GovTrack; the @unitedstates project; the House
+Government sources: Congress.gov; the @unitedstates project; the House
 Clerk and the U.S. Senate; the Federal Register; CourtListener; the Federal
 Election Commission; Open States; the Florida Department of State and Division
 of Elections; Google Civic Information and the U.S. Census Geocoder; and the
