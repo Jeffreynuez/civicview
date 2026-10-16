@@ -909,6 +909,27 @@ Links: registration https://sos.vermont.gov/elections/voters/registration/; chec
 
 </details>
 
+<details><summary>GA Georgia</summary>
+
+| Row | Value | Source | Read |
+| --- | --- | --- | --- |
+| Election date | 2026-11-03 | https://sos.ga.gov/sites/default/files/forms/2026%20Elections%20Calendar_0.pdf | 2026-10-16 |
+| Registration reminder date | 2026-10-05 | https://sos.ga.gov/november-3-2026-general-election | 2026-10-16 |
+| Register online | 2026-10-05 | https://sos.ga.gov/november-3-2026-general-election | 2026-10-16 |
+| Register by mail | 2026-10-05, postmarked | https://sos.ga.gov/page/voter-registration-drive | 2026-10-16 |
+| Register in person | 2026-10-05 | https://sos.ga.gov/sites/default/files/forms/2026%20Elections%20Calendar_0.pdf | 2026-10-16 |
+| Same-day registration | Not available | https://sos.ga.gov/page/voter-registration-drive | 2026-10-16 |
+| Every voter mailed a ballot | No | https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf | 2026-10-16 |
+| Mail ballot request | 2026-10-23 | https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf | 2026-10-16 |
+| Mail ballot return | Received by 2026-11-03, when polls close | https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf | 2026-10-16 |
+| Early voting | 2026-10-13 to 2026-10-30 | https://sos.ga.gov/november-3-2026-general-election | 2026-10-16 |
+| Optional early voting | Counties may add days on 2026-10-18 and 2026-10-25 | https://sos.ga.gov/sites/default/files/forms/2026%20Elections%20Calendar_0.pdf | 2026-10-16 |
+| Poll hours | 07:00 to 19:00 | https://sos.ga.gov/how-to-guide/how-guide-voting | 2026-10-16 |
+
+Links: registration https://mvp.sos.ga.gov/s/voter-registration?IsRegisterNow=true; check_registration https://mvp.sos.ga.gov/s/; mail_ballot https://securemyabsenteeballot.sos.ga.gov/s/; early_voting https://mvp.sos.ga.gov/s/advanced-voting-location-information; polling_place https://mvp.sos.ga.gov/s/; sample_ballot https://mvp.sos.ga.gov/s/; track_ballot https://mvp.sos.ga.gov/s/
+
+</details>
+
 <details><summary>FL Florida</summary>
 
 | Row | Value | Source | Read |
