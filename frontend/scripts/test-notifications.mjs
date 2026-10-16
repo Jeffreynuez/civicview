@@ -87,6 +87,12 @@ await check('2 the tour describes push summaries', () => {
   const all = notifTopic.steps.map((s) => s.body).join(' ');
   assert.match(all, /daily or weekly summary/);
 });
+await check('2 the tour promises the unsubscribe link only on optional emails', () => {
+  // An official's own notices about their page and security emails have none.
+  const all = notifTopic.steps.map((s) => s.body).join(' ');
+  assert.match(all, /Optional emails, like the weekly digest and election reminders, have a one-click unsubscribe link\./);
+  assert.doesNotMatch(all, /Each notification email/);
+});
 
 await check('4 My Tracked shows only the switches that work', () => {
   const keys = (t) => prefs.enforcedOptions(t).map((o) => o.key);

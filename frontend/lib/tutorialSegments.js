@@ -355,7 +355,7 @@ export const TOUR_TOPICS = [
         route: '/',
         target: null,
         title: 'Push and email',
-        body: 'Push alerts work in the CivicView Android app, as they happen or in one daily or weekly summary. Each notification email has a one-click unsubscribe link.',
+        body: 'The Android app sends push alerts as they happen or in one daily or weekly summary. Optional emails, like the weekly digest and election reminders, have a one-click unsubscribe link.',
       },
     ],
   },
