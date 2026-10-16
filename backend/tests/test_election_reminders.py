@@ -498,8 +498,12 @@ def main() -> int:
           not hours_ok, hours_ok)
     limited = {r.state: r for r in full.reminders if r.kind == "mail_request_3d"
                and "only for voters who meet the state's eligibility rules" in r.body}
-    check("12 the mail request reminder says mail voting is limited in Kentucky, Texas and South Carolina",
-          {"KY", "TX", "SC"} <= set(limited), sorted(limited))
+    # Checked on each state's absentee page, 2026-10-16. Mississippi limits
+    # mail voting too but sets no statewide request deadline, so it has
+    # no mail request reminder to carry the sentence.
+    check("12 the mail request reminder says mail voting is limited in exactly the states that limit it",
+          set(limited) == {"AL", "AR", "DE", "IN", "KY", "LA", "MO", "NH", "SC", "TN", "TX", "WV"},
+          sorted(limited))
     check("12 the eligibility sentence is the same for every state, with its official source",
           all(r.body.count(f"Mail voting in {r.state_name} is only for voters who meet the state's eligibility rules. "
                            "Check them on the official site.") == 1

@@ -66,6 +66,15 @@
         "source_url": "https://www.sos.nh.gov/elections/absentee-ballots",
         "retrieved": "2026-10-15"
       }
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Mail voting in New Hampshire is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://www.sos.nh.gov/elections/absentee-ballots",
+        "retrieved": "2026-10-16"
+      }
     }
   },
   "races": [],
