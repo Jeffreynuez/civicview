@@ -496,6 +496,17 @@ def main() -> int:
     ]
     check("12 Election Day reminders give poll hours exactly where the state sets them statewide",
           not hours_ok, hours_ok)
+    limited = {r.state: r for r in full.reminders if r.kind == "mail_request_3d"
+               and "only for voters who meet the state's eligibility rules" in r.body}
+    check("12 the mail request reminder says mail voting is limited in Kentucky, Texas and South Carolina",
+          {"KY", "TX", "SC"} <= set(limited), sorted(limited))
+    check("12 the eligibility sentence is the same for every state, with its official source",
+          all(r.body.count(f"Mail voting in {r.state_name} is only for voters who meet the state's eligibility rules. "
+                           "Check them on the official site.") == 1
+              and str(r.note_source_url).startswith("https://") for r in limited.values()),
+          [r.state for r in limited.values() if not str(r.note_source_url).startswith("https://")])
+    check("12 states where anyone may vote by mail get no eligibility sentence",
+          not any(s in limited for s in ("FL", "GA", "NC", "PA", "OH", "AZ")))
     check("12 every state with a 2026 file gets an Election Day reminder",
           {r.state for r in full.reminders if r.kind == "election_day_1d"}
           == {s for s, d in all_docs.items() if (d.get("key_dates") or {}).get("general") == "2026-11-03"})

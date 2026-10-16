@@ -113,8 +113,17 @@ be for a key that has a source.
 | `poll_hours_vary` | `{"text": "Vary by county", "source_url": "https://...", "retrieved": "YYYY-MM-DD"}` when the hours are not statewide (`Vary by county`, `Vary by city or town`, `Vary by location`); never together with `poll_hours` | the Poll hours row on the tab |
 | `deadline_times` | `{"<key_dates key>": "HH:MM"}` | when that deadline falls that day (default 11:59 p.m.), which is when its push expires |
 | `reminder_notes` | `{"<key_dates key>": "One sentence."}` | added to that date's reminders, for a rule a voter needs (Texas: received, not postmarked) |
+| `reminder_note_sources` | `{"<key_dates key>": {"source_url": "https://...", "retrieved": "YYYY-MM-DD"}}` | the official page behind a note that is a rule of its own rather than part of the date (who may vote by mail); shown as the reminder's `note_source_url` in the admin preview |
 | `reminder_text` | `{"<kind>": {"title": "...", "body": "..."}}` | replaces the standard wording when it would not be true in that state (Florida's county early voting days) |
 | `no_reminder` | `{"<key_dates key>": {"reason": "...", "source_url": "https://...", "retrieved": "YYYY-MM-DD"}}` | a reminder the state's rules rule out, shown in the admin preview |
+
+Where mail or absentee voting is only for voters who meet the state's
+rules (an excuse, age, disability or another qualifying reason), the
+mail ballot request note ends with the same sentence in every state:
+"Mail voting in {State} is only for voters who meet the state's
+eligibility rules. Check them on the official site.", with the state's
+absentee page in `reminder_note_sources` and, where it has the request
+form or link, as `links.mail_ballot` (lint E-12).
 
 Kinds for `reminder_text`: `registration_3d`, `registration_1d`,
 `mail_request_3d`, `early_voting_1d`, `election_day_1d`. Their

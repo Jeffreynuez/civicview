@@ -43,6 +43,11 @@ Elections (every <state>/elections.json):
        .poll_hours_vary has both too, and a 2026 file's general
        election is 2026-11-03. Jeffrey, 2026-10-16: "Every date and
        every race carries its source URL and the date you retrieved it."
+       Every voter_info.reminder_note_sources entry has an official https
+       source_url and a retrieved date, and a mail ballot note that says
+       mail voting is limited uses the one fixed sentence ("Mail voting
+       in {State} is only for voters who meet the state's eligibility
+       rules. Check them on the official site.") and has such a source.
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -388,6 +393,23 @@ def lint_all_key_date_sources(doc: dict, where: str) -> None:
                     "needs text, an https source_url on an official site and a retrieved date")
     if (doc.get("voter_info") or {}).get("poll_hours") and vary is not None:
         problem("E-12", f"{where} voter_info", "poll_hours and poll_hours_vary are both set; keep one")
+    info = doc.get("voter_info") or {}
+    note_sources = info.get("reminder_note_sources") or {}
+    for key, entry in note_sources.items():
+        if not isinstance(entry, dict) or not _official(entry.get("source_url")) \
+                or not _retrieved_ok(entry.get("retrieved"), today):
+            problem("E-12", f"{where} voter_info.reminder_note_sources.{key}",
+                    "needs an https source_url on an official site and a retrieved date")
+    mail_note = str((info.get("reminder_notes") or {}).get("vote_by_mail_request_deadline_general") or "")
+    if "eligibility" in mail_note.lower():
+        fixed = (f"Mail voting in {doc.get('state_name')} is only for voters who meet the state's eligibility "
+                 "rules. Check them on the official site.")
+        if not mail_note.endswith(fixed):
+            problem("E-12", f"{where} voter_info.reminder_notes", "the mail voting eligibility note must end with "
+                    f"the fixed sentence: {fixed!r}")
+        if "vote_by_mail_request_deadline_general" not in note_sources:
+            problem("E-12", f"{where} voter_info.reminder_notes",
+                    "the mail voting eligibility note needs its page in reminder_note_sources")
 
 
 def lint_elections(state_dir: Path) -> None:

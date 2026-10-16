@@ -61,7 +61,13 @@
       "voter_registration_deadline_general": "23:59"
     },
     "reminder_notes": {
-      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. Mail voting in West Virginia is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://sos.wv.gov/absentee-voting-information",
+        "retrieved": "2026-10-16"
+      }
     }
   },
   "races": [],

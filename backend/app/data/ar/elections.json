@@ -58,7 +58,13 @@
       "retrieved": "2026-10-15"
     },
     "reminder_notes": {
-      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through October 30."
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through October 30. Mail voting in Arkansas is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://www.sos.arkansas.gov/elections/voter-information/absentee-voting",
+        "retrieved": "2026-10-16"
+      }
     }
   },
   "races": [],

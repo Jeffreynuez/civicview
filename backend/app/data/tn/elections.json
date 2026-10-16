@@ -57,7 +57,13 @@
       "retrieved": "2026-10-15"
     },
     "reminder_notes": {
-      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. Mail voting in Tennessee is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://sos.tn.gov/elections/guides/guide-to-absentee-voting",
+        "retrieved": "2026-10-16"
+      }
     }
   },
   "races": [],
