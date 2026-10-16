@@ -54,12 +54,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Fitzpatrick, Brian",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-janelle-stelson-h10": {
    "name": "Janelle Stelson",
@@ -144,12 +145,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Bresnahan, Robert Paul",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-scott-perry-h10": {
    "name": "Scott Perry",
@@ -203,12 +205,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Perry, Scott",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-ryan-mackenzie-h7": {
    "name": "Ryan E Mackenzie",
@@ -262,12 +265,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Mackenzie, Ryan E",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-guy-reschenthaler-h14": {
    "name": "Guy Lorin Reschenthaler",
@@ -321,12 +325,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Reschenthaler, Guy Lorin",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-paige-cognetti-h8": {
    "name": "Paige Cognetti",
@@ -411,12 +416,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Deluzio, Christopher Raphael",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-john-joyce-h13": {
    "name": "John Joyce",
@@ -470,12 +476,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Joyce, John",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-brendan-f-boyle-h2": {
    "name": "Brendan F Boyle",
@@ -529,12 +536,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Boyle, Brendan F",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-ryan-crosswell-h7": {
    "name": "Ryan Crosswell",
@@ -619,12 +627,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Meuser, Daniel Philip",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-glenn-thompson-h15": {
    "name": "Glenn William Thompson Jr.",
@@ -678,12 +687,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Thompson, Glenn William",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-chrissy-houlahan-h6": {
    "name": "Chrissy Jampoler Houlahan",
@@ -737,12 +747,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Houlahan, Chrissy Jampoler",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-robert-j-harvie-h1": {
    "name": "Robert J Harvie Jr.",
@@ -827,12 +838,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Lee, Summer Lynn",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-lloyd-smucker-h11": {
    "name": "Lloyd K Smucker",
@@ -886,12 +898,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Smucker, Lloyd K",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-bob-brooks-h7": {
    "name": "Robert R Brooks",
@@ -976,12 +989,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Dean Cunnane, Madeleine",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-sharif-street-h3": {
    "name": "Sharif Street",
@@ -1097,12 +1111,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican",
    "sort_name": "Kelly, George Joseph",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-mary-gay-scanlon-h5": {
    "name": "Mary Gay Scanlon",
@@ -1156,12 +1171,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Scanlon, Mary Gay",
    "ballot_source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://www.pavoterservices.pa.gov/electioninfo/ElectionInfo.aspx"
   },
   "pa-cand-ala-stanford-h3": {
    "name": "Ala Stanford",

@@ -17,11 +17,16 @@ checks the order, the badge and the wording.
   candidates aren't listed.", with a link to the official list.
 - **One order:** alphabetical by last name, then first name, in every race in every state. The
   backend sorts (`elections_service._sort_key`), so the data order does not matter.
-- **Party labels exactly as the state's list prints them** (`party_label`), for example
-  "Democratic", "REP", "No Party Preference", or "Democratic, Working Families" for a candidate
-  on two party lines. A list that prints one string for a fusion candidate keeps it ("DEM/PROG"
-  in Vermont); Alaska prints a ticket's two affiliations together ("Registered Democrat /
-  Nonpartisan"). A candidate the list prints with no party has `party_label: ""` and no chip.
+- **Party labels in the state's own words** (`party_label`), as the state's list prints them,
+  for example "Democratic", "No Party Preference", or "Democratic, Working Families" for a
+  candidate on two party lines. Where the list prints a short code ("REP", "D", "LIB"), the code
+  is spelled out from that state's own legend, on its candidate list or its official ballot
+  ("Republican Party" in Texas, from the Secretary of State's sample ballot; "Democrat" in
+  Georgia, as its ballot prints it). A party name is never made up: a code with no official
+  legend stays as printed ("DEM/PROG" in Vermont, whose ballot prints it too; "Democratic-NPL"
+  in North Dakota). Alaska prints a ticket's two affiliations together ("Registered Democrat /
+  Nonpartisan"). A candidate the list and ballot print with no party has `party_label: ""`, no
+  chip, and `party: "I"`.
   The Ballot tab, the candidate page and Compare all show `party_label`. `party` stays a short
   code (D, R, L, G, I, NP, O) that only picks a color and drives the one-nominee-per-party check.
 - **Nothing invented:** no bios, photos (except the congress.gov member photos the code already
@@ -38,7 +43,7 @@ checks the order, the badge and the wording.
 | `write_in_list_url` | The state's write-in list, when it publishes one; otherwise the race links to `roster_source_url` |
 | `incumbent_candidate_id` | The candidate who holds the seat now, or null |
 | `open_seat` | True when nobody on the list holds the seat now |
-| `notes` | Shown on the race. Fixed wording: "Open seat. The current representative, {name}, is not on the November ballot for this district.", "Open seat. Sen. {name} is not on the November ballot.", "Open seat. Gov. {name} is not on the November ballot.", "Open seat. The seat is vacant.", "Governor and Lieutenant Governor run together on one ticket.", "In {state}, the top two primary finishers advance to November, whatever their party." (California, Washington), "In Alaska, the top four primary finishers advance to November, whatever their party, and voters rank the candidates.", and for a special election the term it fills |
+| `notes` | Shown on the race. Fixed wording: "Open seat. The current representative, {name}, is not on the November ballot for this district.", "Open seat. Sen. {name} is not on the November ballot.", "Open seat. Gov. {name} is not on the November ballot.", "Open seat. The seat is vacant.", "Governor and Lieutenant Governor run together on one ticket.", "In {state}, the top two primary finishers advance to November, whatever their party." (California, Washington), "The November field is the state's certified list. When a top-four finisher withdraws, the next finisher may take the place." (Alaska), "The Secretary of the Commonwealth lists tickets by surname only." (Massachusetts Governor), and for a special election the term it fills |
 | `ranked_choice`, `ranked_choice_source_url` | A ranked choice general election, from the state's own page (every Alaska race; Maine's federal races). The race says "Rank the candidates" instead of "Choose 1" (E-13) |
 | `open_primary`, `open_primary_source_url` | The November ballot is an open primary for this office (Louisiana, U.S. House): every qualified candidate is listed, several of one party allowed, with the official page that says so (E-13) |
 | `general_candidates_note` | Data only: which list, and that write-ins are not listed |
@@ -47,9 +52,11 @@ A race with no certified list keeps `general_candidates: []` and no roster field
 tab shows "Candidates for this race aren't listed yet. Your official sample ballot shows them."
 with the sample ballot link from the state's official links. No race mixes certified and
 unchecked candidates (E-13). The same applies to a federal or Governor race whose list could not
-be confirmed in full: Massachusetts prints its Governor tickets by surname only and no official
-source gives the independent ticket's first names, so that race is shown with no list. A state
-with no confirmed list at all keeps its dates only.
+be confirmed in full. A state with no confirmed list at all keeps its dates only.
+
+Massachusetts prints its Governor tickets by surname only ("Healey and Driscoll"), so all three
+tickets are listed that way, the sitting Governor's too, with the note above. Each ticket is one
+record named as printed, with no `running_mate`.
 
 ## A candidate record
 

@@ -73,9 +73,20 @@
       "jurisdiction": "MA",
       "seat_type": "executive",
       "term_length_years": 4,
-      "general_candidates": [],
+      "general_candidates_note": "Every candidate on Secretary of the Commonwealth of Massachusetts, Elections Division, 2026 State Election Candidates (State Election, November 3, 2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Secretary of the Commonwealth of Massachusetts, Elections Division, 2026 State Election Candidates (State Election, November 3, 2026)",
+      "roster_status": "verified_nominees",
+      "roster_source_url": "https://www.sec.state.ma.us/divisions/elections/research-and-statistics/2026-state-election-candidates.htm",
+      "roster_retrieved": "2026-10-16",
+      "general_candidates": [
+        "ma-cand-healey-and-driscoll-gov",
+        "ma-cand-james-and-kittredge-gov",
+        "ma-cand-minogue-and-oliver-gov"
+      ],
       "primary_candidates": {},
-      "incumbent_candidate_id": null
+      "incumbent_candidate_id": "ma-cand-healey-and-driscoll-gov",
+      "open_seat": false,
+      "notes": "Governor and Lieutenant Governor run together on one ticket. The Secretary of the Commonwealth lists tickets by surname only."
     },
     {
       "id": "ma-2026-us-senate",

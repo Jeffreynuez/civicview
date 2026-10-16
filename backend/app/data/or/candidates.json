@@ -1,6 +1,6 @@
 {
  "_note": "Candidate registry for Oregon 2026. Every record comes from the state's official list of candidates for the November 3, 2026 general election (Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16), linked in source_url; a race from another official list links it in roster_source_url). Names and party labels are as the list prints them (mixed case where the list prints capitals). Nothing in a record is invented: no bios, photos, websites or fundraising.",
- "_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16) (https://secure.sos.state.or.us/orestar/CFSearchPage.do); sitting members matched to congress.gov (bioguide_id).",
+ "_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16) (https://multco.us/file/ballot_directive_-_november_3,_2026_general/download); sitting members matched to congress.gov (bioguide_id).",
  "candidates": {
   "or-cand-david-brock-smith-sen": {
    "id": "or-cand-david-brock-smith-sen",
@@ -24,8 +24,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-jeff-merkley-sen": {
@@ -50,8 +50,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-gary-lyndon-dye-sen": {
@@ -76,8 +76,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-chris-henry-sen": {
@@ -102,8 +102,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-brett-smith": {
@@ -128,8 +128,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-tina-kotek": {
@@ -154,8 +154,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16",
    "official_id": "or-exec-gov",
    "official_scope": "state"
@@ -182,8 +182,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-barbara-j-kahl-h1": {
@@ -208,8 +208,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-suzanne-bonamici-h1": {
@@ -234,8 +234,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-chris-beck-h2": {
@@ -260,8 +260,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-cliff-bentz-h2": {
@@ -286,8 +286,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-maxine-e-dexter-h3": {
@@ -312,8 +312,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-loran-ayles-h3": {
@@ -338,8 +338,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-monique-despain-h4": {
@@ -364,8 +364,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-val-hoyle-h4": {
@@ -390,8 +390,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-justin-filip-h4": {
@@ -416,8 +416,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-janelle-s-bynum-h5": {
@@ -442,8 +442,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-andrea-townsend-h5": {
@@ -468,8 +468,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-patti-adair-h5": {
@@ -494,8 +494,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-andrea-salinas-h6": {
@@ -520,8 +520,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   },
   "or-cand-david-russ-h6": {
@@ -546,8 +546,8 @@
    "fundraising": null,
    "experience": [],
    "data_status": "skeleton",
-   "source_url": "https://secure.sos.state.or.us/orestar/CFSearchPage.do",
-   "data_source": "Oregon Secretary of State, Elections Division, ORESTAR Candidate Filing Search, Candidates for 2026 General Election (Current Elections, 261 records, Export retrieved 2026-10-16)",
+   "source_url": "https://multco.us/file/ballot_directive_-_november_3,_2026_general/download",
+   "data_source": "Oregon Secretary of State, Directive 2026-09, Official Ballot Statement for the General Election on November 3, 2026 (September 3, 2026; Multnomah County's official copy)",
    "data_observed": "2026-10-16"
   }
  }

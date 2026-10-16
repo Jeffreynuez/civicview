@@ -154,8 +154,17 @@ def main() -> int:
     check("6 every candidate on a verified race has the list's party label", not no_label, str(no_label[:5]))
     oh4 = {c["name"]: c.get("party_label") for c in next(
         r for r in svc.get_elections("OH")["races"] if r["id"] == "oh-2026-us-house-4")["general_candidates"]}
-    check("6 a candidate the list prints with no party keeps an empty label",
-          oh4.get("Tracy L. Tackett") == "" and oh4.get("Jim Jordan") == "Republican", str(oh4))
+    check("6 a candidate the ballot prints with no party keeps an empty label",
+          oh4.get("Tracey L. Tackett") == "" and oh4.get("Jim Jordan") == "Republican", str(oh4))
+    no_party = {c["name"]: c.get("party") for r in svc.get_elections("OH")["races"]
+                if r["id"] in ("oh-2026-us-house-4", "oh-2026-us-house-13") for c in r["general_candidates"]}
+    check("6 Tackett is coded like Dixit, a candidate with no party",
+          no_party.get("Tracey L. Tackett") == no_party.get("Sandeep Dixit") == "I", str(no_party))
+    labels = [c.get("party_label") for st in ("FL", "GA", "ME", "MT", "NC", "NH", "NM", "SD", "TX")
+              for r in svc.get_elections(st)["races"] if r.get("roster_status") == "verified_nominees"
+              for c in r["general_candidates"]]
+    codes = sorted({lab for lab in labels if lab in ("REP", "DEM", "LIB", "GRE", "IND", "NPA", "CON", "R", "D")})
+    check("6 short party codes are spelled out from each state's legend", not codes, str(codes))
 
     # 7. One member, one candidate.
     by_member = {}

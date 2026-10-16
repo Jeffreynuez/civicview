@@ -64,12 +64,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic, Working Families",
    "sort_name": "Ocasio-Cortez, Alexandria",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-hakeem-s-jeffries-h8": {
    "name": "Hakeem S. Jeffries",
@@ -133,12 +134,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Jeffries, Hakeem S.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-peter-chatzky-h17": {
    "name": "Peter Chatzky",
@@ -255,12 +257,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican, Conservative",
    "sort_name": "Lawler, Mike",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-ritchie-torres-h15": {
    "name": "Ritchie Torres",
@@ -314,12 +317,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Torres, Ritchie",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-blake-gendebien-h21": {
    "name": "Blake Gendebien",
@@ -495,12 +499,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic, Working Families",
    "sort_name": "Ryan, Pat",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-thomas-r-suozzi-h3": {
    "name": "Thomas R. Suozzi",
@@ -554,12 +559,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Suozzi, Thomas R.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-josh-riley-h19": {
    "name": "Josh Riley",
@@ -613,12 +619,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic, Working Families",
    "sort_name": "Riley, Josh",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-george-conway-h12": {
    "name": "George Conway",
@@ -704,12 +711,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican, Conservative",
    "sort_name": "Lalota, Nicholas J.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-alexander-bores-h12": {
    "name": "Alexander Bores",
@@ -826,12 +834,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican, Conservative",
    "sort_name": "Garbarino, Andrew R.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-claudia-tenney-h24": {
    "name": "Claudia Tenney",
@@ -885,12 +894,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican, Conservative",
    "sort_name": "Tenney, Claudia",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-nicole-malliotakis-h11": {
    "name": "Nicole Malliotakis",
@@ -944,12 +954,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican, Conservative",
    "sort_name": "Malliotakis, Nicole",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-john-jack-bouvier-kenne-schlossberg-h12": {
    "name": "John (jack) Bouvier Kenne Schlossberg",
@@ -1028,12 +1039,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic, Working Families",
    "sort_name": "Mannion, John W.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-micah-charles-lasher-h12": {
    "name": "Micah C. Lasher",
@@ -1118,12 +1130,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Republican, Conservative",
    "sort_name": "Langworthy, Nicholas A.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-timothy-m-kennedy-h26": {
    "name": "Timothy M. Kennedy",
@@ -1177,12 +1190,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Kennedy, Timothy M.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-beth-davidson-h17": {
    "name": "Beth Davidson",
@@ -1268,12 +1282,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Meng, Grace",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-brad-lander-h10": {
    "name": "Brad Lander",
@@ -1418,12 +1433,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic, Working Families",
    "sort_name": "Morelle, Joseph D.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-gregory-w-meeks-h5": {
    "name": "Gregory W. Meeks",
@@ -1477,12 +1493,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Meeks, Gregory W.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-alan-pardee-h12": {
    "name": "Alan Pardee",
@@ -1600,12 +1617,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Clarke, Yvette D.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-peter-karl-oberacker-jr-h19": {
    "name": "Peter K. Oberacker",
@@ -1753,12 +1771,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic, Working Families",
    "sort_name": "Tonko, Paul D.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-mike-lipetri-h3": {
    "name": "Michael J. LiPetri Jr",
@@ -2092,12 +2111,13 @@
     }
    ],
    "data_status": "enriched",
-   "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
+   "data_source": "New York State Board of Elections, Amended Certification for the November 3, 2026 General Election (dated October 7, 2026) (ballot listing); OpenFEC and congress_profiles.json (fundraising snapshot and profile, crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
    "party_label": "Democratic",
    "sort_name": "Latimer, George S.",
    "ballot_source_url": "https://elections.ny.gov/certification-november-3-2026-general-election",
-   "ballot_observed": "2026-10-16"
+   "ballot_observed": "2026-10-16",
+   "source_url": "https://elections.ny.gov/certification-november-3-2026-general-election"
   },
   "ny-cand-christopher-gallant-h1": {
    "name": "Christopher J. Gallant",

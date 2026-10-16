@@ -72,16 +72,16 @@
       "seat_type": "executive",
       "term_length_years": 4,
       "primary_candidates": {},
-      "general_candidates_note": "Every candidate on Rhode Island Department of State, Elections Division, Declared Candidates Report (Excel, last modified July 30, 2026), with Rhode Island Board of Elections, Summary Results Report, Official Results, Primary Election September 9, 2026 (dated 09/16/2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
-      "_roster_source": "Rhode Island Department of State, Elections Division, Declared Candidates Report (Excel, last modified July 30, 2026), with Rhode Island Board of Elections, Summary Results Report, Official Results, Primary Election September 9, 2026 (dated 09/16/2026)",
+      "general_candidates_note": "Every candidate on Rhode Island Department of State, Candidates for Governor, November 3, 2026 Statewide General Election (candidates marked On Election Ballot, current as of October 16, 2026), with the party nominees' ballot names from the Board of Elections' official results of the September 9, 2026 primary for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Rhode Island Department of State, Candidates for Governor, November 3, 2026 Statewide General Election (candidates marked On Election Ballot, current as of October 16, 2026), with the party nominees' ballot names from the Board of Elections' official results of the September 9, 2026 primary",
       "roster_status": "verified_nominees",
-      "roster_source_url": "https://vote.sos.ri.gov/Forms/elections/Reports/Candidates.xlsx",
+      "roster_source_url": "https://vote.sos.ri.gov/Candidates/CandidateSearchSummary?OfficeType=549&Election=18144",
       "roster_retrieved": "2026-10-16",
       "general_candidates": [
-        "ri-cand-helena-buonanno-foulkes",
-        "ri-cand-aaron-c-guckian",
         "ri-cand-kenneth-block",
+        "ri-cand-helena-buonanno-foulkes",
         "ri-cand-jasjit-s-gotra",
+        "ri-cand-aaron-c-guckian",
         "ri-cand-c-d-reynolds"
       ],
       "incumbent_candidate_id": null,
@@ -96,15 +96,15 @@
       "seat_type": "legislative",
       "term_length_years": 6,
       "primary_candidates": {},
-      "general_candidates_note": "Every candidate on Rhode Island Department of State, Elections Division, Declared Candidates Report (Excel, last modified July 30, 2026), with Rhode Island Board of Elections, Summary Results Report, Official Results, Primary Election September 9, 2026 (dated 09/16/2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
-      "_roster_source": "Rhode Island Department of State, Elections Division, Declared Candidates Report (Excel, last modified July 30, 2026), with Rhode Island Board of Elections, Summary Results Report, Official Results, Primary Election September 9, 2026 (dated 09/16/2026)",
+      "general_candidates_note": "Every candidate on Rhode Island Department of State, Candidates for Senator in Congress, November 3, 2026 Statewide General Election (candidates marked On Election Ballot, current as of October 16, 2026), with the party nominees' ballot names from the Board of Elections' official results of the September 9, 2026 primary for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Rhode Island Department of State, Candidates for Senator in Congress, November 3, 2026 Statewide General Election (candidates marked On Election Ballot, current as of October 16, 2026), with the party nominees' ballot names from the Board of Elections' official results of the September 9, 2026 primary",
       "roster_status": "verified_nominees",
-      "roster_source_url": "https://vote.sos.ri.gov/Forms/elections/Reports/Candidates.xlsx",
+      "roster_source_url": "https://vote.sos.ri.gov/Candidates/CandidateSearchSummary?OfficeType=620&Election=18144",
       "roster_retrieved": "2026-10-16",
       "general_candidates": [
-        "ri-cand-john-f-reed-sen",
+        "ri-cand-michael-bahry-sen",
         "ri-cand-raymond-t-mckay-sen",
-        "ri-cand-michael-bahry-sen"
+        "ri-cand-john-f-reed-sen"
       ],
       "incumbent_candidate_id": "ri-cand-john-f-reed-sen",
       "open_seat": false
@@ -118,15 +118,15 @@
       "congressional_district": "1",
       "term_length_years": 2,
       "primary_candidates": {},
-      "general_candidates_note": "Every candidate on Rhode Island Department of State, Elections Division, Declared Candidates Report (Excel, last modified July 30, 2026), with Rhode Island Board of Elections, Summary Results Report, Official Results, Primary Election September 9, 2026 (dated 09/16/2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
-      "_roster_source": "Rhode Island Department of State, Elections Division, Declared Candidates Report (Excel, last modified July 30, 2026), with Rhode Island Board of Elections, Summary Results Report, Official Results, Primary Election September 9, 2026 (dated 09/16/2026)",
+      "general_candidates_note": "Every candidate on Rhode Island Department of State, Candidates for Representative in Congress District 1, November 3, 2026 Statewide General Election (candidates marked On Election Ballot, current as of October 16, 2026), with the party nominees' ballot names from the Board of Elections' official results of the September 9, 2026 primary for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Rhode Island Department of State, Candidates for Representative in Congress District 1, November 3, 2026 Statewide General Election (candidates marked On Election Ballot, current as of October 16, 2026), with the party nominees' ballot names from the Board of Elections' official results of the September 9, 2026 primary",
       "roster_status": "verified_nominees",
-      "roster_source_url": "https://vote.sos.ri.gov/Forms/elections/Reports/Candidates.xlsx",
+      "roster_source_url": "https://vote.sos.ri.gov/Candidates/CandidateSearchSummary?OfficeType=591&Election=18144",
       "roster_retrieved": "2026-10-16",
       "general_candidates": [
         "ri-cand-gabriel-amo-h1",
-        "ri-cand-kellie-keenan-h1",
-        "ri-cand-pedro-desouza-h1"
+        "ri-cand-pedro-desouza-h1",
+        "ri-cand-kellie-keenan-h1"
       ],
       "incumbent_candidate_id": "ri-cand-gabriel-amo-h1",
       "open_seat": false
@@ -140,10 +140,10 @@
       "congressional_district": "2",
       "term_length_years": 2,
       "primary_candidates": {},
-      "general_candidates_note": "Every candidate on Rhode Island Department of State, Elections Division, Declared Candidates Report (Excel, last modified July 30, 2026), with Rhode Island Board of Elections, Summary Results Report, Official Results, Primary Election September 9, 2026 (dated 09/16/2026) for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
-      "_roster_source": "Rhode Island Department of State, Elections Division, Declared Candidates Report (Excel, last modified July 30, 2026), with Rhode Island Board of Elections, Summary Results Report, Official Results, Primary Election September 9, 2026 (dated 09/16/2026)",
+      "general_candidates_note": "Every candidate on Rhode Island Department of State, Candidates for Representative in Congress District 2, November 3, 2026 Statewide General Election (candidates marked On Election Ballot, current as of October 16, 2026), with the party nominees' ballot names from the Board of Elections' official results of the September 9, 2026 primary for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
+      "_roster_source": "Rhode Island Department of State, Candidates for Representative in Congress District 2, November 3, 2026 Statewide General Election (candidates marked On Election Ballot, current as of October 16, 2026), with the party nominees' ballot names from the Board of Elections' official results of the September 9, 2026 primary",
       "roster_status": "verified_nominees",
-      "roster_source_url": "https://vote.sos.ri.gov/Forms/elections/Reports/Candidates.xlsx",
+      "roster_source_url": "https://vote.sos.ri.gov/Candidates/CandidateSearchSummary?OfficeType=592&Election=18144",
       "roster_retrieved": "2026-10-16",
       "general_candidates": [
         "ri-cand-seth-magaziner-h2",

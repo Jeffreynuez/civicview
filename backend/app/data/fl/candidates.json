@@ -129,7 +129,7 @@
       "data_source": "Florida Division of Elections campaign finance database (retrieved 2026-07-31); endorsements individually sourced per entry.",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89042",
       "running_mate": "Bryan Avila",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Donalds, Byron"
     },
     "fl-cand-paul-renner": {
@@ -328,7 +328,7 @@
       "photo_credit": "Wikimedia Commons",
       "photo_source_url": "https://en.wikipedia.org/wiki/James_Uthmeier",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89041",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Uthmeier, James"
     },
     "fl-cand-jose-javier-rodriguez": {
@@ -447,7 +447,7 @@
       "photo_credit": "Wikimedia Commons",
       "photo_source_url": "https://en.wikipedia.org/wiki/Jos%C3%A9_Javier_Rodr%C3%ADguez_(Florida_politician)",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89231",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Rodriguez, Jose Javier"
     },
     "fl-cand-maxwell-frost": {
@@ -647,7 +647,7 @@
       "data_status": "skeleton",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89329",
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Jackson, Bonnie"
     },
     "fl-cand-jay-collins": {
@@ -1430,7 +1430,7 @@
       "photo_source_url": "https://en.wikipedia.org/wiki/David_Jolly",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89243",
       "running_mate": "Gwen Graham",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Jolly, David"
     },
     "fl-cand-charles-lewis": {
@@ -1612,7 +1612,7 @@
       "data_observed": "2026-05-05",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90433",
       "running_mate": "Joe Van Vactor",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Abrams, Dean Ocean"
     },
     "fl-cand-surindar-bedi": {
@@ -1664,7 +1664,7 @@
       "data_observed": "2026-05-05",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90630",
       "running_mate": "Ruben A. Coto",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Burkett, Charles"
     },
     "fl-cand-jeffrey-datto": {
@@ -1690,7 +1690,7 @@
       "data_observed": "2026-05-05",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89630",
       "running_mate": "Juan Santana",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Datto, Jeffrey Peter \"Dr. Jeff\""
     },
     "fl-cand-moliere-dimanche": {
@@ -1716,7 +1716,7 @@
       "data_observed": "2026-05-05",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=88529",
       "running_mate": "Benjiman Rojas",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Dimanche, Moliere \"Moe\""
     },
     "fl-cand-insley-evans": {
@@ -1846,7 +1846,7 @@
       "data_observed": "2026-05-05",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89571",
       "running_mate": "Rachel Rodriguez",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Russo, Frank J."
     },
     "fl-cand-yerucham-winer": {
@@ -1898,7 +1898,7 @@
       "data_observed": "2026-05-05",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=84076",
       "running_mate": "Nicole Skelly",
-      "party_label": "LPF",
+      "party_label": "Libertarian Party of Florida",
       "sort_name": "Jewett, Scott Eckhard"
     },
     "fl-cand-brandon-mcintyre": {
@@ -2234,7 +2234,7 @@
       "official_scope": "state",
       "openstates_id": "ocd-person/afd55a58-b8f6-4dd7-9d93-a2207b65e425",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=83549",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Rodriguez, Ana Maria"
     },
     "fl-cand-felipe-sousa-lazaballet": {
@@ -2259,7 +2259,7 @@
       "data_source": "FL Division of Elections (active filer)",
       "data_observed": "2026-05-05",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89016",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Sousa Lazaballet, Felipe"
     },
     "fl-cand-ashley-moody-sen": {
@@ -2334,7 +2334,7 @@
       "data_source": "OpenFEC + curated",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89119",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Moody, Ashley"
     },
     "fl-cand-alexander-vindman-sen": {
@@ -2706,7 +2706,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90492",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Fine, Randy"
     },
     "fl-cand-jimmy-patronis-jr-h1": {
@@ -2761,7 +2761,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89686",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Patronis, Jimmy"
     },
     "fl-cand-brian-mast-h21": {
@@ -2794,7 +2794,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=88912",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Mast, Brian"
     },
     "fl-cand-maxwell-alejandro-frost-h10": {
@@ -2827,7 +2827,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89909",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Frost, Maxwell Alejandro"
     },
     "fl-cand-michael-carbonara-h22": {
@@ -2916,7 +2916,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91577",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Wasserman Schultz, Debbie"
     },
     "fl-cand-herbert-od-wertheim-h22": {
@@ -3039,7 +3039,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89765",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Luna, Anna Paulina"
     },
     "fl-cand-laurel-lee-h15": {
@@ -3072,7 +3072,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89121",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Lee, Laurel"
     },
     "fl-cand-lois-j-frankel-h23": {
@@ -3105,7 +3105,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89248",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Frankel, Lois"
     },
     "fl-cand-jim-schwartzel-h19": {
@@ -3138,7 +3138,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89137",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Schwartzel, Jim"
     },
     "fl-cand-jared-moskowitz-h25": {
@@ -3193,7 +3193,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=88911",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Moskowitz, Jared"
     },
     "fl-cand-pia-dandiya-h22": {
@@ -3226,7 +3226,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89301",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Dandiya, Pia"
     },
     "fl-cand-kat-cammack-h3": {
@@ -3281,7 +3281,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91508",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Cammack, Kat"
     },
     "fl-cand-mario-diaz-balart-h26": {
@@ -3336,7 +3336,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90330",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Diaz-Balart, Mario"
     },
     "fl-cand-aaron-p-bean-h4": {
@@ -3369,7 +3369,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=88755",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Bean, Aaron"
     },
     "fl-cand-maria-elvira-salazar-h27": {
@@ -3424,7 +3424,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90721",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Salazar, Maria Elvira"
     },
     "fl-cand-scott-m-singer-h25": {
@@ -3457,7 +3457,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89801",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Singer, Scott"
     },
     "fl-cand-mike-haridopolos-h8": {
@@ -3505,7 +3505,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89522",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Haridopolos, Mike"
     },
     "fl-cand-darren-soto-h9": {
@@ -3560,7 +3560,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89339",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Soto, Darren"
     },
     "fl-cand-gus-m-bilirakis-h12": {
@@ -3615,7 +3615,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=88868",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Bilirakis, Gus Michael"
     },
     "fl-cand-catalina-lauf-h19": {
@@ -3682,7 +3682,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89179",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Steube, Greg"
     },
     "fl-cand-chris-collins-h19": {
@@ -3771,7 +3771,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=88870",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Castor, Kathy"
     },
     "fl-cand-robin-peguero-h27": {
@@ -3996,7 +3996,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89929",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Rogers, Austin"
     },
     "fl-cand-raven-harrison-h25": {
@@ -4097,7 +4097,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90631",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Dalton, Bale"
     },
     "fl-cand-scott-franklin-h18": {
@@ -4152,7 +4152,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89125",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Franklin, Scott"
     },
     "fl-cand-earle-ford-h13": {
@@ -4219,7 +4219,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90831",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Jenkins, Jennifer"
     },
     "fl-cand-leela-j-gray-h13": {
@@ -4252,7 +4252,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90671",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Gray, Leela"
     },
     "fl-cand-darren-mcauley-h12": {
@@ -4319,7 +4319,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89967",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Rutherford, John H."
     },
     "fl-cand-madison-cawthorn-h19": {
@@ -4488,7 +4488,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91226",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Gimenez, Carlos A."
     },
     "fl-cand-phil-ehr-h28": {
@@ -4521,7 +4521,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91699",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Ehr, Phil \"Felipe\""
     },
     "fl-cand-ola-nesheswat-hawatmeh-h19": {
@@ -4864,7 +4864,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89933",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Rodriguez, Eliott"
     },
     "fl-cand-james-martin-h21": {
@@ -4897,7 +4897,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89846",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Martin, James T."
     },
     "fl-cand-dale-v-c-holness-h20": {
@@ -5066,7 +5066,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89535",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Green, Amanda Marie"
     },
     "fl-cand-victoria-jane-boker-doyle-h23": {
@@ -5133,7 +5133,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89665",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Grage, Rachel"
     },
     "fl-cand-huy-yen-cam-bailey-h2": {
@@ -5200,7 +5200,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89070",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Adeimy, Deborah"
     },
     "fl-cand-luke-murphy-h2": {
@@ -5267,7 +5267,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89402",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Yonce, Eric"
     },
     "fl-cand-david-burck-h22": {
@@ -5368,7 +5368,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89453",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Overman, Kimberly"
     },
     "fl-cand-joel-rudman-h1": {
@@ -5469,7 +5469,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89980",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Locklin, Nicole"
     },
     "fl-cand-audie-rowell-h2": {
@@ -5740,7 +5740,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89451",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Montavon, Matthew"
     },
     "fl-cand-elizabeth-pandich-h21": {
@@ -6215,7 +6215,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89916",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Valimont, Gay"
     },
     "fl-cand-gregory-charles-merk-h1": {
@@ -6486,7 +6486,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89623",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Davis, Mark"
     },
     "fl-cand-jeff-peacock-h1": {
@@ -6655,7 +6655,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89116",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "People, Robert"
     },
     "fl-cand-mark-peter-heggestad-h5": {
@@ -6824,7 +6824,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89740",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Arias, Victor"
     },
     "fl-cand-seth-allan-harp-h3": {
@@ -6857,7 +6857,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89177",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Harp, Seth"
     },
     "fl-cand-mark-kaye-h5": {
@@ -7570,7 +7570,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89643",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Simmons, Deva"
     },
     "fl-cand-karla-kemp-h13": {
@@ -7705,7 +7705,7 @@
       "data_source": "OpenFEC (api.open.fec.gov)",
       "data_observed": "2026-06-04",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90814",
-      "party_label": "IND",
+      "party_label": "Independent Party of Florida",
       "sort_name": "Maxime, Kedner"
     },
     "fl-cand-steve-morgan-h6": {
@@ -7964,7 +7964,7 @@
       "photo_credit": "Wikimedia Commons",
       "photo_source_url": "https://en.wikipedia.org/wiki/Blaise_Ingoglia",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89394",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Ingoglia, Blaise"
     },
     "fl-cand-annette-taddeo": {
@@ -8061,7 +8061,7 @@
       "photo_credit": "Wikimedia Commons",
       "photo_source_url": "https://en.wikipedia.org/wiki/Annette_Taddeo",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91310",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Taddeo, Annette"
     },
     "fl-cand-frank-collige": {
@@ -8269,7 +8269,7 @@
       "photo_credit": "Wikimedia Commons",
       "photo_source_url": "https://en.wikipedia.org/wiki/Wilton_Simpson",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90560",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Simpson, Wilton"
     },
     "fl-cand-matt-taylor": {
@@ -8356,7 +8356,7 @@
       "data_source": "FL Division of Elections (qualified candidate)",
       "data_observed": "2026-07-31",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=92013",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Mendoza Atkins, Joey"
     },
     "fl-cand-don-prichard": {
@@ -8439,7 +8439,7 @@
       "data_observed": "2026-08-21",
       "fec_id": "S6FL00830",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90009",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Nixon, Angie"
     },
     "fl-cand-tyler-l-davis-h1": {
@@ -8465,7 +8465,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89828",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Davis, Tyler L."
     },
     "fl-cand-lee-jones-h2": {
@@ -8599,7 +8599,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91032",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Klein, Mike"
     },
     "fl-cand-tom-wells-h3": {
@@ -8679,7 +8679,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89716",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Holloway, LaShonda \"L.J.\""
     },
     "fl-cand-todd-schaefer-h4": {
@@ -8705,7 +8705,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89381",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Schaefer, Todd"
     },
     "fl-cand-mike-sell-h4": {
@@ -8731,7 +8731,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90647",
-      "party_label": "FFP",
+      "party_label": "Florida Forward Party",
       "sort_name": "Sell, Mike"
     },
     "fl-cand-brit-robinson-h4": {
@@ -8836,7 +8836,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89377",
-      "party_label": "LPF",
+      "party_label": "Libertarian Party of Florida",
       "sort_name": "Parrott, Andrew"
     },
     "fl-cand-alec-pavlik-h6": {
@@ -8914,7 +8914,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=92377",
-      "party_label": "LPF",
+      "party_label": "Libertarian Party of Florida",
       "sort_name": "Dennison, Christopher"
     },
     "fl-cand-ryan-elijah-h7": {
@@ -8940,7 +8940,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90696",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Elijah, Ryan"
     },
     "fl-cand-alan-grayson-h7": {
@@ -8993,7 +8993,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91337",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Green, Dan"
     },
     "fl-cand-ben-butler-h9": {
@@ -9127,7 +9127,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=88517",
-      "party_label": "LPF",
+      "party_label": "Libertarian Party of Florida",
       "sort_name": "Groves, Ralph"
     },
     "fl-cand-james-pericola-h11": {
@@ -9153,7 +9153,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91715",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Pericola, James"
     },
     "fl-cand-joe-strada-h11": {
@@ -9179,7 +9179,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91717",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Strada, Joe"
     },
     "fl-cand-carey-baker-h11": {
@@ -9367,7 +9367,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89778",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Scrivener, Branden"
     },
     "fl-cand-tony-d-arrigo-h13": {
@@ -9393,7 +9393,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89497",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "D'Arrigo, Tony"
     },
     "fl-cand-brandt-robinson-h13": {
@@ -9473,7 +9473,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91313",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Beltran, Mike"
     },
     "fl-cand-salomon-hernandez-sr-h14": {
@@ -9524,7 +9524,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=92395",
-      "party_label": "LPF",
+      "party_label": "Libertarian Party of Florida",
       "sort_name": "Lambert, Brian"
     },
     "fl-cand-keith-varian-h14": {
@@ -9735,7 +9735,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90251",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Gruters, Sydney"
     },
     "fl-cand-kelly-kirschner-h16": {
@@ -9761,7 +9761,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90779",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Kirschner, Kelly"
     },
     "fl-cand-eddie-speir-h16": {
@@ -9895,7 +9895,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90646",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Quirk, Michael J."
     },
     "fl-cand-curtis-gibson-h18": {
@@ -9921,7 +9921,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89631",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Gibson, Curtis"
     },
     "fl-cand-seth-haskin-h19": {
@@ -9947,7 +9947,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90744",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Haskin, Seth"
     },
     "fl-cand-alexandra-zakhvatayev-h19": {
@@ -10106,7 +10106,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91278",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Andersen, Brent"
     },
     "fl-cand-rod-joseph-h20": {
@@ -10240,7 +10240,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=92578",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Cooke, Alexander"
     },
     "fl-cand-david-fabrikant-h21": {
@@ -10291,7 +10291,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=92109",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Askar, Casey"
     },
     "fl-cand-belinda-keiser-h22": {
@@ -10479,7 +10479,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90703",
-      "party_label": "REP",
+      "party_label": "Republican Party of Florida",
       "sort_name": "Brown, Te Mayonna"
     },
     "fl-cand-oliver-g-gilbert-iii-h24": {
@@ -10505,7 +10505,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91544",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Gilbert III, Oliver G."
     },
     "fl-cand-patricia-gonzalez-h24": {
@@ -10716,7 +10716,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=92357",
-      "party_label": "LPF",
+      "party_label": "Libertarian Party of Florida",
       "sort_name": "Jassenoff, Peter"
     },
     "fl-cand-dan-franzese-h25": {
@@ -10823,7 +10823,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=92137",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Meidinger Hosey, Deborah Ann"
     },
     "fl-cand-v-michael-arias-h27": {
@@ -10876,7 +10876,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90340",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Rojas, Eddy"
     },
     "fl-cand-neil-j-gillespie-sen": {
@@ -10902,7 +10902,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=89955",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Gillespie, Neil J."
     },
     "fl-cand-chris-gleason-sen": {
@@ -11088,7 +11088,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=90681",
-      "party_label": "NPA",
+      "party_label": "No Party Affiliation",
       "sort_name": "Orta, Ramiro"
     },
     "fl-cand-jose-antonio-stoute-sd40": {
@@ -11114,7 +11114,7 @@
       "data_source": "Florida Division of Elections, 2026 General Election candidate list",
       "data_observed": "2026-09-24",
       "source_url": "https://dos.elections.myflorida.com/candidates/CanDetail.asp?account=91115",
-      "party_label": "DEM",
+      "party_label": "Florida Democratic Party",
       "sort_name": "Stoute, Jose Antonio"
     }
   }

@@ -28,7 +28,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Talarico, James",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -183,7 +183,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Paxton, Ken",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -374,7 +374,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "LIB",
+   "party_label": "Libertarian Party",
    "sort_name": "Brown, Ted",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -437,7 +437,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Allred, Colin",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -496,7 +496,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Cruz, Monica De La",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -555,7 +555,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Ellzey, Jake",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -586,7 +586,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Teixeira, Mark",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -638,7 +638,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Menefee, Christian Dashaun",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -754,7 +754,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Gill, Brandon",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -813,7 +813,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Gonzalez, Vicente",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -904,7 +904,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Jackson, Ronny",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1023,7 +1023,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Pfluger, August",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1054,7 +1054,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Finnie, Shaun",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1085,7 +1085,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Gober, Chris",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1204,7 +1204,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Duyne, Beth Van",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1235,7 +1235,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Flores, Eric",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1266,7 +1266,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Sell, Tom",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1329,7 +1329,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Steinmann, Jessica Hart",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1360,7 +1360,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Mealer, Alex",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1419,7 +1419,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Cuellar, Henry",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1450,7 +1450,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Pulido, Bobby",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1481,7 +1481,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Bonck, Jon",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1512,7 +1512,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Herrera, Brandon",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1564,7 +1564,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Goldman, Craig",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1715,7 +1715,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Moran, Nathaniel",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1774,7 +1774,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Carter, John",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1833,7 +1833,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Williams, Roger",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1924,7 +1924,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Fletcher, Lizzie Pannill",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -1983,7 +1983,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Gooden, Lance",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2042,7 +2042,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Casar, Greg",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2137,7 +2137,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Tijerina, Tano E.",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2196,7 +2196,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Babin, Brian",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2255,7 +2255,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Garcia, Sylvia",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2314,7 +2314,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Cloud, Michael",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2373,7 +2373,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Sessions, Pete",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2432,7 +2432,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Weber, Randy",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2491,7 +2491,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Escobar, Veronica",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2522,7 +2522,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Toth, Steve",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2581,7 +2581,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Fallon, Pat",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2612,7 +2612,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Cruz, Carlos De La",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2739,7 +2739,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Yarbrough, Jace",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -2834,7 +2834,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Self, Keith",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -3085,7 +3085,7 @@
    "data_status": "enriched",
    "data_source": "OpenFEC + congress_profiles.json (crosswalk via legislators_current id.fec)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Castro, Joaquin",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -3276,7 +3276,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Haynes, Frederick D.",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -3339,7 +3339,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Hunt, Evan",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -3370,7 +3370,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Garcia, Johnny C.",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -3593,7 +3593,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Rourk, Caitlin",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -3624,7 +3624,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Stout, Katy Padilla",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -3975,7 +3975,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Nehls, Trever",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -4166,7 +4166,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Burge, Kevin",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -4229,7 +4229,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Hook, Kristin",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -4484,7 +4484,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Lloyd, Tanya",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -4705,7 +4705,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Peña, Lauren B.",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -4832,7 +4832,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Early, Justin",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -5055,7 +5055,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Barrios, Dan",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -5118,7 +5118,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Hale, Alexander",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -5373,7 +5373,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Nair, Mark",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -5404,7 +5404,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "GRE",
+   "party_label": "Green Party",
    "sort_name": "Stoker, Greg",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -5435,7 +5435,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "McDonough, Melissa",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -5562,7 +5562,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Reynolds, Claire",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -5625,7 +5625,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Greene-Scott, Marquette",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -5656,7 +5656,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Gutierrez, Leticia",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -5911,7 +5911,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Baez, Edgardo Rafael",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -6102,7 +6102,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Minton, Danny",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -6197,7 +6197,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Rable, Kyle",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -6546,7 +6546,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Jackson, Everett",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -6705,7 +6705,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Bartie, Thurman Bill",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -6832,7 +6832,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Jones, Laura",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -7021,7 +7021,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Shook, Steven",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -7084,7 +7084,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Pearce, Jason",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -7211,7 +7211,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Hockett, Chelsey",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -7368,7 +7368,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "GRE",
+   "party_label": "Green Party",
    "sort_name": "McMenemy, Alex",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -7591,7 +7591,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Prince, Yolanda R.",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -7622,7 +7622,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Shepard, Casey",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -7907,7 +7907,7 @@
    "data_status": "skeleton",
    "data_source": "Texas Secretary of State, 2026 Ballot Certification, November 3, 2026 General Election (certified August 28, 2026) (ballot listing); OpenFEC (fundraising snapshot)",
    "data_observed": "2026-06-04",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Hart, Rhonda",
    "ballot_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
    "ballot_observed": "2026-10-16"
@@ -8348,7 +8348,7 @@
   "tx-cand-david-cook-sd22": {
    "name": "David Cook",
    "party": "R",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "seeking_office": "Texas State Senate, Dist. 22",
    "incumbent": false,
    "current_office": null,
@@ -8372,7 +8372,7 @@
   "tx-cand-amy-martinez-salas-sd22": {
    "name": "Amy Martinez-Salas",
    "party": "D",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "seeking_office": "Texas State Senate, Dist. 22",
    "incumbent": false,
    "current_office": null,
@@ -8396,7 +8396,7 @@
   "tx-cand-chris-spencer-hd1": {
    "name": "Chris Spencer",
    "party": "R",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "seeking_office": "Texas House of Representatives, Dist. 1",
    "incumbent": false,
    "current_office": null,
@@ -8420,7 +8420,7 @@
   "tx-cand-sean-huffman-hd1": {
    "name": "Sean Huffman",
    "party": "D",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "seeking_office": "Texas House of Representatives, Dist. 1",
    "incumbent": false,
    "current_office": null,
@@ -8444,7 +8444,7 @@
   "tx-cand-alan-blaylock-hd93": {
    "name": "Alan Blaylock",
    "party": "R",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "seeking_office": "Texas House of Representatives, Dist. 93",
    "incumbent": false,
    "current_office": null,
@@ -8468,7 +8468,7 @@
   "tx-cand-ericka-lomick-hd93": {
    "name": "Ericka Lomick",
    "party": "D",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "seeking_office": "Texas House of Representatives, Dist. 93",
    "incumbent": false,
    "current_office": null,
@@ -8493,7 +8493,7 @@
    "id": "tx-cand-gina-hinojosa",
    "name": "Gina Hinojosa",
    "party": "D",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Hinojosa, Gina",
    "seeking_office": "Governor of Texas",
    "incumbent": false,
@@ -8519,7 +8519,7 @@
    "id": "tx-cand-greg-abbott",
    "name": "Greg Abbott",
    "party": "R",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Abbott, Greg",
    "seeking_office": "Governor of Texas",
    "incumbent": true,
@@ -8547,7 +8547,7 @@
    "id": "tx-cand-pat-dixon",
    "name": "Pat Dixon",
    "party": "L",
-   "party_label": "LIB",
+   "party_label": "Libertarian Party",
    "sort_name": "Dixon, Pat",
    "seeking_office": "Governor of Texas",
    "incumbent": false,
@@ -8573,7 +8573,7 @@
    "id": "tx-cand-espoir-ngabo-h7",
    "name": "Espoir Ngabo",
    "party": "G",
-   "party_label": "GRE",
+   "party_label": "Green Party",
    "sort_name": "Ngabo, Espoir",
    "seeking_office": "U.S. House, TX-7",
    "incumbent": false,
@@ -8599,7 +8599,7 @@
    "id": "tx-cand-angela-heli-rodriguez-prilliman-h12",
    "name": "Angela \"Heli\" Rodriguez Prilliman",
    "party": "D",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Prilliman, Angela \"Heli\" Rodriguez",
    "seeking_office": "U.S. House, TX-12",
    "incumbent": false,
@@ -8625,7 +8625,7 @@
    "id": "tx-cand-adam-bauman-h16",
    "name": "Adam Bauman",
    "party": "R",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Bauman, Adam",
    "seeking_office": "U.S. House, TX-16",
    "incumbent": false,
@@ -8651,7 +8651,7 @@
    "id": "tx-cand-ronald-dwayne-whitfield-h18",
    "name": "Ronald Dwayne Whitfield",
    "party": "R",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Whitfield, Ronald Dwayne",
    "seeking_office": "U.S. House, TX-18",
    "incumbent": false,
@@ -8677,7 +8677,7 @@
    "id": "tx-cand-ben-mendoza-h23",
    "name": "Ben Mendoza",
    "party": "I",
-   "party_label": "IND",
+   "party_label": "Independent",
    "sort_name": "Mendoza, Ben",
    "seeking_office": "U.S. House, TX-23",
    "incumbent": false,
@@ -8703,7 +8703,7 @@
    "id": "tx-cand-dione-sims-h25",
    "name": "Dione Sims",
    "party": "D",
-   "party_label": "DEM",
+   "party_label": "Democratic Party",
    "sort_name": "Sims, Dione",
    "seeking_office": "U.S. House, TX-25",
    "incumbent": false,
@@ -8729,7 +8729,7 @@
    "id": "tx-cand-phil-gray-h26",
    "name": "Phil Gray",
    "party": "L",
-   "party_label": "LIB",
+   "party_label": "Libertarian Party",
    "sort_name": "Gray, Phil",
    "seeking_office": "U.S. House, TX-26",
    "incumbent": false,
@@ -8755,7 +8755,7 @@
    "id": "tx-cand-marlon-duran-h28",
    "name": "Marlón Durán",
    "party": "G",
-   "party_label": "GRE",
+   "party_label": "Green Party",
    "sort_name": "Durán, Marlón",
    "seeking_office": "U.S. House, TX-28",
    "incumbent": false,
@@ -8781,7 +8781,7 @@
    "id": "tx-cand-martha-fierro-h29",
    "name": "Martha Fierro",
    "party": "R",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Fierro, Martha",
    "seeking_office": "U.S. House, TX-29",
    "incumbent": false,
@@ -8807,7 +8807,7 @@
    "id": "tx-cand-patrick-david-gillespie-h33",
    "name": "Patrick David Gillespie",
    "party": "R",
-   "party_label": "REP",
+   "party_label": "Republican Party",
    "sort_name": "Gillespie, Patrick David",
    "seeking_office": "U.S. House, TX-33",
    "incumbent": false,
@@ -8833,7 +8833,7 @@
    "id": "tx-cand-chris-royal-h34",
    "name": "Chris Royal",
    "party": "L",
-   "party_label": "LIB",
+   "party_label": "Libertarian Party",
    "sort_name": "Royal, Chris",
    "seeking_office": "U.S. House, TX-34",
    "incumbent": false,
@@ -8859,7 +8859,7 @@
    "id": "tx-cand-eddie-espinoza-h34",
    "name": "Eddie Espinoza",
    "party": "G",
-   "party_label": "GRE",
+   "party_label": "Green Party",
    "sort_name": "Espinoza, Eddie",
    "seeking_office": "U.S. House, TX-34",
    "incumbent": false,
