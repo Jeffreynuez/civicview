@@ -312,8 +312,9 @@ def main() -> int:
         "key_dates": {"general": "2026-11-03", "voter_registration_deadline_general": "2026-10-05"},
         "key_date_sources": {"general": "https://www.ohiosos.gov/test-only-source",
                              "voter_registration_deadline_general": "https://www.ohiosos.gov/test-only-source"},
+        "key_date_retrieved": {"general": "2026-10-15", "voter_registration_deadline_general": "2026-10-15"},
         "voter_info": {"official_site": "https://www.ohiosos.gov/",
-                       "poll_hours": {"open": "06:30", "close": "19:30",
+                       "poll_hours": {"open": "06:30", "close": "19:30", "retrieved": "2026-10-15",
                                       "source_url": "https://www.ohiosos.gov/test-only-source"}},
     }
     loader = er._load_state_docs
@@ -444,9 +445,15 @@ def main() -> int:
         "key_date_sources": {"primary": "https://dos.fl.gov/elections/for-voters/election-dates/",
                              "general": "https://dos.fl.gov/elections/for-voters/election-dates/",
                              "voter_registration_deadline_primary": "https://dos.fl.gov/elections/",
-                             "voter_registration_deadline_general": "https://dos.fl.gov/elections/"},
+                             "voter_registration_deadline_general": "https://dos.fl.gov/elections/",
+                             "early_voting_window_general": "https://dos.fl.gov/elections/"},
+        # early_voting_window_general has a source but no retrieved date.
+        "key_date_retrieved": {"primary": "2028-01-02", "general": "2028-01-02",
+                               "voter_registration_deadline_primary": "2028-01-02",
+                               "voter_registration_deadline_general": "2028-01-02"},
         "voter_info": fl_doc["voter_info"],
     }}
+    future["FL"]["key_dates"]["early_voting_window_general"] = "2028-10-28 to 2028-11-04"
     fut = er.build_schedule(today=date(2028, 1, 1), docs=future)
     fut_ids = {r.id for r in fut.reminders}
     check("11 a 2028 primary and general get their reminders",
@@ -457,6 +464,9 @@ def main() -> int:
     check("11 a date without a source is not sent, and says why",
           "fl-2028-11-07-mail-request-3d" not in fut_ids
           and any(s.kind == "mail_request_3d" and "source" in s.reason for s in fut.skipped))
+    check("11 a source without its retrieved date is not sent, and says why",
+          "fl-2028-11-07-early-voting-1d" not in fut_ids
+          and any(s.kind == "early_voting_1d" and "retrieved" in s.reason for s in fut.skipped))
 
     db.close()
     client.__exit__(None, None, None)

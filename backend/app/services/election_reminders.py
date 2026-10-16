@@ -243,6 +243,12 @@ def _https(url) -> bool:
     return isinstance(url, str) and url.startswith("https://")
 
 
+def _retrieved(value) -> bool:
+    """A key_date_retrieved / poll_hours.retrieved value: the day the
+    official source was read, YYYY-MM-DD."""
+    return bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(value or ""))) and bool(_parse_dates(value))
+
+
 # ── Schedule ─────────────────────────────────────────────────────────
 
 @dataclass(frozen=True)
@@ -350,6 +356,7 @@ def build_schedule(today: Optional[date] = None, docs: Optional[dict] = None) ->
         doc = docs.get(state) or {}
         key_dates = doc.get("key_dates") or {}
         sources = doc.get("key_date_sources") or {}
+        retrieved = doc.get("key_date_retrieved") or {}
         info = doc.get("voter_info") or {}
         links = info.get("links") or {}
         notes = info.get("reminder_notes") or {}
@@ -361,7 +368,7 @@ def build_schedule(today: Optional[date] = None, docs: Optional[dict] = None) ->
 
         hours = info.get("poll_hours") or {}
         hours_ok = (_HHMM_RE.match(str(hours.get("open") or "")) and _HHMM_RE.match(str(hours.get("close") or ""))
-                    and _https(hours.get("source_url")))
+                    and _https(hours.get("source_url")) and _retrieved(hours.get("retrieved")))
 
         for phase in _PHASES:
             election_dates = _parse_dates(key_dates.get(phase))
@@ -394,8 +401,12 @@ def build_schedule(today: Optional[date] = None, docs: Optional[dict] = None) ->
                 if not _https(source):
                     skip("No official https source for this date, so it is not sent.")
                     continue
-                if spec.kind == "election_day_1d" and not _https(sources.get(phase)):
-                    skip("No official https source for the election date.")
+                if not _retrieved(retrieved.get(date_key)):
+                    skip("No key_date_retrieved date for this date's source, so it is not sent.")
+                    continue
+                if spec.kind == "election_day_1d" and not (
+                        _https(sources.get(phase)) and _retrieved(retrieved.get(phase))):
+                    skip("No official https source, with its retrieved date, for the election date.")
                     continue
                 link = links.get(spec.link_key) if _https(links.get(spec.link_key)) else official
                 if not link:

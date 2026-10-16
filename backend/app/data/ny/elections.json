@@ -19,6 +19,12 @@
   "vote_by_mail_request_deadline_general": "https://elections.ny.gov/2026-political-calendar",
   "early_voting_window_general": "https://elections.ny.gov/early-voting"
  },
+ "key_date_retrieved": {
+  "general": "2026-10-15",
+  "voter_registration_deadline_general": "2026-10-15",
+  "vote_by_mail_request_deadline_general": "2026-10-15",
+  "early_voting_window_general": "2026-10-15"
+ },
  "voter_info": {
   "_note": "Read by election reminders (backend/app/services/election_reminders.py). Every link is on the New York State Board of Elections site; every reminder date needs an https source in key_date_sources (data lint E-11). Checked on the official pages 2026-10-15. vote_by_mail_request_deadline_general is the last day for a board to receive an absentee or early mail ballot application by mail or online.",
   "official_site": "https://elections.ny.gov/",
@@ -31,7 +37,8 @@
   "poll_hours": {
    "open": "06:00",
    "close": "21:00",
-   "source_url": "https://www.nysenate.gov/legislation/laws/ELN/8-100"
+   "source_url": "https://www.nysenate.gov/legislation/laws/ELN/8-100",
+   "retrieved": "2026-10-15"
   },
   "reminder_notes": {
    "voter_registration_deadline_general": "Your application must be received by a board of elections by then.",
