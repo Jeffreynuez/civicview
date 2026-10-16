@@ -93,4 +93,16 @@ export function formatDistrict(stored) {
   return d.endsWith('-AL') ? `${d.slice(0, -3)} at-large` : d;
 }
 
+/**
+ * The ballot tab's line for a signed-in citizen in their own state:
+ * "Your district: FL-10" ("Your district: WY at-large"), worded the same
+ * for every state (2026-10-16). It names the account's district and
+ * claims nothing more: CivicView can't know whether anyone is registered
+ * to vote, and a demo account's district is self-entered. Falls back to
+ * the state when the account has no district yet.
+ */
+export function yourDistrictLine(storedDistrict, state) {
+  return `Your district: ${formatDistrict(storedDistrict) || String(state || '').toUpperCase()}`;
+}
+
 export default STATE_NAMES;

@@ -1388,6 +1388,13 @@ class CitizenAccount(Base):
     contact_email_prompt_dismissed_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime, default=None,
     )
+    # When the person ticked "I'm 18 or older" at sign-up (2026-10-16).
+    # CivicView is for adults (Terms section 1, /child-safety), and every
+    # sign-up now has to confirm it. Nullable: accounts created before
+    # the checkbox existed are left as they are.
+    age_confirmed_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
 
     # Address blob. `address_line1` is optional in schema but present in
     # the demo seed so the UI can render "123 Gulf Shore Blvd · Naples,
@@ -1587,6 +1594,17 @@ class CitizenAccount(Base):
         'Subscribe' (opens Stripe Checkout). True iff there's a
         Stripe Customer object backing this row."""
         return self.stripe_customer_id is not None
+
+    @property
+    def verified_person(self) -> bool:
+        """True only when a real method verified this account (ID.me).
+        services/verified_identity.is_verified_person: the `verified`
+        flag alone is not enough, since demo grants and operator
+        accounts can carry it. Surfaced on /me (2026-10-16) so the app
+        shows "Verified citizen" only for these, and "Demo account"
+        otherwise."""
+        from app.services.verified_identity import is_verified_person
+        return is_verified_person(self)
 
     @property
     def needs_location(self) -> bool:

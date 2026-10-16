@@ -69,6 +69,10 @@ from typing import Any, Optional
 logger = logging.getLogger(__name__)
 
 
+# Subscription statuses after which Stripe never charges again.
+ENDED_SUBSCRIPTION_STATUSES = frozenset({"canceled", "incomplete_expired"})
+
+
 class StripeBillingError(Exception):
     """Raised by billing operations that can't complete (network,
     invalid configuration, signature verification failure). Routers
@@ -159,6 +163,21 @@ class BillingService(ABC):
         The router passes the request body bytes verbatim — DO NOT
         re-encode or re-parse before passing here, that breaks
         signature verification."""
+
+    @abstractmethod
+    def cancel_subscriptions(
+        self,
+        *,
+        stripe_customer_id: Optional[str],
+        stripe_subscription_id: Optional[str],
+    ) -> list:
+        """Cancel immediately every subscription that could still
+        charge this customer: each one on the Stripe Customer, plus the
+        subscription id stored on the account. Used when a citizen
+        account is deleted (2026-10-16), so nobody keeps paying for an
+        account that no longer exists. Returns the canceled ids; raises
+        StripeBillingError when Stripe can't be reached, so the caller
+        can keep the account until the cancel succeeds."""
 
     @abstractmethod
     def is_configured(self) -> bool:
@@ -291,6 +310,57 @@ class StripeBillingService(BillingService):
                 "Could not open the billing portal.",
             ) from e
 
+    def cancel_subscriptions(
+        self,
+        *,
+        stripe_customer_id: Optional[str],
+        stripe_subscription_id: Optional[str],
+    ) -> list:
+        # Logs carry Stripe ids only: never the email, the name or the
+        # text of a Stripe error (which can quote request data).
+        to_cancel: list = []
+        try:
+            if stripe_customer_id:
+                subs = self._missing_is_empty(lambda: self._stripe.Subscription.list(
+                    customer=stripe_customer_id, status="all", limit=100,
+                ).auto_paging_iter())
+                for sub in subs or []:
+                    if sub.get("status") not in ENDED_SUBSCRIPTION_STATUSES and sub["id"] not in to_cancel:
+                        to_cancel.append(sub["id"])
+            if stripe_subscription_id and stripe_subscription_id not in to_cancel:
+                sub = self._missing_is_empty(
+                    lambda: self._stripe.Subscription.retrieve(stripe_subscription_id),
+                )
+                if sub is not None and sub.get("status") not in ENDED_SUBSCRIPTION_STATUSES:
+                    to_cancel.append(sub["id"])
+            for sub_id in to_cancel:
+                # Immediate cancel, Stripe's defaults: no proration
+                # invoice, no refund.
+                self._stripe.Subscription.cancel(sub_id)
+        except Exception as e:
+            logger.error(
+                "Stripe: canceling subscriptions failed (customer=%s subscription=%s, error=%s)",
+                stripe_customer_id, stripe_subscription_id, type(e).__name__,
+            )
+            raise StripeBillingError("Could not cancel the subscription.") from e
+        logger.info(
+            "Stripe: canceled subscriptions %s (customer=%s)",
+            to_cancel or "none active", stripe_customer_id,
+        )
+        return to_cancel
+
+    def _missing_is_empty(self, call):
+        """Run a Stripe call; None when the object no longer exists in
+        Stripe (deleted customer or subscription), so there is nothing
+        left to cancel. Every other error propagates."""
+        missing = getattr(self._stripe, "InvalidRequestError", None)
+        try:
+            return call()
+        except Exception as e:
+            if missing is not None and isinstance(e, missing) and getattr(e, "code", None) == "resource_missing":
+                return None
+            raise
+
     def parse_webhook_event(
         self,
         *,
@@ -359,6 +429,15 @@ class DevBillingService(BillingService):
         return_url: Optional[str] = None,
     ) -> str:
         return "about:blank?stripe-dev-portal=1&reason=stripe_not_configured"
+
+    def cancel_subscriptions(
+        self,
+        *,
+        stripe_customer_id: Optional[str],
+        stripe_subscription_id: Optional[str],
+    ) -> list:
+        # No Stripe account, so no subscription exists to cancel.
+        return []
 
     def parse_webhook_event(
         self,

@@ -126,6 +126,8 @@ msgpack==1.2.2
     # via cachecontrol
 opentelemetry-api==1.44.0
     # via google-api-core
+pillow==12.3.0
+    # via -r requirements.in
 postmarker==1.0
     # via -r requirements.in
 proto-plus==1.28.4

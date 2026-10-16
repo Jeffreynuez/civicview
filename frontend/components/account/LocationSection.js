@@ -49,7 +49,8 @@ export default function LocationSection() {
   if (!citizen) return null;
 
   const state = String(citizen.state || '').toUpperCase();
-  const verified = !!citizen.verified;
+  // Only a real verification fixes the state (server: verified_person).
+  const verified = !!citizen.verified_person;
   const hasLocation = !citizen.needs_location;
   const city = citizen.city && citizen.city !== 'Demo City' ? citizen.city : '';
 

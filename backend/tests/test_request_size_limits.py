@@ -35,7 +35,7 @@ def main() -> int:
     with TestClient(m.app) as c:
         r = c.post("/api/citizen-auth/demo-signup", json={
             "display_name": "Size Tester", "state": "FL",
-            "congressional_district": "FL-10", "city": "Orlando",
+            "congressional_district": "FL-10", "city": "Orlando", "age_confirmed": True,
         })
         assert r.status_code == 201, r.text
         tok = r.json()["citizen_token"]

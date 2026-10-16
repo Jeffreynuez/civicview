@@ -42,6 +42,7 @@ from app.models.pages import (
     PollVote,
     RepAccount,
 )
+from app.services.verified_identity import is_verified_person
 from app.schemas.pages import (
     CitizenAuthorSummary,
     CitizenPollRead,
@@ -264,7 +265,8 @@ def serialize_citizen_poll(
             state=author.state,
             city=author.city,
             congressional_district=author.congressional_district,
-            verified=author.verified,
+            # A real verification only (services/verified_identity.py).
+            verified=is_verified_person(author),
         )
         if author is not None
         else CitizenAuthorSummary(id=0, display_name="(deleted citizen)")

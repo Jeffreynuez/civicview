@@ -343,7 +343,12 @@ function WelcomeHeader({ citizen, greeting, dateLabel }) {
               {city ? ` · ${city}` : ''}
               {state ? `, ${state}` : ''}
             </span>
-            <VerifiedCitizenBadge />
+            {/* "Verified citizen" only for a real verification (ID.me),
+                read from the server's verified_person rule; every other
+                account is a demo account today, and is called one
+                (2026-10-16). Revisit if non-demo sign-ups open without
+                verification. */}
+            {citizen?.verified_person ? <VerifiedCitizenBadge /> : <DemoAccountBadge />}
           </div>
         </div>
       </div>
@@ -409,6 +414,28 @@ function VerifiedCitizenBadge() {
     >
       <CheckCircle size={12} active color="up" />
       Verified citizen
+    </span>
+  );
+}
+
+// Neutral on purpose: a demo account is not a warning, just not verified.
+function DemoAccountBadge() {
+  return (
+    <span
+      title="Demo accounts are self-attested and not identity-verified"
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        padding: '2px 8px',
+        background: 'var(--cl-bg-soft, #f4f6f8)',
+        color: 'var(--cl-text-light)',
+        border: '1px solid var(--cl-border)',
+        borderRadius: 'var(--cl-radius-pill)',
+        fontSize: 'var(--cl-text-2xs)',
+        fontWeight: 700,
+      }}
+    >
+      Demo account
     </span>
   );
 }

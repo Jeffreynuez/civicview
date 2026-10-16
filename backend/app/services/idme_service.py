@@ -276,8 +276,22 @@ class IdMeService(IdentityVerificationService):
                 ial_level=int(attrs.get("ial_level") or 2),
             )
         except Exception as e:
-            logger.exception("ID.me userinfo parse failed; data=%r", data)
+            # Only the type of error and the reply's top-level key names
+            # (2026-10-16): the values are the person's verified name,
+            # address and possibly date of birth. No traceback either,
+            # since an error message can quote a value (int('...')).
+            logger.error(
+                "ID.me userinfo parse failed (%s); top-level keys=%s",
+                type(e).__name__, _top_level_keys(data),
+            )
             raise IdMeError("Verification response was malformed.") from e
+
+
+def _top_level_keys(data) -> str:
+    """The names of a reply's top-level keys, never their values."""
+    if isinstance(data, dict):
+        return ", ".join(sorted(str(k)[:64] for k in data)) or "(none)"
+    return f"(not an object: {type(data).__name__})"
 
 
 # ─────────────────────────────────────────────────────────────────────

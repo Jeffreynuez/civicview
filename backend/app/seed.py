@@ -59,6 +59,7 @@ from datetime import datetime
 from app.auth import hash_password
 from app.db import SessionLocal
 from app.models.pages import BillSummary, CandidateAccount, CitizenAccount, Poll, RepAccount
+from app.services.log_redaction import mask_email
 
 
 logger = logging.getLogger(__name__)
@@ -398,7 +399,7 @@ def seed_demo_citizens(db: Optional[Session] = None) -> int:
                     logger.info(
                         "Topped up VERIFIED on existing citizen %s — "
                         "previously seeded as unverified.",
-                        email,
+                        mask_email(email),
                     )
                 continue
 
@@ -417,7 +418,7 @@ def seed_demo_citizens(db: Optional[Session] = None) -> int:
             ):
                 logger.warning(
                     "Skipped seeding citizen %s: another citizen already has the name %r.",
-                    email, entry["display_name"].strip(),
+                    mask_email(email), entry["display_name"].strip(),
                 )
                 continue
             acct = CitizenAccount(
@@ -443,7 +444,7 @@ def seed_demo_citizens(db: Optional[Session] = None) -> int:
                 logger.info(
                     "Seeded VERIFIED citizen %s (display_name=%r). "
                     "If this email is in ADMIN_EMAILS, the account is now admin.",
-                    email, acct.display_name,
+                    mask_email(email), acct.display_name,
                 )
 
         if created or topped_up:
@@ -656,7 +657,7 @@ def seed_demo_candidates(db: Optional[Session] = None) -> int:
                 ):
                     logger.info(
                         "Re-pointing candidate_id %s → %s for existing seed email %s",
-                        existing.candidate_id, candidate_id, email,
+                        existing.candidate_id, candidate_id, mask_email(email),
                     )
                     existing.candidate_id = candidate_id
                     repointed += 1
@@ -689,7 +690,7 @@ def seed_demo_candidates(db: Optional[Session] = None) -> int:
             created += 1
             logger.info(
                 "Seeded candidate account %s (email=%s, claim_status=%s).",
-                candidate_id, email, claim_status,
+                candidate_id, mask_email(email), claim_status,
             )
 
         if created or repointed:

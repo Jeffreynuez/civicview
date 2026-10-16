@@ -185,6 +185,13 @@ services:
         sync: false           # native force-update gate; 0 or unset = inert
       - key: APP_LATEST_VERSION_CODE
         sync: false
+      # Site-wide notice banner (GET /api/app/notice,
+      # components/SiteNoticeBanner.js): post it at least 30 days before
+      # a material privacy policy or Terms change. Unset text = no banner.
+      - key: SITE_NOTICE_TEXT
+        sync: false
+      - key: SITE_NOTICE_URL
+        sync: false           # optional "Read more" link: https://... or a path like /privacy
       # Emergency only: lets production start even though a startup
       # schema change failed (see init_db in backend/app/db.py). Unset
       # it as soon as the schema is repaired.

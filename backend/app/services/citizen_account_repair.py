@@ -150,7 +150,8 @@ def repair_citizen_accounts(db: Optional[Session] = None) -> dict:
                 "cleared, renamed %s",
                 report["districts_fixed"], report["districts_cleared"],
                 report["placeholder_cities_cleared"],
-                [f"#{r['id']} {r['from']!r} -> {r['to']!r}" for r in report["renamed"]] or "none",
+                # Account numbers only; the names stay in the database.
+                [f"#{r['id']}" for r in report["renamed"]] or "none",
             )
         return report
     except Exception:

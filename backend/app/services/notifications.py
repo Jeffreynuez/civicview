@@ -55,6 +55,8 @@ from typing import Optional
 
 import httpx
 
+from app.services.log_redaction import mask_email
+
 
 logger = logging.getLogger(__name__)
 
@@ -244,7 +246,7 @@ def notify_new_report(
         if ok:
             logger.info(
                 "notify_new_report: sent to %s (kind=%s target_id=%d).",
-                addr, kind, target_id,
+                mask_email(addr), kind, target_id,
             )
 
 
@@ -334,7 +336,7 @@ def notify_new_appeal(
         if ok:
             logger.info(
                 "notify_new_appeal: sent to %s (kind=%s target_id=%d).",
-                addr, target_kind, target_id,
+                mask_email(addr), target_kind, target_id,
             )
 
 

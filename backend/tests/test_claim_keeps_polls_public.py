@@ -90,7 +90,8 @@ def main() -> int:
 
         # closed to new votes
         s = c.post("/api/citizen-auth/demo-signup", json={
-            "display_name": "Late Voter", "state": "FL", "congressional_district": "FL-10", "city": "Orlando"})
+            "display_name": "Late Voter", "state": "FL", "congressional_district": "FL-10", "city": "Orlando",
+            "age_confirmed": True})
         vt = s.json()["citizen_token"]
         with SessionLocal() as db:
             opt_id = db.query(PollOption).filter_by(poll_id=poll_id).first().id

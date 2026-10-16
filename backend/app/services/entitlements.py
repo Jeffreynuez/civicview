@@ -191,9 +191,12 @@ def authored_verified_flag(citizen=None, rep=None, candidate=None) -> bool:
     - rep / candidate → True. Page owners are vetted at claim time,
       which is a stronger check than ID.me.
     - no identity → False. Legacy anonymous poll votes.
-    - citizen → mirrors CitizenAccount.verified right now. Today that is
-      False for every account in the database, which is the correct and
-      honest value, not a placeholder.
+    - citizen → is_verified_person (services/verified_identity.py):
+      verified by a real method right now. A demo grant or a verified
+      flag set by hand (operator accounts) is recorded as unverified, so
+      their comments carry the Unverified label (2026-10-16). Today that
+      is False for every account in the database, which is the correct
+      and honest value, not a placeholder.
 
     Callers pass the ACTING identity tuple (the one _resolve_engager
     returned), never the full set of signed-in identities — the row
@@ -203,4 +206,5 @@ def authored_verified_flag(citizen=None, rep=None, candidate=None) -> bool:
         return True
     if citizen is None:
         return False
-    return _is_verified(citizen)
+    from app.services.verified_identity import is_verified_person
+    return is_verified_person(citizen)

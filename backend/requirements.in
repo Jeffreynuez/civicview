@@ -92,3 +92,9 @@ defusedxml>=0.7.1
 # FIREBASE_SERVICE_ACCOUNT_JSON never import it — they fall back to
 # DevPushService (logs only). Floor 6.5 = stable send_each_for_multicast.
 firebase-admin>=6.5,<8
+
+# Post images (2026-10-16): uploads are decoded and re-encoded without
+# their metadata (EXIF, including GPS location, XMP, comments, text
+# chunks) in services/image_storage.strip_image_metadata. The EXIF
+# orientation is applied to the pixels first so photos stay upright.
+Pillow>=11,<13

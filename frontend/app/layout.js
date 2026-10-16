@@ -10,6 +10,7 @@ import './globals.css';
 import { SITE_URL, SITE_NAME, DEFAULT_TITLE, DEFAULT_DESCRIPTION, OG_IMAGE } from '@/lib/seo';
 import Force2FAGate from '@/components/Force2FAGate';
 import RecoveryBanner from '@/components/RecoveryBanner';
+import SiteNoticeBanner from '@/components/SiteNoticeBanner';
 // One-time wipe of the legacy tracked-items localStorage keys. Mounts
 // at the root layout so it runs once per browser on first page load
 // after the cross-account fix lands. Renders nothing visible.
@@ -163,6 +164,12 @@ export default function RootLayout({ children }) {
             of every route via this layout wrapping. */}
         <LegacyStorageCleanup />
         <RecoveryBanner />
+        {/* Site-wide notice (2026-10-16): policy-change announcements,
+            from SITE_NOTICE_TEXT / SITE_NOTICE_URL on the backend. Off
+            when unset; not shown inside embeds. */}
+        <EmbedGate>
+          <SiteNoticeBanner />
+        </EmbedGate>
         <Force2FAGate>
           {children}
         </Force2FAGate>
