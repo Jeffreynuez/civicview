@@ -1,0 +1,69 @@
+{
+  "_note": "Connecticut 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "CT",
+  "state_name": "Connecticut",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-16",
+    "voter_registration_online_general": "2026-10-16",
+    "voter_registration_mail_general": "2026-10-16, postmarked",
+    "voter_registration_in_person_general": "2026-10-16",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-11-02",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 8 p.m.",
+    "early_voting_window_general": "2026-10-19 to 2026-11-01"
+  },
+  "key_date_sources": {
+    "general": "https://portal.ct.gov/sots/election-services/voter-information/voter-fact-sheet",
+    "voter_registration_deadline_general": "https://portal.ct.gov/-/media/sots/electionservices/voterfactsheets/2026-voter-reg/voter-registration-deadlines-11-03-26pub.pdf?rev=55ebd5b0c5fb4be3b756f970a1e88237&hash=52A39E3785B472950C8C15C210CB9945",
+    "voter_registration_online_general": "https://portal.ct.gov/-/media/sots/electionservices/voterfactsheets/2026-voter-reg/voter-registration-deadlines-11-03-26pub.pdf?rev=55ebd5b0c5fb4be3b756f970a1e88237&hash=52A39E3785B472950C8C15C210CB9945",
+    "voter_registration_mail_general": "https://portal.ct.gov/-/media/sots/electionservices/voterfactsheets/2026-voter-reg/voter-registration-deadlines-11-03-26pub.pdf?rev=55ebd5b0c5fb4be3b756f970a1e88237&hash=52A39E3785B472950C8C15C210CB9945",
+    "voter_registration_in_person_general": "https://portal.ct.gov/-/media/sots/electionservices/voterfactsheets/2026-voter-reg/voter-registration-deadlines-11-03-26pub.pdf?rev=55ebd5b0c5fb4be3b756f970a1e88237&hash=52A39E3785B472950C8C15C210CB9945",
+    "same_day_registration_general": "https://portal.ct.gov/sots/election-services/election-day-registration/election-day-registration",
+    "all_mail_general": "https://portal.ct.gov/sots/election-services/voter-information/2026-absentee-voting---updates-and-information",
+    "vote_by_mail_request_deadline_general": "https://portal.ct.gov/sots/election-services/voter-information/2026-absentee-voting---updates-and-information",
+    "mail_ballot_return_deadline_general": "https://portal.ct.gov/sots/election-services/voter-information/2026-absentee-voting---updates-and-information",
+    "early_voting_window_general": "https://portal.ct.gov/-/media/sots/early-voting/2026-voting-guide/2026_voter_guide-2-final-combined.pdf?rev=1b4f96864724448b9802b4615bf6b0d0&hash=86AFD7349AFEEE5ABBF6A8A28B44F79A"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://portal.ct.gov/sots/election-services/voter-information/voter-fact-sheet",
+    "links": {
+      "registration": "https://voterregistration.ct.gov/OLVR/welcome.do",
+      "check_registration": "https://portaldir.ct.gov/sots/LookUp.aspx",
+      "mail_ballot": "https://oabr-sots.ct.gov/OABR/absenteeBallotReqPortalHome.do",
+      "early_voting": "https://portal.ct.gov/sots/election-services/early-voting/early-voting",
+      "polling_place": "https://portaldir.ct.gov/sots/LookUp.aspx",
+      "sample_ballot": "https://portal.ct.gov/sots/election-services/town-ballots/2026-november-town-election-ballots",
+      "track_ballot": "https://portaldir.ct.gov/sots/LookUp.aspx"
+    },
+    "poll_hours": {
+      "open": "06:00",
+      "close": "20:00",
+      "source_url": "https://portal.ct.gov/-/media/sots/electionservices/calendars/2026-elections/2026-election-calendar-122325.pdf?rev=340f2bcacc9748c1a2ed8f49d1774f52&hash=471ECCC3D26999C2D53BB5636927C0EB",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "voter_registration_deadline_general": "23:59"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

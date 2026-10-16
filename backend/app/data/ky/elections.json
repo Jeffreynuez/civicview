@@ -1,0 +1,66 @@
+{
+  "_note": "Kentucky 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "KY",
+  "state_name": "Kentucky",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-05",
+    "voter_registration_online_general": "2026-10-05",
+    "voter_registration_mail_general": "2026-10-05, postmarked",
+    "voter_registration_in_person_general": "2026-10-05",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-20",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 6 p.m.",
+    "early_voting_window_general": "2026-10-29 to 2026-10-31"
+  },
+  "key_date_sources": {
+    "general": "https://elect.ky.gov/Pages/default.aspx",
+    "voter_registration_deadline_general": "https://elect.ky.gov/Voters/Pages/Voting-In-Person-and-By-Mail.aspx",
+    "voter_registration_online_general": "https://elect.ky.gov/Voters/Pages/Voting-In-Person-and-By-Mail.aspx",
+    "voter_registration_mail_general": "https://elect.ky.gov/Voters/Pages/Voting-In-Person-and-By-Mail.aspx",
+    "voter_registration_in_person_general": "https://elect.ky.gov/Voters/Pages/Voting-In-Person-and-By-Mail.aspx",
+    "same_day_registration_general": "https://elect.ky.gov/Frequently-Asked-Questions/Pages/Voter-Registration.aspx",
+    "all_mail_general": "https://elect.ky.gov/Voters/Pages/Absentee-Voting-By-Mail.aspx",
+    "vote_by_mail_request_deadline_general": "https://elect.ky.gov/Pages/default.aspx",
+    "mail_ballot_return_deadline_general": "https://elect.ky.gov/Voters/Pages/Voting-In-Person-and-By-Mail.aspx",
+    "early_voting_window_general": "https://elect.ky.gov/Voters/Pages/Voting-In-Person-and-By-Mail.aspx"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://elect.ky.gov/",
+    "links": {
+      "registration": "https://vrsws.sos.ky.gov/ovrweb",
+      "check_registration": "https://vrsws.sos.ky.gov/VIC",
+      "mail_ballot": "https://vrsws.sos.ky.gov/abrweb",
+      "early_voting": "https://elect.ky.gov/Voters/Pages/Polling-Locations.aspx",
+      "polling_place": "https://vrsws.sos.ky.gov/VIC",
+      "sample_ballot": "https://web.sos.ky.gov/electionballots/",
+      "track_ballot": "https://vrsws.sos.ky.gov/VIC"
+    },
+    "poll_hours": {
+      "open": "06:00",
+      "close": "18:00",
+      "source_url": "https://elect.ky.gov/Frequently-Asked-Questions/Pages/Election-Day-Information.aspx",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "voter_registration_deadline_general": "16:00"
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

@@ -1,0 +1,69 @@
+{
+  "_note": "Missouri 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "MO",
+  "state_name": "Missouri",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-07",
+    "voter_registration_online_general": "2026-10-07",
+    "voter_registration_mail_general": "2026-10-07, postmarked",
+    "voter_registration_in_person_general": "2026-10-07",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-21",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, when polls close",
+    "early_voting_window_general": "2026-10-20 to 2026-11-02"
+  },
+  "key_date_sources": {
+    "general": "https://www.sos.mo.gov/elections/calendar",
+    "voter_registration_deadline_general": "https://www.sos.mo.gov/elections/calendar",
+    "voter_registration_online_general": "https://www.sos.mo.gov/elections/calendar",
+    "voter_registration_mail_general": "https://www.sos.mo.gov/elections/goVoteMissouri/register",
+    "voter_registration_in_person_general": "https://revisor.mo.gov/main/OneSection.aspx?section=115.135",
+    "same_day_registration_general": "https://revisor.mo.gov/main/OneSection.aspx?section=115.135",
+    "all_mail_general": "https://www.sos.mo.gov/elections/goVoteMissouri/howtovote",
+    "vote_by_mail_request_deadline_general": "https://www.sos.mo.gov/elections/goVoteMissouri/howtovote",
+    "mail_ballot_return_deadline_general": "https://revisor.mo.gov/main/OneSection.aspx?section=115.286",
+    "early_voting_window_general": "https://www.sos.mo.gov/elections/goVoteMissouri/howtovote"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.sos.mo.gov/elections/goVoteMissouri",
+    "links": {
+      "registration": "https://www.sos.mo.gov/elections/goVoteMissouri/register",
+      "check_registration": "https://voteroutreach.sos.mo.gov/portal/",
+      "mail_ballot": "https://www.sos.mo.gov/elections/goVoteMissouri/howtovote#absentee",
+      "early_voting": "https://www.sos.mo.gov/elections/goVoteMissouri/localelectionauthority",
+      "polling_place": "https://voteroutreach.sos.mo.gov/portal/",
+      "sample_ballot": "https://voteroutreach.sos.mo.gov/portal/",
+      "track_ballot": "https://www.sos.mo.gov/elections/goVoteMissouri/localelectionauthority"
+    },
+    "poll_hours": {
+      "open": "06:00",
+      "close": "19:00",
+      "source_url": "https://www.sos.mo.gov/elections/goVoteMissouri/howtovote",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "17:00"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}
