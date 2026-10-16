@@ -312,6 +312,31 @@ async def lifespan(app: FastAPI):
             logger.info("Election reminders disabled (set %s=true to send; the admin preview works either way).",
                         _er.ENV_FLAG)
 
+    # ── Former officials and candidates (2026-10-15, own loop 2026-10-16)
+    # The daily pass that sends the notices dates call for and ends
+    # tracking at the archive. It used to run inside the retention jobs,
+    # synchronously at boot. Now: FIRST_PASS_DELAY_SECONDS after boot,
+    # then once a day, and after RETRY_SECONDS when a pass left work (its
+    # per-pass limit, or a failure). A database lock keeps two instances
+    # from running it together; each notice is claimed per recipient.
+    lifecycle_task = None
+    if db_ready:
+        import asyncio as _lifecycle_asyncio
+        from app.services import page_lifecycle_job as _plj
+
+        async def _lifecycle_loop():
+            await _lifecycle_asyncio.sleep(_plj.FIRST_PASS_DELAY_SECONDS)
+            while True:
+                try:
+                    result = await _lifecycle_asyncio.to_thread(_plj.run_pass_with_session)
+                except Exception:
+                    logger.exception("Former pages pass raised; retrying soon.")
+                    result = {"work_left": True}
+                wait = _plj.RETRY_SECONDS if (result or {}).get("work_left") else _plj.INTERVAL_SECONDS
+                await _lifecycle_asyncio.sleep(wait)
+
+        lifecycle_task = _lifecycle_asyncio.get_event_loop().create_task(_lifecycle_loop())
+
     # ── Summary pushes (2026-10-16) ──────────────────────────────────
     # Every LOOP_INTERVAL_SECONDS: one summary push per device whose
     # "Push alerts" setting is a daily or weekly summary, at its local
@@ -389,6 +414,8 @@ async def lifespan(app: FastAPI):
         reminders_task.cancel()
     if summaries_task is not None:
         summaries_task.cancel()
+    if lifecycle_task is not None:
+        lifecycle_task.cancel()
     logger.info("CivicView API shutting down...")
 
 

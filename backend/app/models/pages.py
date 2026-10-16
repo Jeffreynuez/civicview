@@ -2308,6 +2308,40 @@ class PageTransition(Base):
     skipped_notices: Mapped[Optional[str]] = mapped_column(String(255), default=None)
 
 
+class PageNoticeDelivery(Base):
+    """One former-official or candidate notice to one person
+    (2026-10-16, services/page_lifecycle_job.py).
+
+    The row is the claim, like ElectionReminderDelivery: it is inserted
+    and committed BEFORE the bell row and the email, and the unique
+    (page, notice, recipient) key means only one process can insert it.
+    Two instances running the job during a deploy cannot both notify
+    the same person, a failure part way through a long list resumes
+    where it stopped instead of resending, and nobody gets the same
+    notice twice.
+
+    notice: person_left | person_pre_archive | person_archived |
+            trackers | followers
+    email_status: sent | failed | no_address | demo_address |
+                  account_closed (no bell row either) | turned_off
+    """
+
+    __tablename__ = "page_notice_deliveries"
+    __table_args__ = (
+        UniqueConstraint("page_id", "notice", "recipient_kind", "recipient_id",
+                         name="uq_page_notice_delivery"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    page_id: Mapped[str] = mapped_column(String(64), index=True)
+    notice: Mapped[str] = mapped_column(String(32))
+    recipient_kind: Mapped[str] = mapped_column(String(16))
+    recipient_id: Mapped[int] = mapped_column(Integer)
+    claimed_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    notification_id: Mapped[Optional[int]] = mapped_column(Integer, default=None)
+    email_status: Mapped[Optional[str]] = mapped_column(String(24), default=None)
+
+
 class PageTransitionLog(Base):
     """Append-only history: every date, result or hand-off an admin
     set, with the values before and after, who did it and when."""

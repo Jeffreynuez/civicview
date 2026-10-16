@@ -24,19 +24,36 @@ stage, once." When more than one person notice is due at once, only
 the latest is sent and the others are stamped as skipped. The tracker
 notice is worded for the stage it goes out in.
 
-Runs at boot and once a day in the same loop as the retention jobs
-(main.py), and on demand from the admin Transitions tab. Idempotent:
-every notice is stamped on the page's page_transitions row.
+Runs in its own loop in main.py (2026-10-16): FIRST_PASS_DELAY_SECONDS
+after boot, never on the boot path, then once a day, and again after
+RETRY_SECONDS when a pass left work for later. An advisory lock keeps
+two instances from running it at once. Also on demand from the admin
+Transitions tab, which first shows preview_page_lifecycle(): every
+notice it would send, to how many people, how many by email, and the
+text.
+
+Exactly once per person (2026-10-16): every notice to every recipient
+is claimed with a page_notice_deliveries row, committed before the bell
+row and the email, so a failure part way through resends nothing and a
+rerun continues where it stopped. A notice is stamped on the page's
+page_transitions row only when all its recipients are done. Recipients
+go in batches of BATCH_SIZE with a short pause, at most
+MAX_RECIPIENTS_PER_PASS per pass (the January 3, 2027 turnover is
+large); the rest go on the next pass. Suspended, inactive, self-deleted
+and closed accounts get nothing (no bell row, no email).
 """
 from __future__ import annotations
 
 import json
 import logging
 import os
+import time
+from dataclasses import dataclass, field
 from datetime import date, datetime
 from typing import Optional
 
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.services import page_lifecycle as pl
@@ -218,25 +235,149 @@ def reelected_text(t: pl.Transition, name: str) -> str:
 
 # ── delivery ─────────────────────────────────────────────────────────
 
-def _deliver(db: Session, *, recipient_kind: str, recipient_id: int, kind: str, payload: dict,
-             email: Optional[str] = None, subject: Optional[str] = None) -> None:
-    from app.models.pages import Notification
-    db.add(Notification(
-        recipient_kind=recipient_kind,
-        recipient_id=recipient_id,
-        kind=kind,
-        payload_json=json.dumps(payload, ensure_ascii=False),
-    ))
-    if email and subject:
-        from app.services.digest_service import is_demo_email
-        if is_demo_email(email) or email.endswith("@closed.invalid"):
-            return
+BATCH_SIZE = 100
+BATCH_PAUSE_SECONDS = 1.0
+MAX_RECIPIENTS_PER_PASS = 5000
+FIRST_PASS_DELAY_SECONDS = 120
+INTERVAL_SECONDS = 24 * 60 * 60
+RETRY_SECONDS = 15 * 60
+LOCK_NAME = "page-lifecycle-job"
+
+
+@dataclass
+class NoticePlan:
+    """One notice, to everyone it goes to."""
+    page_id: str
+    notice: str                 # person_left | person_pre_archive | person_archived | trackers | followers
+    kind: str                   # Notification.kind
+    recipients: list            # [(recipient_kind, recipient_id)]
+    payload: dict
+    subject: Optional[str]
+    stamp: Optional[str]        # PageTransition column set once everyone is done
+    to_tracker: bool = False    # a notice about a page someone tracks
+
+
+@dataclass
+class PagePlan:
+    page_id: str
+    notices: list = field(default_factory=list)
+    skipped: list = field(default_factory=list)   # person notices recorded as skipped (no backlog)
+    end_tracking: bool = False
+
+
+class _Budget:
+    def __init__(self, n: int):
+        self.left = n
+
+
+_MODELS = None
+
+
+def _account_model(kind: str):
+    global _MODELS
+    if _MODELS is None:
+        from app.models.pages import CandidateAccount, CitizenAccount, RepAccount
+        _MODELS = {"citizen": CitizenAccount, "rep": RepAccount, "candidate": CandidateAccount}
+    return _MODELS.get(kind)
+
+
+def account_for(db: Session, kind: str, account_id: int):
+    model = _account_model(kind)
+    return db.get(model, account_id) if model is not None else None
+
+
+def account_is_open(acct) -> bool:
+    """False for an account that must get nothing: gone, inactive,
+    suspended, being deleted (the 30-day window) or closed."""
+    if acct is None:
+        return False
+    if getattr(acct, "is_active", True) is False:
+        return False
+    for col in ("suspended_at", "self_deleted_at", "closed_at"):
+        if getattr(acct, col, None) is not None:
+            return False
+    return True
+
+
+def email_skip_reason(acct, plan: NoticePlan) -> Optional[str]:
+    """Why this account gets the bell row but no email, or None."""
+    from app.services.digest_service import is_demo_email
+
+    email = (getattr(acct, "email", None) or "").strip()
+    if not email or not plan.subject:
+        return "no_address"
+    if is_demo_email(email) or email.endswith("@closed.invalid"):
+        return "demo_address"
+    return None
+
+
+def _send_email(plan: NoticePlan, to: str) -> bool:
+    from app.services.email_service import get_email_service
+
+    body = plan.payload.get("text", "") + f"\n\n{page_link(plan.payload.get('official_id') or '')}\n\nThe CivicView team\n"
+    return bool(get_email_service().send(to=to, subject=plan.subject, text_body=body))
+
+
+def _done_recipients(db: Session, plan: NoticePlan) -> set:
+    from app.models.pages import PageNoticeDelivery
+    return {
+        (k, i) for k, i in db.query(PageNoticeDelivery.recipient_kind, PageNoticeDelivery.recipient_id)
+        .filter(PageNoticeDelivery.page_id == plan.page_id, PageNoticeDelivery.notice == plan.notice)
+    }
+
+
+def deliver_notice(db: Session, plan: NoticePlan, summary: dict, *, budget: Optional[_Budget] = None,
+                   pause_seconds: float = 0.0) -> bool:
+    """Claim, bell row, email, for each recipient not yet done. Commits
+    per recipient. Returns True when everyone is done (the notice can
+    be stamped), False when the budget ran out first."""
+    from app.models.pages import Notification, PageNoticeDelivery
+
+    done = _done_recipients(db, plan)
+    todo = [r for r in plan.recipients if r not in done]
+    payload_json = json.dumps(plan.payload, ensure_ascii=False)
+    for i, (rkind, rid) in enumerate(todo):
+        if budget is not None and budget.left <= 0:
+            summary["work_left"] = True
+            return False
+        if i and i % BATCH_SIZE == 0 and pause_seconds:
+            time.sleep(pause_seconds)
+        claim = PageNoticeDelivery(page_id=plan.page_id, notice=plan.notice,
+                                   recipient_kind=rkind, recipient_id=rid)
+        db.add(claim)
         try:
-            from app.services.email_service import get_email_service
-            body = payload.get("text", "") + f"\n\n{page_link(payload.get('official_id') or '')}\n\nThe CivicView team\n"
-            get_email_service().send(to=email, subject=subject, text_body=body)
-        except Exception:
-            logger.exception("page_lifecycle_job: email failed (kind=%s)", kind)
+            db.commit()
+        except IntegrityError:
+            db.rollback()
+            summary["already_claimed"] += 1
+            continue
+        if budget is not None:
+            budget.left -= 1
+        acct = account_for(db, rkind, rid)
+        if not account_is_open(acct):
+            claim.email_status = "account_closed"
+            db.commit()
+            summary["skipped_accounts"] += 1
+            continue
+        note = Notification(recipient_kind=rkind, recipient_id=rid, kind=plan.kind, payload_json=payload_json)
+        db.add(note)
+        db.flush()
+        claim.notification_id = note.id
+        db.commit()
+        summary["followers_notices" if plan.notice == "followers"
+                else "tracker_notices" if plan.notice == "trackers" else "person_notices"] += 1
+        reason = email_skip_reason(acct, plan)
+        if reason is None:
+            try:
+                ok = _send_email(plan, acct.email)
+            except Exception:
+                logger.exception("page_lifecycle_job: email failed (kind=%s)", plan.kind)
+                ok = False
+            reason = "sent" if ok else "failed"
+            summary["emails_sent" if ok else "emails_failed"] += 1
+        claim.email_status = reason
+        db.commit()
+    return True
 
 
 def _owner_account(db: Session, t: pl.Transition):
@@ -251,16 +392,7 @@ def _trackers(db: Session, page_id: str, *, include_ended: bool = False):
     q = db.query(TrackedOfficial).filter(func.lower(TrackedOfficial.official_key) == page_id.lower())
     if not include_ended:
         q = q.filter(TrackedOfficial.ended_at.is_(None))
-    return q.all()
-
-
-def _tracker_email(db: Session, kind: str, tracker_id: int) -> Optional[str]:
-    from app.models.pages import CandidateAccount, CitizenAccount, RepAccount
-    model = {"citizen": CitizenAccount, "rep": RepAccount, "candidate": CandidateAccount}.get(kind)
-    if model is None:
-        return None
-    acct = db.get(model, tracker_id)
-    return getattr(acct, "email", None) if acct is not None else None
+    return q.order_by(TrackedOfficial.id.asc()).all()
 
 
 def _base_payload(t: pl.Transition, name: str, today: date) -> dict:
@@ -275,21 +407,34 @@ def _base_payload(t: pl.Transition, name: str, today: date) -> dict:
     }
 
 
+def _new_summary() -> dict:
+    return {"transitions": 0, "person_notices": 0, "tracker_notices": 0, "followers_notices": 0,
+            "tracking_ended": 0, "emails_sent": 0, "emails_failed": 0, "skipped_accounts": 0,
+            "already_claimed": 0, "work_left": False}
+
+
+def followers_plan(db: Session, t: pl.Transition, *, official_page_id: str, name: str,
+                   reelected: bool, today: date) -> NoticePlan:
+    text = reelected_text(t, name) if reelected else took_office_text(t, name)
+    return NoticePlan(
+        page_id=t.page_id, notice="followers", kind="tracked_now_in_office",
+        recipients=[(r.tracker_kind, r.tracker_id) for r in _trackers(db, t.page_id)],
+        payload={**_base_payload(t, name, today), "text": text,
+                 "follow": {"id": official_page_id, "name": name, "label": "Follow in office"}},
+        subject=f"{name} was re-elected" if reelected else f"{name} took office",
+        stamp="followers_notice_at", to_tracker=True,
+    )
+
+
 def notify_followers_to_follow(db: Session, t: pl.Transition, *, official_page_id: str, name: str,
                                reelected: bool, today: date) -> int:
     """One "Follow in office" notice to each follower of a winner's
-    campaign page. Used by the hand-off and by the job."""
-    text = reelected_text(t, name) if reelected else took_office_text(t, name)
-    sent = 0
-    for row in _trackers(db, t.page_id):
-        payload = {**_base_payload(t, name, today), "text": text,
-                   "follow": {"id": official_page_id, "name": name, "label": "Follow in office"}}
-        _deliver(db, recipient_kind=row.tracker_kind, recipient_id=row.tracker_id,
-                 kind="tracked_now_in_office", payload=payload,
-                 email=_tracker_email(db, row.tracker_kind, row.tracker_id),
-                 subject=f"{name} was re-elected" if reelected else f"{name} took office")
-        sent += 1
-    return sent
+    campaign page. Used by the hand-off and by the job. Commits per
+    recipient (claims), so the caller commits its own changes first."""
+    summary = _new_summary()
+    deliver_notice(db, followers_plan(db, t, official_page_id=official_page_id, name=name,
+                                      reelected=reelected, today=today), summary)
+    return summary["followers_notices"]
 
 
 def end_tracking(db: Session, page_id: str, reason: str = "archived") -> int:
@@ -322,8 +467,9 @@ def _stamp_skipped(row, name: str) -> None:
     row.skipped_notices = ",".join(have)
 
 
-def process(db: Session, t: pl.Transition, row, today: date, summary: dict) -> None:
-    now = datetime.utcnow()
+def plan_page(db: Session, t: pl.Transition, row, today: date) -> PagePlan:
+    """What is due for one page today. Reads only."""
+    out = PagePlan(page_id=t.page_id)
     stage = t.stage(today)
     name = t.display_name or page_display_name(t.page_id) or "This official"
 
@@ -333,16 +479,13 @@ def process(db: Session, t: pl.Transition, row, today: date, summary: dict) -> N
         due = (t.incumbent and t.clock_start and today >= t.clock_start) or \
               (not t.incumbent and t.sworn_in_on and today >= t.sworn_in_on)
         if due and target and row.followers_notice_at is None:
-            summary["followers_notices"] += notify_followers_to_follow(
-                db, t, official_page_id=target, name=name, reelected=t.incumbent, today=today)
-            row.followers_notice_at = now
-        if stage == pl.ARCHIVED and row.tracking_ended_at is None:
-            summary["tracking_ended"] += end_tracking(db, t.page_id)
-            row.tracking_ended_at = now
-        return
+            out.notices.append(followers_plan(db, t, official_page_id=target, name=name,
+                                              reelected=t.incumbent, today=today))
+        out.end_tracking = stage == pl.ARCHIVED and row.tracking_ended_at is None
+        return out
 
     if stage == pl.ACTIVE:
-        return
+        return out
 
     # Notices to the person (claimed pages only).
     kind, account = _owner_account(db, t)
@@ -357,9 +500,7 @@ def process(db: Session, t: pl.Transition, row, today: date, summary: dict) -> N
             due.append("pre_archive")
         if stage == pl.ARCHIVED and row.person_archived_notice_at is None:
             due.append("archived")
-        for skipped in due[:-1]:
-            _stamp_skipped(row, skipped)
-            setattr(row, f"person_{skipped}_notice_at", now)
+        out.skipped = due[:-1]
         if due:
             last = due[-1]
             payload = _base_payload(t, name, today)
@@ -376,45 +517,76 @@ def process(db: Session, t: pl.Transition, row, today: date, summary: dict) -> N
                 payload["text"] = person_archived_text(t, today)
                 notice_kind = "page_archived"
                 subject = "Your CivicView page was archived"
-            _deliver(db, recipient_kind=kind, recipient_id=account.id, kind=notice_kind,
-                     payload=payload, email=getattr(account, "email", None), subject=subject)
-            setattr(row, f"person_{last}_notice_at", now)
-            summary["person_notices"] += 1
+            out.notices.append(NoticePlan(
+                page_id=t.page_id, notice=f"person_{last}", kind=notice_kind,
+                recipients=[(kind, account.id)], payload=payload, subject=subject,
+                stamp=f"person_{last}_notice_at",
+            ))
 
     # One notice to each tracker, claimed or not (decision f).
     if row.trackers_notice_at is None:
-        text = tracker_text(t, name, today)
         successors = successors_payload(t) if t.page_kind == "official" else []
-        n = 0
-        for tr in _trackers(db, t.page_id):
-            payload = {**_base_payload(t, name, today), "text": text, "successors": successors}
-            _deliver(db, recipient_kind=tr.tracker_kind, recipient_id=tr.tracker_id,
-                     kind="tracked_left_office" if t.page_kind == "official" else "tracked_campaign_ended",
-                     payload=payload, email=_tracker_email(db, tr.tracker_kind, tr.tracker_id),
-                     subject=(f"{name} is no longer in office" if t.page_kind == "official"
-                              else f"{name} isn't on the November ballot" if t.event == "not_on_ballot"
-                              else f"{name}'s campaign has ended"))
-            n += 1
-        row.trackers_notice_at = now
-        summary["tracker_notices"] += n
+        out.notices.append(NoticePlan(
+            page_id=t.page_id, notice="trackers",
+            kind="tracked_left_office" if t.page_kind == "official" else "tracked_campaign_ended",
+            recipients=[(tr.tracker_kind, tr.tracker_id) for tr in _trackers(db, t.page_id)],
+            payload={**_base_payload(t, name, today), "text": tracker_text(t, name, today),
+                     "successors": successors},
+            subject=(f"{name} is no longer in office" if t.page_kind == "official"
+                     else f"{name} isn't on the November ballot" if t.event == "not_on_ballot"
+                     else f"{name}'s campaign has ended"),
+            stamp="trackers_notice_at", to_tracker=True,
+        ))
 
     # Tracking ends at the archive.
-    if stage == pl.ARCHIVED and row.tracking_ended_at is None:
-        summary["tracking_ended"] += end_tracking(db, t.page_id)
-        row.tracking_ended_at = now
+    out.end_tracking = stage == pl.ARCHIVED and row.tracking_ended_at is None
+    return out
 
 
-def run_page_lifecycle(db: Optional[Session] = None, today: Optional[date] = None) -> dict:
-    """One pass over every transition. Returns a summary. Never raises
-    when it owns the session (boot and the daily loop)."""
+def execute_page(db: Session, plan: PagePlan, row, summary: dict, *, budget: Optional[_Budget] = None,
+                 pause_seconds: float = 0.0) -> bool:
+    """Send a page's plan. Returns False when the budget ran out (the
+    rest goes next pass)."""
+    now = datetime.utcnow()
+    for skipped in plan.skipped:
+        _stamp_skipped(row, skipped)
+        setattr(row, f"person_{skipped}_notice_at", now)
+    if plan.skipped:
+        db.commit()
+    for notice in plan.notices:
+        if not deliver_notice(db, notice, summary, budget=budget, pause_seconds=pause_seconds):
+            return False
+        if notice.stamp:
+            setattr(row, notice.stamp, datetime.utcnow())
+            db.commit()
+    if plan.end_tracking:
+        summary["tracking_ended"] += end_tracking(db, plan.page_id)
+        row.tracking_ended_at = datetime.utcnow()
+        db.commit()
+    return True
+
+
+def process(db: Session, t: pl.Transition, row, today: date, summary: dict) -> None:
+    """Plan and send one page (kept for callers of the old name)."""
+    execute_page(db, plan_page(db, t, row, today), row, summary)
+
+
+def run_page_lifecycle(db: Optional[Session] = None, today: Optional[date] = None, *,
+                       pause_seconds: Optional[float] = None,
+                       max_recipients: int = MAX_RECIPIENTS_PER_PASS) -> dict:
+    """One pass over every transition. Returns a summary
+    (work_left=True when the per-pass limit stopped it). Never raises
+    when it owns the session (the loop)."""
     from app.db import SessionLocal
     from app.models.pages import PageTransition
 
     owns = db is None
     db = db or SessionLocal()
     today = today or pl.today_et()
-    summary = {"transitions": 0, "person_notices": 0, "tracker_notices": 0,
-               "followers_notices": 0, "tracking_ended": 0}
+    if pause_seconds is None:
+        pause_seconds = BATCH_PAUSE_SECONDS if owns else 0.0
+    summary = _new_summary()
+    budget = _Budget(max_recipients)
     try:
         pl.invalidate_cache()
         transitions = pl.all_transitions(db)
@@ -429,18 +601,102 @@ def run_page_lifecycle(db: Optional[Session] = None, today: Optional[date] = Non
                 rows[page_id] = row
             elif row.origin != "admin":
                 _sync_data_row(row, t)
-            process(db, t, row, today, summary)
             if row.first_processed_at is None:
                 row.first_processed_at = now
+            db.commit()
             summary["transitions"] += 1
-        db.commit()
+            if not execute_page(db, plan_page(db, t, row, today), row, summary,
+                                budget=budget, pause_seconds=pause_seconds):
+                break
         logger.info("page lifecycle pass (%s): %s", today.isoformat(), summary)
     except Exception:
         db.rollback()
         logger.exception("page lifecycle pass failed")
+        summary["work_left"] = True
         if not owns:
             raise
     finally:
         if owns:
             db.close()
     return summary
+
+
+def preview_page_lifecycle(db: Session, today: Optional[date] = None) -> dict:
+    """What run_page_lifecycle would send today, without sending or
+    writing anything: per notice, the page, the people it goes to
+    (minus anyone already notified), how many get an email, how many
+    accounts get nothing, the subject and the text."""
+    from app.models.pages import PageTransition
+
+    today = today or pl.today_et()
+    pl.invalidate_cache()
+    transitions = pl.all_transitions(db)
+    rows = {r.page_id: r for r in db.query(PageTransition).all()}
+    items = []
+    totals = {"notices": 0, "recipients": 0, "bell": 0, "emails": 0, "no_email": 0,
+              "accounts_skipped": 0, "tracking_ends_on_pages": 0}
+    for page_id, t in transitions.items():
+        row = rows.get(page_id)
+        if row is None:
+            row = PageTransition(page_id=page_id, origin="data")   # never added to the session
+            _sync_data_row(row, t)
+        plan = plan_page(db, t, row, today)
+        if plan.end_tracking:
+            totals["tracking_ends_on_pages"] += 1
+        for notice in plan.notices:
+            done = _done_recipients(db, notice)
+            todo = [r for r in notice.recipients if r not in done]
+            bell = emails = skipped = 0
+            for rkind, rid in todo:
+                acct = account_for(db, rkind, rid)
+                if not account_is_open(acct):
+                    skipped += 1
+                    continue
+                bell += 1
+                if email_skip_reason(acct, notice) is None:
+                    emails += 1
+            items.append({
+                "page_id": page_id,
+                "name": notice.payload.get("official_name"),
+                "notice": notice.notice,
+                "kind": notice.kind,
+                "recipients": len(todo),
+                "already_notified": len(notice.recipients) - len(todo),
+                "bell": bell,
+                "emails": emails,
+                "accounts_skipped": skipped,
+                "subject": notice.subject,
+                "text": notice.payload.get("text"),
+            })
+            totals["notices"] += 1
+            totals["recipients"] += len(todo)
+            totals["bell"] += bell
+            totals["emails"] += emails
+            totals["no_email"] += bell - emails
+            totals["accounts_skipped"] += skipped
+    return {"today": today.isoformat(), "totals": totals, "items": items,
+            "per_pass_limit": MAX_RECIPIENTS_PER_PASS}
+
+
+def run_pass_with_session() -> dict:
+    """Loop entrypoint: own session and a cross-instance lock; never
+    raises."""
+    from app.services.db_locks import AdvisoryLock
+
+    lock = AdvisoryLock(LOCK_NAME)
+    try:
+        if not lock.try_acquire():
+            return {"skipped": "another instance holds the lock", "work_left": False}
+    except Exception:
+        logger.exception("page lifecycle: lock failed; skipping this pass")
+        return {"work_left": True}
+    try:
+        return run_page_lifecycle()
+    except Exception:
+        logger.exception("page lifecycle pass raised")
+        return {"work_left": True}
+    finally:
+        try:
+            lock.release()
+        except Exception:
+            logger.debug("page lifecycle: lock release failed", exc_info=True)

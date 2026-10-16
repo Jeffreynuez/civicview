@@ -199,6 +199,10 @@ def _keyed_rows(kind: AccountKind, account_id: int, email: Optional[str]):
     for model in (TrackedBill, TrackedOfficial, TrackedElection, FeaturedTracked, SavedItem):
         specs.append((model, [model.tracker_kind == kind, model.tracker_id == account_id]))
     specs.append((Notification, [Notification.recipient_kind == kind, Notification.recipient_id == account_id]))
+    # Records of the former-pages notices sent to the account (2026-10-16).
+    from app.models.pages import PageNoticeDelivery
+    specs.append((PageNoticeDelivery, [PageNoticeDelivery.recipient_kind == kind,
+                                       PageNoticeDelivery.recipient_id == account_id]))
     specs.append((PasswordResetToken, [
         PasswordResetToken.identity_kind == kind, PasswordResetToken.account_id == account_id,
     ]))
@@ -397,8 +401,10 @@ def purge_orphaned_account_rows(db: Optional[Session] = None) -> dict:
         accounts = {"citizen": CitizenAccount, "rep": RepAccount, "candidate": CandidateAccount}
         pairs = [(m, m.tracker_kind, m.tracker_id) for m in
                  (TrackedBill, TrackedOfficial, TrackedElection, FeaturedTracked, SavedItem)]
+        from app.models.pages import PageNoticeDelivery
         pairs += [
             (Notification, Notification.recipient_kind, Notification.recipient_id),
+            (PageNoticeDelivery, PageNoticeDelivery.recipient_kind, PageNoticeDelivery.recipient_id),
             (PasswordResetToken, PasswordResetToken.identity_kind, PasswordResetToken.account_id),
             (LoginAttempt, LoginAttempt.identity_kind, LoginAttempt.identity_id),
         ]

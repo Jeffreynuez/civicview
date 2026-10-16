@@ -11,6 +11,7 @@ import {
   adminDecideName,
   adminListTransitions,
   adminNameReviews,
+  adminPreviewTransitionsRun,
   adminRunTransitions,
   adminSetTransition,
   adminTransitionDetail,
@@ -49,6 +50,15 @@ const EMPTY_FORM = {
   page_id: '', event: 'left_office', event_on: '', source_url: '', source_note: '',
   incumbent: false, sworn_in_on: '', office_label: '', linked_page_id: '',
   successor_ids: '', display_name: '', state: '', served_from: '', served_to: '',
+};
+
+// Notice names in the run preview (2026-10-16).
+const NOTICE_LABELS = {
+  person_left: 'To the person: left office or campaign ended',
+  person_pre_archive: 'To the person: 30 days before the archive',
+  person_archived: 'To the person: archived',
+  trackers: 'To everyone tracking the page',
+  followers: 'Follow in office, to the campaign page followers',
 };
 
 function stageLabel(stage) {
@@ -123,11 +133,26 @@ export default function TransitionsTab({ onCounts }) {
     setDetail(data);
   };
 
+  // "Run the daily job now" shows what it would send first (2026-10-16);
+  // nothing goes out until "Send" in the preview.
+  const [runPreview, setRunPreview] = useState(null);
+  const [running, setRunning] = useState(false);
   const runNow = async () => {
+    setError(null);
+    const { data, error: err } = await adminPreviewTransitionsRun();
+    if (err) { setError(err); return; }
+    setRunPreview(data);
+  };
+  const confirmRun = async () => {
+    setRunning(true);
     const { data, error: err } = await adminRunTransitions();
+    setRunning(false);
+    setRunPreview(null);
     if (err) { setError(err); return; }
     setNotice(`Daily job ran: ${data.person_notices} notices to people, ${data.tracker_notices} to trackers, `
-      + `${data.followers_notices} Follow in office notices, tracking ended on ${data.tracking_ended} rows.`);
+      + `${data.followers_notices} Follow in office notices, ${data.emails_sent} emails, `
+      + `${data.skipped_accounts} closed or suspended accounts skipped, tracking ended on ${data.tracking_ended} rows.`
+      + (data.work_left ? ' More is waiting: the job continues on its own in 15 minutes.' : ''));
     load();
   };
 
@@ -229,6 +254,51 @@ export default function TransitionsTab({ onCounts }) {
         <button type="button" className="ad-btn ad-btn--ghost" onClick={runNow}>Run the daily job now</button>
         {today && <span className="tr-today">Today: {formatLongDate(today)}</span>}
       </div>
+
+      {runPreview && (
+        <div className="tr-card tr-preview" role="region" aria-label="What the daily job would send">
+          <h3 className="tr-h3">What the daily job would send today</h3>
+          <p className="tr-sub">
+            {runPreview.totals.notices} notices to {runPreview.totals.recipients} people:{' '}
+            {runPreview.totals.bell} in the bell, {runPreview.totals.emails} of them also by email.{' '}
+            {runPreview.totals.accounts_skipped} closed, suspended or deleted accounts get nothing.{' '}
+            Tracking ends on {runPreview.totals.tracking_ends_on_pages} archived pages.{' '}
+            At most {runPreview.per_pass_limit} people per pass; the rest follow 15 minutes later.
+          </p>
+          {runPreview.items.length > 0 && (
+            <div className="ad-tablewrap">
+              <table className="ad-table tr-table">
+                <thead>
+                  <tr><th>Page</th><th>Notice</th><th>People</th><th>Email</th><th>Skipped</th><th>Subject and text</th></tr>
+                </thead>
+                <tbody>
+                  {runPreview.items.map((it) => (
+                    <tr key={`${it.page_id}-${it.notice}`}>
+                      <td><div className="tr-name">{it.name || it.page_id}</div><div className="tr-mono">{it.page_id}</div></td>
+                      <td>{NOTICE_LABELS[it.notice] || it.notice}</td>
+                      <td>{it.recipients}{it.already_notified ? ` (${it.already_notified} done)` : ''}</td>
+                      <td>{it.emails}</td>
+                      <td>{it.accounts_skipped}</td>
+                      <td>
+                        <details>
+                          <summary>{it.subject || '(no email subject)'}</summary>
+                          <p className="tr-sub">{it.text}</p>
+                        </details>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <div className="tr-actions">
+            <button type="button" className="ad-btn ad-btn--grant" onClick={confirmRun} disabled={running}>
+              {running ? 'Sending…' : (runPreview.totals.recipients ? `Send ${runPreview.totals.recipients} notices` : 'Run it (nothing to send)')}
+            </button>
+            <button type="button" className="ad-btn ad-btn--ghost" onClick={() => setRunPreview(null)} disabled={running}>Cancel</button>
+          </div>
+        </div>
+      )}
 
       {items.length === 0 ? (
         <div className="ad-empty">{loading ? 'Loading…' : 'Nothing on the clock.'}</div>

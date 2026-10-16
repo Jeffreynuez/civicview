@@ -156,9 +156,11 @@ def main() -> int:
         db.commit()
         gone_id = gone.id
         results = maintenance.run_retention_jobs()
-        # Four retention jobs, plus the former pages pass (2026-10-15)
-        # that shares the daily loop.
-        check("all five daily jobs ran", len(results) == 5 and set(results.values()) == {"ok"}, str(results))
+        # Four retention jobs. The former pages pass shared this loop,
+        # and so ran synchronously at boot, until 2026-10-16; it has its
+        # own loop now (services/page_lifecycle_job.py).
+        check("all four daily jobs ran", len(results) == 4 and set(results.values()) == {"ok"}, str(results))
+        check("the former pages pass is off the boot path", "former pages pass" not in results, str(results))
         db.expire_all()
         check("account past its grace period purged", db.get(CitizenAccount, gone_id) is None)
         real_jobs = maintenance._jobs
@@ -172,7 +174,7 @@ def main() -> int:
         finally:
             maintenance._jobs = real_jobs
         check("one failing job does not stop the rest",
-              results.get("first") == "failed" and list(results.values()).count("ok") == 4, str(results))
+              results.get("first") == "failed" and list(results.values()).count("ok") == 3, str(results))
 
         # 5. Digest claims.
         cz = CitizenAccount(email="reader@example.org", password_hash="x", display_name="Reader",
