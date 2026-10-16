@@ -16,6 +16,7 @@ Core responsibilities:
 import json
 import logging
 import re
+import unicodedata
 from pathlib import Path
 from typing import Optional
 
@@ -28,10 +29,41 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 # States whose primaries send the top two finishers to November regardless
 # of party. The one-nominee-per-party rule does not apply there.
 _TOP_TWO_STATES = {"CA", "WA"}
+# Alaska's open primary sends the top four finishers to November.
+_TOP_FOUR_STATES = {"AK"}
 
 # Labels that mean "no party". More than one such candidate can legitimately
 # appear on a general ballot, so they never trip the per-party check.
-_NO_PARTY_LABELS = {"NPA", "I", "WRI", "NP", "NONE", "U", "UN", "UNA"}
+# "O" is the code for any other party or independent body (the row shows
+# the state's own label), and two different ones can share a race.
+_NO_PARTY_LABELS = {"NPA", "I", "WRI", "NP", "NONE", "U", "UN", "UNA", "O"}
+
+_SUFFIXES = {"jr", "sr", "ii", "iii", "iv"}
+
+
+def _fold(text: str) -> str:
+    text = unicodedata.normalize("NFKD", text or "")
+    return "".join(ch for ch in text if not unicodedata.combining(ch)).casefold()
+
+
+def _sort_key(cand: dict) -> tuple:
+    """Alphabetical by last name, then first name: the one ordering rule
+    for every race in every state. `sort_name` ("Last, First" as the
+    state's list writes the name) wins; otherwise the last word of the
+    name that is not a suffix."""
+    sort_name = cand.get("sort_name")
+    if sort_name and "," in sort_name:
+        last, first = sort_name.split(",", 1)
+        return (_fold(last.strip()), _fold(first.strip()), cand.get("id") or "")
+    words = [w for w in re.split(r"\s+", (cand.get("name") or "").strip()) if w]
+    while len(words) > 1 and words[-1].rstrip(".").lower() in _SUFFIXES:
+        words.pop()
+    last = words[-1] if words else ""
+    return (_fold(last), _fold(" ".join(words[:-1])), cand.get("id") or "")
+
+
+def _alphabetical(cands: list[dict]) -> list[dict]:
+    return sorted(cands, key=_sort_key)
 
 
 def _person_key(name: Optional[str]) -> str:
@@ -158,17 +190,20 @@ class ElectionsService:
         primary = race.get("primary_candidates") or {}
         resolved_primary: dict[str, list[dict]] = {}
         for party, ids in primary.items():
-            resolved_primary[party] = self._resolve_ids(ids)
+            resolved_primary[party] = _alphabetical(self._resolve_ids(ids))
         resolved["primary_candidates"] = resolved_primary
 
-        # Expand general_candidates: [id] -> [record]
-        general = self._resolve_ids(race.get("general_candidates") or [])
+        # Expand general_candidates: [id] -> [record], alphabetical by
+        # last name (one rule everywhere; ballot order rotates by county
+        # in several states, so it cannot be the rule).
+        general = _alphabetical(self._resolve_ids(race.get("general_candidates") or []))
         resolved["general_candidates"] = general
         # Qualified write-ins are listed separately: Florida (and most
         # states) print a blank write-in line, never the names, so
         # rendering them as ballot rows would describe a ballot that does
         # not exist.
-        resolved["write_in_candidates"] = self._resolve_ids(race.get("write_in_candidates") or [])
+        resolved["write_in_candidates"] = _alphabetical(
+            self._resolve_ids(race.get("write_in_candidates") or []))
 
         # ── Guard: is this general roster actually a general roster? ──
         #
@@ -203,6 +238,9 @@ class ElectionsService:
         if (state_code or "").upper() in _TOP_TWO_STATES:
             if len(ballot_rows) > 2:
                 reasons.append("top-two")
+        elif (state_code or "").upper() in _TOP_FOUR_STATES:
+            if len(ballot_rows) > 4:
+                reasons.append("top-four")
         else:
             counts: dict[str, int] = {}
             for cand in ballot_rows:
@@ -232,8 +270,11 @@ class ElectionsService:
         # race whose roster was checked against the official candidate
         # list (`roster_status: "verified_nominees"`) is presented as the
         # November ballot. Everything else says what it is.
+        # A race with no candidates listed claims nothing, so it gets no
+        # warning; the Ballot tab says the candidates aren't listed yet.
         resolved["general_roster_unverified"] = bool(
             primary_concluded
+            and general
             and not resolved["general_roster_unresolved"]
             and race.get("roster_status") != "verified_nominees"
         )

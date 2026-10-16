@@ -145,7 +145,7 @@ def page_detail(page_id: str, db: Session = Depends(get_db), actor: dict = Depen
 class TransitionSet(BaseModel):
     page_id: str = Field(..., min_length=1, max_length=64)
     page_kind: str = Field(..., pattern=r"^(official|candidate)$")
-    event: str = Field(..., pattern=r"^(left_office|lost_primary|lost_general|withdrew|won)$")
+    event: str = Field(..., pattern=r"^(left_office|lost_primary|lost_general|withdrew|not_on_ballot|won)$")
     # The day it happened, from the official source below.
     event_on: date
     source_url: str = Field(..., min_length=8, max_length=500)

@@ -41,6 +41,7 @@ const EVENTS = [
   ['lost_primary', 'Lost the primary (campaign page)'],
   ['lost_general', 'Lost the general election (campaign page)'],
   ['withdrew', 'Withdrew (campaign page)'],
+  ['not_on_ballot', 'Not on the November ballot, no reason given (campaign page)'],
   ['won', 'Won (campaign page)'],
 ];
 

@@ -128,6 +128,9 @@ def _what_happened_to_you(t: pl.Transition) -> str:
         if t.event_on:
             return f"You left office as {office} on {pl.long_date(t.event_on)}."
         return f"CivicView recorded on {pl.long_date(t.recorded_on)} that you no longer hold the office of {office}."
+    if t.event == "not_on_ballot":
+        when = pl.long_date(t.recorded_on or t.event_on)
+        return f"CivicView recorded on {when} that you aren't on {pl.ballot_phrase(t)} for {office}."
     if t.event_on:
         how = "you withdrew" if t.event == "withdrew" else "the result was certified"
         return f"Your campaign for {office} ended when {how} on {pl.long_date(t.event_on)}."
@@ -185,6 +188,9 @@ def tracker_text(t: pl.Transition, name: str, today: date) -> str:
             first = f"{name} left office as {office} on {pl.long_date(t.event_on)}."
         else:
             first = f"CivicView recorded on {pl.long_date(t.recorded_on)} that {name} is no longer {office}."
+    elif t.event == "not_on_ballot":
+        when = pl.long_date(t.recorded_on or t.event_on)
+        first = f"CivicView recorded on {when} that {name} isn't on {pl.ballot_phrase(t)} for {office}."
     elif t.event_on:
         first = f"{name}'s campaign for {office} ended on {pl.long_date(t.event_on)}."
     else:
@@ -386,6 +392,7 @@ def process(db: Session, t: pl.Transition, row, today: date, summary: dict) -> N
                      kind="tracked_left_office" if t.page_kind == "official" else "tracked_campaign_ended",
                      payload=payload, email=_tracker_email(db, tr.tracker_kind, tr.tracker_id),
                      subject=(f"{name} is no longer in office" if t.page_kind == "official"
+                              else f"{name} isn't on the November ballot" if t.event == "not_on_ballot"
                               else f"{name}'s campaign has ended"))
             n += 1
         row.trackers_notice_at = now
