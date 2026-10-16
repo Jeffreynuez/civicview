@@ -1,0 +1,66 @@
+{
+  "_note": "Ohio 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "OH",
+  "state_name": "Ohio",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-05",
+    "voter_registration_online_general": "2026-10-05",
+    "voter_registration_mail_general": "2026-10-05, postmarked",
+    "voter_registration_in_person_general": "2026-10-05",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-27",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, when polls close",
+    "early_voting_window_general": "2026-10-06 to 2026-11-01"
+  },
+  "key_date_sources": {
+    "general": "https://codes.ohio.gov/ohio-revised-code/section-3501.01",
+    "voter_registration_deadline_general": "https://codes.ohio.gov/ohio-revised-code/section-3503.19",
+    "voter_registration_online_general": "https://codes.ohio.gov/ohio-revised-code/section-3503.19",
+    "voter_registration_mail_general": "https://codes.ohio.gov/ohio-revised-code/section-3503.19",
+    "voter_registration_in_person_general": "https://codes.ohio.gov/ohio-revised-code/section-3503.19",
+    "same_day_registration_general": "https://codes.ohio.gov/ohio-revised-code/section-3503.19",
+    "all_mail_general": "https://codes.ohio.gov/ohio-revised-code/section-3509.03",
+    "vote_by_mail_request_deadline_general": "https://www.ohiosos.gov/elections/voting-schedule-text-only",
+    "mail_ballot_return_deadline_general": "https://codes.ohio.gov/ohio-revised-code/section-3509.05",
+    "early_voting_window_general": "https://codes.ohio.gov/ohio-revised-code/section-3509.051"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-16",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.ohiosos.gov/elections",
+    "links": {
+      "registration": "https://www.ohiosos.gov/elections/register-to-vote",
+      "check_registration": "https://voterlookup.ohiosos.gov/voterlookup.aspx",
+      "mail_ballot": "https://www.ohiosos.gov/elections/request-an-absentee-ballot",
+      "early_voting": "https://www.ohiosos.gov/directories/early-voting-locations",
+      "polling_place": "https://www.ohiosos.gov/directories/find-my-polling-location",
+      "sample_ballot": "https://www.ohiosos.gov/directories/sample-ballot",
+      "track_ballot": "https://www.ohiosos.gov/directories/ballot-tracking"
+    },
+    "poll_hours": {
+      "open": "06:30",
+      "close": "19:30",
+      "source_url": "https://codes.ohio.gov/ohio-revised-code/section-3501.32",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "20:30"
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

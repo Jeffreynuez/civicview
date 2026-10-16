@@ -222,7 +222,8 @@ export const TOUR_TOPICS = [
         title: ({ result }) => `Elections in ${result.stateName}`,
         body: ({ result }) => {
           const tail = 'Each election shows its key dates, its races and the candidates in each race.';
-          if (result.reason === 'no-data') return `Election data for ${result.selectedName} isn't in yet, so we opened ${result.stateName}. ${tail}`;
+          if (result.reason === 'dates-only') return `We opened the Elections tab for ${result.stateName}. It shows key dates and official links. Races and candidates for ${result.stateName} aren't listed yet.`;
+          if (result.reason === 'no-data') return `Elections for ${result.selectedName} aren't listed yet, so we opened ${result.stateName}. ${tail}`;
           if (result.reason === 'none') return `We opened ${result.stateName} as an example. ${tail}`;
           return `We opened the Elections tab for ${result.stateName}. ${tail}`;
         },
@@ -232,9 +233,15 @@ export const TOUR_TOPICS = [
       {
         id: 'elections-race',
         route: '/',
-        target: 'race-card',
+        action: 'tour-elections-status',
+        demo: true,
+        target: ['race-card', 'sample-ballot-line'],
         title: 'Races and candidates',
-        body: "Open a race to see its candidates. Select a candidate for their profile, including fundraising when it's on file.",
+        body: ({ result }) => (result.hasRaces === false
+          ? `Races for ${result.stateName} aren't listed yet. Your official sample ballot shows every race. Where races are listed, select a candidate for their profile.`
+          : "Open a race to see its candidates. Select a candidate for their profile, including fundraising when it's on file."),
+        fallbackTitle: 'Races and candidates',
+        fallbackBody: "Open a race to see its candidates. Select a candidate for their profile, including fundraising when it's on file.",
       },
       {
         id: 'elections-ballot',

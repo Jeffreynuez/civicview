@@ -9,6 +9,13 @@ router = APIRouter()
 service = ElectionsService()
 
 
+@router.get("")
+async def list_election_states():
+    """Every state with an elections file, and how many races it lists.
+    The tour uses it to open a random state that has races (2026-10-16)."""
+    return {"states": service.state_summaries()}
+
+
 @router.get("/{state_code}")
 async def get_elections(state_code: str):
     """Return the curated elections payload for a state with candidate

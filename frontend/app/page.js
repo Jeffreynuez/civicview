@@ -26,7 +26,7 @@ import HelpBuildThisView from '@/components/HelpBuildThisView';
 import FeedbackView from '@/components/FeedbackView';
 // Contextual push-notification opt-in — renders nothing on the web;
 // in the Android shell it offers push once a citizen is signed in.
-import { fetchAllStateData, fetchAllMembers, fetchBillSnapshot, fetchMemberDetail, fetchMemberBills, fetchMemberVotes, fetchElections, fetchCandidate, fetchStatePerson } from '@/lib/api';
+import { fetchAllStateData, fetchAllMembers, fetchBillSnapshot, fetchMemberDetail, fetchMemberBills, fetchMemberVotes, fetchElections, fetchElectionStates, fetchCandidate, fetchStatePerson } from '@/lib/api';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import {
   getAllTrackedBills,
@@ -1427,40 +1427,54 @@ export default function Home() {
         }
         return { ok: true, stateName: 'Florida' };
       },
-      // Elections tab: the visitor's selected state only if it has
-      // election data (the API answers 404 when it has none);
-      // otherwise Florida. The step says which state it opened.
+      // Elections tab (2026-10-16): the visitor's selected state, now
+      // that every state has its key dates. With no state selected, or
+      // one with no elections file (a territory), a random state that
+      // lists races: demo picks are random, never a fixed state. The
+      // step says which state it opened and whether it lists races.
       'demo-open-elections': async () => {
         closeWindows();
         closeDemos();
         collapseMapForTour();
+        const openRandom = async (reason, selectedName) => {
+          const { data } = await fetchElectionStates();
+          const pool = (data || []).filter((s) => s.races_with_candidates > 0);
+          if (!pool.length) return { ok: false };
+          const pick = pool[Math.floor(Math.random() * pool.length)];
+          try {
+            tourStateRef.current = pick.state;
+            await handleStateSelect(pick.state, pick.state_name, { tab: 'ballot' });
+          } catch {
+            return { ok: false };
+          }
+          return { ok: true, stateName: pick.state_name, reason, selectedName, hasRaces: true };
+        };
         if (visitorState()) {
           const probe = await fetchElections(selectedState);
           if (probe?.data) {
             setSidePanelTab('ballot');
-            return { ok: true, stateName: stateName || selectedState, reason: 'selected' };
+            const hasRaces = (probe.data.races || []).length > 0;
+            return {
+              ok: true,
+              stateName: stateName || selectedState,
+              reason: hasRaces ? 'selected' : 'dates-only',
+              hasRaces,
+            };
           }
-          if (selectedState === 'FL') return { ok: false };
-          try {
-            tourStateRef.current = 'FL';
-            await handleStateSelect('FL', 'Florida', { tab: 'ballot' });
-          } catch {
-            return { ok: false };
-          }
-          return {
-            ok: true,
-            stateName: 'Florida',
-            reason: probe?.notSeeded ? 'no-data' : 'none',
-            selectedName: stateName || selectedState,
-          };
+          return openRandom(probe?.notSeeded ? 'no-data' : 'none', stateName || selectedState);
         }
-        try {
-          tourStateRef.current = 'FL';
-          await handleStateSelect('FL', 'Florida', { tab: 'ballot' });
-        } catch {
-          return { ok: false };
-        }
-        return { ok: true, stateName: 'Florida', reason: 'none' };
+        return openRandom('none');
+      },
+      // The races step: does the state on screen list races yet?
+      'tour-elections-status': async () => {
+        if (!selectedState) return { ok: false };
+        const probe = await fetchElections(selectedState);
+        if (!probe?.data) return { ok: false };
+        return {
+          ok: true,
+          stateName: probe.data.state_name || stateName || selectedState,
+          hasRaces: (probe.data.races || []).length > 0,
+        };
       },
     };
     // handleGlobalMemberPick re-binds when selectedState changes; the

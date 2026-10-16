@@ -8,32 +8,53 @@
  "key_dates": {
   "primary": "2026-03-03",
   "primary_runoff": "2026-05-26",
-  "general": "2026-11-03",
   "voter_registration_deadline_primary": "2026-02-02",
+  "general": "2026-11-03",
   "voter_registration_deadline_general": "2026-10-05",
-  "early_voting_window_general": "2026-10-19 to 2026-10-30",
-  "vote_by_mail_request_deadline_general": "2026-10-23"
+  "voter_registration_online_general": "Not available",
+  "voter_registration_mail_general": "2026-10-05, postmarked",
+  "voter_registration_in_person_general": "2026-10-05",
+  "same_day_registration_general": "Not available",
+  "all_mail_general": "No",
+  "vote_by_mail_request_deadline_general": "2026-10-23",
+  "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-04, 5 p.m.",
+  "early_voting_window_general": "2026-10-19 to 2026-10-30"
  },
  "key_date_sources": {
   "general": "https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml",
   "voter_registration_deadline_general": "https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml",
+  "voter_registration_online_general": "https://www.sos.state.tx.us/elections/voter/reqvr.shtml",
+  "voter_registration_mail_general": "https://www.votetexas.gov/faq/index.html",
+  "voter_registration_in_person_general": "https://www.votetexas.gov/register-to-vote/index.html",
+  "same_day_registration_general": "https://www.votetexas.gov/register-to-vote/index.html",
+  "all_mail_general": "https://www.sos.state.tx.us/elections/voter/reqabbm.shtml",
   "vote_by_mail_request_deadline_general": "https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml",
+  "mail_ballot_return_deadline_general": "https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml",
   "early_voting_window_general": "https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml"
  },
  "key_date_retrieved": {
   "general": "2026-10-15",
   "voter_registration_deadline_general": "2026-10-15",
+  "voter_registration_online_general": "2026-10-15",
+  "voter_registration_mail_general": "2026-10-16",
+  "voter_registration_in_person_general": "2026-10-15",
+  "same_day_registration_general": "2026-10-15",
+  "all_mail_general": "2026-10-15",
   "vote_by_mail_request_deadline_general": "2026-10-15",
+  "mail_ballot_return_deadline_general": "2026-10-15",
   "early_voting_window_general": "2026-10-15"
  },
  "voter_info": {
-  "_note": "Read by election reminders (backend/app/services/election_reminders.py). Every link is on a Texas Secretary of State site; every reminder date needs an https source in key_date_sources (data lint E-11). Checked on the official pages 2026-10-15. vote_by_mail_request_deadline_general is the last day for the early voting clerk to receive an application for a ballot by mail (received, not postmarked, by the close of regular business or 12 noon, whichever is later).",
+  "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
   "official_site": "https://www.votetexas.gov/",
   "links": {
    "registration": "https://www.votetexas.gov/register-to-vote/index.html",
+   "check_registration": "https://www.votetexas.gov/register-to-vote/index.html",
    "mail_ballot": "https://www.votetexas.gov/voting-by-mail/index.html",
    "early_voting": "https://www.votetexas.gov/voting/where.html",
-   "polling_place": "https://www.votetexas.gov/voting/where.html"
+   "polling_place": "https://www.votetexas.gov/voting/where.html",
+   "sample_ballot": "https://www.sos.state.tx.us/elections/laws/2026-november-general-election.shtml",
+   "track_ballot": "https://www.votetexas.gov/voting-by-mail/track-my-ballot.html"
   },
   "poll_hours": {
    "open": "07:00",
@@ -41,12 +62,15 @@
    "source_url": "https://www.votetexas.gov/voting/where.html",
    "retrieved": "2026-10-15"
   },
-  "deadline_times": {
-   "vote_by_mail_request_deadline_general": "12:00"
-  },
   "reminder_notes": {
-   "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then.",
-   "early_voting_window_general": "Hours vary by location."
+   "early_voting_window_general": "Hours vary by location.",
+   "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. Mail voting in Texas is only for voters who meet the state's eligibility rules. Check them on the official site."
+  },
+  "reminder_note_sources": {
+   "vote_by_mail_request_deadline_general": {
+    "source_url": "https://www.votetexas.gov/voting-by-mail/index.html",
+    "retrieved": "2026-10-16"
+   }
   }
  },
  "primary_status": {
@@ -5232,7 +5256,7 @@
   "state": [],
   "counties": {}
  },
- "_measures_note": "Texas places statewide constitutional amendments on odd-year ballots — all 17 statewide propositions were decided in November 2025. There are no statewide ballot propositions on the November 2026 ballot. Local and municipal measures are not yet integrated (pending a certified source).",
+ "_measures_note": "Texas places statewide constitutional amendments on odd-year ballots; all 17 statewide propositions were decided in November 2025. There are no statewide ballot propositions on the November 2026 ballot. Local and municipal measures are not yet integrated (pending a certified source).",
  "_personalization_hints": {
   "match_keys": {
    "state": [

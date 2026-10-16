@@ -1,0 +1,70 @@
+{
+  "_note": "Colorado 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "CO",
+  "state_name": "Colorado",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-26",
+    "voter_registration_online_general": "2026-10-26",
+    "voter_registration_mail_general": "2026-10-26, received",
+    "voter_registration_in_person_general": "2026-10-26",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "Yes",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 7 p.m.",
+    "early_voting_window_general": "2026-10-19 to 2026-11-03"
+  },
+  "key_date_sources": {
+    "general": "https://www.coloradosos.gov/pubs/elections/calendars/2026ElectionCalendar.pdf",
+    "voter_registration_deadline_general": "https://www.coloradosos.gov/pubs/elections/FAQs/VoterRegistrationFAQ.html",
+    "voter_registration_online_general": "https://www.coloradosos.gov/pubs/elections/FAQs/VoterRegistrationFAQ.html",
+    "voter_registration_mail_general": "https://www.coloradosos.gov/pubs/elections/calendars/2026ElectionCalendar.pdf",
+    "voter_registration_in_person_general": "https://www.coloradosos.gov/pubs/elections/FAQs/VoterRegistrationFAQ.html",
+    "same_day_registration_general": "https://www.coloradosos.gov/pubs/elections/FAQs/VoterRegistrationFAQ.html",
+    "all_mail_general": "https://www.coloradosos.gov/pubs/elections/FAQs/mailBallotsFAQ.html",
+    "mail_ballot_return_deadline_general": "https://www.coloradosos.gov/pubs/elections/FAQs/mailBallotsFAQ.html",
+    "early_voting_window_general": "https://www.coloradosos.gov/pubs/elections/calendars/2026ElectionCalendar.pdf"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.coloradosos.gov/voter/pages/pub/home.xhtml",
+    "links": {
+      "registration": "https://www.coloradosos.gov/voter/pages/pub/olvr/verifyNewVoter.xhtml",
+      "check_registration": "https://www.coloradosos.gov/voter/pages/pub/olvr/findVoterReg.xhtml",
+      "mail_ballot": "https://www.coloradosos.gov/pubs/elections/FAQs/mailBallotsFAQ.html",
+      "early_voting": "https://www.coloradosos.gov/pubs/elections/VIP.html",
+      "polling_place": "https://www.coloradosos.gov/pubs/elections/VIP.html",
+      "sample_ballot": "https://myballot.coloradosos.gov",
+      "track_ballot": "https://ballottrax.coloradosos.gov/voter/"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "19:00",
+      "source_url": "https://www.coloradosos.gov/pubs/elections/calendars/2026ElectionCalendar.pdf",
+      "retrieved": "2026-10-15"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day."
+    },
+    "no_reminder": {
+      "vote_by_mail_request_deadline_general": {
+        "reason": "Every active registered voter in Colorado is mailed a ballot, so no request is needed.",
+        "source_url": "https://www.coloradosos.gov/pubs/elections/FAQs/mailBallotsFAQ.html",
+        "retrieved": "2026-10-15"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

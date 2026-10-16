@@ -1,0 +1,82 @@
+{
+  "_note": "New Hampshire 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "NH",
+  "state_name": "New Hampshire",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_online_general": "Not available",
+    "voter_registration_mail_general": "Varies by city or town",
+    "voter_registration_in_person_general": "Varies by city or town",
+    "same_day_registration_general": "On Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-11-02",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 5 p.m.",
+    "early_voting_rule_general": "Not available"
+  },
+  "key_date_sources": {
+    "general": "https://www.sos.nh.gov/elections/2026-2027-political-calendar",
+    "voter_registration_online_general": "https://www.sos.nh.gov/elections/register-vote",
+    "voter_registration_mail_general": "https://www.sos.nh.gov/elections/register-vote/absentee-voter-registration",
+    "voter_registration_in_person_general": "https://www.sos.nh.gov/elections/register-vote/registration-deadlines",
+    "same_day_registration_general": "https://www.sos.nh.gov/elections/register-vote/registration-deadlines",
+    "all_mail_general": "https://www.sos.nh.gov/elections/absentee-ballots",
+    "vote_by_mail_request_deadline_general": "https://www.sos.nh.gov/elections/absentee-ballots",
+    "mail_ballot_return_deadline_general": "https://www.sos.nh.gov/elections/absentee-ballots",
+    "early_voting_rule_general": "https://www.sos.nh.gov/elections/absentee-ballots"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_rule_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.sos.nh.gov/elections",
+    "links": {
+      "registration": "https://www.sos.nh.gov/elections/register-vote",
+      "check_registration": "https://app.sos.nh.gov/",
+      "mail_ballot": "https://www.sos.nh.gov/elections/absentee-ballots",
+      "polling_place": "https://app.sos.nh.gov/",
+      "sample_ballot": "https://www.sos.nh.gov/elections/sample-ballots",
+      "track_ballot": "https://app.sos.nh.gov/"
+    },
+    "poll_hours_vary": {
+      "text": "Vary by city or town",
+      "source_url": "https://gc.nh.gov/rsa/html/LXIII/659/659-4.htm",
+      "retrieved": "2026-10-16"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "12:00"
+    },
+    "no_reminder": {
+      "voter_registration_deadline_general": {
+        "reason": "Registration deadlines in New Hampshire are set by each city or town.",
+        "source_url": "https://www.sos.nh.gov/elections/register-vote/registration-deadlines",
+        "retrieved": "2026-10-15"
+      },
+      "early_voting_window_general": {
+        "reason": "New Hampshire has no early in-person voting period.",
+        "source_url": "https://www.sos.nh.gov/elections/absentee-ballots",
+        "retrieved": "2026-10-15"
+      }
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Mail voting in New Hampshire is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://www.sos.nh.gov/elections/absentee-ballots",
+        "retrieved": "2026-10-16"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

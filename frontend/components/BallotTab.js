@@ -8,7 +8,7 @@ import { fetchElections, fetchBallotForAddress } from '@/lib/api';
 import useVoterInfo from '@/lib/useVoterInfo';
 import { getLean, setLean, subscribe as subscribeLean } from '@/lib/leaningPrefs';
 import { useIsMobile } from '@/lib/useViewport';
-import { fileSuffix } from '@/lib/externalLink';
+import { fileSuffix, hostLabel } from '@/lib/externalLink';
 import { useDisclosure } from '@/lib/disclosureState';
 import { FileLink, LoadError } from './ui';
 import { activateOnKey } from '@/lib/a11y';
@@ -184,10 +184,9 @@ export default function BallotTab({
   if (notSeeded) {
     return (
       <EmptyState>
-        <div style={{ fontWeight: 600, marginBottom: '6px', color: 'var(--cl-text)' }}>
-          Election data not yet available for {stateName || stateCode}
+        <div style={{ fontWeight: 600, color: 'var(--cl-text)' }}>
+          Election information for {stateName || stateCode} isn&apos;t listed yet.
         </div>
-        <div>We&apos;re adding ballots state by state. Florida has the most complete coverage so far.</div>
       </EmptyState>
     );
   }
@@ -284,6 +283,7 @@ export default function BallotTab({
             compareIds={compareIds}
             mode={mode}
             stateCode={stateCode}
+            stateName={stateName}
             onNotify={onNotify}
             forceOpenRaceId={targetLocation && targetLocation.electionId === el.id ? targetLocation.raceId : null}
             focusCandidateId={focusCandidateId}
@@ -355,10 +355,8 @@ function buildElections(view, mode, stateCode) {
       date: primaryDate,
       races: primaryRaces,
       measures: primaryMeasures,
-      keyDates: [
-        view.key_dates?.voter_registration_deadline_primary && { label: 'Voter registration', value: view.key_dates.voter_registration_deadline_primary },
-        view.key_dates?.early_voting_window_primary && { label: 'Early voting', value: view.key_dates.early_voting_window_primary, isRange: true },
-      ].filter(Boolean),
+      keyDates: buildKeyDates(view, 'primary'),
+      sources: buildSources(view, 'primary'),
     });
   }
   if (generalDate || generalRaces.length > 0 || generalMeasures.length > 0) {
@@ -370,12 +368,9 @@ function buildElections(view, mode, stateCode) {
       races: generalRaces,
       measures: generalMeasures,
       measuresNote: view._measures_note || null,
-      keyDates: [
-        view.key_dates?.voter_registration_deadline_general && { label: 'Voter registration', value: view.key_dates.voter_registration_deadline_general },
-        view.key_dates?.vote_by_mail_request_deadline_general && { label: 'Mail ballot request', value: view.key_dates.vote_by_mail_request_deadline_general },
-        view.key_dates?.early_voting_window_general && { label: 'Early voting', value: view.key_dates.early_voting_window_general, isRange: true },
-        view.key_dates?.early_voting_optional_general && { label: 'Optional early voting', value: view.key_dates.early_voting_optional_general, isRange: true, small: true },
-      ].filter(Boolean),
+      keyDates: buildKeyDates(view, 'general'),
+      sources: buildSources(view, 'general'),
+      links: buildOfficialLinks(view),
     });
   }
 
@@ -383,15 +378,123 @@ function buildElections(view, mode, stateCode) {
   // (or undated) election — so a past primary stays visible next to an
   // upcoming general (e.g. TX: the March primary already ran, Nov general is
   // ahead). Once every phase is in the past, drop the cycle entirely.
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const isUpcoming = (el) => {
-    if (!el.date) return true;
-    const d = new Date(el.date);
-    if (isNaN(d.getTime())) return true;
-    return d >= today;
-  };
+  // isPastIso reads the date as a local calendar day; new Date(el.date)
+  // read it as midnight UTC, which counted Election Day itself as past
+  // in every U.S. time zone.
+  const isUpcoming = (el) => !isPastIso(el.date);
   return out.some(isUpcoming) ? out : [];
+}
+
+// ─── Key dates, sources and official links ───────────────────────────
+// The same rows, in the same order and wording, for every state
+// (2026-10-16). A row shows only when the state's data has that key, so
+// nothing is ever filled in by the app. Keys and their values are
+// documented in docs/election-reminders.md.
+const KEY_DATE_ROWS = {
+  primary: [
+    { key: 'voter_registration_deadline_primary', label: 'Voter registration' },
+    { key: 'early_voting_window_primary', label: 'Early voting' },
+  ],
+  general: [
+    // The reminder date. Shown only when the by-method rows are absent,
+    // since it repeats one of them.
+    { key: 'voter_registration_deadline_general', label: 'Voter registration', unlessAny: [
+      'voter_registration_online_general', 'voter_registration_mail_general', 'voter_registration_in_person_general',
+    ] },
+    { key: 'voter_registration_online_general', label: 'Register online' },
+    { key: 'voter_registration_mail_general', label: 'Register by mail' },
+    { key: 'voter_registration_in_person_general', label: 'Register in person' },
+    { key: 'same_day_registration_general', label: 'Same-day registration' },
+    { key: 'all_mail_general', label: 'Every voter mailed a ballot' },
+    { key: 'vote_by_mail_request_deadline_general', label: 'Mail ballot request' },
+    { key: 'mail_ballot_return_deadline_general', label: 'Mail ballot return' },
+    { key: 'early_voting_window_general', label: 'Early voting' },
+    { key: 'early_voting_rule_general', label: 'Early voting' },
+    { key: 'early_voting_optional_general', label: 'Optional early voting', small: true },
+  ],
+};
+
+function buildKeyDates(view, phase) {
+  const kd = view.key_dates || {};
+  const rows = KEY_DATE_ROWS[phase]
+    .filter((r) => kd[r.key] && !(r.unlessAny || []).some((k) => kd[k]))
+    .map((r) => ({ key: r.key, label: r.label, value: kd[r.key], small: r.small }));
+  if (phase === 'general') {
+    const hours = pollHoursText(view.voter_info);
+    if (hours) rows.push({ key: 'poll_hours', label: 'Poll hours', value: hours });
+  }
+  return rows;
+}
+
+// "07:00" -> "7 a.m.", "19:30" -> "7:30 p.m." (the reminders' wording).
+function clock(hhmm) {
+  const m = /^(\d{2}):(\d{2})$/.exec(hhmm || '');
+  if (!m) return '';
+  const h = Number(m[1]);
+  const suffix = h < 12 ? 'a.m.' : 'p.m.';
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return m[2] === '00' ? `${h12} ${suffix}` : `${h12}:${m[2]} ${suffix}`;
+}
+
+function pollHoursText(info) {
+  if (info?.poll_hours?.open && info?.poll_hours?.close) {
+    return `${clock(info.poll_hours.open)} to ${clock(info.poll_hours.close)} local time`;
+  }
+  return info?.poll_hours_vary?.text || '';
+}
+
+// One entry per official page, naming the dates it backs. Tidier than a
+// link beside every date (Jeffrey, 2026-10-16: one small "Sources"
+// dropdown per election).
+function buildSources(view, phase) {
+  const sources = view.key_date_sources || {};
+  const labels = [
+    { key: phase, label: 'Election date' },
+    ...KEY_DATE_ROWS[phase],
+  ];
+  const byUrl = new Map();
+  const add = (url, label, retrieved) => {
+    if (!url) return;
+    const entry = byUrl.get(url) || { url, labels: [], retrieved: null };
+    if (!entry.labels.includes(label)) entry.labels.push(label);
+    if (retrieved && (!entry.retrieved || retrieved > entry.retrieved)) entry.retrieved = retrieved;
+    byUrl.set(url, entry);
+  };
+  for (const { key, label } of labels) {
+    if (!view.key_dates?.[key] || !sources[key]) continue;
+    add(sources[key].url, label, sources[key].retrieved);
+    for (const more of sources[key].more || []) add(more.url, label, more.retrieved);
+  }
+  if (phase === 'general') {
+    const info = view.voter_info || {};
+    const hours = info.poll_hours || info.poll_hours_vary;
+    if (hours?.source_url) add(hours.source_url, 'Poll hours', hours.retrieved);
+  }
+  return [...byUrl.values()];
+}
+
+const OFFICIAL_LINK_ROWS = [
+  { key: 'check_registration', label: 'Check your registration' },
+  { key: 'polling_place', label: 'Find your polling place' },
+  { key: 'sample_ballot', label: 'Sample ballot' },
+  { key: 'track_ballot', label: 'Track your ballot' },
+];
+
+function buildOfficialLinks(view) {
+  const links = view.voter_info?.links || {};
+  return OFFICIAL_LINK_ROWS.filter((r) => links[r.key]).map((r) => ({ ...r, url: links[r.key] }));
+}
+
+// A key date's value as shown: bare dates get "(passed)" once past, and
+// any date inside a longer value ("2026-10-24 to 2026-10-31",
+// "Received by 2026-11-03, 7 p.m.") is written out.
+function formatKeyDateValue(value) {
+  const v = String(value || '');
+  const dates = v.match(/\d{4}-\d{2}-\d{2}/g) || [];
+  // "(passed)" once the row's last date is behind us: a deadline, a
+  // postmarked-by date, or an early voting window that has ended.
+  const passed = dates.length > 0 && isPastIso(dates[dates.length - 1]) ? ' (passed)' : '';
+  return `${v.replace(/(\d{4})-(\d{2})-(\d{2})/g, (m) => formatDate(m))}${passed}`;
 }
 
 // Index of the first election whose date has not passed. A completed
@@ -413,7 +516,7 @@ function firstUpcomingIdx(elections) {
 // ─── Election card ───────────────────────────────────────────────────
 function ElectionCard({
   election, defaultOpen, tourAnchor = false, onCandidateSelect, onCompareToggle, compareIds,
-  mode, stateCode, onNotify,
+  mode, stateCode, stateName, onNotify,
   forceOpenRaceId, focusCandidateId, highlightCandidateId,
   onFocusCandidateConsumed, onHighlightConsumed,
 }) {
@@ -430,15 +533,11 @@ function ElectionCard({
   }, [forceOpenRaceId, setOpen]);
   const raceCount = election.races.length;
   const measureCount = election.measures.length;
+  const sampleBallotUrl = (election.links || []).find((l) => l.key === 'sample_ballot')?.url || null;
   const isPrimary = election.phase === 'primary';
-  const isPast = (() => {
-    if (!election.date) return false;
-    const d = new Date(election.date);
-    if (isNaN(d.getTime())) return false;
-    const t = new Date();
-    t.setHours(0, 0, 0, 0);
-    return d < t;
-  })();
+  // A local calendar day (see isPastIso), so Election Day is not
+  // labeled Completed while the polls are open.
+  const isPast = isPastIso(election.date);
 
   // Snapshot shape expected by trackedElections.trackElection()
   const trackSnapshot = {
@@ -507,8 +606,14 @@ function ElectionCard({
               {election.title}
             </div>
             <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: '4px' }}>
-              {raceCount} race{raceCount === 1 ? '' : 's'}
-              {measureCount > 0 && ` · ${measureCount} measure${measureCount === 1 ? '' : 's'}`}
+              {raceCount === 0 && measureCount === 0 && !isPast ? (
+                'Key dates and official links'
+              ) : (
+                <>
+                  {raceCount} race{raceCount === 1 ? '' : 's'}
+                  {measureCount > 0 && ` · ${measureCount} measure${measureCount === 1 ? '' : 's'}`}
+                </>
+              )}
             </div>
           </div>
           <span aria-hidden style={{
@@ -578,18 +683,47 @@ function ElectionCard({
               <div style={{ fontSize: '0.7rem', color: '#7a5a00', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '4px' }}>
                 Key dates
               </div>
-              {election.keyDates.map((kd, i) => (
+              {election.keyDates.map((kd) => (
                 <DateLine
-                  key={i}
+                  key={kd.key}
                   label={kd.label}
                   small={kd.small}
-                  value={
-                    kd.isRange
-                      ? kd.value.replace(/(\d{4})-(\d{2})-(\d{2})/g, (m) => formatDate(m))
-                      : `${formatDate(kd.value)}${isPastIso(kd.value) ? ' (passed)' : ''}`
-                  }
+                  value={formatKeyDateValue(kd.value)}
                 />
               ))}
+              {election.sources && election.sources.length > 0 && (
+                <SourcesList electionId={election.id} sources={election.sources} />
+              )}
+            </div>
+          )}
+
+          {/* Official links: the same four, in the same order, for every
+              state that has them (2026-10-16). Every one is on the
+              state's own election site. */}
+          {!isPast && election.links && election.links.length > 0 && (
+            <OfficialLinks links={election.links} />
+          )}
+
+          {/* A state with dates but no races yet: one line, the same for
+              every state, instead of an empty Races dropdown. */}
+          {raceCount === 0 && !isPast && (
+            <div data-tutorial="sample-ballot-line" style={{
+              padding: '10px 12px', marginBottom: '12px', background: 'var(--cl-bg)',
+              border: '1px solid var(--cl-border)', borderRadius: '10px',
+              fontSize: '0.8rem', lineHeight: 1.5, color: 'var(--cl-text)',
+            }}>
+              Races and candidates for {stateName || stateCode} aren&apos;t listed yet.{' '}
+              {sampleBallotUrl ? (
+                <>
+                  Your{' '}
+                  <FileLink href={sampleBallotUrl} style={{ color: 'var(--cl-accent)', fontWeight: 600 }}>
+                    official sample ballot{fileSuffix(sampleBallotUrl)}
+                  </FileLink>
+                  {' '}shows every race on your ballot.
+                </>
+              ) : (
+                'Your official sample ballot shows every race on your ballot.'
+              )}
             </div>
           )}
 
@@ -626,13 +760,13 @@ function ElectionCard({
                 ))}
               </Collapsible>
             ))
-          ) : (
+          ) : isPast ? (
             <Collapsible title="Races" count={0}>
               <div style={{ padding: '8px 4px', fontSize: '0.82rem', color: 'var(--cl-text-light)', fontStyle: 'italic' }}>
                 No races on this ballot yet.
               </div>
             </Collapsible>
-          )}
+          ) : null}
 
           {/* Measures dropdown. Show the measures when present; otherwise, if
               the payload carries an explanatory note (e.g. TX has no statewide
@@ -1739,6 +1873,8 @@ function DateLine({ label, value, small }) {
           fontSize: small ? 'var(--cl-text-xs)' : 'var(--cl-text-sm)',
           color: 'var(--cl-warning-text)',
           fontWeight: small ? 500 : 700,
+          whiteSpace: 'nowrap',
+          flexShrink: 0,
         }}
       >
         {label}
@@ -1749,10 +1885,105 @@ function DateLine({ label, value, small }) {
           fontSize: small ? 'var(--cl-text-xs)' : 'var(--cl-text-sm)',
           color: 'var(--cl-warning-text)',
           fontWeight: 700,
+          // Values can be a phrase ("During early voting and on Election
+          // Day"), so they wrap on the right instead of pushing the label.
+          textAlign: 'right',
         }}
       >
         {value}
       </span>
+    </div>
+  );
+}
+
+// One small "Sources" dropdown per election: each official page once,
+// with the dates it backs and the day it was read. Closed by default and
+// remembered per election, like the other dropdowns here.
+function SourcesList({ electionId, sources }) {
+  const [open, setOpen] = useDisclosure(`sources:${electionId}`, false);
+  return (
+    <div style={{ marginTop: 8, borderTop: '1px solid #f4d35e', paddingTop: 6 }}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        style={{
+          display: 'flex', alignItems: 'center', gap: 6, padding: 0,
+          background: 'none', border: 'none', cursor: 'pointer',
+          fontSize: 'var(--cl-text-xs)', fontWeight: 700, color: 'var(--cl-warning-text)',
+          fontFamily: 'var(--cl-font-sans)',
+        }}
+      >
+        <span aria-hidden style={{ fontSize: '0.6rem', transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s' }}>
+          ▶
+        </span>
+        Sources ({sources.length})
+      </button>
+      {open && (
+        <ul style={{ listStyle: 'none', margin: '6px 0 0', padding: 0 }}>
+          {sources.map((s) => (
+            <li key={s.url} style={{ fontSize: 'var(--cl-text-xs)', lineHeight: 1.45, marginBottom: 6, color: 'var(--cl-warning-text)' }}>
+              <FileLink href={s.url} style={{ color: 'var(--cl-accent)', fontWeight: 600, wordBreak: 'break-word' }}>
+                {sourceLabel(s.url)}{fileSuffix(s.url)}
+              </FileLink>
+              <div>
+                {s.labels.join(', ')}.
+                {s.retrieved && ` Checked ${formatDate(s.retrieved)}.`}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+// Host and page, so two pages on one site read differently in the list:
+// "sos.ok.gov/elections/register" rather than "sos.ok.gov" twice. Long
+// paths keep their first and last parts.
+function sourceLabel(url) {
+  try {
+    const u = new URL(url);
+    const parts = u.pathname.split('/').filter(Boolean).map((p) => decodeURIComponent(p));
+    const host = hostLabel(url);
+    if (!parts.length) return host;
+    const full = `${host}/${parts.join('/')}`;
+    if (full.length <= 60) return full;
+    return parts.length > 1 ? `${host}/${parts[0]}/.../${parts[parts.length - 1]}` : full.slice(0, 60);
+  } catch {
+    return url;
+  }
+}
+
+// The official links row: plain links to the state's own election site.
+function OfficialLinks({ links }) {
+  return (
+    <div style={{
+      padding: '10px 12px', marginBottom: '12px', background: 'white',
+      border: '1px solid var(--cl-border)', borderRadius: '10px',
+    }}>
+      <div style={{
+        fontSize: '0.7rem', color: 'var(--cl-text-light)', fontWeight: 700,
+        textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '6px',
+      }}>
+        Official links
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+        {links.map((l) => (
+          <FileLink
+            key={l.key}
+            href={l.url}
+            style={{
+              display: 'inline-block', padding: '5px 10px', borderRadius: '14px',
+              background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
+              fontSize: '0.76rem', fontWeight: 600, color: 'var(--cl-accent)',
+              textDecoration: 'none',
+            }}
+          >
+            {l.label}{fileSuffix(l.url)}
+          </FileLink>
+        ))}
+      </div>
     </div>
   );
 }
@@ -1821,6 +2052,15 @@ function EmptyState({ children }) {
 function formatDate(iso) {
   if (!iso) return '';
   try {
+    // A bare YYYY-MM-DD is a calendar date, not midnight UTC. Parsed as
+    // UTC and shown in local time it read one day early everywhere in
+    // the U.S. ("Nov 2" for a November 3 election), so it is shown in
+    // UTC, where it means exactly the day written.
+    if (/^\d{4}-\d{2}-\d{2}$/.test(String(iso))) {
+      const d = new Date(`${iso}T00:00:00Z`);
+      if (isNaN(d.getTime())) return iso;
+      return d.toLocaleDateString(undefined, { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' });
+    }
     const d = new Date(iso);
     if (isNaN(d.getTime())) return iso;
     return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });

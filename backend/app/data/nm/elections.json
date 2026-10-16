@@ -1,0 +1,77 @@
+{
+  "_note": "New Mexico 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "NM",
+  "state_name": "New Mexico",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-06",
+    "voter_registration_online_general": "2026-10-06",
+    "voter_registration_mail_general": "2026-10-06, postmarked",
+    "voter_registration_in_person_general": "2026-10-06",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-20",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 7 p.m.",
+    "early_voting_window_general": "2026-10-06 to 2026-10-31",
+    "early_voting_optional_general": "More early voting sites open from 2026-10-17"
+  },
+  "key_date_sources": {
+    "general": "https://www.sos.nm.gov/voting-and-elections/",
+    "voter_registration_deadline_general": "https://www.sos.nm.gov/wp-content/uploads/2026/02/IT-0106-19C8BDB9C6B-0D43C033C1201771C1-2026-Primary-Candidate-Guide_Final-_.pdf",
+    "voter_registration_online_general": "https://www.sos.nm.gov/wp-content/uploads/2026/02/IT-0106-19C8BDB9C6B-0D43C033C1201771C1-2026-Primary-Candidate-Guide_Final-_.pdf",
+    "voter_registration_mail_general": "https://www.sos.nm.gov/wp-content/uploads/2026/02/IT-0106-19C8BDB9C6B-0D43C033C1201771C1-2026-Primary-Candidate-Guide_Final-_.pdf",
+    "voter_registration_in_person_general": "https://www.sos.nm.gov/voting-and-elections/voting-faqs/voter-registration/",
+    "same_day_registration_general": "https://www.sos.nm.gov/voting-and-elections/voting-faqs/same-day-voter-registration-faq/",
+    "all_mail_general": "https://www.sos.nm.gov/wp-content/uploads/2026/10/IT-1154-1A136B72A63-23022F0271C82C7018-13102026PR_Sec.-Toulouse-Oliver-and-AG-Torrez-Issue-Voter-Information-Advisory-for-the-2026-General-Election.pdf",
+    "vote_by_mail_request_deadline_general": "https://www.sos.nm.gov/wp-content/uploads/2026/10/IT-1154-1A136B72A63-23022F0271C82C7018-13102026PR_Sec.-Toulouse-Oliver-and-AG-Torrez-Issue-Voter-Information-Advisory-for-the-2026-General-Election.pdf",
+    "mail_ballot_return_deadline_general": "https://www.sos.nm.gov/wp-content/uploads/2026/10/IT-1154-1A136B72A63-23022F0271C82C7018-13102026PR_Sec.-Toulouse-Oliver-and-AG-Torrez-Issue-Voter-Information-Advisory-for-the-2026-General-Election.pdf",
+    "early_voting_window_general": "https://www.sos.nm.gov/wp-content/uploads/2026/02/IT-0106-19C8BDB9C6B-0D43C033C1201771C1-2026-Primary-Candidate-Guide_Final-_.pdf",
+    "early_voting_optional_general": "https://www.sos.nm.gov/wp-content/uploads/2026/02/IT-0106-19C8BDB9C6B-0D43C033C1201771C1-2026-Primary-Candidate-Guide_Final-_.pdf"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-16",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15",
+    "early_voting_optional_general": "2026-10-15"
+  },
+  "key_date_more_sources": {
+    "voter_registration_mail_general": [
+      {
+        "url": "https://www.sos.nm.gov/voting-and-elections/voting-faqs/voter-registration/",
+        "retrieved": "2026-10-16"
+      }
+    ]
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.nmvote.gov/",
+    "links": {
+      "registration": "https://portal1.sos.nm.gov/OVR/WebPages/InstructionsStep1.aspx",
+      "check_registration": "https://voterportal.servis.sos.state.nm.us/WhereToVote.aspx",
+      "mail_ballot": "https://www.sos.nm.gov/voting-and-elections/voter-information-portal-nmvote-org/absentee-and-early-voting/",
+      "early_voting": "https://voterportal.servis.sos.state.nm.us/WhereToVoteAddress.aspx",
+      "polling_place": "https://voterportal.servis.sos.state.nm.us/WhereToVoteAddress.aspx",
+      "sample_ballot": "https://voterportal.servis.sos.state.nm.us/WhereToVote.aspx",
+      "track_ballot": "https://sos.nm.gov/trackmyballot"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "19:00",
+      "source_url": "https://www.sos.nm.gov/wp-content/uploads/2026/10/IT-1154-1A136B72A63-23022F0271C82C7018-13102026PR_Sec.-Toulouse-Oliver-and-AG-Torrez-Issue-Voter-Information-Advisory-for-the-2026-General-Election.pdf",
+      "retrieved": "2026-10-15"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

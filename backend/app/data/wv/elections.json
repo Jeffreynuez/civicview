@@ -1,0 +1,75 @@
+{
+  "_note": "West Virginia 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "WV",
+  "state_name": "West Virginia",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-13",
+    "voter_registration_online_general": "2026-10-13",
+    "voter_registration_mail_general": "2026-10-13, postmarked",
+    "voter_registration_in_person_general": "2026-10-13",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-28",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-09",
+    "early_voting_window_general": "2026-10-21 to 2026-10-31"
+  },
+  "key_date_sources": {
+    "general": "https://ovr.sos.wv.gov/Register/Landing",
+    "voter_registration_deadline_general": "https://sos.wv.gov/media/467/download?inline",
+    "voter_registration_online_general": "https://sos.wv.gov/media/467/download?inline",
+    "voter_registration_mail_general": "https://sos.wv.gov/media/467/download?inline",
+    "voter_registration_in_person_general": "https://sos.wv.gov/media/467/download?inline",
+    "same_day_registration_general": "https://sos.wv.gov/elections/voter-information/elections-frequently-asked-questions-faqs",
+    "all_mail_general": "https://sos.wv.gov/absentee-voting-information",
+    "vote_by_mail_request_deadline_general": "https://sos.wv.gov/media/467/download?inline",
+    "mail_ballot_return_deadline_general": "https://sos.wv.gov/media/467/download?inline",
+    "early_voting_window_general": "https://sos.wv.gov/media/467/download?inline"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://sos.wv.gov/govotewv",
+    "links": {
+      "registration": "https://ovr.sos.wv.gov/Register/Landing",
+      "check_registration": "https://apps.sos.wv.gov/Elections/Voter/AmIRegisteredToVote",
+      "mail_ballot": "https://sos.wv.gov/absentee-voting-information",
+      "early_voting": "https://sos.wv.gov/early-voting-locations",
+      "polling_place": "https://apps.sos.wv.gov/Elections/Voter/FindMyPollingPlace",
+      "sample_ballot": "https://apps.sos.wv.gov/elections/SampleBallots",
+      "track_ballot": "https://apps.sos.wv.gov/Elections/Voter/AbsenteeBallotTracking"
+    },
+    "poll_hours": {
+      "open": "06:30",
+      "close": "19:30",
+      "source_url": "https://sos.wv.gov/media/467/download?inline",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "voter_registration_deadline_general": "23:59"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. Mail voting in West Virginia is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://sos.wv.gov/absentee-voting-information",
+        "retrieved": "2026-10-16"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

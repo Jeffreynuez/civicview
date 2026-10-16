@@ -1,0 +1,75 @@
+{
+  "_note": "Delaware 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "DE",
+  "state_name": "Delaware",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-10",
+    "voter_registration_online_general": "2026-10-10",
+    "voter_registration_mail_general": "2026-10-10, postmarked",
+    "voter_registration_in_person_general": "2026-10-10",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-30",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 8 p.m.",
+    "early_voting_window_general": "2026-10-22 to 2026-11-01"
+  },
+  "key_date_sources": {
+    "general": "https://elections.delaware.gov/elections/general/general.html",
+    "voter_registration_deadline_general": "https://elections.delaware.gov/voter/votereg.html",
+    "voter_registration_online_general": "https://elections.delaware.gov/voter/votereg.html",
+    "voter_registration_mail_general": "https://elections.delaware.gov/voter/votereg.html",
+    "voter_registration_in_person_general": "https://elections.delaware.gov/voter/votereg.html",
+    "same_day_registration_general": "https://elections.delaware.gov/elections/general/general.html",
+    "all_mail_general": "https://elections.delaware.gov/voter/waystovote.html",
+    "vote_by_mail_request_deadline_general": "https://elections.delaware.gov/elections/general/general.html",
+    "mail_ballot_return_deadline_general": "https://elections.delaware.gov/voter/waystovote.html",
+    "early_voting_window_general": "https://elections.delaware.gov/public/calendar/pdfs/2026ElectionCalendar.pdf"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://elections.delaware.gov/",
+    "links": {
+      "registration": "https://ivote.de.gov/",
+      "check_registration": "https://ivote.de.gov/",
+      "mail_ballot": "https://elections.delaware.gov/voter/absentee/",
+      "early_voting": "https://elections.delaware.gov/elections/votinglocations.html",
+      "polling_place": "https://ivote.de.gov/",
+      "sample_ballot": "https://elections.delaware.gov/elections/general/sampleballots/GE2026/",
+      "track_ballot": "https://elections.delaware.gov/elections/general/general.html"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "20:00",
+      "source_url": "https://elections.delaware.gov/elections/general/general.html",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "voter_registration_deadline_general": "23:59"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Mail voting in Delaware is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://elections.delaware.gov/voter/absentee/AbsenteeVotingFAQ.html",
+        "retrieved": "2026-10-16"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

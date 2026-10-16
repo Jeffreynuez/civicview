@@ -1,0 +1,70 @@
+{
+  "_note": "District of Columbia 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "DC",
+  "state_name": "District of Columbia",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-13",
+    "voter_registration_online_general": "2026-10-13",
+    "voter_registration_mail_general": "2026-10-13, received",
+    "voter_registration_in_person_general": "2026-10-25",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "Yes",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-13",
+    "early_voting_window_general": "2026-10-26 to 2026-11-01"
+  },
+  "key_date_sources": {
+    "general": "https://www.dcboe.org/",
+    "voter_registration_deadline_general": "https://vr.dcboe.org/213324797239968?agency_code=12",
+    "voter_registration_online_general": "https://vr.dcboe.org/213324797239968?agency_code=12",
+    "voter_registration_mail_general": "https://vr.dcboe.org/213324797239968?agency_code=12",
+    "voter_registration_in_person_general": "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration",
+    "same_day_registration_general": "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration",
+    "all_mail_general": "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request",
+    "mail_ballot_return_deadline_general": "https://www.dcboe.org/getContentAsset/4d04f4a1-fb2a-4f8a-809f-d3f708f232df/5ebbd046-860b-4ee1-81c8-43d0e3bc446e/2026-General-Election-Calendar-Version-09292026.pdf?language=en",
+    "early_voting_window_general": "https://earlyvoting.dcboe.org/"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.dcboe.org/",
+    "links": {
+      "registration": "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration",
+      "check_registration": "https://apps.dcboe.org/VRS",
+      "mail_ballot": "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request",
+      "early_voting": "https://earlyvoting.dcboe.org/",
+      "polling_place": "https://www.dcboe.org/voters/find-out-where-to-vote/vote-center-locator-tool",
+      "sample_ballot": "https://www.dcboe.org/elections/2026-elections",
+      "track_ballot": "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "20:00",
+      "source_url": "https://www.dcboe.org/voters/find-out-where-to-vote/election-day-vote-centers",
+      "retrieved": "2026-10-15"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person through October 25. You can also register in person during early voting and on Election Day."
+    },
+    "no_reminder": {
+      "vote_by_mail_request_deadline_general": {
+        "reason": "Every active registered voter in District of Columbia is mailed a ballot, so no request is needed.",
+        "source_url": "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request",
+        "retrieved": "2026-10-15"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

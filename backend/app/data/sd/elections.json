@@ -1,0 +1,66 @@
+{
+  "_note": "South Dakota 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "SD",
+  "state_name": "South Dakota",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-19",
+    "voter_registration_online_general": "Not available",
+    "voter_registration_mail_general": "2026-10-19, received",
+    "voter_registration_in_person_general": "2026-10-19",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-11-02",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, when polls close",
+    "early_voting_window_general": "2026-09-18 to 2026-11-02"
+  },
+  "key_date_sources": {
+    "general": "https://sdsos.gov/elections-voting/upcoming-elections/general-information/2026%20Election%20Information/2026-Election-Information.aspx",
+    "voter_registration_deadline_general": "https://sdsos.gov/elections-voting/voting/register-to-vote/default.aspx",
+    "voter_registration_online_general": "https://sdsos.gov/elections-voting/voting/register-to-vote/default.aspx",
+    "voter_registration_mail_general": "https://sdsos.gov/elections-voting/voting/register-to-vote/default.aspx",
+    "voter_registration_in_person_general": "https://sdsos.gov/elections-voting/upcoming-elections/general-information/2026%20Election%20Information/2026%20Election%20Assets/Election%20Information/updated2026electioncalendar.pdf",
+    "same_day_registration_general": "https://sdsos.gov/elections-voting/upcoming-elections/Myths-vs-Facts-and-FAQS/faqs.aspx",
+    "all_mail_general": "https://sdsos.gov/elections-voting/upcoming-elections/Myths-vs-Facts-and-FAQS/faqs.aspx",
+    "vote_by_mail_request_deadline_general": "https://sdsos.gov/elections-voting/upcoming-elections/general-information/2026%20Election%20Information/2026%20Election%20Assets/Election%20Information/updated2026electioncalendar.pdf",
+    "mail_ballot_return_deadline_general": "https://sdsos.gov/elections-voting/upcoming-elections/Myths-vs-Facts-and-FAQS/faqs.aspx",
+    "early_voting_window_general": "https://sdsos.gov/elections-voting/upcoming-elections/general-information/2026%20Election%20Information/2026%20Election%20Assets/Election%20Information/updated2026electioncalendar.pdf"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://sdsos.gov/elections-voting/default.aspx",
+    "links": {
+      "registration": "https://sdsos.gov/elections-voting/voting/register-to-vote/default.aspx",
+      "check_registration": "https://vip.sdsos.gov/VIPLogin.aspx",
+      "mail_ballot": "https://sdsos.gov/elections-voting/voting/absentee-voting.aspx",
+      "early_voting": "https://sdsos.gov/elections-voting/voting/absentee-voting.aspx",
+      "polling_place": "https://vip.sdsos.gov/VIPLogin.aspx",
+      "sample_ballot": "https://vip.sdsos.gov/VIPLogin.aspx",
+      "track_ballot": "https://vip.sdsos.gov/VIPLogin.aspx"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "19:00",
+      "source_url": "https://sdsos.gov/elections-voting/upcoming-elections/general-information/2026%20Election%20Information/2026%20Election%20Assets/Election%20Information/updated2026electioncalendar.pdf",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "17:00"
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

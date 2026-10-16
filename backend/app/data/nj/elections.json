@@ -1,0 +1,65 @@
+{
+  "_note": "New Jersey 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "NJ",
+  "state_name": "New Jersey",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-13",
+    "voter_registration_online_general": "2026-10-13",
+    "voter_registration_mail_general": "2026-10-13, postmarked",
+    "voter_registration_in_person_general": "2026-10-13",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-27",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-09",
+    "early_voting_window_general": "2026-10-24 to 2026-11-01"
+  },
+  "key_date_sources": {
+    "general": "https://www.nj.gov/state/elections/assets/pdf/chrons/2026-chron-general-election-0109.pdf",
+    "voter_registration_deadline_general": "https://www.nj.gov/state/elections/voter-registration.shtml",
+    "voter_registration_online_general": "https://www.nj.gov/state/elections/voter-registration.shtml",
+    "voter_registration_mail_general": "https://www.nj.gov/state/dos-statutes-elections-19-31-39.shtml",
+    "voter_registration_in_person_general": "https://www.nj.gov/state/elections/assets/pdf/chrons/2026-chron-general-election-0109.pdf",
+    "same_day_registration_general": "https://www.nj.gov/state/elections/voter-registration.shtml",
+    "all_mail_general": "https://www.nj.gov/state/elections/vote-by-mail.shtml",
+    "vote_by_mail_request_deadline_general": "https://www.nj.gov/state/elections/assets/pdf/chrons/2026-chron-general-election-0109.pdf",
+    "mail_ballot_return_deadline_general": "https://www.nj.gov/state/elections/assets/pdf/chrons/2026-chron-general-election-0109.pdf",
+    "early_voting_window_general": "https://www.nj.gov/state/elections/assets/pdf/chrons/2026-chron-general-election-0109.pdf"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.nj.gov/state/elections/vote.shtml",
+    "links": {
+      "registration": "https://voter.svrs.nj.gov/register",
+      "check_registration": "https://voter.svrs.nj.gov/registration-check",
+      "mail_ballot": "https://voter.svrs.nj.gov/mib-request",
+      "early_voting": "https://www.nj.gov/state/elections/vote-early-voting.shtml",
+      "polling_place": "https://voter.svrs.nj.gov/polling-place-search",
+      "track_ballot": "https://www.nj.gov/state/elections/vote-track-my-ballot.shtml"
+    },
+    "poll_hours": {
+      "open": "06:00",
+      "close": "20:00",
+      "source_url": "https://www.nj.gov/state/elections/vote-3-ways-to-vote.shtml",
+      "retrieved": "2026-10-15"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "After that, you can still apply in person at your local election office through November 2."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

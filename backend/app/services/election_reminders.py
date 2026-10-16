@@ -272,6 +272,9 @@ class Reminder:
     link_label: str
     source_url: str
     hours_source_url: Optional[str] = None
+    # The page behind that date's reminder_notes sentence when it is a
+    # rule of its own (who may vote by mail), from reminder_note_sources.
+    note_source_url: Optional[str] = None
 
     def payload(self) -> dict:
         return {
@@ -360,6 +363,7 @@ def build_schedule(today: Optional[date] = None, docs: Optional[dict] = None) ->
         info = doc.get("voter_info") or {}
         links = info.get("links") or {}
         notes = info.get("reminder_notes") or {}
+        note_sources = info.get("reminder_note_sources") or {}
         no_reminder = info.get("no_reminder") or {}
         deadline_times = info.get("deadline_times") or {}
         state_name = doc.get("state_name") or state
@@ -450,6 +454,7 @@ def build_schedule(today: Optional[date] = None, docs: Optional[dict] = None) ->
                     deadline_local=deadline_local, title=title, body=body,
                     link_url=link, link_label=spec.link_label, source_url=source,
                     hours_source_url=hours.get("source_url") if (hours_ok and spec.kind == "election_day_1d") else None,
+                    note_source_url=((note_sources.get(date_key) or {}).get("source_url") if note else None),
                 ))
     out.reminders.sort(key=lambda r: (r.send_on, r.state, r.kind))
     return out

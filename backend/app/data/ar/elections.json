@@ -1,0 +1,80 @@
+{
+  "_note": "Arkansas 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "AR",
+  "state_name": "Arkansas",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-05",
+    "voter_registration_online_general": "Not available",
+    "voter_registration_mail_general": "2026-10-05, postmarked",
+    "voter_registration_in_person_general": "2026-10-05",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-27",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 7:30 p.m.",
+    "early_voting_window_general": "2026-10-19 to 2026-11-02"
+  },
+  "key_date_sources": {
+    "general": "https://www.sos.arkansas.gov/elections/for-voters",
+    "voter_registration_deadline_general": "https://www.sos.arkansas.gov/uploads/elections/2026_Election_Calendar_Rev._7-2026_.pdf",
+    "voter_registration_online_general": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
+    "voter_registration_mail_general": "https://www.sos.arkansas.gov/uploads/elections/2026_Election_Calendar_Rev._7-2026_.pdf",
+    "voter_registration_in_person_general": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
+    "same_day_registration_general": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
+    "all_mail_general": "https://www.sos.arkansas.gov/elections/voter-information/absentee-voting",
+    "vote_by_mail_request_deadline_general": "https://www.sos.arkansas.gov/uploads/elections/2026_Election_Calendar_Rev._7-2026_.pdf",
+    "mail_ballot_return_deadline_general": "https://www.sos.arkansas.gov/elections/voter-information/absentee-voting",
+    "early_voting_window_general": "https://www.sos.arkansas.gov/uploads/elections/2026_Election_Calendar_Rev._7-2026_.pdf"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-16",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "key_date_more_sources": {
+    "voter_registration_mail_general": [
+      {
+        "url": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
+        "retrieved": "2026-10-16"
+      }
+    ]
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.sos.arkansas.gov/elections/for-voters",
+    "links": {
+      "registration": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information",
+      "check_registration": "https://www.sos.arkansas.gov/elections/voter-view/",
+      "mail_ballot": "https://www.sos.arkansas.gov/elections/voter-information/absentee-voting",
+      "early_voting": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information/voting-in-arkansas",
+      "polling_place": "https://www.sos.arkansas.gov/elections/voter-view/",
+      "sample_ballot": "https://www.sos.arkansas.gov/elections/voter-view/",
+      "track_ballot": "https://www.sos.arkansas.gov/elections/voter-view/"
+    },
+    "poll_hours": {
+      "open": "07:30",
+      "close": "19:30",
+      "source_url": "https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information/voting-in-arkansas",
+      "retrieved": "2026-10-15"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through October 30. Mail voting in Arkansas is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://www.sos.arkansas.gov/elections/voter-information/absentee-voting",
+        "retrieved": "2026-10-16"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

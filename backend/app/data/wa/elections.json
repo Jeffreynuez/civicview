@@ -1,0 +1,69 @@
+{
+  "_note": "Washington 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "WA",
+  "state_name": "Washington",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-26",
+    "voter_registration_online_general": "2026-10-26",
+    "voter_registration_mail_general": "2026-10-26, received",
+    "voter_registration_in_person_general": "2026-11-03",
+    "same_day_registration_general": "At your local election office through Election Day",
+    "all_mail_general": "Yes",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-23",
+    "early_voting_window_general": "2026-10-16 to 2026-11-03"
+  },
+  "key_date_sources": {
+    "general": "https://www.sos.wa.gov/elections/voters/helpful-information/current-election-information",
+    "voter_registration_deadline_general": "https://www.sos.wa.gov/elections/elections-calendar/dates-and-deadlines",
+    "voter_registration_online_general": "https://www.sos.wa.gov/elections/elections-calendar/dates-and-deadlines",
+    "voter_registration_mail_general": "https://www.sos.wa.gov/elections/voters/voter-registration/register-vote-washington",
+    "voter_registration_in_person_general": "https://www.sos.wa.gov/elections/elections-calendar/dates-and-deadlines",
+    "same_day_registration_general": "https://www.sos.wa.gov/elections/voters/helpful-information/current-election-information",
+    "all_mail_general": "https://www.sos.wa.gov/elections/voters/helpful-information/frequently-asked-questions-voting-mail",
+    "mail_ballot_return_deadline_general": "https://app.leg.wa.gov/RCW/default.aspx?cite=29A.60.190",
+    "early_voting_window_general": "https://www.sos.wa.gov/elections/elections-calendar/dates-and-deadlines"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.sos.wa.gov/elections",
+    "links": {
+      "registration": "https://www.sos.wa.gov/elections/voters/voter-registration/register-vote-washington",
+      "check_registration": "https://voter.votewa.gov/WhereToVote.aspx",
+      "mail_ballot": "https://www.sos.wa.gov/elections/voters/helpful-information/frequently-asked-questions-voting-mail",
+      "early_voting": "https://www.sos.wa.gov/elections/voters/voter-registration/drop-box-and-voting-center-locations",
+      "polling_place": "https://www.sos.wa.gov/elections/voters/voter-registration/drop-box-and-voting-center-locations",
+      "sample_ballot": "https://voter.votewa.gov/WhereToVote.aspx",
+      "track_ballot": "https://voter.votewa.gov/WhereToVote.aspx"
+    },
+    "poll_hours_vary": {
+      "text": "Vary by county",
+      "source_url": "https://www.sos.wa.gov/sites/default/files/2026-10/GeneralElectionFacts2026.pdf",
+      "retrieved": "2026-10-15"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person at your local election office through Election Day."
+    },
+    "no_reminder": {
+      "vote_by_mail_request_deadline_general": {
+        "reason": "Every active registered voter in Washington is mailed a ballot, so no request is needed.",
+        "source_url": "https://www.sos.wa.gov/elections/voters/helpful-information/frequently-asked-questions-voting-mail",
+        "retrieved": "2026-10-15"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

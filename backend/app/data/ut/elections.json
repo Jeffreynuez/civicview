@@ -1,0 +1,78 @@
+{
+  "_note": "Utah 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "UT",
+  "state_name": "Utah",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-23",
+    "voter_registration_online_general": "2026-10-23",
+    "voter_registration_mail_general": "2026-10-23, received",
+    "voter_registration_in_person_general": "2026-10-23",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "Yes",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 8 p.m.",
+    "early_voting_rule_general": "Days set by each county"
+  },
+  "key_date_sources": {
+    "general": "https://vote.utah.gov/",
+    "voter_registration_deadline_general": "https://vote.utah.gov/learn-about-registering-to-vote/",
+    "voter_registration_online_general": "https://vote.utah.gov/learn-about-registering-to-vote/",
+    "voter_registration_mail_general": "https://vote.utah.gov/learn-about-registering-to-vote/",
+    "voter_registration_in_person_general": "https://vote.utah.gov/learn-about-registering-to-vote/",
+    "same_day_registration_general": "https://vote.utah.gov/learn-about-registering-to-vote/",
+    "all_mail_general": "https://vote.utah.gov/current-election-information/",
+    "mail_ballot_return_deadline_general": "https://vote.utah.gov/wp-content/uploads/2026/01/2026-Utah-Election-Calendar.pdf",
+    "early_voting_rule_general": "https://vote.utah.gov/wp-content/uploads/2026/01/2026-Utah-Election-Calendar.pdf"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_rule_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://vote.utah.gov/",
+    "links": {
+      "registration": "https://vote.utah.gov/voter-registration-portal/",
+      "check_registration": "https://votesearch.utah.gov/voter-search/search/search-by-voter/voter-info",
+      "mail_ballot": "https://vote.utah.gov/current-election-information/",
+      "early_voting": "https://votesearch.utah.gov/voter-search/search/search-by-address/how-and-where-can-i-vote",
+      "polling_place": "https://votesearch.utah.gov/voter-search/search/search-by-address/how-and-where-can-i-vote",
+      "sample_ballot": "https://votesearch.utah.gov/voter-search/search/search-by-address/candidates-and-issues",
+      "track_ballot": "https://vote.utah.gov/track-my-ballot/"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "20:00",
+      "source_url": "https://le.utah.gov/xcode/Title20A/Chapter1/C20A-1-S302_1800010118000101.html",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "voter_registration_deadline_general": "17:00"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day."
+    },
+    "no_reminder": {
+      "vote_by_mail_request_deadline_general": {
+        "reason": "Every active registered voter in Utah is mailed a ballot, so no request is needed.",
+        "source_url": "https://vote.utah.gov/current-election-information/",
+        "retrieved": "2026-10-15"
+      },
+      "early_voting_window_general": {
+        "reason": "Early in-person voting days in Utah are set by each county.",
+        "source_url": "https://vote.utah.gov/wp-content/uploads/2026/01/2026-Utah-Election-Calendar.pdf",
+        "retrieved": "2026-10-15"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

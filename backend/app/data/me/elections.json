@@ -1,0 +1,68 @@
+{
+  "_note": "Maine 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "ME",
+  "state_name": "Maine",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-13",
+    "voter_registration_online_general": "2026-10-13",
+    "voter_registration_mail_general": "2026-10-13, received",
+    "voter_registration_in_person_general": "2026-11-03",
+    "same_day_registration_general": "At your local election office through Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-29",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 8 p.m.",
+    "early_voting_window_general": "2026-10-04 to 2026-10-29"
+  },
+  "key_date_sources": {
+    "general": "https://www.maine.gov/sos/elections-voting/upcoming-elections",
+    "voter_registration_deadline_general": "https://www.maine.gov/sos/elections-voting/state-of-maine-voter-guide",
+    "voter_registration_online_general": "https://www.maine.gov/sos/elections-voting/state-of-maine-voter-guide",
+    "voter_registration_mail_general": "https://www.maine.gov/sos/elections-voting/state-of-maine-voter-guide",
+    "voter_registration_in_person_general": "https://www.maine.gov/sos/elections-voting/state-of-maine-voter-guide",
+    "same_day_registration_general": "https://registertovote.sos.maine.gov/",
+    "all_mail_general": "https://www.maine.gov/sos/elections-voting/absentee-guide",
+    "vote_by_mail_request_deadline_general": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/04%2011%203%2026%20Abs%20App.pdf",
+    "mail_ballot_return_deadline_general": "https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/04%2011%203%2026%20Abs%20App.pdf",
+    "early_voting_window_general": "https://www.maine.gov/sos/elections-voting/absentee-guide"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.maine.gov/sos/elections-voting",
+    "links": {
+      "registration": "https://registertovote.sos.maine.gov/",
+      "mail_ballot": "https://absenteeballotrequest.sos.maine.gov/",
+      "early_voting": "https://www.maine.gov/sos/elections-voting/absentee-guide",
+      "polling_place": "https://www.maine.gov/portal/government/edemocracy/voter_lookup.php",
+      "sample_ballot": "https://www.maine.gov/portal/government/edemocracy/voter_lookup.php",
+      "track_ballot": "https://absenteeballotrequest.sos.maine.gov/BallotTracker/BallotTracker"
+    },
+    "poll_hours_vary": {
+      "text": "Vary by city or town",
+      "source_url": "https://www.maine.gov/sos/elections-voting/state-of-maine-voter-guide",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "voter_registration_deadline_general": "17:00"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person at your local election office through Election Day.",
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

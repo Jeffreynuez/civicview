@@ -7,43 +7,62 @@
  "closed_primary": true,
  "key_dates": {
   "primary": "2026-06-23",
-  "general": "2026-11-03",
   "voter_registration_deadline_primary": "2026-06-13",
+  "general": "2026-11-03",
   "voter_registration_deadline_general": "2026-10-24",
+  "voter_registration_online_general": "2026-10-24",
+  "voter_registration_mail_general": "2026-10-24, received",
+  "voter_registration_in_person_general": "2026-10-24",
+  "same_day_registration_general": "Not available",
+  "all_mail_general": "No",
   "vote_by_mail_request_deadline_general": "2026-10-24",
+  "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-10",
   "early_voting_window_general": "2026-10-24 to 2026-11-01"
  },
  "key_date_sources": {
   "general": "https://elections.ny.gov/2026-political-calendar",
   "voter_registration_deadline_general": "https://elections.ny.gov/registration-and-voting-deadlines",
+  "voter_registration_online_general": "https://elections.ny.gov/frequently-asked-questions",
+  "voter_registration_mail_general": "https://elections.ny.gov/registration-and-voting-deadlines",
+  "voter_registration_in_person_general": "https://elections.ny.gov/registration-and-voting-deadlines",
+  "same_day_registration_general": "https://elections.ny.gov/frequently-asked-questions",
+  "all_mail_general": "https://elections.ny.gov/request-ballot",
   "vote_by_mail_request_deadline_general": "https://elections.ny.gov/2026-political-calendar",
+  "mail_ballot_return_deadline_general": "https://elections.ny.gov/request-ballot",
   "early_voting_window_general": "https://elections.ny.gov/early-voting"
  },
  "key_date_retrieved": {
   "general": "2026-10-15",
   "voter_registration_deadline_general": "2026-10-15",
+  "voter_registration_online_general": "2026-10-15",
+  "voter_registration_mail_general": "2026-10-15",
+  "voter_registration_in_person_general": "2026-10-15",
+  "same_day_registration_general": "2026-10-15",
+  "all_mail_general": "2026-10-15",
   "vote_by_mail_request_deadline_general": "2026-10-15",
+  "mail_ballot_return_deadline_general": "2026-10-15",
   "early_voting_window_general": "2026-10-15"
  },
  "voter_info": {
-  "_note": "Read by election reminders (backend/app/services/election_reminders.py). Every link is on the New York State Board of Elections site; every reminder date needs an https source in key_date_sources (data lint E-11). Checked on the official pages 2026-10-15. vote_by_mail_request_deadline_general is the last day for a board to receive an absentee or early mail ballot application by mail or online.",
+  "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
   "official_site": "https://elections.ny.gov/",
   "links": {
    "registration": "https://elections.ny.gov/register-vote",
+   "check_registration": "https://voterlookup.elections.ny.gov/",
    "mail_ballot": "https://elections.ny.gov/request-ballot",
    "early_voting": "https://voterlookup.elections.ny.gov/",
-   "polling_place": "https://voterlookup.elections.ny.gov/"
+   "polling_place": "https://voterlookup.elections.ny.gov/",
+   "track_ballot": "https://voterlookup.elections.ny.gov/"
   },
   "poll_hours": {
    "open": "06:00",
    "close": "21:00",
-   "source_url": "https://www.nysenate.gov/legislation/laws/ELN/8-100",
+   "source_url": "https://elections.ny.gov/",
    "retrieved": "2026-10-15"
   },
   "reminder_notes": {
-   "voter_registration_deadline_general": "Your application must be received by a board of elections by then.",
-   "vote_by_mail_request_deadline_general": "Applications sent by mail or online must arrive by then; you can still apply in person at your county board of elections until the day before the election.",
-   "early_voting_window_general": "Hours vary by county."
+   "early_voting_window_general": "Hours vary by county.",
+   "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through November 2."
   }
  },
  "primary_status": {

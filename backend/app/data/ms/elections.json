@@ -1,0 +1,71 @@
+{
+  "_note": "Mississippi 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "MS",
+  "state_name": "Mississippi",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-05",
+    "voter_registration_online_general": "Not available",
+    "voter_registration_mail_general": "2026-10-05, postmarked",
+    "voter_registration_in_person_general": "2026-10-05",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-10",
+    "early_voting_rule_general": "Not available"
+  },
+  "key_date_sources": {
+    "general": "https://www.sos.ms.gov/content/documents/elections/2026%20Elections%20Calendar.pdf",
+    "voter_registration_deadline_general": "https://www.sos.ms.gov/content/documents/elections/2026%20Elections%20Calendar.pdf",
+    "voter_registration_online_general": "https://www.sos.ms.gov/elections-voting/election-faqs",
+    "voter_registration_mail_general": "https://www.sos.ms.gov/content/documents/elections/2026%20Elections%20Calendar.pdf",
+    "voter_registration_in_person_general": "https://www.sos.ms.gov/sites/default/files/elections/2026%20Mississippi%20Voter%20Information%20Guide.pdf",
+    "same_day_registration_general": "https://www.sos.ms.gov/sites/default/files/elections/2026%20Mississippi%20Voter%20Information%20Guide.pdf",
+    "all_mail_general": "https://www.sos.ms.gov/yall-vote/absentee-voting-information",
+    "mail_ballot_return_deadline_general": "https://www.sos.ms.gov/yall-vote/absentee-voting-information",
+    "early_voting_rule_general": "https://www.sos.ms.gov/yall-vote/absentee-voting-information"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-16",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_rule_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.sos.ms.gov/yall-vote",
+    "links": {
+      "registration": "https://www.sos.ms.gov/elections-voting/voter-registration-information",
+      "check_registration": "https://www.sos.ms.gov/elections-voting/voter-registration-information",
+      "mail_ballot": "https://www.sos.ms.gov/yall-vote/absentee-voting-information",
+      "polling_place": "https://myelectionday.sos.state.ms.us/VoterOutreach/Pages/VOSearch.aspx",
+      "sample_ballot": "https://myelectionday.sos.state.ms.us/VoterOutreach/Pages/VOSearch.aspx",
+      "track_ballot": "https://myelectionday.sos.state.ms.us/VoterOutreach/Pages/VOSearch.aspx"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "19:00",
+      "source_url": "https://www.sos.ms.gov/sites/default/files/elections/2026%20Mississippi%20Voter%20Information%20Guide.pdf",
+      "retrieved": "2026-10-15"
+    },
+    "no_reminder": {
+      "vote_by_mail_request_deadline_general": {
+        "reason": "No statewide deadline to request a mail ballot was found on Mississippi's official election pages.",
+        "source_url": "https://www.sos.ms.gov/yall-vote/absentee-voting-information",
+        "retrieved": "2026-10-15"
+      },
+      "early_voting_window_general": {
+        "reason": "Mississippi has no early in-person voting period.",
+        "source_url": "https://www.sos.ms.gov/yall-vote/absentee-voting-information",
+        "retrieved": "2026-10-15"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

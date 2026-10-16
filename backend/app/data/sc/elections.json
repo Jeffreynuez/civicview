@@ -1,0 +1,75 @@
+{
+  "_note": "South Carolina 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "SC",
+  "state_name": "South Carolina",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-04",
+    "voter_registration_online_general": "2026-10-04",
+    "voter_registration_mail_general": "2026-10-05, postmarked",
+    "voter_registration_in_person_general": "2026-10-02",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-23",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 7 p.m.",
+    "early_voting_window_general": "2026-10-19 to 2026-10-31"
+  },
+  "key_date_sources": {
+    "general": "https://scvotes.gov/voters/early-voting/",
+    "voter_registration_deadline_general": "https://scvotes.gov/voters/2026prep/",
+    "voter_registration_online_general": "https://scvotes.gov/voters/2026prep/",
+    "voter_registration_mail_general": "https://scvotes.gov/voters/2026prep/",
+    "voter_registration_in_person_general": "https://scvotes.gov/voters/2026prep/",
+    "same_day_registration_general": "https://scvotes.gov/voters/register-to-vote/",
+    "all_mail_general": "https://scvotes.gov/how-to-vote-absentee-in-south-carolinas-november-3-general-election/",
+    "vote_by_mail_request_deadline_general": "https://scvotes.gov/how-to-vote-absentee-in-south-carolinas-november-3-general-election/",
+    "mail_ballot_return_deadline_general": "https://scvotes.gov/voters/2026prep/",
+    "early_voting_window_general": "https://scvotes.gov/voters/early-voting/"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://scvotes.gov/",
+    "links": {
+      "registration": "https://scvotes.gov/voters/register-to-vote/",
+      "check_registration": "https://vrems.scvotes.sc.gov/Voter/Login?PageMode=VoterInformation",
+      "mail_ballot": "https://scvotes.gov/voters/absentee-voting/",
+      "early_voting": "https://scvotes.gov/voters/early-voting/",
+      "polling_place": "https://vrems.scvotes.sc.gov/Voter/Login?PageMode=PollingPlace",
+      "sample_ballot": "https://vrems.scvotes.sc.gov/Voter/Login?PageMode=Sampleballot",
+      "track_ballot": "https://vrems.scvotes.sc.gov/Voter/Login?PageMode=AbsenteeInfo"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "19:00",
+      "source_url": "https://scvotes.gov/voters/how-to-vote/",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "17:00"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Mail voting in South Carolina is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://scvotes.gov/voters/absentee-voting/",
+        "retrieved": "2026-10-16"
+      }
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

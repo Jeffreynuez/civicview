@@ -53,6 +53,53 @@ def _primary_concluded(raw: dict) -> bool:
     return bool((raw.get("primary_status") or {}).get("concluded"))
 
 
+def _https(url) -> bool:
+    return isinstance(url, str) and url.startswith("https://")
+
+
+def _public_voter_info(raw: dict) -> dict:
+    """The parts of a state's voter_info a visitor sees (2026-10-16):
+    the official links, and the poll hours with their source. Reminder
+    wording, deadline times and admin notes stay server-side. Only https
+    links pass, so a typo can never put a plain-http link on the tab."""
+    info = raw.get("voter_info") or {}
+    links = {k: v for k, v in (info.get("links") or {}).items() if _https(v)}
+    out: dict = {"links": links}
+    if _https(info.get("official_site")):
+        out["official_site"] = info["official_site"]
+    hours = info.get("poll_hours") or {}
+    if hours.get("open") and hours.get("close") and _https(hours.get("source_url")):
+        out["poll_hours"] = {k: hours.get(k) for k in ("open", "close", "source_url", "retrieved")}
+    vary = info.get("poll_hours_vary") or {}
+    if vary.get("text") and _https(vary.get("source_url")):
+        out["poll_hours_vary"] = {k: vary.get(k) for k in ("text", "source_url", "retrieved")}
+    return out
+
+
+def _date_sources(raw: dict) -> dict:
+    """Each key date's official source and the day it was read, keyed
+    like key_dates, for the Elections tab's Sources list. A date that
+    needs a second official page (one page has the date, another the
+    rule) lists it under `more`, from key_date_more_sources."""
+    sources = raw.get("key_date_sources") or {}
+    retrieved = raw.get("key_date_retrieved") or {}
+    more = raw.get("key_date_more_sources") or {}
+    out = {}
+    for key, url in sources.items():
+        if not _https(url):
+            continue
+        entry = {"url": url, "retrieved": retrieved.get(key)}
+        extra = [
+            {"url": m.get("url"), "retrieved": m.get("retrieved")}
+            for m in (more.get(key) or [])
+            if isinstance(m, dict) and _https(m.get("url"))
+        ]
+        if extra:
+            entry["more"] = extra
+        out[key] = entry
+    return out
+
+
 class ElectionsService:
     def __init__(self):
         # state_code -> elections payload
@@ -266,6 +313,8 @@ class ElectionsService:
             # Defaults to False — open-primary states leave it unset.
             "closed_primary": bool(raw.get("closed_primary", False)),
             "key_dates": raw.get("key_dates", {}),
+            "key_date_sources": _date_sources(raw),
+            "voter_info": _public_voter_info(raw),
             # Whether the primary has already been held, and whether its
             # results are certified. Carried as DATA rather than derived
             # from today's date on purpose: a date comparison would flip
@@ -288,6 +337,24 @@ class ElectionsService:
 
     def list_states_with_elections(self) -> list[str]:
         return sorted(self._elections_by_state.keys())
+
+    def state_summaries(self) -> list[dict]:
+        """One row per state with an elections file: its name, how many
+        races it lists, and how many of those name general-election
+        candidates."""
+        out = []
+        for code in sorted(self._elections_by_state):
+            raw = self._elections_by_state[code]
+            races = raw.get("races", []) or []
+            out.append({
+                "state": code,
+                "state_name": raw.get("state_name"),
+                "races": len(races),
+                "races_with_candidates": sum(
+                    1 for r in races if self._resolve_ids(r.get("general_candidates") or [])
+                ),
+            })
+        return out
 
     # ─── Personalized ballot ─────────────────────────────────────────────
 
@@ -396,6 +463,8 @@ class ElectionsService:
             # as get_elections — False unless explicitly set.
             "closed_primary": bool(raw.get("closed_primary", False)),
             "key_dates": raw.get("key_dates", {}),
+            "key_date_sources": _date_sources(raw),
+            "voter_info": _public_voter_info(raw),
             "primary_status": raw.get("primary_status") or None,
             "geography": {
                 "state": state,

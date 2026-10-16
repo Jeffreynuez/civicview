@@ -81,6 +81,14 @@ def main() -> int:
                                   TrackedElection)
     from app.services import election_reminders as er
 
+    # This test checks how reminders work (timing, recipients, settings,
+    # email), so it pins the data to the five states it was written for.
+    # Since 2026-10-16 every state has an elections.json; section 12 at
+    # the end checks every state's file with the real data.
+    full_loader = er._load_state_docs
+    five = {k: v for k, v in full_loader().items() if k in ("FL", "CA", "NY", "PA", "TX")}
+    er._load_state_docs = lambda: five
+
     ps._service = _CapturePush()
     es.get_email_service = lambda: _CaptureEmail()
     check = fh.Checks()
@@ -467,6 +475,66 @@ def main() -> int:
     check("11 a source without its retrieved date is not sent, and says why",
           "fl-2028-11-07-early-voting-1d" not in fut_ids
           and any(s.kind == "early_voting_1d" and "retrieved" in s.reason for s in fut.skipped))
+
+    # ── 12. Every state's file, with the real data ───────────────────
+    er._load_state_docs = full_loader
+    all_docs = full_loader()
+    full = er.build_schedule(today=date(2026, 10, 1))
+    check("12 every state's reminders have an https source and an https official link",
+          all(r.source_url.startswith("https://") and r.link_url.startswith("https://") for r in full.reminders))
+    check("12 every reminder not sent says why, with an https source",
+          all(s.reason and str(s.source_url).startswith("https://") for s in full.skipped),
+          [(s.state, s.kind) for s in full.skipped if not str(s.source_url).startswith("https://")])
+    full_texts = " ".join(r.title + " " + r.body for r in full.reminders)
+    check("12 no em or en dashes in any state's reminders", not re.search("[\u2013\u2014]", full_texts))
+    check("12 neutral in every state: no party, candidate or measure words",
+          not re.search(r"\b(Republican|Democrat|Democratic|GOP|Libertarian|Green Party|candidate|"
+                        r"Amendment|Proposition|measure|support|oppose)\b", full_texts, re.I))
+    hours_ok = [
+        r.state for r in full.reminders if r.kind == "election_day_1d"
+        and ("Polls are open from" in r.body) != bool((all_docs[r.state].get("voter_info") or {}).get("poll_hours"))
+    ]
+    check("12 Election Day reminders give poll hours exactly where the state sets them statewide",
+          not hours_ok, hours_ok)
+    limited = {r.state: r for r in full.reminders if r.kind == "mail_request_3d"
+               and "only for voters who meet the state's eligibility rules" in r.body}
+    # Checked on each state's absentee page, 2026-10-16. Mississippi limits
+    # mail voting too but sets no statewide request deadline, so it has
+    # no mail request reminder to carry the sentence.
+    check("12 the mail request reminder says mail voting is limited in exactly the states that limit it",
+          set(limited) == {"AL", "AR", "DE", "IN", "KY", "LA", "MO", "NH", "SC", "TN", "TX", "WV"},
+          sorted(limited))
+    check("12 the eligibility sentence is the same for every state, with its official source",
+          all(r.body.count(f"Mail voting in {r.state_name} is only for voters who meet the state's eligibility rules. "
+                           "Check them on the official site.") == 1
+              and str(r.note_source_url).startswith("https://") for r in limited.values()),
+          [r.state for r in limited.values() if not str(r.note_source_url).startswith("https://")])
+    check("12 states where anyone may vote by mail get no eligibility sentence",
+          not any(s in limited for s in ("FL", "GA", "NC", "PA", "OH", "AZ")))
+    by_id = {r.id: r for r in full.reminders}
+    mi_ev = by_id.get("mi-2026-11-03-early-voting-1d")
+    check("12 Michigan's early voting reminder says every city and township, and that some offer more days",
+          mi_ev is not None and mi_ev.send_on == date(2026, 10, 23)
+          and "every Michigan city and township from tomorrow, Saturday, October 24, through Sunday, November 1" in mi_ev.body
+          and "Some communities offer more days" in mi_ev.body,
+          mi_ev and mi_ev.body)
+    ks_ev = by_id.get("ks-2026-11-03-early-voting-1d")
+    check("12 Kansas's advance voting reminder ends at noon and says some counties started earlier",
+          ks_ev is not None and ks_ev.send_on == date(2026, 10, 26)
+          and "through noon Monday, November 2" in ks_ev.body and "Some counties started earlier" in ks_ev.body,
+          ks_ev and ks_ev.body)
+    oh_mail = by_id.get("oh-2026-11-03-mail-request-3d")
+    check("12 Ohio's mail request deadline is 8:30 p.m.",
+          oh_mail is not None and oh_mail.deadline_local == datetime(2026, 10, 27, 20, 30),
+          oh_mail and oh_mail.deadline_local)
+    from app.services.elections_service import _date_sources
+    ks_sources = _date_sources(all_docs["KS"]).get("early_voting_window_general") or {}
+    check("12 a date's second official page reaches the Elections tab",
+          [m["url"] for m in ks_sources.get("more", [])] == ["https://sos.ks.gov/elections/important-election-dates.html"],
+          ks_sources)
+    check("12 every state with a 2026 file gets an Election Day reminder",
+          {r.state for r in full.reminders if r.kind == "election_day_1d"}
+          == {s for s, d in all_docs.items() if (d.get("key_dates") or {}).get("general") == "2026-11-03"})
 
     db.close()
     client.__exit__(None, None, None)
