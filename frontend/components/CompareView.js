@@ -85,8 +85,10 @@ export default function CompareView({ open, items, onClose }) {
         const [stats, bills, votes, detail] = await Promise.all([
           fetchMemberStats(it.bioguide_id, it.party),
           fetchMemberBills(it.bioguide_id, 8),
-          // 50 recent votes per member (was 25) — deeper overlap window
-          // makes the agreement rate meaningful for cross-chamber pairs.
+          // 50 recent votes per member (was 25): a deeper overlap window
+          // for the agreement rate. Both members of a same-chamber pair
+          // appear on every roll call of their chamber, so their recent
+          // votes line up; the House and the Senate never share one.
           fetchMemberVotes(it.bioguide_id, 50),
           fetchMemberDetail(it.bioguide_id),
         ]);
@@ -124,6 +126,17 @@ export default function CompareView({ open, items, onClose }) {
     () => (items || []).filter((i) => i._kind !== 'candidate' && i.bioguide_id),
     [items]
   );
+  // A representative and a senator never vote on the same roll call.
+  const crossChamber = useMemo(() => {
+    const chambers = new Set();
+    for (const m of votingOfficials) {
+      const votes = data[itemKey(m)]?.votes || [];
+      const ch = String(votes[0]?.chamber || m.chamber || '').toLowerCase();
+      if (ch.startsWith('h')) chambers.add('house');
+      else if (ch.startsWith('s')) chambers.add('senate');
+    }
+    return chambers.size > 1;
+  }, [data, votingOfficials]);
   const sharedVotes = useMemo(() => {
     if (votingOfficials.length < 2) return [];
     const ids = votingOfficials.map((m) => m.bioguide_id);
@@ -424,8 +437,10 @@ export default function CompareView({ open, items, onClose }) {
               {!loading && !loadError && sharedVotes.length === 0 && (
                 <EmptyState
                   icon={<Newspaper size={32} active color="muted" />}
-                  headline="No overlapping votes"
-                  body="These members haven't been in shared sessions on the same bills recently."
+                  headline={crossChamber ? 'No shared votes' : 'No overlapping votes'}
+                  body={crossChamber
+                    ? 'The House and the Senate vote separately, so a representative and a senator never vote on the same roll call.'
+                    : "These members haven't been in shared sessions on the same bills recently."}
                   tone="muted"
                   dense
                 />
@@ -559,7 +574,11 @@ function MemberColumn({ member, state, loading }) {
       <Block label="Party-line voting">
         {loading && !stats && <Skeleton width="60%" />}
         {stats && stats.party_line_pct == null && (
-          <div style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)' }}>No data yet</div>
+          <div style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)' }}>
+            {stats.party_line_reason === 'independent' || /^i/i.test(String(member.party || ''))
+              ? 'Not computed for independents: there is no party majority to compare with.'
+              : 'No data yet'}
+          </div>
         )}
         {stats && stats.party_line_pct != null && (
           <div>
@@ -568,7 +587,7 @@ function MemberColumn({ member, state, loading }) {
                 {stats.party_line_pct}%
               </div>
               <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
-                of {stats.votes_analyzed} votes
+                of {stats.votes_analyzed} party-split votes
               </div>
             </div>
             <div style={{ marginTop: '6px', height: '6px', background: 'var(--cl-bg)', borderRadius: '4px', overflow: 'hidden' }}>
