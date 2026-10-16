@@ -226,7 +226,7 @@
    "open_seat": false,
    "incumbent_candidate_id": "pa-cand-ryan-mackenzie-h7",
    "general_candidates": [
-    "pa-cand-robert-r-brooks-h7",
+    "pa-cand-bob-brooks-h7",
     "pa-cand-ryan-mackenzie-h7"
    ],
    "general_candidates_note": "Every candidate on Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
@@ -421,14 +421,13 @@
    "congressional_district": "16",
    "seat_type": "legislative",
    "term_length_years": 2,
-   "open_seat": true,
-   "incumbent_candidate_id": null,
+   "open_seat": false,
+   "incumbent_candidate_id": "pa-cand-mike-kelly-h16",
    "general_candidates": [
-    "pa-cand-george-joseph-kelly-jr-h16",
+    "pa-cand-mike-kelly-h16",
     "pa-cand-justin-wagner-h16"
    ],
    "general_candidates_note": "Every candidate on Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
-   "notes": "Open seat. The current representative, Mike Kelly, is not on the November ballot for this district.",
    "_roster_source": "Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing",
    "primary_candidates": {},
    "roster_status": "verified_nominees",
@@ -447,7 +446,7 @@
    "open_seat": false,
    "incumbent_candidate_id": "pa-cand-christopher-r-deluzio-h17",
    "general_candidates": [
-    "pa-cand-anthony-g-guy-h17",
+    "pa-cand-tony-guy-h17",
     "pa-cand-christopher-r-deluzio-h17"
    ],
    "general_candidates_note": "Every candidate on Pennsylvania Department of State, PA Voter Services, Election Information: 2026 General Election (11/03/2026) candidate listing for the November 3, 2026 general election, in alphabetical order by last name. Write-in candidates are not listed.",
