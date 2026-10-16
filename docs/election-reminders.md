@@ -96,6 +96,21 @@ election date itself:
 A source must be for a key that is in `key_dates`. A retrieved date must
 be for a key that has a source.
 
+When one official page has the date and another has the rule that goes
+with it (the calendar prints the registration deadline, the registration
+page says the form must be postmarked by then), the second page goes in
+`key_date_more_sources`, a sibling keyed the same way. It is shown in the
+election's Sources dropdown next to the first page; reminders still cite
+the `key_date_sources` page.
+
+```json
+"key_date_more_sources": {
+  "voter_registration_mail_general": [
+    { "url": "https://...", "retrieved": "2026-10-16" }
+  ]
+}
+```
+
 ### `voter_info`
 
 | Field | Value | Used for |

@@ -511,6 +511,27 @@ def main() -> int:
           [r.state for r in limited.values() if not str(r.note_source_url).startswith("https://")])
     check("12 states where anyone may vote by mail get no eligibility sentence",
           not any(s in limited for s in ("FL", "GA", "NC", "PA", "OH", "AZ")))
+    by_id = {r.id: r for r in full.reminders}
+    mi_ev = by_id.get("mi-2026-11-03-early-voting-1d")
+    check("12 Michigan's early voting reminder says every city and township, and that some offer more days",
+          mi_ev is not None and mi_ev.send_on == date(2026, 10, 23)
+          and "every Michigan city and township from tomorrow, Saturday, October 24, through Sunday, November 1" in mi_ev.body
+          and "Some communities offer more days" in mi_ev.body,
+          mi_ev and mi_ev.body)
+    ks_ev = by_id.get("ks-2026-11-03-early-voting-1d")
+    check("12 Kansas's advance voting reminder ends at noon and says some counties started earlier",
+          ks_ev is not None and ks_ev.send_on == date(2026, 10, 26)
+          and "through noon Monday, November 2" in ks_ev.body and "Some counties started earlier" in ks_ev.body,
+          ks_ev and ks_ev.body)
+    oh_mail = by_id.get("oh-2026-11-03-mail-request-3d")
+    check("12 Ohio's mail request deadline is 8:30 p.m.",
+          oh_mail is not None and oh_mail.deadline_local == datetime(2026, 10, 27, 20, 30),
+          oh_mail and oh_mail.deadline_local)
+    from app.services.elections_service import _date_sources
+    ks_sources = _date_sources(all_docs["KS"]).get("early_voting_window_general") or {}
+    check("12 a date's second official page reaches the Elections tab",
+          [m["url"] for m in ks_sources.get("more", [])] == ["https://sos.ks.gov/elections/important-election-dates.html"],
+          ks_sources)
     check("12 every state with a 2026 file gets an Election Day reminder",
           {r.state for r in full.reminders if r.kind == "election_day_1d"}
           == {s for s, d in all_docs.items() if (d.get("key_dates") or {}).get("general") == "2026-11-03"})

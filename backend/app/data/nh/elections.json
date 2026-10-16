@@ -49,8 +49,8 @@
     },
     "poll_hours_vary": {
       "text": "Vary by city or town",
-      "source_url": "https://www.sos.nh.gov/elections/register-vote/polls-election-day",
-      "retrieved": "2026-10-15"
+      "source_url": "https://gc.nh.gov/rsa/html/LXIII/659/659-4.htm",
+      "retrieved": "2026-10-16"
     },
     "deadline_times": {
       "vote_by_mail_request_deadline_general": "12:00"

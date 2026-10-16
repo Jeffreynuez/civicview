@@ -7,7 +7,7 @@
     "general": "2026-11-03",
     "voter_registration_deadline_general": "2026-10-13",
     "voter_registration_online_general": "2026-10-13",
-    "voter_registration_mail_general": "2026-10-13",
+    "voter_registration_mail_general": "2026-10-13, received",
     "voter_registration_in_person_general": "2026-10-13",
     "same_day_registration_general": "During early voting and on Election Day",
     "all_mail_general": "No",
@@ -31,13 +31,21 @@
     "general": "2026-10-15",
     "voter_registration_deadline_general": "2026-10-15",
     "voter_registration_online_general": "2026-10-15",
-    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-16",
     "voter_registration_in_person_general": "2026-10-15",
     "same_day_registration_general": "2026-10-15",
     "all_mail_general": "2026-10-15",
     "vote_by_mail_request_deadline_general": "2026-10-15",
     "mail_ballot_return_deadline_general": "2026-10-15",
     "early_voting_window_general": "2026-10-15"
+  },
+  "key_date_more_sources": {
+    "voter_registration_mail_general": [
+      {
+        "url": "https://www.revisor.mn.gov/statutes/cite/201.061",
+        "retrieved": "2026-10-16"
+      }
+    ]
   },
   "voter_info": {
     "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",

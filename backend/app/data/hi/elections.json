@@ -6,7 +6,7 @@
   "key_dates": {
     "general": "2026-11-03",
     "voter_registration_online_general": "No deadline",
-    "voter_registration_mail_general": "2026-10-26",
+    "voter_registration_mail_general": "2026-10-26, received",
     "voter_registration_in_person_general": "2026-10-26",
     "same_day_registration_general": "During early voting and on Election Day",
     "all_mail_general": "Yes",
@@ -26,7 +26,7 @@
   "key_date_retrieved": {
     "general": "2026-10-15",
     "voter_registration_online_general": "2026-10-15",
-    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-16",
     "voter_registration_in_person_general": "2026-10-15",
     "same_day_registration_general": "2026-10-15",
     "all_mail_general": "2026-10-15",

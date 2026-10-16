@@ -66,6 +66,12 @@
     "reminder_notes": {
       "voter_registration_deadline_general": "After that, you can still register in person at your local election office through Election Day.",
       "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through November 2."
+    },
+    "reminder_text": {
+      "early_voting_1d": {
+        "title": "Early voting is open across Michigan from tomorrow",
+        "body": "Early voting is open in every Michigan city and township from tomorrow, {start}, through {end}. Some communities offer more days; check with your city or township clerk. Find your early voting location on the official Michigan site."
+      }
     }
   },
   "races": [],

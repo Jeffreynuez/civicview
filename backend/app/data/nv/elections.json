@@ -6,7 +6,7 @@
   "key_dates": {
     "general": "2026-11-03",
     "voter_registration_online_general": "2026-11-03",
-    "voter_registration_mail_general": "2026-10-06",
+    "voter_registration_mail_general": "2026-10-06, postmarked",
     "voter_registration_in_person_general": "2026-10-06",
     "same_day_registration_general": "During early voting and on Election Day",
     "all_mail_general": "Yes",
@@ -26,12 +26,26 @@
   "key_date_retrieved": {
     "general": "2026-10-15",
     "voter_registration_online_general": "2026-10-15",
-    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-16",
     "voter_registration_in_person_general": "2026-10-15",
     "same_day_registration_general": "2026-10-15",
     "all_mail_general": "2026-10-15",
     "mail_ballot_return_deadline_general": "2026-10-15",
     "early_voting_window_general": "2026-10-15"
+  },
+  "key_date_more_sources": {
+    "early_voting_window_general": [
+      {
+        "url": "https://www.nvsos.gov/elections/election-information/2026-election-information",
+        "retrieved": "2026-10-16"
+      }
+    ],
+    "voter_registration_mail_general": [
+      {
+        "url": "https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec5235",
+        "retrieved": "2026-10-16"
+      }
+    ]
   },
   "voter_info": {
     "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",

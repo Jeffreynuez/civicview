@@ -42,6 +42,14 @@
     "early_voting_window_general": "2026-10-15",
     "early_voting_optional_general": "2026-10-15"
   },
+  "key_date_more_sources": {
+    "early_voting_window_general": [
+      {
+        "url": "https://sos.ks.gov/elections/important-election-dates.html",
+        "retrieved": "2026-10-16"
+      }
+    ]
+  },
   "voter_info": {
     "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
     "official_site": "https://sos.ks.gov/elections/elections.html",
@@ -58,6 +66,12 @@
       "text": "Vary by county",
       "source_url": "https://sos.ks.gov/elections/voter-information.html",
       "retrieved": "2026-10-15"
+    },
+    "reminder_text": {
+      "early_voting_1d": {
+        "title": "In-person advance voting is open across Kansas from tomorrow",
+        "body": "In-person advance voting is open in every Kansas county from tomorrow, {start}, through noon {end}. Some counties started earlier; check with your county election office. Find your advance voting location on the official Kansas site."
+      }
     }
   },
   "races": [],

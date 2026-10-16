@@ -48,6 +48,10 @@ Elections (every <state>/elections.json):
        mail voting is limited uses the one fixed sentence ("Mail voting
        in {State} is only for voters who meet the state's eligibility
        rules. Check them on the official site.") and has such a source.
+       A key_date_more_sources entry (a second official page for a date,
+       when one page has the date and another the rule) is for a key
+       date with its own source, and each page has an official https
+       url and a retrieved date.
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -393,6 +397,18 @@ def lint_all_key_date_sources(doc: dict, where: str) -> None:
                     "needs text, an https source_url on an official site and a retrieved date")
     if (doc.get("voter_info") or {}).get("poll_hours") and vary is not None:
         problem("E-12", f"{where} voter_info", "poll_hours and poll_hours_vary are both set; keep one")
+    for key, entries in (doc.get("key_date_more_sources") or {}).items():
+        if key not in key_dates or key not in sources:
+            problem("E-12", f"{where} key_date_more_sources.{key}",
+                    "extra sources are for a key date that has its own key_date_sources entry")
+        if not isinstance(entries, list) or not entries:
+            problem("E-12", f"{where} key_date_more_sources.{key}", "must be a non-empty list")
+            continue
+        for entry in entries:
+            if not isinstance(entry, dict) or not _official(entry.get("url")) \
+                    or not _retrieved_ok(entry.get("retrieved"), today):
+                problem("E-12", f"{where} key_date_more_sources.{key}",
+                        "each entry needs an https url on an official site and a retrieved date")
     info = doc.get("voter_info") or {}
     note_sources = info.get("reminder_note_sources") or {}
     for key, entry in note_sources.items():
