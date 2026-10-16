@@ -40,6 +40,7 @@ from app.routers import (
     ai as ai_router,
     admin as admin_router,
     admin_transitions as admin_transitions_router,
+    election_reminders as election_reminders_router,
     former as former_router,
     appeals as appeals_router,
     bills as bills_router,
@@ -279,11 +280,45 @@ async def lifespan(app: FastAPI):
     else:
         logger.info("Weekly digest scheduler disabled (set DIGEST_ENABLED=true to enable).")
 
+    # ── Election reminders (2026-10-16) ──────────────────────────────
+    # Env-gated (ELECTION_REMINDERS_ENABLED=true, default off). Every
+    # LOOP_INTERVAL_SECONDS the job sends whatever is due: reminders go
+    # out at about 10 a.m. in each recipient's local time, so the loop
+    # runs all day rather than once. Each delivery is claimed with a
+    # unique row first, so an old and a new instance overlapping during
+    # a deploy cannot double-send. Check the admin preview before
+    # turning it on. See app/services/election_reminders.py.
+    reminders_task = None
+    if db_ready:
+        from app.services import election_reminders as _er
+
+        if _er.reminders_enabled():
+            import asyncio as _reminders_asyncio
+
+            async def _reminders_loop():
+                await _reminders_asyncio.sleep(30)
+                while True:
+                    try:
+                        result = await _reminders_asyncio.to_thread(_er.run_due_with_session)
+                        if result.get("reminders"):
+                            logger.info("Election reminders sent: %s", result["reminders"])
+                    except Exception:
+                        logger.exception("Election reminders loop failed; retrying next interval.")
+                    await _reminders_asyncio.sleep(_er.LOOP_INTERVAL_SECONDS)
+
+            reminders_task = _reminders_asyncio.get_event_loop().create_task(_reminders_loop())
+            logger.info("Election reminders ENABLED (%s set).", _er.ENV_FLAG)
+        else:
+            logger.info("Election reminders disabled (set %s=true to send; the admin preview works either way).",
+                        _er.ENV_FLAG)
+
     yield
     if retention_task is not None:
         retention_task.cancel()
     if digest_task is not None:
         digest_task.cancel()
+    if reminders_task is not None:
+        reminders_task.cancel()
     logger.info("CivicView API shutting down...")
 
 
@@ -425,7 +460,13 @@ app.include_router(ai_router.router, prefix="/api/ai", tags=["AI"])
 # tab, mounted before the general admin router so its paths win.
 app.include_router(admin_transitions_router.router, prefix="/api/admin/transitions",
                    tags=["Admin: transitions"])
+# Election reminders (2026-10-16): the admin preview, also mounted
+# before the general admin router, and the citizen's on/off switch.
+app.include_router(election_reminders_router.admin_router, prefix="/api/admin/election-reminders",
+                   tags=["Admin: election reminders"])
 app.include_router(admin_router.router, prefix="/api/admin", tags=["Admin"])
+app.include_router(election_reminders_router.router, prefix="/api/election-reminders",
+                   tags=["Election reminders"])
 # The former account's dashboard (link a citizen account, opt-ins), the
 # public citizen card with its Served as line, and former members for
 # search. Personal, so never edge-cached.

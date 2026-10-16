@@ -42,6 +42,7 @@ import VerificationSection from './VerificationSection';
 import LocationSection from './account/LocationSection';
 import { formatDistrict } from '../lib/usStates';
 import ServedAsSection from './ServedAsSection';
+import { ElectionRemindersToggle } from './ElectionReminderNotice';
 
 /**
  * ConstituentDashboard — the personal civic command center for a verified
@@ -268,6 +269,7 @@ export default function ConstituentDashboard({
             <BillingSection citizen={citizen} />
             <StartPageSection citizen={citizen} />
             <DigestSection citizen={citizen} />
+            <ElectionRemindersSection />
             <DemographicProfileSection />
             <HiddenByModerationSection citizen={citizen} />
           </div>
@@ -1275,6 +1277,16 @@ function ContactEmailPrompt({ citizen }) {
   );
 }
 
+
+// Election reminders (2026-10-16): the same switches as the bell's
+// notification settings. Reminder emails link here (/?open=settings).
+function ElectionRemindersSection() {
+  return (
+    <Card title="Election reminders">
+      <ElectionRemindersToggle refreshKey="dashboard" />
+    </Card>
+  );
+}
 
 function DigestSection({ citizen }) {
   const [optIn, setOptIn] = useState(!!citizen?.digest_opt_in);

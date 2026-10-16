@@ -212,6 +212,13 @@ export function initPushTapNavigation() {
     PN.addListener('pushNotificationActionPerformed', (action) => {
       try {
         const d = (action && action.notification && action.notification.data) || {};
+        // election_reminder (2026-10-16) → open the state, whose
+        // Elections tab has the dates; the bell holds the reminder with
+        // its official link.
+        if (d.kind === 'election_reminder' && /^[A-Z]{2}$/.test(String(d.state || ''))) {
+          window.location.assign('/?state=' + encodeURIComponent(String(d.state)));
+          return;
+        }
         // tracked_post → land ON the post (#post-<id> scroll+pulse);
         // tracked_event (2026-07-26) → land on the page, whose header
         // + Events tab surface the upcoming event.

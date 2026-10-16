@@ -1,0 +1,117 @@
+/* CivicView. Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved. */
+/* Admin Election reminders tab (2026-10-16). Builds on admin.css classes. */
+
+.er-root {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.er-banner {
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  border: 1px solid var(--cl-border);
+  background: white;
+}
+
+.er-banner--off {
+  background: #fff7e6;
+  border-color: #f0c36d;
+}
+
+.er-banner--on {
+  background: #e9f6ee;
+  border-color: #8fcca4;
+}
+
+.er-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.er-filters select {
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--cl-border);
+  font: inherit;
+}
+
+.er-item {
+  border: 1px solid var(--cl-border);
+  border-radius: 12px;
+  background: white;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.er-item--passed {
+  opacity: 0.6;
+}
+
+.er-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 0.78rem;
+  color: var(--cl-text-light);
+}
+
+.er-meta strong {
+  color: var(--cl-text);
+}
+
+.er-pill {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 9px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  background: var(--cl-bg);
+  color: var(--cl-text-light);
+}
+
+.er-pill--sending {
+  background: #e9f6ee;
+  color: #1d5a2c;
+}
+
+.er-pill--scheduled {
+  background: #e7f0fb;
+  color: #1f4e8c;
+}
+
+.er-title {
+  font-weight: 800;
+  font-size: 0.92rem;
+}
+
+.er-body {
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.er-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.76rem;
+  overflow-wrap: anywhere;
+}
+
+.er-skipped {
+  border: 1px dashed var(--cl-border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  background: white;
+}

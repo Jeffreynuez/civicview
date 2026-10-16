@@ -56,8 +56,9 @@ import {
 import './admin.css';
 import HScroll from '@/components/HScroll';
 import TransitionsTab from '@/components/admin/TransitionsTab';
+import ElectionRemindersTab from '@/components/admin/ElectionRemindersTab';
 
-const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions']);
+const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions', 'reminders']);
 
 // Human-friendly type labels and icon classes — keep in sync with the
 // backend ReportKind literal.
@@ -336,6 +337,8 @@ function AdminPageInner() {
   // Former officials and candidates (2026-10-15): stage counts for the
   // Transitions tab's KPI tiles, reported by the tab itself.
   const [transitionCounts, setTransitionCounts] = useState({});
+  // Election reminders tab's KPI tiles, reported by the tab itself.
+  const [reminderCounts, setReminderCounts] = useState({});
 
   const switchTab = (tab) => {
     const next = VALID_TABS.has(tab) ? tab : 'queue';
@@ -486,6 +489,7 @@ function AdminPageInner() {
     suspended: { crumb: 'Admin · Suspended users', title: 'Suspended accounts' },
     lockouts: { crumb: 'Admin · Lockouts', title: 'Account lockouts' },
     transitions: { crumb: 'Admin · Transitions', title: 'Former officials and candidates' },
+    reminders: { crumb: 'Admin · Election reminders', title: 'Election reminders preview' },
   }[activeTab];
 
   // Per-tab KPI strip.
@@ -540,6 +544,12 @@ function AdminPageInner() {
       { label: 'Read-only', value: transitionCounts.read_only || 0, dot: 'hidden' },
       { label: 'Archived', value: transitionCounts.archived || 0, dot: 'resolved' },
     ];
+  } else if (activeTab === 'reminders') {
+    kpis = [
+      { label: 'Sending today', value: reminderCounts.sending || 0, dot: 'warning' },
+      { label: 'Scheduled', value: reminderCounts.scheduled || 0, dot: 'success' },
+      { label: 'Passed', value: reminderCounts.passed || 0, dot: 'muted' },
+    ];
   } else if (activeTab === 'lockouts') {
     // Lockouts — three tiles, parallel to Suspended.
     const repsLocked = lockouts.filter((l) => l.identity_kind === 'rep').length;
@@ -572,12 +582,13 @@ function AdminPageInner() {
             inside it, so the sticky row's containing block is the whole
             page, not the header band. */}
         <div className="ad-subnav-row ad-subnav-row--sticky">
-          <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={5}>
+          <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={6}>
             <SubNavTab id="queue" label="Queue" badge={subnavCounts.queue} active={activeTab} onClick={switchTab} />
             <SubNavTab id="appeals" label="Appeals" badge={subnavCounts.appeals} active={activeTab} onClick={switchTab} />
             <SubNavTab id="suspended" label="Suspended users" badge={subnavCounts.suspended} active={activeTab} onClick={switchTab} />
             <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
             <SubNavTab id="transitions" label="Transitions" badge={0} active={activeTab} onClick={switchTab} />
+            <SubNavTab id="reminders" label="Election reminders" badge={0} active={activeTab} onClick={switchTab} />
           </HScroll>
           <Link className="ad-subnav__home" href="/">
             <span aria-hidden="true">←</span> CivicView home
@@ -657,6 +668,8 @@ function AdminPageInner() {
         )}
 
         {activeTab === 'transitions' && <TransitionsTab onCounts={setTransitionCounts} />}
+
+        {activeTab === 'reminders' && <ElectionRemindersTab onCounts={setReminderCounts} />}
 
         {activeTab === 'lockouts' && (
           <section className="ad-tab-body">

@@ -991,6 +991,18 @@ and the checks.
 
 ---
 
+## Election reminders
+
+Reminders before voting deadlines and Election Day are built from each
+state's `backend/app/data/<state>/elections.json` alone: a state is
+covered once its reminder dates have official sources. The format, the
+source and retrieved-date rules and an example are in
+[`docs/election-reminders.md`](./docs/election-reminders.md). Sending is
+off until `ELECTION_REMINDERS_ENABLED=true` is set on Render; check
+Admin, Election reminders first.
+
+---
+
 ## Refreshing state officials
 
 The 50 `backend/app/data/<state>/state_officials.json` files (state

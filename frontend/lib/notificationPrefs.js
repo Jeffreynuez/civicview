@@ -307,7 +307,7 @@ export const CHANNEL_SCHEMA = {
     {
       key: 'email',
       label: 'Email digests',
-      description: 'A weekly roll-up of your tracked officials\u2019 activity \u2014 opt in from your dashboard settings. Sending begins at launch.',
+      description: 'A weekly roll-up of your tracked officials\u2019 activity. Opt in from your dashboard settings. Sending begins at launch.',
       badge: 'AT LAUNCH',
       default: false,
       available: false,
@@ -318,7 +318,7 @@ export const CHANNEL_SCHEMA = {
     {
       key: 'mobile_push',
       label: 'Mobile push',
-      description: 'Alerts when officials you track post \u2014 available in the CivicView Android app on Google Play.',
+      description: 'Alerts when officials you track post, and election reminders. Available in the CivicView Android app on Google Play.',
       badge: 'IN THE APP',
       default: false,
       available: false,

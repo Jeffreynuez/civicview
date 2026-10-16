@@ -49,7 +49,7 @@ function Mail({ subject }) {
 
 export default function PrivacyPage() {
   return (
-    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 15, 2026">
+    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 16, 2026">
       <p>
         This policy explains what CivicView collects, why, who can see it,
         who else receives it, how long we keep it, and what you can do
@@ -96,11 +96,12 @@ export default function PrivacyPage() {
         <li><strong>Contact email (optional, demo accounts only).</strong> If you add one, we use it only for your account: the sign-in email you can ask for when you create the account (your generated sign-in address and a link to choose a new password, never your password), password reset emails, and one notice before demo accounts are retired.</li>
         <li><strong>Display name.</strong> The name you choose. It appears on the comments and polls you write. No two accounts can share a name, and citizens can&apos;t use the names of members of Congress, other federal officials, governors and statewide officials, or officials and candidates with a CivicView account.</li>
         <li><strong>State and congressional district (required) and city (optional).</strong> We use them to show you your officials, ballot and elections, and to count engagement by area. You can change them in Account &amp; settings. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved to your account. For a verified account, these come from your verification.</li>
-        <li><strong>Your settings.</strong> Your start page, notification settings (including quiet hours, how often you&apos;re alerted and your time zone offset), whether you want the weekly digest email (off unless you turn it on), and the officials, bills and elections you track, save or feature.</li>
+        <li><strong>Your settings.</strong> Your start page, notification settings (including quiet hours, how often you&apos;re alerted and your time zone offset), whether you want the weekly digest email (off unless you turn it on), whether you get election reminders (on unless you turn them off), and the officials, bills and elections you track, save or feature.</li>
         <li><strong>What you do on CivicView.</strong> The polls you vote in and your choice, the posts, comments, polls and bills you like or dislike, the comments you write and the polls you create. Each vote, like and comment is recorded with the state, district, city (and county, where known) of your account at that moment and whether your account was verified, so it can be counted for the right area.</li>
         <li><strong>Edits and deletions.</strong> When you edit or delete a comment, we keep its original text, hidden from everyone, so moderation decisions can be checked. It&apos;s removed when you delete your account.</li>
         <li><strong>Optional poll questions.</strong> See <a href="#poll-questions">Optional poll questions</a> below.</li>
         <li><strong>Notifications.</strong> The in-app notices we send you, such as a reply to your comment (which includes the replier&apos;s display name and a short preview).</li>
+        <li><strong>Election reminders.</strong> Before voting deadlines and Election Day, we send a reminder with the date and a link to the state&apos;s official election site, the same for everyone in that state, to citizen accounts in each state where we have its dates from official sources, and to anyone tracking an election in one of those states. We use your account&apos;s state, the elections you track and your time zone offset to choose and time them, and we record which reminders we sent you so you never get the same one twice. If you tap &ldquo;I already voted&rdquo; on a reminder, we record that for that election only, so we stop reminding you; it isn&apos;t shown or shared with anyone, and you can undo it. If you turn on reminder emails, we also send them to your sign-in email. You can turn reminders off from any reminder or in notification settings.</li>
         <li><strong>Reports and appeals.</strong> When you report content, we record that you reported it, your reason and any note. The person you report is not told who reported them. When you appeal a moderation decision, we keep your appeal and our decision.</li>
       </ul>
 
@@ -236,7 +237,7 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>To run CivicView:</strong> show you your officials, ballot and elections, display what you publish, and keep your settings.</li>
         <li><strong>To count engagement:</strong> totals of votes, likes and comments by area for officials, candidates and everyone.</li>
-        <li><strong>To notify you:</strong> the in-app, push and email messages you turned on, and notices about your account or the pages you track.</li>
+        <li><strong>To notify you:</strong> the in-app, push and email messages you turned on, election reminders (on unless you turn them off), and notices about your account or the pages you track.</li>
         <li><strong>To keep CivicView safe:</strong> screening new content, handling reports and appeals, rate limits, lockouts and 2FA.</li>
         <li><strong>For AI features:</strong> plain-English summaries, topic and tone tags on comments and polls, and AI search (see Anthropic below).</li>
         <li><strong>To verify citizens,</strong> once ID.me verification opens.</li>
@@ -299,7 +300,7 @@ export default function PrivacyPage() {
         <li><strong>Vercel:</strong> hosts the website and receives every visitor&apos;s IP address and request details.</li>
         <li><strong>Cloudflare:</strong> sits in front of our server to block attacks and speed it up. It handles the traffic to our server, including its contents, and briefly caches public responses. Cloudflare R2 stores images uploaded by officials and candidates.</li>
         <li><strong>Anthropic (Claude AI):</strong> receives the text of comments, polls (question and options) and the posts and polls of officials and candidates, to screen them for safety and tag their topic and tone; posts when someone asks for a summary; what you type into an AI search box, with the items being searched (for comment search, that includes commenters&apos; display names and short excerpts); and public bills, votes and executive orders to summarize. It doesn&apos;t receive your email, address, verification or votes. Under its commercial terms, Anthropic doesn&apos;t use this content to train its models.</li>
-        <li><strong>Postmark:</strong> sends our account emails (password resets and changes, sign-in help, lockout alerts with the IP address), the weekly digest and notices about former officials&apos; and candidates&apos; pages.</li>
+        <li><strong>Postmark:</strong> sends our account emails (password resets and changes, sign-in help, lockout alerts with the IP address), the weekly digest, election reminder emails you turn on and notices about former officials&apos; and candidates&apos; pages.</li>
         <li><strong>Resend:</strong> emails our administrators about new reports (the content, the reason and the reporter&apos;s display name) and appeals (the appellant&apos;s name, email and reasons), and emails you our decision on your appeal.</li>
         <li><strong>Brevo:</strong> our waitlist mailing list (email, state and the button used).</li>
         <li><strong>ID.me:</strong> identity verification, once it opens.</li>
@@ -343,6 +344,7 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>Account and security emails</strong> (password resets and changes, sign-in help, lockout alerts). These protect your account, so they can&apos;t be turned off.</li>
         <li><strong>The weekly digest</strong> of the officials you follow: only if you turn it on, and you can turn it off in Account &amp; settings.</li>
+        <li><strong>Election reminder emails:</strong> only if you turn them on, the same reminders as in the app. Each one links to the setting that turns them off.</li>
         <li><strong>One notice when a page you track changes</strong>, for example when an official leaves office, a campaign ends or a candidate takes office. To stop them, stop tracking the page.</li>
         <li><strong>Notices to former officials and candidates</strong> about their page.</li>
         <li><strong>Your appeal decision.</strong></li>
@@ -350,7 +352,8 @@ export default function PrivacyPage() {
       </ul>
       <p>
         We never send advertising for other companies. In-app and push
-        notifications are controlled in Account &amp; settings.
+        notifications are controlled in Account &amp; settings, and
+        election reminders from any reminder or in notification settings.
       </p>
 
       <h2>How long we keep information</h2>
@@ -376,7 +379,7 @@ export default function PrivacyPage() {
         to cancel) or delete right away.
       </p>
       <ul>
-        <li><strong>Citizen accounts</strong> are deleted, with your comments, the polls you created, your likes, your answers to optional poll questions, your tracked and saved items, notifications, push registrations, sign-in records and password reset links. What stays: your votes on other people&apos;s polls remain in their totals with no link to you; reports you filed remain without your name; your appeals and our moderation assessments remain as a safety record; your verification hashes and date remain (see above); and reply notices other people received keep your display name and a short preview.</li>
+        <li><strong>Citizen accounts</strong> are deleted, with your comments, the polls you created, your likes, your answers to optional poll questions, your tracked and saved items, notifications, election reminder records, push registrations, sign-in records and password reset links. What stays: your votes on other people&apos;s polls remain in their totals with no link to you; reports you filed remain without your name; your appeals and our moderation assessments remain as a safety record; your verification hashes and date remain (see above); and reply notices other people received keep your display name and a short preview.</li>
         <li><strong>Official and candidate accounts</strong> are closed, never emptied. You can no longer sign in, and your sign-in email, password, 2FA secret and recovery codes, tracked and saved items, notifications and sign-in records are removed. What you published (posts, polls, events, comments, likes and votes) stays on the page as a public record, whether or not you&apos;re in office, so deleting an account can never erase what was published on it.</li>
       </ul>
 

@@ -1435,6 +1435,19 @@ class CitizenAccount(Base):
     # Nullable Text → boot-time auto-migrate adds it with no
     # server_default needed (db.py BOOLEAN NOT NULL caveat n/a).
     notification_prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    # Election reminders (2026-10-16, services/election_reminders.py).
+    # On by default for citizens in the states we cover; set when the
+    # citizen turns them off ("Turn off election reminders" on a
+    # reminder or in notification settings), NULL again when they turn
+    # them back on. A dedicated column rather than a key in
+    # notification_prefs_json: that blob is replaced whole by the
+    # client's debounced sync, which would put back a value turned off
+    # from another device. Nullable, so the boot auto-migrate adds it.
+    election_reminders_off_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # Opt-in election reminder emails (2026-10-16): set when the citizen
+    # asks for reminders by email as well, NULL otherwise. Off unless
+    # they turn it on; never sent to a demo account's generated address.
+    election_reminder_email_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Admin moderation — mirrors RepAccount.suspended_at. When set,
     # the auth dependencies treat the account as not-signed-in and
     # the citizen-login endpoint refuses with a clear error.
@@ -2516,6 +2529,57 @@ class DeviceToken(Base):
     #   the cadence min-gap throttle's clock (daily ≈ one push / 20h,
     #   weekly ≈ one push / 6d). NULL = never pushed.
     last_push_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+class ElectionReminderDelivery(Base):
+    """One election reminder delivered to one citizen (2026-10-16).
+
+    The row is the claim: services/election_reminders.py inserts it
+    BEFORE creating the bell row, the push and the email, and the
+    unique (reminder_id, citizen_id) pair means only one process can
+    insert it. Two instances running the job at once (an old and a new
+    one overlapping during a deploy) therefore cannot both remind the
+    same person, and a reminder is never sent to anyone twice. A
+    process that dies after the claim leaves that one reminder unsent
+    rather than risk a second copy.
+
+    reminder_id names the event, e.g. "ca-2026-11-03-registration-3d"
+    (state, election date, kind), so the same date in the data always
+    maps to the same id.
+    """
+
+    __tablename__ = "election_reminder_deliveries"
+    __table_args__ = (
+        UniqueConstraint("reminder_id", "citizen_id", name="uq_election_reminder_delivery"),
+        Index("ix_election_reminder_deliveries_citizen", "citizen_id"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    reminder_id: Mapped[str] = mapped_column(String(96), index=True)
+    citizen_id: Mapped[int] = mapped_column(Integer)
+    claimed_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    # What actually went out, for the admin preview's counts.
+    notification_id: Mapped[Optional[int]] = mapped_column(Integer, default=None)
+    push_devices: Mapped[Optional[int]] = mapped_column(Integer, default=None)
+    email_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+class ElectionReminderStop(Base):
+    """"I already voted" on an election reminder (2026-10-16): no more
+    reminders for that one election (state + election key, e.g. CA +
+    "2026-general"). Other elections, and other states' elections the
+    citizen tracks, carry on."""
+
+    __tablename__ = "election_reminder_stops"
+    __table_args__ = (
+        UniqueConstraint("citizen_id", "state", "election_key", name="uq_election_reminder_stop"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    citizen_id: Mapped[int] = mapped_column(Integer, index=True)
+    state: Mapped[str] = mapped_column(String(2))
+    election_key: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
 class AiDailySpend(Base):

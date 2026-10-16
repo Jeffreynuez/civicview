@@ -11,7 +11,43 @@
   "general": "2026-11-03",
   "voter_registration_deadline_primary": "2026-02-02",
   "voter_registration_deadline_general": "2026-10-05",
-  "early_voting_window_general": "2026-10-19 to 2026-10-30"
+  "early_voting_window_general": "2026-10-19 to 2026-10-30",
+  "vote_by_mail_request_deadline_general": "2026-10-23"
+ },
+ "key_date_sources": {
+  "general": "https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml",
+  "voter_registration_deadline_general": "https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml",
+  "vote_by_mail_request_deadline_general": "https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml",
+  "early_voting_window_general": "https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml"
+ },
+ "key_date_retrieved": {
+  "general": "2026-10-15",
+  "voter_registration_deadline_general": "2026-10-15",
+  "vote_by_mail_request_deadline_general": "2026-10-15",
+  "early_voting_window_general": "2026-10-15"
+ },
+ "voter_info": {
+  "_note": "Read by election reminders (backend/app/services/election_reminders.py). Every link is on a Texas Secretary of State site; every reminder date needs an https source in key_date_sources (data lint E-11). Checked on the official pages 2026-10-15. vote_by_mail_request_deadline_general is the last day for the early voting clerk to receive an application for a ballot by mail (received, not postmarked, by the close of regular business or 12 noon, whichever is later).",
+  "official_site": "https://www.votetexas.gov/",
+  "links": {
+   "registration": "https://www.votetexas.gov/register-to-vote/index.html",
+   "mail_ballot": "https://www.votetexas.gov/voting-by-mail/index.html",
+   "early_voting": "https://www.votetexas.gov/voting/where.html",
+   "polling_place": "https://www.votetexas.gov/voting/where.html"
+  },
+  "poll_hours": {
+   "open": "07:00",
+   "close": "19:00",
+   "source_url": "https://www.votetexas.gov/voting/where.html",
+   "retrieved": "2026-10-15"
+  },
+  "deadline_times": {
+   "vote_by_mail_request_deadline_general": "12:00"
+  },
+  "reminder_notes": {
+   "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then.",
+   "early_voting_window_general": "Hours vary by location."
+  }
  },
  "primary_status": {
   "date": "2026-05-26",

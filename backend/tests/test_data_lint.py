@@ -26,6 +26,16 @@ Elections (every <state>/elections.json):
        withdrawn, withdrawn_note and withdrawn_source (the Florida
        convention, followed on 2026-10-15 for six CA, NY and TX races
        that listed a member who had left the seat)
+  E-11 every date an election reminder is sent for (an election that is
+       still ahead, its voter registration deadline, mail ballot request
+       deadline and first day of early voting) has a source on an
+       official site in key_date_sources and the day that source was
+       read in key_date_retrieved; voter_info's links, poll hours and
+       no_reminder entries are on official sites, and the latter two
+       carry a retrieved date too. Jeffrey, 2026-10-16: "Every date
+       comes from an official state source ... and carries its source
+       URL." The reminder job skips a date without them; this catches
+       it first. The format is in docs/election-reminders.md
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -254,12 +264,86 @@ def lint_legislative_seats(state: str, races: list, where: str) -> None:
         seen.add(key)
 
 
+# Phases and date keys the election reminders read
+# (backend/app/services/election_reminders.py).
+REMINDER_PHASES = ("primary", "primary_runoff", "general")
+REMINDER_DATE_PREFIXES = ("voter_registration_deadline", "vote_by_mail_request_deadline", "early_voting_window")
+HHMM_RE = re.compile(r"^([01]\d|2[0-3]):([0-5]\d)$")
+
+
+def _retrieved_ok(value, today) -> bool:
+    """A retrieved date: YYYY-MM-DD, a real date, not in the future."""
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(value or "")):
+        return False
+    try:
+        return _dt.date.fromisoformat(value) <= today
+    except ValueError:
+        return False
+
+
+def lint_reminder_sources(doc: dict, where: str) -> None:
+    """E-11. Only elections on or after today need sources: a past
+    primary sends nothing, and a file that passes cannot start failing
+    as time goes by."""
+    key_dates = doc.get("key_dates") or {}
+    sources = doc.get("key_date_sources") or {}
+    retrieved = doc.get("key_date_retrieved") or {}
+    info = doc.get("voter_info") or {}
+    no_reminder = info.get("no_reminder") or {}
+    today = _dt.date.today()
+    for key, url in sources.items():
+        if not _official(url):
+            problem("E-11", f"{where} key_date_sources.{key}", "source is not an https URL on an official site")
+        if key not in key_dates:
+            problem("E-11", f"{where} key_date_sources.{key}", "source for a date that is not in key_dates")
+        if not _retrieved_ok(retrieved.get(key), today):
+            problem("E-11", f"{where} key_date_retrieved.{key}",
+                    "every source needs the day it was read (YYYY-MM-DD, not in the future)")
+    for key in retrieved:
+        if key not in sources:
+            problem("E-11", f"{where} key_date_retrieved.{key}", "retrieved date for a key with no source")
+    for phase in REMINDER_PHASES:
+        dates = ISO_DATE_RE.findall(str(key_dates.get(phase) or ""))
+        if len(dates) != 1:
+            continue
+        y, m, d = (int(x) for x in dates[0])
+        try:
+            if _dt.date(y, m, d) < today:
+                continue
+        except ValueError:
+            continue  # E-3 reports it
+        for key in (phase,) + tuple(f"{p}_{phase}" for p in REMINDER_DATE_PREFIXES):
+            if key in key_dates and key not in no_reminder and not str(sources.get(key, "")).startswith("https://"):
+                problem("E-11", f"{where} key_dates.{key}", "reminder date has no https source in key_date_sources")
+    for name, url in (info.get("links") or {}).items():
+        if not _official(url):
+            problem("E-11", f"{where} voter_info.links.{name}", "link is not an https URL on an official site")
+    if info.get("official_site") is not None and not _official(info["official_site"]):
+        problem("E-11", f"{where} voter_info.official_site", "not an https URL on an official site")
+    hours = info.get("poll_hours")
+    if hours is not None:
+        if not (HHMM_RE.match(str(hours.get("open", ""))) and HHMM_RE.match(str(hours.get("close", "")))):
+            problem("E-11", f"{where} voter_info.poll_hours", "open and close must be HH:MM")
+        if not _official(hours.get("source_url")):
+            problem("E-11", f"{where} voter_info.poll_hours", "source_url is not an https URL on an official site")
+        if not _retrieved_ok(hours.get("retrieved"), today):
+            problem("E-11", f"{where} voter_info.poll_hours", "no retrieved date (YYYY-MM-DD, not in the future)")
+    for key, entry in no_reminder.items():
+        if not isinstance(entry, dict) or not entry.get("reason") or not _official(entry.get("source_url")) \
+                or not _retrieved_ok(entry.get("retrieved"), today):
+            problem("E-11", f"{where} voter_info.no_reminder.{key}",
+                    "needs a reason, an https source_url on an official site and a retrieved date")
+
+
 def lint_elections(state_dir: Path) -> None:
     path = state_dir / "elections.json"
     state = state_dir.name
     doc = _load(path)
     where = _rel(path)
-    cands = _load(state_dir / "candidates.json").get("candidates", {})
+    # A state can have election dates before it has any candidates
+    # (docs/election-reminders.md): no candidates.json means none.
+    c_path = state_dir / "candidates.json"
+    cands = _load(c_path).get("candidates", {}) if c_path.exists() else {}
     lint_legislative_seats(state, doc.get("races", []), where)
 
     seen: set[str] = set()
@@ -288,6 +372,7 @@ def lint_elections(state_dir: Path) -> None:
     for key, value in (doc.get("key_dates") or {}).items():
         if isinstance(value, str) and not key.startswith("_"):
             _check_dates(f"{where} key_dates.{key}", value)
+    lint_reminder_sources(doc, where)
 
     measures = doc.get("ballot_measures") or {}
     groups = []

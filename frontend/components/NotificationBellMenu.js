@@ -35,6 +35,7 @@ import { useAuth } from '@/lib/auth';
 import { useCitizenAuth } from '@/lib/citizenAuth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
 import LifecycleNotice, { LIFECYCLE_KINDS } from './LifecycleNotice';
+import ElectionReminderNotice, { ElectionRemindersToggle } from './ElectionReminderNotice';
 
 // Phase 5 MVP: poll the notification inbox at this cadence. 60s is
 // frequent enough for "rep replied to my comment" to feel responsive
@@ -45,6 +46,9 @@ import LifecycleNotice, { LIFECYCLE_KINDS } from './LifecycleNotice';
 // lot to follow in this app" (Jeffrey). Unknown future kinds fall
 // into 'other' so a new backend kind can never render a blank bell.
 const NOTIF_CATEGORIES = [
+  // Election reminders (2026-10-16): voting deadlines and Election Day
+  // from official state sources. First, because they are time-critical.
+  { key: 'election_reminder', label: 'Election reminders', byOfficial: false },
   { key: 'reply', label: 'Replies', byOfficial: false },
   { key: 'tracked_post', label: 'Posts & polls', byOfficial: true },
   { key: 'tracked_event', label: 'Events', byOfficial: true },
@@ -340,8 +344,8 @@ export default function NotificationBellMenu() {
               </div>
             ) : notifItems.length === 0 ? (
               <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', padding: '6px 2px', lineHeight: 1.4 }}>
-                Nothing new. Replies to your comments and posts, polls, and
-                events from officials you track will show up here.
+                Nothing new. Replies to your comments, election reminders, and
+                posts, polls and events from officials you track will show up here.
               </div>
             ) : (
               notifGroups.map((g) => {
@@ -349,6 +353,9 @@ export default function NotificationBellMenu() {
                 const renderNotif = (n) => {
                   if (LIFECYCLE_KINDS.has(n.kind)) {
                     return <LifecycleNotice key={n.id} notification={n} onOpen={onClickNotif} />;
+                  }
+                  if (n.kind === 'election_reminder') {
+                    return <ElectionReminderNotice key={n.id} notification={n} onOpen={onClickNotif} />;
                   }
                   const p = n.payload || {};
                   const isUnread = !n.read_at;
@@ -476,7 +483,7 @@ export default function NotificationBellMenu() {
                   label={opt.label}
                   description={pushBusy
                     ? 'Setting up…'
-                    : 'Alerts when officials you track post updates or run polls.'}
+                    : 'Alerts when officials you track post updates or run polls, and election reminders.'}
                   checked={pushOn}
                   disabled={pushBusy}
                   onChange={handleMobilePushToggle}
@@ -495,6 +502,9 @@ export default function NotificationBellMenu() {
               />
             );
           })}
+          {/* Election reminders (2026-10-16): a citizen setting stored on
+              the account, not in the synced channel prefs blob. */}
+          {citizen?.id && <ElectionRemindersToggle refreshKey={`${citizen.id}-${open}`} />}
 
           <div style={{
             fontSize: '0.68rem', fontWeight: 800, color: 'var(--cl-text-light)',
