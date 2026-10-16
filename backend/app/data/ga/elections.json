@@ -42,6 +42,14 @@
     "early_voting_window_general": "2026-10-16",
     "early_voting_optional_general": "2026-10-16"
   },
+  "key_date_more_sources": {
+    "vote_by_mail_request_deadline_general": [
+      {
+        "url": "https://securemyabsenteeballot.sos.ga.gov/s/absentee-ballot-request",
+        "retrieved": "2026-10-16"
+      }
+    ]
+  },
   "voter_info": {
     "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-16.",
     "official_site": "https://sos.ga.gov/elections-division-georgia-secretary-states-office",

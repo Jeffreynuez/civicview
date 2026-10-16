@@ -338,7 +338,7 @@ Links: registration https://indianavoters.in.gov/; check_registration https://in
 | Election date | 2026-11-03 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
 | Registration reminder date | 2026-10-13 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
 | Register online | 2026-10-13 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
-| Register by mail | 2026-10-05, postmarked | https://www.sos.la.gov/elections-voting/election-dates; https://www.sos.la.gov/elections-voting/register-to-vote | 2026-10-16; 2026-10-16 |
+| Register by mail | 2026-10-05 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-16 |
 | Register in person | 2026-10-05 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
 | Same-day registration | Not available | https://www.sos.la.gov/elections-voting/register-to-vote | 2026-10-15 |
 | Every voter mailed a ballot | No | https://www.sos.la.gov/elections-voting/ways-to-vote | 2026-10-15 |
@@ -603,7 +603,7 @@ Links: registration https://elections.maryland.gov/voter_registration/index.html
 | Election date | 2026-11-03 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Registration reminder date | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Register online | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
-| Register by mail | 2026-10-05, postmarked | https://sos.tn.gov/elections/calendar; https://sos.tn.gov/elections/guides/how-to-register-to-vote | 2026-10-16; 2026-10-16 |
+| Register by mail | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-16 |
 | Register in person | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Same-day registration | Not available | https://sos.tn.gov/press-releases/tennessee-secretary-of-state-tre-hargett-reminds-eligible-tennesseans-today-is-the | 2026-10-15 |
 | Every voter mailed a ballot | No | https://sos.tn.gov/elections/guides/guide-to-absentee-voting | 2026-10-15 |
@@ -931,7 +931,7 @@ Links: registration https://sos.vermont.gov/elections/voters/registration/; chec
 | Register in person | 2026-10-05 | https://sos.ga.gov/sites/default/files/forms/2026%20Elections%20Calendar_0.pdf | 2026-10-16 |
 | Same-day registration | Not available | https://sos.ga.gov/page/voter-registration-drive | 2026-10-16 |
 | Every voter mailed a ballot | No | https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf | 2026-10-16 |
-| Mail ballot request | 2026-10-23 | https://sos.ga.gov/november-3-2026-general-election | 2026-10-16 |
+| Mail ballot request | 2026-10-23 | https://sos.ga.gov/november-3-2026-general-election; https://securemyabsenteeballot.sos.ga.gov/s/absentee-ballot-request | 2026-10-16; 2026-10-16 |
 | Mail ballot return | Received by 2026-11-03, when polls close | https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf | 2026-10-16 |
 | Early voting | 2026-10-13 to 2026-10-30 | https://sos.ga.gov/november-3-2026-general-election | 2026-10-16 |
 | Optional early voting | Counties may add days on 2026-10-18 and 2026-10-25 | https://sos.ga.gov/sites/default/files/forms/2026%20Elections%20Calendar_0.pdf | 2026-10-16 |
