@@ -28,8 +28,6 @@
  * the code gaps found in the audit are fixed separately, after which
  * these sections get simpler:
  *  - notices to trackers about former pages have no email opt-out
- *  - there is no in-app banner for policy changes (changes are announced
- *    by email and a notice on the site, which this page promises)
  * Keep this page true: when the code changes what is collected, shown,
  * sent or kept, change this page in the same pull request.
  */
@@ -223,7 +221,7 @@ export default function PrivacyPage() {
         <li>a random voter ID (<code>civicview_voter_token</code>) that shows you how you voted on older polls from this browser. It isn&apos;t linked to your name;</li>
         <li>your push choice and token, and your notification settings;</li>
         <li>your ballot-measure leanings, which stay on your device and are never sent to us;</li>
-        <li>the last district and address you looked up, your map view, and tutorial and display choices.</li>
+        <li>the last district and address you looked up, your map view, tutorial and display choices, and which site notice you dismissed.</li>
       </ul>
       <p>
         You can clear all of this in your browser&apos;s settings.

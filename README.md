@@ -1020,6 +1020,20 @@ Admin, Election reminders first.
 
 ---
 
+## Site notice
+
+The privacy policy and the Terms promise a notice on CivicView at
+least 30 days before a material change. Set `SITE_NOTICE_TEXT` on
+Render (and optionally `SITE_NOTICE_URL`, a "Read more" link such as
+`/privacy` or a full `https://` address) and a small banner appears at
+the top of every page on the site and in the apps; unset the text to
+take it down. Each browser can dismiss it once per notice: a new text
+or link shows again. Served by `GET /api/app/notice`
+(`backend/app/routers/app_meta.py`), shown by
+`frontend/components/SiteNoticeBanner.js`.
+
+---
+
 ## Roll-call votes
 
 Every member's Votes tab, the party-line figure, Compare's shared votes
