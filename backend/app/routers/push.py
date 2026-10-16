@@ -5,12 +5,12 @@
 # POST /api/push/register    — upsert a device token. Signed-in citizen
 #                              -> token binds to the account (personal
 #                              tracked-activity pushes). Anonymous ->
-#                              token joins the 'announcements' broadcast
-#                              topic (background task) AND — since
-#                              Notifications v2 part 3 — may carry its
-#                              own tracked-official key list + a channel
-#                              prefs snapshot, so tracked-activity
-#                              pushes reach installs that never sign in.
+#                              may carry its own tracked-official key
+#                              list + a channel prefs snapshot, so
+#                              tracked-activity pushes reach installs
+#                              that never sign in. (Until 2026-10-16 it
+#                              also joined the unused 'announcements'
+#                              topic.)
 # POST /api/push/unregister: forget a token (push turned off).
 # POST /api/push/unbind: sign-out (2026-10-16). The device stays
 #   registered but belongs to nobody, with an empty tracked list. A
@@ -79,15 +79,6 @@ def _normalize_tracked(keys: List[str]) -> List[str]:
     return out
 
 
-def _subscribe_announcements_bg(token: str) -> None:
-    """BackgroundTasks entrypoint — topic subscription is a network
-    round-trip to FCM; never ride it on the request."""
-    try:
-        get_push_service().subscribe_to_topic([token], ANNOUNCEMENTS_TOPIC)
-    except Exception:
-        logger.exception("announcements subscribe failed (non-fatal)")
-
-
 @router.post("/register")
 def register_device(
     payload: PushTokenIn,
@@ -97,7 +88,9 @@ def register_device(
 ):
     row = db.query(DeviceToken).filter(DeviceToken.token == payload.token).first()
     if row is None:
-        row = DeviceToken(token=payload.token, platform=payload.platform)
+        # New devices never join the old 'announcements' topic (2026-10-16).
+        row = DeviceToken(token=payload.token, platform=payload.platform,
+                          announcements_cleared_at=datetime.utcnow())
         db.add(row)
     row.platform = payload.platform
     row.last_seen_at = datetime.utcnow()
@@ -122,11 +115,6 @@ def register_device(
         prefs = sanitize_notification_prefs(payload.prefs)
         row.prefs_json = json.dumps(prefs, ensure_ascii=False) if prefs else None
     db.commit()
-    if citizen is None:
-        # Anonymous device -> broadcast channel. Signed-in devices get
-        # personal pushes instead; they can join announcements later if
-        # a preference for that ships.
-        background_tasks.add_task(_subscribe_announcements_bg, payload.token)
     return {"ok": True, "bound": citizen is not None}
 
 

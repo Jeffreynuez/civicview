@@ -1030,17 +1030,26 @@ def create_post(
     if post.poll:
         db.refresh(post.poll)
 
-    # Kick off AI classification for the attached poll (if any) so
-    # the /polls feed picks up sentiment/tones/topic tags. Background
-    # task fires after the request returns — no latency hit for the
-    # rep posting. No-op when AI isn't configured server-side.
-    if attached_poll_id is not None:
-        from app.services.poll_classifier import classify_poll
-        bg_tasks.add_task(classify_poll, attached_poll_id)
+    # Background tasks run in the order they are added, after the
+    # response, so none of this adds latency for the author.
+    #
+    # 1. Threat/incitement moderation (Task #41), shadow mode: records a
+    #    verdict only; hides nothing in Phase 0. See
+    #    docs/threat-detection-prd.md. It runs first (2026-10-16) so the
+    #    push below can be held back for a post it flags.
+    from app.services.moderation_service import assess_in_background
+    _author_kind = "rep" if rep is not None else "candidate"
+    _author_id = rep.id if rep is not None else (candidate.id if candidate is not None else None)
+    bg_tasks.add_task(assess_in_background, "post", post.id, post.body, _author_kind, _author_id)
+    if attached_poll_id is not None and post.poll is not None:
+        bg_tasks.add_task(
+            assess_in_background, "poll", attached_poll_id, post.poll.question,
+            _author_kind, _author_id,
+        )
 
-    # Tracked-official alerts (Task #105) — notify every citizen who
-    # tracks this page that new content landed. Background task with
-    # its own session; zero latency on the posting rep/candidate.
+    # 2. Tracked-official alerts (Task #105): notify every citizen who
+    #    tracks this page that new content landed. Bell rows always;
+    #    the device push is skipped when step 1 flagged the post.
     from app.services.notifications_inapp import (
         emit_tracked_content_notifications_bg,
     )
@@ -1053,18 +1062,12 @@ def create_post(
         attached_poll_id is not None,
     )
 
-    # Threat/incitement moderation (Task #41) — async shadow-mode pass.
-    # Records a verdict only; hides nothing in Phase 0. No latency hit
-    # for the author. See docs/threat-detection-prd.md.
-    from app.services.moderation_service import assess_in_background
-    _author_kind = "rep" if rep is not None else "candidate"
-    _author_id = rep.id if rep is not None else (candidate.id if candidate is not None else None)
-    bg_tasks.add_task(assess_in_background, "post", post.id, post.body, _author_kind, _author_id)
-    if attached_poll_id is not None and post.poll is not None:
-        bg_tasks.add_task(
-            assess_in_background, "poll", attached_poll_id, post.poll.question,
-            _author_kind, _author_id,
-        )
+    # 3. AI classification for the attached poll (if any) so the /polls
+    #    feed picks up sentiment/tones/topic tags. No-op when AI isn't
+    #    configured server-side.
+    if attached_poll_id is not None:
+        from app.services.poll_classifier import classify_poll
+        bg_tasks.add_task(classify_poll, attached_poll_id)
 
     return _post_to_read(
         post,

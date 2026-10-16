@@ -8,10 +8,11 @@
 # that logs to stdout so every environment boots cleanly.
 #
 # v1 scope (2026-07-24, agreed with Jeffrey): pushes mirror the
-# tracked-activity slice of the in-app bell — an official the citizen
-# tracks posting a post/poll. Anonymous devices (no citizen session)
-# are subscribed server-side to the ANNOUNCEMENTS_TOPIC broadcast
-# channel instead (launch news, election-day reminders — use sparingly).
+# tracked-activity slice of the in-app bell: an official the citizen
+# tracks posting a post/poll. Anonymous devices used to be subscribed to
+# the ANNOUNCEMENTS_TOPIC broadcast channel, which nothing ever sent to;
+# since 2026-10-16 new devices are not, and unsubscribe_announcements()
+# takes the old ones off.
 #
 # 2026-10-16: tracked-activity pushes go out one message per device
 # (send_messages), so each can carry its own data, and a push that is
@@ -153,11 +154,10 @@ class FCMPushService(PushService):
             for token, r in zip(batch, resp.responses):
                 if r.success:
                     continue
-                # Unregistered / invalid-argument => token is dead;
-                # report it for pruning. Other errors are transient.
-                exc = r.exception
-                name = type(exc).__name__ if exc else ""
-                if name in ("UnregisteredError", "InvalidArgumentError"):
+                # Only a token FCM itself reports dead is pruned
+                # (_is_dead_token_error). Other errors are transient or
+                # about the message, not the device.
+                if _is_dead_token_error(r.exception):
                     invalid.append(token)
         return invalid
 
@@ -226,9 +226,21 @@ class FCMPushService(PushService):
 
 
 def _is_dead_token_error(exc) -> bool:
-    """True when FCM's error means this device token is dead."""
+    """True when FCM's error means this device token is dead.
+
+    UnregisteredError (the app was uninstalled or the token expired) and
+    SenderIdMismatchError (a token from another Firebase project) always
+    are. InvalidArgumentError only when FCM says it is the registration
+    token that is invalid: until 2026-10-16 any InvalidArgument pruned
+    the token, and an argument problem in the message itself (a bad TTL,
+    an oversized payload) answers InvalidArgument for every token in the
+    batch, so one bad message could forget every device."""
     name = type(exc).__name__ if exc else ""
-    return name in ("UnregisteredError", "InvalidArgumentError")
+    if name in ("UnregisteredError", "SenderIdMismatchError"):
+        return True
+    if name == "InvalidArgumentError":
+        return "registration token" in str(exc).lower()
+    return False
 
 
 def _send_grouped(svc, messages: List[PushMessage]) -> SendResult:
@@ -321,6 +333,25 @@ def get_push_service() -> PushService:
 
 PUSH_CADENCES = ("realtime", "daily", "weekly")
 
+# How long FCM keeps trying a phone that is off (2026-10-16): a post
+# about 3 days; an event until it starts (capped at FCM's 28 days).
+POST_TTL_SECONDS = 3 * 24 * 3600
+_MAX_TTL_SECONDS = 28 * 24 * 3600
+
+
+def event_ttl_seconds(start_at, now_utc: Optional[datetime] = None) -> Optional[int]:
+    """Seconds until the event starts, for its push TTL; None once it
+    has started (no push then). An unreadable time gets the post TTL."""
+    from app.services.local_time import parse_utc
+
+    start = parse_utc(start_at)
+    if start is None:
+        return POST_TTL_SECONDS
+    left = int((start - (now_utc or datetime.utcnow())).total_seconds())
+    if left < 60:
+        return None
+    return min(left, _MAX_TTL_SECONDS)
+
 
 def effective_cadence(prefs: Optional[dict]) -> str:
     """The device's push timing: push_cadence when set, else the legacy
@@ -400,6 +431,7 @@ def _deliver_tracked_push(
     official_name: Optional[str] = None,
     notification_ids: Optional[dict] = None,
     body_for=None,
+    ttl_seconds: Optional[int] = None,
     now_utc: Optional[datetime] = None,
 ) -> int:
     """Shared delivery engine for tracked-activity pushes (2026-07-26,
@@ -414,6 +446,8 @@ def _deliver_tracked_push(
          (Notifications v2 part 3). Callers pass anon_key=None to skip
          anonymous delivery (e.g. events, where the on_event pref is an
          explicit opt-in anonymous devices never expressed).
+      ttl_seconds: how long FCM keeps trying an offline device (posts
+      3 days, events until they start; 2026-10-16).
       body_for(prefs), when given, builds each device's own body from
       its prefs (event times in the recipient's local time).
       notification_ids, {citizen_id: bell row id}, puts each bound
@@ -497,7 +531,8 @@ def _deliver_tracked_push(
         if nid:
             row_data["notification_id"] = nid
         row_body = body_for(prefs) if body_for is not None else body
-        message = PushMessage(token=row.token, title=title, body=row_body, data=row_data)
+        message = PushMessage(token=row.token, title=title, body=row_body, data=row_data,
+                              ttl_seconds=ttl_seconds)
         cadence = effective_cadence(prefs)
         reason = None
         if cadence != "realtime":
@@ -559,6 +594,7 @@ def push_tracked_post(
             },
             official_name=official_name,
             notification_ids=notification_ids,
+            ttl_seconds=POST_TTL_SECONDS,
         )
     except Exception:
         db.rollback()
@@ -585,12 +621,17 @@ def push_tracked_event(
             when = format_when(start_at, prefs) if start_at else ""
             return " · ".join(b for b in (title, when, location) if b)
 
+        ttl = event_ttl_seconds(start_at)
+        if ttl is None:
+            logger.info("push tracked_event official=%s: the event has started, no push", official_id)
+            return 0
         return _deliver_tracked_push(
             db, citizen_ids,
             anon_key=None,
             title=f"{official_name} scheduled an event",
             body=body_for(None),
             body_for=body_for,
+            ttl_seconds=ttl,
             data={
                 "kind": "tracked_event",
                 "official_id": official_id,
@@ -603,6 +644,39 @@ def push_tracked_event(
         db.rollback()
         logger.exception("push_tracked_event failed (non-fatal)")
         return 0
+
+
+def unsubscribe_announcements(db, batch: int = 1000) -> int:
+    """Take every device still on the old 'announcements' topic off it
+    (2026-10-16), once: anonymous devices were subscribed at
+    registration and nothing was ever sent to the topic. FCM accepts up
+    to 1000 tokens per call. Returns the devices handled. Never raises."""
+    from app.models.pages import DeviceToken
+
+    done = 0
+    try:
+        while True:
+            rows = (
+                db.query(DeviceToken)
+                .filter(DeviceToken.announcements_cleared_at.is_(None))
+                .order_by(DeviceToken.id.asc())
+                .limit(batch)
+                .all()
+            )
+            if not rows:
+                break
+            get_push_service().unsubscribe_from_topic([r.token for r in rows], ANNOUNCEMENTS_TOPIC)
+            now = datetime.utcnow()
+            for r in rows:
+                r.announcements_cleared_at = now
+            db.commit()
+            done += len(rows)
+        if done:
+            logger.info("push: %d device(s) taken off the unused '%s' topic", done, ANNOUNCEMENTS_TOPIC)
+    except Exception:
+        db.rollback()
+        logger.exception("push: announcements topic cleanup failed; it runs again on the next boot")
+    return done
 
 
 def push_election_reminder(

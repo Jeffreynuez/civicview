@@ -2599,6 +2599,13 @@ class DeviceToken(Base):
     #   (services/push_summaries.py). The claim is one conditional
     #   UPDATE on this column, so two instances cannot both send it.
     summary_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # announcements_cleared_at: when this device was taken off the old
+    #   'announcements' FCM topic (2026-10-16). Anonymous devices were
+    #   subscribed to it, and nothing ever sent to it, election
+    #   reminders included. New devices are never subscribed and are
+    #   stamped at registration; push_service.unsubscribe_announcements
+    #   takes the rest off once.
+    announcements_cleared_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
 
 class PushHeldItem(Base):

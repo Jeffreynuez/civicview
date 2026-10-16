@@ -46,7 +46,7 @@ def main() -> int:
     import app.main as m
     import app.services.push_service as ps
     from app.db import SessionLocal
-    from app.models.pages import DeviceToken, Notification, TrackedOfficial
+    from app.models.pages import DeviceToken, Notification, Post, TrackedOfficial
     from app.services import notifications_inapp as ni
     from app.services import push_summaries as sm
 
@@ -78,10 +78,17 @@ def main() -> int:
         device("tok-deep-ben", ben)
         device("tok-deep-anon", None, tracked=[page])
 
+        def new_post(body):
+            p = Post(official_id=page, body=body)
+            db.add(p)
+            db.commit()
+            return p.id
+
         # ── 1. post ──────────────────────────────────────────────────
         PUSHES.clear()
+        first_post = new_post("Hello")
         ni.emit_tracked_content_notifications(db, official_id=page, official_name="Pat Page",
-                                              post_id=501, preview="Hello", has_poll=False)
+                                              post_id=first_post, preview="Hello", has_poll=False)
         by = {p["token"]: p for p in PUSHES}
         a_row, b_row = bell(ana.id, "tracked_post"), bell(ben.id, "tracked_post")
         check("1 every device got the push", set(by) == {"tok-deep-ana", "tok-deep-ben", "tok-deep-anon"}, by)
@@ -92,7 +99,7 @@ def main() -> int:
         check("1 a signed-out device has no bell row to name",
               "notification_id" not in by.get("tok-deep-anon", {}).get("data", {}), by)
         check("1 the post is still named for the deep link",
-              str(by.get("tok-deep-ana", {}).get("data", {}).get("post_id")) == "501", by)
+              str(by.get("tok-deep-ana", {}).get("data", {}).get("post_id")) == str(first_post), by)
 
         # ── 2. the tap marks it read ─────────────────────────────────
         nid = by["tok-deep-ana"]["data"]["notification_id"]
@@ -118,7 +125,8 @@ def main() -> int:
         db.commit()
         PUSHES.clear()
         when = datetime(2030, 1, 7, 13, 0)
-        for post_id in (601, 602, 603):
+        for _ in range(3):
+            post_id = new_post("p")
             db.expire_all()
             ni.emit_tracked_content_notifications(db, official_id=page, official_name="Pat Page",
                                                   post_id=post_id, preview="p", has_poll=False)

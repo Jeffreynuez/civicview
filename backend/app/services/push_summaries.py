@@ -356,6 +356,8 @@ def run_pass_with_session(first: bool = False) -> dict:
         result = {}
         if first:
             result["migration"] = migrate_legacy_cadence(db)
+            from app.services.push_service import unsubscribe_announcements
+            result["announcements_cleared"] = unsubscribe_announcements(db)
         result["summaries"] = run_summaries(db)
         return result
     except Exception:

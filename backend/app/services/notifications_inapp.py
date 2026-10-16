@@ -226,6 +226,14 @@ def emit_tracked_content_notifications(
     # disturb the bell notifications above.
     from app.services.push_service import push_tracked_post
 
+    # No push for a post the moderation screen flagged, or one already
+    # hidden or deleted (2026-10-16). The bell rows above stay: the
+    # post is still on the page, and the screen hides nothing yet.
+    held_back = push_held_back(db, post_id)
+    if held_back:
+        logger.info("tracked_post push held back: post=%s %s", post_id, held_back)
+        return len(rows)
+
     # Each tracker's own bell row id rides on their push, so tapping
     # it marks that row read (2026-10-16).
     push_tracked_post(
@@ -239,6 +247,39 @@ def emit_tracked_content_notifications(
         notification_ids=notification_ids,
     )
     return len(rows)
+
+
+_FLAGGED = ("flag", "auto_hide")
+
+
+def push_held_back(db: Session, post_id: int) -> Optional[str]:
+    """Why a post must not be pushed, or None. Reads the moderation
+    verdicts recorded for the post and its poll (moderation runs before
+    the fan-out, routers/pages.create_post); a post with no verdict, or
+    only a 'skipped' one (AI unavailable), is pushed."""
+    from app.models.pages import ContentModerationVerdict, Poll, Post
+
+    post = db.get(Post, post_id)
+    if post is None or post.deleted_at is not None:
+        return "deleted"
+    if post.hide_reason:
+        return "hidden"
+    targets = [("post", post_id)]
+    poll_id = db.query(Poll.id).filter(Poll.post_id == post_id).scalar()
+    if poll_id:
+        targets.append(("poll", poll_id))
+    for content_type, content_id in targets:
+        decision = (
+            db.query(ContentModerationVerdict.decision)
+            .filter(ContentModerationVerdict.content_type == content_type,
+                    ContentModerationVerdict.content_id == content_id)
+            .order_by(ContentModerationVerdict.id.desc())
+            .limit(1)
+            .scalar()
+        )
+        if decision in _FLAGGED:
+            return f"moderation {decision} ({content_type})"
+    return None
 
 
 def emit_tracked_event_notifications(
