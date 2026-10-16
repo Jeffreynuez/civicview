@@ -62,8 +62,16 @@ def unsubscribe_info(token: str, db: Session = Depends(get_db)):
 
 @router.get("/unsubscribe/{token}")
 def unsubscribe_page_redirect(token: str):
-    """A GET never turns anything off: it opens the page that asks."""
-    return RedirectResponse(eu.page_url(token), status_code=303, headers=_NO_STORE)
+    """A GET never turns anything off: it opens the page that asks. The
+    address is rebuilt from the verified token, never copied from the
+    request; a link that does not verify opens the page with no token,
+    which says the link is not valid."""
+    data = eu.read_token(token)
+    if data is None:
+        target = f"{eu.app_url()}/unsubscribe"
+    else:
+        target = eu.page_url(eu.make_token(data["k"], data["i"], data["t"]))
+    return RedirectResponse(target, status_code=303, headers=_NO_STORE)
 
 
 def _identity(identity: Optional[str], citizen, rep, candidate):

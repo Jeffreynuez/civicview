@@ -120,6 +120,11 @@ def main() -> int:
         check("3 a second click is harmless", c.post(f"/api/email/unsubscribe/{token}").json()["already_off"] is True)
         check("3 no-store", r.headers.get("cache-control") == "no-store")
         check("3 a bad token is a 404", c.post("/api/email/unsubscribe/nope").status_code == 404)
+        for bad in ("nope", token + "x", "x&next=@evil.example"):
+            r = c.get(f"/api/email/unsubscribe/{bad}", follow_redirects=False)
+            check(f"3 a GET with a link that does not verify opens the page without it ({bad[:12]})",
+                  r.status_code == 303 and r.headers["location"] == "https://civicview.app/unsubscribe",
+                  r.headers.get("location"))
 
         # ── 4. the other types ───────────────────────────────────────
         ptok = eu.make_token("citizen", ana.id, "page_changes")
