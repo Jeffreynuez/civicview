@@ -81,6 +81,14 @@ def main() -> int:
                                   TrackedElection)
     from app.services import election_reminders as er
 
+    # This test checks how reminders work (timing, recipients, settings,
+    # email), so it pins the data to the five states it was written for.
+    # Since 2026-10-16 every state has an elections.json; section 12 at
+    # the end checks every state's file with the real data.
+    full_loader = er._load_state_docs
+    five = {k: v for k, v in full_loader().items() if k in ("FL", "CA", "NY", "PA", "TX")}
+    er._load_state_docs = lambda: five
+
     ps._service = _CapturePush()
     es.get_email_service = lambda: _CaptureEmail()
     check = fh.Checks()
@@ -467,6 +475,30 @@ def main() -> int:
     check("11 a source without its retrieved date is not sent, and says why",
           "fl-2028-11-07-early-voting-1d" not in fut_ids
           and any(s.kind == "early_voting_1d" and "retrieved" in s.reason for s in fut.skipped))
+
+    # ── 12. Every state's file, with the real data ───────────────────
+    er._load_state_docs = full_loader
+    all_docs = full_loader()
+    full = er.build_schedule(today=date(2026, 10, 1))
+    check("12 every state's reminders have an https source and an https official link",
+          all(r.source_url.startswith("https://") and r.link_url.startswith("https://") for r in full.reminders))
+    check("12 every reminder not sent says why, with an https source",
+          all(s.reason and str(s.source_url).startswith("https://") for s in full.skipped),
+          [(s.state, s.kind) for s in full.skipped if not str(s.source_url).startswith("https://")])
+    full_texts = " ".join(r.title + " " + r.body for r in full.reminders)
+    check("12 no em or en dashes in any state's reminders", not re.search("[\u2013\u2014]", full_texts))
+    check("12 neutral in every state: no party, candidate or measure words",
+          not re.search(r"\b(Republican|Democrat|Democratic|GOP|Libertarian|Green Party|candidate|"
+                        r"Amendment|Proposition|measure|support|oppose)\b", full_texts, re.I))
+    hours_ok = [
+        r.state for r in full.reminders if r.kind == "election_day_1d"
+        and ("Polls are open from" in r.body) != bool((all_docs[r.state].get("voter_info") or {}).get("poll_hours"))
+    ]
+    check("12 Election Day reminders give poll hours exactly where the state sets them statewide",
+          not hours_ok, hours_ok)
+    check("12 every state with a 2026 file gets an Election Day reminder",
+          {r.state for r in full.reminders if r.kind == "election_day_1d"}
+          == {s for s, d in all_docs.items() if (d.get("key_dates") or {}).get("general") == "2026-11-03"})
 
     db.close()
     client.__exit__(None, None, None)

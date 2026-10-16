@@ -1,0 +1,65 @@
+{
+  "_note": "Tennessee 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "TN",
+  "state_name": "Tennessee",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-05",
+    "voter_registration_online_general": "2026-10-05",
+    "voter_registration_mail_general": "2026-10-05",
+    "voter_registration_in_person_general": "2026-10-05",
+    "same_day_registration_general": "Not available",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-24",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, when polls close",
+    "early_voting_window_general": "2026-10-14 to 2026-10-29"
+  },
+  "key_date_sources": {
+    "general": "https://sos.tn.gov/elections/calendar",
+    "voter_registration_deadline_general": "https://sos.tn.gov/elections/calendar",
+    "voter_registration_online_general": "https://sos.tn.gov/elections/calendar",
+    "voter_registration_mail_general": "https://sos.tn.gov/elections/calendar",
+    "voter_registration_in_person_general": "https://sos.tn.gov/elections/calendar",
+    "same_day_registration_general": "https://sos.tn.gov/press-releases/tennessee-secretary-of-state-tre-hargett-reminds-eligible-tennesseans-today-is-the",
+    "all_mail_general": "https://sos.tn.gov/elections/guides/guide-to-absentee-voting",
+    "vote_by_mail_request_deadline_general": "https://sos.tn.gov/elections/guides/guide-to-absentee-voting",
+    "mail_ballot_return_deadline_general": "https://sos.tn.gov/elections/guides/guide-to-absentee-voting",
+    "early_voting_window_general": "https://sos.tn.gov/govotetn"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-16",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-16.",
+    "official_site": "https://sos.tn.gov/govotetn",
+    "links": {
+      "registration": "https://ovr.govote.tn.gov/",
+      "check_registration": "https://tnmap.tn.gov/voterlookup/",
+      "mail_ballot": "https://sos.tn.gov/elections/guides/guide-to-absentee-voting",
+      "early_voting": "https://govote.tnsos.gov/",
+      "polling_place": "https://web.go-vote-tn.elections.tn.gov/",
+      "sample_ballot": "https://web.go-vote-tn.elections.tn.gov/",
+      "track_ballot": "https://tnmap.tn.gov/voterlookup/"
+    },
+    "poll_hours_vary": {
+      "text": "Vary by county",
+      "source_url": "https://sos.tn.gov/newsroom/press-releases/everything-voters-need-to-know-for-the-august-6-election-this-thursday",
+      "retrieved": "2026-10-15"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

@@ -1,0 +1,70 @@
+{
+  "_note": "Virginia 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "VA",
+  "state_name": "Virginia",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-23",
+    "voter_registration_online_general": "2026-10-23",
+    "voter_registration_mail_general": "2026-10-23, postmarked",
+    "voter_registration_in_person_general": "2026-10-23",
+    "same_day_registration_general": "During early voting and on Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-23",
+    "mail_ballot_return_deadline_general": "Postmarked by 2026-11-03, received by 2026-11-06, noon",
+    "early_voting_window_general": "2026-09-18 to 2026-10-31"
+  },
+  "key_date_sources": {
+    "general": "https://www.elections.virginia.gov/casting-a-ballot/calendars-schedules/upcoming-elections.html",
+    "voter_registration_deadline_general": "https://www.elections.virginia.gov/casting-a-ballot/calendars-schedules/upcoming-elections.html",
+    "voter_registration_online_general": "https://www.elections.virginia.gov/casting-a-ballot/calendars-schedules/upcoming-elections.html",
+    "voter_registration_mail_general": "https://www.elections.virginia.gov/registration/how-to-register/",
+    "voter_registration_in_person_general": "https://www.elections.virginia.gov/registration/how-to-register/",
+    "same_day_registration_general": "https://www.elections.virginia.gov/registration/same-day-voter-registration/",
+    "all_mail_general": "https://www.elections.virginia.gov/casting-a-ballot/early-absentee/",
+    "vote_by_mail_request_deadline_general": "https://www.elections.virginia.gov/casting-a-ballot/calendars-schedules/upcoming-elections.html",
+    "mail_ballot_return_deadline_general": "https://www.elections.virginia.gov/casting-a-ballot/early-absentee/",
+    "early_voting_window_general": "https://www.elections.virginia.gov/casting-a-ballot/calendars-schedules/upcoming-elections.html"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.elections.virginia.gov/",
+    "links": {
+      "registration": "https://vote.elections.virginia.gov/VoterInformation",
+      "check_registration": "https://vote.elections.virginia.gov/VoterInformation",
+      "mail_ballot": "https://www.elections.virginia.gov/casting-a-ballot/early-absentee/",
+      "early_voting": "https://www.elections.virginia.gov/casting-a-ballot/early-voting-office-locations/",
+      "polling_place": "https://www.elections.virginia.gov/casting-a-ballot/polling-place-lookup/",
+      "sample_ballot": "https://www.elections.virginia.gov/casting-a-ballot/polling-place-lookup/",
+      "track_ballot": "https://ballot.elections.virginia.gov/voter/va/bt/track"
+    },
+    "poll_hours": {
+      "open": "06:00",
+      "close": "19:00",
+      "source_url": "https://www.elections.virginia.gov/registration/election-voter-faq/",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "17:00"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person during early voting and on Election Day.",
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}

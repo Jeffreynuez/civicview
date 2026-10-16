@@ -1,0 +1,73 @@
+{
+  "_note": "Michigan 2026 election cycle: key dates and official links for the November 3, 2026 general election. Each date was read on the official page in key_date_sources on the day in key_date_retrieved. Races are not listed yet.",
+  "state": "MI",
+  "state_name": "Michigan",
+  "cycle": "2026",
+  "key_dates": {
+    "general": "2026-11-03",
+    "voter_registration_deadline_general": "2026-10-19",
+    "voter_registration_online_general": "2026-10-19",
+    "voter_registration_mail_general": "2026-10-19, postmarked",
+    "voter_registration_in_person_general": "2026-10-19",
+    "same_day_registration_general": "At your local election office through Election Day",
+    "all_mail_general": "No",
+    "vote_by_mail_request_deadline_general": "2026-10-30",
+    "mail_ballot_return_deadline_general": "Received by 2026-11-03, 8 p.m.",
+    "early_voting_window_general": "2026-10-24 to 2026-11-01",
+    "early_voting_optional_general": "Cities and townships may add days from 2026-10-05 and on 2026-11-02"
+  },
+  "key_date_sources": {
+    "general": "https://www.michigan.gov/sos/elections/voting",
+    "voter_registration_deadline_general": "https://www.michigan.gov/sos/elections/voting",
+    "voter_registration_online_general": "https://www.michigan.gov/sos/elections/voting",
+    "voter_registration_mail_general": "https://www.michigan.gov/sos/elections/voting/register-to-vote",
+    "voter_registration_in_person_general": "https://www.michigan.gov/sos/elections/voting/register-to-vote",
+    "same_day_registration_general": "https://www.michigan.gov/sos/elections/voting",
+    "all_mail_general": "https://www.michigan.gov/sos/elections/voting/absentee-voting",
+    "vote_by_mail_request_deadline_general": "https://www.michigan.gov/sos/elections/voting/absentee-voting",
+    "mail_ballot_return_deadline_general": "https://www.michigan.gov/sos/elections/voting/absentee-voting",
+    "early_voting_window_general": "https://www.michigan.gov/sos/elections/voting",
+    "early_voting_optional_general": "https://www.michigan.gov/sos/elections/voting/early-in-person-voting"
+  },
+  "key_date_retrieved": {
+    "general": "2026-10-15",
+    "voter_registration_deadline_general": "2026-10-15",
+    "voter_registration_online_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_in_person_general": "2026-10-15",
+    "same_day_registration_general": "2026-10-15",
+    "all_mail_general": "2026-10-15",
+    "vote_by_mail_request_deadline_general": "2026-10-15",
+    "mail_ballot_return_deadline_general": "2026-10-15",
+    "early_voting_window_general": "2026-10-15",
+    "early_voting_optional_general": "2026-10-15"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-15.",
+    "official_site": "https://www.michigan.gov/sos/elections",
+    "links": {
+      "registration": "https://mvic.sos.state.mi.us/RegisterVoter/Index",
+      "check_registration": "https://mvic.sos.state.mi.us/Voter/Index",
+      "mail_ballot": "https://mvic.sos.state.mi.us/AVApplication/Index",
+      "early_voting": "https://www.michigan.gov/sos/elections/voting/early-in-person-voting",
+      "polling_place": "https://mvic.sos.state.mi.us/Voter/Index",
+      "sample_ballot": "https://mvic.sos.state.mi.us/Voter/Index",
+      "track_ballot": "https://www.michigan.gov/sos/elections/voting/ballot-tracking"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "20:00",
+      "source_url": "https://www.michigan.gov/sos/elections/voting/vote-on-election-day",
+      "retrieved": "2026-10-15"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "17:00"
+    },
+    "reminder_notes": {
+      "voter_registration_deadline_general": "After that, you can still register in person at your local election office through Election Day.",
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through November 2."
+    }
+  },
+  "races": [],
+  "ballot_measures": {}
+}
