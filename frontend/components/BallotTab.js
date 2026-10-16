@@ -1358,6 +1358,7 @@ function CandidateRow({
   const party = candidate.party || 'NP';
   const partyColor = PARTY_TEXT[party] || '#666';
   const partyBg = PARTY_BG[party] || '#eef';
+  const partyText = candidate.party_label != null ? candidate.party_label : party;
   const followTarget = toCandidateMember(candidate, race, stateCode, electionPhase);
 
   // Scroll + pulse when this row is the focus/highlight target. We run once
@@ -1436,14 +1437,17 @@ function CandidateRow({
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
         {/* The party exactly as the state's list prints it; the code only
-            picks the color. */}
-        <span style={{
-          padding: '1px 8px', borderRadius: '9px', fontSize: '0.66rem', fontWeight: 800,
-          background: partyBg, color: partyColor,
-          maxWidth: isMobileRow ? 110 : 160, whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.25,
-        }}>
-          {candidate.party_label || party}
-        </span>
+            picks the color. A list that prints no party for a candidate
+            (party_label "") gets no chip. */}
+        {partyText && (
+          <span style={{
+            padding: '1px 8px', borderRadius: '9px', fontSize: '0.66rem', fontWeight: 800,
+            background: partyBg, color: partyColor,
+            maxWidth: isMobileRow ? 110 : 160, whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.25,
+          }}>
+            {partyText}
+          </span>
+        )}
         <FollowButton member={followTarget} size="sm" onNotify={onNotify} />
         <CompareButton
           member={followTarget}

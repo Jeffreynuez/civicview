@@ -81,6 +81,24 @@ def _person_key(name: Optional[str]) -> str:
     return f"{tokens[0]} {tokens[-1]}"
 
 
+def _district_key(value) -> Optional[str]:
+    """One spelling for a congressional district on both sides of the
+    Your Ballot match: "7", "07" and "FL-7" are "7"; an at-large seat
+    ("At-Large" from the address lookup, "AL" or "0" in the data, "WY-AL"
+    on an account) is "AL"."""
+    if value is None:
+        return None
+    text = str(value).strip().upper()
+    at_large = ("AT-LARGE", "AT LARGE", "AL", "0", "00", "98")
+    if text not in at_large and "-" in text:
+        prefix, rest = text.split("-", 1)
+        if len(prefix) == 2 and prefix.isalpha():
+            text = rest
+    if text in at_large:
+        return "AL"
+    return str(int(text)) if text.isdigit() else (text or None)
+
+
 def _primary_concluded(raw: dict) -> bool:
     return bool((raw.get("primary_status") or {}).get("concluded"))
 
@@ -270,7 +288,12 @@ class ElectionsService:
             if not c.get("write_in") and (c.get("party") or "").upper() != "WRI"
         ]
         reasons: list[str] = []
-        if (state_code or "").upper() in _TOP_TWO_STATES:
+        if race.get("open_primary"):
+            # An open primary (Louisiana's November ballot for U.S. House)
+            # lists every qualified candidate, whatever their party, so
+            # several from one party is the ballot, not a stale roster.
+            pass
+        elif (state_code or "").upper() in _TOP_TWO_STATES:
             if len(ballot_rows) > 2:
                 reasons.append("top-two")
         elif (state_code or "").upper() in _TOP_FOUR_STATES:
@@ -415,7 +438,7 @@ class ElectionsService:
         if not raw:
             return None
 
-        target_cd = str(congressional_district).strip() if congressional_district is not None else None
+        target_cd = _district_key(congressional_district)
         target_ssd = str(state_senate_district).strip() if state_senate_district is not None else None
         target_shd = str(state_house_district).strip() if state_house_district is not None else None
 
@@ -425,7 +448,7 @@ class ElectionsService:
             chamber = (race.get("chamber") or "").lower()
             race_state_senate = str(race.get("state_senate_district") or "").strip()
             race_state_house = str(race.get("state_house_district") or "").strip()
-            race_cd = str(race.get("congressional_district") or "").strip()
+            race_cd = _district_key(race.get("congressional_district")) or ""
 
             include = False
             reason = None

@@ -48,7 +48,10 @@ Elections (every <state>/elections.json):
        on an official site and a real roster_retrieved date. Otherwise it
        lists none (the Ballot tab says the candidates aren't listed yet),
        so no race mixes certified and unchecked candidates. Jeffrey,
-       2026-10-16: "Every race is complete or not shown."
+       2026-10-16: "Every race is complete or not shown." A race marked
+       open_primary (several candidates of one party on the ballot, as on
+       Louisiana's November ballot for U.S. House) cites the official page
+       that says so in open_primary_source_url.
   E-14 nobody appears twice: a candidate id is on at most one race's
        general list in a state, and no general list names the same person
        twice
@@ -161,7 +164,16 @@ HTTP_ONLY_HOSTS = {
 #   arizona.vote: the Arizona Secretary of State's voter portal
 #     (my.arizona.vote); azsos.gov sends voters there to find their voting
 #     location and track their ballot, 2026-10-16.
-OFFICIAL_HOST_SUFFIXES = ("myflorida.com", "flsenate.gov", "myfloridahouse.gov", "dcboe.org", "arizona.vote")
+OFFICIAL_HOST_SUFFIXES = (
+    "myflorida.com", "flsenate.gov", "myfloridahouse.gov", "dcboe.org", "arizona.vote",
+    # The Tennessee Secretary of State's 2026 Candidate Lists page
+    # (sos.tn.gov/elections/2026-candidate-lists) serves its PDFs from
+    # this host.
+    "tnsosgovfiles.com",
+    # The Michigan Bureau of Elections' public candidate report, linked
+    # from michigan.gov/sos/elections.
+    "mi-boe.entellitrak.com",
+)
 
 # Party codes frontend/lib/party.js maps to a label (rule O-4).
 PARTY_CODES = {"R", "D", "I", "NP", "U", "NA", "NPA", "UNE", "TM", "F", "L", "G"}
@@ -392,6 +404,8 @@ def lint_rosters(doc: dict, cands: dict, where: str) -> None:
             if not (isinstance(url, str) and url.startswith("https://") and _official(url)):
                 problem("E-13", f"{where} {rid}", f"roster_source_url {url!r} is not an official https page")
             _check_dates(f"{where} {rid}.roster_retrieved", str(race.get("roster_retrieved") or ""))
+        if race.get("open_primary") and not _official(race.get("open_primary_source_url")):
+            problem("E-13", f"{where} {rid}", "open_primary needs an official https open_primary_source_url")
         people = set()
         for cid in general:
             if cid in on_general:

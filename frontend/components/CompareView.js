@@ -767,8 +767,9 @@ function CandidateColumn({ candidate, loading }) {
             </span>
           </div>
           <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {PARTY_NAMES[party] || party}
-            {candidate.seeking_office ? ` · ${candidate.seeking_office}` : ''}
+            {candidate.party_label != null ? candidate.party_label : (PARTY_NAMES[party] || party)}
+            {candidate.party_label !== '' && candidate.seeking_office ? ' · ' : ''}
+            {candidate.seeking_office || ''}
           </div>
         </div>
       </div>

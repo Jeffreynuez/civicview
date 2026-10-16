@@ -133,6 +133,9 @@ export default function CandidateProfile({
   if (!full) return null;
   const c = full;
   const party = c.party || 'NP';
+  // The party exactly as the state's certified list prints it, when the
+  // record has it; a list that prints no party (party_label "") shows none.
+  const partyText = c.party_label != null ? c.party_label : (PARTY_NAMES[party] || party);
 
   // Candidate follow target — match the member shape FollowButton / store expect.
   const followMember = {
@@ -417,15 +420,18 @@ export default function CandidateProfile({
               </CompactIconButton>
             )}
           </div>
-          <span style={{
-            display: 'inline-block', padding: '2px 8px', borderRadius: '12px',
-            fontSize: '0.7rem', fontWeight: 700,
-            background: 'rgba(255,255,255,0.22)',
-            color: 'white',
-            flexShrink: 0,
-          }}>
-            {party}
-          </span>
+          {partyText && (
+            <span title={partyText} style={{
+              display: 'inline-block', padding: '2px 8px', borderRadius: '12px',
+              fontSize: '0.7rem', fontWeight: 700,
+              background: 'rgba(255,255,255,0.22)',
+              color: 'white',
+              flexShrink: 0, maxWidth: 140,
+              overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+            }}>
+              {partyText}
+            </span>
+          )}
         </div>
       )}
 
@@ -560,12 +566,14 @@ export default function CandidateProfile({
             display: 'flex', justifyContent: 'center',
             gap: '6px', flexWrap: 'wrap', marginTop: '8px',
           }}>
-            <span style={{
-              fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px',
-              borderRadius: '10px', background: 'rgba(255,255,255,0.22)',
-            }}>
-              {PARTY_NAMES[party] || party}
-            </span>
+            {partyText && (
+              <span style={{
+                fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px',
+                borderRadius: '10px', background: 'rgba(255,255,255,0.22)',
+              }}>
+                {partyText}
+              </span>
+            )}
             {c.incumbent && (
               <span style={{
                 fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px',
