@@ -175,6 +175,8 @@ flow.
 
 - **Anthropic Claude API** (Haiku) — AI summaries + classification
 - **Congress.gov API** — federal legislator data
+- **Clerk of the House + U.S. Senate roll-call XML**: how every member
+  voted on every roll call, stored in the database (see **Roll-call votes**)
 - **Google Civic Information API** — address-to-rep lookup
 - **Census Geocoder** — address normalization
 - **Postmark** — transactional email (scaffolded, awaiting credentials)
@@ -362,6 +364,19 @@ categories:
   Demo accounts created), plus a placeholder `/stats` page that an
   expanded analytics surface (engagement curves, growth by state)
   will absorb post-launch.
+
+---
+
+## Shipped 2026-10-16: member votes from the official roll calls
+
+GovTrack started refusing our requests (fetch failures from October 3,
+403s from October 15), which emptied every profile's Votes tab,
+party-line figure and Compare's shared votes. Votes now come from stored
+House Clerk and Senate roll calls, synced in the background with ten
+years of history; the party-line figure now counts the current
+Congress's party-split votes, the same way for every member. Details in
+**Roll-call votes** below and `docs/bills-data-spike.md`. Screenshots in
+`docs/screenshots/member-votes-official/`.
 
 ---
 
@@ -1000,6 +1015,47 @@ source and retrieved-date rules and an example are in
 [`docs/election-reminders.md`](./docs/election-reminders.md). Sending is
 off until `ELECTION_REMINDERS_ENABLED=true` is set on Render; check
 Admin, Election reminders first.
+
+---
+
+## Roll-call votes
+
+Every member's Votes tab, the party-line figure, Compare's shared votes
+and the /bills seat chart read stored roll calls from the official
+records: the Clerk of the House (`clerk.house.gov/evs/{year}/roll{NNN}.xml`,
+counted through Congress.gov's `/house-vote` API) and the U.S. Senate
+(senate.gov vote menus and per-vote XML). GovTrack is not used anywhere
+(it began refusing our requests in October 2026).
+
+- **Tables:** `roll_calls`, `roll_call_positions` (one row per member
+  per vote, with the member's party on that vote), `roll_call_members`,
+  `roll_call_sync_state`. Created by the boot auto-migrate.
+- **The sync** (`backend/app/services/roll_call_sync.py`) runs in the API
+  process, never on the boot path: first pass two minutes after boot,
+  then hourly from 9 a.m. to midnight Eastern on weekdays and every 6
+  hours otherwise. It fetches only roll calls that are not stored yet,
+  newest first, and holds a Postgres advisory lock so two instances
+  during a deploy cannot both run it. Each pass writes one log line
+  starting `Roll-call sync:`.
+- **History:** ten years (the current Congress and the four before it,
+  2017 onward), filled in 25-minute chunks with 5-minute breaks after
+  the current Congress is complete. About 9,000 requests and 300 MB.
+  `ROLL_CALL_BACKFILL_CONGRESSES` changes the number of Congresses
+  (default 5). Nothing stored is ever deleted.
+- **Check it:** `GET /api/admin/roll-calls` (admin sign-in) lists each
+  session's official and stored counts, what was added in the last 24
+  hours and the last pass. Turn the sync off with
+  `ROLL_CALL_SYNC_ENABLED=false`.
+- **The party-line figure** counts the current Congress's roll calls on
+  which most Republicans and most Democrats voted on opposite sides
+  (party-split votes), and shows how often the member voted with most of
+  their own party, by the party recorded on each vote. Present and Not
+  Voting are left out; at least 10 such votes are needed. The same
+  method for every member; independents get no figure
+  (`roll_call_store.party_line`).
+- **vote_id:** `h-{congress}-{session}-{roll}` / `s-{congress}-{session}-{vote}`,
+  the same on /bills and on profiles, so the vote explainer caches one
+  explanation per roll call and builds it from the stored record.
 
 ---
 

@@ -7,6 +7,45 @@
 ID mappings resolve with data already in the repo. The only open item is how to
 *enumerate* recent House votes (the per-vote data itself is solid).
 
+> **Update 2026-10-16: GovTrack is gone; every vote is stored from the
+> official records.** GovTrack began refusing CivicView's requests
+> (production logs: "GovTrack votes fetch failed" from October 3, "GovTrack
+> votes 403" from October 15), so every member's Votes tab, the party-line
+> figure and Compare's shared votes went empty. What changed:
+>
+> - **Stored roll calls.** New tables `roll_calls`, `roll_call_positions`,
+>   `roll_call_members` and `roll_call_sync_state`
+>   (`backend/app/models/pages.py`), filled by
+>   `backend/app/services/roll_call_sync.py` and read through
+>   `backend/app/services/roll_call_store.py`. Keyed by the vote_id scheme
+>   below. A roll call is fetched once and kept; a vote stored within a
+>   day of being cast gets one re-check the next day, because senate.gov
+>   amended a vote file two hours after the vote (vote 256, 2026-09-30).
+> - **House enumeration.** Congress.gov `/house-vote/{congress}/{session}`
+>   gives the count (its `pagination.count` matched the Clerk's highest
+>   roll exactly for 2017 through 2026; the API answers for the 115th
+>   Congress onward, not only the 118th as first documented). Without a
+>   key, roll numbers are probed upward on clerk.house.gov.
+> - **Clerk quirk.** A roll that doesn't exist answers **HTTP 200** with
+>   `<xml>Error sanitizing file "roll999.xml". Please try again.</xml>`, so
+>   the body is checked (`house_roll_missing`), and an apparent end of a
+>   session is checked twice before a past session is marked complete.
+>   The old code raised an unhandled error on that body.
+> - **Senate crosswalk.** lis_member_id maps to bioguide through
+>   senate.gov's own `LIS_MEMBER/cvc_member_data.xml` (sitting senators),
+>   then `legislators-current.json`, then `legislators-historical.json`
+>   for senators who have left (read only when an id is still unmapped).
+> - **Amendment votes.** A Senate amendment vote names its bill under
+>   `<amendment><amendment_to_document_number>`, not `<document>`.
+> - **No GovTrack anywhere.** The GovTrack member-votes, person-id and
+>   party-line code is removed from `congress_service.py`, and
+>   `official_votes_service.py` no longer falls back to GovTrack's vote
+>   list. The fallback chain below is historical.
+> - **Size.** Measured on Postgres 16: about 114 bytes per stored position
+>   including both indexes, about 1 KB per roll call. Ten years (115th to
+>   119th Congress, 8,953 roll calls, about 2.58 million positions) is
+>   about 300 MB.
+
 ---
 
 ## Why this spike
