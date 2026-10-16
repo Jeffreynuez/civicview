@@ -21,6 +21,7 @@
 //      account; anonymous => backend subscribes it to 'announcements'.
 
 import { request } from './http';
+import { openDeepLink, postDeepLink } from './deepLinks';
 
 const CHOICE_KEY = 'cv:push:choice'; // 'enabled' | 'declined' | 'denied'
 const TOKEN_KEY = 'cv:push:token';   // last FCM token we registered
@@ -249,6 +250,18 @@ export function refreshPushRegistration() {
  * that START the app. Module-level once-flag — the registration is
  * process-wide, not per-component.
  */
+async function markTappedRead(notificationId) {
+  const id = Number(notificationId);
+  if (!Number.isInteger(id) || id <= 0) return;
+  try {
+    const { markNotificationRead } = await import('./pagesApi');
+    await Promise.race([
+      markNotificationRead(id),
+      new Promise((resolve) => setTimeout(resolve, 1500)),
+    ]);
+  } catch { /* the bell row stays unread; nothing else depends on it */ }
+}
+
 let tapNavInstalled = false;
 export function initPushTapNavigation() {
   if (tapNavInstalled || !isNativeApp()) return;
@@ -277,14 +290,14 @@ export function initPushTapNavigation() {
         }
         // tracked_post → land ON the post (#post-<id> scroll+pulse);
         // tracked_event (2026-07-26) → land on the page, whose header
-        // + Events tab surface the upcoming event.
+        // + Events tab surface the upcoming event. The same link the
+        // bell uses (lib/deepLinks.js). The push carries the person's
+        // bell row id (2026-10-16), so the tap marks that row read
+        // first (briefly: navigation must not wait on the network).
         if (!d.official_id) return;
         if (d.kind !== 'tracked_post' && d.kind !== 'tracked_event') return;
-        let url = '/?page=' + encodeURIComponent(String(d.official_id));
-        if (d.kind === 'tracked_post' && d.post_id) {
-          url += '#post-' + encodeURIComponent(String(d.post_id));
-        }
-        window.location.assign(url);
+        const url = postDeepLink(d.official_id, d.kind === 'tracked_post' ? d.post_id : null);
+        markTappedRead(d.notification_id).finally(() => openDeepLink(url));
       } catch { /* malformed payload — open normally */ }
     });
   } catch { /* plugin variant without the event — fail open */ }

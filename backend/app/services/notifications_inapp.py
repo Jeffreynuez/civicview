@@ -213,6 +213,8 @@ def emit_tracked_content_notifications(
         for (tid,) in trackers
     ]
     db.add_all(rows)
+    db.flush()  # assigns ids; read them now, before commit expires the rows
+    notification_ids = {n.recipient_id: n.id for n in rows}
     db.commit()
     logger.info(
         "tracked_post fan-out: official=%s post=%s -> %d citizens",
@@ -224,6 +226,8 @@ def emit_tracked_content_notifications(
     # disturb the bell notifications above.
     from app.services.push_service import push_tracked_post
 
+    # Each tracker's own bell row id rides on their push, so tapping
+    # it marks that row read (2026-10-16).
     push_tracked_post(
         db,
         [tid for (tid,) in trackers],
@@ -232,6 +236,7 @@ def emit_tracked_content_notifications(
         post_id=post_id,
         preview=_truncate(preview, 120),
         has_poll=has_poll,
+        notification_ids=notification_ids,
     )
     return len(rows)
 
@@ -302,6 +307,8 @@ def emit_tracked_event_notifications(
         for tid in opted
     ]
     db.add_all(notif_rows)
+    db.flush()
+    notification_ids = {n.recipient_id: n.id for n in notif_rows}
     db.commit()
     logger.info(
         "tracked_event fan-out: official=%s event=%s -> %d of %d tracker(s)",
@@ -317,6 +324,7 @@ def emit_tracked_event_notifications(
         title=_truncate(title, 120),
         start_at=start_at,
         location=location,
+        notification_ids=notification_ids,
     )
     return len(notif_rows)
 

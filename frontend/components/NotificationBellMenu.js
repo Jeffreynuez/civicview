@@ -35,6 +35,7 @@ import { useAuth } from '@/lib/auth';
 import { useCitizenAuth } from '@/lib/citizenAuth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
 import { takeNotificationsOpenRequest } from '@/lib/notificationsOpen';
+import { openDeepLink, postDeepLink } from '@/lib/deepLinks';
 import LifecycleNotice, { LIFECYCLE_KINDS } from './LifecycleNotice';
 import ElectionReminderNotice, { ElectionRemindersToggle } from './ElectionReminderNotice';
 
@@ -203,23 +204,11 @@ export default function NotificationBellMenu() {
       ));
       setUnreadCount((c) => Math.max(0, c - 1));
     }
-    // Deep-link to the post + comment when payload carries the
-    // anchor. Falls back to no-op when payload is missing fields.
+    // Open the post (or the page, for events and page notices) with the
+    // same deep link a push tap uses (lib/deepLinks.js, 2026-10-16).
     const p = n.payload || {};
-    if (p.official_id) {
-      // The simplest deep-link the existing app supports: jump to
-      // the page anchor (#post-<id>). PageView's selection model
-      // doesn't accept URLs directly today; using location.hash is
-      // a non-disruptive nudge — the user lands on the page and
-      // can scroll to the post. Improving this is a follow-up.
-      try {
-        const u = new URL(window.location.href);
-        u.searchParams.set('open_page', p.official_id);
-        if (p.post_id) u.hash = `#post-${p.post_id}`;
-        window.history.pushState({}, '', u.toString());
-      } catch { /* ignore */ }
-    }
     setOpen(false);
+    if (p.official_id) openDeepLink(postDeepLink(p.official_id, p.post_id));
   };
 
   // Bell v3.1 two-stage action (Jeffrey, 2026-07-26): while anything

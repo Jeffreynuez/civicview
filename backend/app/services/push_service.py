@@ -398,6 +398,7 @@ def _deliver_tracked_push(
     db, citizen_ids: Iterable[int], *, anon_key: Optional[str],
     title: str, body: str, data: dict,
     official_name: Optional[str] = None,
+    notification_ids: Optional[dict] = None,
     now_utc: Optional[datetime] = None,
 ) -> int:
     """Shared delivery engine for tracked-activity pushes (2026-07-26,
@@ -412,6 +413,9 @@ def _deliver_tracked_push(
          (Notifications v2 part 3). Callers pass anon_key=None to skip
          anonymous delivery (e.g. events, where the on_event pref is an
          explicit opt-in anonymous devices never expressed).
+      notification_ids, {citizen_id: bell row id}, puts each bound
+      device's own bell row in its push data, so tapping the push marks
+      that row read (2026-10-16).
       3. Each device: a daily or weekly "Push alerts" setting holds the
          push for that device's summary; quiet hours hold it for the
          summary when they end; otherwise it is sent now. Dead tokens
@@ -482,9 +486,14 @@ def _deliver_tracked_push(
     # 3. Send now, or hold for a summary.
     sendable = []
     held_summary = held_quiet = 0
+    notification_ids = notification_ids or {}
     for row in rows:
         prefs = device_prefs(row, account_prefs)
-        message = PushMessage(token=row.token, title=title, body=body, data=dict(data))
+        nid = notification_ids.get(row.citizen_id) if row.citizen_id is not None else None
+        row_data = dict(data)
+        if nid:
+            row_data["notification_id"] = nid
+        message = PushMessage(token=row.token, title=title, body=body, data=row_data)
         cadence = effective_cadence(prefs)
         reason = None
         if cadence != "realtime":
@@ -494,7 +503,7 @@ def _deliver_tracked_push(
         if reason:
             _hold(db, row, reason=reason, message=message, kind=kind,
                   official_id=data.get("official_id"), official_name=official_name,
-                  notification_id=None, now=now)
+                  notification_id=nid, now=now)
             if reason == "summary":
                 held_summary += 1
             else:
@@ -527,6 +536,7 @@ def _deliver_tracked_push(
 def push_tracked_post(
     db, citizen_ids: Iterable[int], *, official_id: str,
     official_name: str, post_id: int, preview: str, has_poll: bool,
+    notification_ids: Optional[dict] = None,
 ) -> int:
     """Device-push mirror of the tracked_post in-app fan-out.
     Never raises — a push failure must not disturb the in-app
@@ -544,6 +554,7 @@ def push_tracked_post(
                 "post_id": post_id,
             },
             official_name=official_name,
+            notification_ids=notification_ids,
         )
     except Exception:
         db.rollback()
@@ -555,6 +566,7 @@ def push_tracked_event(
     db, citizen_ids: Iterable[int], *, official_id: str,
     official_name: str, event_id: int, title: str,
     start_at: str, location: Optional[str],
+    notification_ids: Optional[dict] = None,
 ) -> int:
     """Device-push mirror of the tracked_event in-app fan-out.
     Bound devices only (anon_key=None): the on_event pref is a
@@ -574,6 +586,7 @@ def push_tracked_event(
                 "event_id": event_id,
             },
             official_name=official_name,
+            notification_ids=notification_ids,
         )
     except Exception:
         db.rollback()

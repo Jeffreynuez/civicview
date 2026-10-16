@@ -8,6 +8,7 @@
 //   1. Push timing: the default is "As they happen"; the old
 //      digest_cadence 'daily' default becomes realtime, 'weekly' stays.
 //   2. The tour's steps stay at 30 words or fewer.
+//   3. Bell, archive and push tap share one post deep link.
 
 import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync } from 'node:fs';
@@ -83,6 +84,19 @@ await check('2 the Notifications topic steps are 30 words or fewer, no dashes', 
 await check('2 the tour describes push summaries', () => {
   const all = notifTopic.steps.map((s) => s.body).join(' ');
   assert.match(all, /daily or weekly summary/);
+});
+
+const links = await load('lib/deepLinks.js');
+await check('3 a post link is the same one the push tap uses', () => {
+  assert.equal(links.postDeepLink('FL-SEN-1', 42), '/?page=FL-SEN-1#post-42');
+  assert.equal(links.postDeepLink('a b/c', '7'), '/?page=a%20b%2Fc#post-7');
+});
+await check('3 a page link without a post has no hash', () => {
+  assert.equal(links.postDeepLink('S001217', null), '/?page=S001217');
+  assert.equal(links.postDeepLink('S001217'), '/?page=S001217');
+});
+await check('3 no official, no link', () => {
+  assert.equal(links.postDeepLink('', 5), null);
 });
 
 const text = [JSON.stringify(prefs.CHANNEL_SCHEMA)].join('\n');

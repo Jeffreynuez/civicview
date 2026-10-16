@@ -278,12 +278,23 @@ export default function PageView({
   // initPushTapNavigation) feeds the same highlight machinery the
   // owner dashboard uses, so notification taps land ON the post
   // instead of merely near the page (2026-07-25).
+  // A new '#post-' hash on the page that is already open (a bell click
+  // for another post on the same page, 2026-10-16) fires hashchange
+  // without a reload, so listen for it too.
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    try {
-      const m = (window.location.hash || '').match(/^#post-(.+)$/);
-      if (m && m[1]) setHighlightPostId(decodeURIComponent(m[1]));
-    } catch { /* malformed hash — ignore */ }
+    if (typeof window === 'undefined') return undefined;
+    const readHash = () => {
+      try {
+        const m = (window.location.hash || '').match(/^#post-(.+)$/);
+        if (m && m[1]) {
+          setActiveView('feed');
+          setHighlightPostId(decodeURIComponent(m[1]));
+        }
+      } catch { /* malformed hash: ignore */ }
+    };
+    readHash();
+    window.addEventListener('hashchange', readHash);
+    return () => window.removeEventListener('hashchange', readHash);
   }, [officialId]);
 
   // Jump-to-post effect — triggered by the dashboard when the owner

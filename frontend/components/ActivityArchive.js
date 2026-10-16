@@ -19,15 +19,16 @@
 //      survives the bell's Clear button (that's the whole point of
 //      cleared_at being a soft-clear).
 //
-// Deep links reuse the bell's non-disruptive URL nudge: open_page
-// param + optional #post-<id> hash, which PageView turns into a
-// scroll + pulse once the feed mounts.
+// Deep links use the same '/?page=<id>#post-<id>' link as the bell and
+// a push tap (lib/deepLinks.js), which PageView turns into a scroll +
+// pulse once the feed mounts.
 
 import { useCallback, useEffect, useState } from 'react';
 import {
   fetchActivityComments,
   fetchActivityNotifications,
 } from '@/lib/pagesApi';
+import { openDeepLink, postDeepLink } from '@/lib/deepLinks';
 
 const PAGE = 20;
 
@@ -40,16 +41,7 @@ function fmtDate(iso) {
 }
 
 function deepLink(officialId, postId) {
-  if (!officialId) return;
-  try {
-    const u = new URL(window.location.href);
-    u.searchParams.set('open_page', officialId);
-    u.hash = postId ? `#post-${postId}` : '';
-    window.history.pushState({}, '', u.toString());
-    // pushState alone doesn't notify listeners — nudge them the same
-    // way the browser would on back/forward.
-    window.dispatchEvent(new PopStateEvent('popstate'));
-  } catch { /* SSR / malformed URL — ignore */ }
+  openDeepLink(postDeepLink(officialId, postId));
 }
 
 function SectionShell({ title, count, open, onToggle, children }) {

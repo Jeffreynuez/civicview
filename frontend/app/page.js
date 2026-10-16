@@ -1134,7 +1134,11 @@ export default function Home() {
     lastHistorySnapshotRef.current = snapshot;
     if (!prev) {
       // First run: replace so we don't accumulate a bogus initial entry.
-      window.history.replaceState(snapshot, '', nextUrl);
+      // Keep a '#post-<id>' deep link (push tap, bell, archive;
+      // 2026-10-16): this runs before the page from ?page= has opened,
+      // and dropping the hash here meant PageView never saw it.
+      const postHash = /^#post-/.test(window.location.hash || '') ? window.location.hash : '';
+      window.history.replaceState(snapshot, '', nextUrl + postHash);
       return;
     }
     // Only push when an overlay opened (memberId or candidateId became set).
