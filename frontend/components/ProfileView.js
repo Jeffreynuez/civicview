@@ -1329,9 +1329,11 @@ function StatsBlock({ party, stats, loading }) {
           </>
         ) : (
           <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', fontStyle: 'italic', padding: '4px 0' }}>
-            {plReason === 'independent' || /^i/i.test(String(party || ''))
-              ? 'Not computed for independents: there is no party majority to compare with.'
-              : 'Not enough recent roll-call votes to compute.'}
+            {plReason === 'unavailable'
+              ? 'Party-line figure temporarily unavailable.'
+              : plReason === 'independent' || /^i/i.test(String(party || ''))
+                ? 'Not computed for independents: there is no party majority to compare with.'
+                : 'Not enough recent roll-call votes to compute.'}
           </div>
         )}
       </div>
@@ -2857,6 +2859,9 @@ const selectStyle = {
 function VoteRow({ vote }) {
   const position = (vote.position || vote.vote || '').toString();
   const posLower = position.toLowerCase();
+  // An election of the Speaker: "Voted for {name}", shown the same
+  // neutral way for every name (no Yea / Nay color).
+  const isChoice = Boolean(vote.choice);
   let posColor = 'var(--cl-text-light)';
   let posBg = '#eef0f2';
   if (posLower === 'yea' || posLower === 'aye' || posLower === 'yes') {
@@ -2996,7 +3001,7 @@ function VoteRow({ vote }) {
             fontSize: '0.72rem', padding: '3px 8px', borderRadius: '10px',
             whiteSpace: 'nowrap', letterSpacing: '0.03em',
           }}>
-            {position.toUpperCase()}
+            {isChoice ? position : position.toUpperCase()}
           </span>
         )}
       </div>

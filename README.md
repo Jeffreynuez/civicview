@@ -1028,7 +1028,9 @@ counted through Congress.gov's `/house-vote` API) and the U.S. Senate
 (it began refusing our requests in October 2026).
 
 - **Tables:** `roll_calls`, `roll_call_positions` (one row per member
-  per vote, with the member's party on that vote), `roll_call_members`,
+  per vote, with the member's party on that vote), `roll_call_choices`
+  (who each member voted for in an election of the Speaker, shown as
+  "Voted for {name}" for every name alike), `roll_call_members`,
   `roll_call_sync_state`. Created by the boot auto-migrate.
 - **The sync** (`backend/app/services/roll_call_sync.py`) runs in the API
   process, never on the boot path: first pass two minutes after boot,
@@ -1036,7 +1038,11 @@ counted through Congress.gov's `/house-vote` API) and the U.S. Senate
   hours otherwise. It fetches only roll calls that are not stored yet,
   newest first, and holds a Postgres advisory lock so two instances
   during a deploy cannot both run it. Each pass writes one log line
-  starting `Roll-call sync:`.
+  starting `Roll-call sync:`. A site that fails five times in a row is
+  left alone for the rest of the pass, and after three passes with no
+  progress on history the sync goes back to the normal schedule; both
+  are logged. On by default in production only (off in tests and local
+  runs).
 - **History:** ten years (the current Congress and the four before it,
   2017 onward), filled in 25-minute chunks with 5-minute breaks after
   the current Congress is complete. About 9,000 requests and 300 MB.
@@ -1044,15 +1050,22 @@ counted through Congress.gov's `/house-vote` API) and the U.S. Senate
   (default 5). Nothing stored is ever deleted.
 - **Check it:** `GET /api/admin/roll-calls` (admin sign-in) lists each
   session's official and stored counts, what was added in the last 24
-  hours and the last pass. Turn the sync off with
-  `ROLL_CALL_SYNC_ENABLED=false`.
+  hours and the last pass. `ROLL_CALL_SYNC_ENABLED=false` turns the
+  sync off in production; `=true` runs it anywhere else.
+- **What a request may fetch:** nobody can make CivicView crawl the
+  official sites. `/api/votes/recent` answers only for sessions in the
+  stored window, and reads a past session from storage; an unstored
+  vote is fetched on request only inside the window, for a session not
+  yet complete, and not far beyond the highest stored number.
 - **The party-line figure** counts the current Congress's roll calls on
   which most Republicans and most Democrats voted on opposite sides
   (party-split votes), and shows how often the member voted with most of
-  their own party, by the party recorded on each vote. Present and Not
-  Voting are left out; at least 10 such votes are needed. The same
-  method for every member; independents get no figure
-  (`roll_call_store.party_line`).
+  their own party. Present, Not Voting and elections of the Speaker are
+  left out; at least 10 such votes are needed. The same method for every
+  member; independents get no figure (`roll_call_store.party_line`).
+  A member who changed party, in either direction, is measured only on
+  the votes cast in their current party (the party on their most recent
+  vote); if that is independent, no figure (Jeffrey, 2026-10-16).
 - **vote_id:** `h-{congress}-{session}-{roll}` / `s-{congress}-{session}-{vote}`,
   the same on /bills and on profiles, so the vote explainer caches one
   explanation per roll call and builds it from the stored record.

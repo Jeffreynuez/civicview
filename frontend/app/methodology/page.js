@@ -51,12 +51,19 @@ export default function MethodologyPage() {
         The party-line figure on a member&apos;s profile counts the roll calls
         of the current Congress on which most Republicans and most Democrats
         voted on opposite sides. It shows how often the member voted with
-        most of their own party on those votes, using the party the official
-        record gives for them on each vote. Votes where the member answered
-        &ldquo;present&rdquo; or did not vote are left out, and the figure
-        appears once there are at least 10 such votes. It is calculated the
-        same way for every member. Independents have no party majority to
-        compare with, so no figure is shown for them.
+        most of their own party on those votes. Votes where the member
+        answered &ldquo;present&rdquo; or did not vote are left out, and so
+        are elections of the Speaker, where members vote for a person rather
+        than yes or no. The figure appears once there are at least 10 such
+        votes. It is calculated the same way for every member. Independents
+        have no party majority to compare with, so no figure is shown for
+        them.
+      </p>
+      <p>
+        A member who changes party, in either direction, is measured only on
+        the votes cast in their current party: the party the official record
+        gives on their most recent vote. If that party is independent, no
+        figure is shown.
       </p>
 
       <h2>State and local data</h2>

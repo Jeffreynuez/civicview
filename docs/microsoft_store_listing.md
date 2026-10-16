@@ -152,7 +152,6 @@ WHAT YOU CAN DO
 WHERE OUR INFORMATION COMES FROM
 Government sources:
 - U.S. Congress (bills, members, committees, votes): https://www.congress.gov
-- GovTrack (congressional votes and member data): https://www.govtrack.us
 - The @unitedstates project (congressional rosters, offices, photos): https://unitedstates.github.io
 - House Clerk and U.S. Senate (roll-call votes): https://clerk.house.gov and https://www.senate.gov
 - Federal Register (executive orders): https://www.federalregister.gov

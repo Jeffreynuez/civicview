@@ -505,11 +505,16 @@ export async function fetchVoteMembers(voteId) {
 // ─── Member stats (party-line % + top issue areas) ──────────────────
 // Returns { party_line_pct: int|null, votes_analyzed: int,
 //           party_line_congress: int|null,
-//           party_line_reason: null|'independent'|'not_enough'|'no_votes',
+//           party_line_reason: null|'independent'|'not_enough'|'no_votes'|'unavailable',
+//           party_line_party: 'R'|'D'|'I'|null,
 //           top_issues: [{name, count}] }
 // The party-line figure covers the current Congress's party-split votes
 // (most Republicans and most Democrats on opposite sides), the same way
-// for every member; votes_analyzed is how many it is based on.
+// for every member; votes_analyzed is how many it is based on. A member
+// who changed party is measured only on the votes cast in their current
+// party (party_line_party, from their latest vote). 'unavailable' means
+// the request failed, so the UI never mistakes an outage for "not enough
+// votes".
 export async function fetchMemberStats(bioguideId, party = null) {
   try {
     const qs = party ? `?party=${encodeURIComponent(party)}` : '';
@@ -520,6 +525,7 @@ export async function fetchMemberStats(bioguideId, party = null) {
         votes_analyzed: data.votes_analyzed || 0,
         party_line_congress: data.party_line_congress ?? null,
         party_line_reason: data.party_line_reason ?? null,
+        party_line_party: data.party_line_party ?? null,
         top_issues: data.top_issues || [],
       },
       isLive: true,
@@ -527,7 +533,7 @@ export async function fetchMemberStats(bioguideId, party = null) {
   } catch (error) {
     console.warn('Member stats API unavailable:', error.message);
     return {
-      data: { party_line_pct: null, votes_analyzed: 0, party_line_congress: null, party_line_reason: null, top_issues: [] },
+      data: { party_line_pct: null, votes_analyzed: 0, party_line_congress: null, party_line_reason: 'unavailable', party_line_party: null, top_issues: [] },
       isLive: false,
       error: loadErrorText(error),
     };

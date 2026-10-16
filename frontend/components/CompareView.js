@@ -575,9 +575,11 @@ function MemberColumn({ member, state, loading }) {
         {loading && !stats && <Skeleton width="60%" />}
         {stats && stats.party_line_pct == null && (
           <div style={{ fontSize: '0.8rem', color: 'var(--cl-text-light)' }}>
-            {stats.party_line_reason === 'independent' || /^i/i.test(String(member.party || ''))
-              ? 'Not computed for independents: there is no party majority to compare with.'
-              : 'No data yet'}
+            {stats.party_line_reason === 'unavailable'
+              ? 'Temporarily unavailable'
+              : stats.party_line_reason === 'independent' || /^i/i.test(String(member.party || ''))
+                ? 'Not computed for independents: there is no party majority to compare with.'
+                : 'No data yet'}
           </div>
         )}
         {stats && stats.party_line_pct != null && (
@@ -1025,7 +1027,7 @@ function SharedVoteRow({ vote, officials, isLast }) {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '8px' }}>
         {officials.map((m, i) => {
           const norm = vote._normPositions[i];
-          const pill = positionPill(norm);
+          const pill = positionPill(norm, vote.positions[m.bioguide_id]);
           return (
             <div
               key={m.bioguide_id || m.id}
@@ -1062,12 +1064,16 @@ function normalizeVote(raw) {
   const v = (raw || '').toLowerCase();
   if (v === 'yes' || v === 'aye' || v === 'yea') return 'yea';
   if (v === 'no' || v === 'nay') return 'nay';
+  // An election of the Speaker: members agree when they voted for the
+  // same person, whoever it is.
+  if (v.startsWith('voted for ')) return `choice:${v.slice(10)}`;
   return 'other';
 }
 
-function positionPill(norm) {
+function positionPill(norm, raw) {
   if (norm === 'yea') return { label: 'Yea', color: '#1d8a4b', bg: '#e6f7ec' };
   if (norm === 'nay') return { label: 'Nay', color: '#c1311b', bg: '#fdecea' };
+  if (norm.startsWith('choice:')) return { label: raw, color: 'var(--cl-text)', bg: '#f1f3f5' };
   return { label: '—', color: 'var(--cl-text-light)', bg: '#f1f3f5' };
 }
 
