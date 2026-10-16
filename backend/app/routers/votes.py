@@ -20,6 +20,12 @@ Two endpoints, paired with the BillSummary pattern:
 Why both endpoints use POST: the request body carries the full vote
 payload (with nested bill context). The /generate endpoint also reads
 from the DB cache + writes back, so it inherently mutates state.
+
+When the vote_id is a stored official roll call (2026-10-16), the
+question, result, category, date, chamber and bill come from the stored
+record, not from the request body: a profile row and the /bills page
+then describe the same vote identically and share one cached AI
+explanation, and a doctored body cannot change what is explained.
 """
 from __future__ import annotations
 
@@ -31,7 +37,8 @@ from pydantic import BaseModel, ConfigDict
 from sqlalchemy.orm import Session
 
 from app.db import get_db
-from app.services import vote_explainer_service
+from app.services import roll_call_store, vote_explainer_service
+from app.services.admin_auth import get_current_admin
 from app.services.official_votes_service import (
     get_service,
     parse_vote_id,
@@ -40,10 +47,11 @@ from app.services.official_votes_service import (
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+admin_router = APIRouter()
 
 
 class VoteBillContext(BaseModel):
-    """Subset of the GovTrack `bill` payload the explainer needs."""
+    """Subset of a vote row's `bill` the explainer needs."""
     display_number: Optional[str] = None
     title: Optional[str] = None
     congress: Optional[int] = None
@@ -88,6 +96,33 @@ class VoteExplainResponse(BaseModel):
     has_ai: bool = False
 
 
+def _canonical(payload: VoteExplainRequest, db: Session) -> VoteExplainRequest:
+    """The request with the stored official record's fields in place of the
+    caller's, when the vote_id is a stored roll call. The member's own
+    position (not part of the explanation) is kept from the request."""
+    if not payload.vote_id:
+        return payload
+    try:
+        stored = roll_call_store.vote_context(db, payload.vote_id)
+    except Exception:
+        logger.exception("stored vote lookup failed for %s", payload.vote_id)
+        stored = None
+    if not stored:
+        return payload
+    bill = stored.get("bill")
+    return payload.model_copy(update={
+        "question": stored["question"],
+        "chamber": stored["chamber"],
+        "result": stored["result"],
+        "category": stored["category"],
+        "date": stored["date"],
+        "url": stored["url"],
+        "bill": VoteBillContext(
+            display_number=bill["display_number"], title=bill.get("title"), congress=bill.get("congress"),
+        ) if bill else None,
+    })
+
+
 def _attach_cached_ai(payload: VoteExplainRequest, body: dict, db: Session) -> dict:
     """If a cached AI explainer exists for this vote_id, splice the
     four ai_* fields into the response body."""
@@ -120,6 +155,7 @@ def explain_vote(
     explainer exists for this vote_id, the response also carries the
     ai_* fields so the frontend can offer a toggle.
     """
+    payload = _canonical(payload, db)
     body = vote_explainer_service.explain_vote(payload.model_dump())
     body = _attach_cached_ai(payload, body, db)
     return VoteExplainResponse(**body)
@@ -137,6 +173,7 @@ async def generate_explain(
     """
     if not payload.vote_id:
         raise HTTPException(status_code=400, detail="vote_id required for AI generation")
+    payload = _canonical(payload, db)
 
     body, err = await vote_explainer_service.generate_ai_explainer(
         db, payload.model_dump(),
@@ -181,9 +218,10 @@ async def generate_explain(
 # Federal Bills & Votes — chamber-wide recent list + per-vote seat-chart data
 # (Phase A; see docs/bills-feature-prd.md + docs/bills-data-spike.md).
 #
-# Official source-of-truth: House Clerk + Senate LIS roll-call XML, with
-# GovTrack as the House-enumeration fallback. Read-only + unauthenticated —
-# this is public civic data and carries no engagement gate.
+# Official source of truth: House Clerk + Senate LIS roll-call XML, with
+# Congress.gov's house-vote list to enumerate the House (and a Clerk probe
+# without it). Read-only + unauthenticated: this is public civic data and
+# carries no engagement gate.
 # ---------------------------------------------------------------------------
 
 # The congress and session default to the ones sitting at request time
@@ -244,8 +282,8 @@ async def recent_votes(
 ) -> RecentVotesResponse:
     """Most recent in-scope (passage + nomination) roll-call votes for a
     chamber, newest first. Senate comes from the official vote_menu; House is
-    enumerated via GovTrack (per-member truth still comes from the official
-    Clerk XML on /{vote_id}/members)."""
+    enumerated via Congress.gov's house-vote list (per-member truth comes
+    from the official Clerk XML on /{vote_id}/members)."""
     if congress is None or session is None:
         cur_congress, cur_session = current_congress_session()
         congress = cur_congress if congress is None else congress
@@ -259,8 +297,9 @@ async def recent_votes(
 @router.get("/{vote_id}/members", response_model=VoteMembersResponse)
 async def vote_members(vote_id: str) -> VoteMembersResponse:
     """Every member's position on a single roll-call — the seat-chart
-    backbone. House: legislator name-id = bioguide (direct). Senate:
-    lis_member_id -> bioguide via the legislators crosswalk."""
+    backbone. Read from the stored roll call when there is one, otherwise
+    fetched once and stored. House: legislator name-id = bioguide (direct).
+    Senate: lis_member_id -> bioguide via the legislators crosswalk."""
     try:
         parse_vote_id(vote_id)
     except ValueError:
@@ -269,3 +308,43 @@ async def vote_members(vote_id: str) -> VoteMembersResponse:
     if data is None:
         raise HTTPException(status_code=502, detail="Couldn't load this vote.")
     return VoteMembersResponse(**data)
+
+
+# ---------------------------------------------------------------------------
+# Admin: what the roll-call sync has stored and done (2026-10-16).
+# GET /api/admin/roll-calls
+# ---------------------------------------------------------------------------
+@admin_router.get("")
+def roll_call_status(
+    db: Session = Depends(get_db), _admin: dict = Depends(get_current_admin),
+) -> dict:
+    """Stored counts per chamber and session, each session's sync state
+    (official count, stored count, last check, complete), the votes
+    added in the last 24 hours, and the most recent pass in this process."""
+    from sqlalchemy import select
+
+    from app.models.pages import RollCallSyncState
+    from app.services import roll_call_sync
+
+    states = [
+        {
+            "chamber": "house" if r.chamber == "h" else "senate",
+            "congress": r.congress,
+            "session": r.session,
+            "official_count": r.official_count,
+            "stored_count": r.stored_count,
+            "checked_at": r.checked_at.isoformat() if r.checked_at else None,
+            "complete": r.completed_at is not None,
+            "last_error": r.last_error,
+        }
+        for r in db.execute(select(RollCallSyncState).order_by(
+            RollCallSyncState.congress.desc(), RollCallSyncState.session.desc(),
+            RollCallSyncState.chamber)).scalars()
+    ]
+    return {
+        "enabled": roll_call_sync.sync_enabled(),
+        "congresses_kept": roll_call_sync.backfill_congresses(),
+        "last_pass_in_this_process": dict(roll_call_sync.LAST_PASS) or None,
+        "sessions": states,
+        **roll_call_store.summary(db),
+    }

@@ -15,8 +15,9 @@ Why this is separate from bill_summary_service:
   thing without taking a position on its merits").
 
 Strategy:
-  • Template-based per category. The GovTrack `category` field
-    classifies every vote into one of ~14 buckets — passage,
+  • Template-based per category. Every stored roll call carries a
+    category (official_votes_service.categorize_vote, worked out from
+    the official question text) in one of ~14 buckets: passage,
     cloture, amendment, etc. Each bucket has a known practical
     meaning we encode as a template that gets filled in with the
     bill citation + result.
@@ -56,8 +57,8 @@ from app.services import ai_service, bill_summary_service
 logger = logging.getLogger(__name__)
 
 
-# Categories GovTrack emits for every roll-call vote, mapped to a
-# template generator. The generator gets the vote payload and returns
+# Categories categorize_vote assigns to every roll-call vote (the names
+# the Votes tab filters also rely on), mapped to a template generator. The generator gets the vote payload and returns
 # the 4-field explainer body.
 #
 # Categories not listed here fall through to a generic "from question"
@@ -111,9 +112,9 @@ def _congress_from_vote_id(vote_id: Optional[str]) -> Optional[int]:
 
 
 def _result_outcome_word(result: str) -> str:
-    """Normalize the GovTrack result string ('Passed', 'Failed', etc.)
-    into something usable inside template prose. We lean on the GovTrack
-    label rather than trying to reinterpret yes/no counts."""
+    """Normalize the official result string ('Passed', 'Failed', 'Nomination
+    Confirmed', etc.) into something usable inside template prose. We lean
+    on the recorded label rather than trying to reinterpret yes/no counts."""
     if not result:
         return "the outcome is unknown"
     r = result.strip().lower()
@@ -125,8 +126,8 @@ def _result_outcome_word(result: str) -> str:
 
 
 def _strip_question_prefix(question: str) -> str:
-    """GovTrack question strings often start with a procedural prefix
-    like 'On Passage of the Bill: ' or 'On Motion to Table: ' which is
+    """Vote questions often start with a procedural prefix like 'On
+    Passage of the Bill: ' or 'On the Nomination PN1129: ' which is
     redundant once we've classified the category. Strip the common
     leading clauses so the bare subject remains."""
     if not question:
@@ -144,7 +145,7 @@ def _strip_question_prefix(question: str) -> str:
         r"^On Motion to Table:\s*",
         r"^On Motion to Suspend the Rules and Pass:\s*",
         r"^On Motion to Suspend the Rules and Agree:\s*",
-        r"^On the Nomination:\s*",
+        r"^On the Nomination(?:\s+PN\d+(?:-\d+)?)?:\s*",
         r"^On the Conference Report:\s*",
         r"^On the Joint Resolution:\s*",
         r"^On the Resolution:\s*",
