@@ -101,7 +101,7 @@
         "fl-cand-scott-jewett",
         "fl-cand-frank-russo"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates also qualified; their names are not printed on the ballot.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
@@ -138,10 +138,6 @@
           "basis": "Ballots cast in this office's party primaries, all 67 counties."
         }
       },
-      "write_in_candidates": [
-        "fl-cand-kathleen-anderson",
-        "fl-cand-erik-morris"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=GOV",
       "roster_retrieved": "2026-09-24"
@@ -168,7 +164,7 @@
         "fl-cand-james-uthmeier",
         "fl-cand-jose-javier-rodriguez"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
@@ -194,7 +190,6 @@
         "turnout": null,
         "turnout_note": "No primary was held for this office: both parties had a single qualified candidate, so no votes were cast."
       },
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=ATG",
       "roster_retrieved": "2026-09-24"
@@ -223,7 +218,7 @@
         "fl-cand-blaise-ingoglia",
         "fl-cand-annette-taddeo"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
@@ -259,7 +254,6 @@
           "basis": "Ballots cast in this office's party primaries, all 67 counties."
         }
       },
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=CFO",
       "roster_retrieved": "2026-09-24"
@@ -288,7 +282,7 @@
         "fl-cand-wilton-simpson",
         "fl-cand-joey-mendoza-atkins"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates also qualified; their names are not printed on the ballot.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
@@ -324,9 +318,6 @@
           "basis": "Ballots cast in this office's party primaries, all 67 counties."
         }
       },
-      "write_in_candidates": [
-        "fl-cand-kyle-gibson"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=AGR",
       "roster_retrieved": "2026-09-24"
@@ -350,10 +341,9 @@
       "general_candidates": [
         "fl-cand-maxwell-alejandro-frost-h10"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "notes": "Rep. Maxwell Frost is unopposed, so this race does not appear on the Nov 3 ballot. Under Florida law (s. 101.151(7), F.S.), an unopposed candidate is not listed and is elected without a vote.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -402,10 +392,9 @@
         "fl-cand-jose-antonio-stoute-sd40",
         "fl-cand-ramiro-orta-sd40"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. No primary was held: each party had a single qualified candidate.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. No primary was held: each party had a single qualified candidate. Write-in candidates are not listed.",
       "notes": "Sen. Ana Maria Rodriguez is the incumbent.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STS&StatusCode=ALL",
       "roster_retrieved": "2026-09-24",
@@ -457,10 +446,9 @@
         "fl-cand-bonnie-jackson",
         "fl-cand-felipe-sousa-lazaballet"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. No primary was held: each party had a single qualified candidate.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. No primary was held: each party had a single qualified candidate. Write-in candidates are not listed.",
       "notes": "Open seat: Rep. Anna Eskamani is not seeking re-election.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=STR&StatusCode=ALL&CountyCode=ORA",
       "roster_retrieved": "2026-09-24",
@@ -516,7 +504,7 @@
         "fl-cand-angie-nixon-sen",
         "fl-cand-neil-j-gillespie-sen"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. No write-in candidate qualified.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. No write-in candidate qualified. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "result": {
         "phase": "primary",
@@ -553,7 +541,6 @@
           "basis": "Ballots cast in this office's party primaries, all 67 counties."
         }
       },
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USS",
       "roster_retrieved": "2026-09-24"
@@ -583,10 +570,9 @@
         "fl-cand-jennifer-gay-valimont-h1",
         "fl-cand-tyler-l-davis-h1"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "1",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -654,10 +640,9 @@
         "fl-cand-austin-rogers-h2",
         "fl-cand-amanda-marie-green-h2"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "2",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -722,10 +707,9 @@
         "fl-cand-seth-allan-harp-h3",
         "fl-cand-mike-klein-h3"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "3",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -787,10 +771,9 @@
         "fl-cand-todd-schaefer-h4",
         "fl-cand-mike-sell-h4"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "4",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -851,12 +834,9 @@
         "fl-cand-john-rutherford-h5",
         "fl-cand-rachel-grage-h5"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "5",
-      "write_in_candidates": [
-        "fl-cand-william-lintag-upham-h5"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -924,12 +904,9 @@
         "fl-cand-eric-yonce-h6",
         "fl-cand-andrew-parrott-h6"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "6",
-      "write_in_candidates": [
-        "fl-cand-alec-pavlik-h6"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -996,10 +973,9 @@
         "fl-cand-bale-dalton-h7",
         "fl-cand-christopher-dennison-h7"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "7",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1060,10 +1036,9 @@
         "fl-cand-mike-haridopolos-h8",
         "fl-cand-jennifer-jenkins-h8"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "8",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1120,10 +1095,9 @@
         "fl-cand-dan-green-h9",
         "fl-cand-darren-soto-h9"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "9",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1188,10 +1162,9 @@
         "fl-cand-james-pericola-h11",
         "fl-cand-ralph-groves-h11"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "11",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1255,10 +1228,9 @@
         "fl-cand-kimberly-overman-h12",
         "fl-cand-branden-scrivener-h12"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "12",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1319,10 +1291,9 @@
         "fl-cand-leela-j-gray-h13",
         "fl-cand-tony-d-arrigo-h13"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "13",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1388,13 +1359,9 @@
         "fl-cand-kathy-castor-h14",
         "fl-cand-brian-lambert-h14"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "14",
-      "write_in_candidates": [
-        "fl-cand-salomon-hernandez-sr-h14",
-        "fl-cand-keith-varian-h14"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1453,12 +1420,9 @@
         "fl-cand-laurel-lee-h15",
         "fl-cand-robert-people-h15"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "15",
-      "write_in_candidates": [
-        "fl-cand-angie-boone-h15"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1523,10 +1487,9 @@
         "fl-cand-kelly-kirschner-h16",
         "fl-cand-mark-davis-h16"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "16",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1589,10 +1552,9 @@
         "fl-cand-matthew-montavon-h17",
         "fl-cand-michael-j-quirk-h17"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "17",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1651,10 +1613,9 @@
         "fl-cand-curtis-gibson-h18",
         "fl-cand-deva-simmons-h18"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "18",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1717,12 +1678,9 @@
         "fl-cand-victor-m-arias-h19",
         "fl-cand-seth-haskin-h19"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "19",
-      "write_in_candidates": [
-        "fl-cand-alexandra-zakhvatayev-h19"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1791,10 +1749,9 @@
         "fl-cand-debbie-wasserman-schultz-h20",
         "fl-cand-kedner-maxime-h20"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "20",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1857,12 +1814,9 @@
         "fl-cand-james-martin-h21",
         "fl-cand-alexander-cooke-h21"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "21",
-      "write_in_candidates": [
-        "fl-cand-david-fabrikant-h21"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1928,10 +1882,9 @@
         "fl-cand-casey-askar-h22",
         "fl-cand-pia-dandiya-h22"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "22",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -1995,10 +1948,9 @@
         "fl-cand-deborah-adeimy-h22",
         "fl-cand-lois-j-frankel-h23"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "23",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -2065,12 +2017,9 @@
         "fl-cand-te-mayonna-brown-h24",
         "fl-cand-oliver-g-gilbert-iii-h24"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "24",
-      "write_in_candidates": [
-        "fl-cand-patricia-gonzalez-h24"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -2134,12 +2083,9 @@
         "fl-cand-jared-moskowitz-h25",
         "fl-cand-peter-jassenoff-h25"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. A write-in candidate qualified, so the ballot also carries a blank write-in line; write-in names are not printed. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "25",
-      "write_in_candidates": [
-        "fl-cand-michaelangelo-hamilton-h25"
-      ],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -2201,10 +2147,9 @@
         "fl-cand-nicole-locklin-h26",
         "fl-cand-deborah-ann-meidinger-hosey-h26"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "26",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -2257,10 +2202,9 @@
         "fl-cand-maria-elvira-salazar-h27",
         "fl-cand-eliott-rodriguez-h27"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "27",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
@@ -2322,10 +2266,9 @@
         "fl-cand-phil-ehr-h28",
         "fl-cand-eddy-rojas-h28"
       ],
-      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list.",
+      "general_candidates_note": "Qualified candidates for the Nov 3 general election, from the Florida Division of Elections candidate list. Write-in candidates are not listed.",
       "_roster_source": "Florida Division of Elections, 2026 General Election candidate list",
       "congressional_district": "28",
-      "write_in_candidates": [],
       "roster_status": "verified_nominees",
       "roster_source_url": "https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN&OfficeCode=USR",
       "roster_retrieved": "2026-09-24",
