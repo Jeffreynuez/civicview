@@ -1091,6 +1091,17 @@ export async function fetchElections(stateCode) {
   }
 }
 
+// Every state with an elections file and how many races it lists
+// (GET /api/elections). The tour picks a random state with races from it.
+export async function fetchElectionStates() {
+  try {
+    const data = await getJson('/api/elections');
+    return { data: data?.states || [], isLive: true };
+  } catch (error) {
+    return { data: [], isLive: false, error: loadErrorText(error) };
+  }
+}
+
 // Personalized ballot — pass whatever geography you have; the server includes
 // what matches. `geo` shape: { countyFips, countyName, district, stateSenateDistrict,
 // stateHouseDistrict, citySlug }.

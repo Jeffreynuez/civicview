@@ -36,6 +36,13 @@ Elections (every <state>/elections.json):
        comes from an official state source ... and carries its source
        URL." The reminder job skips a date without them; this catches
        it first. The format is in docs/election-reminders.md
+  E-12 every key date of an election still ahead (any key_dates key for
+       that election, not only the reminder dates: the registration
+       methods, mail ballot return, early voting rule and the rest) has
+       an official https source and a retrieved date, voter_info
+       .poll_hours_vary has both too, and a 2026 file's general
+       election is 2026-11-03. Jeffrey, 2026-10-16: "Every date and
+       every race carries its source URL and the date you retrieved it."
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -128,8 +135,11 @@ HTTP_ONLY_HOSTS = {
     "billstatus.ls.state.ms.us",
 }
 
-# Official sites other than .gov / .us hosts (rules S-2 to S-4).
-OFFICIAL_HOST_SUFFIXES = ("myflorida.com", "flsenate.gov", "myfloridahouse.gov")
+# Official sites other than .gov / .us hosts (rules S-2 to S-4, E-11,
+# E-12). Each is run by the government itself; checked by hand.
+#   dcboe.org: the District of Columbia Board of Elections, the official
+#     election office for DC, 2026-10-16.
+OFFICIAL_HOST_SUFFIXES = ("myflorida.com", "flsenate.gov", "myfloridahouse.gov", "dcboe.org")
 
 # Party codes frontend/lib/party.js maps to a label (rule O-4).
 PARTY_CODES = {"R", "D", "I", "NP", "U", "NA", "NPA", "UNE", "TM", "F", "L", "G"}
@@ -335,6 +345,48 @@ def lint_reminder_sources(doc: dict, where: str) -> None:
                     "needs a reason, an https source_url on an official site and a retrieved date")
 
 
+def lint_all_key_date_sources(doc: dict, where: str) -> None:
+    """E-12. Every key date of an election still ahead has an official
+    source and the day it was read, and the 2026 general election is on
+    November 3. Like E-11, a past election is left alone, so a file that
+    passes cannot start failing as time goes by."""
+    key_dates = doc.get("key_dates") or {}
+    sources = doc.get("key_date_sources") or {}
+    retrieved = doc.get("key_date_retrieved") or {}
+    today = _dt.date.today()
+    if str(doc.get("cycle") or "") == "2026" and key_dates.get("general") != "2026-11-03":
+        problem("E-12", f"{where} key_dates.general", "the 2026 general election is 2026-11-03")
+    for phase in REMINDER_PHASES:
+        dates = ISO_DATE_RE.findall(str(key_dates.get(phase) or ""))
+        if len(dates) != 1:
+            continue
+        try:
+            if _dt.date(*(int(x) for x in dates[0])) < today:
+                continue
+        except ValueError:
+            continue  # E-3 reports it
+        for key, value in key_dates.items():
+            if key.startswith("_") or not isinstance(value, str):
+                continue
+            if key != phase and not key.endswith(f"_{phase}"):
+                continue
+            # Keys of a later phase that share this suffix ("primary"
+            # inside "primary_runoff") belong to that phase, not this one.
+            if phase == "primary" and key.endswith("_primary_runoff"):
+                continue
+            if not _official(sources.get(key)) or not _retrieved_ok(retrieved.get(key), today):
+                problem("E-12", f"{where} key_dates.{key}",
+                        "needs an official https source in key_date_sources and a retrieved date")
+    vary = (doc.get("voter_info") or {}).get("poll_hours_vary")
+    if vary is not None:
+        if not isinstance(vary, dict) or not vary.get("text") or not _official(vary.get("source_url")) \
+                or not _retrieved_ok(vary.get("retrieved"), today):
+            problem("E-12", f"{where} voter_info.poll_hours_vary",
+                    "needs text, an https source_url on an official site and a retrieved date")
+    if (doc.get("voter_info") or {}).get("poll_hours") and vary is not None:
+        problem("E-12", f"{where} voter_info", "poll_hours and poll_hours_vary are both set; keep one")
+
+
 def lint_elections(state_dir: Path) -> None:
     path = state_dir / "elections.json"
     state = state_dir.name
@@ -373,6 +425,7 @@ def lint_elections(state_dir: Path) -> None:
         if isinstance(value, str) and not key.startswith("_"):
             _check_dates(f"{where} key_dates.{key}", value)
     lint_reminder_sources(doc, where)
+    lint_all_key_date_sources(doc, where)
 
     measures = doc.get("ballot_measures") or {}
     groups = []
