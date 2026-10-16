@@ -1,6 +1,8 @@
 # CivicView — Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 # Proprietary and confidential. See LICENSE at the repository root.
 
+import asyncio
+import logging
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -10,6 +12,7 @@ from app.db import get_db
 from app.services import lifecycle_rosters, page_lifecycle
 from app.services.congress_service import CongressService
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 service = CongressService()
 
@@ -114,25 +117,31 @@ async def get_member_votes(
     year: Optional[int] = Query(None, ge=1990, le=2100, description="Full calendar year (e.g. 2024). When set, returns the entire year; limit is ignored."),
     month: Optional[int] = Query(None, ge=1, le=12, description="Calendar month 1-12. Only meaningful when year is also set."),
 ):
-    """Get a member's roll-call votes.
+    """Get a member's roll-call votes from the stored official records
+    (the Clerk of the House and the U.S. Senate).
 
     - No year: returns the ``limit`` most recent votes (default 10).
     - Year only: returns every vote cast that calendar year.
     - Year + month: returns votes for that calendar month.
 
-    Results include the underlying related bill when GovTrack reports one.
+    ``available_years`` lists the years with stored votes for this
+    member, newest first (the Votes tab offers only those). Rows include
+    the related bill when the vote was on one.
     """
-    votes = await service.get_member_votes(
-        bioguide_id,
-        limit=limit,
-        year=year,
-        month=month,
-    )
+    try:
+        votes, years = await asyncio.gather(
+            service.get_member_votes(bioguide_id, limit=limit, year=year, month=month),
+            service.get_member_vote_years(bioguide_id),
+        )
+    except Exception:
+        logger.exception("stored votes unavailable for %s", bioguide_id)
+        raise HTTPException(status_code=503, detail="Votes are temporarily unavailable.")
     return {
         "bioguide_id": bioguide_id,
         "year": year,
         "month": month,
         "count": len(votes),
+        "available_years": years,
         "votes": votes,
     }
 
@@ -140,15 +149,21 @@ async def get_member_votes(
 @router.get("/members/{bioguide_id}/stats")
 async def get_member_stats(
     bioguide_id: str,
-    party: Optional[str] = Query(None, description="R, D, or I (accelerates party-line computation)"),
+    party: Optional[str] = Query(None, description="R, D, or I (accepted for compatibility; not needed)"),
 ):
-    """Get aggregate stats for a member: party-line voting % + top issue areas."""
+    """Get aggregate stats for a member: the party-line figure (party-split
+    votes in the current Congress, the same method for every member) and
+    top issue areas."""
     party_norm = None
     if party:
         p = party.strip().upper()
         if p in ("R", "D", "I"):
             party_norm = p
-    stats = await service.get_member_stats(bioguide_id, party=party_norm)
+    try:
+        stats = await service.get_member_stats(bioguide_id, party=party_norm)
+    except Exception:
+        logger.exception("member stats unavailable for %s", bioguide_id)
+        raise HTTPException(status_code=503, detail="Voting record temporarily unavailable.")
     return stats
 
 

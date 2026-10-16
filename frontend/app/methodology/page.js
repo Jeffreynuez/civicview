@@ -37,9 +37,33 @@ export default function MethodologyPage() {
         page and shown under the photo on each profile.
       </p>
       <p>
-        Bills, votes, and presidential actions come from Congress.gov + the
-        Federal Register. We cache the underlying records so a temporary
-        outage at the source doesn't blank out the app.
+        Bills and presidential actions come from Congress.gov and the
+        Federal Register. Roll-call votes come from the official records of
+        the{' '}
+        <a href="https://clerk.house.gov/Votes" target="_blank" rel="noopener noreferrer">Clerk of the House</a>{' '}
+        and the{' '}
+        <a href="https://www.senate.gov/legislative/votes_new.htm" target="_blank" rel="noopener noreferrer">U.S. Senate</a>,
+        which list how every member voted on each roll call. We cache the
+        underlying records so a temporary outage at the source doesn't blank
+        out the app.
+      </p>
+      <p>
+        The party-line figure on a member&apos;s profile counts the roll calls
+        of the current Congress on which most Republicans and most Democrats
+        voted on opposite sides. It shows how often the member voted with
+        most of their own party on those votes. Votes where the member
+        answered &ldquo;present&rdquo; or did not vote are left out, and so
+        are elections of the Speaker, where members vote for a person rather
+        than yes or no. The figure appears once there are at least 10 such
+        votes. It is calculated the same way for every member. Independents
+        have no party majority to compare with, so no figure is shown for
+        them.
+      </p>
+      <p>
+        A member who changes party, in either direction, is measured only on
+        the votes cast in their current party: the party the official record
+        gives on their most recent vote. If that party is independent, no
+        figure is shown.
       </p>
 
       <h2>State and local data</h2>
@@ -116,7 +140,7 @@ export default function MethodologyPage() {
       <ul>
         <li><strong>Member rosters:</strong> resynced from Congress.gov on every backend restart, typically daily.</li>
         <li><strong>Bills:</strong> the public records are pulled lazily — when a citizen opens a bill we haven't cached yet, we fetch it then.</li>
-        <li><strong>Votes:</strong> updated weekly during Congressional sessions, less frequently during recess.</li>
+        <li><strong>Votes:</strong> checked for new roll calls every hour from 9 a.m. to midnight Eastern on weekdays, and every 6 hours otherwise.</li>
         <li><strong>Candidate data:</strong> updated manually as primaries and general elections approach.</li>
       </ul>
 

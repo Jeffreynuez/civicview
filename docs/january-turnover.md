@@ -25,6 +25,16 @@ These follow the date, so nobody has to change a number:
 - **Member lists** come from Congress.gov and the @unitedstates roster
   at runtime, so new members appear as soon as those sources add them,
   usually within a day or two.
+- **Roll calls and the party-line figure.** The roll-call sync
+  (`backend/app/services/roll_call_sync.py`) stores the 120th Congress's
+  votes as the House Clerk and senate.gov publish them, finishes the
+  119th's last ones, and marks those sessions complete. The party-line
+  figure covers the current Congress, so from January 3 it counts 120th
+  votes only and shows "Not enough recent roll-call votes to compute"
+  until a member has 10 party-split votes. That is expected for the
+  first weeks. The ten-year history window moves forward by one
+  Congress; nothing already stored is deleted. Check
+  `GET /api/admin/roll-calls` during the first week.
 
 If the Census geocoder or TIGERweb has not published the 120th maps
 yet, the app keeps using the 119th maps and logs a warning that starts

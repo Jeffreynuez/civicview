@@ -26,7 +26,7 @@ from typing import List, Optional
 
 from sqlalchemy import (
     String, Integer, Float, DateTime, ForeignKey, Boolean, Text, Index,
-    UniqueConstraint, func, BigInteger, Date, event,
+    UniqueConstraint, func, BigInteger, Date, event, SmallInteger,
 )
 from sqlalchemy.sql import expression as sa_expression
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -1948,9 +1948,14 @@ class VoteExplainer(Base):
     don't change after the vote is cast), so cached AI text is
     valid forever.
 
-    Lookup is by GovTrack vote_id. Templates don't get a cache row —
-    they're regenerated on every request since they're deterministic
-    and microseconds-fast. Only the AI body sits in the DB.
+    Lookup is by the official vote_id (h-{congress}-{session}-{roll} /
+    s-{congress}-{session}-{vote}, see RollCall), the same id on /bills
+    and on a member's Votes tab, so one explanation serves both. Rows
+    keyed by the old GovTrack-style ids (h119-208) from before
+    2026-10-16 are no longer looked up and are left in place. Templates
+    don't get a cache row: they're regenerated on every request since
+    they're deterministic and microseconds-fast. Only the AI body sits
+    in the DB.
 
     Four content columns mirror the template shape:
       ai_what_was_voted   — substantive description of the vote
@@ -1961,10 +1966,10 @@ class VoteExplainer(Base):
     __tablename__ = "vote_explainers"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    # GovTrack vote_id (e.g. "h2026-100" / "s2026-50"). Unique per
-    # vote — one cache row per vote regardless of which rep was
-    # voting (the position-specific framing happens client-side at
-    # render time).
+    # Official vote_id (e.g. "h-119-2-314" / "s-119-2-256"). Unique per
+    # vote: one cache row per vote regardless of which rep was voting
+    # (the position-specific framing happens client-side at render
+    # time).
     vote_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)
 
     # sha256 of the vote fields the explanation was generated from. A
@@ -2599,3 +2604,155 @@ class AiDailySpend(Base):
     updated_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime, server_default=func.now(), onupdate=func.now(),
     )
+
+
+# ── Official roll-call votes (2026-10-16) ────────────────────────────
+class RollCall(Base):
+    """One recorded roll-call vote in the House or the Senate.
+
+    Filled by services/roll_call_sync.py from the official records: the
+    Clerk of the House (clerk.house.gov/evs/{year}/roll{NNN}.xml, with
+    Congress.gov's house-vote API to enumerate) and the Senate
+    (senate.gov vote menus and per-vote XML). A roll call never changes
+    once recorded, so each one is fetched once and kept; nothing here
+    is ever deleted. The one exception is confirmed_at: a vote stored
+    within a day of being cast is fetched once more the next day,
+    because senate.gov sometimes amends a vote's file in the hours
+    after the vote.
+
+    vote_id uses the scheme official_votes_service already uses on
+    /bills: h-{congress}-{session}-{roll} / s-{congress}-{session}-{vote}.
+    The member profile Votes tab, Compare, the party-line figure and
+    the vote explainer all read from here.
+    """
+    __tablename__ = "roll_calls"
+    __table_args__ = (
+        UniqueConstraint("chamber", "congress", "session", "number", name="uq_roll_call_number"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    vote_id: Mapped[str] = mapped_column(String(24), unique=True, index=True)
+    chamber: Mapped[str] = mapped_column(String(1))  # "h" or "s"
+    congress: Mapped[int] = mapped_column(SmallInteger, index=True)
+    session: Mapped[int] = mapped_column(SmallInteger)
+    number: Mapped[int] = mapped_column(Integer)
+    vote_date: Mapped[date] = mapped_column(Date, index=True)
+    vote_year: Mapped[int] = mapped_column(SmallInteger)
+
+    # The official question as each chamber records it ("On Passage",
+    # "On the Nomination"), plus the Senate's fuller question text
+    # ("On the Nomination PN1129") when it gives one.
+    question: Mapped[str] = mapped_column(Text, default="")
+    question_text: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    # What was voted on in words: the House <vote-desc> (the bill's
+    # name) or the Senate's document text / title.
+    description: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    # Senate <vote_title>, e.g. "H.R. 6644, as amended".
+    title: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    result: Mapped[str] = mapped_column(String(160), default="")
+    vote_type: Mapped[Optional[str]] = mapped_column(String(64), default=None)
+    # official_votes_service.categorize_vote: passage, passage_suspension,
+    # cloture, amendment, procedural, nomination, quorum and so on.
+    category: Mapped[str] = mapped_column(String(24), default="unknown")
+
+    # The measure as the source writes it: House legis-num split into
+    # type and number ("H R" / "1041"), Senate <document> ("H.R." /
+    # "6644", or "PN" / "1129" for a nomination).
+    doc_type: Mapped[Optional[str]] = mapped_column(String(24), default=None)
+    doc_number: Mapped[Optional[str]] = mapped_column(String(32), default=None)
+    doc_title: Mapped[Optional[str]] = mapped_column(Text, default=None)
+
+    yea: Mapped[int] = mapped_column(SmallInteger, default=0)
+    nay: Mapped[int] = mapped_column(SmallInteger, default=0)
+    present: Mapped[int] = mapped_column(SmallInteger, default=0)
+    not_voting: Mapped[int] = mapped_column(SmallInteger, default=0)
+    # {"R": {"yea": n, "nay": n, "present": n, "not_voting": n}, "D": ..., "I": ...}
+    # counted from the stored positions, by the party recorded on this vote.
+    by_party_json: Mapped[str] = mapped_column(Text, default="{}")
+
+    # None for a vote read from the chamber's own file. "congress.gov" when
+    # the Clerk's file could not be read and the House vote came from
+    # Congress.gov's members endpoint instead: that has no description
+    # (which tells a rule vote from a passage vote) and no Speaker
+    # choices, so the vote stays unconfirmed and is fetched again from
+    # the Clerk later.
+    source: Mapped[Optional[str]] = mapped_column(String(16), default=None)
+
+    fetched_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    confirmed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+class RollCallPosition(Base):
+    """How one member voted on one roll call, and their party on that vote.
+
+    Kept compact on purpose (about 2.7 million rows for ten years):
+    position is one letter, Y (Yea or Aye), N (Nay or No), P (Present),
+    V (Not Voting) or C (voted for a candidate in an election of the
+    Speaker; the name is in roll_call_choices); party is the letter the
+    official record gives for that member on that vote (R, D or I).
+    """
+    __tablename__ = "roll_call_positions"
+    __table_args__ = (
+        Index("ix_roll_call_positions_member", "bioguide_id", "roll_call_id"),
+    )
+
+    roll_call_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("roll_calls.id", ondelete="CASCADE"), primary_key=True,
+    )
+    bioguide_id: Mapped[str] = mapped_column(String(7), primary_key=True)
+    position: Mapped[str] = mapped_column(String(1))
+    party: Mapped[Optional[str]] = mapped_column(String(1), default=None)
+
+
+class RollCallChoice(Base):
+    """Who a member voted for in an election of the Speaker, as the Clerk
+    records it ("Jeffries", "Johnson (LA)"). Only those roll calls have
+    rows here, a few dozen in ten years; the member's position row holds
+    C. Shown as "Voted for {name}" for every name alike, and left out of
+    the party-line figure."""
+    __tablename__ = "roll_call_choices"
+
+    roll_call_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("roll_calls.id", ondelete="CASCADE"), primary_key=True,
+    )
+    bioguide_id: Mapped[str] = mapped_column(String(7), primary_key=True)
+    choice: Mapped[str] = mapped_column(String(80))
+
+
+class RollCallMember(Base):
+    """Name and state of everyone who appears in a stored roll call, so a
+    seat chart or vote list can name a member who has since left office.
+    One row per person, refreshed from each newly stored vote."""
+    __tablename__ = "roll_call_members"
+
+    bioguide_id: Mapped[str] = mapped_column(String(7), primary_key=True)
+    name: Mapped[Optional[str]] = mapped_column(String(160), default=None)
+    state: Mapped[Optional[str]] = mapped_column(String(2), default=None)
+    updated_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, server_default=func.now(), onupdate=func.now(),
+    )
+
+
+class RollCallSyncState(Base):
+    """What the roll-call sync knows about one chamber's session: how many
+    roll calls the official source lists, how many are stored, when it
+    last looked, and when a finished session was found complete (a
+    past session never gains votes, so it is not checked again). Also
+    keeps the Senate menu's ETag so an unchanged menu is not downloaded
+    again. Shown by GET /api/admin/roll-calls."""
+    __tablename__ = "roll_call_sync_state"
+    __table_args__ = (
+        UniqueConstraint("chamber", "congress", "session", name="uq_roll_call_sync_state"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    chamber: Mapped[str] = mapped_column(String(1))
+    congress: Mapped[int] = mapped_column(SmallInteger)
+    session: Mapped[int] = mapped_column(SmallInteger)
+    official_count: Mapped[Optional[int]] = mapped_column(Integer, default=None)
+    stored_count: Mapped[Optional[int]] = mapped_column(Integer, default=None)
+    menu_etag: Mapped[Optional[str]] = mapped_column(String(128), default=None)
+    menu_last_modified: Mapped[Optional[str]] = mapped_column(String(64), default=None)
+    checked_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    last_error: Mapped[Optional[str]] = mapped_column(Text, default=None)
