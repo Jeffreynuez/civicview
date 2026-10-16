@@ -65,7 +65,9 @@ export default function VerificationSection({ citizen }) {
 
   if (!citizen) return null;
 
-  const isVerified = !!citizen.verified;
+  // A real verification only (the server's verified_person rule): a
+  // demo grant or a flag set by hand is not "Verified" (2026-10-16).
+  const isVerified = !!citizen.verified_person;
   const isDemo = citizen.verified_method === 'demo';
   const isConfigured = !!config?.is_configured;
 

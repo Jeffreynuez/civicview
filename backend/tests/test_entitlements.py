@@ -47,10 +47,14 @@ FAILURES = []
 
 class FakeCitizen:
     """Minimal stand-in. The gates read verified, is_subscribed, and the
-    state and district the location gate checks."""
+    state and district the location gate checks. authored_verified_flag
+    also reads verified_method (services/verified_identity.py), so a
+    verified fake is verified by ID.me unless a method is given."""
 
-    def __init__(self, verified=False, is_subscribed=False, state="FL", district="FL-17"):
+    def __init__(self, verified=False, is_subscribed=False, state="FL", district="FL-17",
+                 verified_method=None):
         self.verified = verified
+        self.verified_method = verified_method if verified_method is not None else ("id.me" if verified else None)
         self.is_subscribed = is_subscribed
         self.state = state
         self.congressional_district = district
@@ -97,6 +101,9 @@ def main():
     verified = FakeCitizen(verified=True, is_subscribed=False)
     subscriber = FakeCitizen(verified=True, is_subscribed=True)
     demo_grant = FakeCitizen(verified=False, is_subscribed=True)
+    # verified flag set by hand (an operator account seeded with
+    # "verified": true): no real method behind it (2026-10-16)
+    hand_flag = FakeCitizen(verified=True, is_subscribed=True, verified_method="")
 
     print("\nSwitch OFF (the shipped default):")
     switch(False)
@@ -168,6 +175,8 @@ def main():
               lambda: _assert_false(ent.authored_verified_flag(demo_grant)))
         check("%s: no identity (legacy anon vote) -> False" % label,
               lambda: _assert_false(ent.authored_verified_flag()))
+        check("%s: verified flag set by hand, no method -> False" % label,
+              lambda: _assert_false(ent.authored_verified_flag(hand_flag)))
         check("%s: verified subscriber -> True (billing is not the input)" % label,
               lambda: _assert_true(ent.authored_verified_flag(subscriber)))
 

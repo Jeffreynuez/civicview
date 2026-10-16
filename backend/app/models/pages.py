@@ -1596,6 +1596,17 @@ class CitizenAccount(Base):
         return self.stripe_customer_id is not None
 
     @property
+    def verified_person(self) -> bool:
+        """True only when a real method verified this account (ID.me).
+        services/verified_identity.is_verified_person: the `verified`
+        flag alone is not enough, since demo grants and operator
+        accounts can carry it. Surfaced on /me (2026-10-16) so the app
+        shows "Verified citizen" only for these, and "Demo account"
+        otherwise."""
+        from app.services.verified_identity import is_verified_person
+        return is_verified_person(self)
+
+    @property
     def needs_location(self) -> bool:
         """True until the account has a valid state and congressional
         district (services/citizen_geo.py). Surfaced on /me so the app

@@ -1893,6 +1893,9 @@ export default function Home() {
               // reads these to pick verified / demo / unverified /
               // coming-soon branches.
               verified: !!citizen.verified,
+              // The server's rule for a real verification (2026-10-16);
+              // the dashboard badge and VerificationSection read it.
+              verified_person: !!citizen.verified_person,
               verified_at: citizen.verified_at || null,
               verified_method: citizen.verified_method || null,
             }}

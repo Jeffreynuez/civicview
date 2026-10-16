@@ -689,7 +689,11 @@ def set_location(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
 
     raw_state = (body.state or "").strip()
-    if citizen.verified:
+    # Only a real verification fixes the state (2026-10-16): the message
+    # below says it came from identity verification, which is untrue for
+    # a demo grant or a hand-set flag.
+    from app.services.verified_identity import is_verified_person
+    if is_verified_person(citizen):
         state = normalize_state(citizen.state)
         if raw_state and raw_state.upper() != (citizen.state or "").upper():
             raise HTTPException(
