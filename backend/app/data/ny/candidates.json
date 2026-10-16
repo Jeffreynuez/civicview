@@ -4035,6 +4035,7 @@
   "ny-cand-aber-kawas-sd12": {
    "name": "Aber Kawas",
    "party": "D",
+   "party_label": "Democratic",
    "seeking_office": "New York State Senate, Dist. 12",
    "incumbent": false,
    "current_office": null,
@@ -4058,6 +4059,7 @@
   "ny-cand-han-khon-to-sd12": {
    "name": "Han-Khon To",
    "party": "R",
+   "party_label": "Republican",
    "seeking_office": "New York State Senate, Dist. 12",
    "incumbent": false,
    "current_office": null,

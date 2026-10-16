@@ -3953,9 +3953,9 @@
    "name": "Trever Nehls",
    "party": "R",
    "seeking_office": "U.S. House, TX-22",
-   "incumbent": true,
-   "current_office": "U.S. Representative, TX-22",
-   "bioguide_id": "N000026",
+   "incumbent": false,
+   "current_office": null,
+   "bioguide_id": null,
    "fec_id": "H6TX22283",
    "hometown": null,
    "age": null,
@@ -8348,6 +8348,7 @@
   "tx-cand-david-cook-sd22": {
    "name": "David Cook",
    "party": "R",
+   "party_label": "REP",
    "seeking_office": "Texas State Senate, Dist. 22",
    "incumbent": false,
    "current_office": null,
@@ -8371,6 +8372,7 @@
   "tx-cand-amy-martinez-salas-sd22": {
    "name": "Amy Martinez-Salas",
    "party": "D",
+   "party_label": "DEM",
    "seeking_office": "Texas State Senate, Dist. 22",
    "incumbent": false,
    "current_office": null,
@@ -8394,6 +8396,7 @@
   "tx-cand-chris-spencer-hd1": {
    "name": "Chris Spencer",
    "party": "R",
+   "party_label": "REP",
    "seeking_office": "Texas House of Representatives, Dist. 1",
    "incumbent": false,
    "current_office": null,
@@ -8417,6 +8420,7 @@
   "tx-cand-sean-huffman-hd1": {
    "name": "Sean Huffman",
    "party": "D",
+   "party_label": "DEM",
    "seeking_office": "Texas House of Representatives, Dist. 1",
    "incumbent": false,
    "current_office": null,
@@ -8440,6 +8444,7 @@
   "tx-cand-alan-blaylock-hd93": {
    "name": "Alan Blaylock",
    "party": "R",
+   "party_label": "REP",
    "seeking_office": "Texas House of Representatives, Dist. 93",
    "incumbent": false,
    "current_office": null,
@@ -8463,6 +8468,7 @@
   "tx-cand-ericka-lomick-hd93": {
    "name": "Ericka Lomick",
    "party": "D",
+   "party_label": "DEM",
    "seeking_office": "Texas House of Representatives, Dist. 93",
    "incumbent": false,
    "current_office": null,
@@ -8591,10 +8597,10 @@
   },
   "tx-cand-angela-heli-rodriguez-prilliman-h12": {
    "id": "tx-cand-angela-heli-rodriguez-prilliman-h12",
-   "name": "Angela \"heli\" Rodriguez Prilliman",
+   "name": "Angela \"Heli\" Rodriguez Prilliman",
    "party": "D",
    "party_label": "DEM",
-   "sort_name": "Prilliman, Angela \"heli\" Rodriguez",
+   "sort_name": "Prilliman, Angela \"Heli\" Rodriguez",
    "seeking_office": "U.S. House, TX-12",
    "incumbent": false,
    "current_office": null,

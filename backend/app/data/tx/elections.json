@@ -598,8 +598,8 @@
    "congressional_district": "22",
    "seat_type": "legislative",
    "term_length_years": 2,
-   "open_seat": false,
-   "incumbent_candidate_id": "tx-cand-trever-nehls-h22",
+   "open_seat": true,
+   "incumbent_candidate_id": null,
    "general_candidates": [
     "tx-cand-marquette-greene-scott-h22",
     "tx-cand-trever-nehls-h22"
@@ -609,7 +609,8 @@
    "primary_candidates": {},
    "roster_status": "verified_nominees",
    "roster_source_url": "https://www.sos.texas.gov/elections/forms/2026-ballot-cert.pdf",
-   "roster_retrieved": "2026-10-16"
+   "roster_retrieved": "2026-10-16",
+   "notes": "Open seat. The current representative, Troy E. Nehls, is not on the November ballot for this district."
   },
   {
    "id": "tx-2026-us-house-23",

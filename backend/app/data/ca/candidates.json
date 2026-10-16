@@ -8364,6 +8364,7 @@
   "ca-cand-scott-sakakihara-sd10": {
    "name": "Scott Sakakihara",
    "party": "D",
+   "party_label": "Democratic",
    "seeking_office": "California State Senate, Dist. 10",
    "incumbent": false,
    "current_office": null,
@@ -8387,6 +8388,7 @@
   "ca-cand-linda-r-price-sd10": {
    "name": "Linda R. Price",
    "party": "R",
+   "party_label": "Republican",
    "seeking_office": "California State Senate, Dist. 10",
    "incumbent": false,
    "current_office": null,
@@ -8410,6 +8412,7 @@
   "ca-cand-dom-belza-ad3": {
    "name": "Dom Belza",
    "party": "R",
+   "party_label": "Republican",
    "seeking_office": "California State Assembly, Dist. 3",
    "incumbent": false,
    "current_office": null,
@@ -8433,6 +8436,7 @@
   "ca-cand-james-jamie-johansson-ad3": {
    "name": "James \"Jamie\" Johansson",
    "party": "R",
+   "party_label": "Republican",
    "seeking_office": "California State Assembly, Dist. 3",
    "incumbent": false,
    "current_office": null,
