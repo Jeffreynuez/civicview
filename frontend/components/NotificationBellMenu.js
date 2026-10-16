@@ -147,7 +147,14 @@ export default function NotificationBellMenu() {
   useEffect(() => {
     refreshNotifs();
     const t = setInterval(refreshNotifs, NOTIF_POLL_MS);
-    return () => clearInterval(t);
+    // A push arriving while the app is open refreshes at once
+    // (lib/push.js, pushNotificationReceived; 2026-10-16).
+    const onPush = () => refreshNotifs();
+    window.addEventListener('cv:notifications-refresh', onPush);
+    return () => {
+      clearInterval(t);
+      window.removeEventListener('cv:notifications-refresh', onPush);
+    };
   }, []);
 
   // Refresh on open so the dropdown shows the freshest inbox.

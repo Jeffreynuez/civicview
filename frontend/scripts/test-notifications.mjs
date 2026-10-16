@@ -10,6 +10,7 @@
 //   2. The tour's steps stay at 30 words or fewer.
 //   3. Bell, archive and push tap share one post deep link.
 //   4. Only the alert switches that work are shown.
+//   5. lib/push.js: one registration listener, untrack removals, unbind.
 
 import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync } from 'node:fs';
@@ -118,6 +119,72 @@ await check('3 a page link without a post has no hash', () => {
 });
 await check('3 no official, no link', () => {
   assert.equal(links.postDeepLink('', 5), null);
+});
+
+// ── 5. push.js in a fake Capacitor shell ───────────────────────────
+const store = new Map();
+const listeners = {};
+const posts = [];
+let registerCalls = 0;
+globalThis.window = {
+  Capacitor: {
+    isNativePlatform: () => true,
+    Plugins: {
+      PushNotifications: {
+        checkPermissions: async () => ({ receive: 'granted' }),
+        requestPermissions: async () => ({ receive: 'granted' }),
+        addListener: (name, fn) => { (listeners[name] = listeners[name] || []).push(fn); },
+        register: () => {
+          registerCalls += 1;
+          setTimeout(() => (listeners.registration || []).forEach((fn) => fn({ value: 'tok-test-device-1' })), 5);
+        },
+        removeAllDeliveredNotifications: async () => {},
+      },
+    },
+  },
+  localStorage: {
+    getItem: (k) => (store.has(k) ? store.get(k) : null),
+    setItem: (k, v) => store.set(k, String(v)),
+    removeItem: (k) => store.delete(k),
+  },
+  location: { href: 'http://localhost/', assign: () => {} },
+  dispatchEvent: () => true,
+  addEventListener: () => {},
+  removeEventListener: () => {},
+};
+globalThis.CustomEvent = class { constructor(type, init) { this.type = type; this.detail = init && init.detail; } };
+globalThis.fetch = async (url, opts = {}) => {
+  if (String(url).endsWith('/api/csrf')) {
+    return new Response(JSON.stringify({ csrf_token: 'x' }), { status: 200, headers: { 'content-type': 'application/json' } });
+  }
+  posts.push({ url: String(url), body: opts.body ? JSON.parse(opts.body) : null });
+  return new Response(JSON.stringify({ ok: true }), { status: 200, headers: { 'content-type': 'application/json' } });
+};
+const push = await load('lib/push.js');
+await check('5 the registration listener is installed once', async () => {
+  for (let i = 0; i < 3; i += 1) {
+    const r = await push.enablePush();
+    assert.equal(r.ok, true);
+  }
+  assert.equal(registerCalls, 3);
+  assert.equal((listeners.registration || []).length, 1);
+  assert.equal((listeners.registrationError || []).length, 1);
+  const regs = posts.filter((p) => p.url.endsWith('/api/push/register'));
+  assert.equal(regs.length, 3, 'one register per token event, not one per listener');
+});
+await check('5 an untrack sends tracked_remove for that key only', async () => {
+  posts.length = 0;
+  push.syncPushRegistration({ removed: 'S001217' });
+  await new Promise((r) => setTimeout(r, 900));
+  const last = posts.filter((p) => p.url.endsWith('/api/push/register')).pop();
+  assert.ok(last, 'no register call');
+  assert.deepEqual(last.body.tracked_remove, ['s001217']);
+});
+await check('5 sign-out unbinds with the saved token', async () => {
+  posts.length = 0;
+  assert.equal(await push.unbindPushDevice(), true);
+  const call = posts.find((p) => p.url.endsWith('/api/push/unbind'));
+  assert.deepEqual(call && call.body, { token: 'tok-test-device-1' });
 });
 
 const text = [JSON.stringify(prefs.CHANNEL_SCHEMA), JSON.stringify(prefs.PREF_SCHEMA.election)].join('\n');

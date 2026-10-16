@@ -63,12 +63,12 @@ export function shouldOfferPush() {
 
 /**
  * Optional v2 register fields (Notifications v2 parts 3+4):
- *   tracked — this device's tracked-official keys, so ANONYMOUS
+ *   tracked: this device's tracked-official keys, so ANONYMOUS
  *     installs get tracked-activity pushes too. The tracked store is
- *     in-memory (server-backed for signed-in identities), so we only
- *     send the list when it's non-empty — a launch-time re-register
- *     that runs before stores hydrate must not wipe the server-side
- *     copy. Omitted field = "leave stored value alone" server-side.
+ *     in-memory (server-backed for signed-in identities). Since
+ *     2026-10-16 the server ADDS these keys to the device's stored
+ *     list instead of replacing it (a new session's empty memory used
+ *     to wipe it); only tracked_remove, sent on untrack, takes one out.
  *   prefs — channel-prefs snapshot + tz offset for per-device
  *     quiet-hours/cadence enforcement while anonymous.
  * Dynamic imports keep this module cycle-free (trackedOfficials.js
@@ -109,6 +109,41 @@ async function postJson(path, body) {
  * refreshes the token binding server-side (e.g. after sign-in, call
  * again so an anonymous token re-binds to the citizen).
  */
+// The native 'registration' and 'registrationError' listeners are
+// installed once per app run (2026-10-16). enablePush() used to add a
+// new pair on every call (launch refresh, sign-in, the toggle), so each
+// token event ran every pair ever added. Callers now wait in a list
+// that the one pair settles.
+let registrationListenersInstalled = false;
+const registrationWaiters = [];
+
+function settleRegistration(result) {
+  while (registrationWaiters.length) {
+    const w = registrationWaiters.shift();
+    try { w(result); } catch { /* one waiter cannot block the rest */ }
+  }
+}
+
+function installRegistrationListeners(PN) {
+  if (registrationListenersInstalled) return;
+  registrationListenersInstalled = true;
+  PN.addListener('registration', async ({ value }) => {
+    // A token event with nobody waiting is a rotation: re-register it
+    // only while push is on.
+    if (!registrationWaiters.length && getPushChoice() !== 'enabled') return;
+    try {
+      const extra = await v2RegisterFields();
+      await postJson('/api/push/register', { token: value, platform: 'android', ...extra });
+      setPushChoice('enabled');
+      try { window.localStorage.setItem(TOKEN_KEY, value); } catch { /* private mode */ }
+      settleRegistration({ ok: true });
+    } catch { settleRegistration({ ok: false, reason: 'network' }); }
+  });
+  PN.addListener('registrationError', () => {
+    settleRegistration({ ok: false, reason: 'registration' });
+  });
+}
+
 export async function enablePush() {
   const PN = plugin();
   if (!PN) return { ok: false, reason: 'unsupported' };
@@ -121,27 +156,23 @@ export async function enablePush() {
     }
   } catch { return { ok: false, reason: 'permissions' }; }
 
+  try { installRegistrationListeners(PN); } catch { return { ok: false, reason: 'register' }; }
   return new Promise((resolve) => {
     let settled = false;
-    const finish = (result) => { if (!settled) { settled = true; resolve(result); } };
+    const finish = (result) => { if (!settled) { settled = true; clearTimeout(timer); resolve(result); } };
     // Registration is event-driven; guard with a timeout so a silent
     // native failure can't hang the caller's UI.
-    const timer = setTimeout(() => finish({ ok: false, reason: 'timeout' }), 15000);
-    PN.addListener('registration', async ({ value }) => {
-      clearTimeout(timer);
-      try {
-        const extra = await v2RegisterFields();
-        await postJson('/api/push/register', { token: value, platform: 'android', ...extra });
-        setPushChoice('enabled');
-        try { window.localStorage.setItem(TOKEN_KEY, value); } catch { /* private mode */ }
-        finish({ ok: true });
-      } catch { finish({ ok: false, reason: 'network' }); }
-    });
-    PN.addListener('registrationError', () => {
-      clearTimeout(timer);
-      finish({ ok: false, reason: 'registration' });
-    });
-    try { PN.register(); } catch { clearTimeout(timer); finish({ ok: false, reason: 'register' }); }
+    const timer = setTimeout(() => {
+      const i = registrationWaiters.indexOf(finish);
+      if (i >= 0) registrationWaiters.splice(i, 1);
+      finish({ ok: false, reason: 'timeout' });
+    }, 15000);
+    registrationWaiters.push(finish);
+    try { PN.register(); } catch {
+      const i = registrationWaiters.indexOf(finish);
+      if (i >= 0) registrationWaiters.splice(i, 1);
+      finish({ ok: false, reason: 'register' });
+    }
   });
 }
 
@@ -268,6 +299,13 @@ export function initPushTapNavigation() {
   const PN = plugin();
   if (!PN) return;
   tapNavInstalled = true;
+  // A push that arrives while the app is open (2026-10-16): refresh the
+  // bell at once instead of at its next 60 s poll.
+  try {
+    PN.addListener('pushNotificationReceived', () => {
+      try { window.dispatchEvent(new CustomEvent('cv:notifications-refresh')); } catch { /* SSR */ }
+    });
+  } catch { /* plugin variant without the event */ }
   try {
     PN.addListener('pushNotificationActionPerformed', (action) => {
       try {
@@ -305,28 +343,36 @@ export function initPushTapNavigation() {
 
 /**
  * Lightweight server-side re-sync of this device's tracked list +
- * prefs snapshot — POSTs the cached token straight to /api/push/register
+ * prefs snapshot: POSTs the cached token straight to /api/push/register
  * with the v2 fields, no permission flow / native round-trip. Called
  * (debounced) by trackedOfficials.js after track/untrack so an
  * anonymous device's server-side tracked list follows its choices.
+ * Untracked keys travel as tracked_remove (2026-10-16): the server
+ * merges `tracked` and removes only what was untracked.
  * No-op on web, when push is off, or when no token is cached.
  */
 let syncTimer = null;
-export function syncPushRegistration() {
+const pendingRemovals = new Set();
+export function syncPushRegistration({ removed } = {}) {
   if (!isNativeApp() || getPushChoice() !== 'enabled') return;
+  if (removed) pendingRemovals.add(String(removed).toLowerCase());
   if (syncTimer) clearTimeout(syncTimer);
   syncTimer = setTimeout(async () => {
     syncTimer = null;
-    let token = null;
-    try { token = window.localStorage.getItem(TOKEN_KEY); } catch { /* private mode */ }
+    const token = savedToken();
     if (!token) return;
+    const removals = [...pendingRemovals];
+    pendingRemovals.clear();
     try {
       const extra = await v2RegisterFields();
-      // Untracking down to zero must clear server-side: send an
-      // explicit [] here (we KNOW the store is hydrated — the user
-      // just acted on it), unlike the launch-time omit-when-empty.
-      if (!extra.tracked) extra.tracked = [];
-      await postJson('/api/push/register', { token, platform: 'android', ...extra });
-    } catch { /* best effort — next launch re-registers anyway */ }
+      const body = { token, platform: 'android', ...extra };
+      const stillTracked = new Set(extra.tracked || []);
+      const gone = removals.filter((k) => !stillTracked.has(k));
+      if (gone.length) body.tracked_remove = gone;
+      await postJson('/api/push/register', body);
+    } catch {
+      // best effort: keep the removals for the next sync
+      removals.forEach((k) => pendingRemovals.add(k));
+    }
   }, 800);
 }

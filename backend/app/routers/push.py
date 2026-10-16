@@ -54,11 +54,17 @@ class PushTokenIn(BaseModel):
     # untouched, so an old-app register can't wipe a newer one):
     #   tracked — this device's tracked-official keys. Consulted by the
     #     fan-out only for anonymous rows; bound accounts resolve
-    #     tracking server-side. [] explicitly clears.
+    #     tracking server-side. Since 2026-10-16 the keys are ADDED to
+    #     the stored list, never replace it: an anonymous app keeps its
+    #     tracking in memory only, so each session starts with an empty
+    #     list, and a replace wiped everything tracked in earlier ones.
+    #   tracked_remove: keys the user untracked; the only way a key
+    #     leaves the stored list.
     #   prefs: channel-prefs snapshot ({quiet_hours, push_cadence,
     #     tz_offset_minutes}) for per-device quiet hours and push
     #     timing when the device is anonymous.
     tracked: Optional[List[str]] = None
+    tracked_remove: Optional[List[str]] = None
     prefs: Optional[dict] = None
 
 
@@ -103,12 +109,20 @@ def register_device(
     if row.id is not None and row.citizen_id != new_owner:
         _forget_owner_state(db, row)
     row.citizen_id = new_owner
-    # v2 optional fields — None means "not sent" (old app build or a
-    # launch-time re-register before stores hydrate) and leaves the
-    # stored value alone; an explicit [] / {} clears.
-    if payload.tracked is not None:
-        normalized = _normalize_tracked(payload.tracked)
-        row.tracked_json = json.dumps(normalized) if normalized else None
+    # v2 optional fields. tracked is merged into the stored list and
+    # tracked_remove takes keys out (2026-10-16); prefs {} clears.
+    if payload.tracked is not None or payload.tracked_remove:
+        stored = []
+        try:
+            stored = json.loads(row.tracked_json) if row.tracked_json else []
+        except (ValueError, TypeError):
+            stored = []
+        # The new keys first, so the cap keeps them over the oldest.
+        merged = _normalize_tracked(
+            list(payload.tracked or []) + [k for k in stored if isinstance(k, str)])
+        removed = set(_normalize_tracked(list(payload.tracked_remove or [])))
+        merged = [k for k in merged if k not in removed]
+        row.tracked_json = json.dumps(merged) if merged else None
     if payload.prefs is not None:
         from app.routers.auth_citizen import sanitize_notification_prefs
 
