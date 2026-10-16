@@ -23,7 +23,7 @@ from datetime import datetime
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
 from app.auth import get_optional_rep
@@ -197,47 +197,60 @@ def mark_one_read(
     return {"ok": True, "updated": total}
 
 
-@router.post("/read-all")
-def mark_all_read(
-    db: Session = Depends(get_db),
-    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
-    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
-    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
-):
-    recipients = _active_recipients(me_citizen, me_rep, me_candidate)
+class BellRowsIn(BaseModel):
+    """The rows the bell is showing (2026-10-16). "Mark as read" and
+    "Clear" act on these only, so rows the bell does not show (a rep or
+    candidate identity's rows kept out of a citizen's bell, or rows past
+    the 50 it lists) are left alone. No ids: every row the bell's
+    identities hold, as before but never another identity's."""
+    ids: Optional[List[int]] = Field(default=None, max_length=200)
+
+
+def _bell_rows_or_401(me_citizen, me_rep, me_candidate):
+    recipients = _bell_recipients(me_citizen, me_rep, me_candidate)
     if not recipients:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Sign in to manage notifications.",
         )
+    return recipients
+
+
+@router.post("/read-all")
+def mark_all_read(
+    body: Optional[BellRowsIn] = None,
+    db: Session = Depends(get_db),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
+):
+    recipients = _bell_rows_or_401(me_citizen, me_rep, me_candidate)
+    ids = body.ids if body is not None else None
     total = 0
     for kind, rid in recipients:
         total += notifications_inapp.mark_read(
             db, recipient_kind=kind, recipient_id=rid,
-            all_for_user=True,
+            all_for_user=True, only_ids=ids,
         )
     return {"ok": True, "updated": total}
 
 
 @router.post("/clear-all")
 def clear_all(
+    body: Optional[BellRowsIn] = None,
     db: Session = Depends(get_db),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
     me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
 ):
-    """Bell v3 "Clear": soft-clear (cleared_at) every notification
-    across the caller's active identities. Rows persist for the
-    dashboard archive; the bell list and unread badge go to zero."""
-    recipients = _active_recipients(me_citizen, me_rep, me_candidate)
-    if not recipients:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Sign in to manage notifications.",
-        )
+    """Bell v3 "Clear": soft-clear (cleared_at) the rows the bell shows
+    (BellRowsIn). Rows persist for the dashboard archive; the bell list
+    and unread badge go to zero for what was shown."""
+    recipients = _bell_rows_or_401(me_citizen, me_rep, me_candidate)
+    ids = body.ids if body is not None else None
     total = 0
     for kind, rid in recipients:
         total += notifications_inapp.clear_all(
-            db, recipient_kind=kind, recipient_id=rid,
+            db, recipient_kind=kind, recipient_id=rid, only_ids=ids,
         )
     return {"ok": True, "cleared": total}

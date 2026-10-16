@@ -480,6 +480,7 @@ def unread_count_for(
 def mark_read(
     db: Session, *, recipient_kind: str, recipient_id: int,
     notification_id: Optional[int] = None, all_for_user: bool = False,
+    only_ids: Optional[list] = None,
 ) -> int:
     """Mark a single notification (notification_id) or every unread
     notification for this user (all_for_user=True) as read. Returns
@@ -499,6 +500,11 @@ def mark_read(
         if notification_id is None:
             return 0
         q = q.filter(Notification.id == notification_id)
+    elif only_ids is not None:
+        # Only the rows the bell showed (2026-10-16).
+        if not only_ids:
+            return 0
+        q = q.filter(Notification.id.in_(list(only_ids)))
     now = datetime.utcnow()
     updated = q.update({Notification.read_at: now}, synchronize_session=False)
     db.commit()
@@ -507,6 +513,7 @@ def mark_read(
 
 def clear_all(
     db: Session, *, recipient_kind: str, recipient_id: int,
+    only_ids: Optional[list] = None,
 ) -> int:
     """Soft-clear every visible notification for this user: stamp
     cleared_at (and read_at where still unread — a cleared row is by
@@ -518,6 +525,11 @@ def clear_all(
         Notification.recipient_id == recipient_id,
         Notification.cleared_at.is_(None),
     )
+    if only_ids is not None:
+        # Only the rows the bell showed (2026-10-16).
+        if not only_ids:
+            return 0
+        base = base.filter(Notification.id.in_(list(only_ids)))
     cleared = base.filter(Notification.read_at.is_(None)).update(
         {Notification.read_at: now, Notification.cleared_at: now},
         synchronize_session=False,

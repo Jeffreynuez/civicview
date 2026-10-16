@@ -34,6 +34,7 @@ from sqlalchemy.orm import Session
 
 from app.auth_citizen import get_optional_citizen
 from app.db import get_db
+from app.services.admin_auth import get_current_admin
 from app.models.pages import CitizenAccount, DeviceToken
 from app.services.push_service import ANNOUNCEMENTS_TOPIC, get_push_service
 
@@ -189,3 +190,55 @@ def unregister_device(
             payload.token,
         )
     return {"ok": True, "deleted": int(deleted)}
+
+
+# ── Admin: "Send me a test push" (2026-10-16) ────────────────────────
+admin_router = APIRouter()
+
+
+class TestPushIn(BaseModel):
+    # The token saved on the device the admin page is open on, when it
+    # is open in the app. Only a token already registered here is used.
+    token: Optional[str] = Field(default=None, max_length=512)
+
+
+@admin_router.post("/test")
+def send_test_push(
+    payload: Optional[TestPushIn] = None,
+    db: Session = Depends(get_db),
+    actor: dict = Depends(get_current_admin),
+):
+    """Send one test push to the admin's own devices: those bound to
+    their citizen account, plus this device's token when the page is
+    open in the app. Reports what happened and logs it."""
+    from app.models.pages import PushHeldItem
+    from app.services.push_service import DevPushService, PushMessage, send_push_messages
+
+    rows = []
+    if actor.get("kind") == "citizen":
+        rows = db.query(DeviceToken).filter(DeviceToken.citizen_id == actor.get("id")).all()
+    token = (payload.token or "").strip() if payload is not None else ""
+    if token and token not in {r.token for r in rows}:
+        extra = db.query(DeviceToken).filter(DeviceToken.token == token).first()
+        if extra is not None:
+            rows.append(extra)
+    service = "dev" if isinstance(get_push_service(), DevPushService) else "fcm"
+    if not rows:
+        logger.info("admin %s:%s test push: no registered device", actor.get("kind"), actor.get("id"))
+        return {"devices": 0, "sent": 0, "failed": 0, "pruned": 0, "service": service}
+    result = send_push_messages([
+        PushMessage(token=r.token, title="CivicView test push",
+                    body="If you can read this, push works on this device.",
+                    data={"kind": "test"}, ttl_seconds=600)
+        for r in rows
+    ])
+    pruned = 0
+    if result.invalid:
+        dead = [r.id for r in rows if r.token in result.invalid]
+        db.query(PushHeldItem).filter(PushHeldItem.device_token_id.in_(dead)).delete(synchronize_session=False)
+        pruned = db.query(DeviceToken).filter(DeviceToken.id.in_(dead)).delete(synchronize_session=False)
+        db.commit()
+    out = {"devices": len(rows), "sent": len(result.sent), "failed": len(result.failed),
+           "pruned": pruned, "service": service}
+    logger.info("admin %s:%s test push: %s", actor.get("kind"), actor.get("id"), out)
+    return out

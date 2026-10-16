@@ -226,19 +226,24 @@ export default function NotificationBellMenu() {
   // inbox server-side (rows keep living for the dashboard archive)
   // and empties the popover list. Individual clicks still mark
   // single rows read.
+  // Both act on the rows the bell is showing only (2026-10-16): the ids
+  // go with the request, and anything it does not show stays as it is.
   const onMarkAllRead = async () => {
-    await markAllNotificationsRead();
+    const shownUnread = notifItems.filter((it) => !it.read_at).map((it) => it.id);
+    await markAllNotificationsRead(notifItems.map((it) => it.id));
     setNotifItems((prev) => prev.map((it) =>
       it.read_at ? it : { ...it, read_at: new Date().toISOString() },
     ));
-    setUnreadCount(0);
+    setUnreadCount((c) => Math.max(0, c - shownUnread.length));
     clearDeliveredNotifications(); // native tray + icon badge; no-op on web
+    refreshNotifs();
   };
   const onClearAll = async () => {
-    await clearAllNotifications();
+    const shown = notifItems.map((it) => it.id);
+    await clearAllNotifications(shown);
     setNotifItems([]);
-    setUnreadCount(0);
     clearDeliveredNotifications();
+    refreshNotifs();
   };
 
   // Click outside to close

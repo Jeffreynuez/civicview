@@ -57,6 +57,7 @@ import './admin.css';
 import HScroll from '@/components/HScroll';
 import TransitionsTab from '@/components/admin/TransitionsTab';
 import ElectionRemindersTab from '@/components/admin/ElectionRemindersTab';
+import AdminTestPush from '@/components/admin/AdminTestPush';
 
 const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions', 'reminders']);
 
@@ -574,6 +575,7 @@ function AdminPageInner() {
               <span className="ad-pagehead__subline-mono">{me?.email}</span>
               {' · '}{me?.kind === 'citizen' ? 'citizen' : 'rep'} account on ADMIN_EMAILS allowlist
             </div>
+            <AdminTestPush />
           </div>
         </div>
 
