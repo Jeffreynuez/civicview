@@ -777,8 +777,8 @@ def digest_preview(
             "empty": True,
             "demo_email": is_demo_email(citizen.email),
             "reason": (
-                "Nothing to digest yet — track some officials and check back "
-                "after they post, poll, or schedule events."
+                "Nothing to digest yet. Track some officials and check back "
+                "after they post, run polls or schedule events."
             ),
         }
     subject, html_body, _text = render_digest(data)

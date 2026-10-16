@@ -624,6 +624,9 @@ app.include_router(photo_credits_router.router, prefix="/api/photo-credits", tag
 # works but sends log to stdout (DevPushService).
 from app.routers import push as push_router  # noqa: E402
 app.include_router(push_router.router, prefix="/api/push", tags=["Push"])
+# Email settings and one-click unsubscribe (2026-10-16).
+from app.routers import email_prefs as email_prefs_router  # noqa: E402
+app.include_router(email_prefs_router.router, prefix="/api/email", tags=["Email"])
 app.include_router(poll_demographics_router.router, prefix="/api/polls", tags=["Polls — Demographics"])
 
 # Native-app metadata — the force-update gate's version thresholds

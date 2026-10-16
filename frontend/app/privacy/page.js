@@ -29,7 +29,6 @@
  * these sections get simpler:
  *  - reps' and candidates' last sign-in time is in the public page data
  *  - uploaded images keep their embedded metadata (no EXIF stripping)
- *  - notices to trackers about former pages have no email opt-out
  *  - account deletion does not yet cancel a Stripe subscription (Stripe
  *    is not live, so this page only says subscriptions aren't available)
  *  - there is no in-app banner for policy changes (changes are announced
@@ -96,7 +95,7 @@ export default function PrivacyPage() {
         <li><strong>Contact email (optional, demo accounts only).</strong> If you add one, we use it only for your account: the sign-in email you can ask for when you create the account (your generated sign-in address and a link to choose a new password, never your password), password reset emails, and one notice before demo accounts are retired.</li>
         <li><strong>Display name.</strong> The name you choose. It appears on the comments and polls you write. No two accounts can share a name, and citizens can&apos;t use the names of members of Congress, other federal officials, governors and statewide officials, or officials and candidates with a CivicView account.</li>
         <li><strong>State and congressional district (required) and city (optional).</strong> We use them to show you your officials, ballot and elections, and to count engagement by area. You can change them in Account &amp; settings. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved to your account. For a verified account, these come from your verification.</li>
-        <li><strong>Your settings.</strong> Your start page, notification settings (including quiet hours, how often you&apos;re alerted and your time zone offset, which also sets the times shown in your pushes and emails), whether you want the weekly digest email (off unless you turn it on), whether you get election reminders (on unless you turn them off), and the officials, bills and elections you track, save or feature.</li>
+        <li><strong>Your settings.</strong> Your start page, notification settings (including quiet hours, how often you&apos;re alerted and your time zone offset, which also sets the times shown in your pushes and emails), whether you want the weekly digest email (off unless you turn it on), whether you get election reminders (on unless you turn them off), whether we email you when a page you track changes (on unless you turn it off), and the officials, bills and elections you track, save or feature.</li>
         <li><strong>What you do on CivicView.</strong> The polls you vote in and your choice, the posts, comments, polls and bills you like or dislike, the comments you write and the polls you create. Each vote, like and comment is recorded with the state, district, city (and county, where known) of your account at that moment and whether your account was verified, so it can be counted for the right area.</li>
         <li><strong>Edits and deletions.</strong> When you edit or delete a comment, we keep its original text, hidden from everyone, so moderation decisions can be checked. It&apos;s removed when you delete your account.</li>
         <li><strong>Optional poll questions.</strong> See <a href="#poll-questions">Optional poll questions</a> below.</li>
@@ -343,9 +342,9 @@ export default function PrivacyPage() {
       <h2>Emails we send</h2>
       <ul>
         <li><strong>Account and security emails</strong> (password resets and changes, sign-in help, lockout alerts). These protect your account, so they can&apos;t be turned off.</li>
-        <li><strong>The weekly digest</strong> of the officials you follow: only if you turn it on, and you can turn it off in Account &amp; settings.</li>
-        <li><strong>Election reminder emails:</strong> only if you turn them on, the same reminders as in the app. Each one links to the setting that turns them off.</li>
-        <li><strong>One notice when a page you track changes</strong>, for example when an official leaves office, a campaign ends or a candidate takes office. To stop them, stop tracking the page.</li>
+        <li><strong>The weekly digest</strong> of the officials you follow: only if you turn it on. Turn it off in Account &amp; settings or with the one-click unsubscribe link in each one.</li>
+        <li><strong>Election reminder emails:</strong> only if you turn them on, the same reminders as in the app. Each one links to the setting that turns them off and has a one-click unsubscribe link.</li>
+        <li><strong>One notice when a page you track changes</strong>, for example when an official leaves office, a campaign ends or a candidate takes office. By email unless you turn off &ldquo;Email me when a page I track changes&rdquo; in your notification settings or use the one-click unsubscribe link in the email; the notice in the app still comes. To stop both, stop tracking the page.</li>
         <li><strong>Notices to former officials and candidates</strong> about their page.</li>
         <li><strong>Your appeal decision.</strong></li>
         <li><strong>Waitlist emails</strong> from Brevo, each with an unsubscribe link.</li>

@@ -207,7 +207,8 @@ def main() -> int:
         real_build, real_render = digest_service.build_digest, digest_service.render_digest
         email_service.get_email_service = lambda: FakeEmail()
         digest_service.build_digest = lambda _db, _c: {"x": 1}
-        digest_service.render_digest = lambda _d: ("s", "<p>h</p>", "t")
+        # render_digest takes the unsubscribe link too since 2026-10-16.
+        digest_service.render_digest = lambda _d, **_kw: ("s", "<p>h</p>", "t")
         try:
             FakeEmail.ok = False
             s1 = digest_service.send_weekly_digests(db)

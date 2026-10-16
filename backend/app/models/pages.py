@@ -120,6 +120,14 @@ class RepAccount(Base):
     #     are dashboard-first, no pushes (they'd drown), bell stays
     #     citizen-clean on multi-identity browsers.
     notification_prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    # "Email me when a page I track changes" (2026-10-16): set when the
+    # account turns those emails off (the setting, or the one-click
+    # unsubscribe link in one), NULL = on, the default. Its own column,
+    # not a key in notification_prefs_json, because the client replaces
+    # that blob whole and would put back a value turned off by email.
+    # The in-app notice still comes. Nullable, so the boot auto-migrate
+    # adds it.
+    page_change_email_off_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
     posts: Mapped[List["Post"]] = relationship(
         back_populates="author", cascade="all, delete-orphan",
@@ -233,6 +241,14 @@ class CandidateAccount(Base):
     #     are dashboard-first, no pushes (they'd drown), bell stays
     #     citizen-clean on multi-identity browsers.
     notification_prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    # "Email me when a page I track changes" (2026-10-16): set when the
+    # account turns those emails off (the setting, or the one-click
+    # unsubscribe link in one), NULL = on, the default. Its own column,
+    # not a key in notification_prefs_json, because the client replaces
+    # that blob whole and would put back a value turned off by email.
+    # The in-app notice still comes. Nullable, so the boot auto-migrate
+    # adds it.
+    page_change_email_off_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
 
 # ── Posts + Polls ─────────────────────────────────────────────────────
@@ -1436,6 +1452,14 @@ class CitizenAccount(Base):
     # Nullable Text → boot-time auto-migrate adds it with no
     # server_default needed (db.py BOOLEAN NOT NULL caveat n/a).
     notification_prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    # "Email me when a page I track changes" (2026-10-16): set when the
+    # account turns those emails off (the setting, or the one-click
+    # unsubscribe link in one), NULL = on, the default. Its own column,
+    # not a key in notification_prefs_json, because the client replaces
+    # that blob whole and would put back a value turned off by email.
+    # The in-app notice still comes. Nullable, so the boot auto-migrate
+    # adds it.
+    page_change_email_off_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Election reminders (2026-10-16, services/election_reminders.py).
     # On by default for citizens in the states we cover; set when the
     # citizen turns them off ("Turn off election reminders" on a

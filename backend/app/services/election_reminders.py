@@ -45,8 +45,10 @@ adding a state's dates is the whole change):
     version.
   * Email only for citizens who opted in (election_reminder_email_at),
     never to a demo account's generated address. The footer links to
-    the settings where it is turned off (no List-Unsubscribe header:
-    email_service.send takes no custom headers yet).
+    the settings where it is turned off and, since 2026-10-16, to a
+    one-click unsubscribe page; each email also carries List-Unsubscribe
+    and List-Unsubscribe-Post (RFC 8058) with a signed token that turns
+    off only reminder emails (services/email_unsubscribe.py).
 
 When: about SEND_HOUR (10 a.m.) in the recipient's local time, from the
 tz_offset_minutes their notification settings carry, else Eastern time.
@@ -604,19 +606,22 @@ APP_URL = "https://civicview.app"
 SETTINGS_URL = f"{APP_URL}/?open=settings"
 
 
-def render_email(reminder: Reminder) -> tuple[str, str, str]:
+def render_email(reminder: Reminder, unsubscribe_url: Optional[str] = None) -> tuple[str, str, str]:
     """(subject, html, text). The same words as the bell row and the
     push, the official link and the date's source, and a footer that
-    says why it came and where to turn it off."""
+    says why it came and where to turn it off, plus the one-click
+    unsubscribe link when sending (2026-10-16)."""
     import html as _html
 
     esc = _html.escape
     footer = ("You get this email because you turned on election reminder emails in CivicView. "
               "To stop them, turn off \"Also email me election reminders\" in your settings:")
+    unsub_line = "Or turn off election reminder emails with one click:"
     text = (f"{reminder.body}\n\n{reminder.link_label}: {reminder.link_url}\n"
             f"Source for this date: {reminder.source_url}\n\n"
             "CivicView is not a government site. The link above goes to the state's official election site.\n\n"
-            f"{footer} {SETTINGS_URL}\n")
+            f"{footer} {SETTINGS_URL}\n"
+            + (f"{unsub_line} {unsubscribe_url}\n" if unsubscribe_url else ""))
     html_body = (
         '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#1b2430;'
         'max-width:560px">'
@@ -631,7 +636,9 @@ def render_email(reminder: Reminder) -> tuple[str, str, str]:
         '<hr style="border:none;border-top:1px solid #dde2e8;margin:18px 0">'
         f'<p style="margin:0;font-size:12px;color:#5b6573">{esc(footer)} '
         f'<a href="{SETTINGS_URL}" style="color:#5b6573">{SETTINGS_URL}</a></p>'
-        "</div>"
+        + (f'<p style="margin:8px 0 0;font-size:12px;color:#5b6573">{esc(unsub_line)} '
+           f'<a href="{esc(unsubscribe_url)}" style="color:#5b6573">unsubscribe</a></p>' if unsubscribe_url else "")
+        + "</div>"
     )
     return reminder.title, html_body, text
 
@@ -700,7 +707,7 @@ def deliver(db: Session, reminder: Reminder, recipients: Iterable[Recipient], no
             continue
         counts["notified"] += 1
         if rcp.email:
-            emails.append((rcp.email, claim_id))
+            emails.append((rcp.email, claim_id, rcp.citizen_id))
         deadline_utc = local_to_utc(rcp.prefs_json, reminder.deadline_local)
         pushes.append((rcp.citizen_id, claim_id, int((deadline_utc - now_utc).total_seconds())))
 
@@ -720,14 +727,19 @@ def deliver(db: Session, reminder: Reminder, recipients: Iterable[Recipient], no
         db.commit()
 
     if emails:
+        from app.services import email_unsubscribe
         from app.services.email_service import get_email_service
 
         svc = get_email_service()
-        subject, html_body, text_body = render_email(reminder)
-        for address, claim_id in emails:
+        for address, claim_id, citizen_id in emails:
+            # Each email's one-click unsubscribe turns off only this
+            # citizen's reminder emails (2026-10-16).
+            unsub = email_unsubscribe.links("citizen", citizen_id, "election_reminders")
+            subject, html_body, text_body = render_email(reminder, unsubscribe_url=unsub["page_url"])
             # send() never raises; a failure is logged there and the
             # reminder is not retried (the bell row is already there).
-            if svc.send(to=address, subject=subject, text_body=text_body, html_body=html_body):
+            if svc.send(to=address, subject=subject, text_body=text_body, html_body=html_body,
+                        headers=unsub["headers"]):
                 counts["emailed"] += 1
                 db.query(ElectionReminderDelivery).filter(ElectionReminderDelivery.id == claim_id).update(
                     {ElectionReminderDelivery.email_sent_at: datetime.utcnow()}, synchronize_session=False)

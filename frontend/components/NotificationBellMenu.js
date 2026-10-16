@@ -38,6 +38,7 @@ import { takeNotificationsOpenRequest } from '@/lib/notificationsOpen';
 import { openDeepLink, postDeepLink } from '@/lib/deepLinks';
 import LifecycleNotice, { LIFECYCLE_KINDS } from './LifecycleNotice';
 import ElectionReminderNotice, { ElectionRemindersToggle } from './ElectionReminderNotice';
+import PageChangeEmailToggle from './PageChangeEmailToggle';
 
 // Phase 5 MVP: poll the notification inbox at this cadence. 60s is
 // frequent enough for "rep replied to my comment" to feel responsive
@@ -506,6 +507,9 @@ export default function NotificationBellMenu() {
           {/* Election reminders (2026-10-16): a citizen setting stored on
               the account, not in the synced channel prefs blob. */}
           {citizen?.id && <ElectionRemindersToggle refreshKey={`${citizen.id}-${open}`} />}
+          {/* "Email me when a page I track changes" (2026-10-16), also an
+              account setting outside the synced prefs blob. */}
+          {citizen?.id && <PageChangeEmailToggle identity="citizen" refreshKey={`${citizen.id}-${open}`} />}
 
           <div style={{
             fontSize: '0.68rem', fontWeight: 800, color: 'var(--cl-text-light)',

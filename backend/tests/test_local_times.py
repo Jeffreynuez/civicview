@@ -70,24 +70,26 @@ def main() -> int:
         db.commit()
         PUSHES.clear()
         ps.push_tracked_event(db, [west.id, east.id], official_id="tst-off-1", official_name="Pat Page",
-                              event_id=5, title="Town hall", start_at="2026-10-17T23:00:00.000Z",
+                              event_id=5, title="Town hall", start_at="2030-10-19T23:00:00.000Z",
                               location="Library")
         by = {p["token"]: p["body"] for p in PUSHES}
         check("3 the Pacific device sees its own time",
-              by.get("tok-west-0001") == "Town hall · Sat, Oct 17, 4 p.m. · Library", by)
+              by.get("tok-west-0001") == "Town hall · Sat, Oct 19, 4 p.m. · Library", by)
         check("3 a device with no time zone sees Eastern with ET",
-              by.get("tok-east-0001") == "Town hall · Sat, Oct 17, 7 p.m. ET · Library", by)
+              by.get("tok-east-0001") == "Town hall · Sat, Oct 19, 7 p.m. ET · Library", by)
         check("3 no UTC clock left in the push", not any("23:00" in b for b in by.values()), by)
 
     # ── 4. digest ────────────────────────────────────────────────────
     from datetime import datetime
     data = {
         "citizen_name": "Reader", "tracked_count": 1, "tz_prefs": None,
-        "posts": [{"official_id": "x", "preview": "Hello", "created_at": datetime(2026, 10, 18, 2, 30)}],
+        "posts": [{"official_id": "x", "official_name": "Pat Page", "url": "https://civicview.app/?page=x#post-1",
+                   "preview": "Hello", "created_at": datetime(2026, 10, 18, 2, 30)}],
         "new_polls": [],
-        "closing_polls": [{"question": "Rebuild the bridge?", "closes_at": datetime(2026, 10, 20, 3, 59)}],
+        "closing_polls": [{"question": "Rebuild the bridge?", "closes_at": datetime(2026, 10, 20, 3, 59),
+                           "official_name": "Pat Page", "url": "https://civicview.app/?page=x#post-2"}],
         "events": [{"title": "Town hall", "start_at": "2026-10-18T00:30:00.000Z", "location": None,
-                    "official_id": "x"}],
+                    "official_id": "x", "official_name": "Pat Page", "url": "https://civicview.app/?page=x"}],
     }
     _s, html_body, text_body = dg.render_digest(data)
     check("4 an evening post keeps its local date (Eastern)", "(Sat, Oct 17)" in text_body, text_body)

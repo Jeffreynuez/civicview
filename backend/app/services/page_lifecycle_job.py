@@ -308,14 +308,33 @@ def email_skip_reason(acct, plan: NoticePlan) -> Optional[str]:
         return "no_address"
     if is_demo_email(email) or email.endswith("@closed.invalid"):
         return "demo_address"
+    # "Email me when a page I track changes" (2026-10-16), on unless the
+    # account turned it off. Only notices about a page someone tracks;
+    # the person's own notices about their page always go.
+    if plan.to_tracker and getattr(acct, "page_change_email_off_at", None) is not None:
+        return "turned_off"
     return None
 
 
-def _send_email(plan: NoticePlan, to: str) -> bool:
+TRACKER_EMAIL_FOOTER = ("You get this email because you track this page on CivicView. To stop these emails, "
+                        "turn off \"Email me when a page I track changes\" in your notification settings, "
+                        "or use this link:")
+
+
+def _send_email(plan: NoticePlan, acct) -> bool:
+    from app.services import email_unsubscribe
     from app.services.email_service import get_email_service
 
     body = plan.payload.get("text", "") + f"\n\n{page_link(plan.payload.get('official_id') or '')}\n\nThe CivicView team\n"
-    return bool(get_email_service().send(to=to, subject=plan.subject, text_body=body))
+    extra = {}
+    if plan.to_tracker:
+        # The footer line and one-click unsubscribe (RFC 8058) turn off
+        # just these emails; the in-app notice still comes.
+        kind = {"RepAccount": "rep", "CandidateAccount": "candidate"}.get(type(acct).__name__, "citizen")
+        unsub = email_unsubscribe.links(kind, acct.id, "page_changes")
+        body += f"\n{TRACKER_EMAIL_FOOTER} {unsub['page_url']}\n"
+        extra["headers"] = unsub["headers"]
+    return bool(get_email_service().send(to=acct.email, subject=plan.subject, text_body=body, **extra))
 
 
 def _done_recipients(db: Session, plan: NoticePlan) -> set:
@@ -369,7 +388,7 @@ def deliver_notice(db: Session, plan: NoticePlan, summary: dict, *, budget: Opti
         reason = email_skip_reason(acct, plan)
         if reason is None:
             try:
-                ok = _send_email(plan, acct.email)
+                ok = _send_email(plan, acct)
             except Exception:
                 logger.exception("page_lifecycle_job: email failed (kind=%s)", plan.kind)
                 ok = False

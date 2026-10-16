@@ -27,6 +27,12 @@ Design rules:
     once during a deploy cannot both mail the same person.
   • All content comes from CivicView's own tables (posts, polls,
     events the officials themselves created). Nothing fabricated.
+    Citizen polls about an official are not "what the officials you
+    track did", so they are not listed (2026-10-16); neither is
+    anything hidden or deleted. Each item names the official and
+    links to it.
+  • Every digest carries a one-click unsubscribe header and a footer
+    link that turn off just the digest (2026-10-16).
 
 The scheduler lives in app/main.py's lifespan (DIGEST_ENABLED env
 gate); this module stays import-safe with no side effects.
@@ -35,6 +41,7 @@ from __future__ import annotations
 
 import html
 import logging
+import os
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -90,52 +97,98 @@ def _lower_id(column):
     return func.lower(column)
 
 
-def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
+class _Names:
+    """Officials' names for one digest run, looked up once each. A post
+    or event carries its author's account; anything else falls back to
+    the page's name in the data, then the page id."""
+
+    def __init__(self, db: Session):
+        self.db = db
+        self._cache: dict = {}
+
+    def get(self, official_id: str, rep_id=None, candidate_id=None) -> str:
+        key = (official_id, rep_id, candidate_id)
+        if key in self._cache:
+            return self._cache[key]
+        name = None
+        from app.models.pages import CandidateAccount, RepAccount
+        if rep_id:
+            acct = self.db.get(RepAccount, rep_id)
+            name = acct.display_name if acct else None
+        if not name and candidate_id:
+            acct = self.db.get(CandidateAccount, candidate_id)
+            name = acct.display_name if acct else None
+        if not name:
+            try:
+                from app.services.page_lifecycle_job import page_display_name
+                name = page_display_name(official_id)
+            except Exception:
+                name = None
+        self._cache[key] = name or official_id
+        return self._cache[key]
+
+
+def _page_url(app_url: str, official_id: str, post_id=None) -> str:
+    """The same deep link the bell and push use (lib/deepLinks.js)."""
+    from urllib.parse import quote
+    url = f"{app_url}/?page={quote(str(official_id), safe='')}"
+    return f"{url}#post-{post_id}" if post_id else url
+
+
+def build_digest(db: Session, citizen: CitizenAccount, app_url: str = "https://civicview.app") -> Optional[dict]:
     """Assemble the digest payload for one citizen. Returns None when
-    there is nothing to say (no tracked officials, or a quiet week)."""
+    there is nothing to say (no tracked officials, or a quiet week).
+
+    Since 2026-10-16: only what the officials themselves did (their
+    posts, the polls on their posts, their events); citizen polls about
+    them are not listed. Hidden or deleted posts, the polls on them,
+    archived polls and deleted events are left out. Every item names
+    the official and links to it."""
     keys = _tracked_official_keys(db, citizen.id)
     if not keys:
         return None
     now = datetime.utcnow()
     since = now - timedelta(days=LOOKBACK_DAYS)
+    names = _Names(db)
+
+    visible_post = and_(Post.deleted_at.is_(None), Post.hide_reason.is_(None))
 
     posts = (
         db.query(Post)
         .filter(
             _lower_id(Post.official_id).in_(keys),
             Post.created_at >= since,
-            Post.deleted_at.is_(None),
-            Post.hide_reason.is_(None),
+            visible_post,
         )
         .order_by(Post.created_at.desc())
         .limit(MAX_ITEMS_PER_SECTION)
         .all()
     )
 
+    # Officials' polls: attached to one of their posts (inner join), so
+    # a citizen poll that only targets the official never matches.
+    official_poll = and_(
+        _lower_id(Post.official_id).in_(keys),
+        visible_post,
+        Poll.archived_at.is_(None),
+    )
     new_polls = (
-        db.query(Poll)
-        .join(Post, Poll.post_id == Post.id, isouter=True)
-        .filter(
-            or_(
-                and_(_lower_id(Post.official_id).in_(keys), Poll.created_at >= since),
-                and_(_lower_id(Poll.target_official_id).in_(keys), Poll.created_at >= since),
-            ),
-            Poll.archived_at.is_(None),
-        )
+        db.query(Poll, Post)
+        .join(Post, Poll.post_id == Post.id)
+        .filter(official_poll, Poll.created_at >= since)
         .order_by(Poll.created_at.desc())
         .limit(MAX_ITEMS_PER_SECTION)
         .all()
     )
 
     closing = (
-        db.query(Poll)
-        .join(Post, Poll.post_id == Post.id, isouter=True)
+        db.query(Poll, Post)
+        .join(Post, Poll.post_id == Post.id)
         .filter(
-            or_(_lower_id(Post.official_id).in_(keys), _lower_id(Poll.target_official_id).in_(keys)),
+            official_poll,
             Poll.closes_at.isnot(None),
             Poll.closes_at > now,
             Poll.closes_at <= now + timedelta(days=CLOSING_AHEAD_DAYS),
-            Poll.archived_at.is_(None),
         )
         .order_by(Poll.closes_at.asc())
         .limit(MAX_ITEMS_PER_SECTION)
@@ -161,7 +214,16 @@ def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
     if not (posts or new_polls or closing or events):
         return None
 
-    closing_ids = {p.id for p in closing}
+    def poll_item(poll, post):
+        return {
+            "question": poll.question,
+            "closes_at": poll.closes_at,
+            "official_id": post.official_id,
+            "official_name": names.get(post.official_id, post.author_id, post.author_candidate_id),
+            "url": _page_url(app_url, post.official_id, post.id),
+        }
+
+    closing_ids = {poll.id for poll, _post in closing}
     return {
         "citizen_name": citizen.display_name,
         # Dates and times in the citizen's own clock (2026-10-16).
@@ -170,29 +232,23 @@ def build_digest(db: Session, citizen: CitizenAccount) -> Optional[dict]:
         "posts": [
             {
                 "official_id": p.official_id,
+                "official_name": names.get(p.official_id, p.author_id, p.author_candidate_id),
                 "preview": (p.body or "")[:180],
                 "created_at": p.created_at,
+                "url": _page_url(app_url, p.official_id, p.id),
             }
             for p in posts
         ],
-        "new_polls": [
-            {
-                "question": p.question,
-                "closes_at": p.closes_at,
-                "official_id": p.target_official_id,
-            }
-            for p in new_polls
-            if p.id not in closing_ids
-        ],
-        "closing_polls": [
-            {"question": p.question, "closes_at": p.closes_at} for p in closing
-        ],
+        "new_polls": [poll_item(poll, post) for poll, post in new_polls if poll.id not in closing_ids],
+        "closing_polls": [poll_item(poll, post) for poll, post in closing],
         "events": [
             {
                 "title": e.title,
                 "start_at": e.start_at,
                 "location": e.location,
                 "official_id": e.official_id,
+                "official_name": names.get(e.official_id, e.author_id, e.author_candidate_id),
+                "url": _page_url(app_url, e.official_id),
             }
             for e in events
         ],
@@ -214,19 +270,26 @@ def _fmt_dt(dt, prefs=None, *, with_time: bool = False) -> str:
     return format_when(dt, prefs, with_time=with_time)
 
 
-def render_digest(data: dict, app_url: str = "https://civicview.app") -> tuple[str, str, str]:
-    """Return (subject, html_body, text_body). Plain inline-style HTML —
-    email clients, not browsers, so no external CSS."""
+SETTINGS_URL_PATH = "/?open=settings"
+
+
+def render_digest(data: dict, app_url: str = "https://civicview.app",
+                  unsubscribe_url: Optional[str] = None) -> tuple[str, str, str]:
+    """Return (subject, html_body, text_body). Plain inline-style HTML,
+    email clients, not browsers, so no external CSS. Both versions end
+    with why it came, where to turn it off and, when sending, the
+    one-click unsubscribe link (services/email_unsubscribe.py)."""
     n_items = (
         len(data["posts"]) + len(data["new_polls"])
         + len(data["closing_polls"]) + len(data["events"])
     )
-    subject = f"Your civic week — {n_items} update{'s' if n_items != 1 else ''} from officials you track"
+    subject = f"Your civic week: {n_items} update{'s' if n_items != 1 else ''} from officials you track"
 
     def esc(s):
         return html.escape(str(s or ""))
 
     tz = data.get("tz_prefs")
+    settings_url = f"{app_url}{SETTINGS_URL_PATH}"
 
     sections_html: list[str] = []
     sections_text: list[str] = []
@@ -245,57 +308,73 @@ def render_digest(data: dict, app_url: str = "https://civicview.app") -> tuple[s
         "margin:0 0 10px;padding:12px 14px;border:1px solid #e5e7eb;"
         "border-radius:8px;font-size:14px;line-height:1.5;color:#111827;"
     )
+    meta = "color:#6b7280;font-size:12px;"
+
+    def who(item):
+        return (f"<a href=\"{esc(item['url'])}\" style=\"color:#111827;font-weight:700;"
+                f"text-decoration:none;\">{esc(item['official_name'])}</a><br>")
+
+    def open_link(item, label="Open"):
+        return f" &middot; <a href=\"{esc(item['url'])}\" style=\"color:#2563eb;\">{label}</a>"
 
     section(
         "New posts from officials you track",
-        [f"<p style=\"{row_style}\">{esc(p['preview'])}{'…' if len(p['preview']) >= 180 else ''}"
-         f"<br><span style=\"color:#6b7280;font-size:12px;\">{_fmt_dt(p['created_at'], tz)}</span></p>"
+        [f"<p style=\"{row_style}\">{who(p)}{esc(p['preview'])}{'…' if len(p['preview']) >= 180 else ''}"
+         f"<br><span style=\"{meta}\">{_fmt_dt(p['created_at'], tz)}{open_link(p)}</span></p>"
          for p in data["posts"]],
-        [f"- {p['preview'][:100]} ({_fmt_dt(p['created_at'], tz)})" for p in data["posts"]],
+        [f"- {p['official_name']}: {p['preview'][:100]} ({_fmt_dt(p['created_at'], tz)})\n  {p['url']}"
+         for p in data["posts"]],
     )
     section(
         "New polls this week",
-        [f"<p style=\"{row_style}\">{esc(p['question'])}"
-         + (f"<br><span style=\"color:#6b7280;font-size:12px;\">closes {_fmt_dt(p['closes_at'], tz, with_time=True)}</span>" if p["closes_at"] else "")
-         + "</p>" for p in data["new_polls"]],
-        [f"- {p['question']}" for p in data["new_polls"]],
+        [f"<p style=\"{row_style}\">{who(p)}{esc(p['question'])}<br><span style=\"{meta}\">"
+         + (f"closes {_fmt_dt(p['closes_at'], tz, with_time=True)}" if p["closes_at"] else "")
+         + f"{open_link(p, 'Vote')}</span></p>" for p in data["new_polls"]],
+        [f"- {p['official_name']}: {p['question']}\n  {p['url']}" for p in data["new_polls"]],
     )
     section(
-        "Polls closing soon — make your voice count",
-        [f"<p style=\"{row_style}\">{esc(p['question'])}"
-         f"<br><span style=\"color:#b45309;font-size:12px;\">closes {_fmt_dt(p['closes_at'], tz, with_time=True)}</span></p>"
+        "Polls closing soon",
+        [f"<p style=\"{row_style}\">{who(p)}{esc(p['question'])}"
+         f"<br><span style=\"color:#b45309;font-size:12px;\">closes {_fmt_dt(p['closes_at'], tz, with_time=True)}"
+         f"{open_link(p, 'Vote')}</span></p>"
          for p in data["closing_polls"]],
-        [f"- {p['question']} (closes {_fmt_dt(p['closes_at'], tz, with_time=True)})" for p in data["closing_polls"]],
+        [f"- {p['official_name']}: {p['question']} (closes {_fmt_dt(p['closes_at'], tz, with_time=True)})\n  {p['url']}"
+         for p in data["closing_polls"]],
     )
     section(
-        "Upcoming in your district",
-        [f"<p style=\"{row_style}\">{esc(e['title'])}"
-         f"<br><span style=\"color:#6b7280;font-size:12px;\">{_fmt_dt(e['start_at'], tz, with_time=True)}"
-         + (f" · {esc(e['location'])}" if e["location"] else "") + "</span></p>"
+        "Upcoming events",
+        [f"<p style=\"{row_style}\">{who(e)}{esc(e['title'])}"
+         f"<br><span style=\"{meta}\">{_fmt_dt(e['start_at'], tz, with_time=True)}"
+         + (f" &middot; {esc(e['location'])}" if e["location"] else "") + f"{open_link(e)}</span></p>"
          for e in data["events"]],
-        [f"- {e['title']} ({_fmt_dt(e['start_at'], tz, with_time=True)})" for e in data["events"]],
+        [f"- {e['official_name']}: {e['title']} ({_fmt_dt(e['start_at'], tz, with_time=True)})\n  {e['url']}"
+         for e in data["events"]],
     )
 
+    why = ("You're receiving this because you turned on the weekly digest in CivicView settings. "
+           "Turn it off any time in Dashboard → Account & settings → Weekly digest:")
+    unsub_html = (f" Or turn it off with one click: <a href=\"{esc(unsubscribe_url)}\" style=\"color:#9ca3af;\">"
+                  f"unsubscribe</a>." if unsubscribe_url else "")
+    unsub_text = f"\nOr turn it off with one click: {unsubscribe_url}" if unsubscribe_url else ""
+    count = data["tracked_count"]
     html_body = (
         f"<div style=\"max-width:560px;margin:0 auto;font-family:-apple-system,Segoe UI,"
         f"Roboto,Helvetica,Arial,sans-serif;padding:24px 16px;\">"
         f"<h2 style=\"margin:0 0 4px;font-size:20px;color:#111827;\">Your civic week</h2>"
         f"<p style=\"margin:0 0 8px;color:#6b7280;font-size:14px;\">"
-        f"Hi {esc(data['citizen_name'])} — here's what the {data['tracked_count']} "
-        f"official{'s' if data['tracked_count'] != 1 else ''} you track did this week.</p>"
+        f"Hi {esc(data['citizen_name'])}, here's what the {count} "
+        f"official{'s' if count != 1 else ''} you track did this week.</p>"
         + "".join(sections_html)
         + f"<p style=\"margin:24px 0 0;font-size:13px;\"><a href=\"{app_url}\" "
         f"style=\"color:#2563eb;\">Open CivicView</a></p>"
         f"<p style=\"margin:16px 0 0;color:#9ca3af;font-size:12px;\">"
-        f"You're receiving this because you turned on the weekly digest in "
-        f"CivicView settings. Turn it off any time in Dashboard → Account &amp; "
-        f"settings → Weekly digest.</p></div>"
+        f"{esc(why)} <a href=\"{esc(settings_url)}\" style=\"color:#9ca3af;\">{esc(settings_url)}</a>."
+        f"{unsub_html}</p></div>"
     )
     text_body = (
-        f"Your civic week\n\nHi {data['citizen_name']} — here's what the officials "
-        f"you track did this week.\n" + "\n".join(sections_text)
-        + f"\n\nOpen CivicView: {app_url}\n\nYou're receiving this because you "
-        f"turned on the weekly digest in CivicView settings."
+        f"Your civic week\n\nHi {data['citizen_name']}, here's what the {count} "
+        f"official{'s' if count != 1 else ''} you track did this week.\n" + "\n".join(sections_text)
+        + f"\n\nOpen CivicView: {app_url}\n\n{why} {settings_url}{unsub_text}\n"
     )
     return subject, html_body, text_body
 
@@ -352,6 +431,7 @@ def _release_claim(db: Session, citizen_id: int, claimed_at: datetime, previous:
 def send_weekly_digests(db: Session) -> dict:
     """Send the digest to every eligible opted-in citizen. Returns
     summary counts. Caller owns the session/transaction."""
+    from app.services import email_unsubscribe
     from app.services.email_service import get_email_service
 
     email_svc = get_email_service()
@@ -396,12 +476,19 @@ def send_weekly_digests(db: Session) -> dict:
                 skipped_empty += 1
                 _release_claim(db, citizen_id, claimed_at, previous)
                 continue
-            subject, html_body, text_body = render_digest(data)
+            # One-click unsubscribe (RFC 8058) for this digest only, and
+            # the digest's own Postmark stream when one is set (unset:
+            # the account stream, as before). See
+            # services/email_unsubscribe.py and docs/push_notifications_runbook.md.
+            unsub = email_unsubscribe.links("citizen", citizen_id, "digest")
+            subject, html_body, text_body = render_digest(data, unsubscribe_url=unsub["page_url"])
             ok = email_svc.send(
                 to=email,
                 subject=subject,
                 html_body=html_body,
                 text_body=text_body,
+                headers=unsub["headers"],
+                message_stream=(os.getenv("POSTMARK_DIGEST_STREAM") or "").strip() or None,
             )
             if not ok:
                 # send() never raises; False means the backend failed.

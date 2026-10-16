@@ -137,11 +137,11 @@ def main() -> int:
         real_send = job._send_email
         calls = {"n": 0}
 
-        def flaky(plan, to):
+        def flaky(plan, acct):
             calls["n"] += 1
             if plan.page_id == page3 and calls["n"] == 3:
                 raise SystemExit("simulated crash")   # not an Exception: stops the pass like a killed process
-            return real_send(plan, to)
+            return real_send(plan, acct)
 
         job._send_email = flaky
         try:

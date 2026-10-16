@@ -58,8 +58,12 @@ EMAILS = []
 
 
 class _CaptureEmail:
-    def send(self, *, to, subject, text_body, html_body=None, reply_to=None):
-        EMAILS.append({"to": to, "subject": subject, "text": text_body, "html": html_body})
+    # headers and message_stream joined EmailService.send on 2026-10-16
+    # (one-click unsubscribe); recorded so section 10 can check them.
+    def send(self, *, to, subject, text_body, html_body=None, reply_to=None, headers=None,
+             message_stream=None):
+        EMAILS.append({"to": to, "subject": subject, "text": text_body, "html": html_body,
+                       "headers": dict(headers or {})})
         return True
 
 
@@ -432,6 +436,12 @@ def main() -> int:
           rem.link_url in mail["text"] and rem.source_url in mail["text"] and er.SETTINGS_URL in mail["text"]
           and er.SETTINGS_URL in mail["html"] and rem.link_url in mail["html"])
     check("10 no dashes in the email", not re.search("[\u2013\u2014]", mail["text"] + mail["html"]))
+    hdr = mail.get("headers") or {}
+    check("10 one-click unsubscribe headers (RFC 8058)",
+          hdr.get("List-Unsubscribe", "").startswith("<https://") and "/api/email/unsubscribe/" in hdr["List-Unsubscribe"]
+          and hdr.get("List-Unsubscribe-Post") == "List-Unsubscribe=One-Click", hdr)
+    check("10 and a visible one-click link in the footer", "/unsubscribe?token=" in mail["text"]
+          and "/unsubscribe?token=" in mail["html"])
     db.expire_all()
     row = db.query(ElectionReminderDelivery).filter(ElectionReminderDelivery.reminder_id == pa_mail,
                                                     ElectionReminderDelivery.citizen_id == emma.id).one()

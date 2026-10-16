@@ -43,8 +43,11 @@ SENT = []
 
 
 class _CaptureEmail:
-    def send(self, *, to, subject, text_body, html_body=None, reply_to=None):
-        SENT.append({"to": to, "subject": subject, "body": text_body})
+    # headers joined EmailService.send on 2026-10-16 (one-click
+    # unsubscribe on the tracker notices).
+    def send(self, *, to, subject, text_body, html_body=None, reply_to=None, headers=None,
+             message_stream=None):
+        SENT.append({"to": to, "subject": subject, "body": text_body, "headers": dict(headers or {})})
         return True
 
 
@@ -120,6 +123,13 @@ def main() -> int:
               and tp.get("successors") == [{"id": "tst-sen-5-next", "name": None}], str(tp))
         check("1: tracker email", any(e["to"] == "ana@example.org" and e["subject"] == "Morgan Leaving is no longer in office"
                                       for e in SENT))
+        tmail = next((e for e in SENT if e["to"] == "ana@example.org"), {"body": "", "headers": {}})
+        check("1: the tracker email says where to turn these emails off (2026-10-16)",
+              'turn off "Email me when a page I track changes" in your notification settings' in tmail["body"]
+              and "/unsubscribe?token=" in tmail["body"]
+              and tmail["headers"].get("List-Unsubscribe-Post") == "List-Unsubscribe=One-Click", tmail)
+        pmail = next((e for e in SENT if e["to"] == "morgan@example.org"), {"headers": {}})
+        check("1: the person's own notice has no unsubscribe", not pmail["headers"], pmail)
         before = db.query(Notification).count()
         run(left)
         run(left + timedelta(days=1))

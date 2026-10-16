@@ -23,6 +23,7 @@ import {
   fetchIdentityNotificationPrefs,
   saveIdentityNotificationPrefs,
 } from '@/lib/pagesApi';
+import PageChangeEmailToggle from './PageChangeEmailToggle';
 
 // show_in_bell tri-state <-> the stored value: absent = auto,
 // true = always, false = never.
@@ -159,6 +160,10 @@ export default function IdentityNotificationSettings({ identity }) {
           ))}
         </div>
       </div>
+
+      {/* Pages this account tracks (2026-10-16): the same switch citizens
+          have in the bell, so an unsubscribe link can be undone here. */}
+      <PageChangeEmailToggle identity={identity} compact={false} />
 
       <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: 8, minHeight: 16 }}>
         {saving ? 'Saving…' : savedNote}
