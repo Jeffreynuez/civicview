@@ -1425,13 +1425,14 @@ class CitizenAccount(Base):
     digest_last_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Account-synced delivery-channel preferences (Notifications v2
     # part 2, 2026-07-24). JSON-encoded dict mirroring the frontend's
-    # CHANNEL_SCHEMA prefs (in_app / mobile_push / quiet_hours /
-    # digest_cadence / tz_offset_minutes, ...). Same Text-holding-JSON
-    # convention as Notification.payload_json. NULL = the citizen has
-    # never synced prefs (bell panel falls back to localStorage) — and
-    # crucially, the push send path applies NO quiet-hours/cadence
-    # suppression when this is NULL, preserving pre-v2 behavior for
-    # accounts that never touched the panel while signed in.
+    # CHANNEL_SCHEMA prefs (quiet_hours / push_cadence /
+    # tz_offset_minutes, ...). Same Text-holding-JSON convention as
+    # Notification.payload_json. The bell syncs it on every sign-in
+    # (seeding it from the device's values the first time), so a
+    # signed-in citizen always has one. NULL = never signed in since
+    # 2026-07-24: their devices fall back to their own register-time
+    # snapshot (DeviceToken.prefs_json). push_cadence was digest_cadence
+    # until 2026-10-16 (services/push_summaries.py has the migration).
     # Nullable Text → boot-time auto-migrate adds it with no
     # server_default needed (db.py BOOLEAN NOT NULL caveat n/a).
     notification_prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
@@ -2524,16 +2525,54 @@ class DeviceToken(Base):
     #   counts ever get big, promote to JSONB + GIN containment.
     tracked_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
     # prefs_json: device-local snapshot of the channel prefs
-    #   (quiet_hours / digest_cadence / tz_offset_minutes) sent at
-    #   register time. Used for quiet-hours + cadence enforcement on
-    #   ANONYMOUS devices; bound devices prefer the account's
-    #   CitizenAccount.notification_prefs_json. NULL = no enforcement
-    #   (pre-v2 devices keep pre-v2 behavior until they re-register).
+    #   (quiet_hours / push_cadence / tz_offset_minutes) sent at
+    #   register time. Every app registration sends it. Used for quiet
+    #   hours and push timing on ANONYMOUS devices; bound devices
+    #   prefer the account's CitizenAccount.notification_prefs_json.
+    #   NULL (a device registered before 2026-07-24) means the
+    #   defaults the server can apply without a clock: alerts as they
+    #   happen, no quiet hours.
     prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
-    # last_push_at: when we last actually sent a push to this device —
-    #   the cadence min-gap throttle's clock (daily ≈ one push / 20h,
-    #   weekly ≈ one push / 6d). NULL = never pushed.
+    # last_push_at: when we last actually sent a push to this device.
+    #   For the admin's numbers only since 2026-10-16 (the old daily /
+    #   weekly min-gap throttle that read it is gone). NULL = never.
     last_push_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # summary_sent_at: when this device's last summary push was claimed
+    #   (services/push_summaries.py). The claim is one conditional
+    #   UPDATE on this column, so two instances cannot both send it.
+    summary_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+class PushHeldItem(Base):
+    """A tracked-activity push held for a summary (2026-10-16).
+
+    Jeffrey's decision: nothing is dropped silently. A post or event
+    push for a device whose "Push alerts" setting is a daily or weekly
+    summary, or that lands in the device's quiet hours, is stored here
+    instead of sent. services/push_summaries.py sends one summary push
+    per device at its time (6 p.m. daily, Saturday 10 a.m. weekly, or
+    when quiet hours end) and deletes the rows it covered. Election
+    reminders never come here.
+
+    One row per (device, update). title, body and data_json are the
+    push as it would have gone out, so a summary of one update is just
+    that update. notification_id is the recipient's bell row (bound
+    devices), so updates already read in the bell are left out."""
+
+    __tablename__ = "push_held_items"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    device_token_id: Mapped[int] = mapped_column(Integer, index=True)
+    # 'summary' (daily / weekly setting) | 'quiet' (held by quiet hours)
+    reason: Mapped[str] = mapped_column(String(16), default="summary")
+    kind: Mapped[str] = mapped_column(String(32))
+    official_id: Mapped[Optional[str]] = mapped_column(String(64), default=None)
+    official_name: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    notification_id: Mapped[Optional[int]] = mapped_column(Integer, default=None)
+    title: Mapped[str] = mapped_column(String(255), default="")
+    body: Mapped[str] = mapped_column(Text, default="")
+    data_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
 
 
 class ElectionReminderDelivery(Base):

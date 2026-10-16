@@ -34,6 +34,7 @@ import {
 import { useAuth } from '@/lib/auth';
 import { useCitizenAuth } from '@/lib/citizenAuth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
+import { takeNotificationsOpenRequest } from '@/lib/notificationsOpen';
 import LifecycleNotice, { LIFECYCLE_KINDS } from './LifecycleNotice';
 import ElectionReminderNotice, { ElectionRemindersToggle } from './ElectionReminderNotice';
 
@@ -151,6 +152,14 @@ export default function NotificationBellMenu() {
   useEffect(() => {
     if (open) refreshNotifs();
   }, [open]);
+
+  // /?open=notifications (a summary push, 2026-10-16) opens the bell.
+  useEffect(() => {
+    if (takeNotificationsOpenRequest()) setOpen(true);
+    const onOpen = () => { if (takeNotificationsOpenRequest()) setOpen(true); };
+    window.addEventListener('cv:open-notifications', onOpen);
+    return () => window.removeEventListener('cv:open-notifications', onOpen);
+  }, []);
 
   // Refresh immediately when the active identity changes (login,
   // logout, identity-switch). Each hook publishes the current user
@@ -511,7 +520,7 @@ export default function NotificationBellMenu() {
             textTransform: 'uppercase', letterSpacing: '0.5px',
             margin: '10px 2px 4px',
           }}>
-            Cadence
+            Timing
           </div>
           {schema.sliders.map((s) => (
             <Slider
@@ -519,6 +528,7 @@ export default function NotificationBellMenu() {
               label={s.label}
               description={s.description}
               choices={s.choices}
+              choiceLabels={s.choiceLabels}
               value={prefs[s.key] || s.default}
               onChange={(v) => setChannelPrefs({ [s.key]: v })}
             />
@@ -582,13 +592,14 @@ function ChannelToggle({ label, description, checked, disabled, onChange, badge 
   );
 }
 
-function Slider({ label, description, choices, value, onChange }) {
+function Slider({ label, description, choices, choiceLabels, value, onChange }) {
   const idx = Math.max(0, choices.indexOf(value));
+  const name = (c) => (choiceLabels && choiceLabels[c]) || String(c).replace(/_/g, ' ');
   return (
     <div style={{ padding: '6px 2px' }}>
       <div style={{ fontSize: '0.78rem', fontWeight: 700 }}>
-        {label}: <span style={{ color: 'var(--cl-accent)', textTransform: 'capitalize' }}>
-          {String(value).replace(/_/g, ' ')}
+        {label}: <span style={{ color: 'var(--cl-accent)', textTransform: choiceLabels ? 'none' : 'capitalize' }}>
+          {name(value)}
         </span>
       </div>
       {description && (
@@ -608,9 +619,9 @@ function Slider({ label, description, choices, value, onChange }) {
       <div style={{
         display: 'flex', justifyContent: 'space-between',
         fontSize: '0.62rem', color: 'var(--cl-text-light)',
-        textTransform: 'capitalize', marginTop: '2px', fontWeight: 600,
+        textTransform: choiceLabels ? 'none' : 'capitalize', marginTop: '2px', fontWeight: 600,
       }}>
-        {choices.map((c) => <span key={c}>{String(c).replace(/_/g, ' ')}</span>)}
+        {choices.map((c) => <span key={c}>{name(c)}</span>)}
       </div>
     </div>
   );

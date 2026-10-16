@@ -219,6 +219,15 @@ export function initPushTapNavigation() {
           window.location.assign('/?state=' + encodeURIComponent(String(d.state)));
           return;
         }
+        // tracked_summary (2026-10-16) → the bell, which lists the
+        // updates; a signed-out device has no bell, so its summary
+        // carries the newest update's page instead.
+        if (d.kind === 'tracked_summary') {
+          window.location.assign(d.official_id
+            ? '/?page=' + encodeURIComponent(String(d.official_id))
+            : '/?open=notifications');
+          return;
+        }
         // tracked_post → land ON the post (#post-<id> scroll+pulse);
         // tracked_event (2026-07-26) → land on the page, whose header
         // + Events tab surface the upcoming event.

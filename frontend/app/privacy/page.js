@@ -197,7 +197,7 @@ export default function PrivacyPage() {
         <li><strong>Server logs.</strong> Our application logs record some events with account details, such as the email address on a sign-up or an email we sent, and the display name, state and district of a new account. Typed addresses are masked. Our hosting providers keep these logs, and their own request logs (IP address, browser and the page requested), for a limited time.</li>
         <li><strong>Addresses you look up.</strong> When you type an address to find your officials, our server sends it to the U.S. Census Geocoder (or, if that fails, OpenStreetMap&apos;s Nominatim) and, when it&apos;s turned on, to Google Civic Information. We don&apos;t save it on our servers. Lookup results can be cached briefly by our network provider and your browser, and the app remembers the last address you matched on your device.</li>
         <li><strong>&ldquo;Use my location.&rdquo;</strong> Only if you tap it and allow it. Your device&apos;s coordinates go straight from your browser to Nominatim, which returns the nearest address, and that address is then looked up as above. We never receive or store the coordinates.</li>
-        <li><strong>Push notifications (Android, only if you turn them on).</strong> A device token from Google Firebase Cloud Messaging, your push settings and, if you aren&apos;t signed in, the list of officials you track on that device. Turning push off deletes the token and everything stored with it.</li>
+        <li><strong>Push notifications (Android, only if you turn them on).</strong> A device token from Google Firebase Cloud Messaging, your push settings and, if you aren&apos;t signed in, the list of officials you track on that device. If you choose a daily or weekly summary, or an update arrives during your quiet hours, we keep that update (who posted and the push text) until the summary goes out, then delete it. Turning push off deletes the token and everything stored with it.</li>
       </ul>
 
       <h3>Payments</h3>
@@ -364,7 +364,7 @@ export default function PrivacyPage() {
         <li><strong>Accounts scheduled for deletion:</strong> 30 days, then deleted (citizens) or closed (officials and candidates).</li>
         <li><strong>Content hidden by moderation, reports and appeals:</strong> kept so decisions can be appealed and checked.</li>
         <li><strong>Our moderation system&apos;s assessments</strong> of content (which can quote up to a few sentences of it): kept as a safety record, even after the account is deleted.</li>
-        <li><strong>Push tokens:</strong> until you turn push off, the token stops working, or you delete your citizen account.</li>
+        <li><strong>Push tokens:</strong> until you turn push off, the token stops working, or you delete your citizen account. Updates held for a summary push: until the summary goes out.</li>
         <li><strong>Waitlist entries:</strong> until you ask us to remove them, and on Brevo until you unsubscribe or ask us.</li>
         <li><strong>Verification records:</strong> the one-way hashes and date described above, kept to avoid paying to verify the same person twice.</li>
         <li><strong>Pages of officials and candidates, and records of their changes:</strong> kept as a public record. Former pages are archived, not deleted.</li>

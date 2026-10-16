@@ -328,16 +328,21 @@ export const CHANNEL_SCHEMA = {
     {
       key: 'quiet_hours',
       label: 'Quiet hours',
-      description: 'Pause non-urgent alerts during these hours (local time).',
+      description: 'No push alerts during these hours, in your local time. Updates from officials you track arrive in one summary when they end.',
       choices: ['off', 'nights', 'nights_weekends', 'work_hours_only'],
       default: 'nights',
     },
+    // Push timing (2026-10-16). Was 'digest_cadence', default 'daily',
+    // which let one push a day through and silently dropped the rest.
+    // Now every update is pushed or summarized, never dropped; the
+    // server sends the summaries (services/push_summaries.py).
     {
-      key: 'digest_cadence',
-      label: 'Digest cadence',
-      description: 'How often to batch non-urgent alerts into a summary.',
+      key: 'push_cadence',
+      label: 'Push alerts',
+      description: 'Daily summary: one push at 6 p.m. Weekly summary: one push Saturday at 10 a.m. Your local time. Election reminders always come on their own.',
       choices: ['realtime', 'daily', 'weekly'],
-      default: 'daily',
+      choiceLabels: { realtime: 'As they happen', daily: 'Daily summary', weekly: 'Weekly summary' },
+      default: 'realtime',
     },
   ],
 };
@@ -349,8 +354,21 @@ export function defaultChannelPrefs() {
   return out;
 }
 
+/**
+ * The old 'digest_cadence' key, as saved in this browser or on the
+ * account before 2026-10-16: 'weekly' carries over, anything else
+ * ('daily' was the silent default nobody chose) becomes 'realtime'.
+ * The server's one-time migration does the same.
+ */
+export function migrateLegacyChannelPrefs(stored) {
+  if (!stored || typeof stored !== 'object' || !('digest_cadence' in stored)) return stored;
+  const { digest_cadence: legacy, ...rest } = stored;
+  if (!('push_cadence' in rest)) rest.push_cadence = legacy === 'weekly' ? 'weekly' : 'realtime';
+  return rest;
+}
+
 export function mergeChannelPrefs(stored) {
   const base = defaultChannelPrefs();
   if (!stored || typeof stored !== 'object') return base;
-  return { ...base, ...stored };
+  return { ...base, ...migrateLegacyChannelPrefs(stored) };
 }

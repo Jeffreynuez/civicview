@@ -155,7 +155,9 @@ disk precompute deferred (not needed). Auth cookies now live on api.civicview.ap
 synced channel prefs (`notification_prefs_json` + GET/PUT
 `/me/notification-prefs`), anonymous tracked pushes
 (`DeviceToken.tracked_json`), quiet-hours + cadence enforcement (SUPPRESS not
-queue; no synced prefs = no suppression). **Desktop PWA live** (PNG install
+queue; no synced prefs = no suppression; superseded 2026-10-16, see "Push
+alerts and summaries" below: every device syncs prefs, and nothing is
+dropped any more). **Desktop PWA live** (PNG install
 icons — SVG-only manifests fail Chromium's install check; minimal SW, no fetch
 handler). **Microsoft Store LIVE** since mid-September 2026 (company acct
 CIVICVIEW, INC. via DUNS same-day; PWABuilder MSIX v1.0.1.0; US-only, Teen,

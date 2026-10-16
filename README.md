@@ -451,6 +451,10 @@ Thirteen commits on `Updates_and_fixes`, all pushed. Tip `718f5ab`.
   **quiet-hours + cadence enforcement** in the send path (suppress, don't
   queue — Jeffrey's call; nights 22:00–08:00 local via tz offset,
   daily ≥20h / weekly ≥6d min-gap; **no prefs blob = no suppression**).
+  *Corrected 2026-10-16:* every registration and sign-in sends a prefs
+  blob, so the defaults applied to everyone and the daily min-gap dropped
+  pushes silently. The min-gap is gone: pushes go as they happen by
+  default, and daily, weekly and quiet-hour pushes go out as one summary.
 - **Desktop PWA (`4620059`).** civicview.app is installable on
   Windows/macOS/Linux/ChromeOS: the manifest's SVG-only icons (which fail
   Chromium's install check) got real 192/512 PNG + maskable icons from the
@@ -815,7 +819,7 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 107 | CI hardening — CodeQL advanced + Bandit/ruff gate | done (2026-06-10) | CodeQL advanced setup + Bandit/ruff security gate added to CI; fixed the upload-permission failure (`9534fe8`). |
 | 29 | Congress data load-time / caching pass | done caching (2026-06-16) | Edge caching live + VERIFIED (`cf-cache-status: HIT`). `backend/app/main.py` Cache-Control middleware on public read-only endpoints + startup cache warmup; API served from Cloudflare-proxied **api.civicview.app** + a Cache Rule; `NEXT_PUBLIC_API_URL` switched. Deferred (optional, not currently needed): full per-member disk precompute of detail/bills/votes; frontend skeletons/prefetch. |
 
-| 38 | Notifications v2 (honest panel · synced prefs · anonymous pushes · quiet hours) | done (2026-07-24/25) | All four parts shipped + pushed (`7b0396d`, `01eb4f4`, `2e85866`); see the 2026-07-24/25 shipped block. Enforcement is opt-in-by-sync: accounts/devices that never synced prefs keep pre-v2 behavior. |
+| 38 | Notifications v2 (honest panel · synced prefs · anonymous pushes · quiet hours) | done (2026-07-24/25) | All four parts shipped + pushed (`7b0396d`, `01eb4f4`, `2e85866`); see the 2026-07-24/25 shipped block. Enforcement is opt-in-by-sync: accounts/devices that never synced prefs keep pre-v2 behavior. **Corrected 2026-10-16:** in practice every app registration and every signed-in account syncs prefs, so the old defaults (quiet hours nights, cadence daily) applied to everyone and dropped pushes; see "Push alerts and summaries" below. |
 | 108 | Microsoft Store listing (Windows desktop) | **LIVE** since mid-September 2026 (submitted 2026-07-25) | PWABuilder MSIX shell of the live PWA; web deploys need NO store resubmission. Post-cert checklist in runbook §6 (clean-machine install test, Store badge next to the Play badge, README/HelpBuild "Already built" row). Identity values in Pinecone (`2026-07-25-microsoft-store-identity`). |
 | 109 | Force-update gate — arm when needed | shipped OFF (2026-07-25) | `2cb77a9`. Gate is inert until `APP_MIN_VERSION_CODE` (hard block) / `APP_LATEST_VERSION_CODE` (nudge) are set in Render env + restart. Set LATEST when a new AAB ships; set MIN only when an old shell is genuinely broken. |
 

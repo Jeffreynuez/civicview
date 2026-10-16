@@ -27,6 +27,7 @@ import FeedbackView from '@/components/FeedbackView';
 // Contextual push-notification opt-in — renders nothing on the web;
 // in the Android shell it offers push once a citizen is signed in.
 import { fetchAllStateData, fetchAllMembers, fetchBillSnapshot, fetchMemberDetail, fetchMemberBills, fetchMemberVotes, fetchElections, fetchElectionStates, fetchCandidate, fetchStatePerson } from '@/lib/api';
+import { requestNotificationsOpen } from '@/lib/notificationsOpen';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import {
   getAllTrackedBills,
@@ -328,7 +329,7 @@ export default function Home() {
   const [dashboardInitialView, setDashboardInitialView] = useState('overview');
 
   // ─── Deep-link surfaces + start-page preference (Task #102) ───────
-  // /?open=tracked|dashboard|settings opens the matching overlay
+  // /?open=tracked|dashboard|settings|notifications opens the matching overlay
   // directly — used by the /bills navbar (and any future surface) so
   // "Tracked items" / "Dashboard" don't dead-end on the home map.
   // /?open=help-build opens the Help build this page: it's the address the
@@ -343,6 +344,9 @@ export default function Home() {
     startPageHandledRef.current = true; // explicit destination wins
     if (open === 'tracked') {
       setTrackedOpen(true);
+    } else if (open === 'notifications') {
+      // A summary push (2026-10-16) opens the bell.
+      requestNotificationsOpen();
     } else if (open === 'help-build') {
       setHelpBuildOpen(true);
     } else if (open === 'dashboard' || open === 'settings') {

@@ -52,9 +52,9 @@ class PushTokenIn(BaseModel):
     #   tracked — this device's tracked-official keys. Consulted by the
     #     fan-out only for anonymous rows; bound accounts resolve
     #     tracking server-side. [] explicitly clears.
-    #   prefs — channel-prefs snapshot ({quiet_hours, digest_cadence,
-    #     tz_offset_minutes}) for per-device quiet-hours/cadence
-    #     enforcement when the device is anonymous.
+    #   prefs: channel-prefs snapshot ({quiet_hours, push_cadence,
+    #     tz_offset_minutes}) for per-device quiet hours and push
+    #     timing when the device is anonymous.
     tracked: Optional[List[str]] = None
     prefs: Optional[dict] = None
 
@@ -128,11 +128,16 @@ def unregister_device(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
-    deleted = (
-        db.query(DeviceToken)
-        .filter(DeviceToken.token == payload.token)
-        .delete(synchronize_session=False)
-    )
+    from app.models.pages import PushHeldItem
+
+    row = db.query(DeviceToken).filter(DeviceToken.token == payload.token).first()
+    deleted = 0
+    if row is not None:
+        # Turning push off deletes the token and everything stored with
+        # it, including updates held for a summary (privacy policy).
+        db.query(PushHeldItem).filter(PushHeldItem.device_token_id == row.id).delete(
+            synchronize_session=False)
+        deleted = db.query(DeviceToken).filter(DeviceToken.id == row.id).delete(synchronize_session=False)
     db.commit()
     if deleted:
         background_tasks.add_task(
