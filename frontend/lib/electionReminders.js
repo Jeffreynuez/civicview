@@ -22,6 +22,22 @@ export function setElectionRemindersEnabled(enabled) {
   return request('/api/election-reminders/settings', { method: 'PUT', body: { enabled: !!enabled } });
 }
 
+/** Opt in or out of the email copy of each reminder. 409 for a demo address. */
+export function setElectionReminderEmail(email) {
+  return request('/api/election-reminders/settings', { method: 'PUT', body: { email: !!email } });
+}
+
+/**
+ * "I already voted": no more reminders for this reminder's election.
+ * voted=false undoes it.
+ */
+export function markAlreadyVoted(reminderId, voted = true) {
+  return request('/api/election-reminders/voted', {
+    method: 'POST',
+    body: { reminder_id: reminderId, voted: !!voted },
+  });
+}
+
 export function turnOffElectionReminders() {
   return request('/api/election-reminders/off', { method: 'POST' });
 }

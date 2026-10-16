@@ -547,8 +547,8 @@ function AdminPageInner() {
   } else if (activeTab === 'reminders') {
     kpis = [
       { label: 'Sending today', value: reminderCounts.sending || 0, dot: 'warning' },
-      { label: 'Scheduled', value: reminderCounts.scheduled || 0, dot: 'hidden' },
-      { label: 'Passed', value: reminderCounts.passed || 0, dot: 'resolved' },
+      { label: 'Scheduled', value: reminderCounts.scheduled || 0, dot: 'success' },
+      { label: 'Passed', value: reminderCounts.passed || 0, dot: 'muted' },
     ];
   } else if (activeTab === 'lockouts') {
     // Lockouts — three tiles, parallel to Suspended.

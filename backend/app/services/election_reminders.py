@@ -33,9 +33,15 @@ Who gets them:
     on by default, as a bell row plus a push to any phone with push on;
   * anyone tracking an election gets that election's reminders, subject
     to the tracked election's own alert settings;
-  * nobody who turned election reminders off; nobody whose account is
-    suspended, inactive or being deleted. Anonymous devices are not
-    included in this version.
+  * nobody who turned election reminders off, and nobody who tapped
+    "I already voted" on one of that election's reminders (the rest of
+    that election only); nobody whose account is suspended, inactive
+    or being deleted. Anonymous devices are not included in this
+    version.
+  * Email only for citizens who opted in (election_reminder_email_at),
+    never to a demo account's generated address. The footer links to
+    the settings where it is turned off (no List-Unsubscribe header:
+    email_service.send takes no custom headers yet).
 
 When: about SEND_HOUR (10 a.m.) in the recipient's local time, from the
 tz_offset_minutes their notification settings carry, else Eastern time.
@@ -481,6 +487,16 @@ class Recipient:
     citizen_id: int
     prefs_json: Optional[str]
     tracking: bool
+    email: Optional[str] = None  # set only when they opted in to reminder emails
+
+
+def _stopped(db: Session, reminder: Reminder) -> set:
+    """Citizens who said "I already voted" in this election."""
+    from app.models.pages import ElectionReminderStop
+    return {cid for (cid,) in db.query(ElectionReminderStop.citizen_id).filter(
+        ElectionReminderStop.state == reminder.state,
+        ElectionReminderStop.election_key == reminder.election_key,
+    )}
 
 
 def eligible_recipients(db: Session, reminder: Reminder) -> list[Recipient]:
@@ -489,10 +505,12 @@ def eligible_recipients(db: Session, reminder: Reminder) -> list[Recipient]:
     from app.models.pages import CitizenAccount
 
     tracking = _tracking(db, reminder)
+    stopped = _stopped(db, reminder)
     in_state = or_(func.upper(CitizenAccount.state) == reminder.state,
                    CitizenAccount.id.in_(list(tracking)) if tracking else false())
     rows = (
-        db.query(CitizenAccount.id, CitizenAccount.state, CitizenAccount.notification_prefs_json)
+        db.query(CitizenAccount.id, CitizenAccount.email, CitizenAccount.notification_prefs_json,
+                 CitizenAccount.election_reminder_email_at)
         .filter(
             in_state,
             CitizenAccount.is_active.is_(True),
@@ -502,12 +520,17 @@ def eligible_recipients(db: Session, reminder: Reminder) -> list[Recipient]:
         )
         .all()
     )
+    from app.services.digest_service import is_demo_email
+
     out = []
-    for cid, _state, prefs_json in rows:
+    for cid, email, prefs_json, email_at in rows:
+        if cid in stopped:
+            continue  # "I already voted" in this election
         prefs = tracking.get(cid)
         if prefs is not None and prefs.get(reminder.pref_key) is False:
             continue  # tracked election with this alert turned off
-        out.append(Recipient(cid, prefs_json, prefs is not None))
+        wants_email = email_at is not None and email and not is_demo_email(email)
+        out.append(Recipient(cid, prefs_json, prefs is not None, email if wants_email else None))
     return out
 
 
@@ -546,6 +569,44 @@ def local_to_utc(prefs_json: Optional[str], local: datetime) -> datetime:
 def is_due(reminder: Reminder, local: datetime) -> bool:
     return (reminder.send_on <= local.date() <= reminder.last_send_on
             and local.hour >= SEND_HOUR)
+
+
+# ── Email ────────────────────────────────────────────────────────────
+
+APP_URL = "https://civicview.app"
+SETTINGS_URL = f"{APP_URL}/?open=settings"
+
+
+def render_email(reminder: Reminder) -> tuple[str, str, str]:
+    """(subject, html, text). The same words as the bell row and the
+    push, the official link and the date's source, and a footer that
+    says why it came and where to turn it off."""
+    import html as _html
+
+    esc = _html.escape
+    footer = ("You get this email because you turned on election reminder emails in CivicView. "
+              "To stop them, turn off \"Also email me election reminders\" in your settings:")
+    text = (f"{reminder.body}\n\n{reminder.link_label}: {reminder.link_url}\n"
+            f"Source for this date: {reminder.source_url}\n\n"
+            "CivicView is not a government site. The link above goes to the state's official election site.\n\n"
+            f"{footer} {SETTINGS_URL}\n")
+    html_body = (
+        '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#1b2430;'
+        'max-width:560px">'
+        f'<h1 style="font-size:19px;margin:0 0 10px">{esc(reminder.title)}</h1>'
+        f'<p style="margin:0 0 14px">{esc(reminder.body)}</p>'
+        f'<p style="margin:0 0 14px"><a href="{esc(reminder.link_url)}" style="color:#1d6b3a;font-weight:bold">'
+        f'{esc(reminder.link_label)}</a> ({esc(reminder.link_url)})</p>'
+        f'<p style="margin:0 0 14px;font-size:13px;color:#5b6573">Source for this date: '
+        f'<a href="{esc(reminder.source_url)}" style="color:#5b6573">{esc(reminder.source_url)}</a></p>'
+        '<p style="margin:0 0 14px;font-size:13px;color:#5b6573">CivicView is not a government site. '
+        "The link above goes to the state's official election site.</p>"
+        '<hr style="border:none;border-top:1px solid #dde2e8;margin:18px 0">'
+        f'<p style="margin:0;font-size:12px;color:#5b6573">{esc(footer)} '
+        f'<a href="{SETTINGS_URL}" style="color:#5b6573">{SETTINGS_URL}</a></p>'
+        "</div>"
+    )
+    return reminder.title, html_body, text
 
 
 # ── Delivery ─────────────────────────────────────────────────────────
@@ -587,7 +648,8 @@ def deliver(db: Session, reminder: Reminder, recipients: Iterable[Recipient], no
     from app.models.pages import ElectionReminderDelivery, Notification
     from app.services.push_service import push_election_reminder
 
-    counts = {"claimed": 0, "already": 0, "notified": 0, "pushed_devices": 0}
+    counts = {"claimed": 0, "already": 0, "notified": 0, "pushed_devices": 0, "emailed": 0}
+    emails = []
     payload = json.dumps(reminder.payload(), ensure_ascii=False)
     pushes = []
     for rcp in recipients:
@@ -610,6 +672,8 @@ def deliver(db: Session, reminder: Reminder, recipients: Iterable[Recipient], no
             _release(db, claim_id)  # nothing went out, so they stay due
             continue
         counts["notified"] += 1
+        if rcp.email:
+            emails.append((rcp.email, claim_id))
         deadline_utc = local_to_utc(rcp.prefs_json, reminder.deadline_local)
         pushes.append((rcp.citizen_id, claim_id, int((deadline_utc - now_utc).total_seconds())))
 
@@ -626,6 +690,20 @@ def deliver(db: Session, reminder: Reminder, recipients: Iterable[Recipient], no
             if n_dev:
                 db.query(ElectionReminderDelivery).filter(ElectionReminderDelivery.id == claim_id).update(
                     {ElectionReminderDelivery.push_devices: n_dev}, synchronize_session=False)
+        db.commit()
+
+    if emails:
+        from app.services.email_service import get_email_service
+
+        svc = get_email_service()
+        subject, html_body, text_body = render_email(reminder)
+        for address, claim_id in emails:
+            # send() never raises; a failure is logged there and the
+            # reminder is not retried (the bell row is already there).
+            if svc.send(to=address, subject=subject, text_body=text_body, html_body=html_body):
+                counts["emailed"] += 1
+                db.query(ElectionReminderDelivery).filter(ElectionReminderDelivery.id == claim_id).update(
+                    {ElectionReminderDelivery.email_sent_at: datetime.utcnow()}, synchronize_session=False)
         db.commit()
     return counts
 
@@ -720,9 +798,46 @@ def preview(db: Session, now_utc: Optional[datetime] = None) -> dict:
 # ── Citizen settings ─────────────────────────────────────────────────
 
 def citizen_settings(citizen) -> dict:
+    from app.services.digest_service import is_demo_email
+
     state = (citizen.state or "").upper()
     return {
         "enabled": citizen.election_reminders_off_at is None,
         "covered_states": list(REMINDER_STATES),
         "your_state_covered": state in REMINDER_STATES,
+        "email": citizen.election_reminder_email_at is not None,
+        # A demo account's sign-in address receives no mail.
+        "email_available": bool(citizen.email) and not is_demo_email(citizen.email),
     }
+
+
+def find_reminder(reminder_id: str, now_utc: Optional[datetime] = None) -> Optional[Reminder]:
+    """A reminder of an election still ahead (or held today), by id."""
+    now_utc = now_utc or current_utc()
+    for r in build_schedule(today=today_et(now_utc) - timedelta(days=1)).reminders:
+        if r.id == reminder_id:
+            return r
+    return None
+
+
+def set_voted(db: Session, citizen_id: int, reminder: Reminder, voted: bool) -> None:
+    """"I already voted" (voted=True) stops the rest of this election's
+    reminders for this citizen; voted=False undoes it."""
+    from app.models.pages import ElectionReminderStop
+
+    q = db.query(ElectionReminderStop).filter(
+        ElectionReminderStop.citizen_id == citizen_id,
+        ElectionReminderStop.state == reminder.state,
+        ElectionReminderStop.election_key == reminder.election_key,
+    )
+    if voted:
+        if q.first() is None:
+            db.add(ElectionReminderStop(citizen_id=citizen_id, state=reminder.state,
+                                        election_key=reminder.election_key))
+            try:
+                db.commit()
+            except IntegrityError:
+                db.rollback()  # a double tap: the row is already there
+    else:
+        q.delete(synchronize_session=False)
+        db.commit()

@@ -27,6 +27,13 @@ actually go out. Pushes are captured, never sent.
      state's election; a tracked election's own alert settings apply.
   8. Admin preview: every reminder with its wording, source, status and
      recipient count; admins only.
+  9. "I already voted": no more reminders for that election, other
+     elections carry on, and it can be undone.
+ 10. Opt-in email: only to citizens who turned it on, never to a demo
+     address; same words, the official link, the source and a footer
+     link to settings.
+ 11. Future elections: any election ahead in the data gets reminders
+     once its dates have sources.
 """
 import json
 import os
@@ -41,6 +48,13 @@ os.environ.pop("ELECTION_REMINDERS_NOW", None)
 os.environ.pop("ELECTION_REMINDERS_ENABLED", None)
 
 PUSHES = []
+EMAILS = []
+
+
+class _CaptureEmail:
+    def send(self, *, to, subject, text_body, html_body=None, reply_to=None):
+        EMAILS.append({"to": to, "subject": subject, "text": text_body, "html": html_body})
+        return True
 
 
 class _CapturePush:
@@ -54,6 +68,7 @@ def main() -> int:
     from datetime import date, datetime
     from fastapi.testclient import TestClient
     import app.main as m
+    import app.services.email_service as es
     import app.services.push_service as ps
     from app.db import SessionLocal
     from app.models.pages import (CitizenAccount, DeviceToken, ElectionReminderDelivery, Notification,
@@ -61,6 +76,7 @@ def main() -> int:
     from app.services import election_reminders as er
 
     ps._service = _CapturePush()
+    es.get_email_service = lambda: _CaptureEmail()
     check = fh.Checks()
     client = TestClient(m.app)
     client.__enter__()
@@ -286,7 +302,8 @@ def main() -> int:
     r = client.get("/api/election-reminders/settings", headers=fh.citizen_headers(quiet))
     check("6 settings report off and the covered states",
           r.status_code == 200 and r.json() == {"enabled": False, "covered_states": ["FL", "CA", "NY", "PA", "TX"],
-                                                "your_state_covered": True}, r.text)
+                                                "your_state_covered": True, "email": False,
+                                                "email_available": True}, r.text)
     r = client.put("/api/election-reminders/settings", json={"enabled": True}, headers=fh.citizen_headers(quiet))
     check("6 and back on", r.status_code == 200 and r.json()["enabled"] is True, r.text)
     run("2026-10-23T15:30:00")
@@ -316,6 +333,92 @@ def main() -> int:
         check("8 not an admin: 403", r.status_code == 403, r.status_code)
     finally:
         os.environ.pop("ELECTION_REMINDERS_NOW", None)
+
+    # ── 9. "I already voted" ─────────────────────────────────────────
+    voter = fh.make_citizen(db, "Vera Voter", "vera@example.org", state="CA", district="CA-11", city="")
+    db.add(TrackedElection(tracker_kind="citizen", tracker_id=voter.id, election_key="2026-general",
+                           snapshot_json=json.dumps({"state": "FL", "date": "2026-11-03"}), prefs_json="{}"))
+    db.commit()
+    r = client.post("/api/election-reminders/voted", json={"reminder_id": ca_reg3}, headers=fh.citizen_headers(voter))
+    check("9 I already voted: accepted for California's election",
+          r.status_code == 200 and r.json() == {"voted": True, "state": "CA", "election_key": "2026-general"}, r.text)
+    r = client.post("/api/election-reminders/voted", json={"reminder_id": ca_reg3}, headers=fh.citizen_headers(voter))
+    check("9 a second tap is harmless", r.status_code == 200, r.text)
+    run("2026-10-18T18:00:00")
+    check("9 no more California reminders", not bell(voter.id, "ca-2026-11-03-registration-1d"))
+    run("2026-10-19T15:00:00")
+    check("9 the other election it tracks (Florida) carries on",
+          len(bell(voter.id, "fl-2026-11-03-mail-request-3d")) == 1)
+    r = client.post("/api/election-reminders/voted", json={"reminder_id": ca_reg3, "voted": False},
+                    headers=fh.citizen_headers(voter))
+    check("9 undo", r.status_code == 200 and r.json()["voted"] is False, r.text)
+    run("2026-11-02T15:00:00")
+    check("9 after undo, California reminders resume", len(bell(voter.id, "ca-2026-11-03-election-day-1d")) == 1)
+    r = client.post("/api/election-reminders/voted", json={"reminder_id": "zz-2020-11-03-registration-3d"},
+                    headers=fh.citizen_headers(voter))
+    check("9 an unknown or past reminder: 404", r.status_code == 404, r.status_code)
+    check("9 signed out: 401",
+          client.post("/api/election-reminders/voted", json={"reminder_id": ca_reg3}).status_code == 401)
+
+    # ── 10. Opt-in email ─────────────────────────────────────────────
+    emma = fh.make_citizen(db, "Emma Mailer", "emma@example.org", state="PA", district="PA-07", city="")
+    nolan = fh.make_citizen(db, "Nolan Nomail", "nolan@example.org", state="PA", district="PA-08", city="")
+    demo = fh.make_citizen(db, "Dana Demo", "dana@demo-citizens.civicview.app", state="PA", district="PA-09", city="")
+    r = client.put("/api/election-reminders/settings", json={"email": True}, headers=fh.citizen_headers(emma))
+    check("10 a citizen turns on reminder emails", r.status_code == 200 and r.json()["email"] is True, r.text)
+    r = client.put("/api/election-reminders/settings", json={"email": True}, headers=fh.citizen_headers(demo))
+    check("10 a demo address cannot: 409", r.status_code == 409, r.status_code)
+    r = client.get("/api/election-reminders/settings", headers=fh.citizen_headers(demo))
+    check("10 settings tell the app a demo address gets no email", r.json().get("email_available") is False, r.text)
+    EMAILS.clear()
+    run("2026-10-24T15:00:00")  # Pennsylvania mail request, 11 a.m. Eastern
+    pa_mail = "pa-2026-11-03-mail-request-3d"
+    check("10 everyone in Pennsylvania gets the bell row",
+          all(len(bell(c.id, pa_mail)) == 1 for c in (emma, nolan, demo)))
+    to = [e["to"] for e in EMAILS]
+    check("10 only the citizen who opted in gets the email", to == ["emma@example.org"], to)
+    mail = EMAILS[0] if EMAILS else {"subject": "", "text": "", "html": ""}
+    rem = {r.id: r for r in er.build_schedule(today=date(2026, 10, 1)).reminders}[pa_mail]
+    check("10 subject and sentence match the bell row",
+          mail["subject"] == rem.title and rem.body in mail["text"], mail["subject"])
+    check("10 the email has the official link, the source and the settings link",
+          rem.link_url in mail["text"] and rem.source_url in mail["text"] and er.SETTINGS_URL in mail["text"]
+          and er.SETTINGS_URL in mail["html"] and rem.link_url in mail["html"])
+    check("10 no dashes in the email", not re.search("[\u2013\u2014]", mail["text"] + mail["html"]))
+    db.expire_all()
+    row = db.query(ElectionReminderDelivery).filter(ElectionReminderDelivery.reminder_id == pa_mail,
+                                                    ElectionReminderDelivery.citizen_id == emma.id).one()
+    check("10 the delivery records the email", row.email_sent_at is not None)
+    client.put("/api/election-reminders/settings", json={"email": False}, headers=fh.citizen_headers(emma))
+    EMAILS.clear()
+    run("2026-11-02T15:00:00")
+    check("10 turned off: the bell row still comes, the email does not",
+          len(bell(emma.id, "pa-2026-11-03-election-day-1d")) == 1 and not EMAILS, [e["to"] for e in EMAILS])
+
+    # ── 11. Future elections from the data ───────────────────────────
+    fl_doc = json.load(open(os.path.join(os.path.dirname(__file__), "..", "app", "data", "fl", "elections.json")))
+    future = {"FL": {
+        "state": "FL", "state_name": "Florida", "cycle": "2028",
+        "key_dates": {"primary": "2028-08-15", "general": "2028-11-07",
+                      "voter_registration_deadline_primary": "2028-07-17",
+                      "voter_registration_deadline_general": "2028-10-10",
+                      "vote_by_mail_request_deadline_general": "2028-10-26"},
+        "key_date_sources": {"primary": "https://dos.fl.gov/elections/for-voters/election-dates/",
+                             "general": "https://dos.fl.gov/elections/for-voters/election-dates/",
+                             "voter_registration_deadline_primary": "https://dos.fl.gov/elections/",
+                             "voter_registration_deadline_general": "https://dos.fl.gov/elections/"},
+        "voter_info": fl_doc["voter_info"],
+    }}
+    fut = er.build_schedule(today=date(2028, 1, 1), docs=future)
+    fut_ids = {r.id for r in fut.reminders}
+    check("11 a 2028 primary and general get their reminders",
+          {"fl-2028-08-15-registration-3d", "fl-2028-08-15-election-day-1d",
+           "fl-2028-11-07-registration-1d", "fl-2028-11-07-election-day-1d"} <= fut_ids, sorted(fut_ids))
+    check("11 tracked-election keys follow the cycle",
+          {r.election_key for r in fut.reminders} == {"2028-primary", "2028-general"})
+    check("11 a date without a source is not sent, and says why",
+          "fl-2028-11-07-mail-request-3d" not in fut_ids
+          and any(s.kind == "mail_request_3d" and "source" in s.reason for s in fut.skipped))
 
     db.close()
     client.__exit__(None, None, None)

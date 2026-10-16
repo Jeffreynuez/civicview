@@ -307,7 +307,7 @@ export const CHANNEL_SCHEMA = {
     {
       key: 'email',
       label: 'Email digests',
-      description: 'A weekly roll-up of your tracked officials\u2019 activity \u2014 opt in from your dashboard settings. Sending begins at launch.',
+      description: 'A weekly roll-up of your tracked officials\u2019 activity. Opt in from your dashboard settings. Sending begins at launch.',
       badge: 'AT LAUNCH',
       default: false,
       available: false,

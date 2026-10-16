@@ -4,10 +4,15 @@
 """Election reminders (2026-10-16). See services/election_reminders.py.
 
 Citizen (signed in):
-  GET  /api/election-reminders/settings   on or off, and the states covered
-  PUT  /api/election-reminders/settings   {"enabled": bool}
+  GET  /api/election-reminders/settings   on or off, email opt-in, and
+                                          the states covered
+  PUT  /api/election-reminders/settings   {"enabled"?: bool, "email"?: bool}
   POST /api/election-reminders/off        the one-tap "Turn off election
                                           reminders" on a reminder
+  POST /api/election-reminders/voted      {"reminder_id", "voted"?: bool}
+                                          "I already voted": no more
+                                          reminders for that election
+                                          (voted=false undoes it)
 
 Admin (mounted at /api/admin/election-reminders, before the general
 admin router):
@@ -29,7 +34,7 @@ from datetime import datetime
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from app.auth_citizen import get_optional_citizen
@@ -50,7 +55,13 @@ def _require_citizen(citizen: Optional[CitizenAccount]) -> CitizenAccount:
 
 
 class ReminderSettingsBody(BaseModel):
-    enabled: bool
+    enabled: Optional[bool] = None
+    email: Optional[bool] = None
+
+
+class VotedBody(BaseModel):
+    reminder_id: str = Field(min_length=1, max_length=96)
+    voted: bool = True
 
 
 @router.get("/settings")
@@ -65,10 +76,18 @@ def put_settings(
     citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
 ):
     citizen = _require_citizen(citizen)
-    if body.enabled:
+    if body.enabled is True:
         citizen.election_reminders_off_at = None
-    elif citizen.election_reminders_off_at is None:
+    elif body.enabled is False and citizen.election_reminders_off_at is None:
         citizen.election_reminders_off_at = datetime.utcnow()
+    if body.email is True:
+        if not er.citizen_settings(citizen)["email_available"]:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                                detail="This account's sign-in address receives no email.")
+        if citizen.election_reminder_email_at is None:
+            citizen.election_reminder_email_at = datetime.utcnow()
+    elif body.email is False:
+        citizen.election_reminder_email_at = None
     db.add(citizen)
     db.commit()
     return er.citizen_settings(citizen)
@@ -85,6 +104,21 @@ def turn_off(
         db.add(citizen)
         db.commit()
     return er.citizen_settings(citizen)
+
+
+@router.post("/voted")
+def voted(
+    body: VotedBody,
+    db: Session = Depends(get_db),
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+):
+    citizen = _require_citizen(citizen)
+    reminder = er.find_reminder(body.reminder_id)
+    if reminder is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="That election has passed or is not on the schedule.")
+    er.set_voted(db, citizen.id, reminder, body.voted)
+    return {"voted": body.voted, "state": reminder.state, "election_key": reminder.election_key}
 
 
 @admin_router.get("")

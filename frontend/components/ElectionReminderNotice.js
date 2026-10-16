@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { externalLinkProps, hostLabel } from '@/lib/externalLink';
 import {
   fetchElectionReminderSettings,
+  markAlreadyVoted,
+  setElectionReminderEmail,
   setElectionRemindersEnabled,
   turnOffElectionReminders,
 } from '@/lib/electionReminders';
@@ -19,13 +21,24 @@ import {
  * measure. The source line names the official page the date came from.
  *
  * "Turn off election reminders" is one tap, here and in notification
- * settings (ElectionRemindersToggle below).
+ * settings (ElectionRemindersToggle below). "I already voted" stops the
+ * rest of this election's reminders only, and can be undone right here.
  */
 export default function ElectionReminderNotice({ notification: n, onOpen }) {
   const p = n.payload || {};
   const isUnread = !n.read_at;
   const [off, setOff] = useState(false);
+  const [voted, setVoted] = useState(false);
   const [busy, setBusy] = useState(false);
+
+  const vote = async (e, next) => {
+    e.stopPropagation();
+    if (!p.reminder_id) return;
+    setBusy(true);
+    const { error } = await markAlreadyVoted(p.reminder_id, next);
+    setBusy(false);
+    if (!error) setVoted(next);
+  };
 
   const turnOff = async (e) => {
     e.stopPropagation();
@@ -83,12 +96,30 @@ export default function ElectionReminderNotice({ notification: n, onOpen }) {
             </a>
           </div>
         )}
+        {voted && (
+          <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', lineHeight: 1.35 }}>
+            Got it. No more reminders for this election.{' '}
+            <button
+              type="button"
+              onClick={(e) => vote(e, false)}
+              disabled={busy}
+              style={{ ...smallButton, padding: '0 4px', border: 'none', textDecoration: 'underline' }}
+            >
+              Undo
+            </button>
+          </div>
+        )}
         {off ? (
           <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', lineHeight: 1.35 }}>
             Election reminders are off. You can turn them back on in notification settings below.
           </div>
         ) : (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+            {!voted && p.reminder_id && (
+              <button type="button" onClick={(e) => vote(e, true)} disabled={busy} style={smallButton}>
+                I already voted
+              </button>
+            )}
             <button type="button" onClick={turnOff} disabled={busy} style={smallButton}>
               Turn off election reminders
             </button>
@@ -100,14 +131,16 @@ export default function ElectionReminderNotice({ notification: n, onOpen }) {
 }
 
 /**
- * The switch in notification settings. Signed-in citizens only; the
- * caller decides when to render it. `refreshKey` lets the bell re-read
- * the setting each time it opens (a reminder's one-tap off may have
- * changed it).
+ * The switches in notification settings (the bell) and in the
+ * dashboard's Account & settings: reminders on or off, and the opt-in
+ * email copy. Signed-in citizens only; the caller decides when to
+ * render it. `refreshKey` lets the bell re-read the settings each time
+ * it opens (a reminder's one-tap off may have changed them).
  */
 export function ElectionRemindersToggle({ refreshKey }) {
   const [settings, setSettings] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState('');
 
   useEffect(() => {
     let cancelled = false;
@@ -121,12 +154,23 @@ export function ElectionRemindersToggle({ refreshKey }) {
 
   const onChange = async (v) => {
     setBusy(true);
+    setNote('');
     const { data } = await setElectionRemindersEnabled(v);
     setBusy(false);
     if (data) setSettings(data);
   };
 
+  const onEmail = async (v) => {
+    setBusy(true);
+    setNote('');
+    const { data, error } = await setElectionReminderEmail(v);
+    setBusy(false);
+    if (data) setSettings(data);
+    else if (error) setNote('Could not save. Please try again.');
+  };
+
   return (
+    <>
     <label
       style={{
         display: 'flex', alignItems: 'flex-start', gap: '10px',
@@ -148,5 +192,33 @@ export function ElectionRemindersToggle({ refreshKey }) {
         </div>
       </div>
     </label>
+    {settings.enabled && (
+      <label
+        style={{
+          display: 'flex', alignItems: 'flex-start', gap: '10px',
+          padding: '2px 2px 6px 26px',
+          cursor: settings.email_available ? (busy ? 'progress' : 'pointer') : 'not-allowed',
+          opacity: settings.email_available ? 1 : 0.6,
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={!!settings.email}
+          disabled={busy || !settings.email_available}
+          onChange={(e) => onEmail(e.target.checked)}
+          style={{ marginTop: '3px', accentColor: 'var(--cl-accent)', cursor: 'inherit' }}
+        />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: '0.76rem', fontWeight: 600 }}>Also email me election reminders</div>
+          <div style={{ fontSize: '0.68rem', color: 'var(--cl-text-light)', marginTop: '1px', lineHeight: 1.35 }}>
+            {settings.email_available
+              ? 'Off unless you turn it on. Each email has a link to turn it off.'
+              : 'Demo accounts use a placeholder address that receives no email.'}
+          </div>
+        </div>
+      </label>
+    )}
+    {note && <div role="status" style={{ fontSize: '0.7rem', color: 'var(--cl-danger, #dc2626)', padding: '0 2px 6px' }}>{note}</div>}
+    </>
   );
 }

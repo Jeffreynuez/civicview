@@ -1444,6 +1444,10 @@ class CitizenAccount(Base):
     # client's debounced sync, which would put back a value turned off
     # from another device. Nullable, so the boot auto-migrate adds it.
     election_reminders_off_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # Opt-in election reminder emails (2026-10-16): set when the citizen
+    # asks for reminders by email as well, NULL otherwise. Off unless
+    # they turn it on; never sent to a demo account's generated address.
+    election_reminder_email_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     # Admin moderation — mirrors RepAccount.suspended_at. When set,
     # the auth dependencies treat the account as not-signed-in and
     # the citizen-login endpoint refuses with a clear error.
@@ -2558,6 +2562,24 @@ class ElectionReminderDelivery(Base):
     notification_id: Mapped[Optional[int]] = mapped_column(Integer, default=None)
     push_devices: Mapped[Optional[int]] = mapped_column(Integer, default=None)
     email_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+class ElectionReminderStop(Base):
+    """"I already voted" on an election reminder (2026-10-16): no more
+    reminders for that one election (state + election key, e.g. CA +
+    "2026-general"). Other elections, and other states' elections the
+    citizen tracks, carry on."""
+
+    __tablename__ = "election_reminder_stops"
+    __table_args__ = (
+        UniqueConstraint("citizen_id", "state", "election_key", name="uq_election_reminder_stop"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    citizen_id: Mapped[int] = mapped_column(Integer, index=True)
+    state: Mapped[str] = mapped_column(String(2))
+    election_key: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
 class AiDailySpend(Base):
