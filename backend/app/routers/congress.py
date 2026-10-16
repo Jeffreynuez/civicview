@@ -159,7 +159,11 @@ async def get_member_stats(
         p = party.strip().upper()
         if p in ("R", "D", "I"):
             party_norm = p
-    stats = await service.get_member_stats(bioguide_id, party=party_norm)
+    try:
+        stats = await service.get_member_stats(bioguide_id, party=party_norm)
+    except Exception:
+        logger.exception("member stats unavailable for %s", bioguide_id)
+        raise HTTPException(status_code=503, detail="Voting record temporarily unavailable.")
     return stats
 
 

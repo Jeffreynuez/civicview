@@ -2670,6 +2670,14 @@ class RollCall(Base):
     # counted from the stored positions, by the party recorded on this vote.
     by_party_json: Mapped[str] = mapped_column(Text, default="{}")
 
+    # None for a vote read from the chamber's own file. "congress.gov" when
+    # the Clerk's file could not be read and the House vote came from
+    # Congress.gov's members endpoint instead: that has no description
+    # (which tells a rule vote from a passage vote) and no Speaker
+    # choices, so the vote stays unconfirmed and is fetched again from
+    # the Clerk later.
+    source: Mapped[Optional[str]] = mapped_column(String(16), default=None)
+
     fetched_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     confirmed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
@@ -2678,9 +2686,10 @@ class RollCallPosition(Base):
     """How one member voted on one roll call, and their party on that vote.
 
     Kept compact on purpose (about 2.7 million rows for ten years):
-    position is one letter, Y (Yea or Aye), N (Nay or No), P (Present)
-    or V (Not Voting); party is the letter the official record gives
-    for that member on that vote (R, D or I).
+    position is one letter, Y (Yea or Aye), N (Nay or No), P (Present),
+    V (Not Voting) or C (voted for a candidate in an election of the
+    Speaker; the name is in roll_call_choices); party is the letter the
+    official record gives for that member on that vote (R, D or I).
     """
     __tablename__ = "roll_call_positions"
     __table_args__ = (
@@ -2693,6 +2702,21 @@ class RollCallPosition(Base):
     bioguide_id: Mapped[str] = mapped_column(String(7), primary_key=True)
     position: Mapped[str] = mapped_column(String(1))
     party: Mapped[Optional[str]] = mapped_column(String(1), default=None)
+
+
+class RollCallChoice(Base):
+    """Who a member voted for in an election of the Speaker, as the Clerk
+    records it ("Jeffries", "Johnson (LA)"). Only those roll calls have
+    rows here, a few dozen in ten years; the member's position row holds
+    C. Shown as "Voted for {name}" for every name alike, and left out of
+    the party-line figure."""
+    __tablename__ = "roll_call_choices"
+
+    roll_call_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("roll_calls.id", ondelete="CASCADE"), primary_key=True,
+    )
+    bioguide_id: Mapped[str] = mapped_column(String(7), primary_key=True)
+    choice: Mapped[str] = mapped_column(String(80))
 
 
 class RollCallMember(Base):

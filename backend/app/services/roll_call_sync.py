@@ -17,12 +17,27 @@ One pass, run by the loop in main.py (never on the boot path):
      on clerk.house.gov until one doesn't exist. Senate: the vote menu,
      fetched with ETag / If-Modified-Since so an unchanged menu costs a
      304.
-  3. The one re-check of votes stored within a day of being cast.
+  3. The one re-check of votes stored within a day of being cast, and of
+     House votes that came from Congress.gov's members endpoint because
+     the Clerk's file could not be read (they lack the Clerk's
+     description, which tells a rule vote from a passage vote, and any
+     Speaker choices).
   4. History: the BACKFILL_CONGRESSES - 1 Congresses before the current
      one (ten years with the default of 5), newest first, for at most
      BACKFILL_BUDGET_SECONDS per pass. While history is incomplete the
      next pass comes after BACKFILL_PAUSE_SECONDS, so the current
      Congress is still checked between chunks.
+
+Failing sources: after HOST_ERROR_LIMIT consecutive errors from one
+site (403s, 5xx and timeouts after their retries) that site is left
+alone for the rest of the pass. When history makes no progress for
+NO_PROGRESS_LIMIT passes in a row, the loop goes back to the normal
+schedule instead of the short backfill pause. Both are logged.
+
+What a public request may fetch is limited too (may_fetch, and
+OfficialVotesService): only the current session is probed, and an
+unstored vote is fetched only inside the stored window, for a session
+not yet found complete.
 
 A finished session whose stored count matches the official count is
 marked complete in roll_call_sync_state and not checked again. Each
@@ -33,7 +48,8 @@ Schedule (seconds_until_next_pass): hourly from 9 a.m. to midnight
 Eastern on weekdays, when either chamber usually sits; every 6 hours
 otherwise, and always a pass shortly after 5:15 a.m. Eastern.
 
-Off switch: ROLL_CALL_SYNC_ENABLED=false. Nothing here depends on GovTrack.
+On by default in production only; ROLL_CALL_SYNC_ENABLED=true or false
+overrides that anywhere. Nothing here depends on GovTrack.
 """
 from __future__ import annotations
 
@@ -74,14 +90,33 @@ BACKFILL_PAUSE_SECONDS = 5 * 60
 FIRST_PASS_DELAY_SECONDS = 120
 PROBE_BATCH = 4
 FETCH_BATCH = 6
+# Consecutive errors from one site before a pass leaves it alone.
+HOST_ERROR_LIMIT = 5
+# Passes in a row with history incomplete and none of it added before the
+# loop drops back to the normal schedule.
+NO_PROGRESS_LIMIT = 3
+_HOSTS = {"h": "clerk.house.gov", "s": "senate.gov"}
 _ET = ZoneInfo("America/New_York")
 
 # The most recent pass, for the admin view (per process).
 LAST_PASS: dict = {}
+# Passes in a row that left history incomplete without adding any of it.
+_NO_PROGRESS = {"passes": 0}
 
 
 def sync_enabled() -> bool:
-    return (os.getenv(ENV_FLAG) or "true").strip().lower() not in ("0", "false", "no", "off")
+    """ROLL_CALL_SYNC_ENABLED=true / false when set; otherwise on in
+    production only (runtime_env.is_production, the check the production
+    settings guard uses), so a local run or a test never starts a ten-year
+    crawl of the official sites."""
+    raw = (os.getenv(ENV_FLAG) or "").strip().lower()
+    if raw in ("1", "true", "yes", "on"):
+        return True
+    if raw in ("0", "false", "no", "off"):
+        return False
+    from app.services.runtime_env import is_production
+
+    return is_production()
 
 
 def backfill_congresses() -> int:
@@ -92,6 +127,50 @@ def backfill_congresses() -> int:
         return 5
 
 
+def stored_window(now_cs: Optional[tuple[int, int]] = None) -> tuple[int, int]:
+    """(oldest, newest) Congress the sync keeps."""
+    cc = (now_cs or current_congress_session())[0]
+    return cc - backfill_congresses() + 1, cc
+
+
+def in_window(congress: int, session: int, now_cs: Optional[tuple[int, int]] = None) -> bool:
+    """A session the sync keeps: inside the stored window, session 1 or 2,
+    and not in the future."""
+    now_cs = now_cs or current_congress_session()
+    lo, hi = stored_window(now_cs)
+    return lo <= congress <= hi and session in (1, 2) and (congress, session) <= now_cs
+
+
+# A request may fetch an unstored vote numbered at most this far above the
+# highest one stored for its session (votes cast since the last pass).
+FETCH_AHEAD = 100
+
+
+def may_fetch(db, chamber: str, congress: int, session: int, number: Optional[int] = None) -> bool:
+    """Whether a request may fetch an unstored vote of this session from the
+    official site: only inside the stored window, never for a session
+    already found complete (all its votes are stored, so an unstored
+    number doesn't exist), and only up to FETCH_AHEAD above the highest
+    stored number."""
+    if not in_window(congress, session):
+        return False
+    from sqlalchemy import func, select
+
+    from app.models.pages import RollCall, RollCallSyncState
+
+    done = db.execute(select(RollCallSyncState.completed_at).where(
+        RollCallSyncState.chamber == chamber, RollCallSyncState.congress == congress,
+        RollCallSyncState.session == session)).scalar_one_or_none()
+    if done is not None:
+        return False
+    if number is None:
+        return True
+    highest = db.execute(select(func.max(RollCall.number)).where(
+        RollCall.chamber == chamber, RollCall.congress == congress,
+        RollCall.session == session)).scalar() or 0
+    return 1 <= number <= highest + FETCH_AHEAD
+
+
 @dataclass
 class PassSummary:
     added: dict = field(default_factory=lambda: {"h": [], "s": []})
@@ -100,6 +179,9 @@ class PassSummary:
     errors: list = field(default_factory=list)
     skipped_members: int = 0
     backfill_pending: bool = False
+    # chamber -> consecutive errors from its site, and the sites left alone
+    host_errors: dict = field(default_factory=lambda: {"h": 0, "s": 0})
+    tripped: dict = field(default_factory=dict)
 
     def as_dict(self) -> dict:
         return {
@@ -111,52 +193,74 @@ class PassSummary:
             "errors": self.errors[:20],
             "members_without_id": self.skipped_members,
             "backfill_pending": self.backfill_pending,
+            "sites_stopped": {_HOSTS[c]: why for c, why in self.tripped.items()},
         }
 
 
 # ── fetching one roll call ─────────────────────────────────────────────
-async def fetch_house_roll(congress: int, session: int, number: int) -> tuple[str, Optional[dict]]:
-    """("ok", parsed) | ("missing", None) when the Clerk has no such roll |
-    ("error", None) when it couldn't be read. Falls back to Congress.gov's
-    members endpoint when the Clerk fails."""
+# Each fetcher returns (status, parsed, site_status): status "ok",
+# "missing" (no such roll) or "error"; site_status is the HTTP status the
+# chamber's own site gave (0 for no answer), which the error breaker counts.
+async def fetch_house_roll(congress: int, session: int, number: int, *,
+                           fallback: bool = True) -> tuple[str, Optional[dict], int]:
+    """The Clerk's file. When it can't be read and fallback is on, Congress.gov's
+    members endpoint instead; such a vote is stored as provisional and
+    fetched again from the Clerk later."""
     from app.services.official_http import congress_api, fetch
 
     res = await fetch(HOUSE_ROLL_URL.format(year=year_for(congress, session), roll=number))
     if res.status == 404 or (res.ok and house_roll_missing(res.text)):
-        return "missing", None
+        return "missing", None, res.status
     if res.ok:
         try:
-            return "ok", parse_house_roll(res.text)
+            return "ok", await asyncio.to_thread(parse_house_roll, res.text), 200
         except Exception as exc:
             logger.warning("house roll %s-%s-%s unreadable: %s", congress, session, number, exc)
-    if os.getenv("CONGRESS_API_KEY"):
+    if fallback and os.getenv("CONGRESS_API_KEY"):
         payload = await congress_api(HOUSE_VOTE_MEMBERS_URL.format(congress=congress, session=session, num=number))
         parsed = parse_house_vote_members(payload) if payload else None
         if parsed:
-            return "ok", parsed
-    return "error", None
+            return "ok", parsed, res.status
+    return "error", None, res.status
 
 
-async def fetch_senate_vote(congress: int, session: int, number: int) -> tuple[str, Optional[dict]]:
+async def fetch_senate_vote(congress: int, session: int, number: int, *,
+                            fallback: bool = True) -> tuple[str, Optional[dict], int]:
     from app.services.official_http import fetch
 
     res = await fetch(SENATE_VOTE_URL.format(congress=congress, session=session, num=number))
     if res.status == 404:
-        return "missing", None
+        return "missing", None, 404
     if not res.ok:
-        return "error", None
+        return "error", None, res.status
     try:
-        return "ok", parse_senate_vote(res.text)
+        return "ok", await asyncio.to_thread(parse_senate_vote, res.text), 200
     except Exception as exc:
         logger.warning("senate vote %s-%s-%s unreadable: %s", congress, session, number, exc)
-        return "error", None
+        return "error", None, 200
+
+
+def _note_site(chamber: str, status: str, site_status: int, summary: PassSummary) -> None:
+    """Count consecutive failures of a chamber's site (an answer other than a
+    readable file or a clean "no such roll", even when Congress.gov stood
+    in for it); after HOST_ERROR_LIMIT in a row the site is left alone for
+    the rest of the pass."""
+    failed = status == "error" or (status == "ok" and site_status != 200)
+    if not failed:
+        summary.host_errors[chamber] = 0
+        return
+    summary.host_errors[chamber] += 1
+    if summary.host_errors[chamber] >= HOST_ERROR_LIMIT and chamber not in summary.tripped:
+        why = f"{HOST_ERROR_LIMIT} errors in a row, last status {site_status or 'no answer'}"
+        summary.tripped[chamber] = why
+        logger.warning("Roll-call sync: leaving %s alone for the rest of this pass (%s).", _HOSTS[chamber], why)
 
 
 async def _store(parsed: dict, summary: PassSummary) -> str:
     still = await asyncio.to_thread(remap_senators, parsed)
     if still:
         summary.errors.append(f"{parsed.get('vote_id')}: {still} senator(s) with no bioguide id, not stored")
-        return "error"
+        return "unmapped"
     rec = store.record_from_parsed(parsed)
     summary.skipped_members += len(rec["skipped"])
     outcome = await asyncio.to_thread(store.with_session, store.store_roll_call, rec)
@@ -167,18 +271,24 @@ async def _store(parsed: dict, summary: PassSummary) -> str:
 
 async def _fetch_and_store(chamber: str, congress: int, session: int, number: int,
                            summary: PassSummary) -> str:
+    """One roll call: "added" | "exists" | "missing" | "error" (couldn't be
+    read) | "store_error" | "unmapped" | "tripped" (its site is being left
+    alone for this pass; nothing was fetched)."""
+    if chamber in summary.tripped:
+        return "tripped"
     fetcher = fetch_house_roll if chamber == "h" else fetch_senate_vote
-    status, parsed = await fetcher(congress, session, number)
+    status, parsed, site_status = await fetcher(congress, session, number)
+    _note_site(chamber, status, site_status, summary)
     if status != "ok":
         if status == "error":
-            summary.errors.append(f"{chamber}-{congress}-{session}-{number}: could not be read")
+            summary.errors.append(f"{chamber}-{congress}-{session}-{number}: could not be read ({site_status})")
         return status
     try:
         return await _store(parsed, summary)
     except Exception as exc:
         logger.exception("storing %s-%s-%s-%s failed", chamber, congress, session, number)
         summary.errors.append(f"{chamber}-{congress}-{session}-{number}: {type(exc).__name__}")
-        return "error"
+        return "store_error"
 
 
 # ── sync state rows ────────────────────────────────────────────────────
@@ -220,24 +330,33 @@ def _is_past(congress: int, session: int, now_cs: tuple[int, int]) -> bool:
 async def _finish_session(chamber: str, congress: int, session: int, official: Optional[int],
                           now_cs: tuple[int, int], error: Optional[str] = None, **extra) -> None:
     stored_now = await asyncio.to_thread(store.with_session, store.stored_numbers, chamber, congress, session)
-    values = {"stored_count": len(stored_now), "checked_at": datetime.utcnow(), "last_error": error, **extra}
+    values = {"stored_count": len(stored_now), "checked_at": store.utcnow(), "last_error": error, **extra}
     if official is not None:
         values["official_count"] = official
         if _is_past(congress, session, now_cs) and error is None and len(stored_now) >= official:
-            values["completed_at"] = datetime.utcnow()
+            values["completed_at"] = store.utcnow()
     await asyncio.to_thread(store.with_session, _state_put, chamber, congress, session, **values)
 
 
+def _stopped_for_site(chamber: str, summary: PassSummary) -> Optional[str]:
+    if chamber in summary.tripped:
+        return f"stopped: {_HOSTS[chamber]} gave {summary.tripped[chamber]}"
+    return None
+
+
 async def _fetch_numbers(chamber: str, congress: int, session: int, numbers: list[int],
-                         summary: PassSummary, deadline: Optional[float]) -> bool:
-    """Fetch the given roll numbers, newest first. False when the deadline
-    stopped it early."""
+                         summary: PassSummary, deadline: Optional[float]) -> Optional[str]:
+    """Fetch the given roll numbers, newest first. Returns None when done,
+    or why it stopped early: the time budget, or the site failing."""
     for i in range(0, len(numbers), FETCH_BATCH):
+        stopped = _stopped_for_site(chamber, summary)
+        if stopped:
+            return stopped
         if deadline is not None and time.monotonic() > deadline:
-            return False
+            return "stopped for the time budget"
         batch = numbers[i:i + FETCH_BATCH]
         await asyncio.gather(*(_fetch_and_store(chamber, congress, session, n, summary) for n in batch))
-    return True
+    return _stopped_for_site(chamber, summary)
 
 
 async def _probe_up(congress: int, session: int, start: int, summary: PassSummary,
@@ -262,7 +381,7 @@ async def _probe_up(congress: int, session: int, start: int, summary: PassSummar
         results = await asyncio.gather(*(_fetch_and_store("h", congress, session, b, summary) for b in batch))
         end_at = None
         for b, status in zip(batch, results):
-            if status == "error":
+            if status in ("error", "tripped"):
                 return None, True  # unknown end; try again next pass
             if status == "missing":
                 end_at = b
@@ -279,7 +398,7 @@ async def _probe_up(congress: int, session: int, start: int, summary: PassSummar
         )
         if first == "missing" and second == "missing":
             return highest, True
-        if "error" in (first, second):
+        if {first, second} & {"error", "tripped"}:
             return None, True
         if second == "missing":
             highest, n = end_at, end_at + 1  # end_at exists; check what follows it
@@ -305,8 +424,9 @@ async def sync_house_session(congress: int, session: int, summary: PassSummary,
         official = int(payload["pagination"]["count"])
     if official is not None:
         missing = sorted((n for n in range(1, official + 1) if n not in stored), reverse=True)
-        if not await _fetch_numbers("h", congress, session, missing, summary, deadline):
-            await _finish_session("h", congress, session, None, now_cs, "stopped for the time budget")
+        stopped = await _fetch_numbers("h", congress, session, missing, summary, deadline)
+        if stopped:
+            await _finish_session("h", congress, session, None, now_cs, stopped)
             return False
         if not _is_past(congress, session, now_cs):
             # Congress.gov can trail the Clerk by a few hours.
@@ -321,13 +441,17 @@ async def sync_house_session(congress: int, session: int, summary: PassSummary,
         if not finished:
             await _finish_session("h", congress, session, None, now_cs, "stopped for the time budget")
             return False
+        if highest is None and "h" in summary.tripped:
+            await _finish_session("h", congress, session, None, now_cs, _stopped_for_site("h", summary))
+            return False
         official = highest
         # A gap below the highest stored roll (an earlier failure) is filled too.
         if official:
             stored = await asyncio.to_thread(store.with_session, store.stored_numbers, "h", congress, session)
             gaps = sorted((n for n in range(1, official + 1) if n not in stored), reverse=True)
-            if gaps and not await _fetch_numbers("h", congress, session, gaps, summary, deadline):
-                await _finish_session("h", congress, session, None, now_cs, "stopped for the time budget")
+            stopped = await _fetch_numbers("h", congress, session, gaps, summary, deadline) if gaps else None
+            if stopped:
+                await _finish_session("h", congress, session, None, now_cs, stopped)
                 return False
     await _finish_session("h", congress, session, official, now_cs,
                           None if official is not None else "could not find the latest roll")
@@ -338,6 +462,8 @@ async def sync_senate_session(congress: int, session: int, summary: PassSummary,
                               deadline: Optional[float], now_cs: tuple[int, int]) -> bool:
     from app.services.official_http import fetch
 
+    if "s" in summary.tripped:
+        return False
     state = await asyncio.to_thread(store.with_session, _state_get, "s", congress, session)
     if state["completed"]:
         return True
@@ -353,24 +479,26 @@ async def sync_senate_session(congress: int, session: int, summary: PassSummary,
         if res.status == 404:  # a session with no votes yet
             await _finish_session("s", congress, session, None, now_cs)
             return True
+        _note_site("s", "error", res.status, summary)
         await _finish_session("s", congress, session, None, now_cs, f"vote menu answered {res.status}")
         summary.errors.append(f"senate menu {congress}-{session}: {res.status}")
-        return True
+        return False
     try:
-        numbers = sorted({r["rollcall"] for r in parse_senate_menu(res.text, in_scope_only=False)}, reverse=True)
+        menu = await asyncio.to_thread(parse_senate_menu, res.text, False)
+        numbers = sorted({r["rollcall"] for r in menu}, reverse=True)
     except Exception as exc:
         summary.errors.append(f"senate menu {congress}-{session} unreadable: {type(exc).__name__}")
-        return True
+        return False
+    _note_site("s", "ok", 200, summary)
     missing = [n for n in numbers if n not in stored]
     if missing:
         await _ensure_senate_members()
-    done = await _fetch_numbers("s", congress, session, missing, summary, deadline)
+    stopped = await _fetch_numbers("s", congress, session, missing, summary, deadline)
     await _finish_session(
-        "s", congress, session, len(numbers) if done else None, now_cs,
-        None if done else "stopped for the time budget",
+        "s", congress, session, None if stopped else len(numbers), now_cs, stopped,
         menu_etag=(res.headers.get("etag") or None), menu_last_modified=(res.headers.get("last-modified") or None),
     )
-    return done
+    return stopped is None
 
 
 _SENATE_MEMBERS_LOADED_AT = 0.0
@@ -391,18 +519,28 @@ async def _ensure_senate_members() -> None:
 
 
 async def probe_house_session(congress: int, session: int) -> None:
-    """Store any House roll newer than the highest stored one (used by the
-    /bills House list when Congress.gov is unavailable)."""
+    """Store any House roll newer than the highest stored one, for the
+    current session only (the /bills House list when Congress.gov is
+    unavailable). One request when nothing is new."""
+    if (congress, session) != current_congress_session():
+        return
     stored = await asyncio.to_thread(store.with_session, store.stored_numbers, "h", congress, session)
-    await _probe_up(congress, session, max(stored, default=0) + 1, PassSummary(), time.monotonic() + 120,
+    await _probe_up(congress, session, max(stored, default=0) + 1, PassSummary(), time.monotonic() + 60,
                     batch_size=1, confirm_end=False)
 
 
 async def recheck_unconfirmed(summary: PassSummary) -> None:
+    """The one later re-check of votes stored the day they were cast, and of
+    provisional House votes (Congress.gov), from the chamber's own file
+    only: a provisional vote stays provisional until the Clerk's file can
+    be read."""
     pending = await asyncio.to_thread(store.with_session, store.unconfirmed)
     for chamber, congress, session, number in pending:
+        if chamber in summary.tripped:
+            continue
         fetcher = fetch_house_roll if chamber == "h" else fetch_senate_vote
-        status, parsed = await fetcher(congress, session, number)
+        status, parsed, site_status = await fetcher(congress, session, number, fallback=False)
+        _note_site(chamber, status, site_status, summary)
         if status != "ok":
             continue
         if await asyncio.to_thread(remap_senators, parsed):
@@ -437,17 +575,18 @@ async def run_pass(*, include_backfill: bool = True, budget_seconds: float = BAC
         return {"skipped": "locked"}
     started = time.monotonic()
     summary = PassSummary()
+    failed = False
+    now_cs = current_congress_session()
+    kept = congresses or backfill_congresses()
     try:
         await asyncio.to_thread(_LEGIS._ensure)
-        now_cs = current_congress_session()
-        targets = sessions_newest_first(now_cs, congresses or backfill_congresses())
         deadline = started + budget_seconds
-        for congress, session in targets:
+        for congress, session in sessions_newest_first(now_cs, kept):
             current_congress = congress == now_cs[0]
             if not current_congress:
                 if not include_backfill:
                     break
-                if time.monotonic() > deadline:
+                if time.monotonic() > deadline or len(summary.tripped) == 2:
                     summary.backfill_pending = True
                     break
                 await asyncio.to_thread(_LEGIS.ensure_historical)
@@ -456,32 +595,49 @@ async def run_pass(*, include_backfill: bool = True, budget_seconds: float = BAC
                 sync_house_session(congress, session, summary, limit, now_cs),
                 sync_senate_session(congress, session, summary, limit, now_cs),
             )
-            if not (h_done and s_done):
-                summary.backfill_pending = True
-                break
             if current_congress and session == now_cs[1]:
                 await recheck_unconfirmed(summary)
+            if not (h_done and s_done):
+                summary.backfill_pending = True
+                if not current_congress:
+                    break
         if include_backfill and not summary.backfill_pending:
-            summary.backfill_pending = await asyncio.to_thread(store.with_session, _history_incomplete,
-                                                               now_cs, congresses or backfill_congresses())
+            summary.backfill_pending = await asyncio.to_thread(store.with_session, _history_incomplete, now_cs, kept)
     except Exception as exc:
+        failed = True
         logger.exception("Roll-call sync pass failed")
         summary.errors.append(f"pass failed: {type(exc).__name__}")
     finally:
         await asyncio.to_thread(lock.release)
     result = summary.as_dict()
+    result["failed"] = failed
+    result["history_stalled"] = False
+    history_added = sum(1 for v in summary.added["h"] + summary.added["s"] if int(v.split("-")[1]) < now_cs[0])
+    if include_backfill and (summary.backfill_pending or failed) and not history_added:
+        _NO_PROGRESS["passes"] += 1
+        if _NO_PROGRESS["passes"] >= NO_PROGRESS_LIMIT:
+            result["history_stalled"] = True
+            logger.warning(
+                "Roll-call sync: history has not progressed in %d passes in a row; back to the normal "
+                "schedule until it does (GET /api/admin/roll-calls lists the errors).", _NO_PROGRESS["passes"])
+    else:
+        _NO_PROGRESS["passes"] = 0
     result["seconds"] = round(time.monotonic() - started, 1)
-    result["finished_at"] = datetime.utcnow().isoformat(timespec="seconds") + "Z"
+    result["finished_at"] = store.utcnow().isoformat(timespec="seconds") + "Z"
     LAST_PASS.clear()
     LAST_PASS.update(result)
+    if result["history_stalled"]:
+        history = "history stalled"
+    else:
+        history = "history still filling" if result["backfill_pending"] else "history complete"
     logger.info(
-        "Roll-call sync: added House %d, Senate %d%s; re-checked %d (%d changed); %s; %.0fs%s",
+        "Roll-call sync: added House %d, Senate %d%s; re-checked %d (%d changed); %s; %.0fs%s%s",
         result["added_house"], result["added_senate"],
         (" (" + ", ".join(result["added"][:8]) + ("..." if len(result["added"]) > 8 else "") + ")")
         if result["added"] else "",
-        result["rechecked"], len(result["changed_on_recheck"]),
-        "history still filling" if result["backfill_pending"] else "history complete",
-        result["seconds"],
+        result["rechecked"], len(result["changed_on_recheck"]), history, result["seconds"],
+        ("; left alone: " + ", ".join(f"{host} ({why})" for host, why in result["sites_stopped"].items()))
+        if result["sites_stopped"] else "",
         ("; errors: " + "; ".join(result["errors"][:3])) if result["errors"] else "",
     )
     return result
@@ -504,6 +660,20 @@ def _history_incomplete(db, now_cs: tuple[int, int], congresses: int) -> bool:
 
 
 # ── schedule ───────────────────────────────────────────────────────────
+def seconds_after_pass(result: dict, now: Optional[datetime] = None) -> float:
+    """How long the loop sleeps after a pass. The short backfill pause when
+    history is still filling, and also when the pass was skipped because
+    another instance held the lock or when it failed: either may have left
+    history half done, and sleeping up to 6 hours would stall it. Once
+    history has made no progress for NO_PROGRESS_LIMIT passes in a row
+    (a site refusing us, a vote that can never be stored), the normal
+    schedule instead."""
+    short = bool(result.get("backfill_pending") or result.get("skipped") or result.get("failed"))
+    if result.get("history_stalled"):
+        short = False
+    return seconds_until_next_pass(now, backfill_pending=short)
+
+
 def seconds_until_next_pass(now: Optional[datetime] = None, *, backfill_pending: bool = False) -> float:
     """Hourly 9 a.m. to midnight Eastern on weekdays; otherwise every 6
     hours, never sleeping past 5:15 a.m. or a weekday's 9 a.m. While

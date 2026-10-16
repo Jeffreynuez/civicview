@@ -11,25 +11,37 @@ Offline: every official source is replaced by fixtures or a fake, and the
 legislators crosswalk is filled by hand.
 
   1. Parsers and categories: trimmed real House, Senate and senate.gov
-     member files; the Clerk's "missing roll" answer; categorize_vote.
+     member files; the Clerk's "missing roll" answer; an election of the
+     Speaker; the Congress.gov fallback; categorize_vote; values cut to
+     their column sizes.
   2. Storing: one write per roll call, a second write is a no-op; the
-     one re-check of a vote stored the day it was cast.
+     one re-check of a vote stored the day it was cast (every field
+     compared); a provisional Congress.gov vote replaced by the Clerk's
+     file; Speaker choices; members added with ON CONFLICT DO NOTHING; an
+     integrity error that isn't a stored vote is raised.
   3. Per-member queries: recent, year and month modes, the row shape the
      frontend and the explainer use, available years.
-  4. The party-line figure on a constructed example with a known answer,
-     party at the time of each vote, independents, the minimum.
+  4. The party-line figure on a constructed example with a known answer;
+     party switchers in each direction (R to D, D to R, I to D) counted
+     only in their current party; R to I (the Kevin Kiley case) gets no
+     figure; independents; Speaker elections left out; the minimum.
   5. The sync against fake sources: a first pass stores everything; a
      second pass fetches no stored roll call again; a finished session is
      marked complete and skipped; the House probe without Congress.gov,
-     including a passing Clerk error page; the advisory lock.
-  6. Endpoints: /api/congress/members/{id}/votes and /stats, the stored
-     /api/votes/{id}/members, the explainer using the stored record.
+     including a passing Clerk error page; a failing site left alone
+     after five errors in a row; history that stops progressing goes back
+     to the normal schedule; the re-check of a provisional vote; the
+     advisory lock.
+  6. Endpoints: /api/congress/members/{id}/votes and /stats (503 on a
+     database error), the stored /api/votes/{id}/members, what a request
+     may fetch (window, complete sessions, numbers far ahead), past
+     sessions read from storage only, the explainer using the stored
+     record.
   7. The schedule.
   8. (Only with CIVICVIEW_TEST_POSTGRES_URL set) the real Postgres
      advisory lock between two connections.
 """
 import asyncio
-import json
 import os
 import sys
 from datetime import date, datetime, timedelta
@@ -182,6 +194,38 @@ def main() -> int:
     check("senate amendment category", arec["category"] == "amendment", arec["category"])
     check("'No short title on file' dropped", "short title" not in (arec["question_text"] or ""), arec["question_text"])
 
+    sp = ov.parse_house_roll((FIX / "house_roll_2025_002_speaker.xml").read_text())
+    sprec = store.record_from_parsed(sp)
+    check("speaker election category", sprec["category"] == "leadership", sprec["category"])
+    check("speaker votes stored as choices, not Not Voting",
+          sorted(sprec["positions"]) == [("A000055", "C", "R"), ("A000370", "C", "D"), ("M001184", "C", "R")],
+          str(sprec["positions"]))
+    check("speaker choices as recorded, for every name",
+          sorted(sprec["choices"]) == [("A000055", "Johnson (LA)"), ("A000370", "Jeffries"), ("M001184", "Emmer")],
+          str(sprec["choices"]))
+    check("speaker result kept", sprec["result"] == "Johnson (LA)", sprec["result"])
+    check("member_position: Present stays Present in an election",
+          ov.member_position("Present", True) == ("Present", None) and ov.member_position("Not Voting", True)
+          == ("Not Voting", None) and ov.member_position("Jeffries", False) == ("Not Voting", None))
+    cg = ov.parse_house_vote_members({"houseRollCallVoteMemberVotes": {
+        "congress": 119, "sessionNumber": 1, "rollCallNumber": 2, "voteQuestion": "Election of the Speaker",
+        "startDate": "2025-01-03T14:33:00-05:00", "result": "Johnson (LA)",
+        "results": [{"bioguideID": "A000370", "voteCast": "Jeffries", "voteParty": "D", "voteState": "NC"},
+                    {"bioguideID": "A000055", "voteCast": "Present", "voteParty": "R", "voteState": "AL"}]}})
+    cgrec = store.record_from_parsed(cg)
+    check("Congress.gov fallback: choice kept and marked provisional",
+          cgrec["source"] == "congress.gov" and ("A000370", "Jeffries") in cgrec["choices"]
+          and ("A000055", "P", "R") in cgrec["positions"] and cgrec["present"] == 1, str(cgrec["positions"]))
+    long = store.record_from_parsed({
+        "chamber": "house", "congress": 119, "session": 2, "rollcall": 77, "date": "2026-03-03",
+        "question": "On Passage", "vote_type": "V" * 90, "result": "R" * 300, "legis_num": ("X" * 40) + " " + ("9" * 40),
+        "title": "t", "members": [{"bioguide_id": "A000370", "position": "Yea", "party": "Democrat",
+                                   "state": "North Carolina", "name": "N" * 300}]})
+    check("values cut to their column sizes",
+          (len(long["vote_type"]), len(long["result"]), len(long["doc_type"]), len(long["doc_number"]))
+          == (64, 160, 24, 32) and long["positions"][0][2] == "D" and long["members"][0][2] == "No"
+          and len(long["members"][0][1]) == 160, f"{long['positions']} {long['members'][0][2]}")
+
     check("clerk missing-roll body detected", ov.house_roll_missing((FIX / "clerk_missing_roll.xml").read_text()))
     check("real roll not missing", not ov.house_roll_missing((FIX / "house_roll_2026_314.xml").read_text()))
     check("empty answer is missing", ov.house_roll_missing(""))
@@ -277,6 +321,65 @@ def main() -> int:
     pos = db.query(RollCallPosition).join(RollCall).filter(RollCall.vote_id == "h-119-2-900").one()
     check("re-check replaced the position", pos.position == "N", pos.position)
     check("re-check happens once", store.unconfirmed(db, older_than=timedelta(0)) == [])
+
+    # The re-check compares every stored field, not only the tally.
+    day2 = date.today()
+    first = record("s", 119, 2, 901, day2, "On the Motion", [("B000001", "Yea", "R")], split(1, 0, 0, 0), desc="Old text")
+    store.store_roll_call(db, first, now=datetime.combine(day2, datetime.min.time()) + timedelta(hours=2))
+    second = record("s", 119, 2, 901, day2, "On the Motion", [("B000001", "Yea", "R")], split(1, 0, 0, 0), desc="New text")
+    check("re-check sees a changed description", store.confirm_roll_call(db, second) == "changed")
+    check("description replaced", db.query(RollCall).filter_by(vote_id="s-119-2-901").one().description == "New text")
+
+    # A provisional House vote from Congress.gov (the Clerk's file couldn't
+    # be read) waits for the Clerk's file, even when it is old.
+    prov = dict(record("h", 119, 1, 50, date(2025, 3, 4), "On Agreeing to the Resolution",
+                       [("A000370", "Yea", "D"), ("A000055", "Yea", "R")], split(1, 0, 1, 0), desc=""))
+    prov["description"], prov["source"], prov["category"] = None, "congress.gov", "passage"
+    store.store_roll_call(db, prov, now=datetime(2026, 1, 1))
+    prow = db.query(RollCall).filter_by(vote_id="h-119-1-50").one()
+    check("provisional vote stored unconfirmed", prow.confirmed_at is None and prow.source == "congress.gov")
+    check("provisional vote listed for the re-check", ("h", 119, 1, 50) in store.unconfirmed(db, now=datetime(2026, 1, 2)))
+    clerk = record("h", 119, 1, 50, date(2025, 3, 4), "On Agreeing to the Resolution",
+                   [("A000370", "Yea", "D"), ("A000055", "Yea", "R")], split(1, 0, 1, 0),
+                   desc="Providing for consideration of the bill (H.R. 1)")
+    check("Clerk's file replaces the provisional vote", store.confirm_roll_call(db, clerk) == "changed")
+    db.expire_all()
+    prow = db.query(RollCall).filter_by(vote_id="h-119-1-50").one()
+    check("rule vote now categorized from the Clerk's description",
+          prow.category == "procedural" and prow.source is None and prow.confirmed_at is not None,
+          f"{prow.category} {prow.source} {prow.confirmed_at}")
+
+    # Speaker choices.
+    check("speaker election stored", store.store_roll_call(db, sprec) == "added")
+    from app.models.pages import RollCallChoice
+    check("three choices stored", db.query(RollCallChoice).count() == 3, str(db.query(RollCallChoice).count()))
+    srow = store.member_votes(db, "M001184", limit=1)[0]
+    check("Votes tab: 'Voted for {name}'", srow["position"] == "Voted for Emmer" and srow["choice"] == "Emmer", str(srow))
+    adams_el = [r for r in store.member_votes(db, "A000370", year=2025) if r["vote_id"] == "h-119-1-2"]
+    check("same wording for every name", [r["position"] for r in adams_el] == ["Voted for Jeffries"], str(adams_el))
+    sdet = store.vote_detail(db, "h-119-1-2")
+    check("seat-chart detail carries the choice",
+          {m["bioguide_id"]: m["position"] for m in sdet["members"]}["A000055"] == "Voted for Johnson (LA)", str(sdet["members"]))
+
+    # Members: a member already known is not inserted twice (ON CONFLICT
+    # DO NOTHING), whoever else wrote the row first.
+    from app.services.roll_call_store import _insert_ignore
+    _insert_ignore(db, RollCallMember.__table__, [{"bioguide_id": "A000370", "name": "X", "state": "NC"}], ["bioguide_id"])
+    db.commit()
+    check("insert of a known member ignored", db.get(RollCallMember, "A000370").name == "Alma S. Adams")
+
+    # An integrity error that isn't "this vote is already stored" is raised.
+    from sqlalchemy.exc import IntegrityError
+    broken = dict(record("h", 119, 2, 950, date(2026, 3, 9), "On Passage", [("A000370", "Yea", "D")], split(0, 0, 1, 0)))
+    broken["positions"] = [("A000370", "Y", "D"), ("A000370", "N", "D")]
+    try:
+        store.store_roll_call(db, broken)
+        raised = False
+    except IntegrityError:
+        raised = True
+    check("other integrity errors raised, not reported as 'exists'",
+          raised and db.query(RollCall).filter_by(vote_id="h-119-2-950").count() == 0)
+    db.query(RollCallChoice).delete()
     db.query(RollCallPosition).delete()
     db.query(RollCall).delete()
     db.commit()
@@ -306,10 +409,41 @@ def main() -> int:
     # counted) and a party-split one from the 118th.
     add(date(2025, 6, 1), "On Agreeing to the Amendment", [(R1, "Nay", "R")], split(10, 200, 9, 200))
     votes.append(record("h", 118, 2, 1, date(2024, 5, 1), "On Passage", [(R1, "Yea", "R")], split(200, 1, 1, 200)))
-    # R2 switched parties: Democrat on the first four votes, Republican after.
-    for i in range(12):
+    # Party switchers. Every vote here is party-split: most Republicans Yea,
+    # most Democrats Nay.
+    # R2, D to R: a Democrat on four votes (with the Democrats), then a
+    # Republican on ten, with the Republicans on nine of them.
+    for i in range(14):
+        as_dem = i < 4
         add(date(2026, 5, 1) + timedelta(days=i), "On Passage",
-            [(R2, "Nay" if i < 4 else "Yea", "D" if i < 4 else "R")], split(200, 10, 5, 205))
+            [(R2, "Nay" if as_dem or i == 13 else "Yea", "D" if as_dem else "R")], split(200, 10, 5, 205))
+    # DR, R to D: a Republican on five votes (with the Republicans), then a
+    # Democrat on eleven, with the Democrats on nine of them.
+    DR, KI, ID = "D000002", "K000401", "I000002"
+    for i in range(16):
+        as_rep = i < 5
+        pos = "Yea" if as_rep or i in (14, 15) else "Nay"
+        add(date(2026, 6, 1) + timedelta(days=i), "On Passage", [(DR, pos, "R" if as_rep else "D")],
+            split(200, 10, 5, 205))
+    # KI, R to I (Kevin Kiley's record): "R" on twelve 2025 roll calls,
+    # "I" on three in September 2026.
+    for i in range(12):
+        add(date(2025, 5, 1) + timedelta(days=i), "On Passage", [(KI, "Yea", "R")], split(200, 10, 5, 205))
+    for i in range(3):
+        add(date(2026, 9, 1) + timedelta(days=i), "On Passage", [(KI, "Yea", "I")], split(200, 10, 5, 205))
+    # ID, I to D: an independent on three votes, then a Democrat on ten,
+    # with the Democrats on all ten.
+    for i in range(13):
+        add(date(2026, 7, 1) + timedelta(days=i), "On Passage",
+            [(ID, "Yea" if i < 3 else "Nay", "I" if i < 3 else "D")], split(200, 10, 5, 205))
+    # SP: ten party-split votes with the Republicans, and an election of
+    # the Speaker (a choice, never Yea or Nay) that must not count.
+    SP = "S000002"
+    for i in range(10):
+        add(date(2026, 8, 1) + timedelta(days=i), "On Passage", [(SP, "Yea", "R")], split(200, 10, 5, 205))
+    el = record("h", 119, 2, 999, date(2026, 8, 20), "Election of the Speaker",
+                [(SP, "Nay", "R")], split(200, 10, 5, 205), vtype="ELECTION")
+    votes.append(el)
     for v in votes:
         store.store_roll_call(db, v)
 
@@ -337,7 +471,19 @@ def main() -> int:
     # D1 is also on the vote R1 missed (party-split, D1 with the Democrats).
     check("Democrat: same method, 100% of 11", (pl_d["pct"], pl_d["analyzed"]) == (100, 11), str(pl_d))
     pl_s = store.party_line(db, R2, 119)
-    check("party at the time of each vote (switcher: 12 of 12)", (pl_s["pct"], pl_s["analyzed"]) == (100, 12), str(pl_s))
+    check("switcher D to R: only the 10 votes as a Republican, 9 of 10 = 90%",
+          (pl_s["pct"], pl_s["analyzed"], pl_s["party"]) == (90, 10, "R"), str(pl_s))
+    pl_dr = store.party_line(db, DR, 119)
+    check("switcher R to D: only the 11 votes as a Democrat, 9 of 11 = 82%",
+          (pl_dr["pct"], pl_dr["analyzed"], pl_dr["party"]) == (82, 11, "D"), str(pl_dr))
+    pl_k = store.party_line(db, KI, 119)
+    check("switcher R to I (Kiley): no figure", pl_k["pct"] is None and pl_k["reason"] == "independent"
+          and pl_k["party"] == "I", str(pl_k))
+    pl_id = store.party_line(db, ID, 119)
+    check("switcher I to D: only the 10 votes as a Democrat, 100%",
+          (pl_id["pct"], pl_id["analyzed"]) == (100, 10), str(pl_id))
+    pl_sp = store.party_line(db, SP, 119)
+    check("election of the Speaker left out", (pl_sp["pct"], pl_sp["analyzed"]) == (100, 10), str(pl_sp))
     check("independent: no figure", store.party_line(db, I1, 119)["reason"] == "independent")
     check("no votes", store.party_line(db, "Z999999", 119)["reason"] == "no_votes")
     db.query(RollCallPosition).filter(RollCallPosition.bioguide_id == R1,
@@ -366,6 +512,19 @@ def main() -> int:
           and st.get("party_line_method") == "party_split" and st.get("party_line_congress") == 119, str(st))
     st_i = client.get(f"/api/congress/members/{I1}/stats").json()
     check("stats endpoint independent", st_i.get("party_line_reason") == "independent", str(st_i))
+    st_k = client.get(f"/api/congress/members/{KI}/stats").json()
+    check("stats endpoint: Kiley case, no figure, current party I",
+          st_k.get("party_line_pct") is None and st_k.get("party_line_reason") == "independent"
+          and st_k.get("party_line_party") == "I", str(st_k))
+    real_pl = store.party_line
+
+    def broken_pl(*a, **k):
+        raise RuntimeError("database down")
+
+    store.party_line = broken_pl
+    st_err = client.get(f"/api/congress/members/{D1}/stats")
+    store.party_line = real_pl
+    check("database error: 503, not 'not enough votes'", st_err.status_code == 503, str(st_err.status_code))
 
     store.store_roll_call(db, rec)  # the real House roll 314
     det = client.get("/api/votes/h-119-2-314/members").json()
@@ -381,6 +540,58 @@ def main() -> int:
     p1 = _canonical(VoteExplainRequest(**payload), db).model_dump()
     p2 = _canonical(VoteExplainRequest(vote_id="h-119-2-314", question="On Passage", position="Nay"), db).model_dump()
     check("profile and /bills payloads share one cache key", source_hash(p1) == source_hash(p2))
+    # What a request may fetch from the official sites.
+    import app.services.official_http as http
+    from app.models.pages import RollCallSyncState
+    from app.services.official_votes_service import get_service
+    real_http_fetch, real_congress_api = http.fetch, http.congress_api
+    net = []
+
+    async def no_net(url, *a, **k):
+        net.append(url)
+        return http.FetchResult(500)
+
+    async def no_api(url, *a, **k):
+        net.append(url)
+        return None
+
+    http.fetch, http.congress_api = no_net, no_api
+    svc = get_service()
+    svc._detail.clear()
+    svc._missed.clear()
+    client.get("/api/votes/h-119-2-314/members")
+    check("stored vote not kept in the in-memory cache", "h-119-2-314" not in svc._detail, str(list(svc._detail)))
+    r_out = client.get("/api/votes/h-100-1-5/members")
+    check("vote outside the stored window: 404, nothing fetched", r_out.status_code == 404 and net == [],
+          f"{r_out.status_code} {net}")
+    db.add(RollCallSyncState(chamber="h", congress=118, session=2, official_count=5, stored_count=5,
+                             completed_at=datetime(2026, 1, 1)))
+    db.commit()
+    r_done = client.get("/api/votes/h-118-2-7/members")
+    check("unstored vote of a complete session: 404, nothing fetched", r_done.status_code == 404 and net == [],
+          f"{r_done.status_code} {net}")
+    r_far = client.get("/api/votes/h-119-2-5000/members")
+    check("vote number far beyond the highest stored: 404, nothing fetched", r_far.status_code == 404 and net == [],
+          f"{r_far.status_code} {net}")
+    r_try = client.get("/api/votes/h-119-2-320/members")
+    tried = len(net)
+    client.get("/api/votes/h-119-2-320/members")
+    check("a vote the site couldn't give is fetched once, then not again for a while",
+          r_try.status_code == 502 and tried >= 1 and len(net) == tried, f"{r_try.status_code} {tried} {len(net)}")
+    net.clear()
+    check("recent: congress outside the window is 404", client.get(
+        "/api/votes/recent", params={"chamber": "house", "congress": 100, "session": 1}).status_code == 404)
+    check("recent: session 3 refused", client.get(
+        "/api/votes/recent", params={"chamber": "senate", "congress": 119, "session": 3}).status_code == 422)
+    past = client.get("/api/votes/recent", params={"chamber": "house", "congress": 119, "session": 1, "limit": 5})
+    check("recent: a past session read from storage only", past.status_code == 200 and net == [],
+          f"{past.status_code} {net}")
+    past_s = client.get("/api/votes/recent", params={"chamber": "senate", "congress": 118, "session": 2})
+    check("recent: past Senate session, no request either", past_s.status_code == 200 and net == [], str(net))
+    http.fetch, http.congress_api = real_http_fetch, real_congress_api
+    db.query(RollCallSyncState).delete()
+    db.commit()
+
     other = client.post("/api/votes/explain", json={"vote_id": "h-999-1-1", "question": "On Passage",
                                                     "category": "passage", "result": "Passed"}).json()
     check("unstored vote_id falls back to the request", other.get("category") == "passage", str(other.get("category")))
@@ -407,6 +618,26 @@ def main() -> int:
     check("Monday 2am: until 5:15", nxt(datetime(2026, 10, 19, 2, 0, tzinfo=et)) == 3.25 * 3600)
     check("Monday 7am: until 9am", nxt(datetime(2026, 10, 19, 7, 0, tzinfo=et)) == 2 * 3600)
     check("history filling: 5 minutes", nxt(datetime(2026, 10, 17, 12, 0, tzinfo=et), backfill_pending=True) == 300)
+    from app.services.roll_call_sync import seconds_after_pass as after
+    sat = datetime(2026, 10, 17, 12, 0, tzinfo=et)
+    check("pass skipped for the lock: short pause", after({"skipped": "locked"}, sat) == 300)
+    check("pass that failed: short pause", after({"failed": True}, sat) == 300)
+    check("history stalled: normal schedule", after({"backfill_pending": True, "history_stalled": True}, sat) == 6 * 3600)
+    from app.services import roll_call_sync as rcs_mod
+    os.environ.pop("ROLL_CALL_BACKFILL_CONGRESSES", None)
+    check("stored window: ten years", rcs_mod.stored_window((119, 2)) == (115, 119))
+    check("in window", rcs_mod.in_window(115, 1, (119, 2)) and not rcs_mod.in_window(114, 2, (119, 2))
+          and not rcs_mod.in_window(119, 3, (119, 2)) and not rcs_mod.in_window(120, 1, (119, 2)))
+    for env_val, want in (("", False), ("true", True), ("false", False)):
+        os.environ["ROLL_CALL_SYNC_ENABLED"] = env_val
+        check(f"sync enabled with ROLL_CALL_SYNC_ENABLED={env_val!r} outside production",
+              rcs_mod.sync_enabled() is want)
+    os.environ["RENDER"] = "true"
+    os.environ["ROLL_CALL_SYNC_ENABLED"] = ""
+    check("sync on by default in production", rcs_mod.sync_enabled() is True)
+    os.environ["ROLL_CALL_SYNC_ENABLED"] = "false"
+    check("production can turn it off", rcs_mod.sync_enabled() is False)
+    os.environ.pop("RENDER", None)
 
     # ── 8. the real Postgres advisory lock (optional) ──────────────────
     pg = os.getenv("CIVICVIEW_TEST_POSTGRES_URL")
@@ -421,6 +652,77 @@ def main() -> int:
         l1.release()
         check("pg: free again after release", l2.try_acquire())
         l2.release()
+
+        # Writing on Postgres, in a throwaway schema so no table outside it
+        # is touched, whatever database the URL names.
+        import threading
+        from sqlalchemy import text
+        from sqlalchemy.exc import IntegrityError as PgIntegrityError
+        from sqlalchemy.orm import sessionmaker
+        from app.models.pages import RollCallChoice, RollCallSyncState
+        schema = "civicview_roll_call_test"
+        with e1.begin() as conn:
+            conn.execute(text(f"DROP SCHEMA IF EXISTS {schema} CASCADE"))
+            conn.execute(text(f"CREATE SCHEMA {schema}"))
+        e3 = create_engine(pg, connect_args={"options": f"-csearch_path={schema}"})
+        tables = [t.__table__ for t in (RollCall, RollCallPosition, RollCallChoice, RollCallMember, RollCallSyncState)]
+        for t in tables:
+            t.create(e3)
+        PgSession = sessionmaker(bind=e3)
+        pdb = PgSession()
+        check("pg: speaker election stored with its choices", store.store_roll_call(pdb, sprec) == "added"
+              and pdb.query(RollCallChoice).count() == 3)
+        check("pg: second store is a no-op", store.store_roll_call(pdb, sprec) == "exists")
+        check("pg: 'Voted for {name}'", store.member_votes(pdb, "M001184")[0]["position"] == "Voted for Emmer")
+
+        def race(recs):
+            outcomes, gate = [], threading.Barrier(len(recs))
+
+            def writer(r):
+                sess = PgSession()
+                gate.wait()
+                try:
+                    outcomes.append(store.store_roll_call(sess, r))
+                except Exception as exc:
+                    outcomes.append(type(exc).__name__)
+                finally:
+                    sess.close()
+
+            threads = [threading.Thread(target=writer, args=(r,)) for r in recs]
+            for t in threads:
+                t.start()
+            for t in threads:
+                t.join()
+            return sorted(outcomes)
+
+        same = record("h", 119, 2, 77, date(2026, 3, 3), "On Passage",
+                      [("N000001", "Yea", "D"), ("N000002", "Nay", "R")], split(0, 1, 1, 0))
+        got = race([same, dict(same)])
+        check("pg: two writers, same vote: one adds, one finds it stored", got == ["added", "exists"], str(got))
+        a = record("h", 119, 2, 78, date(2026, 3, 4), "On Passage", [("N000003", "Yea", "D")], split(0, 0, 1, 0))
+        b = record("s", 119, 2, 78, date(2026, 3, 4), "On Passage", [("N000003", "Yea", "D")], split(0, 0, 1, 0))
+        got = race([a, b])
+        check("pg: two votes sharing a new member, stored at once: both added", got == ["added", "added"], str(got))
+        check("pg: the member exists once", pdb.query(RollCallMember).filter_by(bioguide_id="N000003").count() == 1)
+        broken = dict(record("h", 119, 2, 79, date(2026, 3, 5), "On Passage", [("N000004", "Yea", "D")], split(0, 0, 1, 0)))
+        broken["positions"] = [("N000004", "Y", "D"), ("N000004", "N", "D")]
+        try:
+            store.store_roll_call(pdb, broken)
+            raised = False
+        except PgIntegrityError:
+            raised = True
+        check("pg: other integrity errors raised", raised and pdb.query(RollCall).filter_by(vote_id="h-119-2-79").count() == 0)
+        pdb.rollback()
+        for i in range(12):
+            store.store_roll_call(pdb, record("h", 119, 1, 100 + i, date(2025, 5, 1) + timedelta(days=i), "On Passage",
+                                              [("K000401", "Yea", "R")], split(200, 10, 5, 205)))
+        store.store_roll_call(pdb, record("h", 119, 2, 200, date(2026, 9, 2), "On Passage",
+                                          [("K000401", "Yea", "I")], split(200, 10, 5, 205)))
+        check("pg: Kiley case, no figure", store.party_line(pdb, "K000401", 119)["reason"] == "independent")
+        pdb.close()
+        e3.dispose()
+        with e1.begin() as conn:
+            conn.execute(text(f"DROP SCHEMA {schema} CASCADE"))
     else:
         print("8. Postgres advisory lock: skipped (set CIVICVIEW_TEST_POSTGRES_URL to run it)")
 
@@ -531,6 +833,78 @@ async def _sync_checks(db):
           f"{highest} {finished}")
     stored = store.stored_numbers(db, "h", 119, 2)
     check("probe stored every roll", stored == set(range(1, 9)), str(sorted(stored)))
+
+    # A site that keeps failing is left alone after five errors in a row.
+    os.environ["CONGRESS_API_KEY"] = "test-key"
+    counts[(119, 2)] = 20  # rolls 9..20 unstored; the Clerk refuses them
+    clerk_calls = []
+    real_fake = http.fetch
+
+    async def refusing(url, **kw):
+        if "clerk.house.gov/evs/2026/" in url and int(url.rsplit("roll", 1)[1].split(".")[0]) >= 9:
+            clerk_calls.append(url)
+            return FetchResult(403)
+        return await real_fake(url, **kw)
+
+    http.fetch = refusing
+    r4 = await rcs.run_pass()
+    check("failing site left alone after five errors in a row",
+          "clerk.house.gov" in r4["sites_stopped"] and len(clerk_calls) <= rcs.FETCH_BATCH, f"{len(clerk_calls)} {r4['sites_stopped']}")
+    check("the Senate kept going", r4["added_senate"] == 0 and "senate.gov" not in r4["sites_stopped"], str(r4))
+    h_state = db.query(RollCallSyncState).filter_by(chamber="h", congress=119, session=2).one()
+    db.refresh(h_state)
+    check("the stop is recorded for the admin view", "clerk.house.gov" in (h_state.last_error or ""), str(h_state.last_error))
+    http.fetch = real_fake
+    counts[(119, 2)] = 3
+
+    # History that stops progressing goes back to the normal schedule.
+    real_incomplete = rcs._history_incomplete
+    rcs._history_incomplete = lambda db_, now_cs, kept: True
+    rcs._NO_PROGRESS["passes"] = 0
+    stalls = [(await rcs.run_pass())["history_stalled"] for _ in range(rcs.NO_PROGRESS_LIMIT)]
+    check("three passes without progress: stalled on the third", stalls == [False, False, True], str(stalls))
+    rcs._history_incomplete = real_incomplete
+    r5 = await rcs.run_pass()
+    check("progress (here: history complete) clears the stall", not r5["history_stalled"]
+          and rcs._NO_PROGRESS["passes"] == 0, str(r5))
+
+    # A provisional vote (Congress.gov) is re-checked from the Clerk only.
+    prov = store.record_from_parsed({
+        "chamber": "house", "congress": 119, "session": 2, "rollcall": 3, "date": "2026-02-01",
+        "question": "On Passage", "vote_type": "YEA-AND-NAY", "result": "Passed", "legis_num": "H R 3",
+        "source": "congress.gov",
+        "members": [{"bioguide_id": "A000370", "position": "Yea", "party": "D"},
+                    {"bioguide_id": "A000055", "position": "Nay", "party": "R"}],
+        "by_party": {"D": {"yea": 1, "nay": 0, "present": 0, "not_voting": 0},
+                     "R": {"yea": 0, "nay": 1, "present": 0, "not_voting": 0}}})
+    db.query(RollCall).filter_by(vote_id="h-119-2-3").delete()
+    db.commit()
+    store.store_roll_call(db, prov, now=datetime(2026, 2, 1))
+    calls.clear()
+
+    async def clerk_down(url, **kw):
+        calls.append(url)
+        return FetchResult(503)
+
+    http.fetch = clerk_down
+    summary = rcs.PassSummary()
+    await rcs.recheck_unconfirmed(summary)
+    check("Clerk still down: no Congress.gov stand-in on the re-check",
+          not any("house-vote" in u for u in calls), str(calls))
+    db.expire_all()
+    check("still provisional", db.query(RollCall).filter_by(vote_id="h-119-2-3").one().source == "congress.gov")
+    http.fetch = real_fake
+    summary = rcs.PassSummary()
+    await rcs.recheck_unconfirmed(summary)
+    db.expire_all()
+    fixed = db.query(RollCall).filter_by(vote_id="h-119-2-3").one()
+    check("Clerk back: provisional vote replaced and confirmed",
+          fixed.source is None and fixed.confirmed_at is not None and fixed.description == "Bill 3",
+          f"{fixed.source} {fixed.confirmed_at} {fixed.description}")
+
+    calls.clear()
+    await rcs.probe_house_session(119, 1)
+    check("probe of a past session sends nothing", calls == [], str(calls))
 
     # The advisory lock: a pass while another holder has it does nothing.
     holder = AdvisoryLock(rcs.LOCK_NAME)

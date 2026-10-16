@@ -319,7 +319,8 @@ async def lifespan(app: FastAPI):
     # path; hourly on weekday daytimes, every 6 hours otherwise, every
     # few minutes while history is still filling. A database advisory
     # lock keeps an old and a new instance from both running it during a
-    # deploy. On by default; ROLL_CALL_SYNC_ENABLED=false turns it off.
+    # deploy. On by default in production only (off in tests and local
+    # runs); ROLL_CALL_SYNC_ENABLED=true or false overrides that.
     # See app/services/roll_call_sync.py and GET /api/admin/roll-calls.
     roll_call_task = None
     if db_ready:
@@ -331,22 +332,29 @@ async def lifespan(app: FastAPI):
             async def _roll_call_loop():
                 await _rc_asyncio.sleep(_rcs.FIRST_PASS_DELAY_SECONDS)
                 while True:
-                    pending = False
                     try:
                         result = await _rcs.run_pass()
-                        pending = bool(result.get("backfill_pending"))
                     except Exception:
-                        logger.exception("Roll-call sync loop failed; retrying at the next interval.")
-                    await _rc_asyncio.sleep(_rcs.seconds_until_next_pass(backfill_pending=pending))
+                        logger.exception("Roll-call sync pass raised; trying again after the short pause.")
+                        result = {"failed": True}
+                    await _rc_asyncio.sleep(_rcs.seconds_after_pass(result))
 
             roll_call_task = _rc_asyncio.get_event_loop().create_task(_roll_call_loop())
             logger.info("Roll-call sync ENABLED (first pass in %ss).", _rcs.FIRST_PASS_DELAY_SECONDS)
         else:
-            logger.info("Roll-call sync disabled (%s=false).", _rcs.ENV_FLAG)
+            logger.info("Roll-call sync off (on by default in production; set %s=true to run it here).",
+                        _rcs.ENV_FLAG)
 
     yield
     if roll_call_task is not None:
         roll_call_task.cancel()
+    try:
+        # The long-lived client for the official vote sites (also used by
+        # request-time fetches, so closed whether or not the sync ran).
+        from app.services import official_http as _oh
+        await _oh.aclose()
+    except Exception:
+        logger.debug("official_http client close failed", exc_info=True)
     if retention_task is not None:
         retention_task.cancel()
     if digest_task is not None:

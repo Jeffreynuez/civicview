@@ -1086,6 +1086,7 @@ class CongressService:
                 "party_line_congress": int,      # the Congress it covers
                 "party_line_method": "party_split",
                 "party_line_reason": None | "independent" | "not_enough" | "no_votes",
+                "party_line_party": "R" | "D" | "I" | None,  # on their latest vote
                 "top_issues": [{"name": str, "count": int}, ...],   # up to 5
             }
 
@@ -1106,6 +1107,10 @@ class CongressService:
             "party_line_congress": party_stat.get("congress"),
             "party_line_method": "party_split",
             "party_line_reason": party_stat.get("reason"),
+            # The party on the member's most recent stored vote, which the
+            # figure is measured against (a party switcher counts only the
+            # votes cast in it).
+            "party_line_party": party_stat.get("party"),
             "top_issues": top_issues,
         }
 
@@ -1540,16 +1545,14 @@ class CongressService:
     async def _compute_party_line(self, bioguide_id: str, party: Optional[str] = None) -> dict:
         """The party-line figure for the current Congress from the stored
         roll calls; see roll_call_store.party_line for the method (the
-        same for every member). {pct, analyzed, congress, reason}."""
+        same for every member). {pct, analyzed, congress, party, reason}."""
         from app.services import roll_call_store as store
         from app.services.congress_calendar import current_congress_session
 
         congress = current_congress_session()[0]
-        try:
-            return await asyncio.to_thread(store.with_session, store.party_line, bioguide_id, congress)
-        except Exception:
-            logger.exception("party-line figure unavailable for %s", bioguide_id)
-            return {"pct": None, "analyzed": 0, "congress": congress, "reason": "no_votes"}
+        # A database error is raised (the route answers 503), never shown
+        # as "Not enough recent roll-call votes to compute".
+        return await asyncio.to_thread(store.with_session, store.party_line, bioguide_id, congress)
 
     async def _fetch_members_from_api(self, state_code: str) -> Optional[list]:
         """Fetch members from the Congress.gov API."""

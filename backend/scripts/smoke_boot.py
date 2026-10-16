@@ -127,6 +127,9 @@ def main() -> int:
         "RENDER": "true",
         "SESSION_SECRET": env.get("SESSION_SECRET") or secrets.token_urlsafe(48),
         "CIVICVIEW_SKIP_LEGISLATORS_FETCH": "1",
+        # Production mode turns the roll-call sync on; a smoke boot must
+        # never start fetching from the House Clerk or the Senate.
+        "ROLL_CALL_SYNC_ENABLED": "false",
         "PYTHONUNBUFFERED": "1",
     })
     env.pop("CIVICVIEW_ENV", None)

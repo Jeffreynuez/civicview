@@ -278,16 +278,22 @@ async def recent_votes(
     chamber: str = Query(..., pattern="^(house|senate)$"),
     limit: int = Query(20, ge=1, le=100),
     congress: Optional[int] = Query(None, ge=1, le=300),
-    session: Optional[int] = Query(None, ge=1, le=3),
+    session: Optional[int] = Query(None, ge=1, le=2),
 ) -> RecentVotesResponse:
     """Most recent in-scope (passage + nomination) roll-call votes for a
-    chamber, newest first. Senate comes from the official vote_menu; House is
-    enumerated via Congress.gov's house-vote list (per-member truth comes
-    from the official Clerk XML on /{vote_id}/members)."""
+    chamber, newest first. The current session: Senate from the official
+    vote_menu, House from Congress.gov's house-vote list (or a Clerk probe).
+    A past session inside the stored window: stored votes only, so a
+    request can never make CivicView crawl the official sites. Anything
+    outside the window: 404."""
+    from app.services.roll_call_sync import in_window
+
     if congress is None or session is None:
         cur_congress, cur_session = current_congress_session()
         congress = cur_congress if congress is None else congress
         session = cur_session if session is None else session
+    if not in_window(congress, session):
+        raise HTTPException(status_code=404, detail="No votes on record for that session.")
     rows = await get_service().get_recent(chamber, congress, session, limit)
     return RecentVotesResponse(
         chamber=chamber, congress=congress, session=session, votes=rows
@@ -296,16 +302,21 @@ async def recent_votes(
 
 @router.get("/{vote_id}/members", response_model=VoteMembersResponse)
 async def vote_members(vote_id: str) -> VoteMembersResponse:
-    """Every member's position on a single roll-call — the seat-chart
+    """Every member's position on a single roll-call: the seat-chart
     backbone. Read from the stored roll call when there is one, otherwise
-    fetched once and stored. House: legislator name-id = bioguide (direct).
+    fetched once and stored, but only inside the stored window and for a
+    session not yet found complete; otherwise 404 without any request to
+    the official site. House: legislator name-id = bioguide (direct).
     Senate: lis_member_id -> bioguide via the legislators crosswalk."""
     try:
         parse_vote_id(vote_id)
     except ValueError:
         raise HTTPException(status_code=400, detail="Malformed vote_id.")
-    data = await get_service().get_vote_members(vote_id)
+    svc = get_service()
+    data = await svc.get_vote_members(vote_id)
     if data is None:
+        if not await svc.fetch_allowed(vote_id):
+            raise HTTPException(status_code=404, detail="No such roll call on record.")
         raise HTTPException(status_code=502, detail="Couldn't load this vote.")
     return VoteMembersResponse(**data)
 

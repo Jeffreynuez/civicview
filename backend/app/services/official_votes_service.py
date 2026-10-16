@@ -46,6 +46,7 @@ import json
 import logging
 import threading
 import time
+from collections import OrderedDict
 from pathlib import Path
 from typing import Optional
 # defusedxml guards against XML bombs / external-entity attacks in the
@@ -86,6 +87,7 @@ HOUSE_VOTE_LIST_URL = CONGRESS_API_BASE + "/house-vote/{congress}/{session}"
 HOUSE_VOTE_MEMBERS_URL = CONGRESS_API_BASE + "/house-vote/{congress}/{session}/{num}/members"
 
 RECENT_TTL = 600  # 10 minutes — new votes land during a session
+RECENT_EMPTY_TTL = 60  # an empty list: a quiet session, or a passing failure
 
 # --- normalization ----------------------------------------------------------
 _YEA = {"yea", "aye", "yes", "guilty"}
@@ -106,6 +108,23 @@ def normalize_position(raw: Optional[str]) -> str:
     if k in _PRESENT:
         return "Present"
     return "Not Voting"  # "Not Voting", "Absent", anything else
+
+
+def is_election(question: Optional[str]) -> bool:
+    """True for an election of the Speaker, where each member's vote is a
+    name ("Jeffries", "Johnson (LA)"), not Yea or Nay."""
+    return " ".join((question or "").lower().split()).startswith("election of")
+
+
+def member_position(raw: Optional[str], election: bool) -> tuple[str, Optional[str]]:
+    """(position, choice). In an election of the Speaker a vote for a person
+    is ("Choice", the name as recorded), the same for every name; Present
+    and Not Voting stay as they are. Otherwise (normalize_position, None)."""
+    position = normalize_position(raw)
+    text = " ".join((raw or "").split())
+    if election and position == "Not Voting" and text and text.lower() not in ("not voting", "absent"):
+        return "Choice", text[:80]
+    return position, None
 
 
 def party_letter(raw: Optional[str]) -> Optional[str]:
@@ -315,7 +334,7 @@ class _Legislators:
             if data:
                 self._index(data, overwrite=True)
             else:
-                logger.error("legislators dataset unavailable — Senate id mapping degraded")
+                logger.error("legislators dataset unavailable; Senate id mapping degraded")
             self._loaded = True
 
     def ensure_historical(self) -> None:
@@ -413,6 +432,15 @@ def parse_house_roll(xml_text: str) -> dict:
             "not_voting": int(totals_el.findtext("not-voting-total") or 0),
         }
 
+    election = is_election(mt("vote-question"))
+    if election:
+        # An election has <totals-by-candidate> instead: keep its Present
+        # and Not Voting counts (a vote for a person is neither Yea nor Nay).
+        for tc in meta.findall("vote-totals/totals-by-candidate"):
+            cand = (tc.findtext("candidate") or "").strip().lower()
+            if cand in ("present", "not voting"):
+                totals["present" if cand == "present" else "not_voting"] = int(tc.findtext("candidate-total") or 0)
+
     by_party: dict[str, dict] = {}
     for tp in meta.findall("vote-totals/totals-by-party"):
         letter = party_letter(tp.findtext("party"))
@@ -431,15 +459,17 @@ def parse_house_roll(xml_text: str) -> dict:
         if leg is None:
             continue
         bio = leg.get("name-id")
-        members.append(
-            {
-                "bioguide_id": bio,
-                "name": _enrich_name(bio, leg.text),
-                "state": leg.get("state"),
-                "party": party_letter(leg.get("party")),
-                "position": normalize_position(rv.findtext("vote")),
-            }
-        )
+        position, choice = member_position(rv.findtext("vote"), election)
+        row = {
+            "bioguide_id": bio,
+            "name": _enrich_name(bio, leg.text),
+            "state": leg.get("state"),
+            "party": party_letter(leg.get("party")),
+            "position": position,
+        }
+        if choice:
+            row["choice"] = choice
+        members.append(row)
 
     rollnum = int(mt("rollcall-num") or 0)
     congress = int(mt("congress") or 0)
@@ -738,20 +768,24 @@ def parse_house_vote_members(payload: dict) -> Optional[dict]:
     members = []
     by_party: dict[str, dict] = {}
     totals = {"yea": 0, "nay": 0, "present": 0, "not_voting": 0}
+    election = is_election(root.get("voteQuestion"))
     for m in items:
         bio = m.get("bioguideId") or m.get("bioguideID")
         letter = party_letter(m.get("voteParty"))
-        position = normalize_position(m.get("voteCast"))
+        position, choice = member_position(m.get("voteCast"), election)
         full = " ".join(p for p in (m.get("firstName"), m.get("lastName")) if p)
-        members.append(
-            {
-                "bioguide_id": bio,
-                "name": _enrich_name(bio, full or None),
-                "state": m.get("voteState"),
-                "party": letter,
-                "position": position,
-            }
-        )
+        row = {
+            "bioguide_id": bio,
+            "name": _enrich_name(bio, full or None),
+            "state": m.get("voteState"),
+            "party": letter,
+            "position": position,
+        }
+        if choice:
+            row["choice"] = choice
+        members.append(row)
+        if position == "Choice":
+            continue  # a vote for a person is neither Yea nor Nay
         key = {"Yea": "yea", "Nay": "nay", "Present": "present"}.get(position, "not_voting")
         totals[key] += 1
         if letter:
@@ -773,18 +807,34 @@ def parse_house_vote_members(payload: dict) -> Optional[dict]:
         "totals": totals,
         "by_party": by_party,
         "members": members,
+        # No Clerk description or Speaker choices here: stored as
+        # provisional and fetched again from the Clerk later.
+        "source": "congress.gov",
     }
 
 
 # --- async service (network) ------------------------------------------------
 class OfficialVotesService:
     """Fetch + cache wrapper around the pure parsers. A vote's detail comes
-    from the database when stored (roll_call_store); otherwise it is
-    fetched once, stored, and kept in memory. Recent lists are cached
-    with a short TTL."""
+    from the database when stored (roll_call_store, a few milliseconds);
+    otherwise it is fetched once, stored, and kept in a small in-memory
+    cache. Recent lists are cached with a short TTL.
+
+    What a public request may fetch from the official sites is limited
+    (review of 2026-10-16), so nobody can make CivicView crawl them: the
+    recent list of a past session is read from stored votes only, and an
+    unstored vote is fetched only inside the stored window, for a
+    session not yet found complete, and not far above the highest stored
+    number (roll_call_sync.may_fetch); a vote the site couldn't give is
+    not asked for again for MISS_TTL seconds."""
+
+    DETAIL_CACHE_MAX = 128
+    MISS_TTL = 600
+    MISS_MAX = 1024
 
     def __init__(self) -> None:
-        self._detail: dict[str, dict] = {}
+        self._detail: "OrderedDict[str, dict]" = OrderedDict()
+        self._missed: "OrderedDict[str, float]" = OrderedDict()
         self._recent: dict[str, tuple[float, list]] = {}
 
     async def _get(self, url: str) -> Optional[str]:
@@ -793,19 +843,46 @@ class OfficialVotesService:
         res = await fetch(url)
         return res.text if res.ok else None
 
+    async def fetch_allowed(self, vote_id: str) -> bool:
+        """Whether an unstored vote may be fetched from the official site."""
+        from app.services import roll_call_store as store
+        from app.services.roll_call_sync import may_fetch
+
+        ref = parse_vote_id(vote_id)
+        try:
+            return await asyncio.to_thread(
+                store.with_session, may_fetch, ref["chamber"][0], ref["congress"], ref["session"], ref["number"])
+        except Exception:
+            logger.exception("sync state unavailable for %s", vote_id)
+            return False
+
     # ---- per-vote member detail (seat-chart backbone) ----
     async def get_vote_members(self, vote_id: str) -> Optional[dict]:
-        if vote_id in self._detail:
-            return self._detail[vote_id]
         ref = parse_vote_id(vote_id)
         stored = await _stored_detail(vote_id)
         if stored is not None:
-            self._detail[vote_id] = stored
             return stored
+        hit = self._detail.get(vote_id)
+        if hit is not None:
+            self._detail.move_to_end(vote_id)
+            return hit
+        missed = self._missed.get(vote_id)
+        if missed is not None and time.time() - missed < self.MISS_TTL:
+            return None
+        if not await self.fetch_allowed(vote_id):
+            return None
         data = await fetch_vote(ref["chamber"], ref["congress"], ref["session"], ref["number"])
-        if data is not None:
+        if data is None:
+            self._missed[vote_id] = time.time()
+            self._missed.move_to_end(vote_id)
+            while len(self._missed) > self.MISS_MAX:
+                self._missed.popitem(last=False)
+        else:
             await _store_parsed(data)
-            self._detail[vote_id] = data  # immutable — cache forever
+            # Kept in memory too, in case storing it failed.
+            self._detail[vote_id] = data
+            while len(self._detail) > self.DETAIL_CACHE_MAX:
+                self._detail.popitem(last=False)
         return data
 
     # ---- recent lists ----
@@ -814,19 +891,24 @@ class OfficialVotesService:
     ) -> list[dict]:
         cache_key = f"{chamber}:{congress}:{session}:{limit}"
         hit = self._recent.get(cache_key)
-        if hit and time.time() - hit[0] < RECENT_TTL:
+        if hit and time.time() - hit[0] < (RECENT_TTL if hit[1] else RECENT_EMPTY_TTL):
             return hit[1]
 
-        if chamber == "senate":
+        if (congress, session) != current_congress_session():
+            # A past session: stored votes only, no request to any site.
+            rows = await self._recent_stored("h" if chamber == "house" else "s", congress, session, limit)
+        elif chamber == "senate":
             url = SENATE_MENU_URL.format(congress=congress, session=session)
             text = await self._get(url)
-            rows = parse_senate_menu(text) if text else []
+            rows = await asyncio.to_thread(parse_senate_menu, text) if text else []
             rows = rows[:limit]
         else:
             rows = await self._house_recent(congress, session, limit)
 
-        if rows:
-            self._recent[cache_key] = (time.time(), rows)
+        # Cached even when empty (for RECENT_EMPTY_TTL, since an empty list
+        # can also mean the source failed), so repeated requests for a
+        # quiet session don't each reach the official site.
+        self._recent[cache_key] = (time.time(), rows)
         return rows
 
     async def _congress_get_json(self, url: str, params: Optional[dict] = None):
@@ -846,7 +928,7 @@ class OfficialVotesService:
 
         v1 enriched only the lead row (tally for the home Bills card).
         2026-07-25: ALL rows now get `title` (+ question fill) so the
-        /bills page can show bill NAMES, not just citations — user
+        /bills page can show bill NAMES, not just citations; user
         feedback was that numbers alone weren't identifiable. Per-vote
         details come from the database once stored, so only votes new
         since the last pass reach the network; official_http keeps that
@@ -895,47 +977,57 @@ class OfficialVotesService:
         return rows
 
     async def _house_recent_clerk(self, congress: int, session: int, limit: int) -> list[dict]:
-        """No Congress.gov list: probe the Clerk for new rolls, then list the
-        stored legislative votes (the same filter /bills uses), newest first."""
-        from app.services import roll_call_store as store
+        """No Congress.gov list: probe the Clerk for new rolls (current
+        session only), then list the stored legislative votes."""
         from app.services.roll_call_sync import probe_house_session
 
         try:
             await probe_house_session(congress, session)
         except Exception:
             logger.exception("house clerk probe failed for %s-%s", congress, session)
+        return await self._recent_stored("h", congress, session, limit)
+
+    async def _recent_stored(self, chamber: str, congress: int, session: int, limit: int) -> list[dict]:
+        """Stored in-scope votes (the same filter /bills uses: passage, and
+        nominations in the Senate), newest first, in the recent-list shape."""
+        from app.services import roll_call_store as store
+
         try:
             recs = await asyncio.to_thread(
-                store.with_session, store.latest_numbers, "h", congress, session, max(limit * 6, 60)
+                store.with_session, store.latest_numbers, chamber, congress, session, max(limit * 6, 60)
             )
         except Exception:
-            logger.exception("stored house votes unavailable")
+            logger.exception("stored votes unavailable")
             return []
         rows = []
         for rc in recs:
-            if classify_house_vote(rc.vote_type, rc.question) is None:
+            if chamber == "h":
+                kind = classify_house_vote(rc.vote_type, rc.question)
+            else:
+                kind = classify_senate_question(rc.question)
+            if kind is None:
                 continue
             code = bill_code(rc.doc_type)
+            if code:
+                issue = bill_cite(code, rc.doc_number)
+            else:
+                issue = " ".join(x for x in (rc.doc_type, rc.doc_number) if x)
             rows.append({
                 "vote_id": rc.vote_id,
-                "chamber": "house",
+                "chamber": "house" if chamber == "h" else "senate",
                 "congress": congress,
                 "session": session,
                 "rollcall": rc.number,
                 "date": rc.vote_date.isoformat(),
-                "issue": bill_cite(code, rc.doc_number) if code else (rc.doc_type or ""),
+                "issue": issue,
                 "question": rc.question,
-                "kind": "passage",
+                "kind": kind,
                 "result": rc.result,
-                "title": rc.description or "",
+                "title": (rc.description if chamber == "h" else rc.title) or "",
+                "tally": {"yea": rc.yea, "nay": rc.nay},
             })
             if len(rows) >= limit:
                 break
-        if rows:
-            first = await self.get_vote_members(rows[0]["vote_id"])
-            if first:
-                t = first.get("totals") or {}
-                rows[0]["tally"] = {"yea": t.get("yea", 0), "nay": t.get("nay", 0)}
         return rows
 
 
@@ -953,7 +1045,7 @@ async def fetch_vote(chamber: str, congress: int, session: int, number: int) -> 
         data = None
         if res.ok and not house_roll_missing(res.text):
             try:
-                data = parse_house_roll(res.text)
+                data = await asyncio.to_thread(parse_house_roll, res.text)
             except Exception as exc:
                 logger.warning("house roll %s-%s-%s unreadable: %s", congress, session, number, exc)
         if data is None:
@@ -969,7 +1061,7 @@ async def fetch_vote(chamber: str, congress: int, session: int, number: int) -> 
     if not res.ok:
         return None
     try:
-        return parse_senate_vote(res.text)
+        return await asyncio.to_thread(parse_senate_vote, res.text)
     except Exception as exc:
         logger.warning("senate vote %s-%s-%s unreadable: %s", congress, session, number, exc)
         return None
