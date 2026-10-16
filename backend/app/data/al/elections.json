@@ -57,13 +57,19 @@
       "retrieved": "2026-10-15"
     },
     "reminder_notes": {
-      "vote_by_mail_request_deadline_general": "After that, you can still apply in person at your local election office through October 29."
+      "vote_by_mail_request_deadline_general": "After that, you can still apply in person at your local election office through October 29. Mail voting in Alabama is only for voters who meet the state's eligibility rules. Check them on the official site."
     },
     "no_reminder": {
       "early_voting_window_general": {
         "reason": "Alabama has no early in-person voting period.",
         "source_url": "https://www.sos.alabama.gov/alabama-votes/voter/absentee-voting",
         "retrieved": "2026-10-15"
+      }
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://www.sos.alabama.gov/alabama-votes/voter/absentee-voting",
+        "retrieved": "2026-10-16"
       }
     }
   },

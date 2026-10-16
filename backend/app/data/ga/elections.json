@@ -24,7 +24,7 @@
     "voter_registration_in_person_general": "https://sos.ga.gov/sites/default/files/forms/2026%20Elections%20Calendar_0.pdf",
     "same_day_registration_general": "https://sos.ga.gov/page/voter-registration-drive",
     "all_mail_general": "https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf",
-    "vote_by_mail_request_deadline_general": "https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf",
+    "vote_by_mail_request_deadline_general": "https://sos.ga.gov/november-3-2026-general-election",
     "mail_ballot_return_deadline_general": "https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf",
     "early_voting_window_general": "https://sos.ga.gov/november-3-2026-general-election",
     "early_voting_optional_general": "https://sos.ga.gov/sites/default/files/forms/2026%20Elections%20Calendar_0.pdf"
@@ -41,6 +41,14 @@
     "mail_ballot_return_deadline_general": "2026-10-16",
     "early_voting_window_general": "2026-10-16",
     "early_voting_optional_general": "2026-10-16"
+  },
+  "key_date_more_sources": {
+    "vote_by_mail_request_deadline_general": [
+      {
+        "url": "https://securemyabsenteeballot.sos.ga.gov/s/absentee-ballot-request",
+        "retrieved": "2026-10-16"
+      }
+    ]
   },
   "voter_info": {
     "_note": "Read by election reminders (backend/app/services/election_reminders.py) and shown on the Elections tab. Every date has its official source in key_date_sources and the day it was read in key_date_retrieved (data lint E-11, E-12). Checked on the official pages 2026-10-16.",

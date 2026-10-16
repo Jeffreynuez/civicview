@@ -60,7 +60,13 @@
       "vote_by_mail_request_deadline_general": "17:00"
     },
     "reminder_notes": {
-      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+      "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. Mail voting in Missouri is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://www.sos.mo.gov/elections/goVoteMissouri/howtovote",
+        "retrieved": "2026-10-16"
+      }
     }
   },
   "races": [

@@ -45,7 +45,7 @@
     "links": {
       "registration": "https://vrsws.sos.ky.gov/ovrweb",
       "check_registration": "https://vrsws.sos.ky.gov/VIC",
-      "mail_ballot": "https://vrsws.sos.ky.gov/abrweb",
+      "mail_ballot": "https://elect.ky.gov/Voters/Pages/Absentee-Voting.aspx",
       "early_voting": "https://elect.ky.gov/Voters/Pages/Polling-Locations.aspx",
       "polling_place": "https://vrsws.sos.ky.gov/VIC",
       "sample_ballot": "https://web.sos.ky.gov/electionballots/",
@@ -59,6 +59,15 @@
     },
     "deadline_times": {
       "voter_registration_deadline_general": "16:00"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Mail voting in Kentucky is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://elect.ky.gov/Voters/Pages/Absentee-Voting.aspx",
+        "retrieved": "2026-10-16"
+      }
     }
   },
   "races": [

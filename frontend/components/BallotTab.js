@@ -463,7 +463,9 @@ function buildSources(view, phase) {
     byUrl.set(url, entry);
   };
   for (const { key, label } of labels) {
-    if (view.key_dates?.[key] && sources[key]) add(sources[key].url, label, sources[key].retrieved);
+    if (!view.key_dates?.[key] || !sources[key]) continue;
+    add(sources[key].url, label, sources[key].retrieved);
+    for (const more of sources[key].more || []) add(more.url, label, more.retrieved);
   }
   if (phase === 'general') {
     const info = view.voter_info || {};

@@ -43,6 +43,15 @@ Elections (every <state>/elections.json):
        .poll_hours_vary has both too, and a 2026 file's general
        election is 2026-11-03. Jeffrey, 2026-10-16: "Every date and
        every race carries its source URL and the date you retrieved it."
+       Every voter_info.reminder_note_sources entry has an official https
+       source_url and a retrieved date, and a mail ballot note that says
+       mail voting is limited uses the one fixed sentence ("Mail voting
+       in {State} is only for voters who meet the state's eligibility
+       rules. Check them on the official site.") and has such a source.
+       A key_date_more_sources entry (a second official page for a date,
+       when one page has the date and another the rule) is for a key
+       date with its own source, and each page has an official https
+       url and a retrieved date.
   E-13 a race that lists general election candidates is a verified
        roster: roster_status "verified_nominees", an https roster_source_url
        on an official site and a real roster_retrieved date. Otherwise it
@@ -480,6 +489,35 @@ def lint_all_key_date_sources(doc: dict, where: str) -> None:
                     "needs text, an https source_url on an official site and a retrieved date")
     if (doc.get("voter_info") or {}).get("poll_hours") and vary is not None:
         problem("E-12", f"{where} voter_info", "poll_hours and poll_hours_vary are both set; keep one")
+    for key, entries in (doc.get("key_date_more_sources") or {}).items():
+        if key not in key_dates or key not in sources:
+            problem("E-12", f"{where} key_date_more_sources.{key}",
+                    "extra sources are for a key date that has its own key_date_sources entry")
+        if not isinstance(entries, list) or not entries:
+            problem("E-12", f"{where} key_date_more_sources.{key}", "must be a non-empty list")
+            continue
+        for entry in entries:
+            if not isinstance(entry, dict) or not _official(entry.get("url")) \
+                    or not _retrieved_ok(entry.get("retrieved"), today):
+                problem("E-12", f"{where} key_date_more_sources.{key}",
+                        "each entry needs an https url on an official site and a retrieved date")
+    info = doc.get("voter_info") or {}
+    note_sources = info.get("reminder_note_sources") or {}
+    for key, entry in note_sources.items():
+        if not isinstance(entry, dict) or not _official(entry.get("source_url")) \
+                or not _retrieved_ok(entry.get("retrieved"), today):
+            problem("E-12", f"{where} voter_info.reminder_note_sources.{key}",
+                    "needs an https source_url on an official site and a retrieved date")
+    mail_note = str((info.get("reminder_notes") or {}).get("vote_by_mail_request_deadline_general") or "")
+    if "eligibility" in mail_note.lower():
+        fixed = (f"Mail voting in {doc.get('state_name')} is only for voters who meet the state's eligibility "
+                 "rules. Check them on the official site.")
+        if not mail_note.endswith(fixed):
+            problem("E-12", f"{where} voter_info.reminder_notes", "the mail voting eligibility note must end with "
+                    f"the fixed sentence: {fixed!r}")
+        if "vote_by_mail_request_deadline_general" not in note_sources:
+            problem("E-12", f"{where} voter_info.reminder_notes",
+                    "the mail voting eligibility note needs its page in reminder_note_sources")
 
 
 def lint_elections(state_dir: Path) -> None:

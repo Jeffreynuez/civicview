@@ -18,6 +18,7 @@ Generated from `backend/app/data/<state>/elections.json`, which is the source of
 | Early voting | Not available | https://www.sos.alabama.gov/alabama-votes/voter/absentee-voting | 2026-10-15 |
 | Poll hours | 07:00 to 19:00 | https://www.sos.alabama.gov/sites/default/files/election-2026/2026-VoterGuide.pdf | 2026-10-15 |
 | No reminder: Early voting | Alabama has no early in-person voting period. | https://www.sos.alabama.gov/alabama-votes/voter/absentee-voting | 2026-10-15 |
+| Reminder note: Mail ballot request | After that, you can still apply in person at your local election office through October 29. Mail voting in Alabama is only for voters who meet the state's eligibility rules. Check them on the official site. | https://www.sos.alabama.gov/alabama-votes/voter/absentee-voting | 2026-10-16 |
 
 Links: registration https://www.sos.alabama.gov/alabama-votes/voter/register-to-vote; check_registration https://myinfo.alabamavotes.gov/voterview; mail_ballot https://www.sos.alabama.gov/alabama-votes/voter/absentee-voting; polling_place https://myinfo.alabamavotes.gov/voterview; sample_ballot https://www.sos.alabama.gov/alabama-votes/2026-general-election-sample-ballots; track_ballot https://myinfo.alabamavotes.gov/voterview
 
@@ -139,8 +140,9 @@ Links: registration https://sos.wyo.gov/Elections/State/RegisteringToVote.aspx; 
 | Mail ballot return | Received by 2026-11-03, 6 p.m. | https://elect.ky.gov/Voters/Pages/Voting-In-Person-and-By-Mail.aspx | 2026-10-15 |
 | Early voting | 2026-10-29 to 2026-10-31 | https://elect.ky.gov/Voters/Pages/Voting-In-Person-and-By-Mail.aspx | 2026-10-15 |
 | Poll hours | 06:00 to 18:00 | https://elect.ky.gov/Frequently-Asked-Questions/Pages/Election-Day-Information.aspx | 2026-10-15 |
+| Reminder note: Mail ballot request | Mail voting in Kentucky is only for voters who meet the state's eligibility rules. Check them on the official site. | https://elect.ky.gov/Voters/Pages/Absentee-Voting.aspx | 2026-10-16 |
 
-Links: registration https://vrsws.sos.ky.gov/ovrweb; check_registration https://vrsws.sos.ky.gov/VIC; mail_ballot https://vrsws.sos.ky.gov/abrweb; early_voting https://elect.ky.gov/Voters/Pages/Polling-Locations.aspx; polling_place https://vrsws.sos.ky.gov/VIC; sample_ballot https://web.sos.ky.gov/electionballots/; track_ballot https://vrsws.sos.ky.gov/VIC
+Links: registration https://vrsws.sos.ky.gov/ovrweb; check_registration https://vrsws.sos.ky.gov/VIC; mail_ballot https://elect.ky.gov/Voters/Pages/Absentee-Voting.aspx; early_voting https://elect.ky.gov/Voters/Pages/Polling-Locations.aspx; polling_place https://vrsws.sos.ky.gov/VIC; sample_ballot https://web.sos.ky.gov/electionballots/; track_ballot https://vrsws.sos.ky.gov/VIC
 
 </details>
 
@@ -171,7 +173,7 @@ Links: registration https://www.ncsbe.gov/registering/how-register; check_regist
 | Election date | 2026-11-03 | https://www.sos.nm.gov/voting-and-elections/ | 2026-10-15 |
 | Registration reminder date | 2026-10-06 | https://www.sos.nm.gov/wp-content/uploads/2026/02/IT-0106-19C8BDB9C6B-0D43C033C1201771C1-2026-Primary-Candidate-Guide_Final-_.pdf | 2026-10-15 |
 | Register online | 2026-10-06 | https://www.sos.nm.gov/wp-content/uploads/2026/02/IT-0106-19C8BDB9C6B-0D43C033C1201771C1-2026-Primary-Candidate-Guide_Final-_.pdf | 2026-10-15 |
-| Register by mail | 2026-10-06 | https://www.sos.nm.gov/wp-content/uploads/2026/02/IT-0106-19C8BDB9C6B-0D43C033C1201771C1-2026-Primary-Candidate-Guide_Final-_.pdf | 2026-10-15 |
+| Register by mail | 2026-10-06, postmarked | https://www.sos.nm.gov/wp-content/uploads/2026/02/IT-0106-19C8BDB9C6B-0D43C033C1201771C1-2026-Primary-Candidate-Guide_Final-_.pdf; https://www.sos.nm.gov/voting-and-elections/voting-faqs/voter-registration/ | 2026-10-16; 2026-10-16 |
 | Register in person | 2026-10-06 | https://www.sos.nm.gov/voting-and-elections/voting-faqs/voter-registration/ | 2026-10-15 |
 | Same-day registration | During early voting and on Election Day | https://www.sos.nm.gov/voting-and-elections/voting-faqs/same-day-voter-registration-faq/ | 2026-10-15 |
 | Every voter mailed a ballot | No | https://www.sos.nm.gov/wp-content/uploads/2026/10/IT-1154-1A136B72A63-23022F0271C82C7018-13102026PR_Sec.-Toulouse-Oliver-and-AG-Torrez-Issue-Voter-Information-Advisory-for-the-2026-General-Election.pdf | 2026-10-15 |
@@ -192,7 +194,7 @@ Links: registration https://portal1.sos.nm.gov/OVR/WebPages/InstructionsStep1.as
 | Election date | 2026-11-03 | https://www.sos.arkansas.gov/elections/for-voters | 2026-10-15 |
 | Registration reminder date | 2026-10-05 | https://www.sos.arkansas.gov/uploads/elections/2026_Election_Calendar_Rev._7-2026_.pdf | 2026-10-15 |
 | Register online | Not available | https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information | 2026-10-15 |
-| Register by mail | 2026-10-05 | https://www.sos.arkansas.gov/uploads/elections/2026_Election_Calendar_Rev._7-2026_.pdf | 2026-10-15 |
+| Register by mail | 2026-10-05, postmarked | https://www.sos.arkansas.gov/uploads/elections/2026_Election_Calendar_Rev._7-2026_.pdf; https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information | 2026-10-16; 2026-10-16 |
 | Register in person | 2026-10-05 | https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information | 2026-10-15 |
 | Same-day registration | Not available | https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information | 2026-10-15 |
 | Every voter mailed a ballot | No | https://www.sos.arkansas.gov/elections/voter-information/absentee-voting | 2026-10-15 |
@@ -200,6 +202,7 @@ Links: registration https://portal1.sos.nm.gov/OVR/WebPages/InstructionsStep1.as
 | Mail ballot return | Received by 2026-11-03, 7:30 p.m. | https://www.sos.arkansas.gov/elections/voter-information/absentee-voting | 2026-10-15 |
 | Early voting | 2026-10-19 to 2026-11-02 | https://www.sos.arkansas.gov/uploads/elections/2026_Election_Calendar_Rev._7-2026_.pdf | 2026-10-15 |
 | Poll hours | 07:30 to 19:30 | https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information/voting-in-arkansas | 2026-10-15 |
+| Reminder note: Mail ballot request | Your application must be received, not just postmarked, by then. After that, you can still apply in person at your local election office through October 30. Mail voting in Arkansas is only for voters who meet the state's eligibility rules. Check them on the official site. | https://www.sos.arkansas.gov/elections/voter-information/absentee-voting | 2026-10-16 |
 
 Links: registration https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information; check_registration https://www.sos.arkansas.gov/elections/voter-view/; mail_ballot https://www.sos.arkansas.gov/elections/voter-information/absentee-voting; early_voting https://www.sos.arkansas.gov/elections/voter-information/voter-registration-information/voting-in-arkansas; polling_place https://www.sos.arkansas.gov/elections/voter-view/; sample_ballot https://www.sos.arkansas.gov/elections/voter-view/; track_ballot https://www.sos.arkansas.gov/elections/voter-view/
 
@@ -260,6 +263,7 @@ Links: registration https://voterregistration.ct.gov/OLVR/welcome.do; check_regi
 | Mail ballot return | Received by 2026-11-03, when polls close | https://revisor.mo.gov/main/OneSection.aspx?section=115.286 | 2026-10-15 |
 | Early voting | 2026-10-20 to 2026-11-02 | https://www.sos.mo.gov/elections/goVoteMissouri/howtovote | 2026-10-15 |
 | Poll hours | 06:00 to 19:00 | https://www.sos.mo.gov/elections/goVoteMissouri/howtovote | 2026-10-15 |
+| Reminder note: Mail ballot request | Your application must be received, not just postmarked, by then. Mail voting in Missouri is only for voters who meet the state's eligibility rules. Check them on the official site. | https://www.sos.mo.gov/elections/goVoteMissouri/howtovote | 2026-10-16 |
 
 Links: registration https://www.sos.mo.gov/elections/goVoteMissouri/register; check_registration https://voteroutreach.sos.mo.gov/portal/; mail_ballot https://www.sos.mo.gov/elections/goVoteMissouri/howtovote#absentee; early_voting https://www.sos.mo.gov/elections/goVoteMissouri/localelectionauthority; polling_place https://voteroutreach.sos.mo.gov/portal/; sample_ballot https://voteroutreach.sos.mo.gov/portal/
 
@@ -280,6 +284,7 @@ Links: registration https://www.sos.mo.gov/elections/goVoteMissouri/register; ch
 | Mail ballot return | Received by 2026-11-03, 7 p.m. | https://scvotes.gov/voters/2026prep/ | 2026-10-15 |
 | Early voting | 2026-10-19 to 2026-10-31 | https://scvotes.gov/voters/early-voting/ | 2026-10-15 |
 | Poll hours | 07:00 to 19:00 | https://scvotes.gov/voters/how-to-vote/ | 2026-10-15 |
+| Reminder note: Mail ballot request | Mail voting in South Carolina is only for voters who meet the state's eligibility rules. Check them on the official site. | https://scvotes.gov/voters/absentee-voting/ | 2026-10-16 |
 
 Links: registration https://scvotes.gov/voters/register-to-vote/; check_registration https://vrems.scvotes.sc.gov/Voter/Login?PageMode=VoterInformation; mail_ballot https://scvotes.gov/voters/absentee-voting/; early_voting https://scvotes.gov/voters/early-voting/; polling_place https://vrems.scvotes.sc.gov/Voter/Login?PageMode=PollingPlace; sample_ballot https://vrems.scvotes.sc.gov/Voter/Login?PageMode=Sampleballot; track_ballot https://vrems.scvotes.sc.gov/Voter/Login?PageMode=AbsenteeInfo
 
@@ -291,7 +296,7 @@ Links: registration https://scvotes.gov/voters/register-to-vote/; check_registra
 | --- | --- | --- | --- |
 | Election date | 2026-11-03 | https://elections.hawaii.gov/ | 2026-10-15 |
 | Register online | No deadline | https://elections.hawaii.gov/register-to-vote/registration/ | 2026-10-15 |
-| Register by mail | 2026-10-26 | https://elections.hawaii.gov/register-to-vote/registration/ | 2026-10-15 |
+| Register by mail | 2026-10-26, received | https://elections.hawaii.gov/register-to-vote/registration/ | 2026-10-16 |
 | Register in person | 2026-10-26 | https://elections.hawaii.gov/register-to-vote/registration/ | 2026-10-15 |
 | Same-day registration | During early voting and on Election Day | https://elections.hawaii.gov/register-to-vote/registration/ | 2026-10-15 |
 | Every voter mailed a ballot | Yes | https://elections.hawaii.gov/voting/absentee-voting/ | 2026-10-15 |
@@ -320,6 +325,7 @@ Links: registration https://olvr.hawaii.gov/; check_registration https://olvr.ha
 | Mail ballot return | Received by 2026-11-03, 6 p.m. | https://www.in.gov/sos/elections/voter-information/ways-to-vote/absentee-voting/ | 2026-10-15 |
 | Early voting | 2026-10-06 to 2026-11-02 | https://www.in.gov/dA/a5aa6862f1/2026-Calendar-Brochure.FINAL-VERSION.pdf?language_id=1 | 2026-10-15 |
 | Poll hours | 06:00 to 18:00 | https://www.in.gov/dA/a5aa6862f1/2026-Calendar-Brochure.FINAL-VERSION.pdf?language_id=1 | 2026-10-15 |
+| Reminder note: Mail ballot request | Your application must be received, not just postmarked, by then. Mail voting in Indiana is only for voters who meet the state's eligibility rules. Check them on the official site. | https://www.in.gov/sos/elections/voter-information/ways-to-vote/absentee-voting/ | 2026-10-16 |
 
 Links: registration https://indianavoters.in.gov/; check_registration https://indianavoters.in.gov/; mail_ballot https://www.in.gov/sos/elections/voter-information/ways-to-vote/absentee-voting/; early_voting https://indianavoters.in.gov/; polling_place https://indianavoters.in.gov/; sample_ballot https://indianavoters.in.gov/; track_ballot https://indianavoters.in.gov/
 
@@ -332,7 +338,7 @@ Links: registration https://indianavoters.in.gov/; check_registration https://in
 | Election date | 2026-11-03 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
 | Registration reminder date | 2026-10-13 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
 | Register online | 2026-10-13 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
-| Register by mail | 2026-10-05 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
+| Register by mail | 2026-10-05 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-16 |
 | Register in person | 2026-10-05 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
 | Same-day registration | Not available | https://www.sos.la.gov/elections-voting/register-to-vote | 2026-10-15 |
 | Every voter mailed a ballot | No | https://www.sos.la.gov/elections-voting/ways-to-vote | 2026-10-15 |
@@ -340,6 +346,7 @@ Links: registration https://indianavoters.in.gov/; check_registration https://in
 | Mail ballot return | Received by 2026-11-02, 4:30 p.m. | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
 | Early voting | 2026-10-20 to 2026-10-27 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
 | Poll hours | 06:00 to 20:00 | https://www.sos.la.gov/elections-voting/election-dates | 2026-10-15 |
+| Reminder note: Mail ballot request | Mail voting in Louisiana is only for voters who meet the state's eligibility rules. Check them on the official site. | https://www.sos.la.gov/elections-voting/ways-to-vote | 2026-10-16 |
 
 Links: registration https://www.sos.la.gov/elections-voting/register-to-vote; check_registration https://voterportal.sos.la.gov/Home/VoterLogin; mail_ballot https://www.sos.la.gov/elections-voting/ways-to-vote; early_voting https://voterportal.sos.la.gov/EarlyVoting; polling_place https://www.sos.la.gov/elections-voting/polling-locations; sample_ballot https://voterportal.sos.la.gov/sampleballot; track_ballot https://voterportal.sos.la.gov/Home/VoterLogin
 
@@ -391,12 +398,12 @@ Links: registration https://mymvd.iowadot.gov/Account/Login?ReturnUrl=%2fVoterRe
 | --- | --- | --- | --- |
 | Election date | 2026-11-03 | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec12755 | 2026-10-15 |
 | Register online | 2026-11-03 | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec560 | 2026-10-15 |
-| Register by mail | 2026-10-06 | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec560 | 2026-10-15 |
+| Register by mail | 2026-10-06, postmarked | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec560; https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec5235 | 2026-10-16; 2026-10-16 |
 | Register in person | 2026-10-06 | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec560 | 2026-10-15 |
 | Same-day registration | During early voting and on Election Day | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec5842 | 2026-10-15 |
 | Every voter mailed a ballot | Yes | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec269911 | 2026-10-15 |
 | Mail ballot return | Postmarked by 2026-11-03, received by 2026-11-07, 5 p.m. | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec269921 | 2026-10-15 |
-| Early voting | 2026-10-17 to 2026-10-30 | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec3568 | 2026-10-15 |
+| Early voting | 2026-10-17 to 2026-10-30 | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec3568; https://www.nvsos.gov/elections/election-information/2026-election-information | 2026-10-15; 2026-10-16 |
 | Poll hours | 07:00 to 19:00 | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec273 | 2026-10-15 |
 | No reminder: Registration reminder date | Registration in Nevada stays open through Election Day. | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec560 | 2026-10-15 |
 | No reminder: Mail ballot request | Every active registered voter in Nevada is mailed a ballot, so no request is needed. | https://www.leg.state.nv.us/NRS/NRS-293.html#NRS293Sec269911 | 2026-10-15 |
@@ -542,6 +549,7 @@ Links: registration https://vote.elections.virginia.gov/VoterInformation; check_
 | Mail ballot return | Postmarked by 2026-11-03, received by 2026-11-09 | https://sos.wv.gov/media/467/download?inline | 2026-10-15 |
 | Early voting | 2026-10-21 to 2026-10-31 | https://sos.wv.gov/media/467/download?inline | 2026-10-15 |
 | Poll hours | 06:30 to 19:30 | https://sos.wv.gov/media/467/download?inline | 2026-10-15 |
+| Reminder note: Mail ballot request | Your application must be received, not just postmarked, by then. Mail voting in West Virginia is only for voters who meet the state's eligibility rules. Check them on the official site. | https://sos.wv.gov/absentee-voting-information | 2026-10-16 |
 
 Links: registration https://ovr.sos.wv.gov/Register/Landing; check_registration https://apps.sos.wv.gov/Elections/Voter/AmIRegisteredToVote; mail_ballot https://sos.wv.gov/absentee-voting-information; early_voting https://sos.wv.gov/early-voting-locations; polling_place https://apps.sos.wv.gov/Elections/Voter/FindMyPollingPlace; sample_ballot https://apps.sos.wv.gov/elections/SampleBallots; track_ballot https://apps.sos.wv.gov/Elections/Voter/AbsenteeBallotTracking
 
@@ -562,6 +570,7 @@ Links: registration https://ovr.sos.wv.gov/Register/Landing; check_registration 
 | Mail ballot return | Received by 2026-11-03, 8 p.m. | https://elections.delaware.gov/voter/waystovote.html | 2026-10-15 |
 | Early voting | 2026-10-22 to 2026-11-01 | https://elections.delaware.gov/public/calendar/pdfs/2026ElectionCalendar.pdf | 2026-10-15 |
 | Poll hours | 07:00 to 20:00 | https://elections.delaware.gov/elections/general/general.html | 2026-10-15 |
+| Reminder note: Mail ballot request | Mail voting in Delaware is only for voters who meet the state's eligibility rules. Check them on the official site. | https://elections.delaware.gov/voter/absentee/AbsenteeVotingFAQ.html | 2026-10-16 |
 
 Links: registration https://ivote.de.gov/; check_registration https://ivote.de.gov/; mail_ballot https://elections.delaware.gov/voter/absentee/; early_voting https://elections.delaware.gov/elections/votinglocations.html; polling_place https://ivote.de.gov/; sample_ballot https://elections.delaware.gov/elections/general/sampleballots/GE2026/; track_ballot https://elections.delaware.gov/elections/general/general.html
 
@@ -594,7 +603,7 @@ Links: registration https://elections.maryland.gov/voter_registration/index.html
 | Election date | 2026-11-03 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Registration reminder date | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Register online | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
-| Register by mail | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
+| Register by mail | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-16 |
 | Register in person | 2026-10-05 | https://sos.tn.gov/elections/calendar | 2026-10-15 |
 | Same-day registration | Not available | https://sos.tn.gov/press-releases/tennessee-secretary-of-state-tre-hargett-reminds-eligible-tennesseans-today-is-the | 2026-10-15 |
 | Every voter mailed a ballot | No | https://sos.tn.gov/elections/guides/guide-to-absentee-voting | 2026-10-15 |
@@ -602,6 +611,7 @@ Links: registration https://elections.maryland.gov/voter_registration/index.html
 | Mail ballot return | Received by 2026-11-03, when polls close | https://sos.tn.gov/elections/guides/guide-to-absentee-voting | 2026-10-15 |
 | Early voting | 2026-10-14 to 2026-10-29 | https://sos.tn.gov/govotetn | 2026-10-15 |
 | Poll hours | Vary by county | https://sos.tn.gov/newsroom/press-releases/everything-voters-need-to-know-for-the-august-6-election-this-thursday | 2026-10-15 |
+| Reminder note: Mail ballot request | Your application must be received, not just postmarked, by then. Mail voting in Tennessee is only for voters who meet the state's eligibility rules. Check them on the official site. | https://sos.tn.gov/elections/guides/guide-to-absentee-voting | 2026-10-16 |
 
 Links: registration https://ovr.govote.tn.gov/; check_registration https://tnmap.tn.gov/voterlookup/; mail_ballot https://sos.tn.gov/elections/guides/guide-to-absentee-voting; early_voting https://govote.tnsos.gov/; polling_place https://web.go-vote-tn.elections.tn.gov/; sample_ballot https://web.go-vote-tn.elections.tn.gov/; track_ballot https://tnmap.tn.gov/voterlookup/
 
@@ -658,7 +668,7 @@ Links: registration https://www.sos.wa.gov/elections/voters/voter-registration/r
 | Register in person | 2026-10-05 | https://codes.ohio.gov/ohio-revised-code/section-3503.19 | 2026-10-15 |
 | Same-day registration | Not available | https://codes.ohio.gov/ohio-revised-code/section-3503.19 | 2026-10-15 |
 | Every voter mailed a ballot | No | https://codes.ohio.gov/ohio-revised-code/section-3509.03 | 2026-10-15 |
-| Mail ballot request | 2026-10-27 | https://codes.ohio.gov/ohio-revised-code/section-3509.03 | 2026-10-15 |
+| Mail ballot request | 2026-10-27 | https://www.ohiosos.gov/elections/voting-schedule-text-only | 2026-10-16 |
 | Mail ballot return | Received by 2026-11-03, when polls close | https://codes.ohio.gov/ohio-revised-code/section-3509.05 | 2026-10-15 |
 | Early voting | 2026-10-06 to 2026-11-01 | https://codes.ohio.gov/ohio-revised-code/section-3509.051 | 2026-10-15 |
 | Poll hours | 06:30 to 19:30 | https://codes.ohio.gov/ohio-revised-code/section-3501.32 | 2026-10-15 |
@@ -674,7 +684,7 @@ Links: registration https://www.ohiosos.gov/elections/register-to-vote; check_re
 | Election date | 2026-11-03 | https://www.sos.mn.gov/elections-voting/register-to-vote/ | 2026-10-15 |
 | Registration reminder date | 2026-10-13 | https://www.sos.mn.gov/elections-voting/register-to-vote/common-registration-questions/ | 2026-10-15 |
 | Register online | 2026-10-13 | https://www.sos.mn.gov/elections-voting/register-to-vote/common-registration-questions/ | 2026-10-15 |
-| Register by mail | 2026-10-13 | https://www.sos.mn.gov/elections-voting/register-to-vote/common-registration-questions/ | 2026-10-15 |
+| Register by mail | 2026-10-13, received | https://www.sos.mn.gov/elections-voting/register-to-vote/common-registration-questions/; https://www.revisor.mn.gov/statutes/cite/201.061 | 2026-10-16; 2026-10-16 |
 | Register in person | 2026-10-13 | https://www.revisor.mn.gov/statutes/cite/201.061 | 2026-10-15 |
 | Same-day registration | During early voting and on Election Day | https://www.sos.mn.gov/elections-voting/register-to-vote/ | 2026-10-15 |
 | Every voter mailed a ballot | No | https://www.sos.mn.gov/elections-voting/other-ways-to-vote/vote-early-by-mail/ | 2026-10-15 |
@@ -700,9 +710,10 @@ Links: registration https://www.sos.mn.gov/elections-voting/register-to-vote/; c
 | Mail ballot request | 2026-11-02 | https://www.sos.nh.gov/elections/absentee-ballots | 2026-10-15 |
 | Mail ballot return | Received by 2026-11-03, 5 p.m. | https://www.sos.nh.gov/elections/absentee-ballots | 2026-10-15 |
 | Early voting | Not available | https://www.sos.nh.gov/elections/absentee-ballots | 2026-10-15 |
-| Poll hours | Vary by city or town | https://www.sos.nh.gov/elections/register-vote/polls-election-day | 2026-10-15 |
+| Poll hours | Vary by city or town | https://gc.nh.gov/rsa/html/LXIII/659/659-4.htm | 2026-10-16 |
 | No reminder: Registration reminder date | Registration deadlines in New Hampshire are set by each city or town. | https://www.sos.nh.gov/elections/register-vote/registration-deadlines | 2026-10-15 |
 | No reminder: Early voting | New Hampshire has no early in-person voting period. | https://www.sos.nh.gov/elections/absentee-ballots | 2026-10-15 |
+| Reminder note: Mail ballot request | Mail voting in New Hampshire is only for voters who meet the state's eligibility rules. Check them on the official site. | https://www.sos.nh.gov/elections/absentee-ballots | 2026-10-16 |
 
 Links: registration https://www.sos.nh.gov/elections/register-vote; check_registration https://app.sos.nh.gov/; mail_ballot https://www.sos.nh.gov/elections/absentee-ballots; polling_place https://app.sos.nh.gov/; sample_ballot https://www.sos.nh.gov/elections/sample-ballots; track_ballot https://app.sos.nh.gov/
 
@@ -741,7 +752,7 @@ Links: registration https://vote.sos.ri.gov/Voter/RegisterToVote; check_registra
 | Every voter mailed a ballot | No | https://sos.ks.gov/elections/election-faq.html | 2026-10-15 |
 | Mail ballot request | 2026-10-27 | https://www.ksrevisor.gov/statutes/chapters/ch25/025_011_0022.html | 2026-10-15 |
 | Mail ballot return | Postmarked by 2026-11-03, received by 2026-11-06 | https://sos.ks.gov/elections/advance-voting-information.html | 2026-10-15 |
-| Early voting | 2026-10-27 to 2026-11-02 | https://www.ksrevisor.gov/statutes/chapters/ch25/025_011_0022.html | 2026-10-15 |
+| Early voting | 2026-10-27 to 2026-11-02 | https://www.ksrevisor.gov/statutes/chapters/ch25/025_011_0022.html; https://sos.ks.gov/elections/important-election-dates.html | 2026-10-15; 2026-10-16 |
 | Optional early voting | Counties may start as early as 2026-10-14 | https://sos.ks.gov/elections/important-election-dates.html | 2026-10-15 |
 | Poll hours | Vary by county | https://sos.ks.gov/elections/voter-information.html | 2026-10-15 |
 
@@ -855,7 +866,7 @@ Links: registration https://www.sos.nd.gov/elections/voter/voting-north-dakota; 
 | Election date | 2026-11-03 | https://www.sos.ms.gov/content/documents/elections/2026%20Elections%20Calendar.pdf | 2026-10-15 |
 | Registration reminder date | 2026-10-05 | https://www.sos.ms.gov/content/documents/elections/2026%20Elections%20Calendar.pdf | 2026-10-15 |
 | Register online | Not available | https://www.sos.ms.gov/elections-voting/election-faqs | 2026-10-15 |
-| Register by mail | 2026-10-05 | https://www.sos.ms.gov/content/documents/elections/2026%20Elections%20Calendar.pdf | 2026-10-15 |
+| Register by mail | 2026-10-05, postmarked | https://www.sos.ms.gov/content/documents/elections/2026%20Elections%20Calendar.pdf | 2026-10-16 |
 | Register in person | 2026-10-05 | https://www.sos.ms.gov/sites/default/files/elections/2026%20Mississippi%20Voter%20Information%20Guide.pdf | 2026-10-15 |
 | Same-day registration | Not available | https://www.sos.ms.gov/sites/default/files/elections/2026%20Mississippi%20Voter%20Information%20Guide.pdf | 2026-10-15 |
 | Every voter mailed a ballot | No | https://www.sos.ms.gov/yall-vote/absentee-voting-information | 2026-10-15 |
@@ -920,7 +931,7 @@ Links: registration https://sos.vermont.gov/elections/voters/registration/; chec
 | Register in person | 2026-10-05 | https://sos.ga.gov/sites/default/files/forms/2026%20Elections%20Calendar_0.pdf | 2026-10-16 |
 | Same-day registration | Not available | https://sos.ga.gov/page/voter-registration-drive | 2026-10-16 |
 | Every voter mailed a ballot | No | https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf | 2026-10-16 |
-| Mail ballot request | 2026-10-23 | https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf | 2026-10-16 |
+| Mail ballot request | 2026-10-23 | https://sos.ga.gov/november-3-2026-general-election; https://securemyabsenteeballot.sos.ga.gov/s/absentee-ballot-request | 2026-10-16; 2026-10-16 |
 | Mail ballot return | Received by 2026-11-03, when polls close | https://sos.ga.gov/sites/default/files/forms/Absentee_Voting_In_Georgia_Rev_3-30-22.pdf | 2026-10-16 |
 | Early voting | 2026-10-13 to 2026-10-30 | https://sos.ga.gov/november-3-2026-general-election | 2026-10-16 |
 | Optional early voting | Counties may add days on 2026-10-18 and 2026-10-25 | https://sos.ga.gov/sites/default/files/forms/2026%20Elections%20Calendar_0.pdf | 2026-10-16 |
@@ -1021,7 +1032,7 @@ Links: registration https://www.pa.gov/services/vote/register-to-vote; check_reg
 | Election date | 2026-11-03 | https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml | 2026-10-15 |
 | Registration reminder date | 2026-10-05 | https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml | 2026-10-15 |
 | Register online | Not available | https://www.sos.state.tx.us/elections/voter/reqvr.shtml | 2026-10-15 |
-| Register by mail | 2026-10-05 | https://www.votetexas.gov/faq/index.html | 2026-10-15 |
+| Register by mail | 2026-10-05, postmarked | https://www.votetexas.gov/faq/index.html | 2026-10-16 |
 | Register in person | 2026-10-05 | https://www.votetexas.gov/register-to-vote/index.html | 2026-10-15 |
 | Same-day registration | Not available | https://www.votetexas.gov/register-to-vote/index.html | 2026-10-15 |
 | Every voter mailed a ballot | No | https://www.sos.state.tx.us/elections/voter/reqabbm.shtml | 2026-10-15 |
@@ -1029,6 +1040,7 @@ Links: registration https://www.pa.gov/services/vote/register-to-vote; check_reg
 | Mail ballot return | Postmarked by 2026-11-03, received by 2026-11-04, 5 p.m. | https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml | 2026-10-15 |
 | Early voting | 2026-10-19 to 2026-10-30 | https://www.sos.state.tx.us/elections/voter/important-election-dates.shtml | 2026-10-15 |
 | Poll hours | 07:00 to 19:00 | https://www.votetexas.gov/voting/where.html | 2026-10-15 |
+| Reminder note: Mail ballot request | Your application must be received, not just postmarked, by then. Mail voting in Texas is only for voters who meet the state's eligibility rules. Check them on the official site. | https://www.votetexas.gov/voting-by-mail/index.html | 2026-10-16 |
 
 Links: registration https://www.votetexas.gov/register-to-vote/index.html; check_registration https://www.votetexas.gov/register-to-vote/index.html; mail_ballot https://www.votetexas.gov/voting-by-mail/index.html; early_voting https://www.votetexas.gov/voting/where.html; polling_place https://www.votetexas.gov/voting/where.html; sample_ballot https://www.sos.state.tx.us/elections/laws/2026-november-general-election.shtml; track_ballot https://www.votetexas.gov/voting-by-mail/track-my-ballot.html
 

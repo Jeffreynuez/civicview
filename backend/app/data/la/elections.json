@@ -31,7 +31,7 @@
     "general": "2026-10-15",
     "voter_registration_deadline_general": "2026-10-15",
     "voter_registration_online_general": "2026-10-15",
-    "voter_registration_mail_general": "2026-10-15",
+    "voter_registration_mail_general": "2026-10-16",
     "voter_registration_in_person_general": "2026-10-15",
     "same_day_registration_general": "2026-10-15",
     "all_mail_general": "2026-10-15",
@@ -59,6 +59,15 @@
     },
     "deadline_times": {
       "vote_by_mail_request_deadline_general": "16:30"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "Mail voting in Louisiana is only for voters who meet the state's eligibility rules. Check them on the official site."
+    },
+    "reminder_note_sources": {
+      "vote_by_mail_request_deadline_general": {
+        "source_url": "https://www.sos.la.gov/elections-voting/ways-to-vote",
+        "retrieved": "2026-10-16"
+      }
     }
   },
   "races": [

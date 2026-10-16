@@ -12,7 +12,7 @@
   "general": "2026-11-03",
   "voter_registration_deadline_general": "2026-10-05",
   "voter_registration_online_general": "Not available",
-  "voter_registration_mail_general": "2026-10-05",
+  "voter_registration_mail_general": "2026-10-05, postmarked",
   "voter_registration_in_person_general": "2026-10-05",
   "same_day_registration_general": "Not available",
   "all_mail_general": "No",
@@ -36,7 +36,7 @@
   "general": "2026-10-15",
   "voter_registration_deadline_general": "2026-10-15",
   "voter_registration_online_general": "2026-10-15",
-  "voter_registration_mail_general": "2026-10-15",
+  "voter_registration_mail_general": "2026-10-16",
   "voter_registration_in_person_general": "2026-10-15",
   "same_day_registration_general": "2026-10-15",
   "all_mail_general": "2026-10-15",
@@ -64,7 +64,13 @@
   },
   "reminder_notes": {
    "early_voting_window_general": "Hours vary by location.",
-   "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then."
+   "vote_by_mail_request_deadline_general": "Your application must be received, not just postmarked, by then. Mail voting in Texas is only for voters who meet the state's eligibility rules. Check them on the official site."
+  },
+  "reminder_note_sources": {
+   "vote_by_mail_request_deadline_general": {
+    "source_url": "https://www.votetexas.gov/voting-by-mail/index.html",
+    "retrieved": "2026-10-16"
+   }
   }
  },
  "primary_status": {

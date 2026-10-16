@@ -128,14 +128,26 @@ def _public_voter_info(raw: dict) -> dict:
 
 def _date_sources(raw: dict) -> dict:
     """Each key date's official source and the day it was read, keyed
-    like key_dates, for the Elections tab's Sources list."""
+    like key_dates, for the Elections tab's Sources list. A date that
+    needs a second official page (one page has the date, another the
+    rule) lists it under `more`, from key_date_more_sources."""
     sources = raw.get("key_date_sources") or {}
     retrieved = raw.get("key_date_retrieved") or {}
-    return {
-        key: {"url": url, "retrieved": retrieved.get(key)}
-        for key, url in sources.items()
-        if _https(url)
-    }
+    more = raw.get("key_date_more_sources") or {}
+    out = {}
+    for key, url in sources.items():
+        if not _https(url):
+            continue
+        entry = {"url": url, "retrieved": retrieved.get(key)}
+        extra = [
+            {"url": m.get("url"), "retrieved": m.get("retrieved")}
+            for m in (more.get(key) or [])
+            if isinstance(m, dict) and _https(m.get("url"))
+        ]
+        if extra:
+            entry["more"] = extra
+        out[key] = entry
+    return out
 
 
 class ElectionsService:
