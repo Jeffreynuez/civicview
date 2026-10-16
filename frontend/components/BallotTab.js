@@ -23,7 +23,7 @@ import {
   WarningCircle,
   MapPin,
 } from './ui';
-import { formatDistrict } from '@/lib/usStates';
+import { formatDistrict, yourDistrictLine } from '@/lib/usStates';
 
 // Phase 4C: party colors resolve through canonical --cl-* tokens. NP
 // (non-partisan races, common at the local level) keeps a neutral grey
@@ -1774,7 +1774,9 @@ function SupportOppose({ label, items, color }) {
 // Sits at the top of BallotTab when a citizen is signed in. Two
 // variants from the design:
 //   - kind: 'registered'   — accent-soft tinted card, check-circle
-//                            icon, "You're registered to vote in FL-19"
+//                            icon, "Your district: FL-19" (the kind name
+//                            is historical: CivicView can't know voter
+//                            registration, so the banner never claims it)
 //   - kind: 'out-of-state' — warning-soft tinted card, warning-circle,
 //                            "You're viewing FL's ballot". The account's
 //                            district is self-entered for demo accounts,
@@ -1847,7 +1849,7 @@ function VoterStatusBanner({ status }) {
             color: 'var(--cl-text)',
           }}
         >
-          You&rsquo;re registered to vote in {formatDistrict(status.district) || status.state}
+          {yourDistrictLine(status.district, status.state)}
         </div>
         <div
           style={{
