@@ -318,7 +318,7 @@ export const CHANNEL_SCHEMA = {
     {
       key: 'mobile_push',
       label: 'Mobile push',
-      description: 'Alerts when officials you track post \u2014 available in the CivicView Android app on Google Play.',
+      description: 'Alerts when officials you track post, and election reminders. Available in the CivicView Android app on Google Play.',
       badge: 'IN THE APP',
       default: false,
       available: false,

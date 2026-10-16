@@ -49,7 +49,7 @@ function Mail({ subject }) {
 
 export default function PrivacyPage() {
   return (
-    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 15, 2026">
+    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 16, 2026">
       <p>
         This policy explains what CivicView collects, why, who can see it,
         who else receives it, how long we keep it, and what you can do
@@ -96,11 +96,12 @@ export default function PrivacyPage() {
         <li><strong>Contact email (optional, demo accounts only).</strong> If you add one, we use it only for your account: the sign-in email you can ask for when you create the account (your generated sign-in address and a link to choose a new password, never your password), password reset emails, and one notice before demo accounts are retired.</li>
         <li><strong>Display name.</strong> The name you choose. It appears on the comments and polls you write. No two accounts can share a name, and citizens can&apos;t use the names of members of Congress, other federal officials, governors and statewide officials, or officials and candidates with a CivicView account.</li>
         <li><strong>State and congressional district (required) and city (optional).</strong> We use them to show you your officials, ballot and elections, and to count engagement by area. You can change them in Account &amp; settings. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved to your account. For a verified account, these come from your verification.</li>
-        <li><strong>Your settings.</strong> Your start page, notification settings (including quiet hours, how often you&apos;re alerted and your time zone offset), whether you want the weekly digest email (off unless you turn it on), and the officials, bills and elections you track, save or feature.</li>
+        <li><strong>Your settings.</strong> Your start page, notification settings (including quiet hours, how often you&apos;re alerted and your time zone offset), whether you want the weekly digest email (off unless you turn it on), whether you get election reminders (on unless you turn them off), and the officials, bills and elections you track, save or feature.</li>
         <li><strong>What you do on CivicView.</strong> The polls you vote in and your choice, the posts, comments, polls and bills you like or dislike, the comments you write and the polls you create. Each vote, like and comment is recorded with the state, district, city (and county, where known) of your account at that moment and whether your account was verified, so it can be counted for the right area.</li>
         <li><strong>Edits and deletions.</strong> When you edit or delete a comment, we keep its original text, hidden from everyone, so moderation decisions can be checked. It&apos;s removed when you delete your account.</li>
         <li><strong>Optional poll questions.</strong> See <a href="#poll-questions">Optional poll questions</a> below.</li>
         <li><strong>Notifications.</strong> The in-app notices we send you, such as a reply to your comment (which includes the replier&apos;s display name and a short preview).</li>
+        <li><strong>Election reminders.</strong> Before voting deadlines and Election Day, we send a reminder with the date and a link to the state&apos;s official election site, the same for everyone in that state, to citizen accounts in Florida, California, New York, Pennsylvania and Texas and to anyone tracking an election there. We use your account&apos;s state, the elections you track and your time zone offset to choose and time them, and we record which reminders we sent you so you never get the same one twice. You can turn them off from any reminder or in notification settings.</li>
         <li><strong>Reports and appeals.</strong> When you report content, we record that you reported it, your reason and any note. The person you report is not told who reported them. When you appeal a moderation decision, we keep your appeal and our decision.</li>
       </ul>
 
@@ -236,7 +237,7 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>To run CivicView:</strong> show you your officials, ballot and elections, display what you publish, and keep your settings.</li>
         <li><strong>To count engagement:</strong> totals of votes, likes and comments by area for officials, candidates and everyone.</li>
-        <li><strong>To notify you:</strong> the in-app, push and email messages you turned on, and notices about your account or the pages you track.</li>
+        <li><strong>To notify you:</strong> the in-app, push and email messages you turned on, election reminders (on unless you turn them off), and notices about your account or the pages you track.</li>
         <li><strong>To keep CivicView safe:</strong> screening new content, handling reports and appeals, rate limits, lockouts and 2FA.</li>
         <li><strong>For AI features:</strong> plain-English summaries, topic and tone tags on comments and polls, and AI search (see Anthropic below).</li>
         <li><strong>To verify citizens,</strong> once ID.me verification opens.</li>
@@ -350,7 +351,8 @@ export default function PrivacyPage() {
       </ul>
       <p>
         We never send advertising for other companies. In-app and push
-        notifications are controlled in Account &amp; settings.
+        notifications are controlled in Account &amp; settings, and
+        election reminders from any reminder or in notification settings.
       </p>
 
       <h2>How long we keep information</h2>

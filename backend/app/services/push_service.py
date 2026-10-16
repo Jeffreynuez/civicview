@@ -35,11 +35,14 @@ class PushService(ABC):
     @abstractmethod
     def send_to_tokens(
         self, tokens: List[str], *, title: str, body: str,
-        data: Optional[dict] = None,
+        data: Optional[dict] = None, ttl_seconds: Optional[int] = None,
     ) -> List[str]:
         """Send to a list of device tokens. Returns the subset of
         tokens FCM reports as invalid/unregistered so the caller can
-        prune them from the DB."""
+        prune them from the DB. ttl_seconds, when given, is how long
+        FCM keeps trying to deliver to an offline device before it
+        drops the message (election reminders expire at their
+        deadline)."""
 
     @abstractmethod
     def subscribe_to_topic(self, tokens: List[str], topic: str) -> None: ...
@@ -57,10 +60,10 @@ class PushService(ABC):
 class DevPushService(PushService):
     """No-credentials fallback — logs what WOULD be sent."""
 
-    def send_to_tokens(self, tokens, *, title, body, data=None):
+    def send_to_tokens(self, tokens, *, title, body, data=None, ttl_seconds=None):
         logger.info(
-            "[dev-push] would send to %d token(s): %r / %r data=%r",
-            len(tokens), title, body, data,
+            "[dev-push] would send to %d token(s): %r / %r data=%r ttl=%r",
+            len(tokens), title, body, data, ttl_seconds,
         )
         return []
 
@@ -93,7 +96,7 @@ class FCMPushService(PushService):
         except ValueError:
             self._app = firebase_admin.initialize_app(cred, name="civicview")
 
-    def send_to_tokens(self, tokens, *, title, body, data=None):
+    def send_to_tokens(self, tokens, *, title, body, data=None, ttl_seconds=None):
         from firebase_admin import messaging
 
         str_data = {k: str(v) for k, v in (data or {}).items()}
@@ -104,7 +107,11 @@ class FCMPushService(PushService):
                 tokens=batch,
                 notification=messaging.Notification(title=title, body=body),
                 data=str_data,
-                android=messaging.AndroidConfig(priority="high"),
+                android=(
+                    messaging.AndroidConfig(priority="high", ttl=int(ttl_seconds))
+                    if ttl_seconds is not None
+                    else messaging.AndroidConfig(priority="high")
+                ),
             )
             try:
                 resp = messaging.send_each_for_multicast(message, app=self._app)
@@ -198,11 +205,11 @@ def get_push_service() -> PushService:
 _CADENCE_MIN_GAP_HOURS = {"daily": 20, "weekly": 6 * 24}
 
 
-def _local_now(tz_offset_minutes: int) -> datetime:
-    return datetime.utcnow() + timedelta(minutes=tz_offset_minutes)
+def _local_now(tz_offset_minutes: int, now_utc: Optional[datetime] = None) -> datetime:
+    return (now_utc or datetime.utcnow()) + timedelta(minutes=tz_offset_minutes)
 
 
-def _in_quiet_hours(prefs: Optional[dict]) -> bool:
+def _in_quiet_hours(prefs: Optional[dict], now_utc: Optional[datetime] = None) -> bool:
     """True when the device's local clock is inside its quiet window.
     quiet_hours choices mirror the frontend CHANNEL_SCHEMA slider:
     off / nights (10pm–8am) / nights_weekends (nights + all weekend) /
@@ -215,7 +222,7 @@ def _in_quiet_hours(prefs: Optional[dict]) -> bool:
     tz = prefs.get("tz_offset_minutes")
     if not isinstance(tz, int) or isinstance(tz, bool) or abs(tz) > 14 * 60:
         return False  # No usable local clock — don't guess.
-    now = _local_now(tz)
+    now = _local_now(tz, now_utc)
     night = now.hour >= 22 or now.hour < 8
     weekend = now.weekday() >= 5  # Sat=5, Sun=6
     if mode == "nights":
@@ -423,3 +430,73 @@ def push_tracked_event(
     except Exception:
         logger.exception("push_tracked_event failed (non-fatal)")
         return 0
+
+
+def push_election_reminder(
+    db, citizen_ttls, *, title: str, body: str, data: dict,
+    now_utc: Optional[datetime] = None,
+) -> dict:
+    """Device push for one election reminder (services/election_reminders.py).
+
+    citizen_ttls: [(citizen_id, seconds until the reminder's deadline)].
+    Differs from the tracked-activity pushes on purpose (Jeffrey,
+    2026-10-16): no cadence limit, since these are few and
+    time-critical, and last_push_at is left alone so they never use up
+    a daily or weekly allowance; quiet hours still apply, so a device
+    inside its quiet window gets no push (the bell row is already
+    there). Bound devices only. Each push carries a TTL, so a phone
+    that is off until after the deadline never receives a stale one.
+
+    Returns {citizen_id: devices sent}. Never raises."""
+    from app.models.pages import DeviceToken
+
+    try:
+        ttl_by_citizen = {cid: ttl for cid, ttl in citizen_ttls if ttl and ttl >= 60}
+        if not ttl_by_citizen:
+            return {}
+        rows = db.query(DeviceToken).filter(DeviceToken.citizen_id.in_(list(ttl_by_citizen))).all()
+        if not rows:
+            return {}
+        from app.models.pages import CitizenAccount
+        account_prefs = {
+            cid: _parse_json_or_none(blob)
+            for cid, blob in db.query(CitizenAccount.id, CitizenAccount.notification_prefs_json)
+            .filter(CitizenAccount.id.in_({r.citizen_id for r in rows}))
+        }
+        # FCM multicast takes one TTL per request: group devices by TTL
+        # rounded down to the minute.
+        groups: dict = {}
+        suppressed = 0
+        for row in rows:
+            prefs = account_prefs.get(row.citizen_id)
+            if prefs is None:
+                prefs = _parse_json_or_none(row.prefs_json)
+            if _in_quiet_hours(prefs, now_utc):
+                suppressed += 1
+                continue
+            ttl = (ttl_by_citizen[row.citizen_id] // 60) * 60
+            groups.setdefault(ttl, []).append(row)
+        if suppressed:
+            logger.info("election_reminder: %d device(s) in quiet hours, no push", suppressed)
+        sent: dict = {}
+        invalid_all: list = []
+        for ttl, group in groups.items():
+            tokens = [r.token for r in group]
+            invalid = set(get_push_service().send_to_tokens(
+                tokens, title=title, body=body, data=data, ttl_seconds=ttl,
+            ))
+            invalid_all.extend(invalid)
+            for r in group:
+                if r.token not in invalid:
+                    sent[r.citizen_id] = sent.get(r.citizen_id, 0) + 1
+        if invalid_all:
+            db.query(DeviceToken).filter(DeviceToken.token.in_(invalid_all)).delete(
+                synchronize_session=False
+            )
+            db.commit()
+        logger.info("election_reminder: pushed to %d device(s)", sum(sent.values()))
+        return sent
+    except Exception:
+        db.rollback()
+        logger.exception("push_election_reminder failed (non-fatal)")
+        return {}

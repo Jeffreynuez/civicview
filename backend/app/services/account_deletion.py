@@ -231,6 +231,9 @@ def _keyed_rows(kind: AccountKind, account_id: int, email: Optional[str]):
         # what stops pushes to a deleted user's phone; the app registers
         # the device again, anonymously, the next time it opens.
         specs.append((DeviceToken, [DeviceToken.citizen_id == account_id]))
+        # Election reminders already delivered (2026-10-16).
+        from app.models.pages import ElectionReminderDelivery
+        specs.append((ElectionReminderDelivery, [ElectionReminderDelivery.citizen_id == account_id]))
     return specs
 
 
@@ -402,6 +405,14 @@ def purge_orphaned_account_rows(db: Optional[Session] = None) -> dict:
         )
         if n:
             totals["device_tokens:citizen"] = n
+        from app.models.pages import ElectionReminderDelivery
+        n = (
+            db.query(ElectionReminderDelivery)
+            .filter(~ElectionReminderDelivery.citizen_id.in_(db.query(CitizenAccount.id)))
+            .delete(synchronize_session=False)
+        )
+        if n:
+            totals["election_reminder_deliveries:citizen"] = n
         db.commit()
         if totals:
             logger.info("Orphaned account rows removed: %s", totals)

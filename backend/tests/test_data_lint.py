@@ -26,6 +26,13 @@ Elections (every <state>/elections.json):
        withdrawn, withdrawn_note and withdrawn_source (the Florida
        convention, followed on 2026-10-15 for six CA, NY and TX races
        that listed a member who had left the seat)
+  E-11 every date an election reminder is sent for (an election that is
+       still ahead, its voter registration deadline, mail ballot request
+       deadline and first day of early voting) has an https source in
+       key_date_sources, and voter_info's links and poll hours source
+       are https. Jeffrey, 2026-10-16: "Every date comes from an
+       official state source ... and carries its source URL." The
+       reminder job skips a date without one; this catches it first
 Candidates (every <state>/candidates.json):
   C-1  a record's own "id", when present, matches its key
   C-2  no two records for the same person and office unless one is
@@ -254,6 +261,57 @@ def lint_legislative_seats(state: str, races: list, where: str) -> None:
         seen.add(key)
 
 
+# Phases and date keys the election reminders read
+# (backend/app/services/election_reminders.py).
+REMINDER_PHASES = ("primary", "primary_runoff", "general")
+REMINDER_DATE_PREFIXES = ("voter_registration_deadline", "vote_by_mail_request_deadline", "early_voting_window")
+HHMM_RE = re.compile(r"^([01]\d|2[0-3]):([0-5]\d)$")
+
+
+def lint_reminder_sources(doc: dict, where: str) -> None:
+    """E-11. Only elections on or after today need sources: a past
+    primary sends nothing, and a file that passes cannot start failing
+    as time goes by."""
+    key_dates = doc.get("key_dates") or {}
+    sources = doc.get("key_date_sources") or {}
+    info = doc.get("voter_info") or {}
+    no_reminder = info.get("no_reminder") or {}
+    today = _dt.date.today()
+    for key, url in sources.items():
+        if not str(url).startswith("https://"):
+            problem("E-11", f"{where} key_date_sources.{key}", "source is not an https URL")
+        if key not in key_dates:
+            problem("E-11", f"{where} key_date_sources.{key}", "source for a date that is not in key_dates")
+    for phase in REMINDER_PHASES:
+        dates = ISO_DATE_RE.findall(str(key_dates.get(phase) or ""))
+        if len(dates) != 1:
+            continue
+        y, m, d = (int(x) for x in dates[0])
+        try:
+            if _dt.date(y, m, d) < today:
+                continue
+        except ValueError:
+            continue  # E-3 reports it
+        for key in (phase,) + tuple(f"{p}_{phase}" for p in REMINDER_DATE_PREFIXES):
+            if key in key_dates and key not in no_reminder and not str(sources.get(key, "")).startswith("https://"):
+                problem("E-11", f"{where} key_dates.{key}", "reminder date has no https source in key_date_sources")
+    for name, url in (info.get("links") or {}).items():
+        if not str(url).startswith("https://"):
+            problem("E-11", f"{where} voter_info.links.{name}", "link is not an https URL")
+    if info.get("official_site") is not None and not str(info["official_site"]).startswith("https://"):
+        problem("E-11", f"{where} voter_info.official_site", "not an https URL")
+    hours = info.get("poll_hours")
+    if hours is not None:
+        if not (HHMM_RE.match(str(hours.get("open", ""))) and HHMM_RE.match(str(hours.get("close", "")))):
+            problem("E-11", f"{where} voter_info.poll_hours", "open and close must be HH:MM")
+        if not str(hours.get("source_url", "")).startswith("https://"):
+            problem("E-11", f"{where} voter_info.poll_hours", "no https source_url")
+    for key, entry in no_reminder.items():
+        if not isinstance(entry, dict) or not entry.get("reason") or \
+                not str(entry.get("source_url", "")).startswith("https://"):
+            problem("E-11", f"{where} voter_info.no_reminder.{key}", "needs a reason and an https source_url")
+
+
 def lint_elections(state_dir: Path) -> None:
     path = state_dir / "elections.json"
     state = state_dir.name
@@ -288,6 +346,7 @@ def lint_elections(state_dir: Path) -> None:
     for key, value in (doc.get("key_dates") or {}).items():
         if isinstance(value, str) and not key.startswith("_"):
             _check_dates(f"{where} key_dates.{key}", value)
+    lint_reminder_sources(doc, where)
 
     measures = doc.get("ballot_measures") or {}
     groups = []

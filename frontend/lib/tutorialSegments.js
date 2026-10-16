@@ -223,7 +223,7 @@ export const TOUR_TOPICS = [
         body: ({ result }) => {
           const tail = 'Each election shows its key dates, its races and the candidates in each race.';
           if (result.reason === 'no-data') return `Election data for ${result.selectedName} isn't in yet, so we opened ${result.stateName}. ${tail}`;
-          if (result.reason === 'none') return `We opened ${result.stateName}, which has the most complete election data. ${tail}`;
+          if (result.reason === 'none') return `We opened ${result.stateName} as an example. ${tail}`;
           return `We opened the Elections tab for ${result.stateName}. ${tail}`;
         },
         fallbackTitle: 'Elections',
@@ -334,14 +334,21 @@ export const TOUR_TOPICS = [
         action: 'close-windows',
         target: 'nav-bell',
         title: 'Notifications',
-        body: 'The bell collects replies to your comments, plus new posts, polls and events from officials you track.',
+        body: 'The bell collects replies to your comments, election reminders, and new posts, polls and events from officials you track.',
+      },
+      {
+        id: 'notifications-election-reminders',
+        route: '/',
+        target: 'nav-bell',
+        title: 'Election reminders',
+        body: 'If your account is in Florida, California, New York, Pennsylvania or Texas, or you track an election, the bell reminds you of voting deadlines. Turn them off anytime.',
       },
       {
         id: 'notifications-channels',
         route: '/',
         target: null,
         title: 'Push and email',
-        body: 'Push alerts for officials you track work in the CivicView Android app. Email digests arrive at launch.',
+        body: 'Push alerts for officials you track and election reminders work in the CivicView Android app. Email digests arrive at launch.',
       },
     ],
   },

@@ -17,6 +17,39 @@
     "early_voting_optional_general": "Counties may add days from 2026-10-19 and on 2026-11-01",
     "_source_url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.657.html"
   },
+  "key_date_sources": {
+    "general": "https://dos.fl.gov/elections/for-voters/election-dates/",
+    "voter_registration_deadline_general": "https://dos.fl.gov/elections/for-voters/election-dates/",
+    "vote_by_mail_request_deadline_general": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.62.html",
+    "early_voting_window_general": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0101/Sections/0101.657.html"
+  },
+  "voter_info": {
+    "_note": "Read by election reminders (backend/app/services/election_reminders.py). Every link is on the Florida Division of Elections site; every reminder date needs an https source in key_date_sources (data lint E-11). Checked on the official pages 2026-10-15.",
+    "official_site": "https://dos.fl.gov/elections/",
+    "links": {
+      "registration": "https://dos.fl.gov/elections/for-voters/voter-registration/",
+      "mail_ballot": "https://dos.fl.gov/elections/for-voters/voting/vote-by-mail/",
+      "early_voting": "https://dos.fl.gov/elections/for-voters/voting/early-voting-and-secure-ballot-intake-stations/",
+      "polling_place": "https://dos.fl.gov/elections/for-voters/check-your-voter-status-and-polling-place/voter-precinct-lookup/"
+    },
+    "poll_hours": {
+      "open": "07:00",
+      "close": "19:00",
+      "source_url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0100/Sections/0100.011.html"
+    },
+    "deadline_times": {
+      "vote_by_mail_request_deadline_general": "17:00"
+    },
+    "reminder_notes": {
+      "vote_by_mail_request_deadline_general": "This is the deadline to have a ballot mailed to you, and requests are due by 5 p.m. local time."
+    },
+    "reminder_text": {
+      "early_voting_1d": {
+        "title": "Early voting opens in every Florida county tomorrow",
+        "body": "Early voting is open in every Florida county from tomorrow, {start}, through {end}. Some counties offer more days; check with your county Supervisor of Elections. Find your early voting location on the official Florida site."
+      }
+    }
+  },
   "races": [
     {
       "id": "fl-2026-gov",
