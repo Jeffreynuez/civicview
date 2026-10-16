@@ -166,6 +166,53 @@ export async function disablePush() {
 }
 
 /**
+ * Sign-in and sign-out (2026-10-16). The device belongs to whoever is
+ * signed in on it. Before this, nothing re-registered on sign-out, so a
+ * shared phone kept getting the last account's alerts, and a sign-in
+ * only bound the phone at the next app launch.
+ *
+ * bindPushToAccount: re-register the saved token now, so the server
+ * binds it to the citizen who just signed in. No permission prompt, no
+ * native round trip. Runs once per citizen per app session.
+ *
+ * unbindPushDevice: the device stays registered (push keeps working for
+ * whoever uses the app next) but belongs to nobody, with an empty
+ * tracked list. The server also unbinds a bound token the next time the
+ * app registers without a citizen session (offline sign-out, an expired
+ * session).
+ */
+let lastBoundCitizenId = null;
+
+function savedToken() {
+  try { return window.localStorage.getItem(TOKEN_KEY); } catch { return null; }
+}
+
+export async function bindPushToAccount(citizenId) {
+  if (!isNativeApp() || getPushChoice() !== 'enabled') return false;
+  if (citizenId && citizenId === lastBoundCitizenId) return false;
+  const token = savedToken();
+  if (!token) return false;
+  try {
+    const extra = await v2RegisterFields();
+    delete extra.tracked; // a bound device's tracking lives on the account
+    await postJson('/api/push/register', { token, platform: 'android', ...extra });
+    lastBoundCitizenId = citizenId || null;
+    return true;
+  } catch { return false; }
+}
+
+export async function unbindPushDevice() {
+  lastBoundCitizenId = null;
+  if (!isNativeApp()) return false;
+  const token = savedToken();
+  if (!token) return false;
+  try {
+    await postJson('/api/push/unbind', { token });
+    return true;
+  } catch { return false; }
+}
+
+/**
  * Clear every delivered CivicView notification out of the system tray
  * — and with it the launcher app-icon badge count, which Android
  * derives from tray presence. Called by the bell's "Clear" action so

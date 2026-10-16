@@ -11,7 +11,10 @@
 #                              own tracked-official key list + a channel
 #                              prefs snapshot, so tracked-activity
 #                              pushes reach installs that never sign in.
-# POST /api/push/unregister  — forget a token (sign-out / opt-out).
+# POST /api/push/unregister: forget a token (push turned off).
+# POST /api/push/unbind: sign-out (2026-10-16). The device stays
+#   registered but belongs to nobody, with an empty tracked list. A
+#   register with no citizen session unbinds a bound device too.
 #
 # CSRF: NOT exempt — the standard middleware applies. The frontend
 # fetches /api/csrf and sends X-CSRF-Token like every other write.
@@ -98,10 +101,15 @@ def register_device(
         db.add(row)
     row.platform = payload.platform
     row.last_seen_at = datetime.utcnow()
-    if citizen is not None:
-        # (Re-)bind to the current citizen — a shared/hand-me-down
-        # device follows whoever is signed in on it.
-        row.citizen_id = citizen.id
+    # The device belongs to whoever is signed in on it right now
+    # (2026-10-16). A signed-in register binds it; a register with no
+    # citizen session (the app opened after a sign-out made offline, or
+    # a session that expired) unbinds it, so a shared phone never keeps
+    # the last account's alerts.
+    new_owner = citizen.id if citizen is not None else None
+    if row.id is not None and row.citizen_id != new_owner:
+        _forget_owner_state(db, row)
+    row.citizen_id = new_owner
     # v2 optional fields — None means "not sent" (old app build or a
     # launch-time re-register before stores hydrate) and leaves the
     # stored value alone; an explicit [] / {} clears.
@@ -120,6 +128,40 @@ def register_device(
         # a preference for that ships.
         background_tasks.add_task(_subscribe_announcements_bg, payload.token)
     return {"ok": True, "bound": citizen is not None}
+
+
+def _forget_owner_state(db: Session, row: DeviceToken) -> None:
+    """The device changes hands: drop the tracked list it carried and
+    any updates held for the previous owner's summary push."""
+    from app.models.pages import PushHeldItem
+
+    row.tracked_json = None
+    row.summary_sent_at = None
+    db.query(PushHeldItem).filter(PushHeldItem.device_token_id == row.id).delete(
+        synchronize_session=False)
+
+
+class PushUnbindIn(BaseModel):
+    token: str = Field(min_length=8, max_length=512)
+
+
+@router.post("/unbind")
+def unbind_device(payload: PushUnbindIn, db: Session = Depends(get_db)):
+    """Sign-out (2026-10-16): the device stays registered, so push keeps
+    working for whoever uses the app next, but it no longer belongs to
+    the account that signed out: no account, an empty tracked list, no
+    held updates. Like /unregister, holding the device token is the
+    proof; it can only take alerts away from a device."""
+    row = db.query(DeviceToken).filter(DeviceToken.token == payload.token).first()
+    if row is None:
+        return {"ok": True, "unbound": False}
+    was_bound = row.citizen_id is not None
+    _forget_owner_state(db, row)
+    row.citizen_id = None
+    db.commit()
+    if was_bound:
+        logger.info("push: device unbound on sign-out")
+    return {"ok": True, "unbound": was_bound}
 
 
 @router.post("/unregister")
