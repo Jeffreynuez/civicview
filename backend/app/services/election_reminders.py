@@ -36,8 +36,9 @@ adding a state's dates is the whole change):
   * signed-in citizens whose account state has sourced reminder dates:
     on by default, as a bell row plus a push to any phone with push on.
     Nobody in a state without them gets one;
-  * anyone tracking an election gets that election's reminders, subject
-    to the tracked election's own alert settings;
+  * anyone tracking an election gets that election's reminders (each
+    tracked election's own four switches went away on 2026-10-17: the
+    Election reminders row of the notification settings covers them);
   * nobody who turned election reminders off, and nobody who tapped
     "I already voted" on one of that election's reminders (the rest of
     that election only); nobody whose account is suspended, inactive
@@ -114,7 +115,7 @@ class _KindSpec:
     kind: str
     date_prefix: Optional[str]  # key_dates prefix; None = the election date itself
     days_before: int
-    pref_key: str               # the tracked-election alert that governs it
+    pref_key: str               # the old tracked-election switch (no longer read, 2026-10-17)
     link_key: str               # voter_info.links entry
     label: str                  # admin preview label
     link_label: str
@@ -464,9 +465,6 @@ def build_schedule(today: Optional[date] = None, docs: Optional[dict] = None) ->
 
 # ── Recipients ───────────────────────────────────────────────────────
 
-_ELECTION_PREF_KEYS = ("on_election_day", "on_registration_deadline", "on_early_voting", "on_mail_ballot_deadline")
-
-
 def _loads(raw) -> dict:
     if not raw:
         return {}
@@ -477,17 +475,16 @@ def _loads(raw) -> dict:
     return val if isinstance(val, dict) else {}
 
 
-def _tracking(db: Session, reminder: Reminder) -> dict:
-    """citizen_id -> that citizen's alert prefs for the tracked election
-    matching this reminder. Tracked election keys are "2026-general"
-    style ids (or an older "state|office|date" composite), and the
-    snapshot names the state."""
+def _tracking(db: Session, reminder: Reminder) -> set:
+    """The citizens tracking the election this reminder is for.
+    Tracked election keys are "2026-general" style ids (or an older
+    "state|office|date" composite), and the snapshot names the state."""
     from app.models.pages import TrackedElection
 
     iso = reminder.election_date.isoformat()
     rows = (
         db.query(TrackedElection.tracker_id, TrackedElection.election_key,
-                 TrackedElection.snapshot_json, TrackedElection.prefs_json)
+                 TrackedElection.snapshot_json)
         .filter(
             TrackedElection.tracker_kind == "citizen",
             or_(func.lower(TrackedElection.election_key) == reminder.election_key.lower(),
@@ -495,8 +492,8 @@ def _tracking(db: Session, reminder: Reminder) -> dict:
         )
         .all()
     )
-    out = {}
-    for tracker_id, key, snap_raw, prefs_raw in rows:
+    out = set()
+    for tracker_id, key, snap_raw in rows:
         snap = _loads(snap_raw)
         snap_state = str(snap.get("state") or "").upper()
         if not snap_state and "|" in (key or ""):
@@ -506,8 +503,7 @@ def _tracking(db: Session, reminder: Reminder) -> dict:
         key_l = (key or "").lower()
         if key_l != reminder.election_key.lower() and str(snap.get("date") or "") != iso and iso not in key_l:
             continue
-        prefs = _loads(prefs_raw)
-        out[tracker_id] = {k: prefs.get(k, True) for k in _ELECTION_PREF_KEYS}
+        out.add(tracker_id)
     return out
 
 
@@ -555,11 +551,8 @@ def eligible_recipients(db: Session, reminder: Reminder) -> list[Recipient]:
     for cid, email, prefs_json, email_at in rows:
         if cid in stopped:
             continue  # "I already voted" in this election
-        prefs = tracking.get(cid)
-        if prefs is not None and prefs.get(reminder.pref_key) is False:
-            continue  # tracked election with this alert turned off
         wants_email = email_at is not None and email and not is_demo_email(email)
-        out.append(Recipient(cid, prefs_json, prefs is not None, email if wants_email else None))
+        out.append(Recipient(cid, prefs_json, cid in tracking, email if wants_email else None))
     return out
 
 
@@ -615,7 +608,8 @@ def render_email(reminder: Reminder, unsubscribe_url: Optional[str] = None) -> t
 
     esc = _html.escape
     footer = ("You get this email because you turned on election reminder emails in CivicView. "
-              "To stop them, turn off \"Also email me election reminders\" in your settings:")
+              "To stop them, choose a setting without email for Election reminders in your "
+              "notification settings:")
     unsub_line = "Or turn off election reminder emails with one click:"
     text = (f"{reminder.body}\n\n{reminder.link_label}: {reminder.link_url}\n"
             f"Source for this date: {reminder.source_url}\n\n"
@@ -712,8 +706,13 @@ def deliver(db: Session, reminder: Reminder, recipients: Iterable[Recipient], no
         pushes.append((rcp.citizen_id, claim_id, int((deadline_utc - now_utc).total_seconds())))
 
     if pushes:
+        # The Election reminders row's push setting (2026-10-17); "Off"
+        # is election_reminders_off_at, already left out above.
+        from app.services import alert_settings
+
+        push_ok = alert_settings.wanting(db, [cid for cid, _c, _t in pushes], "elections", alert_settings.PUSH)
         sent = push_election_reminder(
-            db, [(cid, ttl) for cid, _claim_id, ttl in pushes],
+            db, [(cid, ttl) for cid, _claim_id, ttl in pushes if cid in push_ok],
             title=reminder.title, body=reminder.body,
             data={"kind": NOTIFICATION_KIND, "reminder_id": reminder.id, "state": reminder.state},
             now_utc=now_utc,

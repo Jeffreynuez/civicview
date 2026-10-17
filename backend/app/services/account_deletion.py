@@ -243,6 +243,9 @@ def _keyed_rows(kind: AccountKind, account_id: int, email: Optional[str]):
         from app.models.pages import ElectionReminderDelivery, ElectionReminderStop
         specs.append((ElectionReminderDelivery, [ElectionReminderDelivery.citizen_id == account_id]))
         specs.append((ElectionReminderStop, [ElectionReminderStop.citizen_id == account_id]))
+        # Bill updates already delivered (2026-10-17).
+        from app.models.pages import BillUpdateDelivery
+        specs.append((BillUpdateDelivery, [BillUpdateDelivery.citizen_id == account_id]))
     return specs
 
 
@@ -473,8 +476,8 @@ def purge_orphaned_account_rows(db: Optional[Session] = None) -> dict:
         )
         if n:
             totals["push_held_items:device"] = n
-        from app.models.pages import ElectionReminderDelivery, ElectionReminderStop
-        for model in (ElectionReminderDelivery, ElectionReminderStop):
+        from app.models.pages import BillUpdateDelivery, ElectionReminderDelivery, ElectionReminderStop
+        for model in (ElectionReminderDelivery, ElectionReminderStop, BillUpdateDelivery):
             n = (
                 db.query(model)
                 .filter(~model.citizen_id.in_(db.query(CitizenAccount.id)))

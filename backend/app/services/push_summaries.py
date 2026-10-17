@@ -48,11 +48,13 @@ from typing import Optional
 from sqlalchemy import or_
 
 from app.services.push_service import (
+    DEFAULT_CHANNEL,
     PushMessage,
     _in_quiet_hours,
     _parse_json_or_none,
     device_prefs,
     effective_cadence,
+    message_for,
     send_push_messages,
 )
 
@@ -123,17 +125,73 @@ def summary_title(count: int) -> str:
     return f"{count} updates from officials you track"
 
 
+def _names_line(names: list) -> str:
+    if len(names) == 1:
+        return names[0]
+    if len(names) == 2:
+        return f"{names[0]} and {names[1]}"
+    return f"{names[0]}, {names[1]} and {len(names) - 2} more"
+
+
 def summary_body(names: list, *, quiet: bool) -> str:
     names = [n for n in names if n]
-    if not names:
-        who = "From officials you track"
-    elif len(names) == 1:
-        who = f"From {names[0]}"
-    elif len(names) == 2:
-        who = f"From {names[0]} and {names[1]}"
-    else:
-        who = f"From {names[0]}, {names[1]} and {len(names) - 2} more"
+    who = f"From {_names_line(names)}" if names else "From officials you track"
     return f"{who}, while your quiet hours were on." if quiet else f"{who}."
+
+
+# Since 2026-10-17 a summary can hold more than officials' posts and
+# events: bill updates and poll results follow the "Push alerts"
+# setting too, and quiet hours hold replies and page changes. Each kind
+# names what it is about.
+_KIND_GROUP = {
+    "tracked_post": "officials",
+    "tracked_event": "officials",
+    "bill_update": "bills",
+    "poll_results": "polls",
+    "reply": "replies",
+    "page_change": "pages",
+    "page_changes": "pages",
+}
+_GROUP_PHRASE = {
+    "officials": "officials you track",
+    "bills": "bills you track",
+    "polls": "polls you voted in",
+    "replies": "replies to your comments",
+    "pages": "pages you track",
+}
+_GROUP_TITLE = {
+    "bills": "{n} updates on bills you track",
+    "polls": "Results are in for {n} polls you voted in",
+    "replies": "{n} replies to your comments",
+    "pages": "{n} pages you track changed",
+}
+
+
+def mixed_title_body(items, *, quiet: bool) -> tuple:
+    """Title and body for a summary of several updates. Officials only
+    keeps the 2026-10-16 wording; one other kind names its items; a mix
+    lists what the updates are about."""
+    groups = []
+    for i in items:
+        g = _KIND_GROUP.get(i.kind, "officials")
+        if g not in groups:
+            groups.append(g)
+    names: list = []
+    for i in items:
+        if i.official_name and i.official_name not in names:
+            names.append(i.official_name)
+    n = len(items)
+    if groups == ["officials"]:
+        return summary_title(n), summary_body(names, quiet=quiet)
+    if len(groups) == 1:
+        title = _GROUP_TITLE[groups[0]].format(n=n)
+        core = _names_line(names) if names else _GROUP_PHRASE[groups[0]].capitalize()
+    else:
+        title = f"{n} new updates"
+        phrases = [_GROUP_PHRASE[g] for g in groups]
+        core = ", ".join(phrases[:-1]) + " and " + phrases[-1]
+        core = core[0].upper() + core[1:]
+    return title, (f"{core}, while your quiet hours were on." if quiet else f"{core}.")
 
 
 # ── The pass ─────────────────────────────────────────────────────────
@@ -185,26 +243,26 @@ def _release(db, device_id: int, claimed_at: datetime, previous: Optional[dateti
         logger.exception("push summaries: could not release the claim on device %s", device_id)
 
 
-def build_message(row, items) -> PushMessage:
-    """One push for a device's held updates (newest first)."""
+def build_message(row, items, prefs: Optional[dict] = None) -> PushMessage:
+    """One push for a device's held updates (newest first). One update
+    is sent as itself, on its own channel; several go on the Summaries
+    channel, tagged so a newer summary replaces the last one."""
     items = sorted(items, key=lambda i: (i.created_at, i.id), reverse=True)
     if len(items) == 1:
         only = items[0]
         data = _parse_json_or_none(only.data_json) or {}
-        return PushMessage(token=row.token, title=only.title, body=only.body, data=data,
-                           ttl_seconds=SUMMARY_TTL_SECONDS)
-    names: list = []
-    for i in items:
-        if i.official_name and i.official_name not in names:
-            names.append(i.official_name)
+        channel = data.pop("_channel", None) or DEFAULT_CHANNEL
+        tag = data.pop("_tag", None)
+        return message_for(row, prefs, title=only.title, body=only.body, data=data,
+                           channel=channel, tag=tag, ttl_seconds=SUMMARY_TTL_SECONDS)
     quiet = all(i.reason == "quiet" for i in items)
+    title, body = mixed_title_body(items, quiet=quiet)
     data = {"kind": "tracked_summary", "count": len(items)}
     if row.citizen_id is None:
         # No bell on a signed-out device: open the newest update's page.
         data["official_id"] = items[0].official_id or ""
-    return PushMessage(token=row.token, title=summary_title(len(items)),
-                       body=summary_body(names, quiet=quiet), data=data,
-                       ttl_seconds=SUMMARY_TTL_SECONDS)
+    return message_for(row, prefs, title=title, body=body, data=data, channel="summaries",
+                       tag="summary", ttl_seconds=SUMMARY_TTL_SECONDS)
 
 
 def run_summaries(db, now_utc: Optional[datetime] = None) -> dict:
@@ -234,6 +292,9 @@ def run_summaries(db, now_utc: Optional[datetime] = None) -> dict:
 
     for device_id, row in rows.items():
         prefs = device_prefs(row, account_prefs)
+        if getattr(row, "notifications_off_at", None) is not None:
+            counts["waiting"] += 1  # off in Android settings; kept for when they are back on
+            continue
         if _in_quiet_hours(prefs, now):
             counts["waiting"] += 1
             continue
@@ -271,7 +332,7 @@ def run_summaries(db, now_utc: Optional[datetime] = None) -> dict:
                 synchronize_session=False)
             db.commit()
             continue
-        message = build_message(row, fresh)
+        message = build_message(row, fresh, prefs)
         result = send_push_messages([message])
         if row.token in result.invalid:
             db.query(PushHeldItem).filter(PushHeldItem.device_token_id == device_id).delete(
@@ -359,6 +420,14 @@ def run_pass_with_session(first: bool = False) -> dict:
             from app.services.push_service import unsubscribe_announcements
             result["announcements_cleared"] = unsubscribe_announcements(db)
         result["summaries"] = run_summaries(db)
+        # "Results are in" for polls that closed (2026-10-17), under the
+        # same lock; its own try so one failing does not stop the other.
+        try:
+            from app.services import poll_results
+            result["poll_results"] = poll_results.run(db)
+        except Exception:
+            db.rollback()
+            logger.exception("poll results pass failed; it runs again at the next interval.")
         return result
     except Exception:
         db.rollback()

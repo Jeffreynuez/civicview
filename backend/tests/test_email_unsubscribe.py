@@ -100,7 +100,8 @@ def main() -> int:
         check("2 a visible unsubscribe link in the HTML and the text",
               "/unsubscribe?token=" in mail["html"] and "/unsubscribe?token=" in mail["text"])
         check("2 the plain text has the settings line too",
-              "Turn it off any time in Dashboard" in mail["text"] and "/?open=settings" in mail["text"], mail["text"])
+              "Turn it off any time in your notification settings, Weekly email digest" in mail["text"]
+              and "/?open=settings" in mail["text"], mail["text"])
         check("2 the digest's own stream when POSTMARK_DIGEST_STREAM is set", mail["stream"] == "digest", mail["stream"])
         token = lu[1:-1].rsplit("/", 1)[-1]
 

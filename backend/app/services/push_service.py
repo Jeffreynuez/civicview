@@ -18,6 +18,14 @@
 # (send_messages), so each can carry its own data, and a push that is
 # not sent at once is held for a summary (services/push_summaries.py),
 # never dropped.
+#
+# 2026-10-17 (phone notifications): every push names an Android channel
+# (CHANNELS), and the app from 1.2.0 (versionCode NATIVE_BUILD) builds
+# the notification itself from a data-only message: channel, status bar
+# icon and colour, a group with a summary at 3 or more, a tag so a newer
+# update replaces the older one, and a lock-screen version that hides
+# whom the person follows unless they chose "Show details". Older app
+# builds get the standard notification message, with the channel id.
 
 from __future__ import annotations
 
@@ -35,15 +43,52 @@ ANNOUNCEMENTS_TOPIC = "announcements"
 # FCM multicast hard limit per request.
 _BATCH = 500
 
+# Android notification channels (2026-10-17). The app creates them at
+# start (android/.../NotificationChannels.java; lib/push.js re-asserts
+# the names), each with Private lock-screen visibility. public: the text
+# a locked phone shows instead of the notification, unless the person
+# chose "Show details" (prefs key lock_screen_details); group: the
+# summary line once 3 or more of one channel are in the tray, {n} being
+# how many. The same for every official, party and state. No dashes.
+CHANNELS = {
+    "officials": {"public": "New update from an official you track",
+                  "group": "{n} updates from officials you track"},
+    "events": {"public": "New event from an official you track",
+               "group": "{n} events from officials you track"},
+    "replies": {"public": "New reply to your comment", "group": "{n} replies to your comments"},
+    "bills": {"public": "Update on a bill you track", "group": "{n} updates on bills you track"},
+    "poll_results": {"public": "Results are in for a poll you voted in",
+                     "group": "{n} polls you voted in have results"},
+    "elections": {"public": "Election reminder", "group": "{n} election reminders"},
+    "page_changes": {"public": "A page you track changed", "group": "{n} pages you track changed"},
+    "summaries": {"public": "New updates in CivicView", "group": "{n} summaries"},
+}
+DEFAULT_CHANNEL = "officials"
+PUBLIC_TITLE = "CivicView"
+GROUP_PUBLIC = "{n} new updates"
+# The first Android build (1.2.0, versionCode 5) whose notifications the
+# app builds itself (data-only messages). Older builds, and devices that
+# never said, get FCM's notification message.
+NATIVE_BUILD = 5
+BRAND_COLOR = "#2D6A4F"
+
 
 @dataclass
 class PushMessage:
-    """One push to one device."""
+    """One push to one device. channel: a CHANNELS key. tag: a newer
+    push with the same tag replaces the older one in the tray (events,
+    bills, polls). native: the device's app builds its own notification
+    (data-only message). show_details: the lock screen shows the
+    notification itself instead of the neutral text."""
     token: str
     title: str
     body: str
     data: dict = field(default_factory=dict)
     ttl_seconds: Optional[int] = None
+    channel: str = DEFAULT_CHANNEL
+    tag: Optional[str] = None
+    native: bool = False
+    show_details: bool = False
 
 
 @dataclass
@@ -167,19 +212,7 @@ class FCMPushService(PushService):
         result = SendResult()
         for i in range(0, len(messages), _BATCH):
             batch = messages[i:i + _BATCH]
-            fcm = [
-                messaging.Message(
-                    token=m.token,
-                    notification=messaging.Notification(title=m.title, body=m.body),
-                    data={k: str(v) for k, v in (m.data or {}).items()},
-                    android=(
-                        messaging.AndroidConfig(priority="high", ttl=int(m.ttl_seconds))
-                        if m.ttl_seconds is not None
-                        else messaging.AndroidConfig(priority="high")
-                    ),
-                )
-                for m in batch
-            ]
+            fcm = [fcm_message(m, messaging) for m in batch]
             try:
                 resp = messaging.send_each(fcm, app=self._app)
             except Exception:
@@ -225,6 +258,73 @@ class FCMPushService(PushService):
             logger.exception("FCM topic send failed (%s)", topic)
 
 
+def native_data(m: PushMessage) -> dict:
+    """The data-only payload the app (1.2.0 and later) builds its
+    notification from (CivicViewMessagingService.java). The app's own
+    keys stay as they are, so a tap still hands them to lib/push.js."""
+    channel = m.channel if m.channel in CHANNELS else DEFAULT_CHANNEL
+    spec = CHANNELS[channel]
+    data = {k: str(v) for k, v in (m.data or {}).items()}
+    data.update({
+        "cv_v": "1",
+        "cv_title": m.title,
+        "cv_body": m.body,
+        "cv_channel": channel,
+        "cv_public_title": m.title if m.show_details else PUBLIC_TITLE,
+        "cv_public_body": m.body if m.show_details else spec["public"],
+        "cv_group_title": spec["group"],
+        "cv_group_public": spec["group"] if m.show_details else GROUP_PUBLIC,
+    })
+    if m.tag:
+        data["cv_tag"] = m.tag
+    return data
+
+
+def fcm_message(m: PushMessage, messaging):
+    """One firebase-admin Message: data-only for an app that builds its
+    own notifications, else a notification message naming the channel."""
+    ttl = {"ttl": int(m.ttl_seconds)} if m.ttl_seconds is not None else {}
+    if m.native:
+        return messaging.Message(
+            token=m.token,
+            data=native_data(m),
+            android=messaging.AndroidConfig(priority="high", **ttl),
+        )
+    channel = m.channel if m.channel in CHANNELS else DEFAULT_CHANNEL
+    return messaging.Message(
+        token=m.token,
+        notification=messaging.Notification(title=m.title, body=m.body),
+        data={k: str(v) for k, v in (m.data or {}).items()},
+        android=messaging.AndroidConfig(
+            priority="high",
+            notification=messaging.AndroidNotification(
+                channel_id=channel, tag=m.tag, color=BRAND_COLOR, visibility="private",
+            ),
+            **ttl,
+        ),
+    )
+
+
+def is_native(row) -> bool:
+    """The device runs an app build that builds its own notifications."""
+    build = getattr(row, "app_build", None)
+    return isinstance(build, int) and not isinstance(build, bool) and build >= NATIVE_BUILD
+
+
+def lock_screen_details(prefs: Optional[dict]) -> bool:
+    """The person chose "Show details" for the lock screen (default: hide)."""
+    return isinstance(prefs, dict) and prefs.get("lock_screen_details") is True
+
+
+def message_for(row, prefs: Optional[dict], *, title: str, body: str, data: dict,
+                channel: str = DEFAULT_CHANNEL, tag: Optional[str] = None,
+                ttl_seconds: Optional[int] = None) -> PushMessage:
+    """One device's push, shaped for its app build and lock-screen setting."""
+    return PushMessage(token=row.token, title=title, body=body, data=data, ttl_seconds=ttl_seconds,
+                       channel=channel, tag=tag, native=is_native(row),
+                       show_details=lock_screen_details(prefs))
+
+
 def _is_dead_token_error(exc) -> bool:
     """True when FCM's error means this device token is dead.
 
@@ -249,9 +349,10 @@ def _send_grouped(svc, messages: List[PushMessage]) -> SendResult:
     result = SendResult()
     groups: dict = {}
     for m in messages:
-        key = (m.title, m.body, json.dumps(m.data or {}, sort_keys=True, default=str), m.ttl_seconds)
+        key = (m.title, m.body, json.dumps(m.data or {}, sort_keys=True, default=str), m.ttl_seconds,
+               m.channel, m.tag)
         groups.setdefault(key, []).append(m.token)
-    for (title, body, data_raw, ttl), tokens in groups.items():
+    for (title, body, data_raw, ttl, _channel, _tag), tokens in groups.items():
         kwargs = {"title": title, "body": body, "data": json.loads(data_raw)}
         if ttl is not None:
             kwargs["ttl_seconds"] = ttl
@@ -415,12 +516,19 @@ def device_prefs(row, account_prefs: dict) -> Optional[dict]:
 def _hold(db, row, *, reason: str, message: PushMessage, kind: str,
           official_id: Optional[str], official_name: Optional[str],
           notification_id: Optional[int], now: datetime) -> None:
+    """Keep one push for the device's summary. Its channel and tag ride
+    in data_json (_channel, _tag), so a summary of one update is that
+    update's own push (push_summaries.build_message)."""
     from app.models.pages import PushHeldItem
+    stored = dict(message.data or {})
+    stored["_channel"] = message.channel
+    if message.tag:
+        stored["_tag"] = message.tag
     db.add(PushHeldItem(
         device_token_id=row.id, reason=reason, kind=kind,
         official_id=official_id, official_name=(official_name or "")[:255] or None,
         notification_id=notification_id, title=message.title[:255], body=message.body,
-        data_json=json.dumps(message.data or {}, ensure_ascii=False, default=str),
+        data_json=json.dumps(stored, ensure_ascii=False, default=str),
         created_at=now,
     ))
 
@@ -433,9 +541,19 @@ def _deliver_tracked_push(
     body_for=None,
     ttl_seconds: Optional[int] = None,
     now_utc: Optional[datetime] = None,
+    channel: str = DEFAULT_CHANNEL,
+    tag: Optional[str] = None,
+    timing: bool = True,
 ) -> int:
     """Shared delivery engine for tracked-activity pushes (2026-07-26,
     extracted so tracked_event could ship without cloning 60 lines).
+    Since 2026-10-17 also replies, poll results, bill updates and page
+    changes (push_to_citizens): channel and tag shape the notification,
+    and timing=False means the "Push alerts" daily or weekly summary
+    does not hold it (replies and page changes come as they happen;
+    quiet hours still hold them). Callers pass only the citizens whose
+    notification settings allow the push (services/alert_settings.py).
+    Devices whose notifications are off in Android settings are skipped.
 
     Flow:
       1. Bound devices — tokens for the given citizens; per-account
@@ -444,8 +562,8 @@ def _deliver_tracked_push(
       2. Anonymous devices — only when anon_key is provided: rows with
          citizen_id NULL whose tracked_json contains the key
          (Notifications v2 part 3). Callers pass anon_key=None to skip
-         anonymous delivery (e.g. events, where the on_event pref is an
-         explicit opt-in anonymous devices never expressed).
+         anonymous delivery (events, replies, bills, poll results and
+         page changes reach signed-in citizens only).
       ttl_seconds: how long FCM keeps trying an offline device (posts
       3 days, events until they start; 2026-10-16).
       body_for(prefs), when given, builds each device's own body from
@@ -482,7 +600,8 @@ def _deliver_tracked_push(
         }
         ids = [i for i in ids if i in live_ids]
     rows = (
-        db.query(DeviceToken).filter(DeviceToken.citizen_id.in_(ids)).all()
+        db.query(DeviceToken).filter(DeviceToken.citizen_id.in_(ids),
+                                     DeviceToken.notifications_off_at.is_(None)).all()
         if ids else []
     )
     account_prefs: dict = {}
@@ -504,6 +623,7 @@ def _deliver_tracked_push(
             .filter(
                 DeviceToken.citizen_id.is_(None),
                 DeviceToken.tracked_json.isnot(None),
+                DeviceToken.notifications_off_at.is_(None),
             )
             .all()
         )
@@ -531,11 +651,11 @@ def _deliver_tracked_push(
         if nid:
             row_data["notification_id"] = nid
         row_body = body_for(prefs) if body_for is not None else body
-        message = PushMessage(token=row.token, title=title, body=row_body, data=row_data,
-                              ttl_seconds=ttl_seconds)
+        message = message_for(row, prefs, title=title, body=row_body, data=row_data,
+                              channel=channel, tag=tag, ttl_seconds=ttl_seconds)
         cadence = effective_cadence(prefs)
         reason = None
-        if cadence != "realtime":
+        if timing and cadence != "realtime":
             reason = "summary"
         elif _in_quiet_hours(prefs, now):
             reason = "quiet"
@@ -595,6 +715,7 @@ def push_tracked_post(
             official_name=official_name,
             notification_ids=notification_ids,
             ttl_seconds=POST_TTL_SECONDS,
+            channel="officials",
         )
     except Exception:
         db.rollback()
@@ -609,9 +730,8 @@ def push_tracked_event(
     notification_ids: Optional[dict] = None,
 ) -> int:
     """Device-push mirror of the tracked_event in-app fan-out.
-    Bound devices only (anon_key=None): the on_event pref is a
-    per-official opt-in that anonymous devices can't express, so
-    they never receive event pushes. Never raises."""
+    Bound devices only (anon_key=None): signed-out phones get
+    officials' posts and polls, not events. Never raises."""
     try:
         from app.services.local_time import format_when
 
@@ -639,10 +759,35 @@ def push_tracked_event(
             },
             official_name=official_name,
             notification_ids=notification_ids,
+            channel="events",
+            tag=f"event-{event_id}",
         )
     except Exception:
         db.rollback()
         logger.exception("push_tracked_event failed (non-fatal)")
+        return 0
+
+
+def push_to_citizens(
+    db, citizen_ids: Iterable[int], *, title: str, body: str, data: dict,
+    channel: str, tag: Optional[str] = None, ttl_seconds: Optional[int] = POST_TTL_SECONDS,
+    official_name: Optional[str] = None, notification_ids: Optional[dict] = None,
+    timing: bool = True,
+) -> int:
+    """A push to signed-in citizens' phones (2026-10-17): replies, poll
+    results, bill updates, page changes. Same engine as the tracked
+    pushes (quiet hours, summaries, pruning); bound devices only.
+    official_name names the update in a summary (an official, a bill's
+    citation). Never raises."""
+    try:
+        return _deliver_tracked_push(
+            db, citizen_ids, anon_key=None, title=title, body=body, data=data,
+            official_name=official_name, notification_ids=notification_ids,
+            ttl_seconds=ttl_seconds, channel=channel, tag=tag, timing=timing,
+        )
+    except Exception:
+        db.rollback()
+        logger.exception("push %s failed (non-fatal)", data.get("kind"))
         return 0
 
 
@@ -701,7 +846,8 @@ def push_election_reminder(
         ttl_by_citizen = {cid: ttl for cid, ttl in citizen_ttls if ttl and ttl >= 60}
         if not ttl_by_citizen:
             return {}
-        rows = db.query(DeviceToken).filter(DeviceToken.citizen_id.in_(list(ttl_by_citizen))).all()
+        rows = db.query(DeviceToken).filter(DeviceToken.citizen_id.in_(list(ttl_by_citizen)),
+                                            DeviceToken.notifications_off_at.is_(None)).all()
         if not rows:
             return {}
         from app.models.pages import CitizenAccount
@@ -710,9 +856,10 @@ def push_election_reminder(
             for cid, blob in db.query(CitizenAccount.id, CitizenAccount.notification_prefs_json)
             .filter(CitizenAccount.id.in_({r.citizen_id for r in rows}))
         }
-        # FCM multicast takes one TTL per request: group devices by TTL
-        # rounded down to the minute.
-        groups: dict = {}
+        # One message per device since 2026-10-17 (it was one multicast
+        # per TTL), so each carries its own app format and lock-screen
+        # text. TTL rounded down to the minute, as before.
+        messages = []
         suppressed = 0
         for row in rows:
             prefs = account_prefs.get(row.citizen_id)
@@ -722,22 +869,19 @@ def push_election_reminder(
                 suppressed += 1
                 continue
             ttl = (ttl_by_citizen[row.citizen_id] // 60) * 60
-            groups.setdefault(ttl, []).append(row)
+            messages.append((row, message_for(
+                row, prefs, title=title, body=body, data=data, channel="elections",
+                tag=f"election-{data.get('reminder_id')}" if data.get("reminder_id") else None,
+                ttl_seconds=ttl)))
         if suppressed:
             logger.info("election_reminder: %d device(s) in quiet hours, no push", suppressed)
+        result = send_push_messages([m for _row, m in messages])
         sent: dict = {}
-        invalid_all: list = []
-        for ttl, group in groups.items():
-            tokens = [r.token for r in group]
-            invalid = set(get_push_service().send_to_tokens(
-                tokens, title=title, body=body, data=data, ttl_seconds=ttl,
-            ))
-            invalid_all.extend(invalid)
-            for r in group:
-                if r.token not in invalid:
-                    sent[r.citizen_id] = sent.get(r.citizen_id, 0) + 1
-        if invalid_all:
-            db.query(DeviceToken).filter(DeviceToken.token.in_(invalid_all)).delete(
+        for row, _m in messages:
+            if row.token in result.sent:
+                sent[row.citizen_id] = sent.get(row.citizen_id, 0) + 1
+        if result.invalid:
+            db.query(DeviceToken).filter(DeviceToken.token.in_(result.invalid)).delete(
                 synchronize_session=False
             )
             db.commit()

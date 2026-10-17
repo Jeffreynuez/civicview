@@ -1022,6 +1022,22 @@ def create_citizen_poll_comment(
     else:
         _mk, _mid = "citizen", comment.citizen_id
     bg_tasks.add_task(assess_in_background, "poll_comment", comment.id, comment.body, _mk, _mid)
+    # Reply notification (2026-10-17): replies on citizen polls created
+    # no notification at all. The parent's author gets a bell row (reps
+    # and candidates under their reply alerts switch) and, for a
+    # citizen, a push after the moderation pass queued above.
+    if parent_id is not None:
+        try:
+            from app.services.notifications_inapp import emit_reply_notification, push_reply_bg
+            note = emit_reply_notification(
+                db, reply=comment, parent=parent, replier_display_name=display_name,
+                official_id=poll.target_official_id or "", poll_id=poll.id,
+            )
+            if note is not None and note.recipient_kind == "citizen":
+                bg_tasks.add_task(push_reply_bg, note.id, "poll_comment")
+        except Exception:
+            # The reply has landed; the bell just won't ring this once.
+            logger.exception("Failed to emit reply notification for poll comment %s", comment.id)
     # Hand-build the response so author_kind reflects the triple-
     # identity shape; model_validate alone wouldn't set the
     # discriminator on a fresh row.

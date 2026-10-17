@@ -2189,11 +2189,16 @@ def create_comment(
                 else candidate.display_name if candidate is not None
                 else citizen.display_name
             )
-            emit_reply_notification(
+            note = emit_reply_notification(
                 db, reply=comment, parent=parent,
                 replier_display_name=replier_name,
                 official_id=post.official_id,
             )
+            # The phone push (citizens only), after the moderation pass
+            # queued above, so a flagged reply is not pushed (2026-10-17).
+            if note is not None and note.recipient_kind == "citizen":
+                from app.services.notifications_inapp import push_reply_bg
+                bg_tasks.add_task(push_reply_bg, note.id, "post_comment")
         except Exception:
             # Don't let a notification-emission bug fail the comment
             # write — the user has already seen their comment land,
@@ -2624,9 +2629,9 @@ def create_rep_event(
     fix: accepts rep OR candidate owner via _resolve_page_owner — the
     Events-tab composer already rendered for candidate owners, but
     this endpoint was rep-only, so candidate event creation 401'd.
-    Also fans out kind='tracked_event' alerts to tracking citizens who
-    opted into the per-official 'on_event' pref (schema default OFF —
-    events are chatter; trackers opt in from My Tracked)."""
+    Also fans out kind='tracked_event' alerts to tracking citizens,
+    under the Events row of their notification settings (on by
+    default since 2026-10-17) unless they muted this official."""
     rep, candidate = _resolve_page_owner(
         me_rep=me_rep, me_candidate=me_candidate, page_official_id=official_id,
     )

@@ -67,6 +67,16 @@ class PushTokenIn(BaseModel):
     tracked: Optional[List[str]] = None
     tracked_remove: Optional[List[str]] = None
     prefs: Optional[dict] = None
+    # 2026-10-17 (phone notifications), both optional:
+    #   app_build: the Android app's versionCode. 5 (1.2.0) and later
+    #     build their own notifications (push_service.NATIVE_BUILD).
+    #   os_enabled: false when notifications for CivicView are off in
+    #     Android settings (the app checks at every launch and resume).
+    #     The device is then skipped by every send path until it reports
+    #     true again; the token is kept, so turning them back on in
+    #     Android settings is all it takes.
+    app_build: Optional[int] = Field(default=None, ge=0, le=10_000_000)
+    os_enabled: Optional[bool] = None
 
 
 def _normalize_tracked(keys: List[str]) -> List[str]:
@@ -129,8 +139,15 @@ def register_device(
 
         prefs = sanitize_notification_prefs(payload.prefs)
         row.prefs_json = json.dumps(prefs, ensure_ascii=False) if prefs else None
+    if payload.app_build is not None:
+        row.app_build = payload.app_build
+    if payload.os_enabled is False:
+        if row.notifications_off_at is None:
+            row.notifications_off_at = datetime.utcnow()
+    elif payload.os_enabled is True:
+        row.notifications_off_at = None
     db.commit()
-    return {"ok": True, "bound": citizen is not None}
+    return {"ok": True, "bound": citizen is not None, "os_enabled": row.notifications_off_at is None}
 
 
 def _forget_owner_state(db: Session, row: DeviceToken) -> None:
@@ -212,7 +229,7 @@ def send_test_push(
     their citizen account, plus this device's token when the page is
     open in the app. Reports what happened and logs it."""
     from app.models.pages import PushHeldItem
-    from app.services.push_service import DevPushService, PushMessage, send_push_messages
+    from app.services.push_service import DevPushService, message_for, send_push_messages
 
     rows = []
     if actor.get("kind") == "citizen":
@@ -227,9 +244,9 @@ def send_test_push(
         logger.info("admin %s:%s test push: no registered device", actor.get("kind"), actor.get("id"))
         return {"devices": 0, "sent": 0, "failed": 0, "pruned": 0, "service": service}
     result = send_push_messages([
-        PushMessage(token=r.token, title="CivicView test push",
+        message_for(r, {"lock_screen_details": True}, title="CivicView test push",
                     body="If you can read this, push works on this device.",
-                    data={"kind": "test"}, ttl_seconds=600)
+                    data={"kind": "test"}, channel="officials", ttl_seconds=600)
         for r in rows
     ])
     pruned = 0
