@@ -5,8 +5,8 @@
 
 /**
  * /unsubscribe?token=... (2026-10-16). The footer link in the weekly
- * digest, the notices about pages you track and election reminder
- * emails. It says which email the link turns off and asks once, so a
+ * digest, the notices about pages you track, election reminder emails
+ * and (2026-10-17) the emails about bills you track. It says which email the link turns off and asks once, so a
  * link scanner opening the email turns nothing off. Mail apps that
  * support one-click unsubscribe (RFC 8058) skip this page and POST to
  * the API directly. Nothing here turns anything back on; the settings
@@ -20,10 +20,13 @@ import Navbar from '@/components/Navbar';
 import StickyPageHeader from '@/components/StickyPageHeader';
 import { request } from '@/lib/http';
 
+// Where each email is turned back on (2026-10-17: one settings list, in
+// the bell's Settings and in Dashboard, Account & settings, Notifications).
 const WHERE_TO_TURN_ON = {
-  digest: 'Dashboard, Account & settings, Weekly digest',
-  page_changes: 'the bell, Delivery channels, "Email me when a page I track changes" (on a representative or candidate page: Dashboard, Notification settings)',
-  election_reminders: 'the bell, Delivery channels, "Also email me election reminders"',
+  digest: 'the bell, Settings, Weekly email digest',
+  page_changes: 'the bell, Settings, Changes to pages you track (on a representative or candidate page: Dashboard, Notification settings)',
+  election_reminders: 'the bell, Settings, Election reminders',
+  bill_updates: 'the bell, Settings, Bill updates',
 };
 
 function UnsubscribeInner() {

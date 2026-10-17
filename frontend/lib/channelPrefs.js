@@ -4,8 +4,11 @@
 /**
  * Channel Preferences Store
  *
- * Persistence for the user's global delivery preferences — in-app
- * toasts, mobile push, quiet-hours, digest cadence. Backed by
+ * Persistence for the user's global delivery preferences: quiet hours,
+ * push timing (push_cadence) and, since 2026-10-17, whether a locked
+ * phone shows details (lock_screen_details). Which alerts reach the
+ * bell, the phone or email is the settings list on the account
+ * (lib/alertSettings.js), not this blob. Backed by
  * localStorage, with the same tiny pub/sub pattern the other tracked-*
  * stores use.
  *

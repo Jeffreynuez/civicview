@@ -6,21 +6,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useIsMobile } from '@/lib/useViewport';
 import {
-  useChannelPrefs,
-  setChannelPrefs,
   enableChannelPrefsServerSync,
   disableChannelPrefsServerSync,
 } from '@/lib/channelPrefs';
-// Mobile push went live 2026-07-24 (FCM, lib/push.js). Inside the
-// native shell the 'mobile_push' channel row below becomes a real
-// toggle; on the web it keeps its SOON placeholder.
-import {
-  isNativeApp,
-  isPushEnabled,
-  enablePush,
-  disablePush,
-  clearDeliveredNotifications,
-} from '@/lib/push';
+import { clearDeliveredNotifications } from '@/lib/push';
 import {
   fetchNotifications,
   markNotificationRead,
@@ -35,10 +24,12 @@ import { useAuth } from '@/lib/auth';
 import { useCitizenAuth } from '@/lib/citizenAuth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
 import { takeNotificationsOpenRequest } from '@/lib/notificationsOpen';
-import { openDeepLink, postDeepLink } from '@/lib/deepLinks';
+import { notificationLink, openDeepLink } from '@/lib/deepLinks';
 import LifecycleNotice, { LIFECYCLE_KINDS } from './LifecycleNotice';
-import ElectionReminderNotice, { ElectionRemindersToggle } from './ElectionReminderNotice';
-import PageChangeEmailToggle from './PageChangeEmailToggle';
+import ElectionReminderNotice from './ElectionReminderNotice';
+// The settings list (2026-10-17): one dropdown per kind of alert, then
+// timing. Shown in place of the inbox when the gear is tapped.
+import NotificationSettings, { usePhonePush } from './NotificationSettings';
 
 // Phase 5 MVP: poll the notification inbox at this cadence. 60s is
 // frequent enough for "rep replied to my comment" to feel responsive
@@ -55,6 +46,9 @@ const NOTIF_CATEGORIES = [
   { key: 'reply', label: 'Replies', byOfficial: false },
   { key: 'tracked_post', label: 'Posts & polls', byOfficial: true },
   { key: 'tracked_event', label: 'Events', byOfficial: true },
+  // 2026-10-17: the daily Congress.gov pass, and polls you voted in.
+  { key: 'bill_update', label: 'Bill updates', byOfficial: false },
+  { key: 'poll_results', label: 'Poll results', byOfficial: false },
   // Former officials and candidates (2026-10-15): leaving office,
   // campaigns ending, archives, and Follow in office.
   { key: 'lifecycle', label: 'Changes in office', byOfficial: false },
@@ -64,33 +58,16 @@ const NOTIF_CATEGORIES = [
 const NOTIF_POLL_MS = 60000;
 
 /**
- * Navbar bell button that opens a dropdown of global delivery channel
- * preferences (desktop push, email, mobile push) plus the quiet hours
- * and push alerts sliders. Options marked `hidden` are not shown.
- *
- * Channels marked `available: false` in CHANNEL_SCHEMA render as disabled
- * "coming soon" toggles so users can see what's on the roadmap.
+ * Navbar bell: the notification inbox, and behind its gear the
+ * notification settings list (components/NotificationSettings.js,
+ * 2026-10-17), so the inbox stays short.
  */
 export default function NotificationBellMenu() {
-  // Live mobile-push state (native app only; harmless no-op on web).
-  // Read post-mount so SSR/hydration stay consistent.
-  const [pushOn, setPushOn] = useState(false);
-  const [pushBusy, setPushBusy] = useState(false);
-  useEffect(() => { setPushOn(isPushEnabled()); }, []);
-  const handleMobilePushToggle = async (v) => {
-    setPushBusy(true);
-    if (v) {
-      const res = await enablePush();
-      setPushOn(!!res.ok);
-    } else {
-      await disablePush();
-      setPushOn(false);
-    }
-    setPushBusy(false);
-  };
-
-  const { prefs, schema } = useChannelPrefs();
+  // Push on this phone (native app only), for the yellow dot.
+  const phone = usePhonePush();
   const [open, setOpen] = useState(false);
+  const [view, setView] = useState('inbox'); // 'inbox' | 'settings'
+  useEffect(() => { if (!open) setView('inbox'); }, [open]);
   const isMobile = useIsMobile();
   const containerRef = useRef(null);
 
@@ -212,11 +189,13 @@ export default function NotificationBellMenu() {
       ));
       setUnreadCount((c) => Math.max(0, c - 1));
     }
-    // Open the post (or the page, for events and page notices) with the
-    // same deep link a push tap uses (lib/deepLinks.js, 2026-10-16).
-    const p = n.payload || {};
+    // Open it with the same link a push tap uses (lib/deepLinks.js
+    // notificationLink): the post, the poll, the page, or My Tracked
+    // for a bill. An election reminder carries its own official link.
     setOpen(false);
-    if (p.official_id) openDeepLink(postDeepLink(p.official_id, p.post_id));
+    if (n.kind === 'election_reminder') return;
+    const url = notificationLink(n.kind, n.payload || {});
+    if (url) openDeepLink(url);
   };
 
   // Bell v3.1 two-stage action (Jeffrey, 2026-07-26): while anything
@@ -263,10 +242,8 @@ export default function NotificationBellMenu() {
     };
   }, [open]);
 
-  // The yellow dot means a delivery channel is on. Since the unused
-  // "In-app toasts" switch was hidden (2026-10-16), that is mobile push.
-  const enabledCount = schema.options.filter((o) => o.available && !o.hidden && prefs[o.key]).length
-    + (pushOn ? 1 : 0);
+  // The yellow dot: push is on for this phone.
+  const enabledCount = phone.on ? 1 : 0;
 
   return (
     <div ref={containerRef} style={{ position: 'relative' }}>
@@ -330,23 +307,51 @@ export default function NotificationBellMenu() {
             padding: '4px 2px 8px',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           }}>
-            <span>Notifications</span>
-            {notifItems.length > 0 && (
+            {view === 'settings' ? (
               <button
                 type="button"
-                onClick={unreadCount > 0 ? onMarkAllRead : onClearAll}
-                style={{
-                  background: 'transparent', border: 'none',
-                  color: 'var(--cl-accent)', cursor: 'pointer',
-                  fontSize: '0.66rem', fontWeight: 700,
-                  textTransform: 'none', letterSpacing: 0,
-                  fontFamily: 'inherit', padding: 0,
-                }}
+                onClick={() => setView('inbox')}
+                style={headerLinkStyle}
+                aria-label="Back to notifications"
               >
-                {unreadCount > 0 ? 'Mark as read' : 'Clear'}
+                {'\u2190 Notifications'}
               </button>
+            ) : (
+              <span>Notifications</span>
             )}
+            <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              {view === 'inbox' && notifItems.length > 0 && (
+                <button
+                  type="button"
+                  onClick={unreadCount > 0 ? onMarkAllRead : onClearAll}
+                  style={headerLinkStyle}
+                >
+                  {unreadCount > 0 ? 'Mark as read' : 'Clear'}
+                </button>
+              )}
+              {view === 'inbox' ? (
+                <button
+                  type="button"
+                  onClick={() => setView('settings')}
+                  aria-label="Notification settings"
+                  title="Notification settings"
+                  data-testid="bell-settings-button"
+                  style={{ ...headerLinkStyle, display: 'flex', alignItems: 'center', gap: 4 }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                  Settings
+                </button>
+              ) : (
+                <span style={{ fontSize: '0.66rem', textTransform: 'none', letterSpacing: 0 }}>Settings</span>
+              )}
+            </span>
           </div>
+
+          {view === 'settings' ? <NotificationSettings variant="bell" /> : (
+          <>
 
           {/* Bell v3 inbox — grouped into collapsible category
               sections; tracked categories sub-group per official so a
@@ -358,8 +363,9 @@ export default function NotificationBellMenu() {
               </div>
             ) : notifItems.length === 0 ? (
               <div style={{ fontSize: '0.74rem', color: 'var(--cl-text-light)', padding: '6px 2px', lineHeight: 1.4 }}>
-                Nothing new. Replies to your comments, election reminders, and
-                posts, polls and events from officials you track will show up here.
+                Nothing new. Replies to your comments, election reminders, bill
+                updates, poll results, and posts, polls and events from
+                officials you track will show up here.
               </div>
             ) : (
               notifGroups.map((g) => {
@@ -398,6 +404,17 @@ export default function NotificationBellMenu() {
                             <span style={{ fontWeight: 800 }}>{p.official_name || 'An official you track'}</span>
                             {' '}scheduled an upcoming event
                           </>
+                        ) : n.kind === 'bill_update' ? (
+                          <>
+                            <span style={{ fontWeight: 800 }}>{p.citation || 'A bill you track'}</span>
+                            {p.change_kind === 'status' ? ' had a status change'
+                              : p.change_kind === 'vote' ? ' had a recorded vote' : ' has a new action'}
+                          </>
+                        ) : n.kind === 'poll_results' ? (
+                          <>
+                            <span style={{ fontWeight: 800 }}>Results are in</span>
+                            {' '}for a poll you voted in
+                          </>
                         ) : (
                           <>
                             <span style={{ fontWeight: 800 }}>{p.replier_name || 'Someone'}</span>
@@ -405,9 +422,11 @@ export default function NotificationBellMenu() {
                           </>
                         )}
                       </div>
-                      {p.preview && (
+                      {(p.preview || p.question || p.action) && (
                         <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)', marginTop: 2, lineHeight: 1.35 }}>
-                          “{p.preview}”
+                          {n.kind === 'bill_update'
+                            ? `${p.action_date ? p.action_date + ': ' : ''}${p.action}${p.more ? ` (and ${p.more} more)` : ''}`
+                            : `\u201c${p.preview || p.question}\u201d`}
                         </div>
                       )}
                     </button>
@@ -479,157 +498,18 @@ export default function NotificationBellMenu() {
             )}
           </div>
 
-          <div style={{
-            fontSize: '0.68rem', fontWeight: 800, color: 'var(--cl-text-light)',
-            textTransform: 'uppercase', letterSpacing: '0.5px', margin: '4px 2px',
-          }}>
-            Delivery channels
-          </div>
-          {schema.options.filter((opt) => !opt.hidden).map((opt) => {
-            // Live mobile push in the native app — overrides the
-            // schema's available:false placeholder. Toggling on runs
-            // the permission + FCM registration flow; off forgets the
-            // device server-side.
-            if (opt.key === 'mobile_push' && isNativeApp()) {
-              return (
-                <ChannelToggle
-                  key={opt.key}
-                  label={opt.label}
-                  description={pushBusy
-                    ? 'Setting up…'
-                    : 'Alerts when officials you track post updates or run polls, and election reminders.'}
-                  checked={pushOn}
-                  disabled={pushBusy}
-                  onChange={handleMobilePushToggle}
-                />
-              );
-            }
-            return (
-              <ChannelToggle
-                key={opt.key}
-                label={opt.label}
-                description={opt.description}
-                badge={opt.badge}
-                checked={Boolean(prefs[opt.key])}
-                disabled={!opt.available}
-                onChange={(v) => setChannelPrefs({ [opt.key]: v })}
-              />
-            );
-          })}
-          {/* Election reminders (2026-10-16): a citizen setting stored on
-              the account, not in the synced channel prefs blob. */}
-          {citizen?.id && <ElectionRemindersToggle refreshKey={`${citizen.id}-${open}`} />}
-          {/* "Email me when a page I track changes" (2026-10-16), also an
-              account setting outside the synced prefs blob. */}
-          {citizen?.id && <PageChangeEmailToggle identity="citizen" refreshKey={`${citizen.id}-${open}`} />}
-
-          <div style={{
-            fontSize: '0.68rem', fontWeight: 800, color: 'var(--cl-text-light)',
-            textTransform: 'uppercase', letterSpacing: '0.5px',
-            margin: '10px 2px 4px',
-          }}>
-            Timing
-          </div>
-          {schema.sliders.map((s) => (
-            <Slider
-              key={s.key}
-              label={s.label}
-              description={s.description}
-              choices={s.choices}
-              choiceLabels={s.choiceLabels}
-              value={prefs[s.key] || s.default}
-              onChange={(v) => setChannelPrefs({ [s.key]: v })}
-            />
-          ))}
-
-          <div style={{
-            fontSize: '0.68rem', color: 'var(--cl-text-light)',
-            padding: '8px 2px 2px', lineHeight: 1.4, borderTop: '1px solid var(--cl-border)',
-            marginTop: '6px',
-          }}>
-            Mobile push is live in the CivicView Android app. Email
-            digests arrive with launch; desktop notifications are planned.
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function ChannelToggle({ label, description, checked, disabled, onChange, badge }) {
-  return (
-    <label
-      style={{
-        display: 'flex', alignItems: 'flex-start', gap: '10px',
-        padding: '6px 2px', cursor: disabled ? 'not-allowed' : 'pointer',
-        opacity: disabled ? 0.55 : 1,
-      }}
-    >
-      <input
-        type="checkbox"
-        checked={checked}
-        disabled={disabled}
-        onChange={(e) => onChange(e.target.checked)}
-        style={{
-          marginTop: '3px', accentColor: 'var(--cl-accent)',
-          cursor: disabled ? 'not-allowed' : 'pointer',
-        }}
-      />
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
-          {label}
-          {disabled && (
-            <span style={{
-              fontSize: '0.58rem', fontWeight: 800, padding: '1px 6px',
-              borderRadius: '8px', background: 'var(--cl-bg)',
-              color: 'var(--cl-text-light)', border: '1px solid var(--cl-border)',
-              letterSpacing: '0.4px',
-            }}>
-              {badge || 'SOON'}
-            </span>
+          </>
           )}
         </div>
-        {description && (
-          <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '1px', lineHeight: 1.35 }}>
-            {description}
-          </div>
-        )}
-      </div>
-    </label>
-  );
-}
-
-function Slider({ label, description, choices, choiceLabels, value, onChange }) {
-  const idx = Math.max(0, choices.indexOf(value));
-  const name = (c) => (choiceLabels && choiceLabels[c]) || String(c).replace(/_/g, ' ');
-  return (
-    <div style={{ padding: '6px 2px' }}>
-      <div style={{ fontSize: '0.78rem', fontWeight: 700 }}>
-        {label}: <span style={{ color: 'var(--cl-accent)', textTransform: choiceLabels ? 'none' : 'capitalize' }}>
-          {name(value)}
-        </span>
-      </div>
-      {description && (
-        <div style={{ fontSize: '0.68rem', color: 'var(--cl-text-light)', marginTop: '1px', lineHeight: 1.35 }}>
-          {description}
-        </div>
       )}
-      <input
-        type="range"
-        min={0}
-        max={choices.length - 1}
-        step={1}
-        value={idx}
-        onChange={(e) => onChange(choices[Number(e.target.value)])}
-        style={{ width: '100%', marginTop: '4px', accentColor: 'var(--cl-accent)', cursor: 'pointer' }}
-      />
-      <div style={{
-        display: 'flex', justifyContent: 'space-between',
-        fontSize: '0.62rem', color: 'var(--cl-text-light)',
-        textTransform: choiceLabels ? 'none' : 'capitalize', marginTop: '2px', fontWeight: 600,
-      }}>
-        {choices.map((c) => <span key={c}>{name(c)}</span>)}
-      </div>
     </div>
   );
 }
+
+const headerLinkStyle = {
+  background: 'transparent', border: 'none',
+  color: 'var(--cl-accent)', cursor: 'pointer',
+  fontSize: '0.66rem', fontWeight: 700,
+  textTransform: 'none', letterSpacing: 0,
+  fontFamily: 'inherit', padding: 0,
+};

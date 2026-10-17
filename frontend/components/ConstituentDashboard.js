@@ -29,7 +29,7 @@ import TrackedManager from './TrackedManager';
 import BillReactions from './bills/BillReactions';
 import { useViewerGeo } from './bills/BillScope';
 import ActivityArchive from './ActivityArchive';
-import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, saveDigestOptIn, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt } from '../lib/pagesApi';
+import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt } from '../lib/pagesApi';
 import { refreshCitizenAuth } from '../lib/citizenAuth';
 import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
@@ -42,7 +42,7 @@ import VerificationSection from './VerificationSection';
 import LocationSection from './account/LocationSection';
 import { formatDistrict } from '../lib/usStates';
 import ServedAsSection from './ServedAsSection';
-import { ElectionRemindersToggle } from './ElectionReminderNotice';
+import NotificationSettings from './NotificationSettings';
 
 /**
  * ConstituentDashboard — the personal civic command center for a verified
@@ -268,8 +268,7 @@ export default function ConstituentDashboard({
             <LocationSection />
             <BillingSection citizen={citizen} />
             <StartPageSection citizen={citizen} />
-            <DigestSection citizen={citizen} />
-            <ElectionRemindersSection />
+            <NotificationsSection />
             <DemographicProfileSection />
             <HiddenByModerationSection citizen={citizen} />
           </div>
@@ -1305,44 +1304,13 @@ function ContactEmailPrompt({ citizen }) {
 }
 
 
-// Election reminders (2026-10-16): the same switches as the bell's
-// notification settings. Reminder emails link here (/?open=settings).
-function ElectionRemindersSection() {
-  return (
-    <Card title="Election reminders">
-      <ElectionRemindersToggle refreshKey="dashboard" />
-    </Card>
-  );
-}
-
-function DigestSection({ citizen }) {
-  const [optIn, setOptIn] = useState(!!citizen?.digest_opt_in);
-  const [busy, setBusy] = useState(false);
-  const [note, setNote] = useState(null); // { tone, text }
+// Notification settings (2026-10-17): the same list as the bell's
+// Settings, so it reads the same everywhere: what reaches you for each
+// kind of alert, the weekly email digest, quiet hours and push timing.
+// Reminder emails link here (/?open=settings). The digest's preview
+// stays here, under the list.
+function NotificationsSection() {
   const [preview, setPreview] = useState(null); // null | 'loading' | {empty,subject,html,reason}
-
-  const isDemoEmail = /@(demo-citizens\.civicview\.app|civiclens-demo\.com)$/i.test(citizen?.email || '');
-
-  async function toggle(next) {
-    const prev = optIn;
-    setOptIn(next);
-    setBusy(true);
-    setNote(null);
-    try {
-      await saveDigestOptIn(next);
-      setNote({
-        tone: 'ok',
-        text: next
-          ? 'You\u2019re in — digests go out Saturday mornings (only when there\u2019s something to report).'
-          : 'Weekly digest turned off.',
-      });
-    } catch (err) {
-      setOptIn(prev);
-      setNote({ tone: 'err', text: 'Could not save. Please try again.' });
-    } finally {
-      setBusy(false);
-    }
-  }
 
   async function loadPreview() {
     setPreview('loading');
@@ -1351,61 +1319,13 @@ function DigestSection({ citizen }) {
       if (error || !data) throw new Error('preview failed');
       setPreview(data);
     } catch {
-      setPreview({ empty: true, reason: 'Couldn\u2019t load the preview — try again.' });
+      setPreview({ empty: true, reason: 'Couldn\u2019t load the preview. Try again.' });
     }
   }
 
   return (
-    <Card title="Weekly digest">
-      <p
-        style={{
-          margin: '0 0 10px',
-          fontSize: 'var(--cl-text-sm)',
-          color: 'var(--cl-text-muted)',
-          lineHeight: 1.5,
-        }}
-      >
-        A Saturday-morning email with what the officials you track did this
-        week — new posts and polls, polls closing soon, and upcoming district
-        events. Sent only when there\u2019s something to report.
-      </p>
-      <label
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          fontSize: 'var(--cl-text-sm)',
-          cursor: busy ? 'wait' : 'pointer',
-        }}
-      >
-        <input
-          type="checkbox"
-          checked={optIn}
-          disabled={busy}
-          onChange={(e) => toggle(e.target.checked)}
-          style={{ width: 16, height: 16, accentColor: 'var(--cl-accent)' }}
-        />
-        Email me a weekly civic digest
-      </label>
-      {isDemoEmail && (
-        <p style={{ margin: '8px 0 0', fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-muted)' }}>
-          Demo accounts use a placeholder email address, so digests won\u2019t
-          actually deliver until you have a verified account — but you can
-          preview what you\u2019d get below.
-        </p>
-      )}
-      {note && (
-        <p
-          role="status"
-          style={{
-            margin: '8px 0 0',
-            fontSize: 'var(--cl-text-xs)',
-            color: note.tone === 'ok' ? 'var(--cl-success, #16a34a)' : 'var(--cl-danger, #dc2626)',
-          }}
-        >
-          {note.text}
-        </p>
-      )}
+    <Card title="Notifications">
+      <NotificationSettings variant="dashboard" />
       <button
         type="button"
         onClick={loadPreview}
@@ -1422,7 +1342,7 @@ function DigestSection({ citizen }) {
           cursor: 'pointer',
         }}
       >
-        {preview === 'loading' ? 'Building preview…' : 'Preview this week\u2019s digest'}
+        {preview === 'loading' ? 'Building preview\u2026' : 'Preview this week\u2019s digest'}
       </button>
       {preview && preview !== 'loading' && (
         preview.empty ? (

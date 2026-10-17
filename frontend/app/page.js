@@ -26,16 +26,9 @@ import HelpBuildThisView from '@/components/HelpBuildThisView';
 import FeedbackView from '@/components/FeedbackView';
 // Contextual push-notification opt-in — renders nothing on the web;
 // in the Android shell it offers push once a citizen is signed in.
-import { fetchAllStateData, fetchAllMembers, fetchBillSnapshot, fetchMemberDetail, fetchMemberBills, fetchMemberVotes, fetchElections, fetchElectionStates, fetchCandidate, fetchStatePerson } from '@/lib/api';
+import { fetchAllStateData, fetchAllMembers, fetchMemberDetail, fetchMemberBills, fetchMemberVotes, fetchElections, fetchElectionStates, fetchCandidate, fetchStatePerson } from '@/lib/api';
 import { requestNotificationsOpen } from '@/lib/notificationsOpen';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
-import {
-  getAllTrackedBills,
-  updateTrackedBill,
-  getBillsLoadGeneration,
-  subscribeBillsLoaded,
-  claimBillsCheck,
-} from '@/lib/trackedBills';
 import { useAuth, logoutRep } from '@/lib/auth';
 import { useCitizenAuth, logoutCitizen } from '@/lib/citizenAuth';
 import { useCandidateAuth, logoutCandidate } from '@/lib/candidateAuth';
@@ -1009,82 +1002,11 @@ export default function Home() {
     panelWidth,
   ]);
 
-  // ─── On-load: re-check tracked bills for status changes ────────────
-  // Runs once per session. For each tracked bill, fetches the latest snapshot
-  // and compares latest_action_date / latest_action against the stored value.
-  // If anything has changed, we update the stored snapshot and surface an
-  // in-app notification banner with a link to open the tracked-bills modal.
-  //
-  // Tracked bills load from the server after sign-in, so on a cold page
-  // load the store is still empty on the first render. This used to
-  // check once, find nothing and never look again, so the status-change
-  // alert never fired on a fresh load (audit B9). It now runs once per
-  // load of the tracked list from the server (sign-in, or a switch of
-  // identity), not when a user tracks a bill by hand.
-  const [billsLoadGen, setBillsLoadGen] = useState(0);
-  const homeAliveRef = useRef(true);
-  useEffect(() => {
-    homeAliveRef.current = true;
-    setBillsLoadGen(getBillsLoadGeneration());
-    const unsubscribe = subscribeBillsLoaded((gen) => setBillsLoadGen(gen));
-    return () => {
-      homeAliveRef.current = false;
-      unsubscribe();
-    };
-  }, []);
-  useEffect(() => {
-    if (billsLoadGen === 0) return undefined;
-    // A cold start can load the list once per signed-in identity, one
-    // after another; let those settle, then check the latest once.
-    const timer = setTimeout(() => {
-      const gen = getBillsLoadGeneration();
-      // Once per load, across remounts of this page too.
-      if (!claimBillsCheck(gen)) return;
-      const bills = Object.values(getAllTrackedBills());
-      if (bills.length === 0) return;
-      // A sign-out or another load while the check runs makes its
-      // results stale: they belong to the previous identity's list.
-      const current = () => getBillsLoadGeneration() === gen;
-
-      (async () => {
-        const changed = [];
-        // Limited concurrency: 3 workers
-        const queue = [...bills];
-        const worker = async () => {
-          while (queue.length && current()) {
-            const b = queue.shift();
-            try {
-              const { data } = await fetchBillSnapshot(b.congress, b.type, b.number);
-              if (!data || !current()) continue;
-              if (
-                (data.latest_action_date || '') !== (b.latest_action_date || '') ||
-                (data.latest_action || '') !== (b.latest_action || '')
-              ) {
-                changed.push({ ...b, latest_action: data.latest_action, latest_action_date: data.latest_action_date });
-                updateTrackedBill(b.key, {
-                  latest_action: data.latest_action,
-                  latest_action_date: data.latest_action_date,
-                  policy_area: data.policy_area || b.policy_area,
-                  url: data.url || b.url,
-                  title: data.title || b.title,
-                  last_change_seen_at: new Date().toISOString(),
-                });
-              }
-            } catch (e) {
-              // Ignore; partial failures are fine
-            }
-          }
-        };
-        await Promise.all([worker(), worker(), worker()]);
-        if (!homeAliveRef.current || !current() || changed.length === 0) return;
-        const summary = changed.length === 1
-          ? `Update on ${changed[0].citation || changed[0].title}: ${changed[0].latest_action || 'status changed'}.`
-          : `${changed.length} of your tracked bills had status updates.`;
-        setNotification(summary);
-      })();
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, [billsLoadGen]);
+  // The on-load re-check of tracked bills (audit B9) is gone
+  // (2026-10-17): the server checks every tracked bill on Congress.gov
+  // once a day and sends the bell row, push and email itself
+  // (backend/app/services/bill_updates.py). My Tracked keeps its manual
+  // Refresh.
 
   // ─── Browser back/forward integration ────────────────────────────────
   // Mirror the three "overlay" bits of nav state (selectedMember,
@@ -1135,9 +1057,10 @@ export default function Home() {
     if (!prev) {
       // First run: replace so we don't accumulate a bogus initial entry.
       // Keep a '#post-<id>' deep link (push tap, bell, archive;
-      // 2026-10-16): this runs before the page from ?page= has opened,
-      // and dropping the hash here meant PageView never saw it.
-      const postHash = /^#post-/.test(window.location.hash || '') ? window.location.hash : '';
+      // 2026-10-16), or a '#poll-<id>' one (2026-10-17): this runs
+      // before the page from ?page= has opened, and dropping the hash
+      // here meant PageView never saw it.
+      const postHash = /^#(post|poll)-/.test(window.location.hash || '') ? window.location.hash : '';
       window.history.replaceState(snapshot, '', nextUrl + postHash);
       return;
     }
