@@ -14,6 +14,7 @@ const ROUTES = [
   { path: '/polls', priority: 0.7, changeFrequency: 'daily' },
   { path: '/posts', priority: 0.7, changeFrequency: 'daily' },
   { path: '/stats', priority: 0.5, changeFrequency: 'weekly' },
+  { path: '/overview', priority: 0.5, changeFrequency: 'monthly' },
   { path: '/methodology', priority: 0.4, changeFrequency: 'monthly' },
   { path: '/editorial-standards', priority: 0.4, changeFrequency: 'monthly' },
   { path: '/privacy', priority: 0.3, changeFrequency: 'monthly' },
