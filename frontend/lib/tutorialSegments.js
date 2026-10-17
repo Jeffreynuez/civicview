@@ -44,7 +44,7 @@
 //             the default is a corner, so it never covers full-screen
 //             content.
 //   video     true on the Welcome card: renders the overview button
-//             when TOUR_VIDEO_URL is set.
+//             when TOUR_VIDEO is set.
 //
 // CONTEXT passed to the functions: { compact, signedIn, result }.
 //   compact   the navbar is collapsed into the menu (1024px or less).
@@ -56,10 +56,12 @@
 export const TOUR_VERSION = 2;
 
 // A "Watch a 2-minute overview" button appears on the Welcome card
-// while this is set. It opens /overview (app/overview/page.js), the
-// tour's overview video with captions, in a new tab; the video itself
-// is 1:47. Empty hides the button.
-export const TOUR_VIDEO_URL = '/overview';
+// while this is set. It opens the overview video (1:47, captions on) in
+// a window over the app that can be enlarged
+// (components/tutorial/TourVideoWindow.js). The value is the files'
+// path in public/ without the extension: .mp4 (the video), .jpg (its
+// poster) and .vtt (its captions). Empty hides the button.
+export const TOUR_VIDEO = '/video/civicview-tour-overview-v1';
 
 // The random demo picks require a non-empty profile: detail with a bio
 // and committees, plus sponsored bills. Recent votes are required too

@@ -1,0 +1,55 @@
+/* CivicView: the tour's overview video window (TourVideoWindow.js).
+   Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
+   Co-located with the component per the component-CSS topology rule. */
+
+.cvvideo__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* Clear ModalShell's close button in the top-right corner. */
+  padding-right: 36px;
+  margin-bottom: 10px;
+}
+
+.cvvideo__title {
+  flex: 1;
+  margin: 0;
+  font-family: var(--cl-font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cl-text);
+  line-height: 1.25;
+}
+
+.cvvideo__size {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border: 1px solid var(--cl-border-strong);
+  border-radius: var(--cl-radius-pill);
+  background: var(--cl-card);
+  color: var(--cl-text);
+  font: inherit;
+  font-size: var(--cl-text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.cvvideo__size:hover { background: var(--cl-bg-soft); }
+.cvvideo__size:focus-visible { outline: none; box-shadow: var(--cl-shadow-focus); }
+
+/* 16:9 at the window's width; the width and height attributes reserve
+   the space before the poster loads. */
+.cvvideo__player {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--cl-radius-lg);
+}
+
+.cvvideo__note {
+  margin: 8px 2px 0;
+  font-size: var(--cl-text-xs);
+  line-height: var(--cl-leading-snug);
+  color: var(--cl-text-light);
+}
