@@ -147,9 +147,10 @@ const nextConfig = {
         ],
       },
       {
-        // The overview video, its poster and captions (app/overview).
-        // Every file name carries a version (-v1), and a new cut gets a
-        // new name, so a file at a given path never changes.
+        // The tour's overview video, its poster and captions
+        // (components/tutorial/TourVideoWindow.js). Every file name
+        // carries a version (-v1), and a new cut gets a new name, so a
+        // file at a given path never changes.
         source: '/video/:path*',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
@@ -176,6 +177,14 @@ const nextConfig = {
           { key: 'Content-Security-Policy', value: "frame-ancestors 'self';" },
         ],
       },
+    ];
+  },
+  // /overview was the overview video's own page for a few hours on
+  // October 16, 2026. The video now opens in a window from the tour,
+  // so the old address goes home rather than to the not-found page.
+  async redirects() {
+    return [
+      { source: '/overview', destination: '/', permanent: false },
     ];
   },
   // Lint runs as its own CI step (npm run lint, .github/workflows/

@@ -38,7 +38,7 @@ import {
   QUICK_START,
   QUICK_START_END,
   ALL_TRACKS,
-  TOUR_VIDEO_URL,
+  TOUR_VIDEO,
   getTrack,
   resolveField,
 } from '@/lib/tutorialSegments';
@@ -55,6 +55,7 @@ import {
 } from '@/lib/tutorial';
 import { useIsCompact } from '@/lib/useViewport';
 import { useCitizenAuth } from '@/lib/citizenAuth';
+import TourVideoWindow from './TourVideoWindow';
 import './TutorialOverlay.css';
 
 const NAVBAR_H = 56;
@@ -225,6 +226,11 @@ export default function TutorialOverlay() {
   // view is the list as its own screen).
   const [listOpen, setListOpen] = useState(false);
   useEffect(() => { setListOpen(false); }, [view, trackId, stepIndex]);
+
+  // The overview video window, opened from the Welcome card. It closes
+  // with the tour and whenever the tour moves to another screen.
+  const [videoOpen, setVideoOpen] = useState(false);
+  useEffect(() => { setVideoOpen(false); }, [active, view, trackId, stepIndex]);
 
   // ─── Step entry: route, bridge action, demo readiness ───────────
   // run.phase: 'ready' (show the step), 'pending' (a live demo is still
@@ -432,6 +438,8 @@ export default function TutorialOverlay() {
     // window and document listeners.
     const onEsc = (e) => {
       if (e.key !== 'Escape' || e.defaultPrevented) return;
+      // The video window takes Esc for itself (it closes, the tour stays).
+      if (videoOpen) return;
       const t = e.target;
       const inTour = !!(t && typeof t.closest === 'function' && t.closest('.cvtour-ui'));
       // Inside one of the app's own modal windows, Esc belongs to it.
@@ -446,7 +454,8 @@ export default function TutorialOverlay() {
     const onArrow = (e) => {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
-      if (view !== 'step' || listOpen) return;
+      // While the video plays, Left and Right seek; they don't turn pages.
+      if (view !== 'step' || listOpen || videoOpen) return;
       if (isTypingTarget(e.target)) return;
       e.preventDefault();
       if (e.key === 'ArrowRight') goNext(); else goBack();
@@ -457,7 +466,7 @@ export default function TutorialOverlay() {
       window.removeEventListener('keydown', onEsc, true);
       window.removeEventListener('keydown', onArrow);
     };
-  }, [active, view, listOpen, goNext, goBack, handleClose]);
+  }, [active, view, listOpen, videoOpen, goNext, goBack, handleClose]);
 
   // ─── Content for the current screen ─────────────────────────────
   let content = null;
@@ -551,6 +560,7 @@ export default function TutorialOverlay() {
               onJump={jumpToTrack}
               onTopics={showTopics}
               onDone={finishQuickStart}
+              onWatchVideo={() => setVideoOpen(true)}
             />
           ) : (
             <StepCallout
@@ -572,8 +582,11 @@ export default function TutorialOverlay() {
               onJump={jumpToTrack}
               onTopics={showTopics}
               onDone={finishQuickStart}
+              onWatchVideo={() => setVideoOpen(true)}
             />
           )}
+
+          <TourVideoWindow open={videoOpen} onClose={() => setVideoOpen(false)} />
         </>
       )}
     </>
@@ -688,7 +701,7 @@ function TopicList({ trackId, completed, onJump, onCloseList, titleRef, asScreen
 }
 
 // Title, copy and controls for one screen (shared by both layouts).
-function CardBody({ content, titleRef, step, stepIndex, isLastStep, trackId, onNext, onBack, onTopics, onDone }) {
+function CardBody({ content, titleRef, step, stepIndex, isLastStep, trackId, onNext, onBack, onTopics, onDone, onWatchVideo }) {
   if (content.kind === 'end') {
     return (
       <div className="cvtour-step">
@@ -710,15 +723,15 @@ function CardBody({ content, titleRef, step, stepIndex, isLastStep, trackId, onN
     <div className="cvtour-step" aria-busy={content.pending ? 'true' : undefined}>
       <h2 className="cvtour-step__title" ref={titleRef} tabIndex={-1}>{content.title}</h2>
       <p className={`cvtour-step__body ${content.pending ? 'is-pending' : ''}`}>{content.body}</p>
-      {step?.video && TOUR_VIDEO_URL ? (
-        <a
+      {step?.video && TOUR_VIDEO ? (
+        <button
+          type="button"
           className="cvtour-btn cvtour-btn--video"
-          href={TOUR_VIDEO_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick={onWatchVideo}
+          aria-haspopup="dialog"
         >
           Watch a 2-minute overview
-        </a>
+        </button>
       ) : null}
       <div className="cvtour-step__controls">
         <button
