@@ -29,6 +29,9 @@ import { useIsMobile } from '@/lib/useViewport';
  *   - showCloseX : boolean, default true. Renders top-right (×).
  *   - showEscHint: boolean, default true. Renders bottom "esc to close".
  *   - lockScroll : boolean, default true. Locks body scroll while open.
+ *   - zIndex     : stacking order of the backdrop (default 1500). The
+ *     tour's overview video window passes 3100 to sit above the tour's
+ *     own card (3000, see components/tutorial/TutorialOverlay.css).
  *   - dataTutorial: optional [data-tutorial] anchor name applied to
  *     the card — lets the guided tour spotlight a specific modal
  *     and park its callout beside it (see components/tutorial/).
@@ -53,6 +56,7 @@ export default function ModalShell({
   lockScroll = true,
   className = '',
   cardStyle = {},
+  zIndex = 1500,
   dataTutorial,
   children,
 }) {
@@ -107,7 +111,7 @@ export default function ModalShell({
         left: 0,
         right: 0,
         bottom: isMobile ? undefined : 0,
-        zIndex: 1500,
+        zIndex,
         background: VARIANT_BACKDROP[variant] || VARIANT_BACKDROP.form,
         display: 'flex',
         // CRITICAL: align-items defaults to `stretch`, which on mobile
