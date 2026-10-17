@@ -342,19 +342,34 @@ shared, App functionality, optional. Changes to make for 1.2.0:
    shared, App functionality. Optional for a signed-out phone's tracked
    list (sent only when push is on).
 2. **App activity, Other actions**: notification settings (which alerts
-   reach the bell, phone or email, quiet hours, push timing, lock-screen
-   details). Collected, not shared, App functionality, optional.
+   reach the bell, phone or email, quiet hours, push timing, whether
+   notifications show details). Collected, not shared, App
+   functionality, optional.
 3. **App info and performance, Other app performance data**: the app's
    version number and whether notifications are turned off in Android
    settings, sent at registration so the server sends the right format
    and stops sending to a phone with notifications off. Collected, not
    shared, App functionality.
-4. **Time zone offset**: a UTC offset from the phone's clock settings,
-   used to time pushes and emails. It is far coarser than Play's
-   "Approximate location" (an area of 3 square kilometers or more, such
-   as a city), so the recommendation is not to declare it as location;
-   the privacy policy names it. If you prefer to be conservative,
-   declare Approximate location, App functionality, not shared.
+4. **Location, Approximate location** (Jeffrey, 2026-10-17: declare
+   it): the time zone offset, a UTC offset read from the phone's clock
+   settings, used to time pushes, quiet hours and summaries and the
+   times shown in emails. It is sent for a signed-in citizen (the
+   settings sync) and for a phone with push on, never for a signed-out
+   visitor without push. Play's definition of the type is "User or
+   device physical location to an area greater than or equal to 3
+   square kilometers, such as the city a user is in". In the form:
+   - Data types: Location, tick **Approximate location** (not Precise
+     location).
+   - Is this data collected, shared, or both? **Collected** only.
+   - Is this data processed ephemerally? **No, this collected data is
+     not processed ephemerally** (it is stored with the settings).
+   - Is this data required for your app, or can users choose whether
+     it's collected? **Data collection is required (users can't turn
+     off this data collection)**: a signed-in citizen has no switch
+     for it, so "required" is the accurate answer.
+   - Why is this user data collected? **App functionality** only.
+   The privacy policy already names it (Your settings, and Push
+   notifications); no change there.
 5. Keep: data encrypted in transit (yes); people can request deletion
    (yes: account deletion, and turning push off deletes the token).
 
