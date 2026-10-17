@@ -371,6 +371,24 @@ categories:
 
 ---
 
+## Shipped 2026-10-17: phone notifications
+
+Android notification channels (Officials you track, Events, Replies, Bill
+updates, Poll results, Election reminders, Changes to pages you track,
+Summaries), each private on the lock screen with a neutral line instead
+of who posted, a monochrome status bar icon and grouped notifications.
+New alerts: replies to your comments (on posts and citizen polls), a
+daily pass over the federal bills you track on Congress.gov, and "Results
+are in" when a poll you voted in closes. One short settings list,
+enforced on the server and the same on every device, replaces the 32
+per-item switches, with Mute per official in My Tracked. The app checks
+Android's notification setting at every launch and resume and offers
+Open settings when it is off. App 1.2.0 (versionCode 5) builds the
+notifications itself; 1.1.0 keeps working. Details in **Push alerts and
+summaries** below and `docs/push_notifications_runbook.md`.
+
+---
+
 ## Shipped 2026-10-16: notifications that do what they say
 
 Pushes were silently dropped by default (a hidden 'daily' cadence let
@@ -833,13 +851,13 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 103 | Audit follow-ups 2026-06-10 (verify + fix batch) | done (2026-06-12) | Completed 2026-06-12 (verify-and-fix pass over all four items). Original scope from the backend audit agent: (a) poll auto-supersede race under concurrent creates can exceed the 20-poll cap; (b) comment most-liked/disliked sort runs in Python — push into SQL; (c) confirm whether the posts feed omits candidate-authored posts (flagged, unverified); (d) `browseReps` in the dashboard only closes the overlay — consider scrolling to the officials panel. |
 | 104 | Weekly civic digest email | done (2026-06-10) — **sending gated on `DIGEST_ENABLED`** | Opt-in (`CitizenAccount.digest_opt_in`, default OFF) Saturday-9am-ET email: tracked officials' posts/polls this week, polls closing ≤7d, district events ≤14d. Empty digest = no send; demo-domain emails never sent; per-citizen `digest_last_sent_at` idempotency. In-process scheduler in `main.py` lifespan — set `DIGEST_ENABLED=true` in Render env to turn on. Preview: `GET /api/citizen-auth/me/digest/preview` + Settings card. |
 | 105 | Tracked-official in-app alerts | done (2026-06-10) | `emit_tracked_content_notifications` fans `kind='tracked_post'` rows to all tracking citizens when an official posts (BackgroundTask + own session, zero poster latency). Bell renders kind-aware copy. Email stays consolidated in the digest (#104). |
-| 106 | Notifications/digest follow-ups (deferred) | pending (b, e done; c half done) | (a) poll-close alerts: the #104 scheduler can host a daily pass; (b) per-item deep links in digest emails (post/poll URLs, not just the app link), **done 2026-10-16** (every digest item names the official and links to it); (c) instant-email alert opt-in per alert type + unsubscribe handling, the unsubscribe half **done 2026-10-16** (one-click RFC 8058 links on every email a person can turn off); (d) compare share URLs (`/compare?a=…&b=…`); (e) ~~bell deep-link improvement~~ **done 2026-07-25** (`413c1e2`: `#post-` hash now drives PageView scroll+pulse for bell clicks AND push taps). |
+| 106 | Notifications/digest follow-ups (deferred) | pending (a, b, e done; c mostly done) | (a) poll-close alerts, **done 2026-10-17** ("Results are in" to the citizens who voted, `services/poll_results.py`); (b) per-item deep links in digest emails (post/poll URLs, not just the app link), **done 2026-10-16** (every digest item names the official and links to it); (c) instant-email alert opt-in per alert type + unsubscribe handling, the unsubscribe half **done 2026-10-16** (one-click RFC 8058 links on every email a person can turn off), and per-type email choices **done 2026-10-17** where an email exists (bill updates, election reminders, page changes, the digest); (d) compare share URLs (`/compare?a=…&b=…`); (e) ~~bell deep-link improvement~~ **done 2026-07-25** (`413c1e2`: `#post-` hash now drives PageView scroll+pulse for bell clicks AND push taps). |
 | 107 | CI hardening — CodeQL advanced + Bandit/ruff gate | done (2026-06-10) | CodeQL advanced setup + Bandit/ruff security gate added to CI; fixed the upload-permission failure (`9534fe8`). |
 | 29 | Congress data load-time / caching pass | done caching (2026-06-16) | Edge caching live + VERIFIED (`cf-cache-status: HIT`). `backend/app/main.py` Cache-Control middleware on public read-only endpoints + startup cache warmup; API served from Cloudflare-proxied **api.civicview.app** + a Cache Rule; `NEXT_PUBLIC_API_URL` switched. Deferred (optional, not currently needed): full per-member disk precompute of detail/bills/votes; frontend skeletons/prefetch. |
 
 | 38 | Notifications v2 (honest panel · synced prefs · anonymous pushes · quiet hours) | done (2026-07-24/25) | All four parts shipped + pushed (`7b0396d`, `01eb4f4`, `2e85866`); see the 2026-07-24/25 shipped block. Enforcement is opt-in-by-sync: accounts/devices that never synced prefs keep pre-v2 behavior. **Corrected 2026-10-16:** in practice every app registration and every signed-in account syncs prefs, so the old defaults (quiet hours nights, cadence daily) applied to everyone and dropped pushes; see "Push alerts and summaries" below. |
 | 108 | Microsoft Store listing (Windows desktop) | **LIVE** since mid-September 2026 (submitted 2026-07-25) | PWABuilder MSIX shell of the live PWA; web deploys need NO store resubmission. Post-cert checklist in runbook §6 (clean-machine install test, Store badge next to the Play badge, README/HelpBuild "Already built" row). Identity values in Pinecone (`2026-07-25-microsoft-store-identity`). |
-| 109 | Force-update gate — arm when needed | shipped OFF (2026-07-25) | `2cb77a9`. Gate is inert until `APP_MIN_VERSION_CODE` (hard block) / `APP_LATEST_VERSION_CODE` (nudge) are set in Render env + restart. Set LATEST when a new AAB ships; set MIN only when an old shell is genuinely broken. |
+| 109 | Force-update gate: arm when needed | shipped OFF (2026-07-25) | `2cb77a9`. Gate is inert until `APP_MIN_VERSION_CODE` (hard block) / `APP_LATEST_VERSION_CODE` (nudge) are set in Render env + restart. Set LATEST when a new AAB ships (`5` once 1.2.0 is at 100 percent); set MIN only when an old shell is genuinely broken (1.1.0 is not: the server still sends it the standard message). |
 
 | 110 | Rebuild FL U.S. House rosters against the 2026 map | done (2026-09-24) | All 28 FL U.S. House races rebuilt on the 2026 map from the Division of Elections qualified-candidate list, with `roster_status: verified_nominees`, write-ins listed separately and incumbents only where they sit in the same district. Commit "fix(fl-data): rebuild Florida 2026 ballot from the official candidate list and certified results" in the 2026-09-24 audit series. |
 | 111 | Certify FL primary results + resolve FL-11 recount | done (2026-09-24) | Certified primary results recorded with a source link and shown as "Official results"; FL-11 recount outcome recorded (Joe Strada advances). Same commit as #110. |
@@ -847,6 +865,8 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 113 | Re-justify the paid tier (poll creation only) | pending (business decision) | Commenting moved from the subscriber tier to the verified tier (`64ff2ab`), so the $5/mo subscription now unlocks **poll creation only**. `HelpBuildThisView.js:217` revenue projection (3% conversion, $1.8K Y1) and `the Indiegogo draft (kept outside the repo since 2026-09-24):240-241` still lean on the old engagement bundle. Flagged, deliberately not silently edited. |
 | 114 | Privacy policy + terms: contact_email & deletion schedule | done without counsel; attorney review when affordable | The 2026-09-24 audit rewrote the privacy policy and terms to match the code (contact email, poll answers, recipients, deletion and retention, Florida law and Orange County venue, arbitration removed pending counsel). 2026-10-15: the privacy policy was rewritten again without an attorney (none affordable yet), checked line by line against the code and against California's CalOPPA contents (data and recipient categories, review and correction, change notices, effective date, Do Not Track, cross-site tracking) and Florida's 30-day breach notice; it offers access, correction, deletion, portability and appeal to every U.S. user, and the Terms now say 18 and older. Have an attorney review both when that becomes affordable. |
 | 115 | Automated FL Division of Elections finance ingest | pending | Today's state fundraising is curated with provenance, not automated. Path is confirmed: `TreSel.exe?account=N` returns per-period totals for candidates **and** committees, and the qualified-candidate list downloads as TSV keyed by a stable `AcctNum`. Caveat that shapes the design: the candidate↔committee mapping **cannot** be automated (the state's Affiliates field is empty for candidate-aligned PCs), so that join stays a human-signed-off table, not a scraper. |
+| 116 | Publish Android 1.2.0 (phone notifications) | pending (Jeffrey) | Build the signed AAB (versionCode 5), Internal testing on Jeffrey's phone with the device checklist, then a staged Production rollout; keep the 1.1.0 AAB and a `v1.1.0` tag to rebuild a 1.1.1 if a rollback is needed. Data safety changes listed in `docs/push_notifications_runbook.md`. |
+| 117 | State bill tracking + Open States bill updates | deferred (after November 3, Jeffrey) | State bills can't be tracked today (billKey is Congress only). Needs a new tracked type with its own key (Open States `ocd-bill/...` id), storage, My Tracked rows and bell links, then an Open States pass beside the Congress.gov one in `services/bill_updates.py`. Until then no copy promises state bill alerts. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
 
@@ -1030,15 +1050,23 @@ and the checks.
 
 ## Push alerts and summaries
 
-The bell's **Push alerts** setting: As they happen (the default), Daily
-summary (6 p.m. local) or Weekly summary (Saturday 10 a.m. local).
-Nothing is dropped: updates not sent at once, including those that land
-in quiet hours, go out as one summary push that opens the bell. Election
-reminders always come on their own. A phone is bound to whoever is signed
-in on it and unbound on sign-out. Emails a person can turn off carry a
-one-click unsubscribe (RFC 8058) that turns off only that email type,
-and "Email me when a page I track changes" is on by default. How it
-works, the logs and the device checklist:
+One settings list (the bell's Settings, or Dashboard, Account &
+settings, Notifications) decides, per kind of alert, whether it reaches
+the bell, the phone or email: Officials you track, Events, Replies to
+your comments, Bill updates (federal bills, from Congress.gov), Poll
+results, Election reminders, Changes to pages you track, and the Weekly
+email digest. The server enforces it on every send path. Mute in My
+Tracked silences one official. **Push alerts**: As they happen (the
+default), Daily summary (6 p.m. local) or Weekly summary (Saturday 10
+a.m. local) for officials, events, bills and poll results; nothing is
+dropped, and quiet hours hold pushes for one summary when they end.
+Election reminders always come on their own. On Android each kind has
+its own notification channel, and a locked phone shows only a neutral
+line unless the person chooses Show details. A phone is bound to whoever
+is signed in on it and unbound on sign-out. Emails a person can turn off
+carry a one-click unsubscribe (RFC 8058) that turns off only that email
+type. How it works, the release steps, Data safety and the device
+checklist:
 [`docs/push_notifications_runbook.md`](./docs/push_notifications_runbook.md);
 the email side: [`docs/EMAIL-DELIVERABILITY.md`](./docs/EMAIL-DELIVERABILITY.md) 2.6.
 
