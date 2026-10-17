@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand accent (the site cl-accent colour), the notification colour (2026-10-17). -->
+    <color name="cv_notification_accent">#2D6A4F</color>
+</resources>
