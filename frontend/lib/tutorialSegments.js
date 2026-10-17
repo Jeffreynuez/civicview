@@ -375,7 +375,7 @@ export const TOUR_TOPICS = [
         route: '/',
         target: null,
         title: 'On your phone',
-        body: 'The Android app sends pushes as they happen or in one daily or weekly summary. A locked phone hides who posted unless you choose Show details.',
+        body: 'The Android app sends pushes as they happen or in one daily or weekly summary. They show only a general line unless you choose Show details.',
       },
     ],
   },

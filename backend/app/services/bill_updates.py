@@ -42,7 +42,7 @@ job_runs, in its own loop off the boot path, under a database advisory
 lock. On by default in production only; BILL_UPDATES_ENABLED=true or
 false overrides that. Needs CONGRESS_API_KEY (Render). Admin:
 GET /api/admin/bill-updates shows what it watches and what it found;
-POST /api/admin/bill-updates/run runs a pass now.
+POST /api/admin/bill-updates/run starts a pass now, in the background.
 """
 from __future__ import annotations
 
@@ -81,12 +81,21 @@ _SLUG = {"HR": "house-bill", "S": "senate-bill", "HJRES": "house-joint-resolutio
          "SCONRES": "senate-concurrent-resolution", "HRES": "house-resolution",
          "SRES": "senate-resolution"}
 # A status change, read from Congress.gov's action text or type.
+# Narrow on purpose: "agreed to" alone also matches amendments and
+# procedural motions ("Motion to reconsider laid on the table Agreed to
+# without objection"), and "failed" matches a failed amendment; only a
+# resolution being agreed to, or a measure passing or failing in a
+# chamber, is a status change.
 _STATUS_RE = re.compile(
     r"became (public|private) law|signed by (the )?president|presented to (the )?president"
-    r"|vetoed|veto message|pocket veto|\bpassed\b|agreed to|\bfailed\b|resolving differences"
-    r"|cleared for (the )?white house",
+    r"|vetoed|veto message|pocket veto|\bpassed\b|resolution (was )?agreed to"
+    r"|agreed to in (the )?(house|senate)\b|failed of passage|on passage failed|failed to pass"
+    r"|resolving differences|cleared for (the )?white house",
     re.IGNORECASE,
 )
+# An amendment's own action ("S.Amdt.12 Amendment SA 12 agreed to in
+# Senate") is never the bill's status.
+_AMENDMENT_RE = re.compile(r"^\s*((s|h)\.\s?amdt\.|amendment\b)", re.IGNORECASE)
 _STATUS_TYPES = {"BecameLaw", "President", "Veto"}
 _KIND_ORDER = {"status": 3, "vote": 2, "action": 1}
 _KIND_WORDS = {"status": "status change", "vote": "recorded vote", "action": "new action"}
@@ -130,7 +139,8 @@ def classify(action: dict) -> str:
     """status (passed, sent to the President, signed, became law,
     vetoed, failed) before vote (a recorded vote on anything else, such
     as cloture), before any other action."""
-    if action.get("type") in _STATUS_TYPES or _STATUS_RE.search(action.get("text") or ""):
+    text = action.get("text") or ""
+    if action.get("type") in _STATUS_TYPES or (_STATUS_RE.search(text) and not _AMENDMENT_RE.search(text)):
         return "status"
     if action.get("recordedVotes"):
         return "vote"
@@ -242,7 +252,10 @@ async def check_bills(keys_and_last: list, *, fetch: Fetcher = fetch_bill,
                 return
             changed = (bill["latest_date"], bill["latest_text"]) != (last_date or "", last_text or "")
             actions = None
-            if changed and last_date is not None:
+            # A changed bill, and a bill seen for the first time: its
+            # actions on the latest date are recorded as already seen,
+            # so a later change does not report them as new.
+            if changed:
                 try:
                     actions = await fetch_acts(congress, bill_type, number)
                 except Exception:
@@ -404,6 +417,14 @@ def deliver(db, update_row, update: dict, emails: dict) -> dict:
     return counts
 
 
+def _same_day_keys(actions: list, info: dict) -> list:
+    """The action keys on the bill's latest date, which the next pass
+    treats as already seen."""
+    keys = {_action_key(a) for a in actions if (a.get("actionDate") or "") == info["latest_date"]}
+    keys.add(f"{info['latest_date']}|{info['latest_text'].strip()}")
+    return sorted(keys)[:50]
+
+
 def apply_results(db, checked: list, results: dict, now: Optional[datetime] = None) -> tuple:
     """Record what Congress.gov said and deliver the changes. Returns
     (summary, emails) where emails is {citizen_id: [(claim id, update)]}."""
@@ -433,7 +454,7 @@ def apply_results(db, checked: list, results: dict, now: Optional[datetime] = No
             row = BillWatch(bill_key=key, citation=citation, title=info["title"][:2000],
                             latest_action_date=info["latest_date"], latest_action_text=info["latest_text"],
                             url=public_url(congress, bill_type, number), checked_at=now, error_count=0)
-            row.seen_json = json.dumps([f"{info['latest_date']}|{info['latest_text'].strip()}"])
+            row.seen_json = json.dumps(_same_day_keys(res.get("actions") or [], info))
             db.add(row)
             try:
                 db.commit()
@@ -471,9 +492,7 @@ def apply_results(db, checked: list, results: dict, now: Optional[datetime] = No
         row.latest_action_date = info["latest_date"]
         row.latest_action_text = info["latest_text"]
         row.changed_at = now
-        same_day = {_action_key(a) for a in (actions or fresh) if (a.get("actionDate") or "") == info["latest_date"]}
-        same_day.add(f"{info['latest_date']}|{info['latest_text'].strip()}")
-        row.seen_json = json.dumps(sorted(same_day)[:50])
+        row.seen_json = json.dumps(_same_day_keys(actions or fresh, info))
         _refresh_snapshots(db, key, info)
         update_row = BillUpdate(bill_key=key, change_kind=change_kind, action_date=update["action_date"],
                                 payload_json=json.dumps(update, ensure_ascii=False))
@@ -563,6 +582,20 @@ def send_emails(db, emails: dict) -> int:
 
 
 LAST_PASS: dict = {}
+_MANUAL_TASK: Optional["asyncio.Task"] = None
+
+
+def start_manual_pass() -> dict:
+    """The admin's Run now: start a pass in the background and return at
+    once. Awaited inside the request, a dropped connection would cancel
+    the pass while its database work carried on in a thread, with the
+    lock already released. The result shows in the status as the last
+    pass."""
+    global _MANUAL_TASK
+    if _MANUAL_TASK is not None and not _MANUAL_TASK.done():
+        return {"started": False, "reason": "a pass started from admin is still running"}
+    _MANUAL_TASK = asyncio.get_running_loop().create_task(run_pass(force=True))
+    return {"started": True, "note": "Refresh this page in a minute or two for the result."}
 
 
 async def run_pass(*, force: bool = False, now_utc: Optional[datetime] = None,

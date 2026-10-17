@@ -58,7 +58,7 @@ def main() -> int:
     import app.main as m
     import app.services.push_service as ps
     from app.db import SessionLocal
-    from app.models.pages import CitizenAccount, DeviceToken, PushHeldItem
+    from app.models.pages import CitizenAccount, DeviceToken, PushHeldItem, TrackedOfficial
     from app.services import push_summaries as sm
 
     ps._service = _CapturePush()
@@ -79,6 +79,16 @@ def main() -> int:
         db.commit()
 
     def post(cids, official="tst-off-1", name="Jane Doe", post_id=1, when=None):
+        # In the app these pushes come from tracking (the fan-out's
+        # audience), and a summary leaves out an official no longer
+        # tracked (2026-10-17), so the citizens here track the official.
+        for cid in cids:
+            if not db.query(TrackedOfficial).filter(TrackedOfficial.tracker_kind == "citizen",
+                                                    TrackedOfficial.tracker_id == cid,
+                                                    TrackedOfficial.official_key == official).first():
+                db.add(TrackedOfficial(tracker_kind="citizen", tracker_id=cid, official_key=official,
+                                       prefs_json="{}"))
+        db.commit()
         return ps._deliver_tracked_push(
             db, cids, anon_key=official, title=f"{name} posted", body=f"post {post_id}",
             data={"kind": "tracked_post", "official_id": official, "post_id": post_id},

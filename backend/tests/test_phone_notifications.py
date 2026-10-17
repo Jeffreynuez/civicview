@@ -8,9 +8,10 @@ Run:  cd backend && python3 tests/test_phone_notifications.py   (exit 0 = pass)
   1. The settings list: GET and PATCH /api/alert-settings, one row at a
      time, the three rows kept in their own columns, the digest row, and
      the bill update email's one-click unsubscribe.
-  2. The push itself: data-only for app 1.2.0 (build 5) with the channel,
-     tag and a lock-screen version that names nobody unless the person
-     chose Show details; the standard message with its channel for 1.1.0.
+  2. The push itself: data-only for app 1.2.0 (build 5) with the channel
+     and tag; by default the notification itself is a neutral line that
+     names nobody (on 1.1.0's standard message too), the full text only
+     when the person chose Show details.
   3. Android settings: a phone that reports notifications off is skipped
      until it reports them on.
   4. Events: on for everyone by default, the Events row decides, Mute
@@ -23,6 +24,9 @@ Run:  cd backend && python3 tests/test_phone_notifications.py   (exit 0 = pass)
   7. Page changes: one push per change, or one grouped push when a run
      finds several; Mute does not stop them.
   8. Summaries of mixed kinds say what they are about.
+  9. Summary timing: on a daily phone a reply held by quiet hours goes
+     when they end, not at 6 p.m.; at summary time, an update whose row
+     was turned off or whose official was muted since is left out.
 """
 import json
 import os
@@ -65,7 +69,7 @@ def main() -> int:
     from app.db import SessionLocal
     from app.models.pages import (CitizenAccount, ContentModerationVerdict, DeviceToken, JobRun,
                                   Notification, Poll, PollComment, PollOption, PollVote, Post,
-                                  PostComment, TrackedOfficial)
+                                  PostComment, PushHeldItem, TrackedOfficial)
     from app.services import alert_settings as als
     from app.services import notifications_inapp as ni
     from app.services import poll_results, push_summaries
@@ -154,16 +158,32 @@ def main() -> int:
                                 data={"kind": "tracked_post", "post_id": 3}, channel="officials",
                                 tag=None, native=True)
         d = ps.native_data(native)
-        check("2 native: channel, title and the app's own keys", d["cv_channel"] == "officials"
-              and d["cv_title"] == "Rae Phone posted" and d["post_id"] == "3" and d["cv_v"] == "1", d)
-        check("2 native: the lock screen names nobody", d["cv_public_title"] == "CivicView"
-              and d["cv_public_body"] == "New update from an official you track"
-              and "Rae" not in d["cv_public_body"] + d["cv_group_public"], d)
+        check("2 native: channel and the app's own keys", d["cv_channel"] == "officials"
+              and d["post_id"] == "3" and d["cv_v"] == "1" and d["cv_details"] == "0", d)
+        check("2 details hidden (default): the notification itself is the neutral line, no body",
+              d["cv_title"] == "New update from an official you track" and d["cv_body"] == ""
+              and d["cv_public_title"] == d["cv_title"] and d["cv_public_body"] == "", d)
+        check("2 details hidden: nothing sent to the phone names the official",
+              not any("Rae" in v or "Hello" in v for k, v in d.items() if k.startswith("cv_")), d)
         native.show_details = True
         d = ps.native_data(native)
-        check("2 Show details: the lock screen shows the notification", d["cv_public_body"] == "Hello there"
+        check("2 Show details: who posted and what", d["cv_title"] == "Rae Phone posted"
+              and d["cv_body"] == "Hello there" and d["cv_details"] == "1"
               and d["cv_public_title"] == "Rae Phone posted", d)
+        summary = ps.PushMessage(token="t", title="3 new updates", body="Rae Phone, Sam Desk and 1 more.",
+                                 channel="summaries", public_title="3 new updates", native=True)
+        d = ps.native_data(summary)
+        check("2 details hidden: a summary keeps its count line, not the names",
+              d["cv_title"] == "3 new updates" and d["cv_body"] == "", d)
         from firebase_admin import messaging
+        msg = ps.fcm_message(ps.PushMessage(token="t", title="Rae Phone posted", body="Hello there",
+                                            channel="replies"), messaging)
+        check("2 1.1.0, details hidden: the standard message carries only the neutral line",
+              msg.notification.title == "New reply to your comment" and msg.notification.body is None, msg.notification)
+        msg = ps.fcm_message(ps.PushMessage(token="t", title="Rae Phone posted", body="Hello there",
+                                            channel="replies", show_details=True), messaging)
+        check("2 1.1.0, Show details: the full text", msg.notification.title == "Rae Phone posted"
+              and msg.notification.body == "Hello there")
         msg = ps.fcm_message(ps.PushMessage(token="t", title="x", body="y", channel="bills", tag="bill-119-hr-1",
                                             native=True, ttl_seconds=60), messaging)
         check("2 native: data only, high priority", msg.notification is None and msg.android.priority == "high"
@@ -407,6 +427,53 @@ def main() -> int:
                                             None)
         check("8 several: the Summaries channel, one replacing the last", many.channel == "summaries"
               and many.tag == "summary" and many.native)
+        check("8 details hidden: a summary shows its count line and no names",
+              ps.shown(many) == ("2 new updates", ""), ps.shown(many))
+
+        # ── 9. summary timing and second thoughts ────────────────────
+        dee = fh.make_citizen(db, "Dee Daily", "dee@example.org", district="FL-14")
+        dee.notification_prefs_json = json.dumps({"push_cadence": "daily", "quiet_hours": "nights",
+                                                  "tz_offset_minutes": 0})
+        db.add(TrackedOfficial(tracker_kind="citizen", tracker_id=dee.id, official_key=page, prefs_json="{}"))
+        dee_dev = DeviceToken(token="tok-dee", citizen_id=dee.id, app_build=5)
+        db.add(dee_dev)
+        db.commit()
+
+        def held(reason, kind, channel, at, official=None, title="t"):
+            db.add(PushHeldItem(device_token_id=dee_dev.id, reason=reason, kind=kind, official_id=official,
+                                official_name="Rae Phone" if official else None, title=title, body="b",
+                                data_json=json.dumps({"kind": kind, "_channel": channel}), created_at=at))
+        # Wednesday 2026-10-21, UTC, which is Dee's local time here.
+        held("quiet", "reply", "replies", datetime(2026, 10, 20, 23, 0), title="Reply to you")
+        held("summary", "tracked_post", "officials", datetime(2026, 10, 20, 19, 0), official=page)
+        db.commit()
+        PUSHES.clear()
+        push_summaries.run_summaries(db, now_utc=datetime(2026, 10, 21, 7, 30))
+        check("9 nothing inside quiet hours", not pushed("tok-dee"), PUSHES)
+        push_summaries.run_summaries(db, now_utc=datetime(2026, 10, 21, 8, 30))
+        got = pushed("tok-dee")
+        db.expire_all()
+        left = db.query(PushHeldItem).filter(PushHeldItem.device_token_id == dee_dev.id).all()
+        check("9 a daily phone: the reply goes when quiet hours end, alone",
+              len(got) == 1 and got[0]["title"] == "Reply to you"
+              and [i.kind for i in left] == ["tracked_post"], (got, [i.kind for i in left]))
+        push_summaries.run_summaries(db, now_utc=datetime(2026, 10, 21, 12, 0))
+        check("9 the post waits for 6 p.m.", len(pushed("tok-dee")) == 1, PUSHES)
+        held("summary", "bill_update", "bills", datetime(2026, 10, 21, 9, 0), title="H.R. 1: new action")
+        held("summary", "poll_results", "poll_results", datetime(2026, 10, 21, 10, 0), title="Results are in")
+        db.commit()
+        tr_dee = db.query(TrackedOfficial).filter(TrackedOfficial.tracker_id == dee.id).one()
+        tr_dee.prefs_json = json.dumps({"muted": True})
+        db.commit()
+        als.set_choice(db, db.get(CitizenAccount, dee.id), "bills", "bell")
+        PUSHES.clear()
+        res = push_summaries.run_summaries(db, now_utc=datetime(2026, 10, 21, 18, 30))
+        got = pushed("tok-dee")
+        db.expire_all()
+        check("9 at 6 p.m.: the muted official's post and the bill (push now off) are left out",
+              len(got) == 1 and got[0]["title"] == "Results are in" and res["no_longer_wanted"] >= 2
+              and not db.query(PushHeldItem).filter(PushHeldItem.device_token_id == dee_dev.id).count(),
+              (got, res))
 
         text = json.dumps([c.get("/api/alert-settings", headers=fh.citizen_headers(ana)).json()], ensure_ascii=False)
         check("no em or en dashes in the settings payload", "\u2014" not in text and "\u2013" not in text)

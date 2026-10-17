@@ -54,7 +54,13 @@ export default function PushOptInPrompt() {
     lastCitizenId.current = id;
     if (prev === undefined || prev === id) return;
     if (id) bindPushToAccount(id);
-    else unbindPushDevice();
+    else {
+      unbindPushDevice();
+      // An offer made to the account goes with it (nothing recorded,
+      // so it can come back at the next sign-in or track).
+      setVisible(false);
+      setDenied(false);
+    }
   }, [citizen?.id, citizenLoaded]);
 
   // Offer only when: native shell + plugin present + no prior choice +

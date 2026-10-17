@@ -45,11 +45,15 @@ _BATCH = 500
 
 # Android notification channels (2026-10-17). The app creates them at
 # start (android/.../NotificationChannels.java; lib/push.js re-asserts
-# the names), each with Private lock-screen visibility. public: the text
-# a locked phone shows instead of the notification, unless the person
-# chose "Show details" (prefs key lock_screen_details); group: the
-# summary line once 3 or more of one channel are in the tray, {n} being
-# how many. The same for every official, party and state. No dashes.
+# the names). public: the line a notification shows instead of who
+# posted and what, unless the person chose "Show details" (prefs key
+# lock_screen_details). It is the notification's own text, not only
+# Android's lock-screen version: Android shows that version only when
+# the person has hidden sensitive content in Android's own settings
+# (off on most phones), so it alone would not keep a lock screen
+# private. group: the summary line once 3 or more of one channel are in
+# the tray, {n} being how many. The same for every official, party and
+# state. No dashes.
 CHANNELS = {
     "officials": {"public": "New update from an official you track",
                   "group": "{n} updates from officials you track"},
@@ -64,8 +68,6 @@ CHANNELS = {
     "summaries": {"public": "New updates in CivicView", "group": "{n} summaries"},
 }
 DEFAULT_CHANNEL = "officials"
-PUBLIC_TITLE = "CivicView"
-GROUP_PUBLIC = "{n} new updates"
 # The first Android build (1.2.0, versionCode 5) whose notifications the
 # app builds itself (data-only messages). Older builds, and devices that
 # never said, get FCM's notification message.
@@ -78,8 +80,11 @@ class PushMessage:
     """One push to one device. channel: a CHANNELS key. tag: a newer
     push with the same tag replaces the older one in the tray (events,
     bills, polls). native: the device's app builds its own notification
-    (data-only message). show_details: the lock screen shows the
-    notification itself instead of the neutral text."""
+    (data-only message). show_details: the notification shows title and
+    body; otherwise it shows only public_title (default: the channel's
+    neutral line), on the lock screen and in the unlocked tray alike.
+    public_title must never name anyone (summaries pass their count
+    line)."""
     token: str
     title: str
     body: str
@@ -89,6 +94,7 @@ class PushMessage:
     tag: Optional[str] = None
     native: bool = False
     show_details: bool = False
+    public_title: Optional[str] = None
 
 
 @dataclass
@@ -258,22 +264,37 @@ class FCMPushService(PushService):
             logger.exception("FCM topic send failed (%s)", topic)
 
 
+def channel_of(m: PushMessage) -> str:
+    return m.channel if m.channel in CHANNELS else DEFAULT_CHANNEL
+
+
+def shown(m: PushMessage) -> tuple:
+    """(title, body) the phone shows: the details when the person chose
+    "Show details", else only the neutral line (no body)."""
+    if m.show_details:
+        return m.title, m.body
+    return (m.public_title or CHANNELS[channel_of(m)]["public"]), ""
+
+
 def native_data(m: PushMessage) -> dict:
     """The data-only payload the app (1.2.0 and later) builds its
     notification from (CivicViewMessagingService.java). The app's own
-    keys stay as they are, so a tap still hands them to lib/push.js."""
-    channel = m.channel if m.channel in CHANNELS else DEFAULT_CHANNEL
-    spec = CHANNELS[channel]
+    keys stay as they are, so a tap still hands them to lib/push.js.
+    cv_public_*: Android's lock-screen version, the same text, so a
+    phone that hides sensitive content shows the same thing."""
+    channel = channel_of(m)
+    title, body = shown(m)
     data = {k: str(v) for k, v in (m.data or {}).items()}
     data.update({
         "cv_v": "1",
-        "cv_title": m.title,
-        "cv_body": m.body,
+        "cv_title": title,
+        "cv_body": body,
         "cv_channel": channel,
-        "cv_public_title": m.title if m.show_details else PUBLIC_TITLE,
-        "cv_public_body": m.body if m.show_details else spec["public"],
-        "cv_group_title": spec["group"],
-        "cv_group_public": spec["group"] if m.show_details else GROUP_PUBLIC,
+        "cv_details": "1" if m.show_details else "0",
+        "cv_public_title": title,
+        "cv_public_body": body,
+        "cv_group_title": CHANNELS[channel]["group"],
+        "cv_group_public": CHANNELS[channel]["group"],
     })
     if m.tag:
         data["cv_tag"] = m.tag
@@ -290,10 +311,11 @@ def fcm_message(m: PushMessage, messaging):
             data=native_data(m),
             android=messaging.AndroidConfig(priority="high", **ttl),
         )
-    channel = m.channel if m.channel in CHANNELS else DEFAULT_CHANNEL
+    channel = channel_of(m)
+    title, body = shown(m)
     return messaging.Message(
         token=m.token,
-        notification=messaging.Notification(title=m.title, body=m.body),
+        notification=messaging.Notification(title=title, body=body or None),
         data={k: str(v) for k, v in (m.data or {}).items()},
         android=messaging.AndroidConfig(
             priority="high",
@@ -312,17 +334,17 @@ def is_native(row) -> bool:
 
 
 def lock_screen_details(prefs: Optional[dict]) -> bool:
-    """The person chose "Show details" for the lock screen (default: hide)."""
+    """The person chose "Show details" (default: hide them)."""
     return isinstance(prefs, dict) and prefs.get("lock_screen_details") is True
 
 
 def message_for(row, prefs: Optional[dict], *, title: str, body: str, data: dict,
                 channel: str = DEFAULT_CHANNEL, tag: Optional[str] = None,
-                ttl_seconds: Optional[int] = None) -> PushMessage:
-    """One device's push, shaped for its app build and lock-screen setting."""
+                ttl_seconds: Optional[int] = None, public_title: Optional[str] = None) -> PushMessage:
+    """One device's push, shaped for its app build and details setting."""
     return PushMessage(token=row.token, title=title, body=body, data=data, ttl_seconds=ttl_seconds,
                        channel=channel, tag=tag, native=is_native(row),
-                       show_details=lock_screen_details(prefs))
+                       show_details=lock_screen_details(prefs), public_title=public_title)
 
 
 def _is_dead_token_error(exc) -> bool:
@@ -516,14 +538,17 @@ def device_prefs(row, account_prefs: dict) -> Optional[dict]:
 def _hold(db, row, *, reason: str, message: PushMessage, kind: str,
           official_id: Optional[str], official_name: Optional[str],
           notification_id: Optional[int], now: datetime) -> None:
-    """Keep one push for the device's summary. Its channel and tag ride
-    in data_json (_channel, _tag), so a summary of one update is that
-    update's own push (push_summaries.build_message)."""
+    """Keep one push for the device's summary. Its channel, tag and
+    neutral line ride in data_json (_channel, _tag, _public), so a
+    summary of one update is that update's own push
+    (push_summaries.build_message)."""
     from app.models.pages import PushHeldItem
     stored = dict(message.data or {})
     stored["_channel"] = message.channel
     if message.tag:
         stored["_tag"] = message.tag
+    if message.public_title:
+        stored["_public"] = message.public_title
     db.add(PushHeldItem(
         device_token_id=row.id, reason=reason, kind=kind,
         official_id=official_id, official_name=(official_name or "")[:255] or None,
@@ -544,6 +569,7 @@ def _deliver_tracked_push(
     channel: str = DEFAULT_CHANNEL,
     tag: Optional[str] = None,
     timing: bool = True,
+    public_title: Optional[str] = None,
 ) -> int:
     """Shared delivery engine for tracked-activity pushes (2026-07-26,
     extracted so tracked_event could ship without cloning 60 lines).
@@ -652,7 +678,8 @@ def _deliver_tracked_push(
             row_data["notification_id"] = nid
         row_body = body_for(prefs) if body_for is not None else body
         message = message_for(row, prefs, title=title, body=row_body, data=row_data,
-                              channel=channel, tag=tag, ttl_seconds=ttl_seconds)
+                              channel=channel, tag=tag, ttl_seconds=ttl_seconds,
+                              public_title=public_title)
         cadence = effective_cadence(prefs)
         reason = None
         if timing and cadence != "realtime":
@@ -772,18 +799,20 @@ def push_to_citizens(
     db, citizen_ids: Iterable[int], *, title: str, body: str, data: dict,
     channel: str, tag: Optional[str] = None, ttl_seconds: Optional[int] = POST_TTL_SECONDS,
     official_name: Optional[str] = None, notification_ids: Optional[dict] = None,
-    timing: bool = True,
+    timing: bool = True, public_title: Optional[str] = None,
 ) -> int:
     """A push to signed-in citizens' phones (2026-10-17): replies, poll
     results, bill updates, page changes. Same engine as the tracked
     pushes (quiet hours, summaries, pruning); bound devices only.
     official_name names the update in a summary (an official, a bill's
-    citation). Never raises."""
+    citation). public_title: the neutral line when details are hidden,
+    if not the channel's (it must name nobody). Never raises."""
     try:
         return _deliver_tracked_push(
             db, citizen_ids, anon_key=None, title=title, body=body, data=data,
             official_name=official_name, notification_ids=notification_ids,
             ttl_seconds=ttl_seconds, channel=channel, tag=tag, timing=timing,
+            public_title=public_title,
         )
     except Exception:
         db.rollback()

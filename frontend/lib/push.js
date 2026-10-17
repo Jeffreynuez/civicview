@@ -313,7 +313,9 @@ export async function unbindPushDevice() {
  * as android/.../NotificationChannels.java, which creates them at app
  * start. Creating them again from here only updates the names and
  * descriptions (so wording changes with a web deploy); Android keeps
- * each person's own choices. visibility 0 = Private on the lock screen.
+ * each person's own choices. No lock-screen visibility: Android ignores
+ * an app's own choice there; the server keeps notifications neutral
+ * unless the person chose Show details (push_service.shown).
  * Importance: 4 high (pops up), 3 default, 2 low (silent).
  */
 export const CHANNELS = [
@@ -335,7 +337,7 @@ export function createChannels() {
   channelsCreated = true;
   for (const c of CHANNELS) {
     try {
-      Promise.resolve(PN.createChannel({ ...c, visibility: 0, vibration: true })).catch(() => {});
+      Promise.resolve(PN.createChannel({ ...c, vibration: true })).catch(() => {});
     } catch { /* older plugin: the app creates them itself */ }
   }
 }

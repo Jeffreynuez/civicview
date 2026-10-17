@@ -94,7 +94,8 @@ def main() -> int:
               (xml_name and xml_name.group(1), js_name and js_name.group(1)))
     m = re.search(r'default_notification_channel_id"\s+android:value="([a-z_]+)"', manifest)
     check("3 the manifest's default channel is a real channel", bool(m) and m.group(1) in server, m and m.group(1))
-    check("3 every channel is private on the lock screen (Java)", "setLockscreenVisibility(Notification.VISIBILITY_PRIVATE)" in java)
+    check("3 no channel sets a lock-screen visibility (Android would ignore it)",
+          "setLockscreenVisibility" not in java and "visibility: 0" not in push_js)
     check("3 replies and election reminders pop up",
           "REPLIES.equals(id) || ELECTIONS.equals(id)) return NotificationManager.IMPORTANCE_HIGH" in java)
 
@@ -102,7 +103,6 @@ def main() -> int:
     copy = "\n".join([
         rows_block, labels_block, js_block, strings,
         "\n".join(v["public"] + " " + v["group"] for v in ps.CHANNELS.values()),
-        ps.PUBLIC_TITLE, ps.GROUP_PUBLIC,
     ])
     check("4 no em or en dashes", not re.search("[\u2013\u2014]", copy))
     check("4 nothing promises state bill alerts", not re.search(r"state bill", copy, re.I))

@@ -13,11 +13,11 @@
  *   one row per kind  a dropdown: Bell and push, Bell only, Off (and
  *                     email where there is one)
  *   Weekly email digest
- *   Quiet hours, Push alerts, Lock screen (the app only)
+ *   Quiet hours, Push alerts, Notification details (the app only)
  *
  * The rows live on the account (lib/alertSettings.js) and the server
  * enforces them, so they are the same on every device. Quiet hours,
- * push timing and the lock screen are the synced channel prefs
+ * push timing and notification details are the synced channel prefs
  * (lib/channelPrefs.js). Signed out, only the phone and timing rows
  * show: a signed-out phone only gets posts and polls from officials it
  * tracks.

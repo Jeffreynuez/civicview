@@ -170,11 +170,31 @@ def wanting(db, citizen_ids: Iterable[int], row: str, channel: str) -> set:
     return out
 
 
+def _locked(db, citizen):
+    """The account row, read again and locked until the commit, so two
+    rows changed at once (two devices, or a dropdown and an unsubscribe
+    link) cannot overwrite each other's change to the stored JSON."""
+    from app.models.pages import CitizenAccount
+
+    db.flush()  # sessions don't autoflush: keep any pending change to the row
+    return (
+        db.query(CitizenAccount)
+        .filter(CitizenAccount.id == citizen.id)
+        .with_for_update()
+        .populate_existing()
+        .one()
+    )
+
+
 def set_choice(db, citizen, row: str, value: str) -> None:
     """Apply one row's dropdown choice. Raises ValueError for a row or
     value the list does not have. Commits."""
     if row not in ROWS or value not in choices_for(row):
         raise ValueError(f"no choice {value!r} for {row!r}")
+    _apply(db, _locked(db, citizen), row, value)
+
+
+def _apply(db, citizen, row: str, value: str) -> None:
     bell, push, email = CHOICE_CELLS[value]
     wanted = {BELL: bell, PUSH: push, EMAIL: email}
     stored = _loads(citizen.alert_settings_json)
@@ -204,11 +224,12 @@ def set_choice(db, citizen, row: str, value: str) -> None:
 def turn_off_email(db, citizen, row: str) -> bool:
     """Turn off one row's email and nothing else (an unsubscribe link).
     Returns True when it was on."""
+    citizen = _locked(db, citizen)
     cells = cells_for(citizen)[row]
     if not cells.get(EMAIL):
+        db.commit()  # release the lock
         return False
-    choice = choice_of({**cells, EMAIL: False})
-    set_choice(db, citizen, row, choice)
+    _apply(db, citizen, row, choice_of({**cells, EMAIL: False}))
     return True
 
 

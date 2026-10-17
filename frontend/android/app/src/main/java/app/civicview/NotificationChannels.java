@@ -3,7 +3,6 @@
 
 package app.civicview;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -13,10 +12,13 @@ import androidx.annotation.RequiresApi;
 /**
  * The app's notification channels (2026-10-17). Each kind of alert has
  * its own, so a person can mute one in Android settings without losing
- * the rest. Every channel hides its notifications' content on a secure
- * lock screen (Private): the lock screen shows each notification's
- * neutral public version instead (CivicViewMessagingService), unless the
- * person chose "Show details" in CivicView's notification settings.
+ * the rest.
+ *
+ * No lock-screen visibility is set here: Android replaces an app's own
+ * choice for its channels with the app-wide setting, so it would do
+ * nothing. What keeps a lock screen private is the text itself: unless
+ * the person chose "Show details" in CivicView's notification settings,
+ * the server sends only a neutral line (CivicViewMessagingService).
  *
  * Created at app start (MainActivity) and before each push is shown, so
  * they exist even when a push arrives before the app is first opened
@@ -77,7 +79,6 @@ public final class NotificationChannels {
         // description; the person's own choices for it are kept.
         NotificationChannel channel = new NotificationChannel(id, context.getString(name), importance(id));
         channel.setDescription(context.getString(description));
-        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         channel.setShowBadge(true);
         nm.createNotificationChannel(channel);
     }

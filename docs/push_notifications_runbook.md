@@ -45,7 +45,8 @@ settings, Notifications (`components/NotificationSettings.js`):
 | Changes to pages you track | Bell, push and email; Bell and push; Bell and email; Bell only | Bell, push and email |
 | Weekly email digest | Off, Saturday mornings | Off |
 
-Then Quiet hours, Push alerts (timing) and, in the app, Lock screen.
+Then Quiet hours, Push alerts (timing) and, in the app, Notification
+details.
 
 - Server: `services/alert_settings.py` decides bell, push and email on
   every send path. Storage: only the cells that differ from the defaults,
@@ -61,7 +62,8 @@ Then Quiet hours, Push alerts (timing) and, in the app, Lock screen.
   still come. Signed out, the button is hidden (a signed-out phone's
   tracking lives in memory only).
 - Signed out, the panel shows only This phone, Quiet hours, Push alerts
-  and Lock screen: a signed-out phone gets officials' posts and polls.
+  and Notification details: a signed-out phone gets officials' posts and
+  polls.
 - The 32 per-item "Notify me when..." switches are gone, including each
   official's event switch and each tracked election's four reminder
   switches; their stored values are no longer read.
@@ -90,24 +92,28 @@ Then Quiet hours, Push alerts (timing) and, in the app, Lock screen.
   in the manifest and hands every message on to it) builds the
   notification: the channel, the white status bar icon
   (`res/drawable/ic_stat_civicview.xml`), the brand colour `#2D6A4F`, a
-  group per channel with a summary once 3 or more are in the tray, and a
-  tag (`event-<id>`, `bill-<key>`, `poll-<id>`, `page-<id>`,
-  `election-<id>`, `summary`) so a newer one replaces the older.
+  group per channel with a summary once 3 or more are in the tray
+  (counting the one just posted; it lists who posted only when details
+  are shown), and a tag (`event-<id>`, `bill-<key>`, `poll-<id>`,
+  `page-<id>`, `election-<id>`, `summary`) so a newer one replaces the
+  older.
 - Older builds (1.1.0, versionCode 4) and devices that never sent a build
-  get FCM's standard notification message with `channel_id`, `tag`, the
-  colour and `visibility: private`. The web app creates the same channels
-  on 1.1.0 too (the push plugin has `createChannel`).
+  get FCM's standard notification message with `channel_id`, `tag` and
+  the colour. The web app creates the same channels on 1.1.0 too (the
+  push plugin has `createChannel`).
 - The manifest's defaults (for a standard message): channel `officials`,
   icon `ic_stat_civicview`, colour `cv_notification_accent`.
 
-## Lock screen
+## Notification details (the private lock screen)
 
-Every channel is created with Private lock-screen visibility, which
-Android enforces on a secure lock screen whatever the phone's own
-setting. The lock screen then shows the notification's public version,
-titled "CivicView":
+By default a notification names nobody: the server sends only a neutral
+line as its title, with no body (`push_service.shown`), on every app
+build, 1.1.0 included. So a locked phone shows the neutral line, and so
+does the unlocked tray; tapping opens the update. "Notification
+details: Show details" (prefs key `lock_screen_details`, synced, default
+off) sends who posted and what.
 
-| Channel | Locked phone shows |
+| Channel | Shown by default |
 | --- | --- |
 | Officials you track | New update from an official you track |
 | Events | New event from an official you track |
@@ -115,15 +121,18 @@ titled "CivicView":
 | Bill updates | Update on a bill you track |
 | Poll results | Results are in for a poll you voted in |
 | Election reminders | Election reminder |
-| Changes to pages you track | A page you track changed |
-| Summaries | New updates in CivicView |
-| A group of 3 or more | N new updates |
+| Changes to pages you track | A page you track changed (one change), or "N pages you track changed" |
+| Summaries | the count line, such as "4 updates from officials you track" |
+| A group of 3 or more | its count line, such as "3 updates from officials you track" |
 
-"Lock screen: Show details" (prefs key `lock_screen_details`, synced,
-default off) makes the public version a full copy. Android does not let
-an app change a channel's lock-screen rule after creating it, so the
-public version is the switch. On 1.1.0 there is no public version: a
-locked phone shows Android's own "Contents hidden".
+Why the text itself and not Android's lock-screen rules (checked in the
+Android source, 2026-10-17): Android replaces an app's own lock-screen
+visibility for its channels with the app-wide setting, and it shows a
+notification's public version only when the person has hidden sensitive
+content in Android's own settings, which is off on most phones. A
+private flag and a public version alone would leave the full text on
+most lock screens. The app still sets the public version (the same
+text) and asks for Private.
 
 ## Permission state
 
@@ -261,7 +270,7 @@ bell are left out. Each device is claimed with one conditional UPDATE on
 
 - **Send me a test push** (under the admin page heading): the devices
   bound to your citizen account, plus this device when the admin page is
-  open in the app. It shows details on the lock screen on purpose.
+  open in the app. It shows its details on purpose.
 - **Bill updates:** `GET /api/admin/bill-updates`, `POST /api/admin/bill-updates/run`.
 
 ## Architecture (what lives where)
@@ -305,8 +314,8 @@ the standard message), so the merge can go out before the app does.
    `frontend\android\app\release\`.
 5. Play Console, CivicView, Testing, Internal testing, Create new release,
    upload the AAB, release notes ("Notification channels you can manage
-   in Android settings, private lock screen, replies, bill updates and
-   poll results alerts."), Save, Review, Start rollout to Internal
+   in Android settings, private notifications by default, replies, bill
+   updates and poll results alerts."), Save, Review, Start rollout to Internal
    testing. Add yourself as a tester if needed and install it from the
    opt-in link on your phone (it updates the 1.1.0 install in place).
 6. Run the device checklist below on your phone.
@@ -356,12 +365,14 @@ shared, App functionality, optional. Changes to make for 1.2.0:
    above with their names ("Miscellaneous" may remain from 1.1.0).
 3. Admin, "Send me a test push": arrives with the CivicView mark in the
    status bar and the green accent.
-4. Track an official; post from that official's page (rep session):
-   "<name> posted" arrives in Officials you track. Tap it: the post opens
+4. Track an official; post from that official's page (rep session): a
+   notification arrives in Officials you track. Tap it: the post opens
    and pulses, and its bell row is read.
-5. Lock the phone and post again: the lock screen shows "CivicView, New
-   update from an official you track". Bell, Settings, Lock screen: Show
-   details; lock again and post: the full text shows.
+5. With the default setting the notification in step 4 read only "New
+   update from an official you track". Lock the phone and post again: the
+   lock screen shows the same line and no name. Bell, Settings,
+   Notification details: Show details; post again: "<name> posted" and
+   the text show, locked and unlocked. Set it back to Hide details.
 6. Android settings: turn off the Officials you track category; post: no
    notification, the bell row comes, and Settings shows "Push for this is
    off in Android settings." under Officials you track. Turn it back on.

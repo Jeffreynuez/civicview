@@ -4,7 +4,7 @@
 """Admin view of the daily bill update pass (2026-10-17).
 
   GET  /api/admin/bill-updates       what is watched, the last passes, recent updates
-  POST /api/admin/bill-updates/run   run a pass now (sends what it finds)
+  POST /api/admin/bill-updates/run   start a pass now (sends what it finds)
 
 See services/bill_updates.py.
 """
@@ -27,4 +27,4 @@ def admin_status(db: Session = Depends(get_db), admin: dict = Depends(get_curren
 
 @admin_router.post("/run")
 async def admin_run(admin: dict = Depends(get_current_admin)):
-    return await bill_updates.run_pass(force=True)
+    return bill_updates.start_manual_pass()

@@ -43,7 +43,7 @@ state that this file deliberately does NOT duplicate:
 ## Current state & open work (snapshot 2026-06-16)
 
 > **Newest (2026-10-17): phone notifications (app 1.2.0).** Android
-> notification channels, a private lock screen, replies, daily federal
+> notification channels, private notifications by default, replies, daily federal
 > bill updates from Congress.gov, poll results, and one short settings
 > list (server-enforced) with Mute per official. See "Phone notifications
 > and the settings list" below and `docs/push_notifications_runbook.md`.
@@ -405,8 +405,8 @@ Jeffrey's decisions, `feat/phone-notifications`. Runbook:
 - **One settings list replaces the 32 per-item switches.** Rows:
   Officials you track, Events, Replies to your comments, Bill updates,
   Poll results, Election reminders, Changes to pages you track, then the
-  Weekly email digest row, Quiet hours, Push alerts and (app only) Lock
-  screen. One dropdown per row (Bell and push / Bell only / Off, plus
+  Weekly email digest row, Quiet hours, Push alerts and (app only)
+  Notification details. One dropdown per row (Bell and push / Bell only / Off, plus
   email choices where there is email). Enforced on the server by
   `services/alert_settings.py` for every send path; stored per cell in
   `citizen_accounts.alert_settings_json` (only cells that differ from the
@@ -421,7 +421,12 @@ Jeffrey's decisions, `feat/phone-notifications`. Runbook:
 - **Mute this official** (My Tracked, signed in only; hidden signed out):
   `{"muted": true}` in the tracked official's prefs; stops their posts,
   polls and events in the bell, the push and the weekly digest. Page
-  change notices still come.
+  change notices still come. Settings and mute are checked again when a
+  held summary goes out, so a change made meanwhile counts.
+- **Timing:** officials, events, bills and poll results follow Push
+  alerts (as they happen / daily / weekly). Replies and page changes
+  ignore it; quiet hours hold them and they go when quiet hours end,
+  even on a daily or weekly phone.
 - **Replies** push to citizens only, after the moderation screen; reps
   and candidates get no reply pushes (Jeffrey, 2026-07-26). Replies on
   citizen polls notify too.
@@ -437,9 +442,15 @@ Jeffrey's decisions, `feat/phone-notifications`. Runbook:
   poll (`services/poll_results.py`), no backlog at deploy.
 - **Android:** eight channels (Officials you track, Events, Replies, Bill
   updates, Poll results, Election reminders, Changes to pages you track,
-  Summaries), all Private on the lock screen with a neutral public
-  version ("New update from an official you track") unless the person
-  chooses Show details. App 1.2.0 (versionCode 5) builds its own
+  Summaries). **Private by default means the text itself:** unless the
+  person chooses Notification details: Show details, the server sends
+  only a neutral line ("New update from an official you track", or a
+  count line for summaries) and no body, to every app build
+  (`push_service.shown`). Android's channel lock-screen visibility and
+  public versions are not enough (Android resets an app's channel
+  visibility, and shows the public version only when the person hides
+  sensitive content in Android settings); don't go back to relying on
+  them. App 1.2.0 (versionCode 5) builds its own
   notifications from data-only messages (`CivicViewMessagingService`);
   older builds get the standard message with the channel id, so the
   server works with both (`push_service.NATIVE_BUILD`). Channel ids must

@@ -252,12 +252,14 @@ await check('5 a register says the app build and that Android lets it notify', a
   assert.equal(reg.body.app_build, 5);
   assert.equal(reg.body.os_enabled, true);
 });
-await check('5 the channels match the app and the server, all private on the lock screen', () => {
+await check('5 the channels match the app and the server', () => {
   // android/.../NotificationChannels.java and backend push_service.CHANNELS
   assert.deepEqual(push.CHANNELS.map((c) => c.id),
     ['officials', 'events', 'replies', 'bills', 'poll_results', 'elections', 'page_changes', 'summaries']);
   assert.equal(channelsMade.length, push.CHANNELS.length);
-  assert.ok(channelsMade.every((c) => c.visibility === 0));
+  // Android ignores an app's own lock-screen visibility; the server
+  // keeps the text neutral instead (push_service.shown).
+  assert.ok(channelsMade.every((c) => c.visibility === undefined));
   const byId = Object.fromEntries(push.CHANNELS.map((c) => [c.id, c.importance]));
   assert.equal(byId.replies, 4);
   assert.equal(byId.elections, 4);

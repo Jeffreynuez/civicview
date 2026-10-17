@@ -62,7 +62,7 @@ STATE = {
     "119-hr-1": {"title": "An act about roads", "latest_date": "2026-10-01", "latest_text": "Referred to committee."},
     "119-s-5": {"title": "An act about water", "latest_date": "2026-09-20", "latest_text": "Introduced in Senate."},
 }
-ACTIONS = {"119-hr-1": [], "119-s-5": []}
+ACTIONS = {"119-hr-1": [], "119-s-5": [], "119-sres-9": []}
 CALLS = []
 FAIL = set()
 
@@ -203,6 +203,37 @@ def _run() -> int:
           bu.classify({"text": "On the cloture motion", "recordedVotes": [{}]}) == "vote")
     check("6 became law is a status change", bu.classify({"text": "Became Public Law No: 119-12.", "type": "BecameLaw"})
           == "status")
+    for text in ("Motion to reconsider laid on the table Agreed to without objection.",
+                 "On agreeing to the Smith amendment (A001) Agreed to by voice vote.",
+                 "S.Amdt.1234 Amendment SA 1234 agreed to in Senate by Unanimous Consent.",
+                 "Amendment SA 1234 agreed to in Senate by Voice Vote.",
+                 "On agreeing to the Jones amendment Failed by recorded vote: 200 - 220."):
+        check(f"6 not a status change: {text[:40]}", bu.classify({"text": text, "type": "Floor"}) == "action")
+    for text in ("Resolution agreed to in Senate without amendment and with a preamble by Unanimous Consent.",
+                 "Passed Senate without amendment by Unanimous Consent.",
+                 "On passage Failed by the Yeas and Nays: 200 - 220 (Roll no. 400)."):
+        check(f"6 a status change: {text[:40]}", bu.classify({"text": text, "type": "Floor"}) == "status")
+
+    # ── 6b. first look records every action of the latest day ──────
+    STATE["119-sres-9"] = {"title": "A resolution about a week", "latest_date": "2026-10-16",
+                           "latest_text": "Referred to the Committee on the Judiciary."}
+    ACTIONS["119-sres-9"] = [
+        {"actionDate": "2026-10-16", "text": "Referred to the Committee on the Judiciary.", "type": "IntroReferral"},
+        {"actionDate": "2026-10-16", "text": "Submitted in the Senate.", "type": "IntroReferral"},
+    ]
+    db.add(TrackedBill(tracker_kind="citizen", tracker_id=ana.id, bill_key="119-sres-9",
+                       snapshot_json=json.dumps({"citation": "S.Res. 9"})))
+    db.commit()
+    res = run()
+    check("6b a newly tracked bill is seeded, nothing sent", res.get("seeded") == 1 and res.get("updates") == 0, res)
+    STATE["119-sres-9"].update(latest_text="Resolution agreed to in Senate without amendment by Unanimous Consent.")
+    ACTIONS["119-sres-9"].insert(0, {"actionDate": "2026-10-16", "type": "Floor",
+                                     "text": "Resolution agreed to in Senate without amendment by Unanimous Consent."})
+    res = run()
+    sres = [json.loads(n.payload_json) for n in bell(ana.id) if json.loads(n.payload_json)["bill_key"] == "119-sres-9"]
+    check("6b a same-day change lists only what is new since the first look",
+          len(sres) == 1 and sres[0]["more"] == 0 and sres[0]["change_kind"] == "status"
+          and sres[0]["action"].startswith("Resolution agreed to"), sres)
 
     # ── 7. schedule ──────────────────────────────────────────────────
     check("7 not due before 9 a.m. Eastern", bu.due_run_key(db, datetime(2026, 10, 20, 12, 30)) is None)
@@ -225,7 +256,7 @@ def _run() -> int:
     res = run()
     check("8 a failed fetch is counted, not fatal", res.get("errors") == 1 and "error" not in res, res)
     status = bu.status(db)
-    check("8 the admin view", status["tracked_bills"] == 2 and status["watched_bills"] == 2
+    check("8 the admin view", status["tracked_bills"] == 3 and status["watched_bills"] == 3
           and status["updates_last_7_days"] >= 3, status)
 
     db.close()

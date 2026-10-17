@@ -375,8 +375,9 @@ categories:
 
 Android notification channels (Officials you track, Events, Replies, Bill
 updates, Poll results, Election reminders, Changes to pages you track,
-Summaries), each private on the lock screen with a neutral line instead
-of who posted, a monochrome status bar icon and grouped notifications.
+Summaries), private by default (each notification shows only a neutral
+line, not who posted, unless the person chooses Show details), a
+monochrome status bar icon and grouped notifications.
 New alerts: replies to your comments (on posts and citizen polls), a
 daily pass over the federal bills you track on Congress.gov, and "Results
 are in" when a poll you voted in closes. One short settings list,
@@ -1061,8 +1062,8 @@ default), Daily summary (6 p.m. local) or Weekly summary (Saturday 10
 a.m. local) for officials, events, bills and poll results; nothing is
 dropped, and quiet hours hold pushes for one summary when they end.
 Election reminders always come on their own. On Android each kind has
-its own notification channel, and a locked phone shows only a neutral
-line unless the person chooses Show details. A phone is bound to whoever
+its own notification channel, and a notification, locked phone or not,
+shows only a neutral line unless the person chooses Show details. A phone is bound to whoever
 is signed in on it and unbound on sign-out. Emails a person can turn off
 carry a one-click unsubscribe (RFC 8058) that turns off only that email
 type. How it works, the release steps, Data safety and the device

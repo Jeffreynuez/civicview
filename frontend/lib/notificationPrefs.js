@@ -135,7 +135,7 @@ export const CHANNEL_SCHEMA = {
     {
       key: 'quiet_hours',
       label: 'Quiet hours',
-      description: 'No pushes in these hours, your local time. What came in arrives in one summary after.',
+      description: 'No pushes in these hours, your local time. Held updates arrive in one summary after; election reminders wait in the bell.',
       choices: ['off', 'nights', 'nights_weekends', 'work_hours_only'],
       // Short enough for the dropdown: nights are 10 p.m. to 8 a.m.;
       // work_hours_only is quiet except weekdays 9 a.m. to 6 p.m.
@@ -162,13 +162,16 @@ export const CHANNEL_SCHEMA = {
       default: 'realtime',
     },
   ],
-  // The lock screen (2026-10-17, the Android app only): hidden by
-  // default, so a locked phone shows "New update from an official you
-  // track" instead of whom you follow.
+  // Notification details (2026-10-17, the Android app only): hidden by
+  // default, so a notification, and so a locked phone, shows only a
+  // general line ("New update from an official you track") instead of
+  // whom you follow. The server sends that line as the notification
+  // itself (push_service.shown): Android's own lock-screen hiding works
+  // only on phones set to hide sensitive content. Key name kept.
   lockScreen: {
     key: 'lock_screen_details',
-    label: 'Lock screen',
-    description: 'Hidden: a locked phone shows "New update from an official you track", not names.',
+    label: 'Notification details',
+    description: 'Hidden: each notification shows only a general line, such as "New update from an official you track". Tap it to see the update.',
     choiceLabels: { hide: 'Hide details', show: 'Show details' },
     default: false,
   },

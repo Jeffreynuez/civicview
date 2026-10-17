@@ -460,11 +460,13 @@ def send_page_change_pushes(db: Session, pushes: dict) -> dict:
                     line = " and ".join(names)
                 else:
                     line = f"{names[0]}, {names[1]} and {len(names) - 2} more"
+                title = f"{len(items)} pages you track changed"
                 counts["devices"] += push_to_citizens(
-                    db, [cid], title=f"{len(items)} pages you track changed",
+                    db, [cid], title=title,
                     body=f"{line}." if line else "Open the bell to see them.",
                     data={"kind": "page_changes", "count": len(items)},
                     channel="page_changes", tag="page-changes", timing=False,
+                    public_title=title,
                 )
                 counts["grouped"] += 1
     except Exception:
