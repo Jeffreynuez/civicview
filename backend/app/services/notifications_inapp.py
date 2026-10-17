@@ -22,8 +22,20 @@ Scope extension (Task #105, 2026-06-10):
     "subscription model" the MVP was waiting on turned out to already
     exist: TrackedOfficial.
 
+Scope extension (phone notifications, 2026-10-17):
+  • Every kind obeys the citizen's notification settings list
+    (services/alert_settings.py): a row can send the bell and a push,
+    the bell only, or nothing. Muted officials (My Tracked) get no bell
+    row or push for their posts, polls and events.
+  • Replies on citizen polls notify too (they created nothing before),
+    and replies push to citizens' phones after the moderation screen
+    (never to reps or candidates: Jeffrey, 2026-07-26).
+  • Event alerts follow the Events row (on by default) instead of each
+    official's on_event switch.
+  • Poll results: services/poll_results.py. Bill updates:
+    services/bill_updates.py.
+
 Out-of-scope still:
-  • Poll-close alerts (needs a scheduler).
   • Mentions (needs an @-parser).
   • Web push (needs a service worker + permission flow).
 
@@ -84,6 +96,7 @@ def emit_reply_notification(
     parent: PostComment,
     replier_display_name: str,
     official_id: str,
+    poll_id: Optional[int] = None,
 ) -> Optional[Notification]:
     """Create a notification for the author of `parent` because
     `reply` was just posted. Returns None when there's no recipient
@@ -94,6 +107,10 @@ def emit_reply_notification(
     The replier and the recipient can be different identity kinds —
     e.g. a rep replying to a citizen's comment notifies the citizen,
     a citizen replying to the rep's comment notifies the rep.
+
+    A reply on a citizen poll (2026-10-17) passes the PollComment pair
+    and poll_id; its payload carries poll_id instead of post_id. A
+    citizen whose Replies setting is Off gets no bell row.
     """
     # Identify the parent comment's author. Exactly one of these
     # should be populated per the XOR enforced at the route layer.
@@ -136,15 +153,22 @@ def emit_reply_notification(
     if recipient_kind in ("rep", "candidate"):
         if not _identity_reply_alerts_enabled(db, recipient_kind, recipient_id):
             return None
+    else:
+        from app.services import alert_settings
+        if not alert_settings.wanting(db, [recipient_id], "replies", alert_settings.BELL):
+            return None
 
     payload = {
         "comment_id": reply.id,
         "parent_comment_id": parent.id,
-        "post_id": reply.post_id,
         "official_id": official_id,
         "replier_name": replier_display_name,
         "preview": _truncate(reply.body, 120),
     }
+    if poll_id is not None:
+        payload["poll_id"] = poll_id
+    else:
+        payload["post_id"] = reply.post_id
     n = Notification(
         recipient_kind=recipient_kind,
         recipient_id=recipient_id,
@@ -155,6 +179,100 @@ def emit_reply_notification(
     db.commit()
     db.refresh(n)
     return n
+
+
+_REPLY_CONTENT = {"post_comment", "poll_comment"}
+
+
+def push_reply(db: Session, notification_id: int, content_type: str) -> int:
+    """The phone push for a reply's bell row (2026-10-17). Citizens only:
+    reps and candidates get no reply pushes (Jeffrey, 2026-07-26). Runs
+    as a background task after the moderation screen, so a reply the
+    screen flags, or one already hidden or deleted, is not pushed (its
+    bell row stays). Follows the Replies row's push setting and quiet
+    hours, not the daily or weekly summary setting. Returns devices sent."""
+    from app.models.pages import ContentModerationVerdict, PollComment
+    from app.services import alert_settings
+    from app.services.push_service import push_to_citizens
+
+    if content_type not in _REPLY_CONTENT:
+        return 0
+    n = db.get(Notification, notification_id)
+    if n is None or n.recipient_kind != "citizen" or n.kind != "reply":
+        return 0
+    try:
+        p = json.loads(n.payload_json or "{}")
+    except (ValueError, TypeError):
+        return 0
+    comment_id = p.get("comment_id")
+    model = PostComment if content_type == "post_comment" else PollComment
+    comment = db.get(model, comment_id) if comment_id else None
+    if comment is None or getattr(comment, "deleted_at", None) is not None or getattr(comment, "hide_reason", None):
+        return 0
+    decision = (
+        db.query(ContentModerationVerdict.decision)
+        .filter(ContentModerationVerdict.content_type == content_type,
+                ContentModerationVerdict.content_id == comment_id)
+        .order_by(ContentModerationVerdict.id.desc())
+        .limit(1)
+        .scalar()
+    )
+    if decision in _FLAGGED:
+        logger.info("reply push held back: %s=%s moderation %s", content_type, comment_id, decision)
+        return 0
+    if not alert_settings.wanting(db, [n.recipient_id], "replies", alert_settings.PUSH):
+        return 0
+    name = p.get("replier_name") or "Someone"
+    data = {"kind": "reply", "official_id": p.get("official_id") or ""}
+    if p.get("poll_id"):
+        data["poll_id"] = p["poll_id"]
+    elif p.get("post_id"):
+        data["post_id"] = p["post_id"]
+    return push_to_citizens(
+        db, [n.recipient_id], title=f"{name} replied to your comment", body=p.get("preview") or "",
+        data=data, channel="replies", official_name=name,
+        notification_ids={n.recipient_id: n.id}, timing=False,
+    )
+
+
+def push_reply_bg(notification_id: int, content_type: str) -> None:
+    """BackgroundTasks entrypoint for push_reply; owns its session and
+    swallows errors (the reply has already landed)."""
+    from app.db import SessionLocal
+
+    db = SessionLocal()
+    try:
+        push_reply(db, notification_id, content_type)
+    except Exception:
+        db.rollback()
+        logger.exception("reply push failed (notification=%s)", notification_id)
+    finally:
+        db.close()
+
+
+def _tracker_audience(db: Session, official_id: str, row: str) -> tuple:
+    """(every citizen tracking the page, those who get a bell row, those
+    who get a push) for one official's post or event. Tracking that
+    ended at the archive is left out; so is anyone who muted the
+    official in My Tracked or turned the row off."""
+    from sqlalchemy import func as _f
+
+    from app.services import alert_settings
+
+    rows = (
+        db.query(TrackedOfficial.tracker_id, TrackedOfficial.prefs_json)
+        .filter(
+            TrackedOfficial.tracker_kind == "citizen",
+            _f.lower(TrackedOfficial.official_key) == (official_id or "").lower(),
+            TrackedOfficial.ended_at.is_(None),
+        )
+        .all()
+    )
+    everyone = [tid for tid, _blob in rows]
+    unmuted = alert_settings.unmuted_trackers(rows)
+    bell = alert_settings.wanting(db, unmuted, row, alert_settings.BELL)
+    push = alert_settings.wanting(db, unmuted, row, alert_settings.PUSH) & bell
+    return everyone, [t for t in unmuted if t in bell], [t for t in unmuted if t in push]
 
 
 def emit_tracked_content_notifications(
@@ -175,24 +293,10 @@ def emit_tracked_content_notifications(
     request latency."""
     # Case-insensitive key match (2026-07-25): the frontend lowercases
     # official keys (officialKey()), while page official_ids come from
-    # the DB verbatim. They agree today for registry-backed pages, but
-    # a mixed-case page id (test/internal accounts, future imports)
-    # would silently fan out to nobody. lower() both sides so tracking
-    # can never miss on case.
-    from sqlalchemy import func as _f
-
-    trackers = (
-        db.query(TrackedOfficial.tracker_id)
-        .filter(
-            TrackedOfficial.tracker_kind == "citizen",
-            _f.lower(TrackedOfficial.official_key) == (official_id or "").lower(),
-            # Tracking ends at the archive (2026-10-15); ended rows stay.
-            TrackedOfficial.ended_at.is_(None),
-        )
-        .all()
-    )
-    if not trackers:
-        return 0
+    # the DB verbatim. lower() both sides so tracking can never miss on
+    # case. Muted officials and the Officials row (2026-10-17) decide
+    # who gets the bell row and who the push.
+    _everyone, bell_ids, push_ids = _tracker_audience(db, official_id, "officials")
     payload = json.dumps(
         {
             "official_id": official_id,
@@ -210,7 +314,7 @@ def emit_tracked_content_notifications(
             kind="tracked_post",
             payload_json=payload,
         )
-        for (tid,) in trackers
+        for tid in bell_ids
     ]
     db.add_all(rows)
     db.flush()  # assigns ids; read them now, before commit expires the rows
@@ -236,9 +340,11 @@ def emit_tracked_content_notifications(
 
     # Each tracker's own bell row id rides on their push, so tapping
     # it marks that row read (2026-10-16).
+    # Signed-out phones tracking the page still get it (anon_key), so
+    # this runs even when no signed-in tracker wants a push.
     push_tracked_post(
         db,
-        [tid for (tid,) in trackers],
+        push_ids,
         official_id=official_id,
         official_name=official_name,
         post_id=post_id,
@@ -293,38 +399,18 @@ def emit_tracked_event_notifications(
     location: Optional[str],
 ) -> int:
     """Fan a kind='tracked_event' notification out to citizens who
-    track `official_id` AND opted into that official's 'on_event'
-    pref. The pref's schema default is OFF ('key events ON, chatter
-    OFF' — lib/notificationPrefs.js), so event alerts are strictly
-    opt-in per tracked official; a missing/unparseable prefs blob
-    counts as opted OUT to mirror the frontend default. Push mirror
-    is bound-devices only — anonymous devices never expressed
-    on_event, so they get no event pushes."""
-    from sqlalchemy import func as _f
-
-    rows = (
-        db.query(TrackedOfficial.tracker_id, TrackedOfficial.prefs_json)
-        .filter(
-            TrackedOfficial.tracker_kind == "citizen",
-            _f.lower(TrackedOfficial.official_key) == (official_id or "").lower(),
-            # Tracking ends at the archive (2026-10-15); ended rows stay.
-            TrackedOfficial.ended_at.is_(None),
-        )
-        .all()
-    )
-    opted: list[int] = []
-    for tid, blob in rows:
-        try:
-            prefs = json.loads(blob) if blob else {}
-        except (ValueError, TypeError):
-            prefs = {}
-        if prefs.get("on_event") is True:
-            opted.append(tid)
+    track `official_id`. Since 2026-10-17 (Jeffrey) the Events row of
+    the notification settings decides it, on for everyone by default,
+    and "Mute" in My Tracked silences one official; each official's old
+    on_event switch is no longer read. The push follows the "Push
+    alerts" timing like a post. Bound devices only: signed-out phones
+    get officials' posts and polls, not events."""
+    everyone, opted, push_ids = _tracker_audience(db, official_id, "events")
     if not opted:
         logger.info(
             "tracked_event fan-out: official=%s event=%s -> 0 of %d tracker(s) "
-            "opted into on_event",
-            official_id, event_id, len(rows),
+            "(muted or Events off)",
+            official_id, event_id, len(everyone),
         )
         return 0
     payload = json.dumps(
@@ -353,12 +439,12 @@ def emit_tracked_event_notifications(
     db.commit()
     logger.info(
         "tracked_event fan-out: official=%s event=%s -> %d of %d tracker(s)",
-        official_id, event_id, len(notif_rows), len(rows),
+        official_id, event_id, len(notif_rows), len(everyone),
     )
     from app.services.push_service import push_tracked_event
 
     push_tracked_event(
-        db, opted,
+        db, push_ids,
         official_id=official_id,
         official_name=official_name,
         event_id=event_id,

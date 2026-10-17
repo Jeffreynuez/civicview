@@ -25,6 +25,9 @@ Email types:
                       rep and candidate accounts, page_change_email_off_at)
   election_reminders  election reminder emails
                       (CitizenAccount.election_reminder_email_at)
+  bill_updates        the daily email about bills you track
+                      (2026-10-17; the email cell of the Bill updates row
+                      in services/alert_settings.py)
 """
 from __future__ import annotations
 
@@ -41,12 +44,14 @@ EMAIL_TYPES = {
     "digest": "the weekly digest email",
     "page_changes": "emails when a page you track changes",
     "election_reminders": "election reminder emails",
+    "bill_updates": "emails about bills you track",
 }
 # Which account kinds each type exists for.
 _KINDS = {
     "digest": ("citizen",),
     "page_changes": ("citizen", "rep", "candidate"),
     "election_reminders": ("citizen",),
+    "bill_updates": ("citizen",),
 }
 
 
@@ -120,6 +125,9 @@ def is_off(acct, email_type: str) -> bool:
         return not bool(acct.digest_opt_in)
     if email_type == "election_reminders":
         return acct.election_reminder_email_at is None
+    if email_type == "bill_updates":
+        from app.services import alert_settings
+        return not alert_settings.wants(acct, "bills", alert_settings.EMAIL)
     return acct.page_change_email_off_at is not None
 
 
@@ -151,6 +159,9 @@ def unsubscribe(db, token: str) -> Optional[dict]:
             acct.digest_opt_in = False
         elif etype == "election_reminders":
             acct.election_reminder_email_at = None
+        elif etype == "bill_updates":
+            from app.services import alert_settings
+            alert_settings.turn_off_email(db, acct, "bills")
         else:
             acct.page_change_email_off_at = datetime.utcnow()
         db.commit()

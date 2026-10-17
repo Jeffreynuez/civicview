@@ -41,6 +41,15 @@ go in batches of BATCH_SIZE with a short pause, at most
 MAX_RECIPIENTS_PER_PASS per pass (the January 3, 2027 turnover is
 large); the rest go on the next pass. Suspended, inactive, self-deleted
 and closed accounts get nothing (no bell row, no email).
+
+Phone pushes (2026-10-17, Jeffrey): a citizen tracking a page that
+changed also gets a push, on by default ("Changes to pages you track"
+in the notification settings). When one run finds more than one change
+for a person, they get one push, "3 pages you track changed", opening
+the bell, instead of one per change; a single change keeps its own
+push. That covers results week and the January 3 turnover. Quiet hours
+hold it like any push; "Mute" in My Tracked does not (it silences an
+official's posts, not the news that their page changed).
 """
 from __future__ import annotations
 
@@ -319,6 +328,10 @@ def email_skip_reason(acct, plan: NoticePlan) -> Optional[str]:
 TRACKER_EMAIL_FOOTER = ("You get this email because you track this page on CivicView. To stop these emails, "
                         "turn off \"Email me when a page I track changes\" in your notification settings, "
                         "or use this link:")
+# A citizen's settings list names it "Changes to pages you track" (2026-10-17).
+CITIZEN_TRACKER_EMAIL_FOOTER = ("You get this email because you track this page on CivicView. To stop these "
+                                "emails, choose a setting without email for \"Changes to pages you track\" "
+                                "in your notification settings, or use this link:")
 
 
 def _send_email(plan: NoticePlan, acct) -> bool:
@@ -332,7 +345,8 @@ def _send_email(plan: NoticePlan, acct) -> bool:
         # just these emails; the in-app notice still comes.
         kind = {"RepAccount": "rep", "CandidateAccount": "candidate"}.get(type(acct).__name__, "citizen")
         unsub = email_unsubscribe.links(kind, acct.id, "page_changes")
-        body += f"\n{TRACKER_EMAIL_FOOTER} {unsub['page_url']}\n"
+        footer = CITIZEN_TRACKER_EMAIL_FOOTER if kind == "citizen" else TRACKER_EMAIL_FOOTER
+        body += f"\n{footer} {unsub['page_url']}\n"
         extra["headers"] = unsub["headers"]
     return bool(get_email_service().send(to=acct.email, subject=plan.subject, text_body=body, **extra))
 
@@ -346,10 +360,12 @@ def _done_recipients(db: Session, plan: NoticePlan) -> set:
 
 
 def deliver_notice(db: Session, plan: NoticePlan, summary: dict, *, budget: Optional[_Budget] = None,
-                   pause_seconds: float = 0.0) -> bool:
+                   pause_seconds: float = 0.0, pushes: Optional[dict] = None) -> bool:
     """Claim, bell row, email, for each recipient not yet done. Commits
     per recipient. Returns True when everyone is done (the notice can
-    be stamped), False when the budget ran out first."""
+    be stamped), False when the budget ran out first. pushes, when
+    given, collects {citizen_id: [(notification_id, plan)]} for the
+    tracker notices, sent at the end of the run (send_page_change_pushes)."""
     from app.models.pages import Notification, PageNoticeDelivery
 
     done = _done_recipients(db, plan)
@@ -383,6 +399,8 @@ def deliver_notice(db: Session, plan: NoticePlan, summary: dict, *, budget: Opti
         db.flush()
         claim.notification_id = note.id
         db.commit()
+        if pushes is not None and plan.to_tracker and rkind == "citizen":
+            pushes.setdefault(rid, []).append((note.id, plan))
         summary["followers_notices" if plan.notice == "followers"
                 else "tracker_notices" if plan.notice == "trackers" else "person_notices"] += 1
         reason = email_skip_reason(acct, plan)
@@ -397,6 +415,66 @@ def deliver_notice(db: Session, plan: NoticePlan, summary: dict, *, budget: Opti
         claim.email_status = reason
         db.commit()
     return True
+
+
+def _short(text: str, n: int = 160) -> str:
+    text = (text or "").strip()
+    return text if len(text) <= n else text[: n - 1].rstrip() + "\u2026"
+
+
+def send_page_change_pushes(db: Session, pushes: dict) -> dict:
+    """One push per citizen for the page changes a run found: the change
+    itself when there is one, else "N pages you track changed" opening
+    the bell. Only citizens whose "Changes to pages you track" setting
+    includes push. Never raises."""
+    from app.services import alert_settings
+    from app.services.push_service import push_to_citizens
+
+    counts = {"single": 0, "grouped": 0, "devices": 0}
+    if not pushes:
+        return counts
+    try:
+        allowed = alert_settings.wanting(db, list(pushes), "page_changes", alert_settings.PUSH)
+        for cid, items in pushes.items():
+            if cid not in allowed or not items:
+                continue
+            if len(items) == 1:
+                nid, plan = items[0]
+                page_id = plan.payload.get("official_id") or plan.page_id
+                counts["devices"] += push_to_citizens(
+                    db, [cid], title=plan.subject or "A page you track changed",
+                    body=_short(plan.payload.get("text", "")),
+                    data={"kind": "page_change", "official_id": page_id},
+                    channel="page_changes", tag=f"page-{page_id}",
+                    official_name=plan.payload.get("official_name"),
+                    notification_ids={cid: nid}, timing=False,
+                )
+                counts["single"] += 1
+            else:
+                names = []
+                for _nid, plan in items:
+                    name = plan.payload.get("official_name")
+                    if name and name not in names:
+                        names.append(name)
+                if len(names) <= 2:
+                    line = " and ".join(names)
+                else:
+                    line = f"{names[0]}, {names[1]} and {len(names) - 2} more"
+                title = f"{len(items)} pages you track changed"
+                counts["devices"] += push_to_citizens(
+                    db, [cid], title=title,
+                    body=f"{line}." if line else "Open the bell to see them.",
+                    data={"kind": "page_changes", "count": len(items)},
+                    channel="page_changes", tag="page-changes", timing=False,
+                    public_title=title,
+                )
+                counts["grouped"] += 1
+    except Exception:
+        db.rollback()
+        logger.exception("page change pushes failed (non-fatal)")
+    if counts["single"] or counts["grouped"]:
+        logger.info("page change pushes: %s", counts)
+    return counts
 
 
 def _owner_account(db: Session, t: pl.Transition):
@@ -451,8 +529,10 @@ def notify_followers_to_follow(db: Session, t: pl.Transition, *, official_page_i
     campaign page. Used by the hand-off and by the job. Commits per
     recipient (claims), so the caller commits its own changes first."""
     summary = _new_summary()
+    pushes: dict = {}
     deliver_notice(db, followers_plan(db, t, official_page_id=official_page_id, name=name,
-                                      reelected=reelected, today=today), summary)
+                                      reelected=reelected, today=today), summary, pushes=pushes)
+    send_page_change_pushes(db, pushes)
     return summary["followers_notices"]
 
 
@@ -563,7 +643,7 @@ def plan_page(db: Session, t: pl.Transition, row, today: date) -> PagePlan:
 
 
 def execute_page(db: Session, plan: PagePlan, row, summary: dict, *, budget: Optional[_Budget] = None,
-                 pause_seconds: float = 0.0) -> bool:
+                 pause_seconds: float = 0.0, pushes: Optional[dict] = None) -> bool:
     """Send a page's plan. Returns False when the budget ran out (the
     rest goes next pass)."""
     now = datetime.utcnow()
@@ -573,7 +653,8 @@ def execute_page(db: Session, plan: PagePlan, row, summary: dict, *, budget: Opt
     if plan.skipped:
         db.commit()
     for notice in plan.notices:
-        if not deliver_notice(db, notice, summary, budget=budget, pause_seconds=pause_seconds):
+        if not deliver_notice(db, notice, summary, budget=budget, pause_seconds=pause_seconds,
+                              pushes=pushes):
             return False
         if notice.stamp:
             setattr(row, notice.stamp, datetime.utcnow())
@@ -606,6 +687,7 @@ def run_page_lifecycle(db: Optional[Session] = None, today: Optional[date] = Non
         pause_seconds = BATCH_PAUSE_SECONDS if owns else 0.0
     summary = _new_summary()
     budget = _Budget(max_recipients)
+    pushes: dict = {}
     try:
         pl.invalidate_cache()
         transitions = pl.all_transitions(db)
@@ -625,8 +707,11 @@ def run_page_lifecycle(db: Optional[Session] = None, today: Optional[date] = Non
             db.commit()
             summary["transitions"] += 1
             if not execute_page(db, plan_page(db, t, row, today), row, summary,
-                                budget=budget, pause_seconds=pause_seconds):
+                                budget=budget, pause_seconds=pause_seconds, pushes=pushes):
                 break
+        # One push per person for everything this run found (2026-10-17).
+        sent = send_page_change_pushes(db, pushes)
+        summary["page_change_pushes"] = sent["single"] + sent["grouped"]
         logger.info("page lifecycle pass (%s): %s", today.isoformat(), summary)
     except Exception:
         db.rollback()

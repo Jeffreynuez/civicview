@@ -1,181 +1,431 @@
 # Push notifications: build, ship and run
 
-The FCM push pipeline shipped 2026-07-24 and was reworked 2026-10-16
-(work order 8, `fix/notifications`). Pushes mirror the in-app bell; the
-bell stays the source of truth, and a push is only the interruption.
+The FCM push pipeline shipped 2026-07-24, was reworked 2026-10-16 (work
+order 8, `fix/notifications`) and became full phone notifications on
+2026-10-17 (`feat/phone-notifications`, app 1.2.0). Pushes mirror the
+in-app bell; the bell stays the source of truth, and a push is only the
+interruption.
 
 ## What is pushed
 
-| Kind | When | Who | Tap opens |
-| --- | --- | --- | --- |
-| `tracked_post` | an official you track posts (a post or a poll) | signed-in trackers, and signed-out devices tracking the page | the post (`/?page=<id>#post-<id>`), and marks its bell row read |
-| `tracked_event` | an official you track schedules an event, and you turned on that official's event alert | signed-in trackers only | the page, and marks its bell row read |
-| `tracked_summary` | a daily or weekly summary, or the end of quiet hours | the device the updates were held for | the bell (`/?open=notifications`); a signed-out device, which has no bell, opens the newest update's page |
-| `election_reminder` | a voting deadline or Election Day (`services/election_reminders.py`) | citizens in covered states and anyone tracking the election | the state |
-| `test` | admin "Send me a test push" | the admin's own devices | nothing |
+| Kind | When | Who | Android channel | Tap opens |
+| --- | --- | --- | --- | --- |
+| `tracked_post` | an official you track posts (a post or a poll) | signed-in trackers, and signed-out devices tracking the page | Officials you track | the post (`/?page=<id>#post-<id>`) |
+| `tracked_event` | an official you track schedules an event | signed-in trackers | Events | the page |
+| `reply` | someone replies to your comment on a post or a citizen poll | citizens only (never reps or candidates: Jeffrey, 2026-07-26) | Replies | the post, or the poll (`#poll-<id>`) |
+| `bill_update` | the daily pass finds something new on a federal bill you track | signed-in trackers | Bill updates | My Tracked (`/?open=tracked`) |
+| `poll_results` | a poll you voted in closes | citizens who voted | Poll results | the poll |
+| `page_change` / `page_changes` | a page you track changed (left office, campaign ended, took office); several in one run become one push | signed-in trackers | Changes to pages you track | the page, or the bell for several |
+| `tracked_summary` | a daily or weekly summary, or the end of quiet hours | the device the updates were held for | Summaries | the bell; a signed-out device opens the newest update's page |
+| `election_reminder` | a voting deadline or Election Day | citizens in covered states and anyone tracking the election | Election reminders | the state |
+| `test` | admin "Send me a test push" | the admin's own devices | Officials you track | nothing |
 
-No push for a post the moderation screen flags (`flag` or `auto_hide`)
-or one already hidden or deleted; the bell row still comes. The screen
-runs before the fan-out (`routers/pages.create_post` adds its background
-task first). An event that has already started is not pushed.
+Every tap marks the person's bell row read (the push carries its
+`notification_id`). The table of where each kind opens is
+`lib/deepLinks.js notificationLink`, shared by the bell, the activity
+archive and the push tap.
 
-## Push timing and quiet hours (Jeffrey, 2026-10-16)
+No push for a post or a reply the moderation screen flags (`flag` or
+`auto_hide`), or one already hidden or deleted; the bell row still comes.
+An event that has already started is not pushed.
 
-Nothing is dropped silently. The bell's **Push alerts** setting
-(prefs key `push_cadence`):
+## The settings list (server-enforced, the same on every device)
 
-- **As they happen** (`realtime`, the default): each update at once.
-- **Daily summary** (`daily`): one push at 6 p.m. local time.
-- **Weekly summary** (`weekly`): one push Saturday at 10 a.m. local time.
+One dropdown per row, in the bell's Settings and in Dashboard, Account &
+settings, Notifications (`components/NotificationSettings.js`):
 
-Local time is the device's `tz_offset_minutes`, else Eastern. A push that
-is not sent at once is stored in `push_held_items`; the summary loop
-(`services/push_summaries.py`, every 5 minutes, off the boot path, under
-the `push-summaries` advisory lock) sends one push per device when it is
-due: "4 updates from officials you track", "From Jane Doe, John Roe and 2
-more." A summary of one update is that update's own push. Updates the
-person already read or cleared in the bell are left out. Each device is
-claimed with one conditional UPDATE on `device_tokens.summary_sent_at`,
-so two instances cannot both send it.
+| Row | Choices | Default |
+| --- | --- | --- |
+| Officials you track | Bell and push, Bell only, Off | Bell and push |
+| Events | Bell and push, Bell only, Off | Bell and push |
+| Replies to your comments | Bell and push, Bell only, Off | Bell and push |
+| Bill updates (federal) | Bell, push and email; Bell and push; Bell and email; Bell only; Off | Bell and push |
+| Poll results | Bell and push, Bell only, Off | Bell and push |
+| Election reminders | Bell, push and email; Bell and push; Bell and email; Bell only; Off | Bell and push |
+| Changes to pages you track | Bell, push and email; Bell and push; Bell and email; Bell only | Bell, push and email |
+| Weekly email digest | Off, Saturday mornings | Off |
 
-**Quiet hours** (off, nights 10 p.m. to 8 a.m., nights and weekends, work
-hours only): no push inside them. Tracked updates held by quiet hours go
-out as one summary when they end ("..., while your quiet hours were
-on."); a summary time inside quiet hours waits for them to end too.
-Election reminders are never held or summarized: inside quiet hours the
-bell row comes and the push does not, as PR #271 built them, and they
-ignore the Push alerts setting.
+Then Quiet hours, Push alerts (timing) and, in the app, Notification
+details.
 
-Until 2026-10-16 the key was `digest_cadence`, defaulting to `daily`,
-which let one push per device through every 20 hours and dropped the
-rest. The first summary pass after the deploy rewrote every stored blob
-once (`migrate_legacy_cadence`): `daily` and anything else became
-`realtime`, `weekly` stayed. The write path (`sanitize_notification_prefs`),
-the send path (`effective_cadence`) and the browser (`mergeChannelPrefs`)
-read a leftover `digest_cadence` the same way.
+- Server: `services/alert_settings.py` decides bell, push and email on
+  every send path. Storage: only the cells that differ from the defaults,
+  in `citizen_accounts.alert_settings_json`; three cells keep their older
+  columns (`election_reminders_off_at`, `election_reminder_email_at`,
+  `page_change_email_off_at`) so the unsubscribe links and jobs agree.
+- API: `GET /api/alert-settings`, `PATCH /api/alert-settings`
+  `{row, value}`, one row per request, so a device sync or an email's
+  unsubscribe link never undoes a change made elsewhere.
+- Mute this official (My Tracked, signed in): `{"muted": true}` in that
+  tracked official's prefs. Stops their posts, polls and events in the
+  bell, the push and the weekly digest; notices that their page changed
+  still come. Signed out, the button is hidden (a signed-out phone's
+  tracking lives in memory only).
+- Signed out, the panel shows only This phone, Quiet hours, Push alerts
+  and Notification details: a signed-out phone gets officials' posts and
+  polls.
+- The 32 per-item "Notify me when..." switches are gone, including each
+  official's event switch and each tracked election's four reminder
+  switches; their stored values are no longer read.
 
-Every app registration and every signed-in sync carries prefs. A device
-with no prefs at all (registered before 2026-07-24) gets realtime and no
-quiet hours, since the server has no clock for it.
+## Android channels and how a notification looks (app 1.2.0)
+
+| Channel id | Name in Android settings | Importance |
+| --- | --- | --- |
+| `officials` | Officials you track | default (sound) |
+| `events` | Events | default |
+| `replies` | Replies | high (pops up) |
+| `bills` | Bill updates | default |
+| `poll_results` | Poll results | default |
+| `elections` | Election reminders | high |
+| `page_changes` | Changes to pages you track | low (silent) |
+| `summaries` | Summaries | default |
+
+- Created natively at app start (`NotificationChannels.java`, called by
+  `MainActivity` and before each notification) and re-asserted from the
+  web app (`lib/push.js createChannels`, Capacitor `createChannel`), so a
+  name or description can change with a web deploy. The ids must match
+  `push_service.CHANNELS`; `tests/test_notification_switches.py` checks
+  the server, the app and the web agree.
+- The server sends build 5 and later a data-only message;
+  `CivicViewMessagingService` (it replaces the Capacitor plugin's service
+  in the manifest and hands every message on to it) builds the
+  notification: the channel, the white status bar icon
+  (`res/drawable/ic_stat_civicview.xml`), the brand colour `#2D6A4F`, a
+  group per channel with a summary once 3 or more are in the tray
+  (counting the one just posted; it lists who posted only when details
+  are shown), and a tag (`event-<id>`, `bill-<key>`, `poll-<id>`,
+  `page-<id>`, `election-<id>`, `summary`) so a newer one replaces the
+  older.
+- Older builds (1.1.0, versionCode 4) and devices that never sent a build
+  get FCM's standard notification message with `channel_id`, `tag` and
+  the colour. The web app creates the same channels on 1.1.0 too (the
+  push plugin has `createChannel`).
+- The manifest's defaults (for a standard message): channel `officials`,
+  icon `ic_stat_civicview`, colour `cv_notification_accent`.
+
+## Notification details (the private lock screen)
+
+By default a notification names nobody: the server sends only a neutral
+line as its title, with no body (`push_service.shown`), on every app
+build, 1.1.0 included. So a locked phone shows the neutral line, and so
+does the unlocked tray; tapping opens the update. "Notification
+details: Show details" (prefs key `lock_screen_details`, synced, default
+off) sends who posted and what.
+
+| Channel | Shown by default |
+| --- | --- |
+| Officials you track | New update from an official you track |
+| Events | New event from an official you track |
+| Replies | New reply to your comment |
+| Bill updates | Update on a bill you track |
+| Poll results | Results are in for a poll you voted in |
+| Election reminders | Election reminder |
+| Changes to pages you track | A page you track changed (one change), or "N pages you track changed" |
+| Summaries | the count line, such as "4 updates from officials you track" |
+| A group of 3 or more | its count line, such as "3 updates from officials you track" |
+
+Why the text itself and not Android's lock-screen rules (checked in the
+Android source, 2026-10-17): Android replaces an app's own lock-screen
+visibility for its channels with the app-wide setting, and it shows a
+notification's public version only when the person has hidden sensitive
+content in Android's own settings, which is off on most phones. A
+private flag and a public version alone would leave the full text on
+most lock screens. The app still sets the public version (the same
+text) and asks for Private.
+
+## Permission state
+
+- At every launch and every resume the app asks Android
+  (`NotificationSettings` plugin, `getStatus`: notifications on or off,
+  and which channels are blocked). 1.1.0 has no plugin and falls back to
+  the push plugin's check (which says granted on Android 12 and older).
+- Off: the panel says "Notifications are off" with **Open settings**
+  (the app's page in Android's notification settings). The app tells the
+  server (`os_enabled: false` on `/api/push/register`), which sets
+  `device_tokens.notifications_off_at` and skips that phone in every send
+  path until it reports them back on. The token is kept.
+- A row whose channel is blocked shows "Push for this is off in Android
+  settings."
+- Never a permission prompt at launch: a launch with notifications off
+  only reports it.
+- The opt-in card: the first offer as before (a signed-in citizen with no
+  choice yet, or the first track). "Not now" records the date; the card
+  comes back once, only when they track something at least 30 days later;
+  a second "Not now" ends it. If Android already refused, the card offers
+  Open settings. Its text names only alerts that exist (federal bills
+  only; signed out, only officials' posts and polls).
+
+## Bill updates (daily pass)
+
+`services/bill_updates.py`, Congress.gov only (api.congress.gov v3).
+State bills cannot be tracked yet; that is its own work order.
+
+- Once a day after 9 a.m. Eastern, in its own loop off the boot path
+  (first look 3 minutes after boot, then every 15 minutes to see whether
+  today's pass is due). The day is claimed in `job_runs` (`bill-updates`,
+  the Eastern date) and an advisory lock keeps two instances apart.
+- On by default in production only; `BILL_UPDATES_ENABLED=true` or
+  `false` overrides that. Needs `CONGRESS_API_KEY` (Render).
+- One request per tracked bill (`/bill/{congress}/{type}/{number}`), and
+  `/actions` only for a bill whose latest action changed. At most 1,500
+  bills a pass, least recently checked first (Congress.gov allows 5,000
+  requests an hour), two at a time.
+- `bill_watch` holds what the pass last saw; the first look records and
+  sends nothing (no backlog). A change becomes one `bill_updates` row
+  (status change, recorded vote, or other action; up to 3 actions) and
+  each tracker gets it once (`bill_update_deliveries`, unique per update
+  and person): bell row, push (tag `bill-<key>`), and one email per pass
+  per person who chose email, with its own one-click unsubscribe
+  (`bill_updates` type). Every tracker's My Tracked snapshot is refreshed.
+- The home page no longer re-checks tracked bills in the browser; My
+  Tracked keeps its manual Refresh.
+- Admin: `GET /api/admin/bill-updates` (what is watched, the last runs,
+  recent updates), `POST /api/admin/bill-updates/run` (a pass now; it
+  sends what it finds).
+
+## Poll results
+
+`services/poll_results.py`, every 5 minutes inside the summary loop. A
+poll has closed when its closing time passed or its citizen author closed
+it. Each is claimed once (`polls.results_notified_at`); the citizens who
+voted get a bell row and a push "Results are in". Nothing for a poll
+taken down after reports, a citizen poll archived on a page claim or
+pushed off by newer polls (unless its time had already run out), or a
+post's poll whose post was deleted or hidden. The first pass after the
+deploy stamps every poll already closed and sends nothing
+(`job_runs`: `poll-results`, `seeded`).
+
+## Page changes
+
+The former-pages job (`services/page_lifecycle_job.py`) collects the
+tracker notices of one run per citizen and sends one push each: the
+change itself when there is one, else "3 pages you track changed"
+opening the bell. The "Follow in office" hand-off does the same.
+
+## Push timing and quiet hours
+
+The **Push alerts** setting (prefs key `push_cadence`): As they happen
+(the default), Daily summary (one push at 6 p.m. local) or Weekly summary
+(Saturday 10 a.m. local). It covers officials' posts, polls and events,
+bill updates and poll results. Replies and page changes come as they
+happen. **Quiet hours** hold every push except election reminders; what
+they held goes out as one summary when they end. Election reminders are
+never held or summarized: inside quiet hours only the bell row comes.
+
+A summary of one update is that update's own push on its own channel; a
+summary of several goes on the Summaries channel ("4 updates from
+officials you track", or for a mix "3 new updates: Officials you track,
+bills you track and polls you voted in."). Held updates live in
+`push_held_items` (their channel and tag ride in `data_json` as
+`_channel`, `_tag`); updates the person already read or cleared in the
+bell are left out. Each device is claimed with one conditional UPDATE on
+`device_tokens.summary_sent_at`.
 
 ## Who a device belongs to
 
-- **Sign-in** binds the device at once: `PushOptInPrompt` (root layout)
-  sees the new citizen and re-registers the saved token
-  (`bindPushToAccount`), no prompt.
-- **Sign-out** unbinds it (`POST /api/push/unbind`): still registered, no
-  account, empty tracked list, held updates deleted.
-- A register **without a citizen session** (offline sign-out, an expired
-  session) unbinds a bound device too; a register by another citizen
-  takes it over. Any change of owner drops the tracked list and held
-  updates.
-- A signed-out device carries its own tracked list (`tracked_json`). The
-  app keeps that tracking in memory only, so registers **merge** keys
-  into the stored list; only `tracked_remove`, sent on untrack, takes one
-  out.
+- **Sign-in** binds the device at once; **sign-out** unbinds it
+  (`POST /api/push/unbind`); a register without a citizen session unbinds
+  a bound device; a register by another citizen takes it over. Any change
+  of owner drops the tracked list and held updates.
+- A signed-out device carries its own tracked list (`tracked_json`);
+  registers merge keys, only `tracked_remove` takes one out.
+- Every register also carries `app_build` (the versionCode, from the
+  Capacitor App plugin) and `os_enabled`.
 
 ## Delivery details
 
 - One message per device (`send_messages`, FCM `send_each`, 500 per
-  request), so each push carries that recipient's own bell row id
-  (`notification_id`) and event times in their own clock. Election
-  reminders still use `send_to_tokens` (multicast grouped by TTL).
-- TTL: posts 3 days, events until they start (at most 28 days),
-  summaries 2 days, election reminders until their deadline.
+  request), so each carries its own bell row id, format and lock-screen
+  text. Election reminders too since 2026-10-17 (they were a multicast
+  per TTL).
+- TTL: posts, replies, poll results, bill updates and page changes 3
+  days, events until they start (at most 28 days), summaries 2 days,
+  election reminders until their deadline.
 - A token is pruned only when FCM says it is dead: `UnregisteredError`,
   `SenderIdMismatchError`, or an `InvalidArgumentError` that names the
-  registration token. A message-level InvalidArgument prunes nothing.
-- The `announcements` topic is gone: nothing ever sent to it. New devices
-  are not subscribed; the first summary pass takes older devices off once
-  (`device_tokens.announcements_cleared_at`).
+  registration token.
 - Rate limits: `/api/push/register`, `/unbind`, `/unregister` 60 per 10
-  minutes per account or IP; event creation 10 per 10 minutes.
+  minutes per account or IP.
 - In the app, a push received while CivicView is open refreshes the bell
   at once (`pushNotificationReceived`).
 
 ## Logs to look for (Render)
 
-- Boot: `Push service: FCM (firebase-admin) active`.
+- Boot: `Push service: FCM (firebase-admin) active`; `Bill updates ENABLED
+  (daily after 9 a.m. Eastern).`
 - Each fan-out: `push tracked_post official=X: sent=N held_for_summary=N
-  held_quiet_hours=N failed=N pruned=N`.
-- Held back: `tracked_post push held back: post=N moderation flag (post)`.
-- Summaries: `push summaries: {...}`; first pass after a deploy:
-  `push timing migration (digest_cadence -> push_cadence): {...}` and
-  `push: N device(s) taken off the unused 'announcements' topic`.
-- Sign-out: `push: device unbound on sign-out`.
-- Admin test: `admin rep:N test push: {devices, sent, failed, pruned, service}`.
+  held_quiet_hours=N failed=N pruned=N` (also `reply`, `bill_update`,
+  `poll_results`, `page_change`).
+- Held back: `tracked_post push held back: post=N moderation flag (post)`,
+  `reply push held back: post_comment=N moderation flag`.
+- Bills: `bill updates pass: {checked, seeded, unchanged, updates, bell,
+  pushed_devices, emails_sent, errors, run_key}`.
+- Polls: `poll results: {...}`; first pass `poll results: first pass
+  stamped N poll(s) already closed (no backlog)`.
+- Page changes: `page change pushes: {single, grouped, devices}`.
+- Summaries: `push summaries: {...}`.
 
-## Admin: Send me a test push
+## Admin
 
-Under the admin page heading. It sends to the devices bound to your
-citizen account, plus this device when the admin page is open in the
-app, and says how many were sent, failed and pruned, and whether the
-server has real FCM (`service: dev` means nothing really went out).
+- **Send me a test push** (under the admin page heading): the devices
+  bound to your citizen account, plus this device when the admin page is
+  open in the app. It shows its details on purpose.
+- **Bill updates:** `GET /api/admin/bill-updates`, `POST /api/admin/bill-updates/run`.
 
 ## Architecture (what lives where)
 
-- **Firebase project:** `CivicView` (`civicview-18`), org `civicview.app`.
-  Android app registered as `app.civicview`.
-- **Backend** (env-gated, same pattern as Postmark/Stripe):
-  - `services/push_service.py`: `FCMPushService` when
-    `FIREBASE_SERVICE_ACCOUNT_JSON` is set on Render; `DevPushService`
-    (logs only) otherwise. The send path, holding, TTLs, pruning.
-  - `services/push_summaries.py`: the summary loop and the one-time
-    migration.
-  - `routers/push.py`: `POST /api/push/register`, `/unbind`, `/unregister`
-    (CSRF-protected like all writes), and `POST /api/admin/push/test`.
-  - `models/pages.py`: `DeviceToken`, `PushHeldItem` (auto-migrate on boot).
-  - Hooks: `notifications_inapp.emit_tracked_content_notifications` and
-    `emit_tracked_event_notifications` push after the bell rows commit.
-- **Frontend:** `lib/push.js` (Capacitor detection, one registration
-  listener, register, bind and unbind, tap deep links), `lib/deepLinks.js`
-  (the one post link the bell, the archive and the push share),
-  `components/PushOptInPrompt.js` (the contextual card, and sign-in and
-  sign-out binding), `components/PushTapNavigator.js` (root-mounted tap
-  listener). Deploys with the site; no store review needed for copy or
-  behavior here.
-- **Android shell:** `@capacitor/push-notifications`; `google-services.json`
-  in `android/app/`; versionCode 4 / versionName 1.1.0.
-- **Dependency:** `firebase-admin>=7.7.0,<8` (send_each and the FCM topic
-  API, so the 2027 Instance ID shutdown does not affect topic calls).
+- **Firebase project:** `CivicView` (`civicview-18`), Android app
+  `app.civicview`.
+- **Backend:** `services/push_service.py` (FCM or the dev logger, the
+  message formats, channels, holding, pruning), `services/alert_settings.py`
+  (the list), `services/push_summaries.py`, `services/poll_results.py`,
+  `services/bill_updates.py`, `services/notifications_inapp.py` (bell rows,
+  replies), `services/page_lifecycle_job.py`, `routers/push.py`,
+  `routers/alert_settings.py`, `routers/bill_updates.py`. Tables:
+  `device_tokens` (+ `app_build`, `notifications_off_at`),
+  `push_held_items`, `bill_watch`, `bill_updates`, `bill_update_deliveries`,
+  `job_runs`; columns `citizen_accounts.alert_settings_json`,
+  `polls.results_notified_at` (auto-migrate on boot).
+- **Frontend:** `lib/push.js`, `lib/alertSettings.js`, `lib/deepLinks.js`,
+  `lib/notificationPrefs.js`, `components/NotificationSettings.js`,
+  `components/NotificationBellMenu.js`, `components/PushOptInPrompt.js`,
+  `components/TrackedManager.js` (Mute). Deploys with the site.
+- **Android shell:** `CivicViewMessagingService.java`,
+  `NotificationChannels.java`, `NotificationSettingsPlugin.java`,
+  `MainActivity.java`, `res/drawable/ic_stat_civicview.xml`,
+  `res/values/colors.xml`, channel names in `res/values/strings.xml`,
+  the manifest's service and meta-data. versionCode 5 / versionName 1.2.0.
 
-## Jeffrey's local build steps
+## Release 1.2.0 (Jeffrey's steps)
 
-1. `cd frontend`
-2. `npm install`  (pulls @capacitor/push-notifications)
-3. `npx cap sync android`  (wires the plugin into the native project)
-4. Open `frontend/android` in Android Studio, Build, Generate Signed
-   App Bundle (same keystore as v1.0.2), AAB.
-5. Play Console, CivicView, Production, Create new release, upload the
-   AAB.
+The backend and web parts work with 1.1.0 phones as they are (they get
+the standard message), so the merge can go out before the app does.
 
-## Play Console data safety
+1. Keep 1.1.0 ready: in Play Console, App bundle explorer, download the
+   1.1.0 (versionCode 4) AAB and keep it with the keystore. Tag the main
+   commit just before this PR's merge (`git tag v1.1.0 <commit>`, then
+   push the tag) so a 1.1.1 can be rebuilt from it.
+2. In `C:\dev\US apps\CivicLens`: pull `main` after the merge.
+3. `cd frontend`, then `npm ci`, then `npx cap sync android`.
+4. Android Studio: open `frontend\android` (Gradle JDK `ms-21`, as
+   before), let it sync, then Build, Generate Signed App Bundle, Android
+   App Bundle, the same upload keystore as 1.1.0, release. The AAB is in
+   `frontend\android\app\release\`.
+5. Play Console, CivicView, Testing, Internal testing, Create new release,
+   upload the AAB, release notes ("Notification channels you can manage
+   in Android settings, private notifications by default, replies, bill
+   updates and poll results alerts."), Save, Review, Start rollout to Internal
+   testing. Add yourself as a tester if needed and install it from the
+   opt-in link on your phone (it updates the 1.1.0 install in place).
+6. Run the device checklist below on your phone.
+7. When it passes: Production, Create new release, Add from library (the
+   same 5 (1.2.0) bundle), staged rollout 20 percent, then 100 percent
+   after a day or two with no crash reports.
+8. Render env: `APP_LATEST_VERSION_CODE=5` (the update nudge, row #109)
+   once 1.2.0 is at 100 percent. Leave `APP_MIN_VERSION_CODE` unset.
 
-App content, Data safety: "Device or other IDs", Device IDs, collected,
-not shared, for App functionality (push notification delivery),
-optional to the user. Nothing in the 2026-10-16 rework changes it.
+**Rolling back.** During the staged rollout: Production, Halt rollout
+(phones still on 1.1.0 stay there). After 100 percent, Play cannot go
+back to a lower versionCode: rebuild the 1.1.0 commit with versionCode 6
+and versionName 1.1.1, upload, roll out. The server needs no change
+either way: anything below build 5 gets the standard message.
 
-## Testing checklist (after a Render deploy and an app install)
+## Play Console Data safety (App content, Data safety)
 
-1. Render env has `FIREBASE_SERVICE_ACCOUNT_JSON`; the boot log shows the
-   FCM line.
-2. Sign in as a demo citizen in the app; turn push on; Admin, "Send me a
-   test push" arrives.
-3. Track an official; post from that official's page (rep session): the
-   phone shows "<name> posted" at once (As they happen). Tap it: the post
-   opens and its bell row is read.
-4. Set Push alerts to Daily summary; post twice; nothing arrives until
-   6 p.m. local, then one "2 updates from officials you track".
-5. Sign out in the app; post again: nothing arrives for that account.
-6. With the app open, a new push refreshes the bell without waiting.
+Already declared: Device or other IDs (the FCM token), collected, not
+shared, App functionality, optional. Changes to make for 1.2.0:
+
+1. **App activity, App interactions**: declare it (if not already) for
+   the officials, bills and elections someone tracks and mutes, and the
+   polls they voted in (used to send their alerts). Collected, not
+   shared, App functionality. Optional for a signed-out phone's tracked
+   list (sent only when push is on).
+2. **App activity, Other actions**: notification settings (which alerts
+   reach the bell, phone or email, quiet hours, push timing, whether
+   notifications show details). Collected, not shared, App
+   functionality, optional.
+3. **App info and performance, Other app performance data**: the app's
+   version number and whether notifications are turned off in Android
+   settings, sent at registration so the server sends the right format
+   and stops sending to a phone with notifications off. Collected, not
+   shared, App functionality.
+4. **Location, Approximate location** (Jeffrey, 2026-10-17: declare
+   it): the time zone offset, a UTC offset read from the phone's clock
+   settings, used to time pushes, quiet hours and summaries and the
+   times shown in emails. It is sent for a signed-in citizen (the
+   settings sync) and for a phone with push on, never for a signed-out
+   visitor without push. Play's definition of the type is "User or
+   device physical location to an area greater than or equal to 3
+   square kilometers, such as the city a user is in". In the form:
+   - Data types: Location, tick **Approximate location** (not Precise
+     location).
+   - Is this data collected, shared, or both? **Collected** only.
+   - Is this data processed ephemerally? **No, this collected data is
+     not processed ephemerally** (it is stored with the settings).
+   - Is this data required for your app, or can users choose whether
+     it's collected? **Data collection is required (users can't turn
+     off this data collection)**: a signed-in citizen has no switch
+     for it, so "required" is the accurate answer.
+   - Why is this user data collected? **App functionality** only.
+   The privacy policy already names it (Your settings, and Push
+   notifications); no change there.
+5. Keep: data encrypted in transit (yes); people can request deletion
+   (yes: account deletion, and turning push off deletes the token).
+
+## Device checklist (1.2.0 from Internal testing)
+
+1. Sign in as a demo citizen. Bell, Settings: "This phone: Push is on".
+2. Android Settings, Apps, CivicView, Notifications: the 8 categories
+   above with their names ("Miscellaneous" may remain from 1.1.0).
+3. Admin, "Send me a test push": arrives with the CivicView mark in the
+   status bar and the green accent.
+4. Track an official; post from that official's page (rep session): a
+   notification arrives in Officials you track. Tap it: the post opens
+   and pulses, and its bell row is read.
+5. With the default setting the notification in step 4 read only "New
+   update from an official you track". Lock the phone and post again: the
+   lock screen shows the same line and no name. Bell, Settings,
+   Notification details: Show details; post again: "<name> posted" and
+   the text show, locked and unlocked. Set it back to Hide details.
+6. Android settings: turn off the Officials you track category; post: no
+   notification, the bell row comes, and Settings shows "Push for this is
+   off in Android settings." under Officials you track. Turn it back on.
+7. Android settings: turn off all CivicView notifications; switch back to
+   the app: Settings shows "Notifications are off" with Open settings;
+   tap it, Android's page opens; turn them on, switch back: "Push is on".
+8. Replies: from another account reply to your comment on a post, and on
+   a citizen poll: each pops up in Replies; the tap opens the post or the
+   poll card.
+9. Events: schedule an event on the page: it arrives in Events and opens
+   the page.
+10. Poll results: vote in a citizen poll that closes in a few minutes;
+    within 5 minutes of closing, "Results are in" arrives in Poll results
+    and opens the poll.
+11. Bill updates: track a federal bill, run `POST
+    /api/admin/bill-updates/run` once (it only records the bill), then in
+    the Render database shell `UPDATE bill_watch SET
+    latest_action_date='2000-01-01' WHERE bill_key='<the key>';` and run
+    it again: "<citation>: <change>" arrives in Bill updates; the tap opens
+    My Tracked.
+12. Page changes: Admin, Transitions, set a left-office date on a test
+    page you track and run the job: the push arrives in Changes to pages
+    you track; with three such pages in one run, one push "3 pages you
+    track changed" opens the bell.
+13. Three posts from tracked officials: the tray groups them under "3
+    updates from officials you track".
+14. Mute the official in My Tracked; post: no bell row and no push. Unmute.
+15. Sign out: posts still reach the phone only for officials tracked
+    signed out; the opt-in card and Settings say only officials' posts
+    and polls.
 
 ## Deferred (bring back as tasks when wanted)
 
-- Bill-status pushes (needs a server-side daily check).
-- The short per-type alert list that replaces the hidden "Notify me
-  when..." switches (work order 10).
+- State bill tracking and Open States bill updates (its own work order,
+  after November 3: a tracked type with its own key, storage, My Tracked
+  rows and bell links).
 - iOS/APNs when the iOS shell ships.
-- Election reminder pushes carrying their bell row id (their send path
-  is grouped by TTL and was left as PR #271 built it).
-- Restoring a signed-out device's tracked list in the app from the server
-  (the server keeps it; the app's memory starts empty each session).
+- Election reminder pushes carrying their bell row id.
+- Removing an event's notification when the official cancels the event
+  (the tag is in place).
+- Restoring a signed-out device's tracked list in the app from the server.

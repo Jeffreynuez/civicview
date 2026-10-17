@@ -174,6 +174,7 @@ export default function PageView({
   // the feed and tag the post id so PostCard highlighting can pulse
   // it into view. Cleared after highlight consumed.
   const [highlightPostId, setHighlightPostId] = useState(null);
+  const [highlightPollId, setHighlightPollId] = useState(null);
   const feedScrollRef = useRef(null);
   // Restore the rep/candidate page scroll on native-WebView Back (no
   // bfcache). Keyed per official so different pages don't collide.
@@ -290,6 +291,12 @@ export default function PageView({
           setActiveView('feed');
           setHighlightPostId(decodeURIComponent(m[1]));
         }
+        // A citizen poll (2026-10-17): a reply on it, or its results.
+        const pm = (window.location.hash || '').match(/^#poll-(\d+)$/);
+        if (pm && pm[1]) {
+          setActiveView('feed');
+          setHighlightPollId(pm[1]);
+        }
       } catch { /* malformed hash: ignore */ }
     };
     readHash();
@@ -329,6 +336,31 @@ export default function PageView({
     timer = setTimeout(tryScroll, 80);
     return () => clearTimeout(timer);
   }, [highlightPostId, activeView]);
+
+  // The same for a citizen poll card ('#poll-<id>', 2026-10-17). The
+  // citizen polls load after the posts, so it waits a little longer.
+  useEffect(() => {
+    if (!highlightPollId || activeView !== 'feed') return undefined;
+    let timer = null;
+    let attempts = 0;
+    const tryScroll = () => {
+      const el = typeof document !== 'undefined'
+        ? document.getElementById(`poll-${highlightPollId}`)
+        : null;
+      if (el) {
+        try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch {}
+        el.style.boxShadow = '0 0 0 3px rgba(255, 196, 64, 0.55)';
+        setTimeout(() => { el.style.boxShadow = ''; }, 1500);
+        setHighlightPollId(null);
+        return;
+      }
+      attempts += 1;
+      if (attempts < 20) timer = setTimeout(tryScroll, 300);
+      else setHighlightPollId(null);
+    };
+    timer = setTimeout(tryScroll, 120);
+    return () => clearTimeout(timer);
+  }, [highlightPollId, activeView]);
 
   // Re-fetch whenever the page id OR the signed-in rep id OR the
   // signed-in citizen id changes. `is_owner` + reaction summary (my

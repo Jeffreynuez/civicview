@@ -2,32 +2,26 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 /**
- * Notification Preferences Schema
+ * Notification preferences.
  *
- * Central source of truth for what you can be alerted about per tracked
- * subject type (representative / candidate / bill / election), the default
- * state each pref starts in, and human-readable labels + tooltips for the
- * My Tracked UI.
+ * 2026-10-17 (phone notifications): the 32 per-item "Notify me when..."
+ * switches are gone. In their place:
  *
- * Defaults follow the "sensible mixed" model: key events ON (election day,
- * bill passes, wins/losses, resignations), chatter OFF (every vote, every
- * event, every endorsement).
+ *   ALERT_ROWS: one short list, the same on every device and enforced
+ *     by the server (backend/app/services/alert_settings.py). Each row
+ *     is one kind of alert with one dropdown: where it arrives (the
+ *     bell, a push, an email). Read and saved one row at a time through
+ *     /api/alert-settings (lib/alertSettings.js).
+ *   Mute this official: per official in My Tracked, stored in that
+ *     tracked official's prefs as { muted: true }. It stops their posts,
+ *     polls and events in the bell, the push and the weekly digest;
+ *     the notice that their page changed still comes.
+ *   CHANNEL_SCHEMA (below): quiet hours, push timing and the lock
+ *     screen, synced to the account and sent with each phone's
+ *     registration.
  *
- * Per-type shape lives under `PREF_SCHEMA[type]`:
- *   options: [{ key, label, description, default }]
- *   sliders: [{ key, label, description, choices: ['monthly', ...], default }]
- *
- * The UI walks `options` to render checkboxes and `sliders` to render
- * radios / segmented controls. Storage is keyed identically (`prefs[key]`).
- *
- * `enforced: true` (2026-10-16): the switch really does something today.
- * My Tracked shows only those (enforcedOptions below); the rest stay in
- * the schema, with their stored values, until work order 10 replaces
- * them with a short per-type list. Enforced today:
- *   on_event (representatives and candidates): the event alert
- *     (services/notifications_inapp.emit_tracked_event_notifications);
- *   the four election reminder switches, read by
- *     services/election_reminders.py for a tracked election.
+ * PREF_SCHEMA keeps one entry per tracked type so stored prefs objects
+ * still merge; no per-item switch is shown or read any more.
  */
 
 export const PREF_TYPES = {
@@ -38,251 +32,65 @@ export const PREF_TYPES = {
 };
 
 export const PREF_SCHEMA = {
-  representative: {
-    label: 'Representative',
-    options: [
-      {
-        key: 'on_new_bill',
-        label: 'New bill introduced',
-        description: 'Alert when they sponsor or co-sponsor a new bill.',
-        default: true,
-      },
-      {
-        key: 'on_vote_for',
-        label: 'Votes in favor',
-        description: 'Alert whenever they vote YEA on a roll-call vote.',
-        default: false,
-      },
-      {
-        key: 'on_vote_against',
-        label: 'Votes against',
-        description: 'Alert whenever they vote NAY on a roll-call vote.',
-        default: false,
-      },
-      {
-        key: 'on_key_vote',
-        label: 'Key vote (marquee bill)',
-        description: 'Alert only on high-profile / whipped votes.',
-        default: true,
-      },
-      {
-        key: 'on_event',
-        label: 'Public event scheduled',
-        description: 'Town halls, fundraisers, appearances near you.',
-        default: false,
-        enforced: true,
-      },
-      {
-        key: 'on_upcoming_election',
-        label: 'Upcoming election',
-        description: 'Alert when their seat is on an upcoming ballot.',
-        default: true,
-      },
-      {
-        key: 'on_resignation',
-        label: 'Resignation or removal',
-        description: 'Alert if they leave office early (resign, recall, expelled).',
-        default: true,
-      },
-      {
-        key: 'on_committee_change',
-        label: 'Committee assignment change',
-        description: 'Joined, left, or took a leadership role on a committee.',
-        default: false,
-      },
-    ],
-    sliders: [],
-  },
-
-  candidate: {
-    label: 'Candidate',
-    options: [
-      {
-        key: 'on_event',
-        label: 'Campaign event',
-        description: 'Rallies, debates, town halls, fundraisers.',
-        default: false,
-        enforced: true,
-      },
-      {
-        key: 'on_debate',
-        label: 'Debate scheduled',
-        description: 'Alert when a debate they\u2019re participating in is announced.',
-        default: true,
-      },
-      {
-        key: 'on_endorsement',
-        label: 'New endorsement',
-        description: 'Newspapers, unions, officials, PACs endorsing them.',
-        default: false,
-      },
-      {
-        key: 'on_position_change',
-        label: 'Position statement',
-        description: 'They publish a new position on a policy issue.',
-        default: false,
-      },
-      {
-        key: 'on_drop_out',
-        label: 'Drops out of race',
-        description: 'Alert if they suspend or end their campaign.',
-        default: true,
-      },
-      {
-        key: 'on_win',
-        label: 'Wins the election',
-        description: 'Race is called in their favor.',
-        default: true,
-      },
-      {
-        key: 'on_loss',
-        label: 'Loses the election',
-        description: 'Race is called against them.',
-        default: true,
-      },
-      {
-        key: 'on_fundraising',
-        label: 'Major fundraising milestone',
-        description: 'Quarterly report, large bundling event, or notable single donation.',
-        default: false,
-      },
-    ],
-    sliders: [],
-  },
-
-  bill: {
-    label: 'Bill',
-    options: [
-      {
-        key: 'on_action',
-        label: 'Any action taken',
-        description: 'Every procedural step (referred, reported, etc.).',
-        default: false,
-      },
-      {
-        key: 'on_committee_action',
-        label: 'Committee action',
-        description: 'Markup, vote out of committee, hearing scheduled.',
-        default: true,
-      },
-      {
-        key: 'on_vote_scheduled',
-        label: 'Vote scheduled',
-        description: 'Floor vote on the schedule for either chamber.',
-        default: true,
-      },
-      {
-        key: 'on_pass',
-        label: 'Passes a chamber',
-        description: 'House or Senate passes the bill.',
-        default: true,
-      },
-      {
-        key: 'on_fail',
-        label: 'Fails a vote',
-        description: 'Chamber vote fails or the bill is defeated.',
-        default: true,
-      },
-      {
-        key: 'on_signed',
-        label: 'Signed into law',
-        description: 'President / Governor signs the bill.',
-        default: true,
-      },
-      {
-        key: 'on_veto',
-        label: 'Vetoed',
-        description: 'Executive vetoes the bill.',
-        default: true,
-      },
-      {
-        key: 'on_amendment',
-        label: 'Amendment filed',
-        description: 'Any amendment is filed to the bill text.',
-        default: false,
-      },
-    ],
-    sliders: [],
-  },
-
-  election: {
-    label: 'Election',
-    options: [
-      // Descriptions say what election_reminders.py sends (2026-10-16).
-      {
-        key: 'on_election_day',
-        label: 'On election day',
-        description: 'A reminder the day before Election Day.',
-        default: true,
-        enforced: true,
-      },
-      {
-        key: 'on_registration_deadline',
-        label: 'Voter registration deadline',
-        description: '3 days before and the day before registration closes.',
-        default: true,
-        enforced: true,
-      },
-      {
-        key: 'on_early_voting',
-        label: 'Early voting window opens',
-        description: 'The day before early voting starts, where the state sets one date.',
-        default: true,
-        enforced: true,
-      },
-      {
-        key: 'on_mail_ballot_deadline',
-        label: 'Mail-ballot deadlines',
-        description: '3 days before the deadline to request a mail ballot.',
-        default: true,
-        enforced: true,
-      },
-      {
-        key: 'on_candidate_join',
-        label: 'New candidate enters race',
-        description: 'Someone files to run in this election.',
-        default: false,
-      },
-      {
-        key: 'on_candidate_drop',
-        label: 'Candidate drops out',
-        description: 'A candidate suspends their campaign.',
-        default: true,
-      },
-      {
-        key: 'on_winner_announced',
-        label: 'Winner called',
-        description: 'Race is called by election authorities.',
-        default: true,
-      },
-      {
-        key: 'on_debate_scheduled',
-        label: 'Debate scheduled',
-        description: 'Any official debate is announced for this race.',
-        default: false,
-      },
-    ],
-    sliders: [
-      {
-        key: 'frequency',
-        label: 'Reminder cadence',
-        description: 'How often a general \u201Celection is coming up\u201D nudge is sent.',
-        choices: ['monthly', 'biweekly', 'weekly', 'daily'],
-        default: 'weekly',
-      },
-    ],
-  },
+  representative: { label: 'Representative', options: [], sliders: [] },
+  candidate: { label: 'Candidate', options: [], sliders: [] },
+  bill: { label: 'Bill', options: [], sliders: [] },
+  election: { label: 'Election', options: [], sliders: [] },
 };
 
-/** The switches that really do something today (see `enforced` above). */
-export function enforcedOptions(type) {
-  const schema = PREF_SCHEMA[type];
-  return schema ? schema.options.filter((o) => o.enforced) : [];
+/**
+ * The notification settings list. key: the server's row name. channel:
+ * the Android notification channel its pushes use (the "Off in Android
+ * settings" note). The same wording for every official, party and
+ * state. Bill updates cover federal bills only (state bills cannot be
+ * tracked yet), so no copy promises state bill alerts.
+ */
+export const ALERT_ROWS = [
+  { key: 'officials', label: 'Officials you track', hint: 'Their posts and polls', channel: 'officials' },
+  { key: 'events', label: 'Events', hint: 'Scheduled by officials you track', channel: 'events' },
+  { key: 'replies', label: 'Replies to your comments', hint: null, channel: 'replies' },
+  { key: 'bills', label: 'Bill updates', hint: 'Federal bills you track, from Congress.gov', channel: 'bills' },
+  { key: 'poll_results', label: 'Poll results', hint: 'When a poll you voted in closes', channel: 'poll_results' },
+  { key: 'elections', label: 'Election reminders', hint: 'Voting deadlines and Election Day', channel: 'elections' },
+  { key: 'page_changes', label: 'Changes to pages you track', hint: 'Leaving office, a campaign ending, taking office', channel: 'page_changes' },
+];
+
+export const ALERT_CHOICE_LABELS = {
+  bell_push_email: 'Bell, push and email',
+  bell_push: 'Bell and push',
+  bell_email: 'Bell and email',
+  bell: 'Bell only',
+  off: 'Off',
+};
+
+/** The defaults the server applies before anyone changes anything. */
+export const ALERT_DEFAULTS = {
+  officials: 'bell_push',
+  events: 'bell_push',
+  replies: 'bell_push',
+  bills: 'bell_push',
+  poll_results: 'bell_push',
+  elections: 'bell_push',
+  page_changes: 'bell_push_email',
+};
+
+/** The weekly email digest's row (CitizenAccount.digest_opt_in). */
+export const DIGEST_ROW = {
+  key: 'digest',
+  label: 'Weekly email digest',
+  hint: 'What officials you track did this week',
+  choices: ['off', 'weekly'],
+  choiceLabels: { off: 'Off', weekly: 'Saturday mornings' },
+};
+
+/** True when a choice sends email. */
+export function choiceHasEmail(value) {
+  return value === 'bell_push_email' || value === 'bell_email';
 }
 
-/** True when a tracked item of this type has any switch worth showing. */
-export function hasEnforcedPrefs(type) {
-  return enforcedOptions(type).length > 0;
+/** True when a choice sends a push. */
+export function choiceHasPush(value) {
+  return value === 'bell_push_email' || value === 'bell_push';
 }
 
 /**
@@ -310,78 +118,70 @@ export function mergePrefs(type, stored) {
 }
 
 /**
- * Channel-level (global) notification preferences for the navbar bell.
- * Kept in the same module so UIs can import one schema module.
+ * Channel-level (global) settings, kept in the same module so UIs import
+ * one schema. Synced to the account (lib/channelPrefs.js) and sent with
+ * each phone's registration (lib/push.js), so the server applies them
+ * per device.
+ *
+ * 2026-10-17: the "Delivery channels" switches (in-app toasts, desktop
+ * notifications, email digests, mobile push) are gone. Push is the
+ * "This phone" row of the settings list, the weekly digest is a row of
+ * that list, and nothing read the other two. lock_screen_details is new.
  */
 export const CHANNEL_SCHEMA = {
-  label: 'Delivery',
-  options: [
-    // 'In-app toasts' (key in_app) was listed here until 2026-10-16, but
-    // nothing read it: there are no toasts. Hidden until there are; the
-    // key stays in stored prefs, unused.
-    {
-      key: 'in_app',
-      label: 'In-app toasts',
-      description: 'Show a banner inside CivicView while you\u2019re using it.',
-      default: true,
-      available: true,
-      hidden: true,
-    },
-    {
-      key: 'desktop_push',
-      label: 'Desktop notifications',
-      description: 'Browser push notifications.',
-      badge: 'PLANNED',
-      default: false,
-      available: false,
-    },
-    {
-      key: 'email',
-      label: 'Email digests',
-      description: 'A weekly roll-up of your tracked officials\u2019 activity. Opt in from your dashboard settings. Sending begins at launch.',
-      badge: 'AT LAUNCH',
-      default: false,
-      available: false,
-    },
-    // SMS row removed 2026-07-24 (Jeffrey's call): carrier registration +
-    // per-message cost aren't worth it for a civic app; a roadmap row
-    // that never ships erodes trust. Re-add here if it ever becomes real.
-    {
-      key: 'mobile_push',
-      label: 'Mobile push',
-      description: 'Alerts when officials you track post, and election reminders. Available in the CivicView Android app on Google Play.',
-      badge: 'IN THE APP',
-      default: false,
-      available: false,
-    },
-  ],
+  label: 'Timing',
+  options: [],
   sliders: [
     {
       key: 'quiet_hours',
       label: 'Quiet hours',
-      description: 'No push alerts during these hours, in your local time. Updates from officials you track arrive in one summary when they end.',
+      description: 'No pushes in these hours, your local time. Held updates arrive in one summary after; election reminders wait in the bell.',
       choices: ['off', 'nights', 'nights_weekends', 'work_hours_only'],
+      // Short enough for the dropdown: nights are 10 p.m. to 8 a.m.;
+      // work_hours_only is quiet except weekdays 9 a.m. to 6 p.m.
+      choiceLabels: {
+        off: 'Off',
+        nights: '10 p.m. to 8 a.m.',
+        nights_weekends: 'Nights and weekends',
+        work_hours_only: 'Outside weekday 9 to 6',
+      },
       default: 'nights',
     },
     // Push timing (2026-10-16). Was 'digest_cadence', default 'daily',
     // which let one push a day through and silently dropped the rest.
     // Now every update is pushed or summarized, never dropped; the
-    // server sends the summaries (services/push_summaries.py).
+    // server sends the summaries (services/push_summaries.py). Covers
+    // officials' posts, polls and events, bill updates and poll results;
+    // replies and page changes come as they happen (2026-10-17).
     {
       key: 'push_cadence',
       label: 'Push alerts',
-      description: 'Daily summary: one push at 6 p.m. Weekly summary: one push Saturday at 10 a.m. Your local time. Election reminders always come on their own.',
+      description: 'A daily summary comes at 6 p.m., a weekly one Saturday at 10 a.m., your time. They cover officials, events, bills and poll results.',
       choices: ['realtime', 'daily', 'weekly'],
       choiceLabels: { realtime: 'As they happen', daily: 'Daily summary', weekly: 'Weekly summary' },
       default: 'realtime',
     },
   ],
+  // Notification details (2026-10-17, the Android app only): hidden by
+  // default, so a notification, and so a locked phone, shows only a
+  // general line ("New update from an official you track") instead of
+  // whom you follow. The server sends that line as the notification
+  // itself (push_service.shown): Android's own lock-screen hiding works
+  // only on phones set to hide sensitive content. Key name kept.
+  lockScreen: {
+    key: 'lock_screen_details',
+    label: 'Notification details',
+    description: 'Hidden: each notification shows only a general line, such as "New update from an official you track". Tap it to see the update.',
+    choiceLabels: { hide: 'Hide details', show: 'Show details' },
+    default: false,
+  },
 };
 
 export function defaultChannelPrefs() {
   const out = {};
   for (const opt of CHANNEL_SCHEMA.options) out[opt.key] = opt.default;
   for (const s of CHANNEL_SCHEMA.sliders) out[s.key] = s.default;
+  out[CHANNEL_SCHEMA.lockScreen.key] = CHANNEL_SCHEMA.lockScreen.default;
   return out;
 }
 

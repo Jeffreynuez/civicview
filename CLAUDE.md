@@ -42,7 +42,15 @@ state that this file deliberately does NOT duplicate:
 
 ## Current state & open work (snapshot 2026-06-16)
 
-> **Newest (2026-10-16): member votes come from stored official roll
+> **Newest (2026-10-17): phone notifications (app 1.2.0).** Android
+> notification channels, private notifications by default, replies, daily federal
+> bill updates from Congress.gov, poll results, and one short settings
+> list (server-enforced) with Mute per official. See "Phone notifications
+> and the settings list" below and `docs/push_notifications_runbook.md`.
+> 1.2.0 (versionCode 5) still has to be built, tested on Jeffrey's phone
+> from Internal testing, and published.
+>
+> **Earlier (2026-10-16): member votes come from stored official roll
 > calls; GovTrack is gone.** GovTrack began refusing our requests (403s),
 > which emptied every Votes tab, party-line figure and Compare. House
 > Clerk and Senate roll calls are now stored (`roll_calls` +
@@ -369,12 +377,10 @@ Jeffrey's decisions, work order 8 (`fix/notifications`). Runbook:
   archive; PageView follows hashchange. Tracked pushes carry the
   recipient's `notification_id`, and the tap marks it read.
 - **No push for a post the moderation screen flags**; the bell row stays.
-- **Only switches that work are shown:** in My Tracked, `on_event`
-  (officials and candidates) and the four election reminder switches
-  (`enforced: true` in `lib/notificationPrefs.js`); the rest wait for
-  work order 10. "In-app toasts" is hidden (there are none).
-  `tests/test_notification_switches.py` keeps the app and the backend
-  in step.
+- **Only switches that work are shown:** superseded 2026-10-17 by the
+  settings list (next section); the per-item switches are gone.
+  `tests/test_notification_switches.py` keeps the app, the Android
+  project and the backend in step.
 - **Email:** every email a person can turn off (the weekly digest, the
   notices about a page they track, election reminder emails) has
   List-Unsubscribe + List-Unsubscribe-Post (RFC 8058) and a footer link,
@@ -390,6 +396,71 @@ Jeffrey's decisions, work order 8 (`fix/notifications`). Runbook:
   skips suspended, self-deleted and closed accounts, sends in batches
   (at most 5000 per pass), and Admin, Transitions previews a run before
   it sends.
+
+## Phone notifications and the settings list (settled 2026-10-17, durable)
+
+Jeffrey's decisions, `feat/phone-notifications`. Runbook:
+`docs/push_notifications_runbook.md`.
+
+- **One settings list replaces the 32 per-item switches.** Rows:
+  Officials you track, Events, Replies to your comments, Bill updates,
+  Poll results, Election reminders, Changes to pages you track, then the
+  Weekly email digest row, Quiet hours, Push alerts and (app only)
+  Notification details. One dropdown per row (Bell and push / Bell only / Off, plus
+  email choices where there is email). Enforced on the server by
+  `services/alert_settings.py` for every send path; stored per cell in
+  `citizen_accounts.alert_settings_json` (only cells that differ from the
+  defaults) plus the three older columns; read and changed one row at a
+  time (`GET`/`PATCH /api/alert-settings`), never in the synced prefs
+  blob. Shown in the bell's Settings and in Dashboard, Account &
+  settings, Notifications (`components/NotificationSettings.js`).
+- **Defaults:** everything Bell and push; email on only for Changes to
+  pages you track. **Events are on for everyone** and follow the Push
+  alerts timing (Jeffrey); the old per-official on_event switch is not
+  read.
+- **Mute this official** (My Tracked, signed in only; hidden signed out):
+  `{"muted": true}` in the tracked official's prefs; stops their posts,
+  polls and events in the bell, the push and the weekly digest. Page
+  change notices still come. Settings and mute are checked again when a
+  held summary goes out, so a change made meanwhile counts.
+- **Timing:** officials, events, bills and poll results follow Push
+  alerts (as they happen / daily / weekly). Replies and page changes
+  ignore it; quiet hours hold them and they go when quiet hours end,
+  even on a daily or weekly phone.
+- **Replies** push to citizens only, after the moderation screen; reps
+  and candidates get no reply pushes (Jeffrey, 2026-07-26). Replies on
+  citizen polls notify too.
+- **Bill updates are federal only, from Congress.gov** (Jeffrey): state
+  bills cannot be tracked yet and no copy (settings, opt-in card, store
+  text, privacy page) may promise state bill alerts. Daily pass after
+  9 a.m. Eastern (`services/bill_updates.py`), first look sends nothing,
+  each update once per person, email only if chosen.
+- **Page changes push by default, grouped:** one push per change, or one
+  "3 pages you track changed" when a run of the page job finds several
+  for a person (results week, the January 3 turnover).
+- **Poll results:** "Results are in" to the citizens who voted, once per
+  poll (`services/poll_results.py`), no backlog at deploy.
+- **Android:** eight channels (Officials you track, Events, Replies, Bill
+  updates, Poll results, Election reminders, Changes to pages you track,
+  Summaries). **Private by default means the text itself:** unless the
+  person chooses Notification details: Show details, the server sends
+  only a neutral line ("New update from an official you track", or a
+  count line for summaries) and no body, to every app build
+  (`push_service.shown`). Android's channel lock-screen visibility and
+  public versions are not enough (Android resets an app's channel
+  visibility, and shows the public version only when the person hides
+  sensitive content in Android settings); don't go back to relying on
+  them. App 1.2.0 (versionCode 5) builds its own
+  notifications from data-only messages (`CivicViewMessagingService`);
+  older builds get the standard message with the channel id, so the
+  server works with both (`push_service.NATIVE_BUILD`). Channel ids must
+  match in `push_service.CHANNELS`, `NotificationChannels.java`,
+  `strings.xml` and `lib/push.js`.
+- **Permission:** checked at every launch and resume; off in Android
+  settings means "Open settings" in the panel and the server skips that
+  phone (`device_tokens.notifications_off_at`). Never a permission
+  prompt at launch. The opt-in card comes back once, on a track at least
+  30 days after "Not now"; a second "Not now" ends it.
 
 ## Former officials and candidates (settled 2026-10-15, durable)
 

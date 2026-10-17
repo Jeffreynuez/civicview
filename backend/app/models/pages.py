@@ -857,6 +857,11 @@ class Poll(Base):
     created_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime, server_default=func.now(),
     )
+    # "Results are in" (2026-10-17, services/poll_results.py): when the
+    # people who voted were told the poll closed. Stamped with one
+    # conditional UPDATE before anything is sent, so the alert goes out
+    # once. NULL = not yet (or the poll is still open).
+    results_notified_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
     # AI classification — same shape as PostComment.ai_*. Populated
     # asynchronously after create by services/poll_classifier.py.
@@ -1480,6 +1485,19 @@ class CitizenAccount(Base):
     # asks for reminders by email as well, NULL otherwise. Off unless
     # they turn it on; never sent to a demo account's generated address.
     election_reminder_email_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # Notification settings list (2026-10-17, services/alert_settings.py):
+    # one dropdown per kind of alert (officials you track, events,
+    # replies, bill updates, poll results, election reminders, changes to
+    # pages you track) deciding bell, push and email. Holds only the
+    # cells that differ from the defaults, as {"events": {"push": false}}.
+    # Its own column, changed one row at a time by PATCH
+    # /me/alert-settings and by an email's unsubscribe link, never
+    # replaced whole by a device's sync (that is what
+    # notification_prefs_json gets). Three cells live in the columns
+    # above instead: election reminders on or off, election reminder
+    # email, and page change email. Nullable, so the boot auto-migrate
+    # adds it.
+    alert_settings_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
     # Admin moderation — mirrors RepAccount.suspended_at. When set,
     # the auth dependencies treat the account as not-signed-in and
     # the citizen-login endpoint refuses with a clear error.
@@ -2624,6 +2642,17 @@ class DeviceToken(Base):
     #   stamped at registration; push_service.unsubscribe_announcements
     #   takes the rest off once.
     announcements_cleared_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # app_build: the Android app's versionCode, sent at registration
+    #   (2026-10-17). Build 5 (1.2.0) and later build their own
+    #   notifications (channels, lock-screen text, groups, tags), so they
+    #   get data-only messages; older builds and NULL get the standard
+    #   FCM notification message (push_service.NATIVE_BUILD).
+    app_build: Mapped[Optional[int]] = mapped_column(Integer, default=None)
+    # notifications_off_at: set when the app reports that notifications
+    #   for CivicView are off in Android settings (2026-10-17). The
+    #   device is skipped by every send path and not counted as push
+    #   enabled until the app reports them back on. NULL = on.
+    notifications_off_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
 
 class PushHeldItem(Base):
@@ -2878,3 +2907,85 @@ class RollCallSyncState(Base):
     checked_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
     last_error: Mapped[Optional[str]] = mapped_column(Text, default=None)
+
+
+class BillWatch(Base):
+    """One federal bill someone tracks, as the daily bill update pass last
+    saw it on Congress.gov (2026-10-17, services/bill_updates.py).
+
+    One row per bill, however many people track it, so each bill is
+    fetched once a pass. A row is created the first time the pass sees
+    the bill and that first look sends nothing (no backlog): only a
+    change after it does."""
+    __tablename__ = "bill_watch"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    # "{congress}-{type}-{number}", lowercased, as TrackedBill.bill_key.
+    bill_key: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    citation: Mapped[Optional[str]] = mapped_column(String(32), default=None)
+    title: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    latest_action_date: Mapped[Optional[str]] = mapped_column(String(16), default=None)
+    latest_action_text: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    url: Mapped[Optional[str]] = mapped_column(String(255), default=None)
+    # The actions of the latest action date already reported ("date|text"),
+    # so a second action on the same day is still news.
+    seen_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    checked_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    changed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    error_count: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class BillUpdate(Base):
+    """One change the bill update pass found on one bill: up to three new
+    actions from Congress.gov, and what kind of change it is (a status
+    change, a recorded vote, or another action). Each tracker gets it
+    once (BillUpdateDelivery)."""
+    __tablename__ = "bill_updates"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    bill_key: Mapped[str] = mapped_column(String(64), index=True)
+    # 'status' | 'vote' | 'action'
+    change_kind: Mapped[str] = mapped_column(String(16), default="action")
+    action_date: Mapped[Optional[str]] = mapped_column(String(16), default=None)
+    payload_json: Mapped[str] = mapped_column(Text, default="{}")
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), index=True)
+
+
+class BillUpdateDelivery(Base):
+    """One bill update delivered to one citizen. The row is the claim,
+    inserted before the bell row, the push and the email, and unique per
+    (update, citizen), so two instances or a rerun cannot send it twice
+    (the election reminder pattern)."""
+    __tablename__ = "bill_update_deliveries"
+    __table_args__ = (
+        UniqueConstraint("update_id", "citizen_id", name="uq_bill_update_delivery"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    update_id: Mapped[int] = mapped_column(Integer, index=True)
+    citizen_id: Mapped[int] = mapped_column(Integer, index=True)
+    claimed_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    notification_id: Mapped[Optional[int]] = mapped_column(Integer, default=None)
+    push_devices: Mapped[Optional[int]] = mapped_column(Integer, default=None)
+    email_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
+class JobRun(Base):
+    """A once-a-day job's run for one day, and one-time markers
+    (2026-10-17). The unique (job, run_key) pair is the claim: the bill
+    update pass inserts ("bill-updates", "2026-10-17") before it starts,
+    so a second instance or a restart the same day does not run it
+    again. Also records that the poll results pass has made its first,
+    silent pass (("poll-results", "seeded"))."""
+    __tablename__ = "job_runs"
+    __table_args__ = (
+        UniqueConstraint("job", "run_key", name="uq_job_runs"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    job: Mapped[str] = mapped_column(String(48))
+    run_key: Mapped[str] = mapped_column(String(48))
+    started_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    finished_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    summary_json: Mapped[Optional[str]] = mapped_column(Text, default=None)

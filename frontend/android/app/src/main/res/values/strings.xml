@@ -4,4 +4,22 @@
     <string name="title_activity_main">CivicView</string>
     <string name="package_name">app.civicview</string>
     <string name="custom_url_scheme">app.civicview</string>
+    <!-- Notification channels (2026-10-17): the names and descriptions in
+         Android settings. Same wording as lib/push.js CHANNELS. -->
+    <string name="channel_officials">Officials you track</string>
+    <string name="channel_officials_desc">New posts and polls from officials and candidates you track</string>
+    <string name="channel_events">Events</string>
+    <string name="channel_events_desc">Events scheduled by officials and candidates you track</string>
+    <string name="channel_replies">Replies</string>
+    <string name="channel_replies_desc">Replies to your comments</string>
+    <string name="channel_bills">Bill updates</string>
+    <string name="channel_bills_desc">New actions, votes and status changes on federal bills you track</string>
+    <string name="channel_poll_results">Poll results</string>
+    <string name="channel_poll_results_desc">Results of polls you voted in, when they close</string>
+    <string name="channel_elections">Election reminders</string>
+    <string name="channel_elections_desc">Voting deadlines and Election Day, from official state sources</string>
+    <string name="channel_page_changes">Changes to pages you track</string>
+    <string name="channel_page_changes_desc">When an official you track leaves office, a campaign ends or a candidate takes office</string>
+    <string name="channel_summaries">Summaries</string>
+    <string name="channel_summaries_desc">Your daily or weekly summary, and updates held during quiet hours</string>
 </resources>

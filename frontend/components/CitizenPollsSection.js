@@ -641,6 +641,7 @@ function CitizenPollCard({
 
   return (
     <article
+      id={`poll-${poll.id}`}
       style={{
         marginTop: 10,
         background: 'white',

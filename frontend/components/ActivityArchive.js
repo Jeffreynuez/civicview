@@ -28,7 +28,7 @@ import {
   fetchActivityComments,
   fetchActivityNotifications,
 } from '@/lib/pagesApi';
-import { openDeepLink, postDeepLink } from '@/lib/deepLinks';
+import { notificationLink, openDeepLink, postDeepLink } from '@/lib/deepLinks';
 
 const PAGE = 20;
 
@@ -221,7 +221,7 @@ export default function ActivityArchive({ identity }) {
                 key={n.id}
                 type="button"
                 style={rowStyle}
-                onClick={() => deepLink(p.official_id, p.post_id)}
+                onClick={() => openDeepLink(notificationLink('reply', p))}
               >
                 <div style={{ fontSize: '0.78rem', color: 'var(--cl-text)', fontWeight: 600 }}>
                   <span style={{ fontWeight: 800 }}>{p.replier_name || 'Someone'}</span>

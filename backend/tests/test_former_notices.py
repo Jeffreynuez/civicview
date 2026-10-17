@@ -124,8 +124,10 @@ def main() -> int:
         check("1: tracker email", any(e["to"] == "ana@example.org" and e["subject"] == "Morgan Leaving is no longer in office"
                                       for e in SENT))
         tmail = next((e for e in SENT if e["to"] == "ana@example.org"), {"body": "", "headers": {}})
+        # A citizen's settings list names it "Changes to pages you track" (2026-10-17).
         check("1: the tracker email says where to turn these emails off (2026-10-16)",
-              'turn off "Email me when a page I track changes" in your notification settings' in tmail["body"]
+              'choose a setting without email for "Changes to pages you track" in your notification settings'
+              in tmail["body"]
               and "/unsubscribe?token=" in tmail["body"]
               and tmail["headers"].get("List-Unsubscribe-Post") == "List-Unsubscribe=One-Click", tmail)
         pmail = next((e for e in SENT if e["to"] == "morgan@example.org"), {"headers": {}})

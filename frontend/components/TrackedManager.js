@@ -7,17 +7,16 @@ import { useEffect, useMemo, useState } from 'react';
 import { activateOnKey } from '@/lib/a11y';
 import { fetchBillSnapshot } from '@/lib/api';
 import {
-  untrackBill, updateTrackedBill, useTrackedBills, setBillPrefs,
+  untrackBill, updateTrackedBill, useTrackedBills,
 } from '@/lib/trackedBills';
 import {
   useTrackedOfficials, untrackOfficial, setOfficialPrefs,
-  prefsTypeForMember,
 } from '@/lib/trackedOfficials';
 import {
-  useTrackedElections, untrackElection, setElectionPrefs,
+  useTrackedElections, untrackElection,
 } from '@/lib/trackedElections';
 import { useFeaturedTracked, setFeatured, isFeatured } from '@/lib/featuredTracked';
-import { PREF_TYPES, enforcedOptions, hasEnforcedPrefs, mergePrefs } from '@/lib/notificationPrefs';
+import { useCitizenAuth } from '@/lib/citizenAuth';
 import BillReactions from '@/components/bills/BillReactions';
 import { BillScopeProvider, useViewerGeo } from '@/components/bills/BillScope';
 import { partyInfo } from '@/lib/party';
@@ -27,8 +26,12 @@ import { formatLongDate } from './LifecycleBanner';
  * TrackedManager — the shared "everything you follow" surface.
  *
  * Four accordion sections (Representatives, Candidates, Bills, Elections),
- * each a capped + internally-scrolling list with a per-item "Notify me
- * when…" panel, plus a global search box + category chips. Extracted out
+ * each a capped + internally-scrolling list, plus a global search box +
+ * category chips. Since 2026-10-17 there is no per-item "Notify me
+ * when..." panel: what reaches you is the notification settings list,
+ * and officials and candidates have a Mute button (signed in), which
+ * stops their posts, polls and events in the bell, the push and the
+ * weekly digest while you keep following them. Extracted out
  * of MyTrackedModal so the SAME surface renders in two places without
  * drifting:
  *   • variant="modal"  → inside the navbar My Tracked dialog (quick view)
@@ -48,6 +51,19 @@ export default function TrackedManager({
   showFeature,             // default: page variant only
 }) {
   const canFeature = showFeature === undefined ? variant === 'page' : showFeature;
+  // Mute is stored with the account's tracked list, so it needs a
+  // signed-in citizen; signed out, the button is not shown.
+  const { citizen } = useCitizenAuth();
+  const canMute = !!citizen?.id;
+  const toggleMute = (official) => {
+    const muted = !(official.prefs && official.prefs.muted === true);
+    setOfficialPrefs(official, { muted });
+    if (onNotify) {
+      onNotify(muted
+        ? `Muted ${official.name}. You still follow them, and notices that their page changed still come.`
+        : `Unmuted ${official.name}.`);
+    }
+  };
   const { list: bills } = useTrackedBills();
   const { list: officialsAll } = useTrackedOfficials();
   const { list: elections } = useTrackedElections();
@@ -215,6 +231,8 @@ export default function TrackedManager({
             onToggleFeature={toggleFeature}
             onCardClick={onMemberPick}
             onUntrack={() => { untrackOfficial(rep); if (onNotify) onNotify(`Stopped following ${rep.name}.`); }}
+            canMute={canMute}
+            onToggleMute={() => toggleMute(rep)}
           />
         ))}
       </Section>
@@ -233,6 +251,8 @@ export default function TrackedManager({
             onToggleFeature={toggleFeature}
             onCardClick={onMemberPick}
             onUntrack={() => { untrackOfficial(can); if (onNotify) onNotify(`Stopped following ${can.name}.`); }}
+            canMute={canMute}
+            onToggleMute={() => toggleMute(can)}
           />
         ))}
       </Section>
@@ -395,63 +415,11 @@ function FeatureStar({ starred, onClick }) {
   );
 }
 
-// ─── Shared pref control primitives ───────────────────────────────
-function PrefCheckbox({ label, description, checked, onChange }) {
-  return (
-    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '6px 2px', cursor: 'pointer' }}>
-      <input
-        type="checkbox"
-        checked={Boolean(checked)}
-        onChange={(e) => onChange(e.target.checked)}
-        style={{ marginTop: '3px', cursor: 'pointer', accentColor: 'var(--cl-accent)' }}
-      />
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--cl-text)' }}>{label}</div>
-        {description && (
-          <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-light)', marginTop: '1px', lineHeight: 1.35 }}>
-            {description}
-          </div>
-        )}
-      </div>
-    </label>
-  );
-}
-
-// Only the switches that really do something today (2026-10-16): the
-// event alert for officials and candidates, and the election reminder
-// switches. The rest are hidden until work order 10 replaces them.
-function PrefsPanel({ type, prefs, onPatch }) {
-  const options = enforcedOptions(type);
-  if (!options.length) return null;
-  return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      style={{
-        marginTop: '8px', padding: '8px 10px', borderRadius: '8px',
-        background: 'var(--cl-bg)', border: '1px solid var(--cl-border)',
-      }}
-    >
-      <div style={{
-        fontSize: '0.66rem', fontWeight: 800, color: 'var(--cl-text-light)',
-        textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px',
-      }}>
-        Notify me when…
-      </div>
-      {options.map((opt) => (
-        <PrefCheckbox
-          key={opt.key} label={opt.label} description={opt.description}
-          checked={prefs[opt.key]} onChange={(v) => onPatch({ [opt.key]: v })}
-        />
-      ))}
-    </div>
-  );
-}
-
 // ─── Row variants ─────────────────────────────────────────────────
-function OfficialRow({ official, category, onUntrack, onCardClick, canFeature, starred, onToggleFeature }) {
-  const [expanded, setExpanded] = useState(false);
-  const type = prefsTypeForMember(official);
-  const prefs = useMemo(() => mergePrefs(type, official.prefs || {}), [official, type]);
+function OfficialRow({
+  official, category, onUntrack, onCardClick, canFeature, starred, onToggleFeature, canMute, onToggleMute,
+}) {
+  const muted = !!(official.prefs && official.prefs.muted === true);
   const clickable = Boolean(onCardClick);
 
   return (
@@ -493,18 +461,27 @@ function OfficialRow({ official, category, onUntrack, onCardClick, canFeature, s
           {canFeature && (
             <FeatureStar starred={starred} onClick={() => onToggleFeature(category, official.key, official.name)} />
           )}
-          <button
-            onClick={() => setExpanded((v) => !v)}
-            style={{
-              padding: '3px 9px', borderRadius: '8px',
-              background: expanded ? 'var(--cl-primary)' : 'white',
-              color: expanded ? 'white' : 'var(--cl-primary)',
-              border: '1px solid var(--cl-border)', cursor: 'pointer',
-              fontSize: '0.72rem', fontWeight: 700,
-            }}
-          >
-            {expanded ? 'Hide alerts' : 'Alerts'}
-          </button>
+          {canMute && (
+            <button
+              type="button"
+              onClick={onToggleMute}
+              aria-pressed={muted}
+              data-testid="tracked-mute"
+              data-tutorial="tracked-mute"
+              title={muted
+                ? 'Muted: no bell rows, pushes or digest items for their posts, polls and events'
+                : 'Mute this official: you keep following them'}
+              style={{
+                padding: '3px 9px', borderRadius: '8px',
+                background: muted ? 'var(--cl-primary)' : 'white',
+                color: muted ? 'white' : 'var(--cl-primary)',
+                border: '1px solid var(--cl-border)', cursor: 'pointer',
+                fontSize: '0.72rem', fontWeight: 700,
+              }}
+            >
+              {muted ? 'Muted' : 'Mute'}
+            </button>
+          )}
           <button
             onClick={onUntrack}
             aria-label="Stop following" title="Stop following"
@@ -518,17 +495,12 @@ function OfficialRow({ official, category, onUntrack, onCardClick, canFeature, s
           >×</button>
         </div>
       </div>
-      {expanded && (
-        <PrefsPanel type={type} prefs={prefs} onPatch={(patch) => setOfficialPrefs(official, patch)} />
-      )}
     </div>
   );
 }
 
 function BillRow({ bill, changed, onUntrack, onSponsorClick, canFeature, starred, onToggleFeature }) {
-  const [expanded, setExpanded] = useState(false);
   const citation = bill.citation || (bill.type && bill.number ? `${bill.type} ${bill.number}` : '');
-  const prefs = useMemo(() => mergePrefs(PREF_TYPES.bill, bill.prefs || {}), [bill]);
   return (
     <div style={{
       padding: '10px 12px', borderRadius: '10px', marginBottom: '6px',
@@ -588,19 +560,6 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick, canFeature, starred
           {canFeature && (
             <FeatureStar starred={starred} onClick={() => onToggleFeature('bill', bill.key, bill.citation || bill.title)} />
           )}
-          {/* No bill alert is sent yet (2026-10-16), so no Alerts button. */}
-          {hasEnforcedPrefs(PREF_TYPES.bill) && (
-            <button
-              onClick={() => setExpanded((v) => !v)}
-              style={{
-                padding: '3px 9px', borderRadius: '8px',
-                background: expanded ? 'var(--cl-primary)' : 'white',
-                color: expanded ? 'white' : 'var(--cl-primary)',
-                border: '1px solid var(--cl-border)', cursor: 'pointer',
-                fontSize: '0.72rem', fontWeight: 700,
-              }}
-            >{expanded ? 'Hide alerts' : 'Alerts'}</button>
-          )}
           <button
             onClick={onUntrack}
             aria-label="Stop tracking" title="Stop tracking"
@@ -614,16 +573,11 @@ function BillRow({ bill, changed, onUntrack, onSponsorClick, canFeature, starred
           >×</button>
         </div>
       </div>
-      {expanded && (
-        <PrefsPanel type={PREF_TYPES.bill} prefs={prefs} onPatch={(patch) => setBillPrefs(bill.key, patch)} />
-      )}
     </div>
   );
 }
 
 function ElectionRow({ election, onUntrack, canFeature, starred, onToggleFeature }) {
-  const [expanded, setExpanded] = useState(false);
-  const prefs = useMemo(() => mergePrefs(PREF_TYPES.election, election.prefs || {}), [election]);
   const dateLabel = election.date
     ? new Date(election.date + 'T00:00:00').toLocaleDateString(undefined, {
         weekday: 'short', month: 'short', day: 'numeric', year: 'numeric',
@@ -655,16 +609,6 @@ function ElectionRow({ election, onUntrack, canFeature, starred, onToggleFeature
             <FeatureStar starred={starred} onClick={() => onToggleFeature('election', election.key, election.name || election.office)} />
           )}
           <button
-            onClick={() => setExpanded((v) => !v)}
-            style={{
-              padding: '3px 9px', borderRadius: '8px',
-              background: expanded ? 'var(--cl-primary)' : 'white',
-              color: expanded ? 'white' : 'var(--cl-primary)',
-              border: '1px solid var(--cl-border)', cursor: 'pointer',
-              fontSize: '0.72rem', fontWeight: 700,
-            }}
-          >{expanded ? 'Hide alerts' : 'Alerts'}</button>
-          <button
             onClick={onUntrack}
             aria-label="Stop tracking" title="Stop tracking"
             style={{
@@ -677,9 +621,6 @@ function ElectionRow({ election, onUntrack, canFeature, starred, onToggleFeature
           >×</button>
         </div>
       </div>
-      {expanded && (
-        <PrefsPanel type={PREF_TYPES.election} prefs={prefs} onPatch={(patch) => setElectionPrefs(election, patch)} />
-      )}
     </div>
   );
 }

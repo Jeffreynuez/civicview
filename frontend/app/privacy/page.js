@@ -43,7 +43,7 @@ function Mail({ subject }) {
 
 export default function PrivacyPage() {
   return (
-    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 16, 2026">
+    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 17, 2026">
       <p>
         This policy explains what CivicView collects, why, who can see it,
         who else receives it, how long we keep it, and what you can do
@@ -91,7 +91,9 @@ export default function PrivacyPage() {
         <li><strong>Display name.</strong> The name you choose. It appears on the comments and polls you write. No two accounts can share a name, and citizens can&apos;t use the names of members of Congress, other federal officials, governors and statewide officials, or officials and candidates with a CivicView account.</li>
         <li><strong>Age confirmation.</strong> When you create an account, you confirm that you&apos;re 18 or older, and we keep the time you confirmed it.</li>
         <li><strong>State and congressional district (required) and city (optional).</strong> We use them to show you your officials, ballot and elections, and to count engagement by area. You can change them in Account &amp; settings. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved to your account. For a verified account, these come from your verification.</li>
-        <li><strong>Your settings.</strong> Your start page, notification settings (including quiet hours, how often you&apos;re alerted and your time zone offset, which also sets the times shown in your pushes and emails), whether you want the weekly digest email (off unless you turn it on), whether you get election reminders (on unless you turn them off), whether we email you when a page you track changes (on unless you turn it off), and the officials, bills and elections you track, save or feature.</li>
+        <li><strong>Your settings.</strong> Your start page, notification settings (for each kind of alert, whether it reaches the bell, your phone or your email; quiet hours; how often you&apos;re alerted; whether notifications show details; and your time zone offset, which also sets the times shown in your pushes and emails), whether you want the weekly digest email (off unless you turn it on), the officials, bills and elections you track, save or feature, and the officials you mute.</li>
+        <li><strong>Bills you track.</strong> Once a day we check each federal bill someone tracks on Congress.gov, the official source, and record its latest action so we can tell you when it changes. We send Congress.gov only the bill&apos;s number, never anything about you. We record which bill updates we sent you so you never get one twice.</li>
+        <li><strong>Polls you voted in.</strong> When a poll closes, we use the record of who voted in it to tell those people the results are in. Your vote itself is never shown to anyone.</li>
         <li><strong>What you do on CivicView.</strong> The polls you vote in and your choice, the posts, comments, polls and bills you like or dislike, the comments you write and the polls you create. Each vote, like and comment is recorded with the state, district, city (and county, where known) of your account at that moment and whether your account was verified, so it can be counted for the right area.</li>
         <li><strong>Edits and deletions.</strong> When you edit or delete a comment, we keep its original text, hidden from everyone, so moderation decisions can be checked. It&apos;s removed when you delete your account.</li>
         <li><strong>Optional poll questions.</strong> See <a href="#poll-questions">Optional poll questions</a> below.</li>
@@ -191,7 +193,7 @@ export default function PrivacyPage() {
         <li><strong>Server logs.</strong> Our application logs record some events, such as a sign-up or an email we sent. They name an account by its number, and show an email address only as its first letter and domain (like j***@example.org). Typed addresses and the random voter ID are masked. Our hosting providers keep these logs, and their own request logs (IP address, browser and the page requested), for a limited time.</li>
         <li><strong>Addresses you look up.</strong> When you type an address to find your officials, our server sends it to the U.S. Census Geocoder (or, if that fails, OpenStreetMap&apos;s Nominatim) and, when it&apos;s turned on, to Google Civic Information. We don&apos;t save it on our servers. Lookup results can be cached briefly by our network provider and your browser, and the app remembers the last address you matched on your device.</li>
         <li><strong>&ldquo;Use my location.&rdquo;</strong> Only if you tap it and allow it. Your device&apos;s coordinates go straight from your browser to Nominatim, which returns the nearest address, and that address is then looked up as above. We never receive or store the coordinates.</li>
-        <li><strong>Push notifications (Android, only if you turn them on).</strong> A device token from Google Firebase Cloud Messaging, your push settings and, if you aren&apos;t signed in, the list of officials you track on that device. While you&apos;re signed in on the device, the token is linked to your citizen account; signing out unlinks it and clears that list. If you choose a daily or weekly summary, or an update arrives during your quiet hours, we keep that update (who posted and the push text) until the summary goes out, then delete it. Turning push off deletes the token and everything stored with it.</li>
+        <li><strong>Push notifications (Android, only if you turn them on).</strong> A device token from Google Firebase Cloud Messaging, your push settings (including your time zone offset and whether notifications show details), the app&apos;s version number, whether notifications for CivicView are turned off in Android settings (so we stop sending to that phone until they&apos;re back on) and, if you aren&apos;t signed in, the list of officials you track on that device. While you&apos;re signed in on the device, the token is linked to your citizen account; signing out unlinks it and clears that list. If you choose a daily or weekly summary, or an update arrives during your quiet hours, we keep that update (who or what it&apos;s about and the push text) until the summary goes out, then delete it. Turning push off deletes the token and everything stored with it. By default each notification, on a locked phone or not, shows only a general line such as &ldquo;New update from an official you track,&rdquo; not who posted or what, and only that line passes through Google; you can choose Show details.</li>
       </ul>
 
       <h3>Payments</h3>
@@ -339,17 +341,19 @@ export default function PrivacyPage() {
       <h2>Emails we send</h2>
       <ul>
         <li><strong>Account and security emails</strong> (password resets and changes, sign-in help, lockout alerts). These protect your account, so they can&apos;t be turned off.</li>
-        <li><strong>The weekly digest</strong> of the officials you follow: only if you turn it on. Turn it off in Account &amp; settings or with the one-click unsubscribe link in each one.</li>
+        <li><strong>The weekly digest</strong> of the officials you follow: only if you turn it on. Turn it off in your notification settings (Weekly email digest) or with the one-click unsubscribe link in each one.</li>
         <li><strong>Election reminder emails:</strong> only if you turn them on, the same reminders as in the app. Each one links to the setting that turns them off and has a one-click unsubscribe link.</li>
-        <li><strong>One notice when a page you track changes</strong>, for example when an official leaves office, a campaign ends or a candidate takes office. By email unless you turn off &ldquo;Email me when a page I track changes&rdquo; in your notification settings or use the one-click unsubscribe link in the email; the notice in the app still comes. To stop both, stop tracking the page.</li>
+        <li><strong>Bill update emails:</strong> only if you choose email for Bill updates, at most one a day, listing the federal bills you track that changed. Each one has a one-click unsubscribe link.</li>
+        <li><strong>One notice when a page you track changes</strong>, for example when an official leaves office, a campaign ends or a candidate takes office. By email unless you choose a setting without email for &ldquo;Changes to pages you track&rdquo; in your notification settings or use the one-click unsubscribe link in the email; the notice in the app still comes. To stop both, stop tracking the page.</li>
         <li><strong>Notices to former officials and candidates</strong> about their page.</li>
         <li><strong>Your appeal decision.</strong></li>
         <li><strong>Waitlist emails</strong> from Brevo, each with an unsubscribe link.</li>
       </ul>
       <p>
-        We never send advertising for other companies. In-app and push
-        notifications are controlled in Account &amp; settings, and
-        election reminders from any reminder or in notification settings.
+        We never send advertising for other companies. Bell, push and
+        email alerts are controlled in your notification settings (the
+        bell&apos;s Settings, or Account &amp; settings), and election
+        reminders also from any reminder.
       </p>
 
       <h2>How long we keep information</h2>
@@ -361,6 +365,7 @@ export default function PrivacyPage() {
         <li><strong>Content hidden by moderation, reports and appeals:</strong> kept so decisions can be appealed and checked.</li>
         <li><strong>Our moderation system&apos;s assessments</strong> of content (which can quote up to a few sentences of it): kept as a safety record, even after the account is deleted.</li>
         <li><strong>Push tokens:</strong> until you turn push off, the token stops working, or you delete your citizen account. Updates held for a summary push: until the summary goes out.</li>
+        <li><strong>Bill status records:</strong> the latest action we saw on each tracked federal bill, and the updates we found, are public information about the bill and are kept while anyone tracks it. The record of which updates we sent you is deleted with your account.</li>
         <li><strong>Waitlist entries:</strong> until you ask us to remove them, and on Brevo until you unsubscribe or ask us.</li>
         <li><strong>Verification records:</strong> the one-way hashes and date described above, kept to avoid paying to verify the same person twice.</li>
         <li><strong>Pages of officials and candidates, and records of their changes:</strong> kept as a public record. Former pages are archived, not deleted.</li>

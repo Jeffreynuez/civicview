@@ -807,8 +807,8 @@ def digest_preview(
 
 
 # ── Account-synced notification prefs (Notifications v2 part 2) ─────
-# The navbar bell panel's delivery-channel prefs (in_app, mobile_push,
-# quiet_hours, digest_cadence, ...) were localStorage-only. These two
+# The navbar bell panel's delivery prefs (quiet_hours, push_cadence and,
+# since 2026-10-17, lock_screen_details) were localStorage-only. These two
 # endpoints make the signed-in citizen's account the source of truth so
 # choices follow them across devices. The frontend still keeps its
 # localStorage mirror for anonymous visitors and as an offline cache.
@@ -818,7 +818,8 @@ def digest_preview(
 # evolves there; a server-side allowlist would go stale silently. We
 # instead cap size and value types hard so the column can't become a
 # junk drawer. The push send path (services/push_service.py) reads
-# quiet_hours / digest_cadence / tz_offset_minutes out of this blob.
+# quiet_hours / push_cadence / lock_screen_details / tz_offset_minutes out
+# of this blob.
 
 _NOTIF_PREFS_MAX_KEYS = 64
 _NOTIF_PREFS_MAX_KEY_LEN = 64

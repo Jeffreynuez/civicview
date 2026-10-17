@@ -19,6 +19,42 @@ export function postDeepLink(officialId, postId) {
 }
 
 /**
+ * A poll (2026-10-17): a post's poll opens its post; a citizen poll
+ * opens its page at '#poll-<id>' (PageView scrolls to and pulses the
+ * card); a standalone poll, which has no page, opens the Polls feed.
+ */
+export function pollDeepLink(officialId, pollId, postId) {
+  if (postId !== undefined && postId !== null && postId !== '') return postDeepLink(officialId, postId);
+  if (!officialId) return '/polls';
+  return '/?page=' + encodeURIComponent(String(officialId))
+    + (pollId ? '#poll-' + encodeURIComponent(String(pollId)) : '');
+}
+
+/**
+ * Where a notification opens, by kind (2026-10-17). The bell, the
+ * activity archive and the push tap all use this, so they agree.
+ * payload: the bell row's payload, or a push's data.
+ */
+export function notificationLink(kind, payload) {
+  const p = payload || {};
+  switch (kind) {
+    case 'reply':
+      return p.poll_id ? pollDeepLink(p.official_id, p.poll_id) : postDeepLink(p.official_id, p.post_id);
+    case 'poll_results':
+      return pollDeepLink(p.official_id, p.poll_id, p.post_id);
+    case 'bill_update':
+      return '/?open=tracked';
+    case 'page_changes':
+    case 'tracked_summary':
+      return p.official_id ? postDeepLink(p.official_id) : '/?open=notifications';
+    case 'election_reminder':
+      return /^[A-Z]{2}$/.test(String(p.state || '')) ? '/?state=' + encodeURIComponent(String(p.state)) : null;
+    default:
+      return postDeepLink(p.official_id, kind === 'tracked_post' ? p.post_id : null);
+  }
+}
+
+/**
  * Go there. Full navigation, like the push tap: on the same page only
  * the hash changes (no reload) and PageView reacts to it; anywhere else
  * the target page loads cleanly.

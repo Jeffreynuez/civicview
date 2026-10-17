@@ -21,10 +21,16 @@
 //      account; anonymous => backend subscribes it to 'announcements'.
 
 import { request } from './http';
-import { openDeepLink, postDeepLink } from './deepLinks';
+import { notificationLink, openDeepLink } from './deepLinks';
 
 const CHOICE_KEY = 'cv:push:choice'; // 'enabled' | 'declined' | 'denied'
 const TOKEN_KEY = 'cv:push:token';   // last FCM token we registered
+// "Not now" on the opt-in card (2026-10-17): when, and how many times.
+// The card comes back once, in context (the next track), at least
+// REOFFER_DAYS later, never at launch; a second "Not now" ends it.
+const DECLINED_AT_KEY = 'cv:push:declined_at';
+const DECLINES_KEY = 'cv:push:declines';
+export const REOFFER_DAYS = 30;
 
 export function isNativeApp() {
   try {
@@ -39,6 +45,17 @@ function plugin() {
   try { return window.Capacitor?.Plugins?.PushNotifications || null; } catch { return null; }
 }
 
+// The app's own plugin (1.2.0 and later, android/.../NotificationSettingsPlugin.java):
+// whether Android lets CivicView notify, which channels are muted, and
+// the app's notification settings page. Absent on 1.1.0.
+function settingsPlugin() {
+  try { return window.Capacitor?.Plugins?.NotificationSettings || null; } catch { return null; }
+}
+
+function appPlugin() {
+  try { return window.Capacitor?.Plugins?.App || null; } catch { return null; }
+}
+
 export function getPushChoice() {
   try { return window.localStorage.getItem(CHOICE_KEY); } catch { return null; }
 }
@@ -47,9 +64,35 @@ export function setPushChoice(value) {
   try { window.localStorage.setItem(CHOICE_KEY, value); } catch { /* private mode */ }
 }
 
-/** True when the contextual opt-in card should be offered. */
-export function shouldOfferPush() {
-  return isNativeApp() && !!plugin() && !getPushChoice();
+function readNumber(key) {
+  try { return Number(window.localStorage.getItem(key) || 0) || 0; } catch { return 0; }
+}
+
+/** "Not now" on the card: record when, and that it was said once more. */
+export function declinePushOffer(now = Date.now()) {
+  setPushChoice('declined');
+  try {
+    window.localStorage.setItem(DECLINED_AT_KEY, String(now));
+    window.localStorage.setItem(DECLINES_KEY, String(readNumber(DECLINES_KEY) + 1));
+  } catch { /* private mode */ }
+}
+
+/**
+ * True when the contextual opt-in card should be offered.
+ * context: 'signin' (a citizen is signed in; the first offer only) or
+ * 'track' (they just tracked something). The first offer comes in
+ * either context. After one "Not now", only a track at least
+ * REOFFER_DAYS later brings it back, once; never at launch. After a
+ * second "Not now", or once push is on or Android said no, never.
+ */
+export function shouldOfferPush(context = 'signin', now = Date.now()) {
+  if (!isNativeApp() || !plugin()) return false;
+  const choice = getPushChoice();
+  if (!choice) return true;
+  if (choice !== 'declined' || context !== 'track') return false;
+  if (readNumber(DECLINES_KEY) >= 2) return false;
+  const at = readNumber(DECLINED_AT_KEY);
+  return !!at && now - at >= REOFFER_DAYS * 24 * 3600 * 1000;
 }
 
 // Identity headers and CSRF (2026-07-26 push deep dive, audit F4): the
@@ -74,8 +117,26 @@ export function shouldOfferPush() {
  * Dynamic imports keep this module cycle-free (trackedOfficials.js
  * imports nothing from here) and cost nothing in the native shell.
  */
+let appBuild = null;
+async function readAppBuild() {
+  if (appBuild !== null) return appBuild;
+  try {
+    const info = await appPlugin()?.getInfo?.();
+    const n = Number(info && info.build);
+    appBuild = Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
+  } catch { appBuild = 0; }
+  return appBuild;
+}
+
 async function v2RegisterFields() {
   const extra = {};
+  // The app's versionCode (2026-10-17): 5 and later build their own
+  // notifications, so the server sends them data-only messages.
+  const build = await readAppBuild();
+  if (build) extra.app_build = build;
+  // Whether Android lets CivicView notify right now.
+  const status = await getOsNotificationStatus();
+  if (status) extra.os_enabled = !!status.enabled;
   try {
     const { getAllTrackedOfficials } = await import('./trackedOfficials');
     // BUG FIX (2026-07-26): getAllTrackedOfficials() returns the cache
@@ -147,6 +208,7 @@ function installRegistrationListeners(PN) {
 export async function enablePush() {
   const PN = plugin();
   if (!PN) return { ok: false, reason: 'unsupported' };
+  createChannels();
   try {
     let perm = await PN.checkPermissions();
     if (perm.receive !== 'granted') perm = await PN.requestPermissions();
@@ -244,6 +306,137 @@ export async function unbindPushDevice() {
   } catch { return false; }
 }
 
+// ── Android notification settings (2026-10-17) ───────────────────────
+
+/**
+ * The app's notification channels, the same ids, names and importance
+ * as android/.../NotificationChannels.java, which creates them at app
+ * start. Creating them again from here only updates the names and
+ * descriptions (so wording changes with a web deploy); Android keeps
+ * each person's own choices. No lock-screen visibility: Android ignores
+ * an app's own choice there; the server keeps notifications neutral
+ * unless the person chose Show details (push_service.shown).
+ * Importance: 4 high (pops up), 3 default, 2 low (silent).
+ */
+export const CHANNELS = [
+  { id: 'officials', name: 'Officials you track', description: 'New posts and polls from officials and candidates you track', importance: 3 },
+  { id: 'events', name: 'Events', description: 'Events scheduled by officials and candidates you track', importance: 3 },
+  { id: 'replies', name: 'Replies', description: 'Replies to your comments', importance: 4 },
+  { id: 'bills', name: 'Bill updates', description: 'New actions, votes and status changes on federal bills you track', importance: 3 },
+  { id: 'poll_results', name: 'Poll results', description: 'Results of polls you voted in, when they close', importance: 3 },
+  { id: 'elections', name: 'Election reminders', description: 'Voting deadlines and Election Day, from official state sources', importance: 4 },
+  { id: 'page_changes', name: 'Changes to pages you track', description: 'When an official you track leaves office, a campaign ends or a candidate takes office', importance: 2 },
+  { id: 'summaries', name: 'Summaries', description: 'Your daily or weekly summary, and updates held during quiet hours', importance: 3 },
+];
+
+let channelsCreated = false;
+export function createChannels() {
+  if (channelsCreated || !isNativeApp()) return;
+  const PN = plugin();
+  if (!PN || typeof PN.createChannel !== 'function') return;
+  channelsCreated = true;
+  for (const c of CHANNELS) {
+    try {
+      Promise.resolve(PN.createChannel({ ...c, vibration: true })).catch(() => {});
+    } catch { /* older plugin: the app creates them itself */ }
+  }
+}
+
+/**
+ * { enabled, blockedChannels } from Android, or null on the web.
+ * 1.2.0 and later ask Android directly; 1.1.0 falls back to the push
+ * plugin's permission check (which says granted on Android 12 and older
+ * even when notifications are off).
+ */
+export async function getOsNotificationStatus() {
+  if (!isNativeApp()) return null;
+  const NS = settingsPlugin();
+  if (NS && typeof NS.getStatus === 'function') {
+    try {
+      const r = await NS.getStatus();
+      return { enabled: !!r.enabled, blockedChannels: Array.isArray(r.blockedChannels) ? r.blockedChannels : [] };
+    } catch { /* fall through */ }
+  }
+  const PN = plugin();
+  if (!PN) return null;
+  try {
+    const perm = await PN.checkPermissions();
+    return { enabled: perm.receive === 'granted', blockedChannels: [] };
+  } catch { return null; }
+}
+
+/** True when this app build can open Android's notification settings. */
+export function canOpenNotificationSettings() {
+  const NS = settingsPlugin();
+  return !!(NS && typeof NS.openSettings === 'function');
+}
+
+/** Open CivicView's page in Android's notification settings. */
+export async function openNotificationSettings() {
+  const NS = settingsPlugin();
+  if (!NS || typeof NS.openSettings !== 'function') return false;
+  try { await NS.openSettings(); return true; } catch { return false; }
+}
+
+// The latest status, shared with the settings panel (usePushStatus in
+// components/NotificationSettings.js subscribes).
+let lastStatus = null;
+const statusListeners = new Set();
+
+export function getLastOsStatus() {
+  return lastStatus;
+}
+
+export function subscribeOsStatus(fn) {
+  statusListeners.add(fn);
+  return () => { statusListeners.delete(fn); };
+}
+
+/**
+ * Check Android's answer now: at launch and every time the app comes
+ * back to the front (someone may have just been in Android settings).
+ * When it changed and push is on, the server hears it (os_enabled), so
+ * a phone with notifications off is not counted as push-enabled.
+ */
+export async function refreshOsStatus() {
+  const status = await getOsNotificationStatus();
+  if (!status) return null;
+  const before = lastStatus;
+  lastStatus = status;
+  if (!before || before.enabled !== status.enabled
+      || before.blockedChannels.join(',') !== status.blockedChannels.join(',')) {
+    for (const fn of statusListeners) {
+      try { fn(status); } catch { /* one listener cannot block the rest */ }
+    }
+  }
+  if (before && before.enabled !== status.enabled && getPushChoice() === 'enabled') {
+    const token = savedToken();
+    if (token) {
+      try {
+        await postJson('/api/push/register', { token, platform: 'android', os_enabled: status.enabled });
+      } catch { /* the next launch reports it */ }
+    }
+  }
+  return status;
+}
+
+let resumeWatchInstalled = false;
+export function initPushStatusWatch() {
+  if (resumeWatchInstalled || !isNativeApp()) return;
+  resumeWatchInstalled = true;
+  createChannels();
+  refreshOsStatus();
+  const App = appPlugin();
+  try {
+    App?.addListener?.('resume', () => { refreshOsStatus(); });
+  } catch { /* no App plugin: launch-time check only */ }
+  try {
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') refreshOsStatus();
+    });
+  } catch { /* SSR */ }
+}
+
 /**
  * Clear every delivered CivicView notification out of the system tray
  * — and with it the launcher app-icon badge count, which Android
@@ -263,7 +456,23 @@ export async function clearDeliveredNotifications() {
  */
 export function refreshPushRegistration() {
   if (!isNativeApp() || getPushChoice() !== 'enabled') return;
-  enablePush().catch(() => { /* silent — next launch retries */ });
+  (async () => {
+    // Never a permission prompt at launch (2026-10-17): when Android
+    // has notifications off for CivicView, only tell the server
+    // (os_enabled: false) and let the settings panel offer Open
+    // settings.
+    const status = await getOsNotificationStatus();
+    if (status && !status.enabled) {
+      const token = savedToken();
+      if (token) {
+        try {
+          await postJson('/api/push/register', { token, platform: 'android', ...(await v2RegisterFields()) });
+        } catch { /* the next launch reports it */ }
+      }
+      return;
+    }
+    await enablePush();
+  })().catch(() => { /* silent: next launch retries */ });
 }
 
 /**
@@ -310,31 +519,20 @@ export function initPushTapNavigation() {
     PN.addListener('pushNotificationActionPerformed', (action) => {
       try {
         const d = (action && action.notification && action.notification.data) || {};
-        // election_reminder (2026-10-16) → open the state, whose
-        // Elections tab has the dates; the bell holds the reminder with
-        // its official link.
-        if (d.kind === 'election_reminder' && /^[A-Z]{2}$/.test(String(d.state || ''))) {
-          window.location.assign('/?state=' + encodeURIComponent(String(d.state)));
-          return;
-        }
-        // tracked_summary (2026-10-16) → the bell, which lists the
-        // updates; a signed-out device has no bell, so its summary
-        // carries the newest update's page instead.
-        if (d.kind === 'tracked_summary') {
-          window.location.assign(d.official_id
-            ? '/?page=' + encodeURIComponent(String(d.official_id))
-            : '/?open=notifications');
-          return;
-        }
-        // tracked_post → land ON the post (#post-<id> scroll+pulse);
-        // tracked_event (2026-07-26) → land on the page, whose header
-        // + Events tab surface the upcoming event. The same link the
-        // bell uses (lib/deepLinks.js). The push carries the person's
-        // bell row id (2026-10-16), so the tap marks that row read
-        // first (briefly: navigation must not wait on the network).
-        if (!d.official_id) return;
-        if (d.kind !== 'tracked_post' && d.kind !== 'tracked_event') return;
-        const url = postDeepLink(d.official_id, d.kind === 'tracked_post' ? d.post_id : null);
+        // Where each kind opens is lib/deepLinks.js notificationLink,
+        // the same table the bell and the activity archive use:
+        //   tracked_post: the post (#post-<id> scroll and pulse);
+        //   tracked_event: the page, whose Events tab has it;
+        //   reply (2026-10-17): the post, or the citizen poll (#poll-<id>);
+        //   poll_results: the poll; bill_update: My Tracked;
+        //   page_change: the page; page_changes and tracked_summary:
+        //     the bell (a signed-out phone's summary opens the newest
+        //     update's page, since it has no bell);
+        //   election_reminder: the state.
+        // The push carries the person's bell row id, so the tap marks
+        // that row read first (briefly: navigation must not wait).
+        const url = notificationLink(d.kind, d);
+        if (!url) return;
         markTappedRead(d.notification_id).finally(() => openDeepLink(url));
       } catch { /* malformed payload — open normally */ }
     });

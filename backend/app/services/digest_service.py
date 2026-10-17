@@ -79,8 +79,10 @@ def _tracked_official_keys(db: Session, citizen_id: int) -> list[str]:
     2026-10-15 the digest compared them as stored and left out every
     followed official whose id has a capital letter, the same miss
     notifications_inapp fixed for push and bell alerts."""
+    from app.services.alert_settings import is_muted
+
     rows = (
-        db.query(TrackedOfficial.official_key)
+        db.query(TrackedOfficial.official_key, TrackedOfficial.prefs_json)
         .filter(
             TrackedOfficial.tracker_kind == "citizen",
             TrackedOfficial.tracker_id == citizen_id,
@@ -89,7 +91,10 @@ def _tracked_official_keys(db: Session, citizen_id: int) -> list[str]:
         )
         .all()
     )
-    return sorted({r[0].strip().lower() for r in rows if r[0] and r[0].strip()})
+    # "Mute" in My Tracked (2026-10-17) leaves that official out of the
+    # digest too.
+    return sorted({r[0].strip().lower() for r in rows
+                   if r[0] and r[0].strip() and not is_muted(r[1])})
 
 
 def _lower_id(column):
@@ -352,7 +357,7 @@ def render_digest(data: dict, app_url: str = "https://civicview.app",
     )
 
     why = ("You're receiving this because you turned on the weekly digest in CivicView settings. "
-           "Turn it off any time in Dashboard → Account & settings → Weekly digest:")
+           "Turn it off any time in your notification settings, Weekly email digest:")
     unsub_html = (f" Or turn it off with one click: <a href=\"{esc(unsubscribe_url)}\" style=\"color:#9ca3af;\">"
                   f"unsubscribe</a>." if unsubscribe_url else "")
     unsub_text = f"\nOr turn it off with one click: {unsubscribe_url}" if unsubscribe_url else ""

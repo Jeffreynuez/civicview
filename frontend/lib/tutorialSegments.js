@@ -333,6 +333,16 @@ export const TOUR_TOPICS = [
         title: 'Your tracked window',
         body: 'Filter what you track here. Open your dashboard to star one favorite in each group for your Overview.',
       },
+      {
+        // Mute this official (2026-10-17). Signed in only.
+        id: 'tracked-mute',
+        route: '/',
+        action: 'open-tracked',
+        target: ['tracked-mute', 'tracked-modal'],
+        avoid: 'tracked-modal',
+        title: 'Mute this official',
+        body: 'Signed in, tap Mute on an official to stop their posts, polls and events reaching your bell, phone and digest. You keep following, and page change notices still come.',
+      },
     ],
   },
   {
@@ -345,7 +355,7 @@ export const TOUR_TOPICS = [
         action: 'close-windows',
         target: 'nav-bell',
         title: 'Notifications',
-        body: 'The bell collects replies to your comments, election reminders, and new posts, polls and events from officials you track.',
+        body: 'The bell collects replies to your comments, election reminders, bill updates, poll results, and new posts, polls and events from officials you track.',
       },
       {
         id: 'notifications-election-reminders',
@@ -355,11 +365,19 @@ export const TOUR_TOPICS = [
         body: 'Where we have official dates for your state, or for an election you track, the bell reminds you of voting deadlines and Election Day. Turn them off anytime.',
       },
       {
+        // The settings list (2026-10-17): one dropdown per kind of alert.
         id: 'notifications-channels',
         route: '/',
         target: null,
-        title: 'Push and email',
-        body: 'The Android app sends push alerts as they happen or in one daily or weekly summary. Optional emails, like the weekly digest and election reminders, have a one-click unsubscribe link.',
+        title: 'One settings list',
+        body: 'Tap Settings in the bell: each kind of alert gets the bell, push or email. Optional emails, like the weekly digest and election reminders, have a one-click unsubscribe link.',
+      },
+      {
+        id: 'notifications-phone',
+        route: '/',
+        target: null,
+        title: 'On your phone',
+        body: 'The Android app sends pushes as they happen or in one daily or weekly summary. They show only a general line unless you choose Show details.',
       },
     ],
   },

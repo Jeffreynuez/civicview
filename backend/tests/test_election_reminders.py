@@ -197,7 +197,8 @@ def main() -> int:
     # Ohio citizen tracking Florida's general election.
     db.add(TrackedElection(tracker_kind="citizen", tracker_id=oh_tracker.id, election_key="2026-general",
                            snapshot_json=json.dumps({"state": "FL", "date": "2026-11-03"}), prefs_json="{}"))
-    # Florida citizen tracking it with registration alerts off.
+    # Florida citizen tracking it, with the old per-election registration
+    # switch off (no longer read since 2026-10-17).
     db.add(TrackedElection(tracker_kind="citizen", tracker_id=fl.id, election_key="2026-general",
                            snapshot_json=json.dumps({"state": "FL", "date": "2026-11-03"}),
                            prefs_json=json.dumps({"on_registration_deadline": False})))
@@ -304,8 +305,11 @@ def main() -> int:
               for c in (ca, pa, tx, ny, fl) for n in bell(c.id)))
     sched_fl = {r.id: r for r in er.build_schedule(today=date(2026, 10, 1)).reminders}
     recips = {x.citizen_id for x in er.eligible_recipients(db, sched_fl["fl-2026-11-03-registration-1d"])}
-    check("7 a tracked election's own alert settings apply (registration alerts off)",
-          fl.id not in recips and oh_tracker.id in recips, recips)
+    # Since 2026-10-17 a tracked election has no switches of its own: the
+    # Election reminders row of the notification settings covers them,
+    # so an old "registration alerts off" left on the row is not read.
+    check("7 a tracked election's old per-election switches are no longer read",
+          fl.id in recips and oh_tracker.id in recips, recips)
     covered = er.covered_states(today=date(2026, 10, 1))
     check("7 the states covered come from the data: those whose files have sourced reminder dates",
           covered == sorted(s for s, d in er._load_state_docs().items() if d.get("key_date_sources")), covered)

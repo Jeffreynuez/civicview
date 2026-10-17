@@ -8,9 +8,13 @@
 //   1. Push timing: the default is "As they happen"; the old
 //      digest_cadence 'daily' default becomes realtime, 'weekly' stays.
 //   2. The tour's steps stay at 30 words or fewer.
-//   3. Bell, archive and push tap share one post deep link.
-//   4. Only the alert switches that work are shown.
-//   5. lib/push.js: one registration listener, untrack removals, unbind.
+//   3. Bell, archive and push tap share one deep link per kind.
+//   4. The settings list (2026-10-17): its rows and choices match the
+//      server, no per-item switch is left, and no copy promises state
+//      bill alerts.
+//   5. lib/push.js: one registration listener, untrack removals, unbind,
+//      the app build and Android's notification state at register, the
+//      channels, and the opt-in card's one second chance.
 
 import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync } from 'node:fs';
@@ -83,6 +87,22 @@ await check('2 the Notifications topic steps are 30 words or fewer, no dashes', 
     assert.ok(!/[\u2013\u2014]/.test(body + step.title), `${step.id} has a dash`);
   }
 });
+await check('2 the My Tracked topic explains Mute, 30 words or fewer, no dashes', () => {
+  const topic = tour.getTrack('tracked');
+  const mute = topic && topic.steps.find((st) => st.id === 'tracked-mute');
+  assert.ok(mute, 'no Mute step');
+  for (const step of topic.steps) {
+    const body = typeof step.body === 'function' ? step.body({ compact: false }) : String(step.body || '');
+    assert.ok(body.trim().split(/\s+/).length <= 30, `${step.id} is too long`);
+    assert.ok(!/[\u2013\u2014]/.test(body + step.title), `${step.id} has a dash`);
+  }
+  assert.match(mute.body, /page change notices still come/);
+});
+await check('2 the tour names the new alerts and the phone', () => {
+  const all = notifTopic.steps.map((st) => st.body).join(' ');
+  assert.match(all, /bill updates, poll results/);
+  assert.match(all, /Show details/);
+});
 await check('2 the tour describes push summaries', () => {
   const all = notifTopic.steps.map((s) => s.body).join(' ');
   assert.match(all, /daily or weekly summary/);
@@ -94,27 +114,51 @@ await check('2 the tour promises the unsubscribe link only on optional emails', 
   assert.doesNotMatch(all, /Each notification email/);
 });
 
-await check('4 My Tracked shows only the switches that work', () => {
-  const keys = (t) => prefs.enforcedOptions(t).map((o) => o.key);
-  assert.deepEqual(keys('representative'), ['on_event']);
-  assert.deepEqual(keys('candidate'), ['on_event']);
-  assert.deepEqual(keys('bill'), []);
-  assert.equal(prefs.hasEnforcedPrefs('bill'), false);
-  // services/election_reminders.py _ELECTION_PREF_KEYS
-  assert.deepEqual(keys('election').sort(),
-    ['on_early_voting', 'on_election_day', 'on_mail_ballot_deadline', 'on_registration_deadline']);
+await check('4 the settings list has the seven rows, in order', () => {
+  // backend/app/services/alert_settings.py ROW_ORDER
+  assert.deepEqual(prefs.ALERT_ROWS.map((r) => r.key),
+    ['officials', 'events', 'replies', 'bills', 'poll_results', 'elections', 'page_changes']);
+  for (const r of prefs.ALERT_ROWS) assert.ok(prefs.ALERT_DEFAULTS[r.key], r.key);
+  assert.equal(prefs.ALERT_DEFAULTS.events, 'bell_push');
+  assert.equal(prefs.ALERT_DEFAULTS.page_changes, 'bell_push_email');
 });
-await check('4 election switch descriptions say what is sent', () => {
-  const d = Object.fromEntries(prefs.enforcedOptions('election').map((o) => [o.key, o.description]));
-  assert.equal(d.on_election_day, 'A reminder the day before Election Day.');
-  assert.ok(!/absentee|return deadline|Morning-of/i.test(Object.values(d).join(' ')));
+await check('4 no per-item switch is left', () => {
+  for (const t of Object.keys(prefs.PREF_SCHEMA)) assert.deepEqual(prefs.PREF_SCHEMA[t].options, [], t);
+  assert.deepEqual(prefs.CHANNEL_SCHEMA.options, []);
+  assert.equal(prefs.defaultChannelPrefs().lock_screen_details, false);
 });
-await check('4 the in-app toasts switch is hidden', () => {
-  const opt = prefs.CHANNEL_SCHEMA.options.find((o) => o.key === 'in_app');
-  assert.equal(opt.hidden, true);
+await check('4 the choices read as plain words', () => {
+  assert.deepEqual(prefs.ALERT_CHOICE_LABELS, {
+    bell_push_email: 'Bell, push and email', bell_push: 'Bell and push',
+    bell_email: 'Bell and email', bell: 'Bell only', off: 'Off',
+  });
+  assert.ok(prefs.choiceHasEmail('bell_email') && !prefs.choiceHasEmail('bell_push'));
+  assert.ok(prefs.choiceHasPush('bell_push_email') && !prefs.choiceHasPush('bell'));
+});
+await check('4 bill updates say federal, and nothing promises state bills', () => {
+  const bills = prefs.ALERT_ROWS.find((r) => r.key === 'bills');
+  assert.match(bills.hint, /Federal/);
+  const copy = JSON.stringify(prefs.ALERT_ROWS) + JSON.stringify(prefs.CHANNEL_SCHEMA);
+  assert.doesNotMatch(copy, /state bill/i);
 });
 
 const links = await load('lib/deepLinks.js');
+await check('3 each kind opens the right place', () => {
+  assert.equal(links.notificationLink('tracked_post', { official_id: 'X1', post_id: 9 }), '/?page=X1#post-9');
+  assert.equal(links.notificationLink('tracked_event', { official_id: 'X1', event_id: 3 }), '/?page=X1');
+  assert.equal(links.notificationLink('reply', { official_id: 'X1', post_id: 9 }), '/?page=X1#post-9');
+  assert.equal(links.notificationLink('reply', { official_id: 'X1', poll_id: 4 }), '/?page=X1#poll-4');
+  assert.equal(links.notificationLink('poll_results', { official_id: 'X1', poll_id: 4, post_id: 9 }), '/?page=X1#post-9');
+  assert.equal(links.notificationLink('poll_results', { official_id: 'X1', poll_id: 4 }), '/?page=X1#poll-4');
+  assert.equal(links.notificationLink('poll_results', { official_id: '', poll_id: 4 }), '/polls');
+  assert.equal(links.notificationLink('bill_update', { bill_key: '119-hr-1' }), '/?open=tracked');
+  assert.equal(links.notificationLink('page_change', { official_id: 'X1' }), '/?page=X1');
+  assert.equal(links.notificationLink('page_changes', { count: 3 }), '/?open=notifications');
+  assert.equal(links.notificationLink('tracked_summary', {}), '/?open=notifications');
+  assert.equal(links.notificationLink('tracked_summary', { official_id: 'X1' }), '/?page=X1');
+  assert.equal(links.notificationLink('election_reminder', { state: 'FL' }), '/?state=FL');
+  assert.equal(links.notificationLink('test', {}), null);
+});
 await check('3 a post link is the same one the push tap uses', () => {
   assert.equal(links.postDeepLink('FL-SEN-1', 42), '/?page=FL-SEN-1#post-42');
   assert.equal(links.postDeepLink('a b/c', '7'), '/?page=a%20b%2Fc#post-7');
@@ -132,11 +176,20 @@ const store = new Map();
 const listeners = {};
 const posts = [];
 let registerCalls = 0;
+let osEnabled = true;
+let settingsOpened = 0;
+const channelsMade = [];
 globalThis.window = {
   Capacitor: {
     isNativePlatform: () => true,
     Plugins: {
+      App: { getInfo: async () => ({ build: '5', version: '1.2.0' }), addListener: () => {} },
+      NotificationSettings: {
+        getStatus: async () => ({ enabled: osEnabled, blockedChannels: osEnabled ? [] : ['bills'] }),
+        openSettings: async () => { settingsOpened += 1; },
+      },
       PushNotifications: {
+        createChannel: async (c) => { channelsMade.push(c); },
         checkPermissions: async () => ({ receive: 'granted' }),
         requestPermissions: async () => ({ receive: 'granted' }),
         addListener: (name, fn) => { (listeners[name] = listeners[name] || []).push(fn); },
@@ -192,8 +245,59 @@ await check('5 sign-out unbinds with the saved token', async () => {
   const call = posts.find((p) => p.url.endsWith('/api/push/unbind'));
   assert.deepEqual(call && call.body, { token: 'tok-test-device-1' });
 });
+await check('5 a register says the app build and that Android lets it notify', async () => {
+  posts.length = 0;
+  await push.enablePush();
+  const reg = posts.filter((p) => p.url.endsWith('/api/push/register')).pop();
+  assert.equal(reg.body.app_build, 5);
+  assert.equal(reg.body.os_enabled, true);
+});
+await check('5 the channels match the app and the server', () => {
+  // android/.../NotificationChannels.java and backend push_service.CHANNELS
+  assert.deepEqual(push.CHANNELS.map((c) => c.id),
+    ['officials', 'events', 'replies', 'bills', 'poll_results', 'elections', 'page_changes', 'summaries']);
+  assert.equal(channelsMade.length, push.CHANNELS.length);
+  // Android ignores an app's own lock-screen visibility; the server
+  // keeps the text neutral instead (push_service.shown).
+  assert.ok(channelsMade.every((c) => c.visibility === undefined));
+  const byId = Object.fromEntries(push.CHANNELS.map((c) => [c.id, c.importance]));
+  assert.equal(byId.replies, 4);
+  assert.equal(byId.elections, 4);
+  assert.equal(byId.page_changes, 2);
+  assert.doesNotMatch(JSON.stringify(push.CHANNELS), /state bill/i);
+});
+await check('5 notifications off in Android settings: the server hears it on resume', async () => {
+  posts.length = 0;
+  await push.refreshOsStatus();
+  osEnabled = false;
+  const status = await push.refreshOsStatus();
+  assert.equal(status.enabled, false);
+  assert.deepEqual(status.blockedChannels, ['bills']);
+  const reg = posts.filter((p) => p.url.endsWith('/api/push/register')).pop();
+  assert.ok(reg, 'no register');
+  assert.equal(reg.body.os_enabled, false);
+  assert.equal(await push.openNotificationSettings(), true);
+  assert.equal(settingsOpened, 1);
+  osEnabled = true;
+  await push.refreshOsStatus();
+});
+await check('5 the card: first offer anywhere, one more only on a track 30 days later', () => {
+  store.delete('cv:push:choice');
+  store.delete('cv:push:declined_at');
+  store.delete('cv:push:declines');
+  assert.equal(push.shouldOfferPush('signin'), true);
+  const t0 = Date.UTC(2026, 9, 17);
+  push.declinePushOffer(t0);
+  const day = 24 * 3600 * 1000;
+  assert.equal(push.shouldOfferPush('signin', t0 + 40 * day), false, 'never at launch or sign-in');
+  assert.equal(push.shouldOfferPush('track', t0 + 29 * day), false, 'not before 30 days');
+  assert.equal(push.shouldOfferPush('track', t0 + 30 * day), true);
+  push.declinePushOffer(t0 + 30 * day);
+  assert.equal(push.shouldOfferPush('track', t0 + 400 * day), false, 'a second Not now ends it');
+});
 
-const text = [JSON.stringify(prefs.CHANNEL_SCHEMA), JSON.stringify(prefs.PREF_SCHEMA.election)].join('\n');
+const text = [JSON.stringify(prefs.CHANNEL_SCHEMA), JSON.stringify(prefs.ALERT_ROWS),
+  JSON.stringify(prefs.ALERT_CHOICE_LABELS), JSON.stringify(prefs.DIGEST_ROW), JSON.stringify(push.CHANNELS)].join('\n');
 await check('copy has no em or en dashes', () => {
   assert.ok(!/[\u2013\u2014]/.test(text));
 });

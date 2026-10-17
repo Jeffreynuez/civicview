@@ -396,7 +396,39 @@ async def lifespan(app: FastAPI):
             logger.info("Roll-call sync off (on by default in production; set %s=true to run it here).",
                         _rcs.ENV_FLAG)
 
+    # ── Bill updates (2026-10-17) ─────────────────────────────────────
+    # Once a day after 9 a.m. Eastern: every federal bill someone tracks
+    # is checked on Congress.gov, and its trackers get a bell row, a push
+    # and, if they chose it, an email when something new happened. Off
+    # the boot path; the day is claimed in job_runs and a database lock
+    # keeps two instances from running together. On by default in
+    # production only; BILL_UPDATES_ENABLED=true or false overrides that.
+    # See app/services/bill_updates.py and GET /api/admin/bill-updates.
+    bill_updates_task = None
+    if db_ready:
+        from app.services import bill_updates as _bu
+
+        if _bu.updates_enabled():
+            import asyncio as _bu_asyncio
+
+            async def _bill_updates_loop():
+                await _bu_asyncio.sleep(_bu.FIRST_PASS_DELAY_SECONDS)
+                while True:
+                    try:
+                        await _bu.run_pass()
+                    except Exception:
+                        logger.exception("Bill updates pass raised; trying again at the next interval.")
+                    await _bu_asyncio.sleep(_bu.LOOP_INTERVAL_SECONDS)
+
+            bill_updates_task = _bu_asyncio.get_event_loop().create_task(_bill_updates_loop())
+            logger.info("Bill updates ENABLED (daily after %s a.m. Eastern).", _bu.RUN_HOUR_ET)
+        else:
+            logger.info("Bill updates off (on by default in production; set %s=true to run it here).",
+                        _bu.ENV_FLAG)
+
     yield
+    if bill_updates_task is not None:
+        bill_updates_task.cancel()
     if roll_call_task is not None:
         roll_call_task.cancel()
     try:
@@ -628,6 +660,12 @@ app.include_router(push_router.admin_router, prefix="/api/admin/push", tags=["Ad
 # Email settings and one-click unsubscribe (2026-10-16).
 from app.routers import email_prefs as email_prefs_router  # noqa: E402
 app.include_router(email_prefs_router.router, prefix="/api/email", tags=["Email"])
+# The notification settings list (2026-10-17, services/alert_settings.py).
+from app.routers import alert_settings as alert_settings_router  # noqa: E402
+app.include_router(alert_settings_router.router, prefix="/api/alert-settings", tags=["Notifications"])
+# The daily bill update pass, admin view (2026-10-17, services/bill_updates.py).
+from app.routers import bill_updates as bill_updates_router  # noqa: E402
+app.include_router(bill_updates_router.admin_router, prefix="/api/admin/bill-updates", tags=["Admin"])
 app.include_router(poll_demographics_router.router, prefix="/api/polls", tags=["Polls — Demographics"])
 
 # Native-app metadata — the force-update gate's version thresholds
