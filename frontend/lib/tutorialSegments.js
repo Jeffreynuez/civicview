@@ -56,8 +56,10 @@
 export const TOUR_VERSION = 2;
 
 // A "Watch a 2-minute overview" button appears on the Welcome card
-// while this is set. The video comes later; leave it empty until then.
-export const TOUR_VIDEO_URL = '';
+// while this is set. It opens /overview (app/overview/page.js), the
+// tour's overview video with captions, in a new tab; the video itself
+// is 1:47. Empty hides the button.
+export const TOUR_VIDEO_URL = '/overview';
 
 // The random demo picks require a non-empty profile: detail with a bio
 // and committees, plus sponsored bills. Recent votes are required too

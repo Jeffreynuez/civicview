@@ -147,6 +147,15 @@ const nextConfig = {
         ],
       },
       {
+        // The overview video, its poster and captions (app/overview).
+        // Every file name carries a version (-v1), and a new cut gets a
+        // new name, so a file at a given path never changes.
+        source: '/video/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      {
         source: '/embed/:path*',
         headers: [
           {
