@@ -200,7 +200,9 @@ self.addEventListener('notificationclick', (event) => {
 // A push service that rotates a subscription: make the new one now; the
 // page registers it with the server the next time CivicView opens
 // (lib/webPush.js refreshWebPush), and the old endpoint is removed when
-// its push service answers 410.
+// its push service answers 410. A worker has no session to register it
+// itself, so until then this browser gets no pushes (the runbook's Web
+// push, Known gap).
 self.addEventListener('pushsubscriptionchange', (event) => {
   const options = event.oldSubscription && event.oldSubscription.options;
   if (!options) return;

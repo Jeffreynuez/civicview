@@ -375,9 +375,19 @@ def _send_one(db, row, message: PushMessage):
     from app.services.push_service import is_web
 
     if is_web(row):
-        # The caller stamps last_push_at and removes a dead browser.
-        result = web_push.deliver(db, [(row, message)], stamp=False)
-        return row.endpoint in result.sent, row.endpoint in result.invalid
+        # The caller stamps last_push_at and removes a dead browser. A
+        # failure here counts as a transient one for this browser only:
+        # the caller releases its claim, the held updates stay for the
+        # next pass, and the phones (sent earlier, committed one by one)
+        # are untouched.
+        endpoint = row.endpoint
+        try:
+            result = web_push.deliver(db, [(row, message)], stamp=False)
+        except Exception:
+            db.rollback()
+            logger.exception("push summaries: web push to a browser failed; it is tried again next pass")
+            return False, False
+        return endpoint in result.sent, endpoint in result.invalid
     result = send_push_messages([message])
     return row.token in result.sent, row.token in result.invalid
 

@@ -152,6 +152,19 @@ async function registration() {
   ]);
 }
 
+// One registration step at a time in this tab: a launch refresh still in
+// flight when someone tapped Turn off could land its register after the
+// unregister, so the server kept a subscription the browser had already
+// dropped. Every step that talks to the server waits its turn here. The
+// permission prompt itself is never queued (it must run inside the tap);
+// once permission is granted, subscribing needs no tap.
+let pushQueue = Promise.resolve();
+function inTurn(fn) {
+  const run = pushQueue.then(fn, fn);
+  pushQueue = run.catch(() => {});
+  return run;
+}
+
 /** The browser's subscription, made with our key (subscribing when there is none). */
 async function subscription({ create }) {
   const reg = await registration();
@@ -230,31 +243,35 @@ export async function enableWebPush() {
     if (perm === 'denied') setPushChoice('denied');
     return { ok: false, reason: perm === 'denied' ? 'denied' : 'dismissed' };
   }
-  try {
-    const sub = await subscription({ create: true });
-    const res = await registerWithServer(sub, await registerFields());
-    if (res.ok) setPushChoice('enabled');
-    return res;
-  } catch {
-    return { ok: false, reason: 'subscribe' };
-  }
+  return inTurn(async () => {
+    try {
+      const sub = await subscription({ create: true });
+      const res = await registerWithServer(sub, await registerFields());
+      if (res.ok) setPushChoice('enabled');
+      return res;
+    } catch {
+      return { ok: false, reason: 'subscribe' };
+    }
+  });
 }
 
 /** Turn push off here: forget it on the server, then unsubscribe. */
-export async function disableWebPush() {
-  const endpoints = new Set();
-  if (savedEndpoint()) endpoints.add(savedEndpoint());
-  try {
-    const sub = webPushStatus() === 'ready' ? await subscription({ create: false }) : null;
-    if (sub) {
-      endpoints.add(sub.endpoint);
-      await sub.unsubscribe();
-    }
-  } catch { /* best effort */ }
-  for (const endpoint of endpoints) await post('/api/push/web/unregister', { endpoint });
-  saveEndpoint(null);
-  setPushChoice('declined');
-  return { ok: true };
+export function disableWebPush() {
+  return inTurn(async () => {
+    const endpoints = new Set();
+    if (savedEndpoint()) endpoints.add(savedEndpoint());
+    try {
+      const sub = webPushStatus() === 'ready' ? await subscription({ create: false }) : null;
+      if (sub) {
+        endpoints.add(sub.endpoint);
+        await sub.unsubscribe();
+      }
+    } catch { /* best effort */ }
+    for (const endpoint of endpoints) await post('/api/push/web/unregister', { endpoint });
+    saveEndpoint(null);
+    setPushChoice('declined');
+    return { ok: true };
+  });
 }
 
 /**
@@ -263,44 +280,50 @@ export async function disableWebPush() {
  * permission taken away in the browser's settings: the server forgets
  * this browser, and the panel shows the state.
  */
-export async function refreshWebPush() {
-  if (getPushChoice() !== 'enabled' || webPushStatus() !== 'ready') return;
-  if (webPermission() !== 'granted') {
-    const endpoint = savedEndpoint();
-    if (endpoint) await post('/api/push/web/unregister', { endpoint });
-    saveEndpoint(null);
-    setPushChoice(webPermission() === 'denied' ? 'denied' : null);
-    return;
-  }
-  try {
-    const sub = await subscription({ create: true }); // granted: no prompt
-    await registerWithServer(sub, await registerFields());
-  } catch { /* the next load retries */ }
+export function refreshWebPush() {
+  return inTurn(async () => {
+    if (getPushChoice() !== 'enabled' || webPushStatus() !== 'ready') return;
+    if (webPermission() !== 'granted') {
+      const endpoint = savedEndpoint();
+      if (endpoint) await post('/api/push/web/unregister', { endpoint });
+      saveEndpoint(null);
+      setPushChoice(webPermission() === 'denied' ? 'denied' : null);
+      return;
+    }
+    try {
+      const sub = await subscription({ create: true }); // granted: no prompt
+      await registerWithServer(sub, await registerFields());
+    } catch { /* the next load retries */ }
+  });
 }
 
 let lastBoundCitizenId = null;
 
 /** Sign-in: register again so the server binds this browser to the citizen. */
-export async function bindWebPush(citizenId) {
-  if (getPushChoice() !== 'enabled' || webPushStatus() !== 'ready' || webPermission() !== 'granted') return false;
-  if (citizenId && citizenId === lastBoundCitizenId) return false;
-  try {
-    const sub = await subscription({ create: false });
-    if (!sub) return false;
-    // A bound browser's tracking lives on the account.
-    const res = await registerWithServer(sub, await registerFields({ tracked: false }));
-    if (res.ok) lastBoundCitizenId = citizenId || null;
-    return res.ok;
-  } catch { return false; }
+export function bindWebPush(citizenId) {
+  return inTurn(async () => {
+    if (getPushChoice() !== 'enabled' || webPushStatus() !== 'ready' || webPermission() !== 'granted') return false;
+    if (citizenId && citizenId === lastBoundCitizenId) return false;
+    try {
+      const sub = await subscription({ create: false });
+      if (!sub) return false;
+      // A bound browser's tracking lives on the account.
+      const res = await registerWithServer(sub, await registerFields({ tracked: false }));
+      if (res.ok) lastBoundCitizenId = citizenId || null;
+      return res.ok;
+    } catch { return false; }
+  });
 }
 
 /** Sign-out: this browser keeps push but belongs to nobody. */
-export async function unbindWebPush() {
-  lastBoundCitizenId = null;
-  const endpoint = savedEndpoint();
-  if (!endpoint) return false;
-  const { error } = await post('/api/push/web/unbind', { endpoint });
-  return !error;
+export function unbindWebPush() {
+  return inTurn(async () => {
+    lastBoundCitizenId = null;
+    const endpoint = savedEndpoint();
+    if (!endpoint) return false;
+    const { error } = await post('/api/push/web/unbind', { endpoint });
+    return !error;
+  });
 }
 
 let syncTimer = null;
@@ -311,22 +334,26 @@ export function syncWebPush({ removed } = {}) {
   if (getPushChoice() !== 'enabled' || !savedEndpoint() || webPushStatus() !== 'ready') return;
   if (removed) pendingRemovals.add(String(removed).toLowerCase());
   if (syncTimer) clearTimeout(syncTimer);
-  syncTimer = setTimeout(async () => {
+  syncTimer = setTimeout(() => {
     syncTimer = null;
-    const removals = [...pendingRemovals];
-    pendingRemovals.clear();
-    try {
-      const sub = await subscription({ create: false });
-      if (!sub) return;
-      const extra = await registerFields();
-      const stillTracked = new Set(extra.tracked || []);
-      const gone = removals.filter((k) => !stillTracked.has(k));
-      if (gone.length) extra.tracked_remove = gone;
-      const res = await registerWithServer(sub, extra);
-      if (!res.ok) removals.forEach((k) => pendingRemovals.add(k));
-    } catch {
-      removals.forEach((k) => pendingRemovals.add(k));
-    }
+    inTurn(async () => {
+      // Turned off while this waited: nothing to sync.
+      if (getPushChoice() !== 'enabled' || !savedEndpoint()) return;
+      const removals = [...pendingRemovals];
+      pendingRemovals.clear();
+      try {
+        const sub = await subscription({ create: false });
+        if (!sub) return;
+        const extra = await registerFields();
+        const stillTracked = new Set(extra.tracked || []);
+        const gone = removals.filter((k) => !stillTracked.has(k));
+        if (gone.length) extra.tracked_remove = gone;
+        const res = await registerWithServer(sub, extra);
+        if (!res.ok) removals.forEach((k) => pendingRemovals.add(k));
+      } catch {
+        removals.forEach((k) => pendingRemovals.add(k));
+      }
+    });
   }, 800);
 }
 

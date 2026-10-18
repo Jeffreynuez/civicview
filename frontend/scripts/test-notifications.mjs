@@ -295,6 +295,20 @@ await check('5 the card: first offer anywhere, one more only on a track 30 days 
   push.declinePushOffer(t0 + 30 * day);
   assert.equal(push.shouldOfferPush('track', t0 + 400 * day), false, 'a second Not now ends it');
 });
+await check('5 the Android app never offers the card at launch, as before web push', () => {
+  // A first launch, signed out: no choice stored yet.
+  store.delete('cv:push:choice');
+  store.delete('cv:push:declined_at');
+  store.delete('cv:push:declines');
+  assert.equal(push.shouldOfferPush('launch'), false, 'no card at launch in the app');
+  assert.equal(push.shouldOfferPush('signin'), true, 'sign-in still offers it');
+  assert.equal(push.shouldOfferPush('track'), true, 'a track still offers it');
+  push.declinePushOffer(Date.UTC(2026, 9, 17));
+  assert.equal(push.shouldOfferPush('launch', Date.UTC(2027, 0, 1)), false);
+  store.delete('cv:push:choice');
+  store.delete('cv:push:declined_at');
+  store.delete('cv:push:declines');
+});
 
 // ── 6. Web push (2026-10-18): public/sw.js and lib/webPush.js ────────
 const swSource = readFileSync(path.join(root, 'public', 'sw.js'), 'utf8');
@@ -536,6 +550,42 @@ await check('6 Turn on in Safari on iPhone asks for nothing and says to add it t
   assert.deepEqual(r, { ok: false, reason: 'ios_home_screen' });
   assert.equal(asked, 0);
   nav.userAgent = DESKTOP;
+});
+await check('6 Turn off while the launch refresh is still registering: the unregister comes last', async () => {
+  nav.userAgent = DESKTOP;
+  globalThis.Notification.permission = 'granted';
+  store.set('cv:push:choice', 'enabled');
+  const sub = {
+    endpoint: 'https://fcm.googleapis.com/fcm/send/race',
+    toJSON: () => ({ endpoint: sub.endpoint, keys: { p256dh: 'p', auth: 'a' } }),
+    unsubscribe: async () => { current = null; return true; },
+  };
+  let current = sub;
+  const reg = { pushManager: { getSubscription: async () => current, subscribe: async () => (current = sub) } };
+  nav.serviceWorker = { register: async () => reg, ready: Promise.resolve(reg) };
+  const order = [];
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async (url, opts = {}) => {
+    const u = String(url);
+    if (u.endsWith('/api/csrf')) return realFetch(url, opts);
+    // The server takes its time over the register, as on a slow network.
+    if (u.endsWith('/api/push/web/register')) await new Promise((r) => setTimeout(r, 50));
+    order.push(u.split('/api/push/web/')[1]);
+    return new Response('{"ok":true}', { status: 200, headers: { 'content-type': 'application/json' } });
+  };
+  try {
+    const refreshing = webOn.refreshWebPush();
+    const off = webOn.disableWebPush();
+    await Promise.all([refreshing, off]);
+    assert.deepEqual(order, ['register', 'unregister']);
+    assert.equal(webOn.savedWebPushEndpoint(), null, 'nothing left registered here');
+    assert.equal(store.get('cv:push:choice'), 'declined');
+  } finally {
+    globalThis.fetch = realFetch;
+    store.delete('cv:push:choice');
+    globalThis.Notification.permission = 'default';
+    nav.serviceWorker = {};
+  }
 });
 await check('6 the guide and the tour say what the browser does, in 30 words, no dashes', async () => {
   const g = webOn;

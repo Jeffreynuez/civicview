@@ -483,9 +483,16 @@ Jeffrey's decisions, `feat/web-push`. Runbook:
   list, Mute, quiet hours, Push alerts timing, summaries, grouping,
   TTLs); `services/web_push.py` only sends. Text from
   `push_service.shown()`: the general line unless Notification details:
-  Show details, one setting for all of a person's devices. A browser's
-  push service never reads a name or an id: payloads are encrypted
-  (RFC 8291) and the Topic header is a hash of the tag.
+  Show details, one setting for all of a person's devices. What is
+  protected: the payload (text, the ids for the tap, the badge count) is
+  encrypted (RFC 8291), so a browser's push service can't read it. What
+  is not: the push service sees the endpoint, that the sender is
+  CivicView (VAPID), the time, the size, the TTL (an event push expires
+  at the event's start), the Urgency and the Topic. The Topic is an
+  HMAC of the tag under a key derived from VAPID_PRIVATE_KEY (22
+  URL-safe characters), never a plain hash: tags come from small
+  guessable sets, so a hash could be reversed. Equal tags still give
+  equal Topics. The privacy policy says exactly this; keep them in step.
 - **Keys:** `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`
   (Render) and `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (Vercel, the same public
   key). Off until all are set. Made only by Jeffrey on his computer with
@@ -500,11 +507,25 @@ Jeffrey's decisions, `feat/web-push`. Runbook:
   only after a track, plus once when the Home Screen app opens (Jeffrey);
   never at sign-in. In Safari on an iPhone, Turn on shows the Add to Home
   Screen guide (wording in `lib/webPush.js` HOME_SCREEN_GUIDE, approved).
+  `shouldOfferPush('launch')` is for the browser only: in the Android app
+  it is always false, so the app's card works exactly as before web push
+  (a test in `test-notifications.mjs` holds it).
 - **Every push shows a notification** (iOS revokes the permission
   otherwise), even one the worker can't read. 3 or more of a channel on
   screen become one count notification. Pushes are handled one at a time.
 - **Endpoints:** only the real push services (FCM, Mozilla, WNS, Apple);
-  pruned only on 404 or 410, never on 403.
+  pruned only on 404 or 410, never on 403. Keys are checked as a point
+  on P-256 at registration; a stored row whose keys can't be encrypted
+  for is pruned at its first send.
+- **Phones first:** on every send path the phones' results (held
+  updates, last_push_at, pruning) are committed before any browser is
+  tried; browsers go in their own transaction
+  (`push_service._send_to_browsers`), and a failed browser in the
+  summary pass releases its claim. A web push failure must never undo a
+  phone's results.
+- **Known gap:** a subscription the push service rotates reaches the
+  server only when CivicView is next opened in that browser (no worker
+  route yet; runbook, Web push, Known gap).
 - **Badge:** the installed app's icon shows the bell's unread count.
 
 ## Former officials and candidates (settled 2026-10-15, durable)

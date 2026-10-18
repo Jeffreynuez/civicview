@@ -604,6 +604,33 @@ def web_rows_for(db, citizen_ids, anon_key: Optional[str] = None) -> list:
     return rows
 
 
+def _send_to_browsers(db, pending, *, now: Optional[datetime] = None, stamp: bool = True):
+    """The browsers' pushes, sent only after the phones' results are
+    committed (2026-10-18), in a transaction of their own: a failure
+    here (a push service, the network, a row removed meanwhile) rolls
+    back only the browsers' stamps and pruning, never a phone's held
+    update, last_push_at or pruning. pending: [(WebPushSubscription id,
+    PushMessage)], taken before that commit. Returns the SendResult, or
+    None when the send failed (logged, never raised)."""
+    from app.models.pages import WebPushSubscription
+    from app.services import web_push
+
+    try:
+        ids = [i for i, _m in pending]
+        # One query reloads the rows the commit expired; a browser
+        # turned off meanwhile is gone and skipped.
+        rows = {
+            r.id: r for r in db.query(WebPushSubscription).filter(WebPushSubscription.id.in_(ids))
+        } if ids else {}
+        result = web_push.deliver(db, [(rows[i], m) for i, m in pending if i in rows], now=now, stamp=stamp)
+        db.commit()
+        return result
+    except Exception:
+        db.rollback()
+        logger.exception("web push failed (non-fatal; the phones' results were already saved)")
+        return None
+
+
 def _deliver_tracked_push(
     db, citizen_ids: Iterable[int], *, anon_key: Optional[str],
     title: str, body: str, data: dict,
@@ -648,6 +675,10 @@ def _deliver_tracked_push(
          summary when they end; otherwise it is sent now. Dead tokens
          are pruned, last_push_at is stamped on the devices sent to,
          and one log line counts all of it.
+      4. Browsers last: the phones' results and every held update are
+         committed first, then the browsers are sent to in their own
+         transaction (_send_to_browsers), so a web push failure never
+         undoes the phones'.
 
     Returns the number of devices sent to now. Raises freely: the
     public wrappers own the never-raise guarantee.
@@ -750,11 +781,11 @@ def _deliver_tracked_push(
         message = now_or_held(row)
         if message is not None:
             sendable.append((row, message))
-    web_sendable = []
+    web_pending = []
     for row in web_rows:
         message = now_or_held(row)
         if message is not None:
-            web_sendable.append((row, message))
+            web_pending.append((row.id, message))
 
     result = send_push_messages([m for _row, m in sendable])
     for row, _m in sendable:
@@ -769,10 +800,6 @@ def _deliver_tracked_push(
         pruned = db.query(DeviceToken).filter(DeviceToken.token.in_(result.invalid)).delete(
             synchronize_session=False
         )
-    web_result = None
-    if web_rows:
-        from app.services import web_push
-        web_result = web_push.deliver(db, web_sendable, now=now)
     db.commit()
     if rows:
         logger.info(
@@ -780,6 +807,7 @@ def _deliver_tracked_push(
             kind, data.get("official_id"), len(result.sent), held["summary"], held["quiet"],
             len(result.failed), pruned,
         )
+    web_result = _send_to_browsers(db, web_pending, now=now) if web_rows else None
     if web_result is not None:
         logger.info(
             "web push %s official=%s: sent=%d held_for_summary=%d held_quiet_hours=%d failed=%d pruned=%d",
@@ -981,7 +1009,7 @@ def push_election_reminder(
                 suppressed += 1
                 continue
             ttl = (ttl_by_citizen[row.citizen_id] // 60) * 60
-            web_messages.append((row, message_for(
+            web_messages.append((row.id, row.citizen_id, row.endpoint, message_for(
                 row, prefs, title=title, body=body, data=data, channel="elections",
                 tag=f"election-{data.get('reminder_id')}" if data.get("reminder_id") else None,
                 ttl_seconds=ttl)))
@@ -998,13 +1026,12 @@ def push_election_reminder(
             )
             db.commit()
         if web_messages:
-            # last_push_at is left alone here too.
-            from app.services import web_push
-            web_result = web_push.deliver(db, web_messages, stamp=False)
-            for row, _m in web_messages:
-                if row.endpoint in web_result.sent:
-                    sent[row.citizen_id] = sent.get(row.citizen_id, 0) + 1
-            db.commit()
+            # After the phones' pruning is committed, in its own
+            # transaction; last_push_at is left alone here too.
+            web_result = _send_to_browsers(db, [(i, m) for i, _cid, _ep, m in web_messages], stamp=False)
+            for _i, cid, endpoint, _m in web_messages:
+                if web_result is not None and endpoint in web_result.sent:
+                    sent[cid] = sent.get(cid, 0) + 1
         logger.info("election_reminder: pushed to %d device(s)", sum(sent.values()))
         return sent
     except Exception:

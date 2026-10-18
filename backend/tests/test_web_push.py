@@ -14,24 +14,30 @@ private key, as a real browser would.
   1. Encryption matches RFC 8291's test vector; the VAPID header verifies
      and names the push service, our subject and an expiry within a day.
   2. Registering: off until the keys are set; only real push services,
-     valid keys and our own public key; a sign-in binds, a sign-out
-     unbinds, another citizen takes the browser over, Turn off deletes.
+     keys that are a point on P-256, and our own public key; a sign-in
+     binds, a sign-out unbinds, another citizen takes the browser over,
+     Turn off deletes.
   3. A tracked post reaches the citizen's phone and browser; the phone's
      push is what it was; the browser's shows only the general line
      unless Show details; it carries the bell row and the unread count.
   4. The settings list and Mute decide for browsers as for phones.
   5. A signed-out browser gets posts from officials it tracks, not events.
   6. Events carry their tag as Topic and a TTL until they start; replies
-     and election reminders are urgent.
+     and election reminders are urgent. The Topic is an HMAC under a key
+     derived from the private key: nobody can recompute it from a tag.
   7. Quiet hours and the daily summary hold browser pushes and send them
      in one summary, by the same rules as a phone.
   8. A 404 or 410 removes the subscription with its held updates; 403 and
-     500 keep it.
+     500 keep it; a stored subscription whose keys can't be encrypted for
+     is removed at the first send instead of being retried forever.
   9. With the keys removed nothing is sent and held updates wait.
  10. Deleting the account removes its browsers; the admin test push
      reaches this browser; a long body is capped.
  11. Auto-migrate: an existing push_held_items table, where
      device_token_id is NOT NULL, takes a browser's held update.
+ 12. A web push failure never undoes the phones: their held updates,
+     last_push_at and count survive web_push.deliver raising, in a
+     tracked push, an election reminder and a summary pass.
 """
 import base64
 import json
@@ -228,6 +234,12 @@ def main() -> int:
               and r.json()["detail"] == "endpoint_not_allowed", r.text)
         r = c.post("/api/push/web/register", json={**b1, "keys": {"p256dh": "A" * 87, "auth": "B" * 22}})
         check("2 keys that are not a P-256 point: 400", r.status_code == 400, r.text)
+        off_curve = _b64(b"\x04" + b"\x01" * 64)  # the right length and prefix, not on the curve
+        check("2 a 65-byte key that is not on the curve is not valid",
+              not wp.valid_keys(off_curve, b1["keys"]["auth"]) and wp.valid_keys(**b1["keys"]))
+        r = c.post("/api/push/web/register", json={**b1, "keys": {"p256dh": off_curve, "auth": b1["keys"]["auth"]}})
+        check("2 ... and is refused at registration: 400", r.status_code == 400
+              and r.json()["detail"] == "invalid_keys", r.text)
         r = c.post("/api/push/web/register", json={**b1, "application_server_key": _b64(os.urandom(65))})
         check("2 another public key: 409", r.status_code == 409 and r.json()["detail"] == "vapid_key_mismatch", r.text)
         r = c.post("/api/push/web/register", json={**b1, "application_server_key": public, "tracked": [page.upper()],
@@ -341,7 +353,7 @@ def main() -> int:
         ev = sent_to(ana_b["endpoint"])
         evh = ev[0]["headers"] if ev else {}
         check("6 an event: its tag (hashed) as Topic, a TTL until it starts",
-              len(ev) == 1 and evh.get("topic") == wp._topic("event-11") and ev[0]["payload"].get("tag") == "event-11"
+              len(ev) == 1 and evh.get("topic") == wp._topic(wp.config(), "event-11") and ev[0]["payload"].get("tag") == "event-11"
               and 2 * 24 * 3600 - 120 < int(evh.get("ttl", 0)) <= 2 * 24 * 3600, evh)
         REQUESTS.clear()
         ps.push_to_citizens(db, [ana.id], title="Ben replied to your comment", body="Agreed",
@@ -358,10 +370,19 @@ def main() -> int:
               len(er) == 1 and er[0]["headers"].get("urgency") == "high" and er[0]["headers"].get("ttl") == "10800"
               and er[0]["payload"]["channel"] == "elections" and out.get(ana.id) == 2, (er, out))
 
-        topic = wp._topic("page-S001217")
+        import hashlib
+        import hmac
+        topic = wp._topic(wp.config(), "page-S001217")
         check("6 the Topic the push service reads in the clear names nobody",
-              "S001217" not in topic and "page" not in topic and len(topic) <= 32
+              "S001217" not in topic and "page" not in topic and len(topic) == 22
               and all(ch.isalnum() or ch in "-_" for ch in topic), topic)
+        guessable = [_b64(hashlib.sha256(t.encode()).digest())[:22] for t in
+                     ("page-S001217", "civicview-topic:page-S001217")]
+        check("6 it is an HMAC under the server's key, not a hash anyone can recompute from a tag",
+              topic not in guessable and topic == _b64(hmac.new(wp.config().topic_key, b"page-S001217",
+                                                                 hashlib.sha256).digest())[:22])
+        other = wp.VapidConfig(public_key="", subject="", vapid=None, topic_key=os.urandom(32))
+        check("6 another key gives another Topic for the same tag", wp._topic(other, "page-S001217") != topic)
 
         # ── 7. quiet hours and summaries ─────────────────────────────
         dee = fh.make_citizen(db, "Dee Daily", "dee@example.org", district="FL-14")
@@ -396,7 +417,7 @@ def main() -> int:
         check("7 at 6 p.m. one summary: a count line, the Summaries tag",
               len(sm) == 1 and sm[0]["payload"]["title"] == "2 updates from officials you track"
               and sm[0]["payload"]["body"] == "" and sm[0]["payload"]["tag"] == "summary"
-              and sm[0]["headers"].get("topic") == wp._topic("summary")
+              and sm[0]["headers"].get("topic") == wp._topic(wp.config(), "summary")
               and sm[0]["payload"]["data"]["kind"] == "tracked_summary",
               sm)
         db.expire_all()
@@ -438,6 +459,22 @@ def main() -> int:
         STATUS[gone2["endpoint"]] = 410
         ps.push_to_citizens(db, [ben.id], title="t", body="b", data={"kind": "reply"}, channel="replies", timing=False)
         check("8 410: removed", sub_row(gone2["endpoint"]) is None)
+        # A row stored before the curve check (or written by hand): its key
+        # has the right length and prefix but is not on P-256.
+        junk = WebPushSubscription(endpoint="https://fcm.googleapis.com/fcm/send/junk-keys", citizen_id=ben.id,
+                                   p256dh=_b64(b"\x04" + b"\x01" * 64), auth=_b64(os.urandom(16)),
+                                   platform="desktop")
+        db.add(junk)
+        db.commit()
+        junk_id = junk.id
+        db.add(PushHeldItem(web_subscription_id=junk_id, reason="quiet", kind="reply", title="t", body="b"))
+        db.commit()
+        REQUESTS.clear()
+        ps.push_to_citizens(db, [ben.id], title="t", body="b", data={"kind": "reply"}, channel="replies", timing=False)
+        db.expire_all()
+        check("8 keys that can't be encrypted for: removed at the first send, with its held updates, nothing posted",
+              db.get(WebPushSubscription, junk_id) is None and not REQUESTS and db.query(PushHeldItem).filter(
+                  PushHeldItem.web_subscription_id == junk_id).count() == 0, REQUESTS)
 
         # ── 9. keys removed ──────────────────────────────────────────
         _clear_keys()
@@ -481,6 +518,60 @@ def main() -> int:
         check("10 a long body is capped", len(lp) == 1 and len(lp[0]["payload"]["body"]) == 300, lp)
 
         check("11 and the table takes browser rows (device_token_id NULL)", migrated_ok)
+
+        # ── 12. a web push failure never undoes the phones ───────────
+        cy = fh.make_citizen(db, "Cy Phones", "cy@example.org", district="FL-15")
+        held_phone = DeviceToken(token="tok-cy-daily", citizen_id=cy.id, app_build=5,
+                                 prefs_json=json.dumps({"push_cadence": "daily", "quiet_hours": "off"}))
+        live_phone = DeviceToken(token="tok-cy-live", citizen_id=cy.id, app_build=5,
+                                 prefs_json=json.dumps({"quiet_hours": "off"}))
+        db.add_all([held_phone, live_phone])
+        db.commit()
+        held_id, live_id = held_phone.id, live_phone.id
+        cy_b = new_browser()
+        c.post("/api/push/web/register", json={**cy_b, "prefs": {"quiet_hours": "off"}},
+               headers=fh.citizen_headers(cy))
+        cy_row_id = sub_row(cy_b["endpoint"]).id
+        real_deliver = wp.deliver
+
+        def broken_deliver(*_a, **_k):
+            raise RuntimeError("push service exploded")
+
+        wp.deliver = broken_deliver
+        try:
+            PUSHES.clear()
+            noon = datetime(2026, 10, 23, 12, 0)
+            n = ps._deliver_tracked_push(db, [cy.id], anon_key=None, title="Rae Web posted", body="Hello",
+                                         data={"kind": "tracked_post", "official_id": page, "post_id": 7},
+                                         official_name="Rae Web", now_utc=noon)
+            db.expire_all()
+            check("12 deliver raised: the call still returns the phones' count",
+                  n == 1 and [p["token"] for p in PUSHES] == ["tok-cy-live"], (n, PUSHES))
+            check("12 the daily phone's held update survived", db.query(PushHeldItem).filter(
+                PushHeldItem.device_token_id == held_id).count() == 1)
+            check("12 the live phone's last_push_at survived", db.get(DeviceToken, live_id).last_push_at == noon)
+            check("12 the browser is kept, unstamped", db.get(WebPushSubscription, cy_row_id) is not None
+                  and db.get(WebPushSubscription, cy_row_id).last_push_at is None)
+            PUSHES.clear()
+            out = ps.push_election_reminder(db, [(cy.id, 7200)], title="Election Day is tomorrow",
+                                            body="Polls open at 7 a.m.",
+                                            data={"kind": "election_reminder", "reminder_id": "fl-2026-x",
+                                                  "state": "FL"})
+            check("12 an election reminder still counts the phones", out.get(cy.id) == 2, out)
+            db.add(PushHeldItem(web_subscription_id=cy_row_id, reason="quiet", kind="reply", title="t", body="b",
+                                data_json=json.dumps({"_channel": "replies"}), created_at=datetime(2026, 10, 23, 1, 0)))
+            db.commit()
+            counts = push_summaries.run_summaries(db, now_utc=datetime(2026, 10, 23, 12, 5))
+            db.expire_all()
+            check("12 a summary pass: the browser counts as failed, its update and claim are kept",
+                  counts["failed"] >= 1 and db.query(PushHeldItem).filter(
+                      PushHeldItem.web_subscription_id == cy_row_id).count() == 1
+                  and db.get(WebPushSubscription, cy_row_id).summary_sent_at is None, counts)
+        finally:
+            wp.deliver = real_deliver
+        REQUESTS.clear()
+        push_summaries.run_summaries(db, now_utc=datetime(2026, 10, 23, 12, 10))
+        check("12 the next pass sends it", len(sent_to(cy_b["endpoint"])) == 1, REQUESTS)
 
     db.close()
     return check.exit_code()

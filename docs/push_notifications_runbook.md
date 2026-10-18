@@ -495,11 +495,32 @@ another public key`.
   their phones: the settings list, Mute, quiet hours, Push alerts timing,
   grouping of page changes, TTLs. Each push is encrypted for that browser
   (RFC 8291, aes128gcm, http-ece) and signed with our VAPID key (RFC 8292,
-  py-vapid), so the push service can't read it. Headers: `TTL` as for the
-  phone, `Urgency: high` for replies and election reminders, and `Topic`
-  (a newer undelivered push replaces the older one) as a hash of the tag,
-  because the push service reads headers in the clear and a tag can name
-  a page.
+  py-vapid), so the push service can't read what it says (the text, the
+  ids for the tap, the badge count). Headers, which the push service
+  reads in the clear: `TTL` as for the phone (3 days for a post, 2 for a
+  summary, until the start for an event, until the deadline for an
+  election reminder), `Urgency: high` for replies and election
+  reminders, and `Topic` (a newer undelivered push replaces the older
+  one). The Topic is an HMAC of the tag under a key derived from
+  `VAPID_PRIVATE_KEY`, 22 URL-safe characters: the tags come from small
+  sets anyone can list (`page-<official id>`, `bill-<key>`, `poll-<n>`,
+  `event-<n>`), so a plain hash could be reversed by hashing them all.
+  The push service still sees the endpoint, that CivicView sent it, the
+  time, the size, the TTL and the urgency, and that two pushes share a
+  Topic; the privacy policy says so.
+- **Keys at registration**: `p256dh` must be a point on P-256
+  (`from_encoded_point`), not just 65 bytes starting with 0x04, and
+  `auth` 16 bytes; anything else is a 400 `invalid_keys`. A stored row
+  whose keys still can't be encrypted for (a row written before that
+  check, or by hand) is removed at its first send with its held updates,
+  as for a 404 or 410, instead of being retried forever.
+- **Order of commits**: on every send path the phones' results (held
+  updates, `last_push_at`, pruned tokens) are committed first; the
+  browsers are then sent to in a transaction of their own
+  (`push_service._send_to_browsers`), so a web push failure rolls back
+  only the browsers' changes. In the summary pass a failed browser
+  counts as a transient failure: its claim is released and its held
+  updates wait for the next pass.
 - **What it says**: built from the same message as the phone with
   `push_service.shown()`: by default only the general line ("New update
   from an official you track", or a count line for a summary) and no
@@ -562,6 +583,27 @@ another public key`.
   browsers bound to the admin's citizen account (`web: on|off` in the
   answer).
 
+### Known gap: a rotated subscription (no route for it yet; Jeffrey, 2026-10-18)
+
+A push service can replace a browser's subscription with a new one (it
+is rare: an expiry, a browser update, the push service rotating its
+keys). `public/sw.js` then subscribes again on `pushsubscriptionchange`,
+but a service worker has no session and no CSRF token, so it does not
+tell the server. Until CivicView is next opened in that browser:
+
+- the server still holds the old endpoint; the push service answers 410
+  for it and the row is removed, with any updates held for that
+  browser's summary;
+- that browser gets no pushes. Its bell rows, email and the person's
+  other devices are unaffected.
+
+The next time CivicView opens there (any page, signed in or not),
+`refreshWebPush` registers the current subscription, binds it to the
+signed-in citizen and sends the tracked list and settings, with no
+prompt. A worker-side route that registers the new subscription at once
+is in Deferred below; it would need its own way to prove which browser
+it is (the old endpoint and keys) instead of a session.
+
 ### Logs to look for (Render)
 
 - `Web push: VAPID keys loaded, web push active` (or `Web push off: ...`
@@ -573,6 +615,11 @@ another public key`.
   server clock); subscriptions kept`.
 - `web push: a browser subscribed with another public key; check that
   NEXT_PUBLIC_VAPID_PUBLIC_KEY matches VAPID_PUBLIC_KEY`.
+- `web push: N subscription(s) with keys that can't be encrypted for;
+  removed`.
+- `web push failed (non-fatal; the phones' results were already saved)`,
+  or in the summary pass `push summaries: web push to a browser failed;
+  it is tried again next pass`, each with its traceback.
 
 ### Checklist: iPhone (the Home Screen app, iOS 16.4 or later)
 
@@ -638,8 +685,9 @@ another public key`.
 - A monochrome badge image for notifications in Chrome on Android (it
   shows Chrome's default small icon today).
 - Registering a rotated subscription from the service worker itself
-  (`pushsubscriptionchange` makes the new one; the page registers it the
-  next time CivicView opens, and the old endpoint is pruned on its 410).
+  (see "Known gap: a rotated subscription" above: today the page
+  registers it the next time CivicView opens, and the old endpoint is
+  pruned on its 410).
 - Election reminder pushes carrying their bell row id.
 - Removing an event's notification when the official cancels the event
   (the tag is in place).

@@ -11,9 +11,15 @@ push_summaries): the settings list, Mute, quiet hours, summaries and
 TTLs apply to a browser exactly as to a phone. Each push is sent to the
 browser's own push service (Google for Chrome and for Edge on Android,
 Microsoft for Edge on Windows, Mozilla for Firefox, Apple for Safari and
-Home Screen apps), encrypted for that one subscription, so the push
-service sees only the endpoint, the size and the headers (TTL, urgency
-and an opaque topic, never a name or an id).
+Home Screen apps), encrypted for that one subscription. The push
+service cannot read the notification (its text, the ids for the tap, the
+badge count). What it does see, as any push service does: the endpoint
+(this browser), that the push comes from CivicView (the VAPID header),
+when it is sent, its size, how long it may wait (the TTL: 3 days for a
+post, until the start for an event, until the deadline for an election
+reminder), its urgency (high for replies and election reminders) and the
+Topic, an HMAC of the tag under a key only the server has, so it names
+no one but shows when two pushes are about the same thing.
 
 Env (Render), all three or web push stays off:
   VAPID_PUBLIC_KEY   base64url, the uncompressed P-256 public key (65 bytes)
@@ -43,6 +49,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import hmac
 import json
 import logging
 import os
@@ -118,11 +125,17 @@ def is_allowed_endpoint(url: str) -> bool:
 
 
 def valid_keys(p256dh: str, auth: str) -> bool:
-    """The subscription's keys: an uncompressed P-256 point (65 bytes)
-    and a 16-byte auth secret."""
+    """The subscription's keys: an uncompressed point on P-256 (65
+    bytes, checked on the curve, so a junk key is refused here instead
+    of failing at every send) and a 16-byte auth secret."""
+    from cryptography.hazmat.primitives.asymmetric import ec
+
     try:
-        return len(b64url_decode(p256dh)) == 65 and b64url_decode(p256dh)[0] == 4 \
-            and len(b64url_decode(auth)) == 16
+        point = b64url_decode(p256dh)
+        if len(point) != 65 or point[0] != 4 or len(b64url_decode(auth)) != 16:
+            return False
+        ec.EllipticCurvePublicKey.from_encoded_point(ec.SECP256R1(), point)
+        return True
     except (ValueError, TypeError):
         return False
 
@@ -134,6 +147,7 @@ class VapidConfig:
     public_key: str      # base64url, no padding
     subject: str
     vapid: object        # py_vapid.Vapid02
+    topic_key: bytes     # the Topic HMAC key, derived from the private key
 
 
 _config: Optional[VapidConfig] = None
@@ -162,11 +176,16 @@ def _load_config() -> Optional[VapidConfig]:
             # Never log either key, only that they do not belong together.
             logger.error("Web push off: VAPID_PUBLIC_KEY is not the public key of VAPID_PRIVATE_KEY")
             return None
+        # The Topic key: one HMAC of the private key under a fixed label,
+        # so it needs no env var of its own and reveals nothing about it.
+        raw = vapid.private_key.private_numbers().private_value.to_bytes(32, "big")
+        topic_key = hmac.new(raw, b"civicview web push topic v1", hashlib.sha256).digest()
     except Exception:
         logger.error("Web push off: VAPID_PRIVATE_KEY could not be read (expected the base64url raw key)")
         return None
     logger.info("Web push: VAPID keys loaded, web push active")
-    return VapidConfig(public_key=b64url_encode(derived), subject=subject, vapid=vapid)
+    return VapidConfig(public_key=b64url_encode(derived), subject=subject, vapid=vapid,
+                       topic_key=topic_key)
 
 
 def config() -> Optional[VapidConfig]:
@@ -267,22 +286,36 @@ def payload_for(m: PushMessage, *, badge: Optional[int] = None) -> dict:
     return out
 
 
-def _topic(tag: Optional[str]) -> Optional[str]:
+def _topic(cfg: VapidConfig, tag: Optional[str]) -> Optional[str]:
     """The Topic header (RFC 8030): a newer undelivered push with the
     same topic replaces the older one at the push service. The push
-    service reads it in the clear, unlike the encrypted payload, and a
-    tag can name an official's page (page-<id>), so it is a hash of the
-    tag: 22 characters of the URL-safe base64 alphabet (at most 32)."""
+    service reads it in the clear, unlike the encrypted payload, and the
+    tags come from small sets anyone can list (page-<official id>,
+    bill-<key>, poll-<n>, event-<n>), so a plain hash could be reversed
+    by hashing every candidate. It is an HMAC of the tag under the
+    server's topic key instead: 22 characters of the URL-safe base64
+    alphabet (RFC 8030 allows at most 32). It still shows that two
+    pushes share a tag, which is what lets the newer one replace the
+    older."""
     if not tag:
         return None
-    return b64url_encode(hashlib.sha256(("civicview-topic:" + tag).encode("utf-8")).digest())[:22]
+    return b64url_encode(hmac.new(cfg.topic_key, tag.encode("utf-8"), hashlib.sha256).digest())[:22]
+
+
+class UnusableKeys(Exception):
+    """The subscription's keys cannot be encrypted for (not a point on
+    P-256, not base64url): no push can ever reach it."""
 
 
 def request_for(cfg: VapidConfig, sub, m: PushMessage, *, badge: Optional[int] = None) -> Tuple[dict, bytes]:
-    """(headers, body) of the POST to the subscription's endpoint."""
+    """(headers, body) of the POST to the subscription's endpoint.
+    Raises UnusableKeys when the subscription's keys are junk."""
     raw = json.dumps(payload_for(m, badge=badge), ensure_ascii=False, separators=(",", ":"),
                      default=str).encode("utf-8")
-    body = encrypt(raw, sub.p256dh, sub.auth)
+    try:
+        body = encrypt(raw, sub.p256dh, sub.auth)
+    except ValueError as exc:
+        raise UnusableKeys() from exc
     ttl = m.ttl_seconds if m.ttl_seconds is not None else POST_TTL_SECONDS
     headers = {
         "Authorization": vapid_authorization(cfg, sub.endpoint),
@@ -291,7 +324,7 @@ def request_for(cfg: VapidConfig, sub, m: PushMessage, *, badge: Optional[int] =
         "TTL": str(max(0, min(int(ttl), _MAX_TTL_SECONDS))),
         "Urgency": "high" if channel_of(m) in _HIGH_URGENCY else "normal",
     }
-    topic = _topic(m.tag)
+    topic = _topic(cfg, m.tag)
     if topic:
         headers["Topic"] = topic
     return headers, body
@@ -323,12 +356,14 @@ class WebPushService:
 
     def send(self, pushes: List[WebPush]) -> SendResult:
         """result.sent / invalid / failed hold endpoints. invalid: the
-        push service answered 404 or 410 (remove the subscription)."""
+        push service answered 404 or 410, or the subscription's keys
+        can't be encrypted for (remove the subscription either way)."""
         result = SendResult()
         if not pushes:
             return result
         lock = threading.Lock()
         forbidden = []
+        unusable = []
 
         def one(client, p: WebPush):
             endpoint = p.sub.endpoint
@@ -336,6 +371,8 @@ class WebPushService:
                 headers, body = request_for(self.cfg, p.sub, p.message, badge=p.badge)
                 r = client.post(endpoint, content=body, headers=headers)
                 status = r.status_code
+            except UnusableKeys:
+                status = "unusable"
             except Exception as exc:
                 logger.warning("web push: send failed (%s)", type(exc).__name__)
                 status = None
@@ -344,6 +381,10 @@ class WebPushService:
                     result.sent.add(endpoint)
                 elif status in (404, 410):
                     result.invalid.add(endpoint)
+                elif status == "unusable":
+                    # Never sendable, so pruned rather than retried forever.
+                    result.invalid.add(endpoint)
+                    unusable.append(endpoint)
                 else:
                     result.failed.add(endpoint)
                     if status in (401, 403):
@@ -357,6 +398,9 @@ class WebPushService:
             else:
                 with ThreadPoolExecutor(max_workers=min(_SEND_WORKERS, len(pushes))) as pool:
                     list(pool.map(lambda p: one(client, p), pushes))
+        if unusable:
+            logger.warning("web push: %d subscription(s) with keys that can't be encrypted for; removed",
+                           len(unusable))
         if forbidden:
             # Our key or clock, not the subscription: kept, and said loudly.
             logger.error("web push: %d push(es) refused with %s (check the VAPID keys and the server clock); "
@@ -396,8 +440,9 @@ def deliver(db, pairs, *, now=None, stamp: bool = True) -> SendResult:
     """Send [(WebPushSubscription row, PushMessage)] now: each bound
     browser's push carries the person's unread count for the app badge;
     last_push_at is stamped on those sent (unless stamp=False: election
-    reminders); a subscription whose push service answered 404 or 410 is
-    removed with its held updates. Does not commit."""
+    reminders); a subscription whose push service answered 404 or 410,
+    or whose keys can't be encrypted for, is removed with its held
+    updates. Does not commit."""
     from datetime import datetime
 
     from app.models.pages import PushHeldItem, WebPushSubscription

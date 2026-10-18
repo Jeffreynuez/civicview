@@ -66,6 +66,10 @@ function appPlugin() {
  * Never where web push can't work, and not once the browser blocked
  * notifications. An iPhone in a Safari tab gets the card too: Enable
  * shows the Add to Home Screen guide.
+ *
+ * 'launch' is for the browser only: in the Android app it is always
+ * false, so the app offers the card exactly as it did before web push
+ * (at sign-in or a track, never at launch).
  */
 export function shouldOfferPush(context = 'signin', now = Date.now()) {
   if (!isNativeApp()) {
@@ -78,7 +82,7 @@ export function shouldOfferPush(context = 'signin', now = Date.now()) {
     if (context !== 'track') return false;
     return reofferAllowed(context, now);
   }
-  if (!plugin()) return false;
+  if (context === 'launch' || !plugin()) return false;
   return reofferAllowed(context, now);
 }
 
