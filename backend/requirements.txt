@@ -25,13 +25,13 @@ certifi==2026.7.22
     #   httpcore
     #   httpx
     #   requests
-cffi==2.1.1 ; platform_python_implementation != 'PyPy'
+cffi==2.1.1
     # via cryptography
 charset-normalizer==3.5.1
     # via requests
 click==8.5.0
     # via uvicorn
-cryptography==45.0.7
+cryptography==50.0.0
     # via
     #   -r requirements.in
     #   google-auth
@@ -52,7 +52,7 @@ fastapi==0.119.1
     # via -r requirements.in
 firebase-admin==7.7.0
     # via -r requirements.in
-google-api-core==2.39.0
+google-api-core[grpc]==2.39.0
     # via
     #   firebase-admin
     #   google-cloud-core
@@ -68,7 +68,7 @@ google-cloud-core==2.7.0
     # via
     #   google-cloud-firestore
     #   google-cloud-storage
-google-cloud-firestore==2.32.0 ; platform_python_implementation != 'PyPy'
+google-cloud-firestore==2.32.0
     # via firebase-admin
 google-cloud-storage==3.15.0
     # via firebase-admin
@@ -82,14 +82,14 @@ googleapis-common-protos==1.75.4
     # via
     #   google-api-core
     #   grpcio-status
-greenlet==3.5.6 ; platform_machine == 'AMD64' or platform_machine == 'WIN32' or platform_machine == 'aarch64' or platform_machine == 'amd64' or platform_machine == 'ppc64le' or platform_machine == 'win32' or platform_machine == 'x86_64'
+greenlet==3.5.6
     # via sqlalchemy
-grpcio==1.84.0 ; platform_python_implementation != 'PyPy'
+grpcio==1.84.0
     # via
     #   google-api-core
     #   google-cloud-firestore
     #   grpcio-status
-grpcio-status==1.84.0 ; platform_python_implementation != 'PyPy'
+grpcio-status==1.84.0
     # via google-api-core
 h11==0.16.0
     # via
@@ -105,7 +105,7 @@ httpcore==1.0.9
     # via httpx
 httptools==0.8.0
     # via uvicorn
-httpx==0.28.1
+httpx[http2]==0.28.1
     # via
     #   -r requirements.in
     #   anthropic
@@ -153,16 +153,16 @@ pyasn1==0.6.4
     # via pyasn1-modules
 pyasn1-modules==0.4.2
     # via google-auth
-pycparser==3.0 ; implementation_name != 'PyPy' and platform_python_implementation != 'PyPy'
+pycparser==3.0
     # via cffi
-pydantic==2.13.5
+pydantic[email]==2.13.5
     # via
     #   -r requirements.in
     #   anthropic
     #   fastapi
 pydantic-core==2.46.5
     # via pydantic
-pyjwt==2.15.0
+pyjwt[crypto]==2.15.0
     # via firebase-admin
 pyotp==2.10.0
     # via -r requirements.in
@@ -205,7 +205,6 @@ typing-extensions==4.16.0
     #   pydantic
     #   pydantic-core
     #   sqlalchemy
-    #   starlette
     #   stripe
     #   typing-inspection
 typing-inspection==0.4.4
@@ -214,9 +213,9 @@ urllib3==2.8.0
     # via
     #   botocore
     #   requests
-uvicorn==0.53.0
+uvicorn[standard]==0.53.0
     # via -r requirements.in
-uvloop==0.22.1 ; platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32'
+uvloop==0.22.1
     # via uvicorn
 watchfiles==1.3.0
     # via uvicorn
