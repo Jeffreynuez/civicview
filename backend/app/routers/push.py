@@ -28,7 +28,7 @@ import logging
 from datetime import datetime
 from typing import List, Optional
 
-from fastapi import APIRouter, BackgroundTasks, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
@@ -122,18 +122,7 @@ def register_device(
     row.citizen_id = new_owner
     # v2 optional fields. tracked is merged into the stored list and
     # tracked_remove takes keys out (2026-10-16); prefs {} clears.
-    if payload.tracked is not None or payload.tracked_remove:
-        stored = []
-        try:
-            stored = json.loads(row.tracked_json) if row.tracked_json else []
-        except (ValueError, TypeError):
-            stored = []
-        # The new keys first, so the cap keeps them over the oldest.
-        merged = _normalize_tracked(
-            list(payload.tracked or []) + [k for k in stored if isinstance(k, str)])
-        removed = set(_normalize_tracked(list(payload.tracked_remove or [])))
-        merged = [k for k in merged if k not in removed]
-        row.tracked_json = json.dumps(merged) if merged else None
+    _merge_tracked(row, payload.tracked, payload.tracked_remove)
     if payload.prefs is not None:
         from app.routers.auth_citizen import sanitize_notification_prefs
 
@@ -150,15 +139,34 @@ def register_device(
     return {"ok": True, "bound": citizen is not None, "os_enabled": row.notifications_off_at is None}
 
 
-def _forget_owner_state(db: Session, row: DeviceToken) -> None:
+def _forget_owner_state(db: Session, row) -> None:
     """The device changes hands: drop the tracked list it carried and
-    any updates held for the previous owner's summary push."""
+    any updates held for the previous owner's summary push. A phone
+    (DeviceToken) or a browser (WebPushSubscription)."""
     from app.models.pages import PushHeldItem
+    from app.services.push_service import is_web
 
     row.tracked_json = None
     row.summary_sent_at = None
-    db.query(PushHeldItem).filter(PushHeldItem.device_token_id == row.id).delete(
-        synchronize_session=False)
+    held_col = PushHeldItem.web_subscription_id if is_web(row) else PushHeldItem.device_token_id
+    db.query(PushHeldItem).filter(held_col == row.id).delete(synchronize_session=False)
+
+
+def _merge_tracked(row, tracked: Optional[List[str]], tracked_remove: Optional[List[str]]) -> None:
+    """tracked is merged into the stored list and tracked_remove takes
+    keys out (2026-10-16), for phones and browsers alike."""
+    if tracked is None and not tracked_remove:
+        return
+    stored = []
+    try:
+        stored = json.loads(row.tracked_json) if row.tracked_json else []
+    except (ValueError, TypeError):
+        stored = []
+    # The new keys first, so the cap keeps them over the oldest.
+    merged = _normalize_tracked(list(tracked or []) + [k for k in stored if isinstance(k, str)])
+    removed = set(_normalize_tracked(list(tracked_remove or [])))
+    merged = [k for k in merged if k not in removed]
+    row.tracked_json = json.dumps(merged) if merged else None
 
 
 class PushUnbindIn(BaseModel):
@@ -209,6 +217,120 @@ def unregister_device(
     return {"ok": True, "deleted": int(deleted)}
 
 
+# ── Web push (2026-10-18): browsers, the iPhone Home Screen app and the
+# Windows app. The same rules as the phone routes above: a register with
+# a citizen session binds the browser, one without unbinds it, unbind is
+# the sign-out, unregister is "Turn off". Holding the endpoint is the
+# proof for unbind and unregister, as the token is for a phone; both can
+# only take alerts away. CSRF and the push rate limit apply as above.
+
+class WebPushKeys(BaseModel):
+    p256dh: str = Field(min_length=80, max_length=128)
+    auth: str = Field(min_length=16, max_length=64)
+
+
+class WebPushIn(BaseModel):
+    endpoint: str = Field(min_length=12, max_length=1024)
+    keys: WebPushKeys
+    # The public key the browser subscribed with; must be ours.
+    application_server_key: Optional[str] = Field(default=None, max_length=128)
+    platform: str = Field(default="desktop", max_length=16)
+    tracked: Optional[List[str]] = None
+    tracked_remove: Optional[List[str]] = None
+    prefs: Optional[dict] = None
+
+
+class WebPushEndpointIn(BaseModel):
+    endpoint: str = Field(min_length=12, max_length=1024)
+
+
+_WEB_PLATFORMS = {"desktop", "android", "ios"}
+
+
+@router.post("/web/register")
+def register_web_push(
+    payload: WebPushIn,
+    db: Session = Depends(get_db),
+    citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+):
+    from app.models.pages import WebPushSubscription
+    from app.services import web_push
+
+    if not web_push.enabled():
+        raise HTTPException(status_code=503, detail="web_push_off")
+    # Only the real push services: nobody can point the server at an
+    # address of their choosing.
+    if not web_push.is_allowed_endpoint(payload.endpoint):
+        raise HTTPException(status_code=400, detail="endpoint_not_allowed")
+    if not web_push.valid_keys(payload.keys.p256dh, payload.keys.auth):
+        raise HTTPException(status_code=400, detail="invalid_keys")
+    key = (payload.application_server_key or "").strip().rstrip("=")
+    if key and key != web_push.public_key():
+        # NEXT_PUBLIC_VAPID_PUBLIC_KEY (Vercel) is not VAPID_PUBLIC_KEY
+        # (Render): our pushes could never reach this subscription.
+        logger.warning("web push: a browser subscribed with another public key; check that "
+                       "NEXT_PUBLIC_VAPID_PUBLIC_KEY matches VAPID_PUBLIC_KEY")
+        raise HTTPException(status_code=409, detail="vapid_key_mismatch")
+
+    now = datetime.utcnow()
+    row = db.query(WebPushSubscription).filter(WebPushSubscription.endpoint == payload.endpoint).first()
+    if row is None:
+        row = WebPushSubscription(endpoint=payload.endpoint, p256dh=payload.keys.p256dh,
+                                  auth=payload.keys.auth)
+        db.add(row)
+    row.p256dh = payload.keys.p256dh
+    row.auth = payload.keys.auth
+    row.platform = payload.platform if payload.platform in _WEB_PLATFORMS else "desktop"
+    row.last_seen_at = now
+    # The browser belongs to whoever is signed in on it right now.
+    new_owner = citizen.id if citizen is not None else None
+    if row.id is not None and row.citizen_id != new_owner:
+        _forget_owner_state(db, row)
+    row.citizen_id = new_owner
+    _merge_tracked(row, payload.tracked, payload.tracked_remove)
+    if payload.prefs is not None:
+        from app.routers.auth_citizen import sanitize_notification_prefs
+
+        prefs = sanitize_notification_prefs(payload.prefs)
+        row.prefs_json = json.dumps(prefs, ensure_ascii=False) if prefs else None
+    db.commit()
+    return {"ok": True, "bound": citizen is not None}
+
+
+@router.post("/web/unbind")
+def unbind_web_push(payload: WebPushEndpointIn, db: Session = Depends(get_db)):
+    """Sign-out: the browser keeps push for whoever uses it next but no
+    longer belongs to the account, with an empty tracked list."""
+    from app.models.pages import WebPushSubscription
+
+    row = db.query(WebPushSubscription).filter(WebPushSubscription.endpoint == payload.endpoint).first()
+    if row is None:
+        return {"ok": True, "unbound": False}
+    was_bound = row.citizen_id is not None
+    _forget_owner_state(db, row)
+    row.citizen_id = None
+    db.commit()
+    if was_bound:
+        logger.info("web push: browser unbound on sign-out")
+    return {"ok": True, "unbound": was_bound}
+
+
+@router.post("/web/unregister")
+def unregister_web_push(payload: WebPushEndpointIn, db: Session = Depends(get_db)):
+    """Turn off: the subscription and everything stored with it go."""
+    from app.models.pages import PushHeldItem, WebPushSubscription
+
+    row = db.query(WebPushSubscription).filter(WebPushSubscription.endpoint == payload.endpoint).first()
+    deleted = 0
+    if row is not None:
+        db.query(PushHeldItem).filter(PushHeldItem.web_subscription_id == row.id).delete(
+            synchronize_session=False)
+        deleted = db.query(WebPushSubscription).filter(WebPushSubscription.id == row.id).delete(
+            synchronize_session=False)
+    db.commit()
+    return {"ok": True, "deleted": int(deleted)}
+
+
 # ── Admin: "Send me a test push" (2026-10-16) ────────────────────────
 admin_router = APIRouter()
 
@@ -217,6 +339,8 @@ class TestPushIn(BaseModel):
     # The token saved on the device the admin page is open on, when it
     # is open in the app. Only a token already registered here is used.
     token: Optional[str] = Field(default=None, max_length=512)
+    # This browser's web push endpoint (2026-10-18), likewise.
+    endpoint: Optional[str] = Field(default=None, max_length=1024)
 
 
 @admin_router.post("/test")
@@ -227,35 +351,51 @@ def send_test_push(
 ):
     """Send one test push to the admin's own devices: those bound to
     their citizen account, plus this device's token when the page is
-    open in the app. Reports what happened and logs it."""
-    from app.models.pages import PushHeldItem
-    from app.services.push_service import DevPushService, message_for, send_push_messages
+    open in the app, and since 2026-10-18 the browsers bound to the
+    account plus this browser. Reports what happened and logs it."""
+    from app.models.pages import PushHeldItem, WebPushSubscription
+    from app.services import web_push
+    from app.services.push_service import DevPushService, message_for, send_push_messages, web_rows_for
 
     rows = []
+    web_rows = []
     if actor.get("kind") == "citizen":
         rows = db.query(DeviceToken).filter(DeviceToken.citizen_id == actor.get("id")).all()
+        web_rows = web_rows_for(db, [actor.get("id")])
     token = (payload.token or "").strip() if payload is not None else ""
     if token and token not in {r.token for r in rows}:
         extra = db.query(DeviceToken).filter(DeviceToken.token == token).first()
         if extra is not None:
             rows.append(extra)
+    endpoint = (payload.endpoint or "").strip() if payload is not None else ""
+    if endpoint and web_push.enabled() and endpoint not in {r.endpoint for r in web_rows}:
+        extra = db.query(WebPushSubscription).filter(WebPushSubscription.endpoint == endpoint).first()
+        if extra is not None:
+            web_rows.append(extra)
     service = "dev" if isinstance(get_push_service(), DevPushService) else "fcm"
-    if not rows:
+    web = "on" if web_push.enabled() else "off"
+    if not rows and not web_rows:
         logger.info("admin %s:%s test push: no registered device", actor.get("kind"), actor.get("id"))
-        return {"devices": 0, "sent": 0, "failed": 0, "pruned": 0, "service": service}
-    result = send_push_messages([
-        message_for(r, {"lock_screen_details": True}, title="CivicView test push",
-                    body="If you can read this, push works on this device.",
-                    data={"kind": "test"}, channel="officials", ttl_seconds=600)
-        for r in rows
-    ])
+        return {"devices": 0, "sent": 0, "failed": 0, "pruned": 0, "service": service, "web": web}
+
+    def test_message(r):
+        return message_for(r, {"lock_screen_details": True}, title="CivicView test push",
+                           body="If you can read this, push works on this device.",
+                           data={"kind": "test"}, channel="officials", ttl_seconds=600)
+
+    result = send_push_messages([test_message(r) for r in rows])
     pruned = 0
     if result.invalid:
         dead = [r.id for r in rows if r.token in result.invalid]
         db.query(PushHeldItem).filter(PushHeldItem.device_token_id.in_(dead)).delete(synchronize_session=False)
         pruned = db.query(DeviceToken).filter(DeviceToken.id.in_(dead)).delete(synchronize_session=False)
         db.commit()
-    out = {"devices": len(rows), "sent": len(result.sent), "failed": len(result.failed),
-           "pruned": pruned, "service": service}
+    web_result = web_push.deliver(db, [(r, test_message(r)) for r in web_rows])
+    if web_rows:
+        db.commit()
+    pruned += len(web_result.invalid)
+    out = {"devices": len(rows) + len(web_rows), "sent": len(result.sent) + len(web_result.sent),
+           "failed": len(result.failed) + len(web_result.failed),
+           "pruned": pruned, "service": service, "web": web}
     logger.info("admin %s:%s test push: %s", actor.get("kind"), actor.get("id"), out)
     return out

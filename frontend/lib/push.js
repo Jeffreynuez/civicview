@@ -1,11 +1,11 @@
 'use client';
 
-// CivicView — device push registration (native app shell only).
+// CivicView: device push registration (the app's FCM, and web push).
 // Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 //
-// The web app runs in two contexts: the browser (no native push —
-// everything here no-ops) and the Capacitor Android/iOS shell, where
+// The web app runs in two contexts: the browser (web push since
+// 2026-10-18, lib/webPush.js) and the Capacitor Android/iOS shell, where
 // the native runtime injects window.Capacitor into the remote-URL
 // webview. We read the global rather than importing @capacitor/core
 // so the web bundle carries zero extra weight.
@@ -19,27 +19,24 @@
 //      /api/push/register (cookie credentials + X-CSRF-Token, same as
 //      every other write). Signed-in citizen => token binds to the
 //      account; anonymous => backend subscribes it to 'announcements'.
+//
+// Browsers (2026-10-18): in a browser, the Home Screen app on an iPhone
+// or the Windows app, the exported functions below hand over to
+// lib/webPush.js (web push), so callers use one API. The app's own
+// paths are unchanged.
 
 import { request } from './http';
 import { notificationLink, openDeepLink } from './deepLinks';
+import {
+  getPushChoice, isNativeApp, reofferAllowed, setPushChoice,
+} from './pushCore';
+import * as web from './webPush';
 
-const CHOICE_KEY = 'cv:push:choice'; // 'enabled' | 'declined' | 'denied'
+export {
+  declinePushOffer, getPushChoice, isNativeApp, REOFFER_DAYS, setPushChoice,
+} from './pushCore';
+
 const TOKEN_KEY = 'cv:push:token';   // last FCM token we registered
-// "Not now" on the opt-in card (2026-10-17): when, and how many times.
-// The card comes back once, in context (the next track), at least
-// REOFFER_DAYS later, never at launch; a second "Not now" ends it.
-const DECLINED_AT_KEY = 'cv:push:declined_at';
-const DECLINES_KEY = 'cv:push:declines';
-export const REOFFER_DAYS = 30;
-
-export function isNativeApp() {
-  try {
-    return !!(typeof window !== 'undefined'
-      && window.Capacitor
-      && typeof window.Capacitor.isNativePlatform === 'function'
-      && window.Capacitor.isNativePlatform());
-  } catch { return false; }
-}
 
 function plugin() {
   try { return window.Capacitor?.Plugins?.PushNotifications || null; } catch { return null; }
@@ -56,27 +53,6 @@ function appPlugin() {
   try { return window.Capacitor?.Plugins?.App || null; } catch { return null; }
 }
 
-export function getPushChoice() {
-  try { return window.localStorage.getItem(CHOICE_KEY); } catch { return null; }
-}
-
-export function setPushChoice(value) {
-  try { window.localStorage.setItem(CHOICE_KEY, value); } catch { /* private mode */ }
-}
-
-function readNumber(key) {
-  try { return Number(window.localStorage.getItem(key) || 0) || 0; } catch { return 0; }
-}
-
-/** "Not now" on the card: record when, and that it was said once more. */
-export function declinePushOffer(now = Date.now()) {
-  setPushChoice('declined');
-  try {
-    window.localStorage.setItem(DECLINED_AT_KEY, String(now));
-    window.localStorage.setItem(DECLINES_KEY, String(readNumber(DECLINES_KEY) + 1));
-  } catch { /* private mode */ }
-}
-
 /**
  * True when the contextual opt-in card should be offered.
  * context: 'signin' (a citizen is signed in; the first offer only) or
@@ -84,15 +60,30 @@ export function declinePushOffer(now = Date.now()) {
  * either context. After one "Not now", only a track at least
  * REOFFER_DAYS later brings it back, once; never at launch. After a
  * second "Not now", or once push is on or Android said no, never.
+ *
+ * In a browser (2026-10-18, Jeffrey): only after a track, plus 'launch'
+ * once when CivicView is opened from an iPhone or iPad Home Screen.
+ * Never where web push can't work, and not once the browser blocked
+ * notifications. An iPhone in a Safari tab gets the card too: Enable
+ * shows the Add to Home Screen guide.
+ *
+ * 'launch' is for the browser only: in the Android app it is always
+ * false, so the app offers the card exactly as it did before web push
+ * (at sign-in or a track, never at launch).
  */
 export function shouldOfferPush(context = 'signin', now = Date.now()) {
-  if (!isNativeApp() || !plugin()) return false;
-  const choice = getPushChoice();
-  if (!choice) return true;
-  if (choice !== 'declined' || context !== 'track') return false;
-  if (readNumber(DECLINES_KEY) >= 2) return false;
-  const at = readNumber(DECLINED_AT_KEY);
-  return !!at && now - at >= REOFFER_DAYS * 24 * 3600 * 1000;
+  if (!isNativeApp()) {
+    const status = web.webPushStatus();
+    if (status !== 'ready' && status !== 'ios_home_screen') return false;
+    if (status === 'ready' && web.webPermission() === 'denied') return false;
+    if (context === 'launch') {
+      return status === 'ready' && web.isIos() && web.isStandalone() && !getPushChoice();
+    }
+    if (context !== 'track') return false;
+    return reofferAllowed(context, now);
+  }
+  if (context === 'launch' || !plugin()) return false;
+  return reofferAllowed(context, now);
 }
 
 // Identity headers and CSRF (2026-07-26 push deep dive, audit F4): the
@@ -206,6 +197,7 @@ function installRegistrationListeners(PN) {
 }
 
 export async function enablePush() {
+  if (!isNativeApp()) return web.enableWebPush();
   const PN = plugin();
   if (!PN) return { ok: false, reason: 'unsupported' };
   createChannels();
@@ -249,6 +241,7 @@ export function isPushEnabled() {
  * user's to manage in system settings) — we simply stop sending.
  */
 export async function disablePush() {
+  if (!isNativeApp()) return web.disableWebPush();
   let token = null;
   try { token = window.localStorage.getItem(TOKEN_KEY); } catch { /* private mode */ }
   if (token) {
@@ -282,7 +275,8 @@ function savedToken() {
 }
 
 export async function bindPushToAccount(citizenId) {
-  if (!isNativeApp() || getPushChoice() !== 'enabled') return false;
+  if (!isNativeApp()) return web.bindWebPush(citizenId);
+  if (getPushChoice() !== 'enabled') return false;
   if (citizenId && citizenId === lastBoundCitizenId) return false;
   const token = savedToken();
   if (!token) return false;
@@ -297,7 +291,7 @@ export async function bindPushToAccount(citizenId) {
 
 export async function unbindPushDevice() {
   lastBoundCitizenId = null;
-  if (!isNativeApp()) return false;
+  if (!isNativeApp()) return web.unbindWebPush();
   const token = savedToken();
   if (!token) return false;
   try {
@@ -422,7 +416,26 @@ export async function refreshOsStatus() {
 
 let resumeWatchInstalled = false;
 export function initPushStatusWatch() {
-  if (resumeWatchInstalled || !isNativeApp()) return;
+  if (resumeWatchInstalled) return;
+  if (!isNativeApp()) {
+    // A browser: when the person comes back to the tab, see whether
+    // they changed CivicView's notification permission in the site
+    // settings meanwhile, and if so, register again or let go.
+    resumeWatchInstalled = true;
+    let permission = web.webPermission();
+    try {
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState !== 'visible') return;
+        const now = web.webPermission();
+        if (now === permission) return;
+        permission = now;
+        web.refreshWebPush().finally(() => {
+          try { window.dispatchEvent(new CustomEvent('cv:push-state')); } catch { /* SSR */ }
+        });
+      });
+    } catch { /* SSR */ }
+    return;
+  }
   resumeWatchInstalled = true;
   createChannels();
   refreshOsStatus();
@@ -444,6 +457,12 @@ export function initPushStatusWatch() {
  * in-app clear and device state stay in step. No-op on the web.
  */
 export async function clearDeliveredNotifications() {
+  if (!isNativeApp()) {
+    // A browser: close CivicView's notifications and clear the app badge.
+    await web.closeWebNotifications();
+    web.setAppBadgeCount(0);
+    return;
+  }
   const PN = plugin();
   if (!PN || !isNativeApp()) return;
   try { await PN.removeAllDeliveredNotifications(); } catch { /* best effort */ }
@@ -455,7 +474,12 @@ export async function clearDeliveredNotifications() {
  * server-side without any UI.
  */
 export function refreshPushRegistration() {
-  if (!isNativeApp() || getPushChoice() !== 'enabled') return;
+  if (!isNativeApp()) {
+    // A browser: register again without a prompt (lib/webPush.js).
+    web.refreshWebPush().catch(() => { /* the next load retries */ });
+    return;
+  }
+  if (getPushChoice() !== 'enabled') return;
   (async () => {
     // Never a permission prompt at launch (2026-10-17): when Android
     // has notifications off for CivicView, only tell the server
@@ -502,9 +526,54 @@ async function markTappedRead(notificationId) {
   } catch { /* the bell row stays unread; nothing else depends on it */ }
 }
 
+/**
+ * A browser (2026-10-18): public/sw.js shows the notification. Its tap
+ * focuses an open CivicView window and posts { type: 'cv:push-tap', url,
+ * notification_id } here, so the tap does what the app's does: mark the
+ * bell row read, then open the link. With no window open, sw.js opens
+ * the link with the bell row id as ?cv_read=, read and removed here. A
+ * push arriving while CivicView is open posts 'cv:push-received', which
+ * refreshes the bell.
+ */
+// The bell row id a tap opened this window with (?cv_read=), read when
+// this module loads: app/page.js rewrites the address on its first
+// render, before any effect could read it.
+const launchReadId = (() => {
+  try { return new URL(window.location.href).searchParams.get('cv_read'); } catch { return null; }
+})();
+
+function initWebPushTapNavigation() {
+  if (typeof navigator === 'undefined' || !('serviceWorker' in navigator)) return;
+  tapNavInstalled = true;
+  try {
+    navigator.serviceWorker.addEventListener('message', (event) => {
+      const msg = (event && event.data) || {};
+      if (msg.type === 'cv:push-received') {
+        try { window.dispatchEvent(new CustomEvent('cv:notifications-refresh')); } catch { /* SSR */ }
+      } else if (msg.type === 'cv:push-tap') {
+        const url = typeof msg.url === 'string' && msg.url.startsWith('/') ? msg.url : null;
+        markTappedRead(msg.notification_id).finally(() => { if (url) openDeepLink(url); });
+      }
+    });
+  } catch { /* no service worker messages */ }
+  if (!launchReadId) return;
+  markTappedRead(launchReadId);
+  try {
+    const here = new URL(window.location.href);
+    if (here.searchParams.has('cv_read')) {
+      here.searchParams.delete('cv_read');
+      window.history.replaceState(window.history.state, '', here.pathname + here.search + here.hash);
+    }
+  } catch { /* ignore */ }
+}
+
 let tapNavInstalled = false;
 export function initPushTapNavigation() {
-  if (tapNavInstalled || !isNativeApp()) return;
+  if (tapNavInstalled) return;
+  if (!isNativeApp()) {
+    initWebPushTapNavigation();
+    return;
+  }
   const PN = plugin();
   if (!PN) return;
   tapNavInstalled = true;
@@ -552,7 +621,11 @@ export function initPushTapNavigation() {
 let syncTimer = null;
 const pendingRemovals = new Set();
 export function syncPushRegistration({ removed } = {}) {
-  if (!isNativeApp() || getPushChoice() !== 'enabled') return;
+  if (!isNativeApp()) {
+    web.syncWebPush({ removed });
+    return;
+  }
+  if (getPushChoice() !== 'enabled') return;
   if (removed) pendingRemovals.add(String(removed).toLowerCase());
   if (syncTimer) clearTimeout(syncTimer);
   syncTimer = setTimeout(async () => {

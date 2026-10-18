@@ -26,6 +26,13 @@
 # update replaces the older one, and a lock-screen version that hides
 # whom the person follows unless they chose "Show details". Older app
 # builds get the standard notification message, with the channel id.
+#
+# 2026-10-18 (web push): the same pushes also go to browsers
+# (models.WebPushSubscription, services/web_push.py): desktop browsers,
+# browsers on Android phones, CivicView on an iPhone Home Screen and the
+# Windows app. They are chosen, held and summarized by the same rules
+# here; only the sending differs. What an FCM push contains is
+# unchanged.
 
 from __future__ import annotations
 
@@ -338,11 +345,22 @@ def lock_screen_details(prefs: Optional[dict]) -> bool:
     return isinstance(prefs, dict) and prefs.get("lock_screen_details") is True
 
 
+def is_web(row) -> bool:
+    """The row is a browser (web_push_subscriptions), not a phone."""
+    return getattr(row, "__tablename__", None) == "web_push_subscriptions"
+
+
+def target_token(row) -> str:
+    """What a send result names a device by: a phone's FCM token, a
+    browser's endpoint."""
+    return row.endpoint if is_web(row) else row.token
+
+
 def message_for(row, prefs: Optional[dict], *, title: str, body: str, data: dict,
                 channel: str = DEFAULT_CHANNEL, tag: Optional[str] = None,
                 ttl_seconds: Optional[int] = None, public_title: Optional[str] = None) -> PushMessage:
     """One device's push, shaped for its app build and details setting."""
-    return PushMessage(token=row.token, title=title, body=body, data=data, ttl_seconds=ttl_seconds,
+    return PushMessage(token=target_token(row), title=title, body=body, data=data, ttl_seconds=ttl_seconds,
                        channel=channel, tag=tag, native=is_native(row),
                        show_details=lock_screen_details(prefs), public_title=public_title)
 
@@ -543,6 +561,7 @@ def _hold(db, row, *, reason: str, message: PushMessage, kind: str,
     summary of one update is that update's own push
     (push_summaries.build_message)."""
     from app.models.pages import PushHeldItem
+    web = is_web(row)
     stored = dict(message.data or {})
     stored["_channel"] = message.channel
     if message.tag:
@@ -550,12 +569,66 @@ def _hold(db, row, *, reason: str, message: PushMessage, kind: str,
     if message.public_title:
         stored["_public"] = message.public_title
     db.add(PushHeldItem(
-        device_token_id=row.id, reason=reason, kind=kind,
+        device_token_id=None if web else row.id, web_subscription_id=row.id if web else None,
+        reason=reason, kind=kind,
         official_id=official_id, official_name=(official_name or "")[:255] or None,
         notification_id=notification_id, title=message.title[:255], body=message.body,
         data_json=json.dumps(stored, ensure_ascii=False, default=str),
         created_at=now,
     ))
+
+
+def web_rows_for(db, citizen_ids, anon_key: Optional[str] = None) -> list:
+    """The browsers a push goes to (2026-10-18): those bound to the
+    citizens given and, with anon_key, signed-out browsers tracking that
+    key, the same as the phones. Empty while web push is off."""
+    from app.services import web_push
+
+    if not web_push.enabled():
+        return []
+    from app.models.pages import WebPushSubscription
+
+    ids = list(citizen_ids)
+    rows = (
+        db.query(WebPushSubscription).filter(WebPushSubscription.citizen_id.in_(ids)).all()
+        if ids else []
+    )
+    key = (anon_key or "").strip().lower()
+    if key:
+        for row in db.query(WebPushSubscription).filter(
+            WebPushSubscription.citizen_id.is_(None), WebPushSubscription.tracked_json.isnot(None),
+        ):
+            tracked = _parse_json_or_none(row.tracked_json)
+            if isinstance(tracked, list) and key in tracked:
+                rows.append(row)
+    return rows
+
+
+def _send_to_browsers(db, pending, *, now: Optional[datetime] = None, stamp: bool = True):
+    """The browsers' pushes, sent only after the phones' results are
+    committed (2026-10-18), in a transaction of their own: a failure
+    here (a push service, the network, a row removed meanwhile) rolls
+    back only the browsers' stamps and pruning, never a phone's held
+    update, last_push_at or pruning. pending: [(WebPushSubscription id,
+    PushMessage)], taken before that commit. Returns the SendResult, or
+    None when the send failed (logged, never raised)."""
+    from app.models.pages import WebPushSubscription
+    from app.services import web_push
+
+    try:
+        ids = [i for i, _m in pending]
+        # One query reloads the rows the commit expired; a browser
+        # turned off meanwhile is gone and skipped.
+        rows = {
+            r.id: r for r in db.query(WebPushSubscription).filter(WebPushSubscription.id.in_(ids))
+        } if ids else {}
+        result = web_push.deliver(db, [(rows[i], m) for i, m in pending if i in rows], now=now, stamp=stamp)
+        db.commit()
+        return result
+    except Exception:
+        db.rollback()
+        logger.exception("web push failed (non-fatal; the phones' results were already saved)")
+        return None
 
 
 def _deliver_tracked_push(
@@ -602,6 +675,10 @@ def _deliver_tracked_push(
          summary when they end; otherwise it is sent now. Dead tokens
          are pruned, last_push_at is stamped on the devices sent to,
          and one log line counts all of it.
+      4. Browsers last: the phones' results and every held update are
+         committed first, then the browsers are sent to in their own
+         transaction (_send_to_browsers), so a web push failure never
+         undoes the phones'.
 
     Returns the number of devices sent to now. Raises freely: the
     public wrappers own the never-raise guarantee.
@@ -630,11 +707,15 @@ def _deliver_tracked_push(
                                      DeviceToken.notifications_off_at.is_(None)).all()
         if ids else []
     )
+    # Browsers (2026-10-18): the same citizens, and signed-out browsers
+    # tracking the key.
+    web_rows = web_rows_for(db, ids, anon_key)
     account_prefs: dict = {}
-    if rows:
+    bound = {r.citizen_id for r in rows} | {r.citizen_id for r in web_rows if r.citizen_id is not None}
+    if bound:
         prefs_rows = (
             db.query(CitizenAccount.id, CitizenAccount.notification_prefs_json)
-            .filter(CitizenAccount.id.in_({r.citizen_id for r in rows}))
+            .filter(CitizenAccount.id.in_(bound))
             .all()
         )
         account_prefs = {cid: _parse_json_or_none(blob) for cid, blob in prefs_rows}
@@ -658,7 +739,7 @@ def _deliver_tracked_push(
             if isinstance(tracked, list) and key in tracked:
                 rows.append(row)
 
-    if not rows:
+    if not rows and not web_rows:
         # This exact silence cost a debugging session (2026-07-26):
         # fan-out logged "-> N citizens" and then NOTHING, because
         # every device row was anonymous with no tracked_json. Say
@@ -666,11 +747,12 @@ def _deliver_tracked_push(
         logger.info("%s: no registered devices for %d tracking citizen(s)", kind, len(ids))
         return 0
 
-    # 3. Send now, or hold for a summary.
-    sendable = []
-    held_summary = held_quiet = 0
+    # 3. Send now, or hold for a summary. Phones and browsers alike.
     notification_ids = notification_ids or {}
-    for row in rows:
+    held = {"summary": 0, "quiet": 0, "web_summary": 0, "web_quiet": 0}
+
+    def now_or_held(row):
+        """The device's message to send now, or None when it is held."""
         prefs = device_prefs(row, account_prefs)
         nid = notification_ids.get(row.citizen_id) if row.citizen_id is not None else None
         row_data = dict(data)
@@ -690,12 +772,20 @@ def _deliver_tracked_push(
             _hold(db, row, reason=reason, message=message, kind=kind,
                   official_id=data.get("official_id"), official_name=official_name,
                   notification_id=nid, now=now)
-            if reason == "summary":
-                held_summary += 1
-            else:
-                held_quiet += 1
-            continue
-        sendable.append((row, message))
+            held[("web_" if is_web(row) else "") + reason] += 1
+            return None
+        return message
+
+    sendable = []
+    for row in rows:
+        message = now_or_held(row)
+        if message is not None:
+            sendable.append((row, message))
+    web_pending = []
+    for row in web_rows:
+        message = now_or_held(row)
+        if message is not None:
+            web_pending.append((row.id, message))
 
     result = send_push_messages([m for _row, m in sendable])
     for row, _m in sendable:
@@ -711,12 +801,20 @@ def _deliver_tracked_push(
             synchronize_session=False
         )
     db.commit()
-    logger.info(
-        "push %s official=%s: sent=%d held_for_summary=%d held_quiet_hours=%d failed=%d pruned=%d",
-        kind, data.get("official_id"), len(result.sent), held_summary, held_quiet,
-        len(result.failed), pruned,
-    )
-    return len(result.sent)
+    if rows:
+        logger.info(
+            "push %s official=%s: sent=%d held_for_summary=%d held_quiet_hours=%d failed=%d pruned=%d",
+            kind, data.get("official_id"), len(result.sent), held["summary"], held["quiet"],
+            len(result.failed), pruned,
+        )
+    web_result = _send_to_browsers(db, web_pending, now=now) if web_rows else None
+    if web_result is not None:
+        logger.info(
+            "web push %s official=%s: sent=%d held_for_summary=%d held_quiet_hours=%d failed=%d pruned=%d",
+            kind, data.get("official_id"), len(web_result.sent), held["web_summary"], held["web_quiet"],
+            len(web_result.failed), len(web_result.invalid),
+        )
+    return len(result.sent) + (len(web_result.sent) if web_result is not None else 0)
 
 
 def push_tracked_post(
@@ -877,13 +975,15 @@ def push_election_reminder(
             return {}
         rows = db.query(DeviceToken).filter(DeviceToken.citizen_id.in_(list(ttl_by_citizen)),
                                             DeviceToken.notifications_off_at.is_(None)).all()
-        if not rows:
+        # Browsers bound to the same citizens (2026-10-18).
+        web_rows = web_rows_for(db, list(ttl_by_citizen))
+        if not rows and not web_rows:
             return {}
         from app.models.pages import CitizenAccount
         account_prefs = {
             cid: _parse_json_or_none(blob)
             for cid, blob in db.query(CitizenAccount.id, CitizenAccount.notification_prefs_json)
-            .filter(CitizenAccount.id.in_({r.citizen_id for r in rows}))
+            .filter(CitizenAccount.id.in_({r.citizen_id for r in rows} | {r.citizen_id for r in web_rows}))
         }
         # One message per device since 2026-10-17 (it was one multicast
         # per TTL), so each carries its own app format and lock-screen
@@ -902,6 +1002,17 @@ def push_election_reminder(
                 row, prefs, title=title, body=body, data=data, channel="elections",
                 tag=f"election-{data.get('reminder_id')}" if data.get("reminder_id") else None,
                 ttl_seconds=ttl)))
+        web_messages = []
+        for row in web_rows:
+            prefs = device_prefs(row, account_prefs)
+            if _in_quiet_hours(prefs, now_utc):
+                suppressed += 1
+                continue
+            ttl = (ttl_by_citizen[row.citizen_id] // 60) * 60
+            web_messages.append((row.id, row.citizen_id, row.endpoint, message_for(
+                row, prefs, title=title, body=body, data=data, channel="elections",
+                tag=f"election-{data.get('reminder_id')}" if data.get("reminder_id") else None,
+                ttl_seconds=ttl)))
         if suppressed:
             logger.info("election_reminder: %d device(s) in quiet hours, no push", suppressed)
         result = send_push_messages([m for _row, m in messages])
@@ -914,6 +1025,13 @@ def push_election_reminder(
                 synchronize_session=False
             )
             db.commit()
+        if web_messages:
+            # After the phones' pruning is committed, in its own
+            # transaction; last_push_at is left alone here too.
+            web_result = _send_to_browsers(db, [(i, m) for i, _cid, _ep, m in web_messages], stamp=False)
+            for _i, cid, endpoint, _m in web_messages:
+                if web_result is not None and endpoint in web_result.sent:
+                    sent[cid] = sent.get(cid, 0) + 1
         logger.info("election_reminder: pushed to %d device(s)", sum(sent.values()))
         return sent
     except Exception:

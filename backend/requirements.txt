@@ -35,6 +35,8 @@ cryptography==45.0.7
     # via
     #   -r requirements.in
     #   google-auth
+    #   http-ece
+    #   py-vapid
     #   pyjwt
 defusedxml==0.7.1
     # via -r requirements.in
@@ -97,6 +99,8 @@ h2==4.4.1
     # via httpx
 hpack==4.2.0
     # via h2
+http-ece==1.2.1
+    # via -r requirements.in
 httpcore==1.0.9
     # via httpx
 httptools==0.8.0
@@ -142,6 +146,8 @@ protobuf==7.36.2
     #   grpcio-status
     #   proto-plus
 psycopg2-binary==2.9.13
+    # via -r requirements.in
+py-vapid==1.9.2
     # via -r requirements.in
 pyasn1==0.6.4
     # via pyasn1-modules

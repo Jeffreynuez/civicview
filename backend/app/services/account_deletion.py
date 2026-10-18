@@ -239,6 +239,11 @@ def _keyed_rows(kind: AccountKind, account_id: int, email: Optional[str]):
         specs.append((PushHeldItem, [PushHeldItem.device_token_id.in_(
             db_select_device_ids(account_id))]))
         specs.append((DeviceToken, [DeviceToken.citizen_id == account_id]))
+        # Browsers registered for web push (2026-10-18), the same way.
+        from app.models.pages import WebPushSubscription
+        specs.append((PushHeldItem, [PushHeldItem.web_subscription_id.in_(
+            db_select_web_subscription_ids(account_id))]))
+        specs.append((WebPushSubscription, [WebPushSubscription.citizen_id == account_id]))
         # Election reminders already delivered (2026-10-16).
         from app.models.pages import ElectionReminderDelivery, ElectionReminderStop
         specs.append((ElectionReminderDelivery, [ElectionReminderDelivery.citizen_id == account_id]))
@@ -257,6 +262,14 @@ def db_select_device_ids(citizen_id: int):
     return select(DeviceToken.id).where(DeviceToken.citizen_id == citizen_id)
 
 
+def db_select_web_subscription_ids(citizen_id: int):
+    """The ids of a citizen's web push subscriptions, as a subquery."""
+    from sqlalchemy import select
+
+    from app.models.pages import WebPushSubscription
+    return select(WebPushSubscription.id).where(WebPushSubscription.citizen_id == citizen_id)
+
+
 def delete_account_keyed_rows(
     db: Session, kind: AccountKind, account_id: int, email: Optional[str] = None,
 ) -> dict:
@@ -269,7 +282,8 @@ def delete_account_keyed_rows(
             q = q.filter(cond)
         n = q.delete(synchronize_session=False)
         if n:
-            counts[model.__tablename__] = n
+            # Added up: push_held_items has two specs (phones, browsers).
+            counts[model.__tablename__] = counts.get(model.__tablename__, 0) + n
     return counts
 
 
@@ -468,14 +482,31 @@ def purge_orphaned_account_rows(db: Optional[Session] = None) -> dict:
         )
         if n:
             totals["device_tokens:citizen"] = n
-        from app.models.pages import PushHeldItem
+        from app.models.pages import PushHeldItem, WebPushSubscription
+        n = (
+            db.query(WebPushSubscription)
+            .filter(WebPushSubscription.citizen_id.isnot(None),
+                    ~WebPushSubscription.citizen_id.in_(db.query(CitizenAccount.id)))
+            .delete(synchronize_session=False)
+        )
+        if n:
+            totals["web_push_subscriptions:citizen"] = n
         n = (
             db.query(PushHeldItem)
-            .filter(~PushHeldItem.device_token_id.in_(db.query(DeviceToken.id)))
+            .filter(PushHeldItem.device_token_id.isnot(None),
+                    ~PushHeldItem.device_token_id.in_(db.query(DeviceToken.id)))
             .delete(synchronize_session=False)
         )
         if n:
             totals["push_held_items:device"] = n
+        n = (
+            db.query(PushHeldItem)
+            .filter(PushHeldItem.web_subscription_id.isnot(None),
+                    ~PushHeldItem.web_subscription_id.in_(db.query(WebPushSubscription.id)))
+            .delete(synchronize_session=False)
+        )
+        if n:
+            totals["push_held_items:web"] = n
         from app.models.pages import BillUpdateDelivery, ElectionReminderDelivery, ElectionReminderStop
         for model in (ElectionReminderDelivery, ElectionReminderStop, BillUpdateDelivery):
             n = (

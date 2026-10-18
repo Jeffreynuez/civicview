@@ -25,6 +25,8 @@ but the limiter still blunts credential-less spray):
   • PUSH: /api/push/register, /unbind, /unregister (2026-10-16):
       60 hits / 10 min per account or IP. The app registers at launch,
       at sign-in and a little after each track or untrack.
+      The same for browsers (/api/push/web/..., 2026-10-18), in one
+      bucket with the phone routes.
 
 A third bucket, AI, covers the routes that spend the daily AI budget
 (40 hits / 10 min, any method, anonymous callers keyed by IP). See
@@ -62,7 +64,7 @@ _CREATE_RE = re.compile(
     r"^/api/(citizen-polls|pages/[^/]+/(citizen-polls|posts|polls|events))$"
 )
 
-_PUSH_RE = re.compile(r"^/api/push/(register|unbind|unregister)$")
+_PUSH_RE = re.compile(r"^/api/push/(web/)?(register|unbind|unregister)$")
 
 # Routes that spend the shared daily AI budget. Unlike the engagement
 # routes these are open to anonymous callers, so the bucket is the

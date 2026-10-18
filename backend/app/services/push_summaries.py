@@ -36,6 +36,13 @@ update (signed-out devices, which have no bell). A summary of exactly
 one update is that update's own push. Election reminders never come
 here.
 
+Since 2026-10-18 the same pass covers browsers (web push,
+models.WebPushSubscription): their held updates carry
+web_subscription_id instead of device_token_id, each browser is claimed
+on its own summary_sent_at, and one that its push service reports gone
+(404 or 410) is removed. While web push is off (no VAPID keys) their
+held updates wait.
+
 migrate_legacy_cadence() is the one-time rename of the old
 digest_cadence setting (default 'daily', which silently dropped
 pushes) to push_cadence: 'daily' and anything else become realtime,
@@ -286,30 +293,34 @@ def _still_unread(db, items) -> list:
     return [i for i in items if not i.notification_id or i.notification_id not in seen]
 
 
-def _claim(db, device_id: int, threshold: datetime, now: datetime) -> tuple:
+def _claim(db, device_id: int, threshold: datetime, now: datetime, model=None) -> tuple:
     """Stamp summary_sent_at only if no summary was claimed since
-    threshold. Returns (claimed, previous value)."""
+    threshold. Returns (claimed, previous value). model: DeviceToken
+    (the default) or WebPushSubscription (2026-10-18)."""
     from app.models.pages import DeviceToken
 
-    previous = db.query(DeviceToken.summary_sent_at).filter(DeviceToken.id == device_id).scalar()
+    model = model or DeviceToken
+    previous = db.query(model.summary_sent_at).filter(model.id == device_id).scalar()
     n = (
-        db.query(DeviceToken)
+        db.query(model)
         .filter(
-            DeviceToken.id == device_id,
-            or_(DeviceToken.summary_sent_at.is_(None), DeviceToken.summary_sent_at < threshold),
+            model.id == device_id,
+            or_(model.summary_sent_at.is_(None), model.summary_sent_at < threshold),
         )
-        .update({DeviceToken.summary_sent_at: now}, synchronize_session=False)
+        .update({model.summary_sent_at: now}, synchronize_session=False)
     )
     db.commit()
     return bool(n), previous
 
 
-def _release(db, device_id: int, claimed_at: datetime, previous: Optional[datetime]) -> None:
+def _release(db, device_id: int, claimed_at: datetime, previous: Optional[datetime], model=None) -> None:
     from app.models.pages import DeviceToken
+
+    model = model or DeviceToken
     try:
-        db.query(DeviceToken).filter(
-            DeviceToken.id == device_id, DeviceToken.summary_sent_at == claimed_at,
-        ).update({DeviceToken.summary_sent_at: previous}, synchronize_session=False)
+        db.query(model).filter(
+            model.id == device_id, model.summary_sent_at == claimed_at,
+        ).update({model.summary_sent_at: previous}, synchronize_session=False)
         db.commit()
     except Exception:
         db.rollback()
@@ -344,22 +355,60 @@ def build_message(row, items, prefs: Optional[dict] = None) -> PushMessage:
 
 def run_summaries(db, now_utc: Optional[datetime] = None) -> dict:
     """Send every summary that is due. Safe to run as often as you like
-    and from two processes at once."""
-    from app.models.pages import CitizenAccount, DeviceToken, PushHeldItem
+    and from two processes at once. Phones and, since 2026-10-18,
+    browsers: each gets its own summary, by the same rules."""
+    from app.models.pages import DeviceToken, PushHeldItem, WebPushSubscription
 
     now = now_utc or datetime.utcnow()
     counts = {"devices_with_held": 0, "summaries_sent": 0, "updates_covered": 0, "already_read": 0,
               "no_longer_wanted": 0, "waiting": 0, "claimed_elsewhere": 0, "failed": 0, "pruned": 0}
-    device_ids = [d for (d,) in db.query(PushHeldItem.device_token_id).distinct()]
-    counts["devices_with_held"] = len(device_ids)
+    _run_target(db, now, counts, DeviceToken, PushHeldItem.device_token_id)
+    _run_target(db, now, counts, WebPushSubscription, PushHeldItem.web_subscription_id)
+    if counts["summaries_sent"] or counts["failed"] or counts["pruned"]:
+        logger.info("push summaries: %s", counts)
+    return counts
+
+
+def _send_one(db, row, message: PushMessage):
+    """(sent, dead) for one summary push to a phone or a browser."""
+    from app.services import web_push
+    from app.services.push_service import is_web
+
+    if is_web(row):
+        # The caller stamps last_push_at and removes a dead browser. A
+        # failure here counts as a transient one for this browser only:
+        # the caller releases its claim, the held updates stay for the
+        # next pass, and the phones (sent earlier, committed one by one)
+        # are untouched.
+        endpoint = row.endpoint
+        try:
+            result = web_push.deliver(db, [(row, message)], stamp=False)
+        except Exception:
+            db.rollback()
+            logger.exception("push summaries: web push to a browser failed; it is tried again next pass")
+            return False, False
+        return endpoint in result.sent, endpoint in result.invalid
+    result = send_push_messages([message])
+    return row.token in result.sent, row.token in result.invalid
+
+
+def _run_target(db, now: datetime, counts: dict, model, held_col) -> None:
+    """The pass for one kind of device: model DeviceToken with held_col
+    PushHeldItem.device_token_id, or WebPushSubscription with
+    PushHeldItem.web_subscription_id."""
+    from app.models.pages import CitizenAccount, PushHeldItem
+    from app.services import web_push
+    from app.services.push_service import is_web
+
+    device_ids = [d for (d,) in db.query(held_col).filter(held_col.isnot(None)).distinct()]
+    counts["devices_with_held"] += len(device_ids)
     if not device_ids:
-        return counts
-    rows = {r.id: r for r in db.query(DeviceToken).filter(DeviceToken.id.in_(device_ids))}
+        return
+    rows = {r.id: r for r in db.query(model).filter(model.id.in_(device_ids))}
     # Held rows whose device is gone (unregistered or pruned) go too.
     orphans = [d for d in device_ids if d not in rows]
     if orphans:
-        db.query(PushHeldItem).filter(PushHeldItem.device_token_id.in_(orphans)).delete(
-            synchronize_session=False)
+        db.query(PushHeldItem).filter(held_col.in_(orphans)).delete(synchronize_session=False)
         db.commit()
     account_prefs = {
         cid: _parse_json_or_none(blob)
@@ -372,13 +421,16 @@ def run_summaries(db, now_utc: Optional[datetime] = None) -> dict:
         if getattr(row, "notifications_off_at", None) is not None:
             counts["waiting"] += 1  # off in Android settings; kept for when they are back on
             continue
+        if is_web(row) and not web_push.enabled():
+            counts["waiting"] += 1  # web push off (no VAPID keys); kept until it is back
+            continue
         if _in_quiet_hours(prefs, now):
             counts["waiting"] += 1
             continue
         cadence = effective_cadence(prefs)
         held = (
             db.query(PushHeldItem.created_at, PushHeldItem.reason)
-            .filter(PushHeldItem.device_token_id == device_id)
+            .filter(held_col == device_id)
             .all()
         )
         if not held:
@@ -399,12 +451,11 @@ def run_summaries(db, now_utc: Optional[datetime] = None) -> dict:
         # held while a summary was being sent goes out on the next pass
         # instead of waiting forever.
         threshold = slot if (timed_due and slot is not None) else now - timedelta(seconds=60)
-        claimed, previous = _claim(db, device_id, threshold, now)
+        claimed, previous = _claim(db, device_id, threshold, now, model)
         if not claimed:
             counts["claimed_elsewhere"] += 1
             continue
-        query = db.query(PushHeldItem).filter(
-            PushHeldItem.device_token_id == device_id, PushHeldItem.created_at <= now)
+        query = db.query(PushHeldItem).filter(held_col == device_id, PushHeldItem.created_at <= now)
         if not timed_due:
             query = query.filter(PushHeldItem.reason == "quiet")
         items = query.all()
@@ -418,29 +469,25 @@ def run_summaries(db, now_utc: Optional[datetime] = None) -> dict:
             db.commit()
             continue
         message = build_message(row, fresh, prefs)
-        result = send_push_messages([message])
-        if row.token in result.invalid:
-            db.query(PushHeldItem).filter(PushHeldItem.device_token_id == device_id).delete(
-                synchronize_session=False)
-            db.query(DeviceToken).filter(DeviceToken.id == device_id).delete(synchronize_session=False)
+        sent, dead = _send_one(db, row, message)
+        if dead:
+            db.query(PushHeldItem).filter(held_col == device_id).delete(synchronize_session=False)
+            db.query(model).filter(model.id == device_id).delete(synchronize_session=False)
             db.commit()
             counts["pruned"] += 1
             continue
-        if row.token not in result.sent:
+        if not sent:
             # Transient failure: keep everything for the next pass.
-            _release(db, device_id, now, previous)
+            _release(db, device_id, now, previous, model)
             counts["failed"] += 1
             continue
         db.query(PushHeldItem).filter(PushHeldItem.id.in_([i.id for i in items])).delete(
             synchronize_session=False)
-        db.query(DeviceToken).filter(DeviceToken.id == device_id).update(
-            {DeviceToken.last_push_at: now}, synchronize_session=False)
+        db.query(model).filter(model.id == device_id).update(
+            {model.last_push_at: now}, synchronize_session=False)
         db.commit()
         counts["summaries_sent"] += 1
         counts["updates_covered"] += len(fresh)
-    if counts["summaries_sent"] or counts["failed"] or counts["pruned"]:
-        logger.info("push summaries: %s", counts)
-    return counts
 
 
 # ── One-time migration ───────────────────────────────────────────────
@@ -504,6 +551,10 @@ def run_pass_with_session(first: bool = False) -> dict:
             result["migration"] = migrate_legacy_cadence(db)
             from app.services.push_service import unsubscribe_announcements
             result["announcements_cleared"] = unsubscribe_announcements(db)
+            # Read the VAPID keys now, so the log says early whether web
+            # push is active (2026-10-18).
+            from app.services import web_push
+            result["web_push"] = web_push.enabled()
         result["summaries"] = run_summaries(db)
         # "Results are in" for polls that closed (2026-10-17), under the
         # same lock; its own try so one failing does not stop the other.
