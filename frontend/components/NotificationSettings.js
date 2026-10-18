@@ -9,11 +9,16 @@
  * button) and in Dashboard, Account & settings:
  *
  *   This phone        push on or off here; "Open settings" when Android
- *                     has notifications off for CivicView
+ *                     has notifications off for CivicView. In a browser
+ *                     (2026-10-18): "This browser" ("This app" when
+ *                     installed), web push on or off, the permission
+ *                     asked only from the Turn on tap; on an iPhone in
+ *                     Safari, Turn on shows the Add to Home Screen guide
  *   one row per kind  a dropdown: Bell and push, Bell only, Off (and
  *                     email where there is one)
  *   Weekly email digest
- *   Quiet hours, Push alerts, Notification details (the app only)
+ *   Quiet hours, Push alerts, Notification details (the app, and
+ *                     browsers that can get web push)
  *
  * The rows live on the account (lib/alertSettings.js) and the server
  * enforces them, so they are the same on every device. Quiet hours,
@@ -30,22 +35,52 @@ import { setChannelPrefs, useChannelPrefs } from '@/lib/channelPrefs';
 import {
   ALERT_CHOICE_LABELS, ALERT_ROWS, CHANNEL_SCHEMA, DIGEST_ROW, choiceHasEmail, choiceHasPush,
 } from '@/lib/notificationPrefs';
+import HomeScreenGuide, { HOME_SCREEN_GUIDE } from './HomeScreenGuide';
 import {
   canOpenNotificationSettings, disablePush, enablePush, getLastOsStatus, getPushChoice,
   isNativeApp, openNotificationSettings, refreshOsStatus, subscribeOsStatus,
 } from '@/lib/push';
+import { isStandalone, webPermission, webPushStatus } from '@/lib/webPush';
 
-/** Push on this phone, and what Android says about it. */
+/**
+ * Push on this device: in the Android app, the phone and what Android
+ * says about it; in a browser, the Home Screen app or the Windows app
+ * (2026-10-18), web push and the browser's permission. web: web push is
+ * offered here (set up, and the browser can do it or can be added to
+ * the Home Screen). guide: the Add to Home Screen guide to show
+ * ('home_screen'), after a Turn on in an iPhone's Safari tab.
+ */
 export function usePhonePush() {
   const [native, setNative] = useState(false);
+  const [webStatus, setWebStatus] = useState('unconfigured');
+  const [permission, setPermission] = useState('default');
+  const [installed, setInstalled] = useState(false);
   const [choice, setChoice] = useState(null);
   const [os, setOs] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [guide, setGuide] = useState(null);
+  const [note, setNote] = useState('');
 
   useEffect(() => {
     const isApp = isNativeApp();
     setNative(isApp);
-    if (!isApp) return undefined;
+    if (!isApp) {
+      // The browser's permission can change in its site settings: read
+      // it again when the tab comes back and when lib/push.js says so.
+      const read = () => {
+        setWebStatus(webPushStatus());
+        setPermission(webPermission());
+        setInstalled(isStandalone());
+        setChoice(getPushChoice());
+      };
+      read();
+      window.addEventListener('cv:push-state', read);
+      document.addEventListener('visibilitychange', read);
+      return () => {
+        window.removeEventListener('cv:push-state', read);
+        document.removeEventListener('visibilitychange', read);
+      };
+    }
     setChoice(getPushChoice());
     setOs(getLastOsStatus());
     refreshOsStatus().then((s) => { if (s) setOs(s); });
@@ -54,10 +89,19 @@ export function usePhonePush() {
 
   const turnOn = async () => {
     setBusy(true);
-    await enablePush();
+    setNote('');
+    const res = await enablePush();
     setChoice(getPushChoice());
-    const s = await refreshOsStatus();
-    if (s) setOs(s);
+    if (native) {
+      const s = await refreshOsStatus();
+      if (s) setOs(s);
+    } else {
+      setPermission(webPermission());
+      if (res && res.reason === 'ios_home_screen') setGuide('home_screen');
+      else if (res && !res.ok && res.reason !== 'denied' && res.reason !== 'dismissed') {
+        setNote('Could not turn on push here. Please try again.');
+      }
+    }
     setBusy(false);
   };
   const turnOff = async () => {
@@ -70,10 +114,15 @@ export function usePhonePush() {
   // refused) only counts until Android has answered, so turning
   // notifications on in Android settings shows "Push is off, Turn on".
   const osOff = native && (os ? os.enabled === false : choice === 'denied');
+  const webReady = !native && webStatus === 'ready';
   return {
     native, busy, osOff,
-    on: native && choice === 'enabled' && !osOff,
+    web: !native && ['ready', 'ios_home_screen', 'ios_old'].includes(webStatus),
+    webStatus, installed,
+    webBlocked: webReady && permission === 'denied',
+    on: native ? choice === 'enabled' && !osOff : webReady && choice === 'enabled' && permission === 'granted',
     blocked: (os && os.blockedChannels) || [],
+    guide, closeGuide: () => setGuide(null), note,
     turnOn, turnOff,
   };
 }
@@ -151,11 +200,43 @@ export default function NotificationSettings({ variant = 'bell' }) {
 
   return (
     <div data-testid="notification-settings" style={{ fontFamily: 'var(--cl-font-sans)' }}>
-      <div style={{ ...heading, marginTop: variant === 'bell' ? 2 : 0 }}>This phone</div>
-      {!phone.native ? (
+      <div style={{ ...heading, marginTop: variant === 'bell' ? 2 : 0 }}>
+        {phone.native ? 'This phone' : phone.installed ? 'This app' : 'This browser'}
+      </div>
+      {!phone.native && !phone.web ? (
         <div style={{ ...hint, padding: '4px 2px 6px' }}>
-          Push alerts come through the CivicView Android app on Google Play.
+          {phone.webStatus === 'unsupported'
+            ? "This browser can't show CivicView alerts. They also come through the CivicView Android app on Google Play."
+            : 'Push alerts come through the CivicView Android app on Google Play.'}
         </div>
+      ) : !phone.native ? (
+        phone.webStatus === 'ios_old' ? (
+          <div style={{ ...hint, padding: '4px 2px 6px' }}>{HOME_SCREEN_GUIDE.tooOld}</div>
+        ) : phone.webBlocked ? (
+          <Row
+            title="Notifications are blocked"
+            sub="Allow them for CivicView in this browser's site settings, then tap Turn on."
+          >
+            <button type="button" style={buttonStyle} disabled={phone.busy} onClick={phone.turnOn}>
+              Turn on
+            </button>
+          </Row>
+        ) : (
+          <>
+            <Row title={phone.on ? 'Push is on' : 'Push is off'} sub={phone.busy ? 'Setting up…' : null}>
+              <button
+                type="button"
+                style={buttonStyle}
+                disabled={phone.busy}
+                onClick={phone.on ? phone.turnOff : phone.turnOn}
+              >
+                {phone.on ? 'Turn off' : 'Turn on'}
+              </button>
+            </Row>
+            {phone.guide && <HomeScreenGuide compact onClose={phone.closeGuide} />}
+            {phone.note && <div style={{ ...hint, color: '#b3261e', padding: '0 2px 4px' }}>{phone.note}</div>}
+          </>
+        )
       ) : phone.osOff ? (
         <Row
           title="Notifications are off"
@@ -233,7 +314,9 @@ export default function NotificationSettings({ variant = 'bell' }) {
         <div style={{ ...hint, padding: '6px 2px' }}>
           {phone.native
             ? 'Signed out, this phone gets posts and polls from officials you track. Sign in to choose replies, events, bill updates, poll results and election reminders.'
-            : 'Sign in to choose which alerts reach you, and where.'}
+            : phone.web
+              ? 'Signed out, this browser gets posts and polls from officials you track. Sign in to choose replies, events, bill updates, poll results and election reminders.'
+              : 'Sign in to choose which alerts reach you, and where.'}
         </div>
       )}
 
@@ -256,7 +339,7 @@ export default function NotificationSettings({ variant = 'bell' }) {
           onChange={(v) => setChannelPrefs({ push_cadence: v })}
         />
       </Row>
-      {phone.native && (
+      {(phone.native || phone.web) && (
         <Row title={lock.label} sub={lock.description}>
           <Dropdown
             ariaLabel={lock.label}

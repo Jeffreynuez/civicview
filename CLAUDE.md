@@ -42,7 +42,13 @@ state that this file deliberately does NOT duplicate:
 
 ## Current state & open work (snapshot 2026-06-16)
 
-> **Newest (2026-10-17): phone notifications (app 1.2.0).** Android
+> **Newest (2026-10-18): web push (`feat/web-push`).** The same pushes
+> reach desktop browsers, browsers on Android phones, the iPhone Home
+> Screen app and the Windows app, under the same rules. Shipped OFF until
+> Jeffrey sets the VAPID keys (README row #118). See "Web push" below and
+> the runbook's Web push section.
+>
+> **Earlier (2026-10-17): phone notifications (app 1.2.0).** Android
 > notification channels, private notifications by default, replies, daily federal
 > bill updates from Congress.gov, poll results, and one short settings
 > list (server-enforced) with Mute per official. See "Phone notifications
@@ -462,6 +468,45 @@ Jeffrey's decisions, `feat/phone-notifications`. Runbook:
   prompt at launch. The opt-in card comes back once, on a track at least
   30 days after "Not now"; a second "Not now" ends it.
 
+## Web push (settled 2026-10-18, durable)
+
+Jeffrey's decisions, `feat/web-push`. Runbook:
+`docs/push_notifications_runbook.md`, Web push.
+
+- **Who:** desktop browsers, browsers on Android phones (allowed, same
+  path), CivicView on an iPhone or iPad Home Screen (iOS 16.4 or later)
+  and the Windows app. The Android app keeps FCM: it never registers
+  `public/sw.js`, and what an FCM push contains does not change for web
+  push. The FCM tests must pass unchanged when push code is shared.
+- **Same rules as the phone, one engine:** `push_service` picks a
+  person's browsers next to their phones on every send path (settings
+  list, Mute, quiet hours, Push alerts timing, summaries, grouping,
+  TTLs); `services/web_push.py` only sends. Text from
+  `push_service.shown()`: the general line unless Notification details:
+  Show details, one setting for all of a person's devices. A browser's
+  push service never reads a name or an id: payloads are encrypted
+  (RFC 8291) and the Topic header is a hash of the tag.
+- **Keys:** `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`
+  (Render) and `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (Vercel, the same public
+  key). Off until all are set. Made only by Jeffrey on his computer with
+  `scripts/generate_vapid_keys.py`; never generated, printed or committed
+  in a Claude session. One pair for good (a new pair ends every
+  subscription).
+- **Library:** http-ece + py-vapid (pywebpush's own building blocks) over
+  httpx, not pywebpush (it needs cryptography 47 and aiohttp). py-vapid
+  stays at 1.9.2 while cryptography is capped below 46.
+- **Permission only from a tap:** Turn on in the settings list or Enable
+  on the opt-in card; never on page load. In a browser the card comes
+  only after a track, plus once when the Home Screen app opens (Jeffrey);
+  never at sign-in. In Safari on an iPhone, Turn on shows the Add to Home
+  Screen guide (wording in `lib/webPush.js` HOME_SCREEN_GUIDE, approved).
+- **Every push shows a notification** (iOS revokes the permission
+  otherwise), even one the worker can't read. 3 or more of a channel on
+  screen become one count notification. Pushes are handled one at a time.
+- **Endpoints:** only the real push services (FCM, Mozilla, WNS, Apple);
+  pruned only on 404 or 410, never on 403.
+- **Badge:** the installed app's icon shows the bell's unread count.
+
 ## Former officials and candidates (settled 2026-10-15, durable)
 
 Jeffrey's principle: former officials "are considered just citizens if
@@ -784,6 +829,9 @@ Pinecone memory records (search "sandbox quirk" / "fuse cache" /
   cold start; the old "sleeps after 15 min" note was stale, corrected
   with #29), frontend on Vercel, Postgres on Render. Public read-only
   API is edge-cached via Cloudflare on `api.civicview.app`.
+- **Web push** (2026-10-18): browsers, the iPhone Home Screen app and the
+  Windows app get the same pushes as the Android app once the VAPID keys
+  are set (README row #118).
 - **Distribution:** web (civicview.app) + installable desktop PWA +
   Google Play (v1.1.0 LIVE) + Microsoft Store (LIVE since mid-September
   2026). All four are the ONE live site; only

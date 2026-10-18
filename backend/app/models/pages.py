@@ -2655,6 +2655,41 @@ class DeviceToken(Base):
     notifications_off_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
 
 
+class WebPushSubscription(Base):
+    """A browser registered for web push (2026-10-18): a desktop browser,
+    a browser on an Android phone, CivicView on an iPhone or iPad Home
+    Screen, or the Windows app. The Android app keeps FCM (DeviceToken).
+
+    The same rules as DeviceToken (services/web_push.py,
+    push_service._deliver_tracked_push): citizen_id NULL = signed out,
+    and then tracked_json is the officials it tracks; a sign-in binds it
+    and a sign-out unbinds it (routers/push.py); prefs_json is its
+    settings snapshot, used while it is signed out; the bound account's
+    synced prefs win. Removed when its push service answers 404 or 410,
+    when the person turns push off in it, or with the account.
+
+    endpoint is the push service URL the browser handed out (only known
+    push services are accepted); p256dh and auth are the browser's keys
+    that each push is encrypted with."""
+
+    __tablename__ = "web_push_subscriptions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    endpoint: Mapped[str] = mapped_column(String(1024), unique=True, index=True)
+    p256dh: Mapped[str] = mapped_column(String(128))
+    auth: Mapped[str] = mapped_column(String(64))
+    # desktop | android | ios (from the browser, for the admin's numbers)
+    platform: Mapped[str] = mapped_column(String(16), default="desktop")
+    citizen_id: Mapped[Optional[int]] = mapped_column(Integer, index=True, default=None)
+    tracked_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    prefs_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+    last_push_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    # The summary claim (services/push_summaries.py), as on DeviceToken.
+    summary_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    last_seen_at: Mapped[Optional[datetime]] = mapped_column(DateTime, default=None)
+
+
 class PushHeldItem(Base):
     """A tracked-activity push held for a summary (2026-10-16).
 
@@ -2674,7 +2709,12 @@ class PushHeldItem(Base):
     __tablename__ = "push_held_items"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    device_token_id: Mapped[int] = mapped_column(Integer, index=True)
+    # The phone (device_tokens) or, since 2026-10-18, the browser
+    # (web_push_subscriptions) the update is held for: exactly one is
+    # set. device_token_id was NOT NULL until then; auto-migrate relaxes
+    # it.
+    device_token_id: Mapped[Optional[int]] = mapped_column(Integer, index=True, nullable=True, default=None)
+    web_subscription_id: Mapped[Optional[int]] = mapped_column(Integer, index=True, default=None)
     # 'summary' (daily / weekly setting) | 'quiet' (held by quiet hours)
     reason: Mapped[str] = mapped_column(String(16), default="summary")
     kind: Mapped[str] = mapped_column(String(32))

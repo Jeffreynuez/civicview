@@ -2,9 +2,11 @@
 
 The FCM push pipeline shipped 2026-07-24, was reworked 2026-10-16 (work
 order 8, `fix/notifications`) and became full phone notifications on
-2026-10-17 (`feat/phone-notifications`, app 1.2.0). Pushes mirror the
-in-app bell; the bell stays the source of truth, and a push is only the
-interruption.
+2026-10-17 (`feat/phone-notifications`, app 1.2.0). Since 2026-10-18
+(`feat/web-push`) the same pushes also reach browsers, the iPhone Home
+Screen app and the Windows app by web push (see **Web push** below).
+Pushes mirror the in-app bell; the bell stays the source of truth, and a
+push is only the interruption.
 
 ## What is pushed
 
@@ -286,11 +288,15 @@ bell are left out. Each device is claimed with one conditional UPDATE on
   `device_tokens` (+ `app_build`, `notifications_off_at`),
   `push_held_items`, `bill_watch`, `bill_updates`, `bill_update_deliveries`,
   `job_runs`; columns `citizen_accounts.alert_settings_json`,
-  `polls.results_notified_at` (auto-migrate on boot).
+  `polls.results_notified_at` (auto-migrate on boot). Web push
+  (2026-10-18): `services/web_push.py`, table `web_push_subscriptions`,
+  column `push_held_items.web_subscription_id`.
 - **Frontend:** `lib/push.js`, `lib/alertSettings.js`, `lib/deepLinks.js`,
   `lib/notificationPrefs.js`, `components/NotificationSettings.js`,
   `components/NotificationBellMenu.js`, `components/PushOptInPrompt.js`,
-  `components/TrackedManager.js` (Mute). Deploys with the site.
+  `components/TrackedManager.js` (Mute). Web push: `public/sw.js`,
+  `lib/webPush.js`, `lib/pushCore.js`, `components/HomeScreenGuide.js`.
+  Deploys with the site.
 - **Android shell:** `CivicViewMessagingService.java`,
   `NotificationChannels.java`, `NotificationSettingsPlugin.java`,
   `MainActivity.java`, `res/drawable/ic_stat_civicview.xml`,
@@ -419,12 +425,213 @@ shared, App functionality, optional. Changes to make for 1.2.0:
     signed out; the opt-in card and Settings say only officials' posts
     and polls.
 
+## Web push (browsers, the iPhone Home Screen app, the Windows app; 2026-10-18)
+
+The same pushes as the phone, to desktop browsers (Chrome, Edge,
+Firefox, Safari on a Mac), browsers on Android phones, CivicView on an
+iPhone or iPad Home Screen (iOS 16.4 or later) and the Windows app
+(Microsoft Store). The Android app keeps FCM: it never registers the
+service worker, and what an FCM push contains did not change.
+
+### Turning it on (Jeffrey's steps)
+
+Web push is off until the keys are set: browsers keep the old line
+"Push alerts come through the CivicView Android app on Google Play", and
+the API sends nothing to browsers.
+
+1. On your own computer, never in a Claude session:
+   `cd "C:\dev\US apps\CivicLens"`, then
+   `python scripts\generate_vapid_keys.py` (any Python 3 with the
+   `cryptography` package). It prints four lines and writes nothing.
+2. Save the pair in `C:\dev\US apps\Keys\` (never in the repo).
+3. Render, `civicview-api`, Environment: add `VAPID_PUBLIC_KEY`,
+   `VAPID_PRIVATE_KEY` and `VAPID_SUBJECT` (`mailto:civicview@civicview.app`).
+   Save; Render redeploys.
+4. Vercel, the CivicView project, Settings, Environment Variables,
+   Production: add `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, the same public key.
+   Redeploy production (a `NEXT_PUBLIC_` value is built into the site, so
+   it needs a new build, not only a restart).
+5. Render logs, about a minute after boot: `Web push: VAPID keys loaded,
+   web push active`. If it says `VAPID_PUBLIC_KEY is not the public key
+   of VAPID_PRIVATE_KEY`, a key was pasted wrong.
+6. Run the two checklists below.
+
+Use one pair for good. A new pair ends every browser's subscription
+(each browser subscribes again, without a prompt, the next time
+CivicView opens in it); replace it only if the private key leaks. If
+Vercel and Render hold different public keys, every Turn on fails ("Could
+not turn on push here") and Render logs `a browser subscribed with
+another public key`.
+
+### How it works
+
+- **Subscribing** (`lib/webPush.js`): only from a tap (Turn on in the
+  settings list, or Enable on the opt-in card); never on page load. The
+  subscription goes to `POST /api/push/web/register` with the officials
+  this browser tracks (signed out) and the timing settings, exactly like
+  a phone. A sign-in binds the browser, a sign-out unbinds it
+  (`/api/push/web/unbind`), Turn off unsubscribes and deletes it
+  (`/api/push/web/unregister`). CSRF and the push rate limit (60 per 10
+  minutes) apply. At every load with push on, the browser registers
+  again without a prompt; if the permission was taken away in the
+  browser's site settings, the server forgets it.
+- **Only real push services**: the API accepts an endpoint only on
+  `https` at `fcm.googleapis.com`, `android.googleapis.com`,
+  `jmt17.google.com`, `*.push.services.mozilla.com`,
+  `*.notify.windows.com` or `*.push.apple.com`, so nobody can make the
+  server send requests to an address of their choosing.
+- **Sending** (`services/web_push.py`): every send path in
+  `push_service` (tracked posts and polls, events, replies, bill updates,
+  poll results, page changes, election reminders) and every summary
+  (`push_summaries`) picks the person's browsers by the same rules as
+  their phones: the settings list, Mute, quiet hours, Push alerts timing,
+  grouping of page changes, TTLs. Each push is encrypted for that browser
+  (RFC 8291, aes128gcm, http-ece) and signed with our VAPID key (RFC 8292,
+  py-vapid), so the push service can't read it. Headers: `TTL` as for the
+  phone, `Urgency: high` for replies and election reminders, and `Topic`
+  (a newer undelivered push replaces the older one) as a hash of the tag,
+  because the push service reads headers in the clear and a tag can name
+  a page.
+- **What it says**: built from the same message as the phone with
+  `push_service.shown()`: by default only the general line ("New update
+  from an official you track", or a count line for a summary) and no
+  body; who and what only with Notification details: Show details, which
+  is one setting for all of a person's devices.
+- **Pruning**: only when the push service answers 404 or 410. A 403
+  (our key or clock) is logged as an error and keeps the subscription, so
+  a configuration mistake can't wipe every browser.
+- **The service worker** (`public/sw.js`): shows every push (iOS takes
+  the permission away from a site that receives a push and shows
+  nothing, so a payload it can't read still shows "New updates in
+  CivicView"), with the CivicView icon; a newer push with the same tag
+  replaces the older one; once 3 or more from one channel are on screen
+  they become one count notification ("3 updates from officials you
+  track") that opens the bell; pushes are handled one at a time. A tap
+  focuses an open CivicView window and hands it the link (the bell row is
+  marked read, then the post opens, as in the app), or opens one at the
+  link with `?cv_read=<row>`. The links are a copy of
+  `lib/deepLinks.js`; `npm run test:notifications` checks they agree.
+- **App badge**: in an installed app (the Windows app, a desktop install,
+  the Home Screen app) the icon shows the bell's unread count; each push
+  carries the count and the bell sets it on every refresh; Mark as read
+  and Clear close CivicView's notifications and clear the badge.
+- **iPhone and iPad**: iOS sends web push only to Home Screen apps. In a
+  Safari tab, Turn on (or the card's Enable) shows this guide instead of
+  a prompt:
+
+  > **Add CivicView to your Home Screen to get alerts**
+  > On iPhone and iPad, alerts come only to CivicView on your Home Screen.
+  > 1. Tap Share in Safari (the square with the arrow).
+  > 2. Tap Add to Home Screen, then Add.
+  > 3. Open CivicView from your Home Screen and tap Turn on in notification settings.
+
+  Older than iOS 16.4: "Alerts on iPhone and iPad need iOS 16.4 or
+  later." The Home Screen app keeps its own storage, so the person signs
+  in there once, and it offers the card once when opened with no choice
+  yet.
+- **The opt-in card in a browser**: only after a track, plus once when
+  the Home Screen app opens; never at sign-in or on page load, and not
+  once the browser blocks CivicView's notifications.
+- **Settings list**: "This browser" ("This app" when installed), Push is
+  on or off, "Notifications are blocked" with how to allow them in the
+  site settings, then the same rows, Quiet hours, Push alerts and
+  Notification details as the app.
+
+### Storage and endpoints
+
+- Table `web_push_subscriptions`: endpoint (unique), p256dh, auth,
+  platform (desktop, android, ios), citizen_id (NULL signed out),
+  tracked_json, prefs_json, last_push_at, summary_sent_at, created_at,
+  last_seen_at. `push_held_items.web_subscription_id` holds a browser's
+  held updates (`device_token_id` became nullable). Auto-migrate adds
+  both on boot. Account deletion removes a citizen's browsers.
+- `POST /api/push/web/register` `{endpoint, keys: {p256dh, auth},
+  application_server_key, platform, tracked?, tracked_remove?, prefs?}`:
+  503 `web_push_off` without the keys, 400 `endpoint_not_allowed` or
+  `invalid_keys`, 409 `vapid_key_mismatch`.
+- `POST /api/push/web/unbind` and `/api/push/web/unregister` `{endpoint}`.
+- Admin, "Send me a test push" also reaches this browser and the
+  browsers bound to the admin's citizen account (`web: on|off` in the
+  answer).
+
+### Logs to look for (Render)
+
+- `Web push: VAPID keys loaded, web push active` (or `Web push off: ...`
+  with the reason).
+- Each fan-out: `web push tracked_post official=X: sent=N
+  held_for_summary=N held_quiet_hours=N failed=N pruned=N` (and the other
+  kinds), next to the phone line.
+- `web push: N push(es) refused with [403] (check the VAPID keys and the
+  server clock); subscriptions kept`.
+- `web push: a browser subscribed with another public key; check that
+  NEXT_PUBLIC_VAPID_PUBLIC_KEY matches VAPID_PUBLIC_KEY`.
+
+### Checklist: iPhone (the Home Screen app, iOS 16.4 or later)
+
+1. In Safari, open civicview.app and sign in as a demo citizen. Bell,
+   Settings: "This browser", "Push is off".
+2. Tap Turn on: the Add to Home Screen guide shows, and iOS asks nothing.
+3. Share, Add to Home Screen, Add. Open CivicView from its Home Screen
+   icon (no Safari address bar) and sign in there.
+4. The card "Get a heads-up when things move" shows once. Tap Enable
+   notifications; iOS asks to allow notifications: Allow. Bell, Settings:
+   "This app", "Push is on".
+5. Track a test official; from that official's page (rep session, on
+   another device) post. A notification arrives reading only "New update
+   from an official you track", locked or not.
+6. Tap it: CivicView opens at the post (it pulses) and the bell row is
+   read. Before reading, the Home Screen icon showed the unread count;
+   after Mark as read it is gone.
+7. Bell, Settings, Notification details: Show details; post again:
+   "<name> posted" and the text. Set it back to Hide details.
+8. Post three times quickly: one notification "3 updates from officials
+   you track"; tapping it opens the bell.
+9. Push alerts: Daily summary; post: nothing now; at 6 p.m. one summary.
+   Set it back to As they happen.
+10. Over a day, check that every push showed a notification and that
+    notifications keep arriving (iOS has not taken the permission away).
+11. Bell, Settings, Turn off: posts no longer notify; Turn on again works
+    without a new iOS prompt.
+12. Sign out in the Home Screen app: posts from officials you tracked
+    while signed in stop; sign back in and they come again.
+
+### Checklist: the Windows app (Microsoft Store)
+
+1. Open CivicView from the Start menu and sign in as a demo citizen.
+   Bell, Settings: "This app", "Push is off".
+2. Turn on: Windows (Edge) asks to show notifications: Allow. "Push is
+   on". Nothing was asked before the tap.
+3. Admin, "Send me a test push": a CivicView notification appears in the
+   corner and in the notification center ("CivicView test push").
+4. Post from a tracked official: "New update from an official you track".
+   Click it: the app comes forward at the post, and the bell row is read.
+5. The taskbar icon shows the unread count; Mark as read in the bell
+   clears it.
+6. Three posts quickly: one notification "3 updates from officials you
+   track"; clicking it opens the bell.
+7. Close the app and post: the notification still arrives (if it does
+   not, Edge, Settings, System and performance, "Continue running
+   background extensions and apps when Microsoft Edge is closed" must be
+   on). Clicking it opens the app at the post.
+8. Windows Settings, System, Notifications: turn CivicView off: no
+   notifications, the bell rows still come. Turn it back on.
+9. Turn off in the app: no notifications; Turn on again works without a
+   new prompt.
+10. Optional, a desktop browser tab (Chrome or Edge): the same as steps
+    1 to 4, with "This browser".
+
 ## Deferred (bring back as tasks when wanted)
 
 - State bill tracking and Open States bill updates (its own work order,
   after November 3: a tracked type with its own key, storage, My Tracked
   rows and bell links).
-- iOS/APNs when the iOS shell ships.
+- iOS/APNs when the iOS shell ships (web push already covers the
+  iPhone Home Screen app).
+- A monochrome badge image for notifications in Chrome on Android (it
+  shows Chrome's default small icon today).
+- Registering a rotated subscription from the service worker itself
+  (`pushsubscriptionchange` makes the new one; the page registers it the
+  next time CivicView opens, and the old endpoint is pruned on its 410).
 - Election reminder pushes carrying their bell row id.
 - Removing an event's notification when the official cancels the event
   (the tag is in place).

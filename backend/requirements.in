@@ -102,3 +102,15 @@ firebase-admin>=7.7.0,<8
 # chunks) in services/image_storage.strip_image_metadata. The EXIF
 # orientation is applied to the pixels first so photos stay upright.
 Pillow>=11,<13
+
+# Web push (2026-10-18): browsers, the iPhone Home Screen app and the
+# Windows app. http-ece encrypts each push for its subscription (RFC 8291,
+# aes128gcm) and py-vapid signs the VAPID header (RFC 8292). Both are the
+# small pure-Python libraries pywebpush is built on, from the same
+# maintainers; services/web_push.py sends over the httpx above, so
+# pywebpush's aiohttp and requests are not needed. Lazy-imported, so an
+# environment without the VAPID keys never loads them. The lock keeps
+# py-vapid at 1.9.2, the last release that works with the cryptography
+# cap above (1.9.3 and later need cryptography 46).
+http-ece>=1.2,<2
+py-vapid>=1.9,<2

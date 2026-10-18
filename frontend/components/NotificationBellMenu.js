@@ -10,6 +10,7 @@ import {
   disableChannelPrefsServerSync,
 } from '@/lib/channelPrefs';
 import { clearDeliveredNotifications } from '@/lib/push';
+import { setAppBadgeCount } from '@/lib/webPush';
 import {
   fetchNotifications,
   markNotificationRead,
@@ -77,6 +78,11 @@ export default function NotificationBellMenu() {
   const [notifItems, setNotifItems] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [notifLoading, setNotifLoading] = useState(false);
+  // The installed web app's icon badge (Badging API, 2026-10-18): the
+  // same unread count, cleared at 0. The Windows app, a desktop install
+  // and the iPhone Home Screen app show it; a tab and the Android app
+  // skip it (lib/webPush.js).
+  useEffect(() => { setAppBadgeCount(unreadCount); }, [unreadCount]);
 
   // Per-section expand/collapse. Untouched sections default open when
   // they hold something unread, collapsed otherwise; a user toggle

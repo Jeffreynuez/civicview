@@ -202,6 +202,7 @@ backend boots cleanly in any environment.
 | Email | `services/email_service.py` | `PostmarkEmailService` | `DevEmailService` (sends nothing; logs the masked recipient only) | `POSTMARK_API_TOKEN` + `POSTMARK_FROM_EMAIL` |
 | Billing | `services/stripe_service.py` | `StripeBillingService` | `DevBillingService` (returns about:blank) | `STRIPE_API_KEY` + `STRIPE_PRICE_ID` + `STRIPE_WEBHOOK_SECRET` |
 | Identity verification | `services/idme_service.py` | `IdMeService` | `DevIdMeService` (fail-closed) | `IDME_CLIENT_ID` + `IDME_CLIENT_SECRET` + `IDME_REDIRECT_URI` |
+| Web push (browsers, 2026-10-18) | `services/web_push.py` | `WebPushService` (http-ece + py-vapid over httpx) | off: browsers are not offered push and nothing is sent | `VAPID_PUBLIC_KEY` + `VAPID_PRIVATE_KEY` + `VAPID_SUBJECT` (Render), `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (Vercel) |
 
 All four use **lazy imports** so missing optional dependencies don't crash
 boot. All four log loudly when the dev fallback is active so an operator
@@ -368,6 +369,26 @@ categories:
   Demo accounts created), plus a placeholder `/stats` page that an
   expanded analytics surface (engagement curves, growth by state)
   will absorb post-launch.
+
+---
+
+## Shipped 2026-10-18: web push
+
+The same pushes as the Android app now reach desktop browsers, browsers
+on Android phones, CivicView on an iPhone or iPad Home Screen (iOS 16.4
+or later) and the Windows app, through each browser's own push service,
+encrypted for that browser. The settings list, Mute, quiet hours,
+summaries, grouping and the private-by-default text apply exactly as on
+the phone, and Notification details is one choice for all of a person's
+devices. The settings list shows "This browser" with Turn on; the
+browser asks for permission only from that tap or the opt-in card's
+Enable, and the card comes only after a track (and once when the Home
+Screen app opens). In Safari on an iPhone, Turn on shows a short Add to
+Home Screen guide. Installed apps show the unread count on their icon.
+The Android app keeps FCM, unchanged. Web push stays off until the VAPID
+keys are set: run `scripts/generate_vapid_keys.py` on your own computer
+and follow the runbook's **Web push** section
+([`docs/push_notifications_runbook.md`](./docs/push_notifications_runbook.md)).
 
 ---
 
@@ -868,6 +889,7 @@ Local/uncommitted unless pushed — Jeffrey decides the commits.
 | 115 | Automated FL Division of Elections finance ingest | pending | Today's state fundraising is curated with provenance, not automated. Path is confirmed: `TreSel.exe?account=N` returns per-period totals for candidates **and** committees, and the qualified-candidate list downloads as TSV keyed by a stable `AcctNum`. Caveat that shapes the design: the candidate↔committee mapping **cannot** be automated (the state's Affiliates field is empty for candidate-aligned PCs), so that join stays a human-signed-off table, not a scraper. |
 | 116 | Publish Android 1.2.0 (phone notifications) | pending (Jeffrey) | Build the signed AAB (versionCode 5), Internal testing on Jeffrey's phone with the device checklist, then a staged Production rollout; keep the 1.1.0 AAB and a `v1.1.0` tag to rebuild a 1.1.1 if a rollback is needed. Data safety changes listed in `docs/push_notifications_runbook.md`. |
 | 117 | State bill tracking + Open States bill updates | deferred (after November 3, Jeffrey) | State bills can't be tracked today (billKey is Congress only). Needs a new tracked type with its own key (Open States `ocd-bill/...` id), storage, My Tracked rows and bell links, then an Open States pass beside the Congress.gov one in `services/bill_updates.py`. Until then no copy promises state bill alerts. |
+| 118 | Turn on web push (VAPID keys) and run the browser checklists | pending (Jeffrey) | Shipped OFF (2026-10-18, `feat/web-push`). Run `scripts/generate_vapid_keys.py` on your own computer; set `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT=mailto:civicview@civicview.app` on Render (`civicview-api`) and `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (the same public key) on Vercel Production, redeploy both, then run the iPhone (Home Screen app) and Windows app checklists in `docs/push_notifications_runbook.md`. Keep the pair in `C:\dev\US apps\Keys\`; a new pair later ends every browser's subscription. |
 
 **Closed:** Task #58 (Add financial-model link to /help-build) — won't ship as a public link. The `docs/civicview_financial_model.xlsx` is already in the public GitHub repo for anyone who wants to audit the math; shared on request rather than surfaced as a download on the campaign or app surfaces.
 
@@ -1063,7 +1085,10 @@ a.m. local) for officials, events, bills and poll results; nothing is
 dropped, and quiet hours hold pushes for one summary when they end.
 Election reminders always come on their own. On Android each kind has
 its own notification channel, and a notification, locked phone or not,
-shows only a neutral line unless the person chooses Show details. A phone is bound to whoever
+shows only a neutral line unless the person chooses Show details. Since
+2026-10-18 browsers, the iPhone Home Screen app and the Windows app get
+the same pushes by web push (`services/web_push.py`, `public/sw.js`,
+`lib/webPush.js`), under the same rules. A phone or browser is bound to whoever
 is signed in on it and unbound on sign-out. Emails a person can turn off
 carry a one-click unsubscribe (RFC 8058) that turns off only that email
 type. How it works, the release steps, Data safety and the device

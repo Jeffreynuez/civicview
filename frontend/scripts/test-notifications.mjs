@@ -17,7 +17,7 @@
 //      channels, and the opt-in card's one second chance.
 
 import assert from 'node:assert/strict';
-import { mkdtempSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -294,6 +294,258 @@ await check('5 the card: first offer anywhere, one more only on a track 30 days 
   assert.equal(push.shouldOfferPush('track', t0 + 30 * day), true);
   push.declinePushOffer(t0 + 30 * day);
   assert.equal(push.shouldOfferPush('track', t0 + 400 * day), false, 'a second Not now ends it');
+});
+
+// ── 6. Web push (2026-10-18): public/sw.js and lib/webPush.js ────────
+const swSource = readFileSync(path.join(root, 'public', 'sw.js'), 'utf8');
+function loadWorker() {
+  const handlers = {};
+  const shown = [];
+  const badges = [];
+  const windows = [];
+  const opened = [];
+  const note = (title, options) => {
+    const n = { title, ...options, data: options.data || {}, closed: false };
+    n.close = () => { n.closed = true; };
+    return n;
+  };
+  const fakeSelf = {
+    addEventListener: (name, fn) => { handlers[name] = fn; },
+    skipWaiting() {},
+    location: { origin: 'https://civicview.app' },
+    navigator: {
+      setAppBadge: async (n) => { badges.push(n); },
+      clearAppBadge: async () => { badges.push(0); },
+    },
+    clients: {
+      claim: async () => {},
+      matchAll: async () => windows,
+      openWindow: async (url) => { opened.push(url); },
+    },
+    registration: {
+      showNotification: async (title, options = {}) => {
+        if (options.tag) shown.filter((n) => n.tag === options.tag).forEach((n) => n.close());
+        shown.push(note(title, options));
+      },
+      getNotifications: async () => shown.filter((n) => !n.closed),
+    },
+  };
+  const exports = new Function('self', swSource + '\nreturn { notificationLink };')(fakeSelf);
+  async function fire(name, event) {
+    const waits = [];
+    handlers[name]({ ...event, waitUntil: (p) => waits.push(p) });
+    await Promise.all(waits);
+  }
+  const push = (payload) => fire('push', {
+    data: { json: () => { if (payload === undefined) throw new Error('not JSON'); return payload; } },
+  });
+  return { exports, shown, badges, windows, opened, fire, push };
+}
+
+await check('6 the worker opens the same link as the bell for every kind', () => {
+  const sw = loadWorker().exports;
+  const cases = [
+    ['tracked_post', { official_id: 'X1', post_id: 9 }],
+    ['tracked_event', { official_id: 'X1', event_id: 3 }],
+    ['reply', { official_id: 'X1', post_id: 9 }],
+    ['reply', { official_id: 'X1', poll_id: 4 }],
+    ['poll_results', { official_id: 'X1', poll_id: 4, post_id: 9 }],
+    ['poll_results', { official_id: 'X1', poll_id: 4 }],
+    ['poll_results', { official_id: '', poll_id: 4 }],
+    ['bill_update', { bill_key: '119-hr-1' }],
+    ['page_change', { official_id: 'X1' }],
+    ['page_changes', { count: 3 }],
+    ['tracked_summary', {}],
+    ['tracked_summary', { official_id: 'X1' }],
+    ['election_reminder', { state: 'FL' }],
+    ['election_reminder', { state: 'florida' }],
+    ['test', {}],
+    ['tracked_post', { official_id: 'a b/c', post_id: '7' }],
+  ];
+  for (const [kind, p] of cases) {
+    assert.equal(sw.notificationLink(kind, p), links.notificationLink(kind, p), `${kind} ${JSON.stringify(p)}`);
+  }
+});
+await check('6 every push shows a notification, even one that cannot be read', async () => {
+  const w = loadWorker();
+  await w.push(undefined);
+  assert.equal(w.shown.length, 1);
+  assert.equal(w.shown[0].title, 'New updates in CivicView');
+});
+await check('6 a push shows the server text, the icon, the link and the badge', async () => {
+  const w = loadWorker();
+  w.windows.push({ url: 'https://civicview.app/', postMessage: (m) => { w.windows.msgs = (w.windows.msgs || []).concat(m); } });
+  await w.push({
+    v: 1, title: 'New update from an official you track', body: '', channel: 'officials',
+    group: '{n} updates from officials you track', details: false, badge: 3,
+    data: { kind: 'tracked_post', official_id: 'X1', post_id: 9, notification_id: 7 },
+  });
+  const n = w.shown[0];
+  assert.equal(n.title, 'New update from an official you track');
+  assert.equal(n.body, '');
+  assert.equal(n.icon, '/logo/pwa-icon-192.png');
+  assert.equal(n.data.url, '/?page=X1#post-9');
+  assert.equal(n.data.notification_id, 7);
+  assert.deepEqual(w.badges, [3]);
+  assert.deepEqual(w.windows.msgs, [{ type: 'cv:push-received' }], 'an open window refreshes its bell');
+});
+await check('6 a tag replaces the older one; 3 of a channel become one count line', async () => {
+  const w = loadWorker();
+  const ev = { title: 'New event from an official you track', channel: 'events',
+    group: '{n} events from officials you track', tag: 'event-5', data: { kind: 'tracked_event', official_id: 'X1' } };
+  await w.push(ev);
+  await w.push(ev);
+  assert.equal(w.shown.filter((n) => !n.closed).length, 1, 'the same tag replaced');
+  const post = (i) => ({ title: 'New update from an official you track', channel: 'officials',
+    group: '{n} updates from officials you track', data: { kind: 'tracked_post', official_id: 'X1', post_id: i } });
+  await w.push(post(1));
+  await w.push(post(2));
+  let open = w.shown.filter((n) => !n.closed && n.data.channel === 'officials');
+  assert.equal(open.length, 2, 'two stay separate');
+  await w.push(post(3));
+  open = w.shown.filter((n) => !n.closed && n.data.channel === 'officials');
+  assert.equal(open.length, 1);
+  assert.equal(open[0].title, '3 updates from officials you track');
+  assert.equal(open[0].body, '', 'details hidden: names nobody');
+  assert.equal(open[0].data.url, '/?open=notifications');
+  await w.push(post(4));
+  open = w.shown.filter((n) => !n.closed && n.data.channel === 'officials');
+  assert.equal(open.length, 1);
+  assert.equal(open[0].title, '4 updates from officials you track');
+});
+await check('6 a tap focuses an open window and hands it the link, or opens one', async () => {
+  const w = loadWorker();
+  const msgs = [];
+  let focused = 0;
+  const target = { url: 'https://civicview.app/bills', focused: false, visibilityState: 'visible',
+    focus: async () => { focused += 1; }, postMessage: (m) => msgs.push(m) };
+  w.windows.push(target);
+  const n = { data: { url: '/?page=X1#post-9', notification_id: 7 }, close() { this.closed = true; } };
+  await w.fire('notificationclick', { notification: n });
+  assert.ok(n.closed);
+  assert.equal(focused, 1);
+  assert.deepEqual(msgs, [{ type: 'cv:push-tap', url: '/?page=X1#post-9', notification_id: 7 }]);
+  w.windows.length = 0;
+  await w.fire('notificationclick', { notification: { ...n, close() {} } });
+  assert.deepEqual(w.opened, ['/?page=X1&cv_read=7#post-9']);
+});
+
+// lib/webPush.js and lib/push.js in a browser (no Capacitor).
+const nav = { userAgent: '', maxTouchPoints: 0, serviceWorker: {}, standalone: undefined };
+Object.defineProperty(globalThis, 'navigator', { value: nav, configurable: true, writable: true });
+let displayStandalone = false;
+globalThis.window = {
+  localStorage: globalThis.window.localStorage,
+  PushManager: function PushManager() {},
+  matchMedia: () => ({ matches: displayStandalone }),
+  navigator: nav,
+  location: { href: 'https://civicview.app/', assign: () => {} },
+  dispatchEvent: () => true,
+  addEventListener: () => {},
+  removeEventListener: () => {},
+};
+globalThis.Notification = { permission: 'default' };
+const DESKTOP = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0 Safari/537.36';
+const IPHONE = (v) => `Mozilla/5.0 (iPhone; CPU iPhone OS ${v} like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1`;
+const IPAD_DESKTOP = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15';
+const webOff = await load('lib/webPush.js');
+await check('6 web push stays off until the public key is set', () => {
+  nav.userAgent = DESKTOP;
+  assert.equal(webOff.webPushStatus(), 'unconfigured');
+});
+process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY = 'BPublicKeyForTheTestOnlyNotARealKey000000000000000000000000000000000000000000000000000';
+const webOn = await import(pathToFileURL(await (async () => {
+  const file = path.join(out, 'webPush-on.mjs');
+  await build({ entryPoints: [path.join(root, 'lib/webPush.js')], bundle: true, format: 'esm', platform: 'node',
+    outfile: file, alias: { '@': root }, logLevel: 'silent' });
+  return file;
+})()).href);
+await check('6 desktop browsers are ready; iPhone needs the Home Screen; old iOS is told so', () => {
+  nav.userAgent = DESKTOP;
+  assert.equal(webOn.webPushStatus(), 'ready');
+  nav.userAgent = IPHONE('17_2');
+  assert.equal(webOn.isIos(), true);
+  assert.equal(webOn.webPushStatus(), 'ios_home_screen');
+  nav.userAgent = IPHONE('16_3');
+  assert.equal(webOn.webPushStatus(), 'ios_old');
+  nav.userAgent = IPHONE('16_4');
+  displayStandalone = true;
+  assert.equal(webOn.webPushStatus(), 'ready', 'the Home Screen app on 16.4');
+  displayStandalone = false;
+  nav.userAgent = IPAD_DESKTOP;
+  nav.maxTouchPoints = 5;
+  assert.equal(webOn.isIos(), true, 'an iPad asking for the desktop site');
+  assert.equal(webOn.webPushStatus(), 'ios_home_screen');
+  nav.maxTouchPoints = 0;
+  assert.equal(webOn.isIos(), false, 'a Mac');
+  assert.equal(webOn.webPushStatus(), 'ready');
+});
+await check('6 the app badge is set only in an installed app', () => {
+  const calls = [];
+  nav.setAppBadge = async (n) => { calls.push(n); };
+  nav.clearAppBadge = async () => { calls.push(0); };
+  displayStandalone = false;
+  webOn.setAppBadgeCount(4);
+  assert.deepEqual(calls, [], 'a tab: no badge');
+  displayStandalone = true;
+  webOn.setAppBadgeCount(4);
+  webOn.setAppBadgeCount(0);
+  assert.deepEqual(calls, [4, 0]);
+  displayStandalone = false;
+});
+await check('6 the card in a browser: after a track only, never at sign-in, never when blocked', () => {
+  store.delete('cv:push:choice');
+  store.delete('cv:push:declines');
+  store.delete('cv:push:declined_at');
+  nav.userAgent = DESKTOP;
+  assert.equal(push.isNativeApp(), false);
+  // The push.js bundle was built before the key was set: it reads the
+  // status through its own copy of webPush.js, which is 'unconfigured'.
+  assert.equal(push.shouldOfferPush('track'), false, 'web push off: no card');
+});
+const pushWeb = await import(pathToFileURL(await (async () => {
+  const file = path.join(out, 'push-web.mjs');
+  await build({ entryPoints: [path.join(root, 'lib/push.js')], bundle: true, format: 'esm', platform: 'node',
+    outfile: file, alias: { '@': root }, logLevel: 'silent' });
+  return file;
+})()).href);
+await check('6 the card in a browser, web push on', () => {
+  store.delete('cv:push:choice');
+  nav.userAgent = DESKTOP;
+  globalThis.Notification.permission = 'default';
+  assert.equal(pushWeb.shouldOfferPush('signin'), false, 'never at sign-in in a browser');
+  assert.equal(pushWeb.shouldOfferPush('launch'), false, 'never at launch on a desktop');
+  assert.equal(pushWeb.shouldOfferPush('track'), true, 'after a track');
+  globalThis.Notification.permission = 'denied';
+  assert.equal(pushWeb.shouldOfferPush('track'), false, 'blocked: no card');
+  globalThis.Notification.permission = 'default';
+  nav.userAgent = IPHONE('17_2');
+  assert.equal(pushWeb.shouldOfferPush('track'), true, 'Safari on iPhone: the card, whose Enable shows the guide');
+  displayStandalone = true;
+  assert.equal(pushWeb.shouldOfferPush('launch'), true, 'the Home Screen app, opened with no choice yet');
+  store.set('cv:push:choice', 'declined');
+  assert.equal(pushWeb.shouldOfferPush('launch'), false);
+  displayStandalone = false;
+  store.delete('cv:push:choice');
+});
+await check('6 Turn on in Safari on iPhone asks for nothing and says to add it to the Home Screen', async () => {
+  nav.userAgent = IPHONE('17_2');
+  let asked = 0;
+  globalThis.Notification.requestPermission = async () => { asked += 1; return 'granted'; };
+  const r = await pushWeb.enablePush();
+  assert.deepEqual(r, { ok: false, reason: 'ios_home_screen' });
+  assert.equal(asked, 0);
+  nav.userAgent = DESKTOP;
+});
+await check('6 the guide and the tour say what the browser does, in 30 words, no dashes', async () => {
+  const g = webOn;
+  const all = [g.HOME_SCREEN_GUIDE.title, g.HOME_SCREEN_GUIDE.intro, ...g.HOME_SCREEN_GUIDE.steps, g.HOME_SCREEN_GUIDE.tooOld];
+  assert.ok(!/[–—]/.test(all.join(' ')));
+  assert.equal(g.HOME_SCREEN_GUIDE.title, 'Add CivicView to your Home Screen to get alerts');
+  const step = notifTopic.steps.find((s) => s.id === 'notifications-phone');
+  assert.match(step.body, /Android app/);
+  assert.match(step.body, /iPhone \(from the Home Screen\)/);
+  assert.match(step.body, /desktop browsers/);
 });
 
 const text = [JSON.stringify(prefs.CHANNEL_SCHEMA), JSON.stringify(prefs.ALERT_ROWS),

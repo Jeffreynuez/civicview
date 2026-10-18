@@ -6,12 +6,14 @@
 /**
  * Admin: "Send me a test push" (2026-10-16). Sends one push to the
  * admin's own devices (those bound to their citizen account) and to this
- * device when the admin page is open in the app, then says what
- * happened. The server logs the same counts.
+ * device when the admin page is open in the app, or to this browser when
+ * web push is on in it (2026-10-18), then says what happened. The server
+ * logs the same counts.
  */
 
 import { useState } from 'react';
 import { request } from '@/lib/http';
+import { savedWebPushEndpoint } from '@/lib/webPush';
 
 export default function AdminTestPush() {
   const [busy, setBusy] = useState(false);
@@ -22,14 +24,16 @@ export default function AdminTestPush() {
     setNote('');
     let token = null;
     try { token = window.localStorage.getItem('cv:push:token'); } catch { /* private mode */ }
-    const { data, error } = await request('/api/admin/push/test', { method: 'POST', body: { token } });
+    const endpoint = savedWebPushEndpoint();
+    const { data, error } = await request('/api/admin/push/test', { method: 'POST', body: { token, endpoint } });
     setBusy(false);
     if (error || !data) { setNote(`Could not send: ${error || 'no answer'}`); return; }
     if (!data.devices) {
-      setNote('No device registered for you. Sign in as your citizen account in the app and turn push on, or open this page in the app.');
+      setNote('No device registered for you. Sign in as your citizen account and turn push on in the app or in this browser, or open this page in the app.');
       return;
     }
-    const where = data.service === 'dev' ? ' (push is not configured on this server: nothing really went out)' : '';
+    const where = data.service === 'dev' && data.web !== 'on'
+      ? ' (push is not configured on this server: nothing really went out)' : '';
     setNote(`Sent to ${data.sent} of ${data.devices} device(s), ${data.failed} failed, ${data.pruned} removed as dead${where}.`);
   };
 

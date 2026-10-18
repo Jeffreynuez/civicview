@@ -5,7 +5,8 @@
 
 // Registers /sw.js so civicview.app is installable as a desktop PWA
 // (Windows / macOS / Linux / ChromeOS "Install CivicView" in the
-// browser menu) and lays the groundwork for browser Web Push later.
+// browser menu) and, since 2026-10-18, shows web push notifications
+// (public/sw.js; lib/webPush.js subscribes from a tap, never here).
 // Renders nothing. Mounted once in the root layout.
 //
 // Guards:

@@ -376,8 +376,10 @@ export const TOUR_TOPICS = [
         id: 'notifications-phone',
         route: '/',
         target: null,
-        title: 'On your phone',
-        body: 'The Android app sends pushes as they happen or in one daily or weekly summary. They show only a general line unless you choose Show details.',
+        // Web push (2026-10-18): the iPhone Home Screen app and desktop
+        // browsers too. At most 30 words.
+        title: 'On your phone and computer',
+        body: 'The Android app, iPhone (from the Home Screen) and desktop browsers push as they happen or in a daily or weekly summary. Details stay hidden unless you choose Show details.',
       },
     ],
   },
