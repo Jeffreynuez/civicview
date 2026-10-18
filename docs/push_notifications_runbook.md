@@ -378,6 +378,14 @@ shared, App functionality, optional. Changes to make for 1.2.0:
    notifications); no change there.
 5. Keep: data encrypted in transit (yes); people can request deletion
    (yes: account deletion, and turning push off deletes the token).
+6. The ids in each push (checked 2026-10-18, no change needed): every
+   FCM push carries the kind of update and the ids that open it (page,
+   post, poll or event id, a federal bill's number, a state code, the
+   bell row id), and names and text only with Show details. Google
+   delivers it as our service provider, which Play does not count as
+   sharing, and what the ids reveal (which officials, bills and polls
+   someone follows) is the App interactions data in item 1. So no new
+   data type and no "shared" answer. Web push is not part of the app.
 
 ## Device checklist (1.2.0 from Internal testing)
 
@@ -636,3 +644,8 @@ another public key`.
 - Removing an event's notification when the official cancels the event
   (the tag is in place).
 - Restoring a signed-out device's tracked list in the app from the server.
+- One coded notification id in place of the ids in each FCM push (Jeffrey,
+  2026-10-18: a later Android build, after November 3). Today each push
+  carries the kind of update and the ids that open it (page, post, poll,
+  event, bill number, state code, bell row id); the privacy policy says
+  so. Web push needs no change: its payload is encrypted end to end.
