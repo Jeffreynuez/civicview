@@ -29,7 +29,8 @@ import TrackedManager from './TrackedManager';
 import BillReactions from './bills/BillReactions';
 import { useViewerGeo } from './bills/BillScope';
 import ActivityArchive from './ActivityArchive';
-import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt } from '../lib/pagesApi';
+import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt, fetchCitizenDashboard } from '../lib/pagesApi';
+import { notificationLink, openDeepLink, pollDeepLink, postDeepLink } from '../lib/deepLinks';
 import { refreshCitizenAuth } from '../lib/citizenAuth';
 import FeedCard from './polls/FeedCard';
 import AppealModal from './AppealModal';
@@ -52,8 +53,16 @@ import NotificationSettings from './NotificationSettings';
  *
  * Phase 3C: ships as a self-contained view component that the parent
  * (page.js) decides when to render — typically right after a citizen logs
- * in, or via a "Dashboard" entry in the navbar. Real data flows in via
- * props; the parent is responsible for wiring data fetching.
+ * in, or via a "Dashboard" entry in the navbar.
+ *
+ * Since 2026-10-19 the Overview loads its own data from
+ * GET /api/activity/dashboard when the parent passes no `upcoming` or
+ * `recent`: the "Your activity" counts for this month, "Recent
+ * activity" (the last 7 days of the citizen's notifications) and
+ * "Coming up" (their state's voting deadlines, events from officials
+ * they track, polls they voted in that close soon). Before that, three
+ * activity tiles read a hard-coded 0 and both cards always showed
+ * their empty state, because nothing passed them data.
  *
  * Data contract:
  *   citizen        — citizen me payload from useCitizenAuth (required).
@@ -123,6 +132,29 @@ export default function ConstituentDashboard({
   // this split the four account sections rendered ABOVE the civic
   // content on mobile, pushing My Representatives below the fold.
   const [view, setView] = useState(['settings', 'tracked', 'activity'].includes(initialView) ? initialView : 'overview');
+
+  // The Overview's own data (2026-10-19). Loaded when the Overview is
+  // shown, again each time it is reopened, so a new vote or reply
+  // shows up without a reload.
+  const [dash, setDash] = useState(null);
+  useEffect(() => {
+    if (view !== 'overview' || !citizen) return undefined;
+    let cancelled = false;
+    const now = new Date();
+    const since = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+    fetchCitizenDashboard({ since }).then(({ data }) => {
+      if (!cancelled && data) setDash(data);
+    });
+    return () => { cancelled = true; };
+  }, [view, citizen]);
+  const upcomingItems = useMemo(
+    () => (upcoming !== null ? upcoming : dash ? (dash.upcoming || []).map(upcomingItemFromApi) : null),
+    [upcoming, dash],
+  );
+  const recentItems = useMemo(
+    () => (recent !== null ? recent : dash ? (dash.recent || []).map(recentItemFromNotification).filter(Boolean) : null),
+    [recent, dash],
+  );
 
   return (
     <div
@@ -220,8 +252,11 @@ export default function ConstituentDashboard({
             {/* LEFT COLUMN — civic content */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <FollowedSpotlights onManage={() => setView('tracked')} onOpenOfficial={onNavigate.openOfficial} />
-              <UpcomingInDistrict items={upcoming} citizen={citizen} onSeeCalendar={onNavigate.districtCalendar} />
-              <RecentActivity items={recent} onSeeAll={onNavigate.viewActivity} />
+              {/* No "See district calendar" link (2026-10-19): the parent's
+                  handler only closed the dashboard, and now that this card
+                  has rows the link would show. */}
+              <UpcomingInDistrict items={upcomingItems} />
+              <RecentActivity items={recentItems} onSeeAll={onNavigate.viewActivity || (() => setView('activity'))} />
               <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} />
               <SavedSection citizen={citizen} onOpenPage={onNavigate.openPage} />
             </div>
@@ -231,7 +266,7 @@ export default function ConstituentDashboard({
                 links' "Account settings" entry switches views. */}
             <aside style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               {ballot && <YourBallotCard ballot={ballot} onView={ballot.onView || onNavigate.ballot} />}
-              <YourActivityCard reps={reps} />
+              <YourActivityCard reps={reps} counts={dash ? dash.counts : null} />
               <QuickLinksCard onNavigate={{ ...onNavigate, accountSettings: () => setView('settings') }} />
             </aside>
           </div>
@@ -529,18 +564,78 @@ function DashboardRepCard({ rep }) {
 const UPCOMING_KIND_META = {
   vote:           { label: 'House vote',    Icon: Newspaper },
   'town-hall':    { label: 'Town hall',     Icon: MapPin    },
+  event:          { label: 'Event',         Icon: MapPin    },
   'poll-closing': { label: 'Poll closing',  Icon: CalendarCheck },
-  ballot:         { label: 'On your ballot', Icon: CalendarCheck },
+  ballot:         { label: 'Voting deadline', Icon: CalendarCheck },
 };
 
+// One row of GET /api/activity/dashboard's `upcoming` (2026-10-19).
+// A voting deadline opens the state's own election site; an event its
+// RSVP link, else its page; a poll that is about to close opens the
+// poll.
+function upcomingItemFromApi(u) {
+  let onClick;
+  if (u.kind === 'ballot' && u.url) {
+    onClick = () => { try { window.open(u.url, '_blank', 'noopener,noreferrer'); } catch { /* ignore */ } };
+  } else if (u.kind === 'event') {
+    onClick = u.url
+      ? () => { try { window.open(u.url, '_blank', 'noopener,noreferrer'); } catch { /* ignore */ } }
+      : (u.official_id ? () => openDeepLink(postDeepLink(u.official_id)) : undefined);
+  } else if (u.kind === 'poll-closing') {
+    onClick = () => openDeepLink(pollDeepLink(u.official_id, u.poll_id, u.post_id));
+  }
+  return { id: u.id, kind: u.kind, title: u.title, when: u.when, meta: u.meta, onClick };
+}
 
-function UpcomingInDistrict({ items, citizen, onSeeCalendar }) {
-  const district = citizen?.district || 'your district';
+// Server times without a zone are UTC.
+function asUtc(iso) {
+  if (!iso) return iso;
+  return /[zZ]|[+-]\d\d:?\d\d$/.test(iso) ? iso : `${iso}Z`;
+}
+
+// One notification row (the same rows the bell shows) as a Recent
+// activity item, worded like the bell (2026-10-19).
+function recentItemFromNotification(n) {
+  const p = n.payload || {};
+  const open = () => openDeepLink(notificationLink(n.kind, p));
+  const whenIso = asUtc(n.created_at);
+  const base = { id: n.id, whenIso, onClick: notificationLink(n.kind, p) ? open : undefined };
+  switch (n.kind) {
+    case 'tracked_post':
+      return { ...base, kind: 'post', author: p.official_name || null,
+        title: p.has_poll ? 'Posted a new update with a poll' : 'Posted a new update',
+        body: p.preview || p.question || null };
+    case 'tracked_event':
+      return { ...base, kind: 'event', author: p.official_name || null,
+        title: 'Scheduled an upcoming event', body: p.title || p.preview || null };
+    case 'reply':
+      return { ...base, kind: 'reply',
+        title: `${p.replier_name || 'Someone'} replied to your comment`, body: p.preview || null };
+    case 'poll_results':
+      return { ...base, kind: 'voted', title: 'Results are in for a poll you voted in',
+        body: p.question || null };
+    case 'bill_update':
+      return { ...base, kind: 'bill',
+        title: `${p.citation || 'A bill you track'}${p.change_kind === 'status' ? ' had a status change'
+          : p.change_kind === 'vote' ? ' had a recorded vote' : ' has a new action'}`,
+        body: p.action || null };
+    case 'election_reminder':
+      return { ...base, kind: 'election', title: p.title || 'Election reminder', body: p.body || null };
+    default:
+      if (p.text || p.title) {
+        return { ...base, kind: 'page', title: p.title || p.text, body: p.title && p.text ? p.text : null };
+      }
+      return null;
+  }
+}
+
+
+function UpcomingInDistrict({ items, onSeeCalendar }) {
   const hasItems = items && items.length > 0;
   return (
     <section>
       <SectionHeader
-        eyebrow="Upcoming in your district"
+        eyebrow="Coming up"
         action={
           onSeeCalendar && hasItems
             ? { label: 'See district calendar →', onClick: onSeeCalendar }
@@ -556,8 +651,8 @@ function UpcomingInDistrict({ items, citizen, onSeeCalendar }) {
       ) : (
         <EmptyState
           icon={<CalendarCheck size={36} color="default" />}
-          headline={`Nothing scheduled in ${district} yet`}
-          body="We'll surface votes, town halls, and poll closings here as your tracked reps post them."
+          headline="Nothing coming up yet"
+          body="Voting deadlines for your state, events from officials you track and polls you voted in that are about to close will show up here."
           dense
         />
       )}
@@ -704,7 +799,7 @@ function RecentActivity({ items, onSeeAll }) {
         <EmptyState
           icon={<ChatCircleDots size={36} color="default" />}
           headline="No recent activity yet"
-          body="When your tracked reps post, when polls you voted on close, or when someone replies to your comments — it'll show up here."
+          body="Posts and events from people you track, results of polls you voted in, replies to your comments and election reminders from the last 7 days show up here."
           dense
         />
       )}
@@ -719,14 +814,17 @@ function ActivityRow({ item }) {
       : item.kind === 'voted'
       ? 'var(--cl-warning-text)'
       : 'var(--cl-text-light)';
-  const eyebrowText =
-    item.kind === 'reply'
-      ? 'Reply on your comment'
-      : item.kind === 'voted'
-      ? 'You voted'
-      : item.author
-      ? `${item.author} · New post`
-      : 'New post';
+  const EYEBROWS = {
+    reply: 'Reply on your comment',
+    voted: 'Poll results',
+    bill: 'Bill update',
+    election: 'Election reminder',
+    page: 'Page change',
+  };
+  const eyebrowText = EYEBROWS[item.kind]
+    || (item.kind === 'event'
+      ? (item.author ? `${item.author} · New event` : 'New event')
+      : (item.author ? `${item.author} · New post` : 'New post'));
 
   return (
     <div
@@ -760,6 +858,10 @@ function ActivityRow({ item }) {
           <ChatCircleDots size={18} active color="accent" />
         ) : item.kind === 'voted' ? (
           <CheckCircle size={18} active color="warning" />
+        ) : item.kind === 'event' ? (
+          <MapPin size={18} active color="accent" />
+        ) : item.kind === 'election' ? (
+          <CalendarCheck size={18} active color="accent" />
         ) : (
           <Newspaper size={18} active color="accent" />
         )}
@@ -915,17 +1017,19 @@ function YourBallotCard({ ballot, onView }) {
 // ─────────────────────────────────────────────────────────────────
 // Right-rail: Your Activity stats
 // ─────────────────────────────────────────────────────────────────
-function YourActivityCard({ reps }) {
+function YourActivityCard({ reps, counts }) {
   const repsTracked = (reps && reps.length) || 0;
-  // Demo metrics — Phase 2 will replace these with a real /citizen/stats
-  // endpoint. The right-rail engagement card is part of the design
-  // system but Phase 1.5 doesn't have the rollups built. Numbers are
-  // honest fallbacks (0s) when no data, not inflated demo values.
+  // This month's counts come from GET /api/activity/dashboard
+  // (2026-10-19): poll votes, comments (not deleted) and reactions on
+  // posts, polls, comments and bills since the first of the month on
+  // this device's clock. Until they load the tiles show an ellipsis,
+  // never a made-up number. Reps tracked is the live tracked list.
+  const show = (v) => (counts ? (Number(v) || 0) : '\u2026');
   const stats = [
-    { label: 'Polls cast',    value: 0 },
-    { label: 'Comments left', value: 0 },
+    { label: 'Polls cast',    value: show(counts?.polls_cast) },
+    { label: 'Comments left', value: show(counts?.comments_left) },
     { label: 'Reps tracked',  value: repsTracked },
-    { label: 'Reactions',     value: 0 },
+    { label: 'Reactions',     value: show(counts?.reactions) },
   ];
   return (
     <Card
@@ -1196,8 +1300,7 @@ function ContactEmailPrompt({ citizen }) {
       >
         Saved. We&rsquo;ll email you once, when it&rsquo;s time to move your
         account over, and you can use this address with Forgot password
-        if you lose your sign-in. You can change or remove it any time in
-        Account &amp; settings.
+        if you lose your sign-in.
       </div>
     );
   }

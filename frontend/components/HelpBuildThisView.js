@@ -113,7 +113,7 @@ const SHIPPED = [
   ['Reply threading (two-party)', 'Top-level comments are open to all citizens; replies are gated to the post creator + the original commenter only. Prevents citizen-vs-citizen pile-ons while keeping the rep ↔ constituent conversation flowing.'],
   ['"On the ballot" home surface', 'Key election dates + a featured race.'],
   ['"Popular polls" home surface', 'Rep-authored and citizen-authored polls, mixed.'],
-  ['"National activity" home surface', 'Alternating R/D posts.'],
+  ['"National activity" home surface', 'The most engaged posts from reps and candidates.'],
   ['Demo citizen accounts', 'Pick a name + state + district and try the engagement features end-to-end.'],
   ['Constituent dashboard', 'My tracked pages, my polls, my comments, my hidden-by-moderation with one-click appeals.'],
   ['Responsive layouts', 'Mobile + desktop, including a draggable map / panel split on phones.'],

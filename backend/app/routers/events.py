@@ -6,7 +6,7 @@ Events router — serves the merged feed of curated (events.json) +
 rep-created (DB) events. The two sources use compatible shapes so the
 frontend doesn't need to care where any given event came from.
 """
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 from fastapi import APIRouter, Depends, Query
@@ -41,15 +41,25 @@ def _rep_event_to_dict(evt: RepEvent) -> dict:
 
 def _filter_upcoming_rep_events(events: list[dict]) -> list[dict]:
     """Mirror EventsService._filter_upcoming so DB events get the same
-    past-cutoff treatment as curated ones."""
-    now = datetime.now()
+    past-cutoff treatment as curated ones.
+
+    A start_at with an explicit UTC offset (like 2026-11-14T10:00:00-05:00,
+    which the events API accepts) raised TypeError when compared with a
+    naive now, so GET /api/events/upcoming answered 500 for that page
+    (fixed 2026-10-19). A time with an offset or a Z is compared in UTC;
+    a time without one keeps the old wall-clock comparison."""
     keep: list[dict] = []
     for e in events:
         try:
-            dt = datetime.fromisoformat((e.get("date") or "").replace("Z", ""))
+            dt = datetime.fromisoformat((e.get("date") or "").replace("Z", "+00:00"))
         except (ValueError, TypeError):
             keep.append(e)  # keep un-parseable so it's at least visible
             continue
+        if dt.tzinfo is not None:
+            dt = dt.astimezone(timezone.utc).replace(tzinfo=None)
+            now = datetime.now(timezone.utc).replace(tzinfo=None)
+        else:
+            now = datetime.now()
         if dt >= now:
             keep.append(e)
     return keep
