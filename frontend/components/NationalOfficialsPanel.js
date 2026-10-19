@@ -553,7 +553,7 @@ function Hero({ onVerifyClick }) {
               color: 'var(--cl-text-muted)',
             }}
           >
-            Address used to match your district. Never shared, never sold.
+            Address used only to find your districts. Never sold.
           </div>
 
           {/* CivicView Stats — wrapped in a collapsible so the hero CTA
@@ -1621,9 +1621,9 @@ function NationalActivitySection({ onRequestVerify, citizen }) {
     <section style={{ padding: '32px 24px 16px' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <SectionHeader
-          eyebrow="Past 24 hours"
+          eyebrow="Most engaged"
           title="National activity"
-          subhead="Recent posts from reps and candidates across the country"
+          subhead="The posts from reps and candidates with the most engagement"
           chip={null}
           collapsible
           open={open}

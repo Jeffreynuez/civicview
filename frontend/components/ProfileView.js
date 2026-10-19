@@ -106,11 +106,13 @@ const ROLE_TABS = {
     { id: 'contact', label: 'Contact' },
   ],
   // ── State-level roles ──────────────────────────────────────────────
+  // No Exec. Orders tab for governors (2026-10-19): there is no state
+  // executive-order source, so the tab was always empty and showed a
+  // message written about presidents.
   state_governor: [
     { id: 'overview', label: 'Overview' },
     { id: 'issues', label: 'Issues' },
     { id: 'experience', label: 'Experience' },
-    { id: 'exec_orders', label: 'Exec. Orders' },
     { id: 'gov_actions', label: 'Bills' },
     { id: 'events', label: 'Events' },
     { id: 'contact', label: 'Contact' },
@@ -420,14 +422,6 @@ export default function ProfileView({
       } else {
         setEoState({ loading: false, loaded: true, data: [], isLive: false });
       }
-    }
-
-    // State governors also have an Exec. Orders tab. We don't have a live
-    // FL EO feed today — resolve with an empty list so the tab shows a
-    // friendly empty state + a link to the governor's website.
-    if (activeTab === 'exec_orders' && role === 'state_governor'
-        && !eoState.loaded && !eoState.loading) {
-      setEoState({ loading: false, loaded: true, data: [], isLive: false });
     }
 
     if (activeTab === 'pres_actions'

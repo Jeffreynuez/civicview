@@ -372,6 +372,29 @@ categories:
 
 ---
 
+## Shipped 2026-10-19: a dashboard on real data, and labels that say what they do
+
+- **Citizen dashboard, Overview:** "Your activity" counts this month's
+  poll votes, comments and reactions (they were fixed at 0). "Coming up"
+  (was "Upcoming in your district", always empty) lists the state's next
+  voting deadlines, only dates with an official source (the same ones
+  election reminders use), events from officials you track and polls you
+  voted in that close within 14 days. "Recent activity" (always empty)
+  shows the last 7 days of your notifications, bell-cleared ones
+  included. One read: `GET /api/activity/dashboard`.
+- **Governor profiles** no longer show an Exec. Orders tab: there is no
+  state executive-order source, so it was always empty.
+- **Home:** "Past 24 hours / National activity" is now "Most engaged /
+  National activity" (it shows the most engaged posts, not the last day),
+  and the address note reads "Address used only to find your districts.
+  Never sold." (the address goes to the Census geocoder to find them).
+- **Stats:** Reps joined and Candidates joined leave out the internal
+  CivicView Test Rep and Test Candidate.
+- **Events:** an event saved with an explicit UTC offset no longer makes
+  `GET /api/events/upcoming` answer 500.
+- The contact email card no longer promises an edit control that doesn't
+  exist.
+
 ## Shipped 2026-10-18: web push
 
 The same pushes as the Android app now reach desktop browsers, browsers

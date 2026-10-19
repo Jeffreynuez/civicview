@@ -770,6 +770,13 @@ export async function fetchActivityNotifications({ identity, kind, limit = 20, o
   return request('/api/activity/notifications', { query: { identity, kind, limit, offset } });
 }
 
+// The citizen dashboard's Overview (2026-10-19): this month's counts
+// (since = the start of the month on this device's clock), the last 7
+// days of notifications and what's coming up.
+export async function fetchCitizenDashboard({ since } = {}) {
+  return request('/api/activity/dashboard', { query: { since } });
+}
+
 // ── Citizen polls (on unclaimed rep pages) ────────────────────────────
 // The page-scoped list endpoint returns active + archived buckets, the
 // caller's role, and the rate-limit signals (caller_has_active_poll,

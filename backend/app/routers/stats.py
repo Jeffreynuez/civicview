@@ -40,11 +40,14 @@ Demo accounts:
     live (fixed 2026-10-03). It reads 0 until ID.me goes live, and
     that is the honest number.
 
-Reps joined:
-  - Counts RepAccount rows where is_active=True. Seeded demo accounts
-    are also rows in this table, so the count includes them — this
-    matches the user-visible reality (a visitor looking at the panel
-    sees those demo Pages and would expect them counted).
+Reps joined and Candidates joined:
+  - Count active RepAccount / CandidateAccount rows, leaving out the
+    internal test accounts (the CivicView Test Rep and the CivicView
+    Test Candidate, ids starting with "test-civicview-internal").
+    Until 2026-10-19 they were counted, so the public page read "1 rep
+    joined" and "1 candidate joined" with no real official or
+    candidate on CivicView; that is the same kind of number as the
+    "1 verified citizen" fixed on 2026-10-03.
 """
 from __future__ import annotations
 
@@ -93,6 +96,19 @@ def _verified_person_filter():
     )
 router = APIRouter()
 
+# The internal test accounts (backend/demo_accounts.json,
+# backend/demo_candidate_accounts.json) are not reps or candidates
+# who joined, so the public counts leave them out (2026-10-19).
+_TEST_ID_PREFIX = "test-civicview-internal%"
+
+
+def _joined_reps_filter():
+    return RepAccount.is_active.is_(True), ~RepAccount.official_id.like(_TEST_ID_PREFIX)
+
+
+def _joined_candidates_filter():
+    return CandidateAccount.is_active.is_(True), ~CandidateAccount.candidate_id.like(_TEST_ID_PREFIX)
+
 
 class StatsSummary(BaseModel):
     """Public stats bundle for the hero tile cluster."""
@@ -121,7 +137,7 @@ def stats_summary(db: Session = Depends(get_db)) -> StatsSummary:
     failures: list[str] = []
     reps_joined = _count(
         db,
-        lambda: db.query(func.count(RepAccount.id)).filter(RepAccount.is_active.is_(True)).scalar(),
+        lambda: db.query(func.count(RepAccount.id)).filter(*_joined_reps_filter()).scalar(),
         "reps_joined", failures,
     )
     verified_citizens = _count(
@@ -354,11 +370,11 @@ def stats_detail(db: Session = Depends(get_db)) -> StatsDetail:
         citizens_verified=citizens_verified,
         citizens_demo=citizens_demo,
         reps_joined=c(
-            lambda: db.query(func.count(RepAccount.id)).filter(RepAccount.is_active.is_(True)).scalar(),
+            lambda: db.query(func.count(RepAccount.id)).filter(*_joined_reps_filter()).scalar(),
             "reps_joined",
         ),
         candidates_joined=c(
-            lambda: db.query(func.count(CandidateAccount.id)).filter(CandidateAccount.is_active.is_(True)).scalar(),
+            lambda: db.query(func.count(CandidateAccount.id)).filter(*_joined_candidates_filter()).scalar(),
             "candidates_joined",
         ),
         posts=c(lambda: db.query(func.count(Post.id)).scalar(), "posts"),
