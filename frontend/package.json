@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
-    "@capacitor/cli": "^8.4.3",
+    "@capacitor/cli": "^8.5.3",
     "autoprefixer": "^10.4.17",
     "esbuild": "^0.28.0",
     "eslint": "^9.39.5",
