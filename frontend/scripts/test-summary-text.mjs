@@ -59,6 +59,12 @@ check('a script tag in the source stays text, never markup', () => {
   assert.deepEqual(paras, ['Safe alert(1)text']);
 });
 
+check('a tag split around another tag is still taken out', () => {
+  const paras = summaryParagraphs('A <scr<b>ipt>x</scr</b>ipt> B');
+  assert.equal(paras.length, 1);
+  assert.ok(!/<[a-z/]/i.test(paras[0]), 'no tag left in: ' + paras[0]);
+});
+
 check('empty input', () => {
   assert.deepEqual(summaryParagraphs(''), []);
   assert.deepEqual(summaryParagraphs(null), []);

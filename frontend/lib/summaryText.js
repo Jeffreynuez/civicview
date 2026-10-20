@@ -35,6 +35,17 @@ function decodeEntities(s) {
   });
 }
 
+// Every tag out, repeated until nothing changes: one pass over "<scr<b>ipt>"
+// would leave "<script>" behind. The result is only ever shown as text.
+function stripTags(s) {
+  let prev;
+  do {
+    prev = s;
+    s = s.replace(/<[^>]*>/g, '');
+  } while (s !== prev);
+  return s;
+}
+
 /**
  * A CRS summary or Federal Register abstract as clean paragraphs of text:
  * paragraph and list tags become paragraph breaks, <br> a line break,
@@ -46,8 +57,8 @@ export function summaryParagraphs(text) {
   let s = String(text)
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/(p|li|ul|ol|div|h[1-6])\s*>/gi, '\n\n')
-    .replace(/<li[^>]*>/gi, '\u2022 ')
-    .replace(/<[^>]*>/g, '');
+    .replace(/<li[^>]*>/gi, '\u2022 ');
+  s = stripTags(s);
   s = decodeEntities(s).replace(/\u00a0/g, ' ');
   return s
     .split(/\n\s*\n+/)
