@@ -372,6 +372,18 @@ categories:
 
 ---
 
+## Shipped 2026-10-20: bill summaries read cleanly
+
+- **Profile Bills tab:** the official CRS summary printed Congress.gov's
+  leftover HTML as text ("<strong>", "&nbsp;"); it now reads as plain
+  paragraphs. The AI plain-English version showed its **bold** labels
+  with the asterisks; they are bold now. The same cleanup applies to a
+  President's executive-order abstracts. Nothing is rendered as HTML
+  from the source (`frontend/lib/summaryText.js`, checked by
+  `npm run test:summary-text`).
+
+---
+
 ## Shipped 2026-10-19: a dashboard on real data, and labels that say what they do
 
 - **Citizen dashboard, Overview:** "Your activity" counts this month's

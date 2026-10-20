@@ -13,7 +13,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint app components lib scripts",
-    "test:notifications": "node scripts/test-notifications.mjs"
+    "test:notifications": "node scripts/test-notifications.mjs",
+    "test:summary-text": "node scripts/test-summary-text.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.3",

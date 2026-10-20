@@ -49,6 +49,7 @@ import { BillScopeProvider } from './bills/BillScope';
 import { geoForMember } from '@/lib/billReactions';
 import { currentCongress, ordinal } from '@/lib/congress';
 import { partyInfo, partyStyle } from '@/lib/party';
+import { summaryParagraphs, inlineRuns } from '@/lib/summaryText';
 
 
 // Per-role tab configuration. Congress members fall through to 'congress'
@@ -2009,10 +2010,11 @@ function BillSummarySection({ bill }) {
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cl-accent)' }} />
                 CRS summary
               </div>
-              {/* CRS summaries come back as paragraph text (HTML stripped
-                  server-side). Split on double-newlines for paragraph
-                  breaks, preserve single newlines as soft breaks. */}
-              {summary.crs_summary.split(/\n\n+/).map((para, i) => (
+              {/* CRS summaries can still carry HTML from Congress.gov
+                  ("<strong>", "&nbsp;"): summaryParagraphs turns them into
+                  plain paragraphs (never rendered as HTML). Single newlines
+                  stay as soft breaks. */}
+              {summaryParagraphs(summary.crs_summary).map((para, i) => (
                 <p key={i} style={{ margin: i === 0 ? '0 0 8px' : '0 0 8px', whiteSpace: 'pre-wrap' }}>
                   {para}
                 </p>
@@ -2191,6 +2193,12 @@ function BillCard({ bill, member, onNotify }) {
 // "paragraph + bullets" Markdown — first paragraph plus a "- " bullet
 // list. We do a light-weight render instead of pulling in a full
 // markdown library, since the prompt locks down the shape.
+// One line of the AI text, its **bold** labels as <strong> (they used to
+// print with their asterisks).
+function InlineMd({ text }) {
+  return inlineRuns(text).map((r, i) => (r.bold ? <strong key={i}>{r.text}</strong> : <span key={i}>{r.text}</span>));
+}
+
 function PlainEnglishBody({ markdown }) {
   if (!markdown) return null;
   const lines = markdown.split('\n');
@@ -2198,7 +2206,8 @@ function PlainEnglishBody({ markdown }) {
   const bullets = [];
   let inBullets = false;
   for (const raw of lines) {
-    const line = raw.trim();
+    // a markdown heading ("## What it does") reads as a plain line
+    const line = raw.trim().replace(/^#{1,6}\s+/, '');
     if (!line) continue;
     if (line.startsWith('- ') || line.startsWith('* ')) {
       inBullets = true;
@@ -2212,12 +2221,12 @@ function PlainEnglishBody({ markdown }) {
   return (
     <>
       {paras.map((p, i) => (
-        <p key={`p-${i}`} style={{ margin: '0 0 8px' }}>{p}</p>
+        <p key={`p-${i}`} style={{ margin: '0 0 8px' }}><InlineMd text={p} /></p>
       ))}
       {bullets.length > 0 && (
         <ul style={{ margin: '4px 0 0', paddingLeft: 20 }}>
           {bullets.map((b, i) => (
-            <li key={`b-${i}`} style={{ marginBottom: 4 }}>{b}</li>
+            <li key={`b-${i}`} style={{ marginBottom: 4 }}><InlineMd text={b} /></li>
           ))}
         </ul>
       )}
@@ -3465,7 +3474,7 @@ function EOCard({ order }) {
                   <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cl-accent)' }} />
                   Federal Register abstract
                 </div>
-                {order.abstract.split(/\n\n+/).map((para, i) => (
+                {summaryParagraphs(order.abstract).map((para, i) => (
                   <p key={i} style={{ margin: i === 0 ? '0 0 8px' : '0 0 8px', whiteSpace: 'pre-wrap' }}>
                     {para}
                   </p>
