@@ -2,12 +2,13 @@
 #    uv pip compile requirements.in --universal --python-version 3.11 -o requirements.txt
 annotated-types==0.8.0
     # via pydantic
-anthropic==0.125.0
+anthropic==1.15.0
     # via -r requirements.in
 anyio==4.15.1
     # via
     #   anthropic
     #   httpx
+    #   httpx2
     #   starlette
     #   watchfiles
 bcrypt==5.0.0
@@ -40,8 +41,6 @@ cryptography==50.0.2
     #   pyjwt
 defusedxml==0.7.1
     # via -r requirements.in
-distro==1.9.0
-    # via anthropic
 dnspython==2.8.0
     # via email-validator
 docstring-parser==0.18.0
@@ -94,6 +93,7 @@ grpcio-status==1.84.0
 h11==0.16.0
     # via
     #   httpcore
+    #   httpcore2
     #   uvicorn
 h2==4.4.1
     # via httpx
@@ -103,13 +103,16 @@ http-ece==1.2.1
     # via -r requirements.in
 httpcore==1.0.9
     # via httpx
+httpcore2==2.15.1
+    # via httpx2
 httptools==0.8.0
     # via uvicorn
 httpx[http2]==0.28.1
     # via
     #   -r requirements.in
-    #   anthropic
     #   firebase-admin
+httpx2==2.15.1
+    # via anthropic
 hyperframe==6.1.0
     # via h2
 idna==3.20
@@ -117,6 +120,7 @@ idna==3.20
     #   anyio
     #   email-validator
     #   httpx
+    #   httpx2
     #   requests
 itsdangerous==2.2.0
     # via -r requirements.in
@@ -129,7 +133,9 @@ jmespath==1.1.0
 msgpack==1.2.2
     # via cachecontrol
 opentelemetry-api==1.44.0
-    # via google-api-core
+    # via
+    #   anthropic
+    #   google-api-core
 pillow==12.3.0
     # via -r requirements.in
 postmarker==1.0
@@ -195,6 +201,10 @@ starlette==0.48.0
     # via fastapi
 stripe==12.5.1
     # via -r requirements.in
+truststore==0.10.5
+    # via
+    #   httpcore2
+    #   httpx2
 typing-extensions==4.16.0
     # via
     #   anthropic

@@ -47,7 +47,7 @@ psycopg2-binary>=2.9,<3
 # just degrades the AI surfaces to "Coming soon" without taking the
 # whole API down. Version floor 0.40 is the first release with
 # native streaming + citations support; ceiling is the next major.
-anthropic>=0.40,<1
+anthropic>=1.15.0,<2
 
 # Task #62 — TOTP 2FA for admin / rep / candidate accounts (citizens
 # optional). pyotp generates + verifies the 6-digit time-based codes;
