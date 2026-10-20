@@ -56,7 +56,7 @@ anthropic>=0.40,<1
 # secret on disk is useless without the env var. Recovery codes are
 # bcrypt-hashed (no new dep — bcrypt already above for passwords).
 pyotp>=2.9,<3
-cryptography>=43,<46
+cryptography>=50.0.2,<51
 
 # Task #83 — Cloudflare R2 object storage for post images (replaces
 # the ephemeral local disk path on Render). boto3 talks to R2 via
