@@ -66,6 +66,11 @@ from app.services import poll_visibility
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
+# Polls attached to a post: a rep's (author_kind 'rep') or, since
+# create_post records it, a candidate's ('candidate'). Their likes and
+# the viewer's reactions live on the parent post.
+_POST_POLL_KINDS = ("rep", "candidate")
+
 
 def _poll_parent_visible():
     """A rep or candidate poll lives inside a Post. When that post is
@@ -420,7 +425,7 @@ def _serialize_poll_feed_items(
     # items loop falls back to 0/0 (citizen polls don't have a like /
     # dislike concept yet — that's a future PR; the design treats it
     # as forward-compatible).
-    rep_post_ids = [p.post_id for p in rows if p.author_kind == "rep" and p.post_id]
+    rep_post_ids = [p.post_id for p in rows if p.author_kind in _POST_POLL_KINDS and p.post_id]
     post_likes: Dict[int, int] = {}
     post_dislikes: Dict[int, int] = {}
     if rep_post_ids:
@@ -476,7 +481,7 @@ def _serialize_poll_feed_items(
     # Pre-compute per-identity reactions on each REP poll's parent
     # post. Citizen polls don't have reactions yet (no PollReaction
     # model) so they get empty maps.
-    rep_post_ids_for_rxn = [p.post_id for p in rows if p.author_kind == "rep" and p.post_id]
+    rep_post_ids_for_rxn = [p.post_id for p in rows if p.author_kind in _POST_POLL_KINDS and p.post_id]
     my_reactions_by_post: Dict[int, Dict[str, str]] = {}
     if rep_post_ids_for_rxn and (me_citizen or me_rep or me_candidate):
         rq = db.query(PostReaction.post_id, PostReaction.kind).filter(
@@ -730,7 +735,7 @@ def _serialize_poll_feed_items(
         # the per-identity reaction map — sourced from the parent
         # post for REP polls, from PollReaction for CITIZEN polls.
         per_identity_votes = viewer_votes_by_identity.get(int(poll.id), {})
-        if poll.author_kind == "rep" and poll.post_id:
+        if poll.author_kind in _POST_POLL_KINDS and poll.post_id:
             per_identity_rxns = my_reactions_by_post.get(int(poll.post_id), {})
         elif poll.author_kind == "citizen":
             per_identity_rxns = my_reactions_by_poll.get(int(poll.id), {})
@@ -750,7 +755,7 @@ def _serialize_poll_feed_items(
         #   • Citizen polls → PollReaction on the poll itself
         # Returned explicitly so the frontend doesn't have to special-
         # case "likes missing" — every poll item has the same shape.
-        if poll.author_kind == "rep" and poll.post_id:
+        if poll.author_kind in _POST_POLL_KINDS and poll.post_id:
             likes = post_likes.get(int(poll.post_id), 0)
             dislikes = post_dislikes.get(int(poll.post_id), 0)
         elif poll.author_kind == "citizen":
@@ -982,7 +987,11 @@ def polls_feed(
             # target_official_id NULL and author_kind=='rep'). We union
             # the rep-kind rows in here so (b) survives the SQL pass; the
             # Python narrowing then keeps only the truly candidate ones.
-            return (Poll.target_official_id.is_not(None)) | (Poll.author_kind == "rep")
+            # Since create_post stores author_kind='candidate' on a
+            # candidate's poll, those rows are included directly too
+            # (2026-10-20: without them, From candidates came back empty).
+            return ((Poll.target_official_id.is_not(None)) | (Poll.author_kind == "rep")
+                    | (Poll.author_kind == "candidate"))
         return None
 
     q = (db.query(Poll).filter(Poll.archived_at.is_(None)).filter(_poll_parent_visible())
@@ -1075,9 +1084,10 @@ def polls_feed(
                 if is_candidate_id(p.target_official_id):
                     return "candidate"
                 return "citizen"
-            # Post-attached poll: candidate-authored if the parent post
-            # carries author_candidate_id, otherwise a rep poll.
-            if p.post_id in cand_post_ids:
+            # Post-attached poll: candidate-authored if it says so, or if
+            # the parent post carries author_candidate_id (older rows
+            # stored 'rep'); otherwise a rep poll.
+            if p.author_kind == "candidate" or p.post_id in cand_post_ids:
                 return "candidate"
             return "rep"
 

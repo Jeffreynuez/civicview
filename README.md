@@ -393,6 +393,10 @@ categories:
   included, enforced on the server) until a poll set to reveal after it
   closes has closed (`services/poll_visibility.py`; checked by
   `tests/test_feed_results_and_filters.py`).
+- **Polls, From candidates:** a candidate's poll is stored as a
+  candidate's, and the chip's server filter only looked for rep-stored
+  ones, so it was always empty. It now shows candidates' polls, and
+  their likes come from the post they're attached to.
 
 ---
 

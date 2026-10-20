@@ -20,6 +20,11 @@ What each part would have caught:
   Country choice    GET /api/pages/{id}?scope=country shows country-wide
                     counts for a poll whose default is the district;
                     with no scope each poll keeps its own default.
+  From candidates   A candidate's poll is stored with author_kind
+                    'candidate', which the kind=candidate filter left
+                    out, so the chip was always empty, and its likes
+                    read 0. It is now in that chip only, with its
+                    post's likes.
   Result settings   A poll set to show results after it closes sent its
                     counts to the /polls feed, Popular polls, the posts
                     feed vote total and Explore results. Now none of
@@ -73,7 +78,7 @@ def main() -> int:
     from app.db import SessionLocal
     from app.middleware import rate_limit
     from app.models.pages import (
-        CandidateAccount, CitizenAccount, Poll, PollOption, PollVote, Post, RepAccount,
+        CandidateAccount, CitizenAccount, Poll, PollOption, PollVote, Post, PostReaction, RepAccount,
     )
     from app.services import ai_service
 
@@ -129,9 +134,9 @@ def main() -> int:
                 return p
 
             def poll(question, n_votes, *, post_row=None, mode="full", closes_at=None,
-                     scope="country", citizen_author=None):
+                     scope="country", citizen_author=None, author_kind="rep"):
                 pl = Poll(post_id=post_row.id if post_row else None, question=question,
-                          author_kind="citizen" if citizen_author else "rep",
+                          author_kind="citizen" if citizen_author else author_kind,
                           author_citizen_id=citizen_author.id if citizen_author else None,
                           default_visibility_scope=scope, presentation_mode=mode,
                           closes_at=closes_at, created_at=now)
@@ -162,11 +167,14 @@ def main() -> int:
             q_hidden = poll("On request?", 4, post_row=p_hidden, mode="hidden")
             q_citizen = poll("Citizen held?", 2, mode="reveal_after_close",
                              closes_at=now + timedelta(days=1), citizen_author=author)
+            # As create_post stores it: a candidate's poll says 'candidate'.
+            q_cand = poll("Candidate asks?", 1, post_row=p_cand, author_kind="candidate")
+            db.add(PostReaction(post_id=p_cand.id, citizen_id=voters[0].id, kind="up"))
             db.commit()
             ids = {k: v.id for k, v in dict(
                 p_full=p_full, p_held=p_held, p_closed=p_closed, p_hidden=p_hidden, p_exec=p_exec,
                 p_cand=p_cand, q_full=q_full, q_held=q_held, q_closed=q_closed, q_hidden=q_hidden,
-                q_citizen=q_citizen,
+                q_citizen=q_citizen, q_cand=q_cand,
             ).items()}
             house_rep_id, author_id = house.id, author.id
 
@@ -186,6 +194,15 @@ def main() -> int:
               f"curated executive post branch: {posts[ids['p_exec']].get('branch')}")
         check("branch" in posts[ids["p_cand"]] and posts[ids["p_cand"]]["branch"] is None,
               "candidate posts carry no branch")
+
+        # ── From candidates ──────────────────────────────────────────
+        cand_ids = [i["id"] for i in c.get("/api/feed/polls?limit=100&kind=candidate").json()["items"]]
+        rep_ids = [i["id"] for i in c.get("/api/feed/polls?limit=100&kind=rep").json()["items"]]
+        check(cand_ids == [ids["q_cand"]], f"kind=candidate should hold the candidate's poll only: {cand_ids}")
+        check(ids["q_cand"] not in rep_ids and ids["q_full"] in rep_ids,
+              f"kind=rep should hold rep polls only: {rep_ids}")
+        check(polls[ids["q_cand"]].get("kind") == "candidate" and polls[ids["q_cand"]].get("likes") == 1,
+              f"a candidate's poll shows as a candidate poll with its post's likes: {polls[ids['q_cand']]}")
 
         # ── Posts AI filter ──────────────────────────────────────────
         house_posts = {ids[k] for k in ("p_full", "p_held", "p_closed", "p_hidden")}
