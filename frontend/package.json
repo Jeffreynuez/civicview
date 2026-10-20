@@ -14,7 +14,8 @@
     "start": "next start",
     "lint": "eslint app components lib scripts",
     "test:notifications": "node scripts/test-notifications.mjs",
-    "test:summary-text": "node scripts/test-summary-text.mjs"
+    "test:summary-text": "node scripts/test-summary-text.mjs",
+    "test:feed-filters": "node scripts/test-feed-filters.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.3",

@@ -27,10 +27,12 @@ from sqlalchemy.orm import Session, selectinload
 
 from datetime import datetime
 
+from app.auth import get_optional_rep
+from app.auth_candidate import get_optional_candidate
 from app.auth_citizen import get_optional_citizen
 from app.db import get_db
 from app.models.pages import CitizenAccount, Poll, PollOption, Post, PollVote, PollVoteDemographic
-from app.services import demographics_catalog, poll_demographics
+from app.services import demographics_catalog, poll_demographics, poll_visibility
 from app.services.verified_identity import is_verified_person
 
 router = APIRouter()
@@ -96,6 +98,8 @@ def results_breakdown(
     scope: str = Query("country"),
     by: str | None = Query(None),
     db: Session = Depends(get_db),
+    me_rep=Depends(get_optional_rep),
+    me_candidate=Depends(get_optional_candidate),
 ) -> dict:
     """Aggregate option results for a filtered subset of a poll's votes.
 
@@ -108,6 +112,10 @@ def results_breakdown(
 
     Suppression: when a demographic dimension is involved and the subset (or a
     bucket) has < MIN_CELL respondents, counts are withheld.
+
+    Result setting: while a 'reveal_after_close' poll is open, no counts at
+    all (counts_suppressed: true, closes_at), except for the page owner of a
+    post's poll.
     """
     poll = (
         db.query(Poll)
@@ -124,9 +132,11 @@ def results_breakdown(
         _load_owner, _allowed_scopes_for_owner, _vote_matches_scope,
     )
     owner = None
+    page_id = None
     if poll.post_id is not None:
         post = db.get(Post, poll.post_id)
         if post is not None:
+            page_id = post.official_id
             owner = _load_owner(db, post.official_id)
     allowed = _allowed_scopes_for_owner(owner)
     scope = (scope or "country").lower()
@@ -134,6 +144,28 @@ def results_breakdown(
         scope = "country"
 
     eff_min = max(MIN_CELL, poll.min_cell_override or 0)
+
+    # The author's result setting (2026-10-20). A poll set to show
+    # results only after it closes gives no counts here until then,
+    # except to the owner of a post's page, the same rule as the poll
+    # card (services/poll_visibility.py). The window explains why.
+    withheld, closes_at = poll_visibility.poll_counts_withheld(
+        db, poll, page_id, me_rep, me_candidate,
+    )
+    if withheld:
+        return {
+            "poll_id": poll_id,
+            "scope": scope,
+            "allowed_scopes": allowed,
+            "applied_filters": {},
+            "by": None,
+            "subset_total": 0,
+            "min_cell": eff_min,
+            "suppressed": False,
+            "options": [],
+            "counts_suppressed": True,
+            "closes_at": closes_at.isoformat() if closes_at else None,
+        }
     attached = set(poll_demographics.get_attached_keys(db, poll_id))
 
     # Parse repeatable filter_<key>=<value> params; keep only attached+valid.
@@ -200,6 +232,8 @@ def results_breakdown(
             [] if suppressed
             else [{"id": o.id, "text": o.text, "count": counts.get(o.id, 0)} for o in options]
         ),
+        "counts_suppressed": False,
+        "closes_at": closes_at.isoformat() if closes_at else None,
     }
 
     if by:

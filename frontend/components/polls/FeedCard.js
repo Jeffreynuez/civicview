@@ -70,6 +70,12 @@ import PostActionsMenu from '../PostActionsMenu';
 import CommentsThread from './CommentsThread';
 import PollResultsModal from './PollResultsModal';
 import PollDemographicsForm from './PollDemographicsForm';
+import {
+  pollResultsView,
+  RESULTS_HIDDEN_TITLE,
+  RESULTS_HIDDEN_SHORT,
+  resultsHiddenUntil,
+} from '../../lib/pollResults';
 
 export default function FeedCard({
   card,
@@ -505,6 +511,62 @@ export default function FeedCard({
     : isStandalone ? 'standalone'
     : 'citizen';
 
+  // ── poll options ────────────────────────────────────────────────
+  // The author's result setting decides what the options show
+  // (lib/pollResults.js): bars and counts ('full'), counts behind
+  // "Show results" ('on_request'), or no counts until the poll closes
+  // ('withheld', when the server sent none).
+  const resultsView = pollResultsView(card);
+  const pollOptions = card.options || [];
+  // Leader = the option with the highest share (excluding the viewer's
+  // own vote, which gets its own treatment). Mirrors PollCard's maxVotes
+  // so /polls bars match the rep/candidate page: own vote = blue strong,
+  // leader = blue soft, the rest gray. Compared on `percent`, which the
+  // feed sends for every kind of poll.
+  const maxPct = pollOptions.reduce((m, x) => Math.max(m, x.percent || 0), 0);
+  const renderOption = (o, { clickable, showCount }) => {
+    const mine = viewer.voter_choice_id === o.id;
+    const isLeader = showCount && !mine && maxPct > 0 && (o.percent || 0) === maxPct;
+    const cls = `poll-opt2 ${mine ? 'is-mine' : ''} ${isLeader ? 'is-leader' : ''}`;
+    const inner = (
+      <>
+        {showCount && <span className="poll-opt2__fill" style={{ width: `${o.percent || 0}%` }} />}
+        <span className="poll-opt2__label">
+          <strong>{o.label}</strong>
+          {mine && <span className="poll-opt2__your-vote">✓ your vote</span>}
+        </span>
+        {showCount && (
+          <span className="poll-opt2__pct">{o.percent || 0}% · {formatCount(o.count || 0)}</span>
+        )}
+      </>
+    );
+    if (!clickable) {
+      return (
+        <div key={o.id} className="poll-opt2-wrap">
+          <div className={`${cls} poll-opt2--static`}>{inner}</div>
+        </div>
+      );
+    }
+    return (
+      <div key={o.id} className="poll-opt2-wrap">
+        <button
+          type="button"
+          className={cls}
+          onClick={() => handleVote(o.id)}
+          disabled={busy}
+        >
+          {inner}
+        </button>
+        <IdentityPicker
+          open={votePicker?.optionId === o.id}
+          identities={votePicker?.optionId === o.id ? votePicker.identities : []}
+          onPick={onVotePick}
+          onClose={() => setVotePicker(null)}
+        />
+      </div>
+    );
+  };
+
   // ── render ──────────────────────────────────────────────────────
   return (
     <article
@@ -656,52 +718,43 @@ export default function FeedCard({
         <div className="feed-card__body">
           <div className="poll-block">
             <div className="poll-block__q">{card.question}</div>
-            <div className="poll-block__opts">
-              {(card.options || []).map((o) => {
-                const mine = viewer.voter_choice_id === o.id;
-                // Leader = the option with the highest share
-                // (excluding the viewer's own vote — that already gets
-                // its own treatment). Mirrors PollCard.js:67 (maxVotes)
-                // so /polls bars match the rep/candidate treatment:
-                // own vote = blue strong, leader = blue soft, loser = gray.
-                // NOTE: we compare on `percent` (not `count`) because the
-                // /api/polls/feed payload returns {label, percent} only —
-                // see backend/app/routers/feed.py:332. The percent field
-                // is populated for every kind (rep / candidate / citizen /
-                // standalone) so this works uniformly across the feed.
-                const _maxPct = (card.options || []).reduce(
-                  (m, x) => Math.max(m, x.percent || 0), 0,
-                );
-                const isLeader = !mine
-                  && _maxPct > 0
-                  && (o.percent || 0) === _maxPct;
-                return (
-                  <div key={o.id} className="poll-opt2-wrap">
-                    <button
-                      type="button"
-                      className={`poll-opt2 ${mine ? 'is-mine' : ''} ${isLeader ? 'is-leader' : ''}`}
-                      onClick={() => handleVote(o.id)}
-                      disabled={busy}
-                    >
-                      <span className="poll-opt2__fill" style={{ width: `${o.percent || 0}%` }} />
-                      <span className="poll-opt2__label">
-                        <strong>{o.label}</strong>
-                        {mine && <span className="poll-opt2__your-vote">✓ your vote</span>}
-                      </span>
-                      <span className="poll-opt2__pct">{o.percent || 0}% · {formatCount(o.count || 0)}</span>
-                    </button>
-                    <IdentityPicker
-                      open={votePicker?.optionId === o.id}
-                      identities={votePicker?.optionId === o.id ? votePicker.identities : []}
-                      onPick={onVotePick}
-                      onClose={() => setVotePicker(null)}
-                    />
+            {resultsView === 'on_request' ? (
+              // The author chose to hide results until the viewer asks:
+              // the same two sections as the page's PollCard.
+              <div className="poll-block__opts">
+                <details className="poll-reveal">
+                  <summary className="poll-reveal__summary">
+                    Cast a vote
+                    <span className="poll-reveal__hint">pick an option</span>
+                  </summary>
+                  <div className="poll-block__opts poll-reveal__body">
+                    {pollOptions.map((o) => renderOption(o, { clickable: true, showCount: false }))}
                   </div>
-                );
-              })}
-            </div>
+                </details>
+                <details className="poll-reveal">
+                  <summary className="poll-reveal__summary">
+                    Show results
+                    <span className="poll-reveal__hint">{card.votes || 0} {card.votes === 1 ? 'vote' : 'votes'}</span>
+                  </summary>
+                  <div className="poll-block__opts poll-reveal__body">
+                    {pollOptions.map((o) => renderOption(o, { clickable: false, showCount: true }))}
+                  </div>
+                </details>
+              </div>
+            ) : (
+              <div className="poll-block__opts">
+                {pollOptions.map((o) => renderOption(o, { clickable: true, showCount: resultsView === 'full' }))}
+              </div>
+            )}
+            {resultsView === 'withheld' && (
+              <div className="poll-block__notice">
+                <strong>{RESULTS_HIDDEN_TITLE}</strong>{' '}{resultsHiddenUntil(card.closes_at)}
+              </div>
+            )}
             <div className="poll-block__total">
-              <span>{formatCount(card.votes || 0)}</span> {card.votes === 1 ? 'vote' : 'votes'}
+              {resultsView === 'withheld' ? RESULTS_HIDDEN_SHORT : (
+                <><span>{formatCount(card.votes || 0)}</span> {card.votes === 1 ? 'vote' : 'votes'}</>
+              )}
             </div>
             <button
               type="button"
@@ -1021,6 +1074,9 @@ function _votePatch(prevCard, updated) {
   return {
     options: opts,
     votes: totalVotes,
+    // Both responses say whether the counts are being held until the
+    // poll closes (they are all zero then).
+    ...(poll.counts_suppressed != null ? { counts_suppressed: !!poll.counts_suppressed } : {}),
     viewer: {
       ...prevViewer,
       voter_choice_id: poll.voter_choice_id != null

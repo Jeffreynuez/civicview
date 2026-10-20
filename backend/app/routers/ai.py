@@ -624,6 +624,181 @@ def filter_polls(
     )
 
 
+# ── /filter-posts ────────────────────────────────────────────────────
+# The /posts feed's AI filter (2026-10-20). It used to call /filter-polls
+# and match the returned poll ids against post ids, so it filtered
+# nothing correctly. Same routing as /filter-polls: @author, then the
+# sentiment / tone tags stored when the post was created
+# (services/post_classifier.py), then a Claude call for free text.
+# Posts from before the tags existed have none, so a tone chip asks
+# Claude about just those posts instead of skipping them.
+class PostFilterRequest(BaseModel):
+    prompt: str = Field(..., min_length=1, max_length=300)
+
+
+class PostFilterResponse(BaseModel):
+    matched_ids: List[int]
+    method: Literal["author", "structured", "semantic", "passthrough"]
+    explanation: str
+
+
+def _load_active_posts(db: Session):
+    """The posts the /posts feed can show: not deleted, not on an
+    archived page. Newest 500, the same cap as the poll filter."""
+    from app.routers.feed import _post_not_archived
+    return (
+        db.query(Post)
+        .filter(Post.deleted_at.is_(None))
+        .filter(_post_not_archived(db))
+        .order_by(Post.created_at.desc())
+        .limit(500)
+        .all()
+    )
+
+
+def _post_author_names(db: Session, posts) -> dict:
+    """post id -> author display name (rep or candidate), two queries."""
+    from app.models.pages import CandidateAccount
+    rep_ids = {p.author_id for p in posts if p.author_id}
+    cand_ids = {p.author_candidate_id for p in posts if p.author_candidate_id}
+    reps = (
+        {r.id: r.display_name for r in db.query(RepAccount).filter(RepAccount.id.in_(rep_ids)).all()}
+        if rep_ids else {}
+    )
+    cands = (
+        {c.id: c.display_name for c in db.query(CandidateAccount).filter(CandidateAccount.id.in_(cand_ids)).all()}
+        if cand_ids else {}
+    )
+    return {
+        p.id: (reps.get(p.author_id) if p.author_id else cands.get(p.author_candidate_id)) or ""
+        for p in posts
+    }
+
+
+def _try_post_author_filter(prompt: str, posts, names: dict) -> Optional[List[int]]:
+    handles = _AUTHOR_RE.findall(prompt)
+    if not handles:
+        return None
+    handles_lc = {h.lower() for h in handles}
+    matched: List[int] = []
+    for p in posts:
+        name = (names.get(p.id) or "").lower()
+        words = set(re.findall(r"\w+", name))
+        if any(h in words or h == name.replace(" ", "") for h in handles_lc):
+            matched.append(p.id)
+    return matched
+
+
+def _semantic_post_filter(prompt: str, posts, names: dict) -> Optional[List[int]]:
+    """Ask Claude which posts match. None when the call fails or its
+    answer can't be read, so the caller can fall back."""
+    if not posts:
+        return []
+    lines = []
+    for p in posts:
+        snippet = (p.body or "").replace("\n", " ").strip()
+        if len(snippet) > 200:
+            snippet = snippet[:197] + "..."
+        lines.append(
+            f"{p.id}|{names.get(p.id) or '?'}|"
+            f"{p.ai_sentiment or '?'}|"
+            f"{p.ai_tones or '?'}|"
+            f"{p.ai_topic or '?'}|"
+            f"{snippet}"
+        )
+    user_msg = (
+        "Posts are listed below, one per line:\n"
+        "id|author|sentiment|tones|topic|snippet\n"
+        + "\n".join(lines)
+        + "\n\nUser asked: \"" + prompt + "\"\n"
+        + "Return ONLY a JSON array of integer post IDs that match. "
+        "If nothing matches, return []."
+    )
+    system = (
+        "You filter a list of posts by elected officials and candidates "
+        "by user intent. Respond with ONLY a JSON array of integer post "
+        "IDs from the list that match the user's intent. No prose, no "
+        "explanation, no code fences. Empty array is valid."
+    )
+    result = ai_service.chat(
+        system=system,
+        messages=[{"role": "user", "content": user_msg}],
+        max_tokens=1500,
+        temperature=0.0,
+    )
+    if result.error or not result.text:
+        logger.info("filter-posts semantic call failed: %s", result.error)
+        return None
+    m = re.search(r"\[[^\]]*\]", result.text.strip())
+    if not m:
+        return None
+    try:
+        parsed = json.loads(m.group(0))
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(parsed, list):
+        return None
+    source_ids = {p.id for p in posts}
+    return [int(x) for x in parsed if isinstance(x, (int, float)) and int(x) in source_ids]
+
+
+@router.post("/filter-posts", response_model=PostFilterResponse)
+def filter_posts(
+    req: PostFilterRequest,
+    db: Session = Depends(get_db),
+) -> PostFilterResponse:
+    """Filter the /posts feed by a natural-language prompt.
+
+    Routing (cheapest path wins), as /filter-polls:
+      1. Author filter (@name). No AI call.
+      2. Structured filter on the stored ai_sentiment / ai_tones. No AI
+         call, except for posts that have no tags yet (see above).
+      3. Semantic filter: Claude reads the list and returns the ids.
+    """
+    posts = _load_active_posts(db)
+    if not posts:
+        return PostFilterResponse(matched_ids=[], method="passthrough", explanation="No posts in this view.")
+    names = _post_author_names(db, posts)
+
+    author_ids = _try_post_author_filter(req.prompt, posts, names)
+    if author_ids is not None:
+        handles = sorted(set(_AUTHOR_RE.findall(req.prompt)))
+        return PostFilterResponse(
+            matched_ids=author_ids,
+            method="author",
+            explanation=f"Filtered to posts from: @{', @'.join(handles)}",
+        )
+
+    # _try_poll_structured_filter reads only the ai_* columns and id,
+    # which posts share with polls.
+    structured_ids = _try_poll_structured_filter(req.prompt, posts)
+    if structured_ids is not None:
+        untagged = [
+            p for p in posts
+            if p.ai_classified_at is None and p.ai_sentiment is None and not p.ai_tones
+        ]
+        extra = _semantic_post_filter(req.prompt, untagged, names) if untagged else []
+        matched = set(structured_ids) | set(extra or [])
+        return PostFilterResponse(
+            matched_ids=[p.id for p in posts if p.id in matched],
+            method="structured",
+            explanation=_explain_structured(req.prompt),
+        )
+
+    semantic_ids = _semantic_post_filter(req.prompt, posts, names)
+    if semantic_ids is None:
+        return PostFilterResponse(
+            matched_ids=[p.id for p in posts],
+            method="passthrough",
+            explanation="Couldn't apply filter (AI unavailable). Showing all posts.",
+        )
+    return PostFilterResponse(
+        matched_ids=semantic_ids,
+        method="semantic",
+        explanation=f'AI-filtered for: "{req.prompt}"',
+    )
+
+
 # ── /filter-items (generic: bills, votes — any {id, text} list) ───────
 # Powers the AI-search toggle on the rep-profile Bills + Votes tabs.
 # Those datasets aren't in our DB (they come from Congress.gov / the

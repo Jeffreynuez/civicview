@@ -1069,6 +1069,11 @@ def create_post(
         from app.services.poll_classifier import classify_poll
         bg_tasks.add_task(classify_poll, attached_poll_id)
 
+    # 4. The same tags for the post itself (2026-10-20), so the /posts
+    #    AI filter can answer its tone chips from stored tags.
+    from app.services.post_classifier import classify_post
+    bg_tasks.add_task(classify_post, post.id)
+
     return _post_to_read(
         post,
         owner=(rep if rep is not None else candidate),

@@ -372,6 +372,30 @@ categories:
 
 ---
 
+## Shipped 2026-10-20: feed filters that filter, and hidden results that stay hidden
+
+- **Polls and Posts, States chip:** on its own it always showed an empty
+  grid; it now shows everything from the state picked in its dropdown
+  (and opens the dropdown when none is picked). Chip logic is in
+  `frontend/lib/feedFilters.js` (`npm run test:feed-filters`).
+- **Posts, branch chips:** posts now carry the same branch as their
+  official's polls, so Congress, Executive and Judicial work on Posts.
+- **Posts, AI filter:** it asked the polls endpoint and matched poll ids
+  against post ids. Posts have their own `POST /api/ai/filter-posts`
+  now, and each new post gets the same tone and topic tags polls and
+  comments get (`services/post_classifier.py`; the privacy page says so).
+- **A page's Your view:** Country now really shows country-wide counts;
+  before a choice is made no chip is highlighted and each poll shows
+  its own default.
+- **Hidden results:** the Polls feed, Popular polls and Explore results
+  now follow the author's setting like the page does: "Show results" for
+  polls hidden until the viewer asks, and no counts anywhere (CSV
+  included, enforced on the server) until a poll set to reveal after it
+  closes has closed (`services/poll_visibility.py`; checked by
+  `tests/test_feed_results_and_filters.py`).
+
+---
+
 ## Shipped 2026-10-20: bill summaries read cleanly
 
 - **Profile Bills tab:** the official CRS summary printed Congress.gov's

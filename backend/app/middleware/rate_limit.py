@@ -72,7 +72,7 @@ _PUSH_RE = re.compile(r"^/api/push/(web/)?(register|unbind|unregister)$")
 # client IP otherwise. Matched for every method: summarize-post is a
 # GET. (audit S4)
 _AI_RE = re.compile(
-    r"^/api/(ai/(filter-items|filter-comments|filter-polls|summarize-post/[^/]+)"
+    r"^/api/(ai/(filter-items|filter-comments|filter-polls|filter-posts|summarize-post/[^/]+)"
     r"|eos/[^/]+/summary/translate"
     r"|votes/explain/generate"
     r"|bills/\d+/[^/]+/[^/]+/summary/translate"

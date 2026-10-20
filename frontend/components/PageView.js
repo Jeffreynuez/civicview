@@ -985,7 +985,12 @@ export default function PageView({
                 scopes={payload?.allowed_engagement_scopes || []}
                 labels={payload?.engagement_scope_labels || {}}
                 value={viewerScope}
-                onChange={(next) => setViewerScope(next === 'country' ? null : next)}
+                // Country is a choice like the others and is sent as
+                // scope=country. Mapping it to null (no choice) let each
+                // poll fall back to its own default, so a House member's
+                // district counts showed under a highlighted Country.
+                // null stays the state before any choice is made.
+                onChange={(next) => setViewerScope(next)}
                 ownerName={ownerName}
                 collapsed={scopeFilterCollapsed}
               />

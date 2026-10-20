@@ -49,7 +49,9 @@ import {
   fetchMyCitizenPolls,
   aiHealth,
   filterPolls,
+  filterPosts,
 } from '@/lib/pagesApi';
+import { branchCounts as countBranches, filterByBranches, aiPresetPrompt } from '@/lib/feedFilters';
 import FeedCard from '@/components/polls/FeedCard';
 import NewItemsPill from '@/components/NewItemsPill';
 import PollDemographicsPicker from '@/components/polls/PollDemographicsPicker';
@@ -126,21 +128,8 @@ function formatCount(n) {
   return `${Math.round(n / 1000)}k`;
 }
 
-// Map a poll's server-side `kind` to the design's branch enum.
-// `kind` is 'rep' | 'citizen' | 'candidate' | 'standalone'. Branch
-// metadata (Bill / Executive / etc.) ships per-poll once that
-// taxonomy is wired into the backend; until then rep / citizen
-// polls share the "all" bucket and Standalone + Candidate are the
-// distinct branches we can filter against today.
-function pollBranch(poll) {
-  if (poll.kind === 'standalone') return 'standalone';
-  if (poll.kind === 'candidate') return 'candidate';
-  // Forward-compatible: if the backend later starts emitting a
-  // `branch` field on rep/citizen polls, prefer it. For now they
-  // count toward "all" only.
-  if (poll.branch) return poll.branch;
-  return null;
-}
+// Which chip an item belongs to, the chip counts and the chip filter
+// live in lib/feedFilters.js (tested by scripts/test-feed-filters.mjs).
 
 // Shared shell for both /polls (tab='polls') and /posts (tab='posts').
 // /posts/page.js mounts this component with the other tab; tab
@@ -187,6 +176,21 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   const [branches, setBranches] = useState(['all']);
   const [stateFilter, setStateFilter] = useState(null);          // 2-letter code | null
   const [stateDropdownOpen, setStateDropdownOpen] = useState(false);
+  // The dropdown calls onSelect and then onClose in the same click,
+  // before React re-renders, so onClose reads the pick from this ref:
+  // this render's stateFilter still holds the old value, and reading
+  // it turned the States chip off right after a first pick.
+  const stateFilterRef = useRef(null);
+  const selectState = (code) => {
+    stateFilterRef.current = code || null;
+    setStateFilter(code || null);
+  };
+  const dropStatesChip = () => {
+    setBranches((prev) => {
+      const next = prev.filter((b) => b !== 'states');
+      return next.length === 0 ? ['all'] : next;
+    });
+  };
   // Singleton accordion — only one comment thread is open at a time.
   const [openCommentId, setOpenCommentId] = useState(null);
   // Infinite-scroll paging state. Polls page by keyset `cursor`;
@@ -210,7 +214,9 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   //         filter actually narrows).
   const toggleBranch = (id) => {
     if (id === 'all') {
+      // "All polls" turns the States chip off too, so its state goes.
       setBranches(['all']);
+      selectState(null);
       return;
     }
     setBranches((prev) => {
@@ -374,59 +380,18 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   // page failure.
   useEffect(() => { setLoadMoreError(false); }, [serverKinds, stateFilter, tab]);
 
-  // Branch counts driven from the loaded items. Standalone counts
-  // are exact; the page-bound branches (Bill/Committee/Executive/
-  // Judicial) all read 0 today since the backend doesn't yet emit
-  // a branch field. The chips render anyway so the visual taxonomy
-  // is in place for when those counts go live.
-  //
-  // We additionally tally by author kind (rep / citizen / candidate /
-  // standalone) directly from item.kind — that's what the hero stats
-  // use. pollBranch() intentionally returns null for rep + citizen
-  // (they're forward-compat to a future branch field), so without
-  // this extra pass the hero's "From reps" stat would always read 0.
-  const branchCounts = useMemo(() => {
-    const counts = {
-      all: items.length,
-      // Branch buckets — keys must match BRANCH_FILTERS ids
-      // (the chip ids were renamed bill→states + committee→congress
-      // in the PR #2 redesign; counts hadn't been updated). Without
-      // the new keys present, `counts[b] != null` evaluated false
-      // and chips showed 0 even when polls matched.
-      states: 0, congress: 0, executive: 0, judicial: 0,
-      standalone: 0, candidate: 0,
-      // Author-kind tallies for the hero stat row.
-      rep: 0, citizen: 0,
-    };
-    for (const p of items) {
-      const b = pollBranch(p);
-      if (b && counts[b] != null) counts[b] += 1;
-      // Author-kind pass for rep + citizen only — pollBranch already
-      // tallies standalone + candidate via the b!=null branch above,
-      // so re-counting them here would double them.
-      const k = p && p.kind;
-      if (k === 'rep' || k === 'citizen') counts[k] += 1;
-    }
-    return counts;
-  }, [items]);
+  // Chip counts over the loaded items, plus the author-kind tallies
+  // (rep / citizen) the hero stats read. The States count is the
+  // number of items from the picked state (none until one is picked).
+  const branchCounts = useMemo(() => countBranches(items, stateFilter), [items, stateFilter]);
 
-  // Branch-filter pipeline. Multi-select additive: the result is the
-  // union of every active branch's matches, plus an optional state
-  // narrow. The 'all' chip short-circuits to the full set (it lives
-  // in the array but acts as the deactivator).
-  const branchFiltered = useMemo(() => {
-    let pool = items;
-    if (stateFilter) {
-      pool = pool.filter((p) => p.state ? p.state === stateFilter : true);
-      // The backend already narrows when ?state= is sent on load();
-      // this is a belt-and-suspenders client-side pass so that
-      // toggling the dropdown without a refetch still feels right
-      // for items that came back from a wider load.
-    }
-    if (branches.includes('all') || branches.length === 0) return pool;
-    const active = new Set(branches);
-    return pool.filter((p) => active.has(pollBranch(p)));
-  }, [items, branches, stateFilter]);
+  // Branch-filter pipeline. Branch chips are additive (the union of
+  // their matches); States narrows to the picked state (the server
+  // already does with ?state=). The 'all' chip shows everything.
+  const branchFiltered = useMemo(
+    () => filterByBranches(items, branches, stateFilter),
+    [items, branches, stateFilter],
+  );
 
   const visibleItems = useMemo(() => {
     if (aiFilterIds === null) return branchFiltered;
@@ -451,8 +416,11 @@ export function GrassrootsFeed({ tab = 'polls' }) {
     // filter isn't limited to the current paginated page. Infinite
     // scroll is disabled while a filter is active (has_more=false below).
     const feedFn = tab === 'posts' ? fetchPostsFeed : fetchPollsFeed;
+    // Each tab filters its own items: the Posts tab used to send its
+    // prompt to the polls filter and match poll ids against post ids.
+    const filterFn = tab === 'posts' ? filterPosts : filterPolls;
     const [filterRes, feedRes] = await Promise.all([
-      filterPolls({ prompt: finalPrompt, kind: undefined }),
+      filterFn({ prompt: finalPrompt }),
       feedFn({ kinds: serverKinds, state: stateFilter || undefined, limit: AI_FULL_BATCH }),
     ]);
     setAiFilterBusy(false);
@@ -485,7 +453,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
       return;
     }
     setActiveTags([presetId]);
-    runAiFilter(preset.prompt);
+    runAiFilter(aiPresetPrompt(preset, tab));
   };
 
   const clearAiFilter = () => {
@@ -498,7 +466,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
   const clearAllFilters = () => {
     clearAiFilter();
     setBranches(['all']);
-    setStateFilter(null);
+    selectState(null);
   };
 
   const onCreated = (poll) => {
@@ -559,7 +527,8 @@ export function GrassrootsFeed({ tab = 'polls' }) {
                     <BranchChipV2
                       filter={f}
                       active={branches.includes(f.id)}
-                      count={branchCounts[f.id] || 0}
+                      // States shows no number until a state is picked.
+                      count={f.id === 'states' ? branchCounts.states : (branchCounts[f.id] || 0)}
                       stateBadge={f.id === 'states' ? stateFilter : null}
                       onClick={() => {
                         if (f.id === 'states') {
@@ -574,9 +543,11 @@ export function GrassrootsFeed({ tab = 'polls' }) {
                         }
                       }}
                       onStateBadgeClick={() => {
-                        // Inline "× state" affordance only clears the
-                        // state narrow — leaves the chip itself active.
-                        setStateFilter(null);
+                        // Inline "× state" clears the state and turns
+                        // the States chip off with it: a States chip
+                        // with no state has nothing to narrow to.
+                        selectState(null);
+                        dropStatesChip();
                       }}
                     />
                   </div>
@@ -600,20 +571,15 @@ export function GrassrootsFeed({ tab = 'polls' }) {
               {stateDropdownOpen && (
                 <StateDropdown
                   selected={stateFilter}
-                  onSelect={setStateFilter}
+                  onSelect={selectState}
                   onClose={() => {
                     setStateDropdownOpen(false);
                     // If the user closed the dropdown without picking a
                     // state, deactivate the States chip too — a state-less
                     // States chip is meaningless (all states are in the pool
                     // by default). Falls back to ['all'] if that was the
-                    // only active chip.
-                    if (!stateFilter) {
-                      setBranches((prev) => {
-                        const next = prev.filter((b) => b !== 'states');
-                        return next.length === 0 ? ['all'] : next;
-                      });
-                    }
+                    // only active chip. Reads the ref: see selectState.
+                    if (!stateFilterRef.current) dropStatesChip();
                   }}
                 />
               )}
@@ -630,6 +596,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
                 setQuery={setAiPrompt}
                 onApply={() => runAiFilter()}
                 busy={aiFilterBusy}
+                noun={tab === 'posts' ? 'posts' : 'polls'}
               />
             )}
           </div>
@@ -692,6 +659,7 @@ export function GrassrootsFeed({ tab = 'polls' }) {
               onClear={clearAiFilter}
               onStartMatching={handleStartPoll}
               signedIn={citizenSignedIn}
+              noun={tab === 'posts' ? 'posts' : 'polls'}
             />
           )}
 
@@ -935,7 +903,7 @@ function StartButton({ signedIn, onClick }) {
 // the right. Free-form Apply hits the same /api/polls/filter endpoint
 // the chips do.
 // ─────────────────────────────────────────────────────────────────────
-function AIFilterRow({ presets, activeTags, onToggleTag, query, setQuery, onApply, busy }) {
+function AIFilterRow({ presets, activeTags, onToggleTag, query, setQuery, onApply, busy, noun = 'polls' }) {
   return (
     <div className="polls-airow" role="group" aria-label="AI-powered filters">
       <div className="polls-airow__inner">
@@ -962,7 +930,7 @@ function AIFilterRow({ presets, activeTags, onToggleTag, query, setQuery, onAppl
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value.slice(0, 300))}
-            placeholder="Filter polls… (e.g. 'about taxes' or 'from @Fred')"
+            placeholder={`Filter ${noun}… (e.g. 'about taxes' or 'from @Fred')`}
             onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); onApply(); } }}
             disabled={busy}
           />
@@ -1038,7 +1006,7 @@ function FullEmpty({ branch, onClearFilters, onStartPoll, signedIn }) {
   );
 }
 
-function InlineEmpty({ query, tags, onClear, onStartMatching, signedIn }) {
+function InlineEmpty({ query, tags, onClear, onStartMatching, signedIn, noun = 'polls' }) {
   const tagLabels = tags
     .map((id) => AI_PRESETS.find((p) => p.id === id)?.label)
     .filter(Boolean);
@@ -1049,7 +1017,7 @@ function InlineEmpty({ query, tags, onClear, onStartMatching, signedIn }) {
       <div className="polls-empty__body-wrap">
         <div className="polls-empty__title">Nothing matches your AI filter yet.</div>
         <div className="polls-empty__filter">
-          Filtered for <strong>&ldquo;{filterStr}&rdquo;</strong>. No polls in the current
+          Filtered for <strong>&ldquo;{filterStr}&rdquo;</strong>. No {noun} in the current
           feed match. Try a different angle, clear the filter, or start one yourself.
         </div>
       </div>

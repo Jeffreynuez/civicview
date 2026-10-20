@@ -41,12 +41,12 @@ export default function ViewerScopeFilter({
 }) {
   if (!scopes || scopes.length <= 1) return null;
 
-  // Visual default: when no override is set, show Country as active.
-  // Mirrors OwnerScopeFilter's "value || 'country'" trick — null in
-  // state means "no override" (so the backend returns each poll at
-  // the author's chosen default), but the user still sees Country
-  // highlighted so the rail doesn't read as "nothing selected".
-  const displayValue = value || 'country';
+  // Before the viewer picks a scope (value null), no chip is
+  // highlighted: each poll shows at its author's default and says so on
+  // its own card ("Showing: ..."). Highlighting Country in that state
+  // put a Country label over district counts on House pages
+  // (2026-10-20). Once picked, the chip shows the choice.
+  const displayValue = value;
 
   return (
     <div
@@ -139,10 +139,8 @@ export default function ViewerScopeFilter({
               </button>
             );
           })}
-          {/* Reset button retired — clicking Country IS the new reset
-              (PageView wraps onChange so a Country click sets state
-              to null, the same "no override" sentinel the backend
-              already understood). */}
+          {/* No reset button: a Country click is sent as scope=country
+              (2026-10-20), so the bars show country-wide counts. */}
         </div>
       </div>
       {!collapsed && (

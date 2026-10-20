@@ -331,6 +331,26 @@ class Post(Base):
         String(32), default=None, index=True,
     )
 
+    # AI classification (2026-10-20), same shape as Poll.ai_*. Filled
+    # after create by services/post_classifier.py so the /posts AI
+    # filter can match tone chips without a model call. NULL = not
+    # classified (just posted, posted before this existed, or AI off).
+    ai_sentiment: Mapped[Optional[str]] = mapped_column(
+        String(16), default=None, index=True,
+    )  # 'positive' | 'neutral' | 'negative'
+    ai_tones: Mapped[Optional[str]] = mapped_column(
+        String(255), default=None,
+    )  # CSV: 'funny,supportive,...'
+    ai_intensity: Mapped[Optional[int]] = mapped_column(
+        Integer, default=None,
+    )  # 1-5
+    ai_topic: Mapped[Optional[str]] = mapped_column(
+        String(80), default=None,
+    )  # 2-4 word gist
+    ai_classified_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime, default=None,
+    )
+
     poll: Mapped[Optional["Poll"]] = relationship(
         back_populates="post", uselist=False, cascade="all, delete-orphan",
     )
