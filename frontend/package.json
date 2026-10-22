@@ -18,7 +18,7 @@
     "test:feed-filters": "node scripts/test-feed-filters.mjs"
   },
   "dependencies": {
-    "@capacitor/android": "^8.4.3",
+    "@capacitor/android": "^8.5.3",
     "@capacitor/app": "^8.1.0",
     "@capacitor/core": "^8.4.3",
     "@capacitor/push-notifications": "^8.0.0",
