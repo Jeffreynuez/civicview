@@ -235,6 +235,35 @@ a.feed-card__kind--link:hover { filter: brightness(0.95); }
   font-size: 12px;
   color: var(--cl-text-muted, #6b7280);
 }
+/* Result settings (2026-10-20), matching the page's PollCard.
+   "Hidden" polls: "Cast a vote" and "Show results" sections the
+   viewer opens. Rows in "Show results" are not buttons. */
+.poll-reveal {
+  border: 1px solid var(--cl-border, #e5e7eb);
+  border-radius: 8px;
+}
+.poll-reveal__summary {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+}
+.poll-reveal__hint {
+  font-size: 12px; font-weight: 500;
+  color: var(--cl-text-muted, #6b7280);
+}
+.poll-reveal__body { padding: 0 10px 10px; }
+.poll-opt2--static { cursor: default; }
+/* "Results hidden until the poll closes" notice. */
+.poll-block__notice {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--cl-warning-soft, #fff7e6);
+  border: 1px solid var(--cl-warning-border, #ffe1a3);
+  color: var(--cl-warning-text, #8a6100);
+  font-size: 12.5px;
+}
 
 /* CommentsThread — inline accordion under each FeedCard. */
 .thread { display: flex; flex-direction: column; gap: 10px; }

@@ -60,10 +60,16 @@ from app.models.pages import (
     RepAccount,
     SavedItem,
 )
+from app.services import poll_visibility
 
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
+# Polls attached to a post: a rep's (author_kind 'rep') or, since
+# create_post records it, a candidate's ('candidate'). Their likes and
+# the viewer's reactions live on the parent post.
+_POST_POLL_KINDS = ("rep", "candidate")
 
 
 def _poll_parent_visible():
@@ -237,6 +243,27 @@ def _branch_for(official_id: Optional[str]) -> Optional[str]:
     return _BRANCH_BY_OFFICIAL_ID.get(official_id)
 
 
+def _rep_branch(official_id: Optional[str], rep: Optional[RepAccount]) -> Optional[str]:
+    """Branch of an official's content, the same for their polls on
+    /polls and their posts on /posts (2026-10-20: post items carried no
+    branch, so the Congress / Executive / Judicial chips on /posts were
+    always empty). Prefers the curated index above, then falls back to
+    the rep's district or role: a rep with an owner_district (every
+    House seat) or a role naming a Congress chamber counts as Congress,
+    which covers the seeded test rep (official_id
+    'test-civicview-internal', owner_district 'FL-17') and any official
+    not yet in the curated index. Candidate content has no branch; it is
+    reached through "From candidates"."""
+    branch = _branch_for(official_id)
+    if branch is None and rep is not None:
+        role = (rep.role or "").lower()
+        if rep.owner_district or any(
+            kw in role for kw in ("representative", "senator", "senate", "house", "congress")
+        ):
+            branch = "congress"
+    return branch
+
+
 # ── /national-activity ──────────────────────────────────────────────
 @router.get("/national-activity")
 def national_activity(
@@ -398,7 +425,7 @@ def _serialize_poll_feed_items(
     # items loop falls back to 0/0 (citizen polls don't have a like /
     # dislike concept yet — that's a future PR; the design treats it
     # as forward-compatible).
-    rep_post_ids = [p.post_id for p in rows if p.author_kind == "rep" and p.post_id]
+    rep_post_ids = [p.post_id for p in rows if p.author_kind in _POST_POLL_KINDS and p.post_id]
     post_likes: Dict[int, int] = {}
     post_dislikes: Dict[int, int] = {}
     if rep_post_ids:
@@ -454,7 +481,7 @@ def _serialize_poll_feed_items(
     # Pre-compute per-identity reactions on each REP poll's parent
     # post. Citizen polls don't have reactions yet (no PollReaction
     # model) so they get empty maps.
-    rep_post_ids_for_rxn = [p.post_id for p in rows if p.author_kind == "rep" and p.post_id]
+    rep_post_ids_for_rxn = [p.post_id for p in rows if p.author_kind in _POST_POLL_KINDS and p.post_id]
     my_reactions_by_post: Dict[int, Dict[str, str]] = {}
     if rep_post_ids_for_rxn and (me_citizen or me_rep or me_candidate):
         rq = db.query(PostReaction.post_id, PostReaction.kind).filter(
@@ -669,35 +696,27 @@ def _serialize_poll_feed_items(
                 # Party lookup — re-use the lazy index built for the
                 # National Activity feed earlier in this module.
                 party = _party_for(official_id) if official_id else None
-                # Branch detection — used by the /polls page Congress
-                # filter chip. A rep is considered to hold a Congress
-                # seat when EITHER (a) the rep carries an owner_district
-                # (House seats always have one; Senate doesn't but the
-                # role check below catches Senators) OR (b) the role
-                # string mentions a Congress chamber. The test rep
-                # (official_id='test-civicview-internal') is seeded with
-                # owner_district='FL-17' (backend/demo_accounts.json)
-                # so this rule catches it without a special-case branch.
-                # Prefer the curated branch from federal_officials.json
-                # (executive / judicial / congress). Fall back to the
-                # role/district heuristic so the seeded test rep + any
-                # official not yet in the curated index still bucket into
-                # Congress when their role says so.
-                _branch_override = _branch_for(official_id)
-                if _branch_override is None and rep is not None:
-                    _r = (rep.role or "").lower()
-                    if rep.owner_district or any(
-                        kw in _r for kw in (
-                            "representative", "senator", "senate",
-                            "house", "congress",
-                        )
-                    ):
-                        _branch_override = "congress"
+                # Branch for the /polls branch chips (executive /
+                # judicial / congress). _rep_branch is shared with the
+                # /posts feed so a post and its poll land in the same
+                # chip.
+                _branch_override = _rep_branch(official_id, rep)
 
         # Page-tag for the chip. Standalone polls get the literal
         # 'Standalone' string at the UI layer; this endpoint returns
         # None for that case so the frontend can branch.
         page_tag = page_tags.get(official_id) if official_id else None
+
+        # The author's result setting (2026-10-20). A poll set to show
+        # results only after it closes sends no counts here until then,
+        # except to the page owner of a post's poll: the same rule the
+        # page applies (services/poll_visibility.py).
+        withheld, closes_at = poll_visibility.poll_counts_withheld(
+            db, poll, official_id, me_rep, me_candidate,
+        )
+        if withheld:
+            options = [{**o, "percent": 0, "count": 0} for o in options]
+            total = 0
 
         # Per-viewer context. Anonymous viewers get is_author=False
         # and voter_choice_id=None. Citizens see is_author=True on
@@ -716,7 +735,7 @@ def _serialize_poll_feed_items(
         # the per-identity reaction map — sourced from the parent
         # post for REP polls, from PollReaction for CITIZEN polls.
         per_identity_votes = viewer_votes_by_identity.get(int(poll.id), {})
-        if poll.author_kind == "rep" and poll.post_id:
+        if poll.author_kind in _POST_POLL_KINDS and poll.post_id:
             per_identity_rxns = my_reactions_by_post.get(int(poll.post_id), {})
         elif poll.author_kind == "citizen":
             per_identity_rxns = my_reactions_by_poll.get(int(poll.id), {})
@@ -736,7 +755,7 @@ def _serialize_poll_feed_items(
         #   • Citizen polls → PollReaction on the poll itself
         # Returned explicitly so the frontend doesn't have to special-
         # case "likes missing" — every poll item has the same shape.
-        if poll.author_kind == "rep" and poll.post_id:
+        if poll.author_kind in _POST_POLL_KINDS and poll.post_id:
             likes = post_likes.get(int(poll.post_id), 0)
             dislikes = post_dislikes.get(int(poll.post_id), 0)
         elif poll.author_kind == "citizen":
@@ -764,6 +783,13 @@ def _serialize_poll_feed_items(
                 "question": poll.question,
                 "options": options,
                 "votes": total,
+                # Result setting: 'full' | 'hidden' (the viewer opens
+                # them) | 'reveal_after_close'. counts_suppressed is
+                # true while the counts above are withheld (all zero);
+                # closes_at is when they show.
+                "presentation_mode": (poll.presentation_mode or "full").lower(),
+                "closes_at": closes_at.isoformat() if closes_at else None,
+                "counts_suppressed": withheld,
                 "comments": int(comments),
                 "likes": likes,
                 "dislikes": dislikes,
@@ -961,7 +987,11 @@ def polls_feed(
             # target_official_id NULL and author_kind=='rep'). We union
             # the rep-kind rows in here so (b) survives the SQL pass; the
             # Python narrowing then keeps only the truly candidate ones.
-            return (Poll.target_official_id.is_not(None)) | (Poll.author_kind == "rep")
+            # Since create_post stores author_kind='candidate' on a
+            # candidate's poll, those rows are included directly too
+            # (2026-10-20: without them, From candidates came back empty).
+            return ((Poll.target_official_id.is_not(None)) | (Poll.author_kind == "rep")
+                    | (Poll.author_kind == "candidate"))
         return None
 
     q = (db.query(Poll).filter(Poll.archived_at.is_(None)).filter(_poll_parent_visible())
@@ -1054,9 +1084,10 @@ def polls_feed(
                 if is_candidate_id(p.target_official_id):
                     return "candidate"
                 return "citizen"
-            # Post-attached poll: candidate-authored if the parent post
-            # carries author_candidate_id, otherwise a rep poll.
-            if p.post_id in cand_post_ids:
+            # Post-attached poll: candidate-authored if it says so, or if
+            # the parent post carries author_candidate_id (older rows
+            # stored 'rep'); otherwise a rep poll.
+            if p.author_kind == "candidate" or p.post_id in cand_post_ids:
                 return "candidate"
             return "rep"
 
@@ -1127,6 +1158,7 @@ def posts_feed(
       {
         id: int,
         kind: 'rep' | 'candidate',
+        branch: 'congress' | 'executive' | 'judicial' | null,
         author: str,
         role: str | null,
         party: 'R'|'D'|'I'|null,
@@ -1145,6 +1177,7 @@ def posts_feed(
         # Total votes across the attached poll's options. Included
         # in the engagement-score sum, returned as a field so the
         # frontend can render a hint of activity in the poll badge.
+        # 0 while the poll's results are held until it closes.
         attached_poll_votes: int,
         viewer: {
           # Per-viewer reaction state. 'up' / 'down' / null. Mirrors
@@ -1193,11 +1226,13 @@ def posts_feed(
             Poll.post_id.label("pid"),
             Poll.id.label("poll_id"),
             func.count(PollVote.id).label("votes"),
+            Poll.presentation_mode.label("mode"),
+            Poll.closes_at.label("closes_at"),
         )
         .outerjoin(PollOption, PollOption.poll_id == Poll.id)
         .outerjoin(PollVote, PollVote.option_id == PollOption.id)
         .filter(Poll.post_id.is_not(None), Poll.archived_at.is_(None))
-        .group_by(Poll.id, Poll.post_id)
+        .group_by(Poll.id, Poll.post_id, Poll.presentation_mode, Poll.closes_at)
         .subquery()
     )
     up_c = func.coalesce(rxn_sq.c.up, 0)
@@ -1207,7 +1242,8 @@ def posts_feed(
     score = up_c + down_c + cmt_c + votes_c
 
     q = (
-        db.query(Post, up_c, down_c, cmt_c, poll_sq.c.poll_id, votes_c)
+        db.query(Post, up_c, down_c, cmt_c, poll_sq.c.poll_id, votes_c,
+                 poll_sq.c.mode, poll_sq.c.closes_at)
         .outerjoin(rxn_sq, rxn_sq.c.pid == Post.id)
         .outerjoin(cmt_sq, cmt_sq.c.pid == Post.id)
         .outerjoin(poll_sq, poll_sq.c.pid == Post.id)
@@ -1263,14 +1299,23 @@ def posts_feed(
     comments_by_post: Dict[int, int] = {}
     poll_id_by_post: Dict[int, int] = {}
     poll_votes_by_post: Dict[int, int] = {}
-    for p, up, down, n_cmt, poll_id, votes in page_rows:
+    for p, up, down, n_cmt, poll_id, votes, poll_mode, poll_closes_at in page_rows:
         pid = int(p.id)
         likes_by_post[pid] = int(up or 0)
         dislikes_by_post[pid] = int(down or 0)
         comments_by_post[pid] = int(n_cmt or 0)
         if poll_id is not None:
             poll_id_by_post[pid] = int(poll_id)
-            poll_votes_by_post[pid] = int(votes or 0)
+            # An attached poll whose results show only after it closes
+            # sends no vote total either (services/poll_visibility.py).
+            # Only that setting can hold counts back, so the close-time
+            # lookup (a query per page) runs for those polls alone.
+            withheld = (poll_mode or "full").lower() == "reveal_after_close" and poll_visibility.counts_withheld(
+                poll_mode,
+                poll_visibility.effective_closes_at(db, poll_closes_at, p.official_id),
+                viewer_is_owner=poll_visibility.viewer_owns_page(p.official_id, me_rep, me_candidate),
+            )
+            poll_votes_by_post[pid] = 0 if withheld else int(votes or 0)
 
     # Batched: which of these posts the viewing citizen has saved (Task #16).
     saved_post_ids: set = set()
@@ -1346,6 +1391,7 @@ def posts_feed(
             author = rep.display_name
             role = _role_at(db, p.official_id, p.created_at, rep.role)
             party = _party_for(p.official_id) if p.official_id else None
+            branch = _rep_branch(p.official_id, rep)
         elif p.author_candidate_id and p.author_candidate_id in cands_by_id:
             cand = cands_by_id[p.author_candidate_id]
             kind_label = "candidate"
@@ -1357,6 +1403,7 @@ def posts_feed(
             # page_tag.
             role = None
             party = _party_for(p.official_id) if p.official_id else None
+            branch = None
         else:
             # Orphan post — author row was deleted out from under
             # it. Show what we have and move on; the row is still
@@ -1366,6 +1413,9 @@ def posts_feed(
             author = "(unknown)"
             role = None
             party = None
+            # Same branch its poll gets on /polls (curated index only,
+            # since the rep row is gone).
+            branch = _rep_branch(p.official_id, None) if p.author_id else None
 
         page_tag = page_tags.get(p.official_id) if p.official_id else None
         attached_poll_id = poll_id_by_post.get(int(p.id))
@@ -1375,6 +1425,10 @@ def posts_feed(
             {
                 "id": int(p.id),
                 "kind": kind_label,
+                # 'congress' | 'executive' | 'judicial' | None, the same
+                # value this official's polls carry on /polls. Drives the
+                # /posts branch chips; candidate posts have none.
+                "branch": branch,
                 "author": author,
                 "role": role,
                 "party": party,

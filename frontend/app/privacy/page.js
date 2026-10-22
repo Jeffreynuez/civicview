@@ -238,7 +238,7 @@ export default function PrivacyPage() {
         <li><strong>To count engagement:</strong> totals of votes, likes and comments by area for officials, candidates and everyone.</li>
         <li><strong>To notify you:</strong> the in-app, push and email messages you turned on, election reminders (on unless you turn them off), and notices about your account or the pages you track.</li>
         <li><strong>To keep CivicView safe:</strong> screening new content, handling reports and appeals, rate limits, lockouts and 2FA.</li>
-        <li><strong>For AI features:</strong> plain-English summaries, topic and tone tags on comments and polls, and AI search (see Anthropic below).</li>
+        <li><strong>For AI features:</strong> plain-English summaries, topic and tone tags on comments, polls and posts, and AI search (see Anthropic below).</li>
         <li><strong>To verify citizens,</strong> once ID.me verification opens.</li>
         <li><strong>To understand use in total,</strong> for example how many polls were created, from our own database. We don&apos;t use outside analytics services.</li>
         <li><strong>To meet legal duties</strong> and protect our users and the service.</li>

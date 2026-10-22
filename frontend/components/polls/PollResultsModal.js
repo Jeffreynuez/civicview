@@ -17,7 +17,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './PollResultsModal.css';
-import { getJson, describeError } from '../../lib/http';
+import { getJson, request } from '../../lib/http';
+import { RESULTS_HIDDEN_TITLE, resultsHiddenUntil } from '../../lib/pollResults';
 
 
 const SCOPE_LABELS = {
@@ -178,18 +179,20 @@ export default function PollResultsModal({ pollId, question, open, onClose }) {
     const rid = ++breakdownReqRef.current;
     setLoading(true);
     setError(null);
-    try {
-      const query = { scope, by: by || undefined };
-      for (const [k, v] of Object.entries(filters)) {
-        if (v) query[`filter_${k}`] = v;
-      }
-      const j = await getJson(`/api/polls/${encodeURIComponent(pollId)}/results/breakdown`, { query });
-      if (rid === breakdownReqRef.current) setData(j);
-    } catch (e) {
-      if (rid === breakdownReqRef.current) setError(describeError(e) || 'Could not load results');
-    } finally {
-      if (rid === breakdownReqRef.current) setLoading(false);
+    const query = { scope, by: by || undefined };
+    for (const [k, v] of Object.entries(filters)) {
+      if (v) query[`filter_${k}`] = v;
     }
+    // Sent with the viewer's sign-in (request, not the public getJson)
+    // so the page owner still sees results that are held from everyone
+    // else until the poll closes, as on the poll card.
+    const { data: j, error: err } = await request(
+      `/api/polls/${encodeURIComponent(pollId)}/results/breakdown`, { query },
+    );
+    if (rid !== breakdownReqRef.current) return;
+    setLoading(false);
+    if (err || !j) setError(err || 'Could not load results');
+    else setData(j);
   }, [pollId, scope, filtersKey, by]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -220,6 +223,7 @@ export default function PollResultsModal({ pollId, question, open, onClose }) {
     });
 
   const downloadCsv = () => {
+    if (data?.counts_suppressed) return;
     const csv = buildResultsCsv({ question, scope, filters, minCell, data, options });
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -314,7 +318,17 @@ export default function PollResultsModal({ pollId, question, open, onClose }) {
           {loading && <div className="prm-status">Loading…</div>}
           {error && <div className="prm-status prm-error">{error}</div>}
 
-          {!loading && !error && data && (
+          {/* The author's result setting holds the counts until the
+              poll closes; the server sent none, so say why. */}
+          {!loading && !error && data && data.counts_suppressed && (
+            <div className="prm-suppressed">
+              <strong>{RESULTS_HIDDEN_TITLE}</strong>{' '}
+              The poll&apos;s author chose to show results only after it closes.
+              {data.closes_at ? ` ${resultsHiddenUntil(data.closes_at)}` : ''}
+            </div>
+          )}
+
+          {!loading && !error && data && !data.counts_suppressed && (
             <>
               <div className="prm-subtotal-row">
                 <span className="prm-subtotal">{total} response{total === 1 ? '' : 's'} in this view</span>

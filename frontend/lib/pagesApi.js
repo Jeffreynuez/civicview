@@ -72,6 +72,15 @@ export async function filterPolls({ prompt, kind } = {}) {
   });
 }
 
+// Natural-language filter for the /posts feed (2026-10-20). Same
+// response shape as filterPolls; matched_ids are post ids.
+export async function filterPosts({ prompt } = {}) {
+  return request('/api/ai/filter-posts', {
+    method: 'POST',
+    body: { prompt },
+  });
+}
+
 // TL;DR of a single rep post. Returns:
 //   { summary: string, word_count_original: number, word_count_summary: number }
 // Endpoint returns 503 when AI is unconfigured / budget-exceeded; the
