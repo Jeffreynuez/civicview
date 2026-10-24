@@ -108,3 +108,25 @@ served if that candidate is not on the ballot.
 Auto-generated records with nothing referring to them (no tracking, claimed page, posts, polls,
 comments, events or notices, checked read-only in the production database) may be deleted.
 Anything a person or a page refers to is kept, unused.
+
+## What the list doesn't cover yet
+
+An election with some races listed shows one line saying which parts of the ballot CivicView
+doesn't list yet, and links the state's official sample ballot. It is built from the whole state
+file (`ElectionsService._coverage`, the same for every address in the state), part by part:
+state legislative races, judicial races and retention votes (`level: "judicial"`, or an office
+naming a judge or justice), county and city races (`level` `county`, `local`, `city` or
+`municipal`), statewide measures and local measures (`ballot_measures.counties`). A part with
+nothing in the file is named as not listed; a part the file has is left out of the line.
+
+When a file has only some of a part, it says so at the top level, with the reason:
+
+```json
+"coverage": { "state_legislative": "some" },
+"_coverage_note": "Only two of Florida's 2026 state legislative races (SD-40 and HD-42) are in this file..."
+```
+
+`"some"` is the only value. Remove the declaration when the part is complete.
+`backend/tests/test_ballot_coverage.py` checks the declarations and the Florida line.
+County and city races are not matched to an address yet: the first ones added need a county
+rule in `get_personalized_ballot` before they show on Your Ballot.
