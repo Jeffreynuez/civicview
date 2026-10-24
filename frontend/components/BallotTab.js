@@ -4,7 +4,8 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { fetchElections, fetchBallotForAddress } from '@/lib/api';
+import { fetchElections, fetchBallotForAddress, fetchMeasurePlainEnglish, generateMeasurePlainEnglish } from '@/lib/api';
+import { explainerParts, inlineRuns } from '@/lib/summaryText';
 import useVoterInfo from '@/lib/useVoterInfo';
 import { getLean, setLean, subscribe as subscribeLean } from '@/lib/leaningPrefs';
 import { useIsMobile } from '@/lib/useViewport';
@@ -1703,6 +1704,10 @@ function MeasureCard({ measure }) {
               {measure.summary}
             </p>
           )}
+          {/* The AI plain-English version (2026-10-24), under the official
+              wording so that always comes first. Written on the server
+              from the official text only, saved, the same for everyone. */}
+          {measure.id && measure.summary && <MeasurePlainEnglish measureId={measure.id} />}
           {measure.origin && (
             <p style={{ fontSize: '0.76rem', lineHeight: 1.45, color: 'var(--cl-text-light)', marginBottom: '8px' }}>
               {measure.origin}
@@ -1739,6 +1744,110 @@ function MeasureCard({ measure }) {
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+// One line of the AI text, its **bold** runs as <strong>.
+function InlineMd({ text }) {
+  return inlineRuns(text).map((r, i) => (r.bold ? <strong key={i}>{r.text}</strong> : <span key={i}>{r.text}</span>));
+}
+
+// "Explain in plain English" for a ballot measure (2026-10-24): people
+// found some official ballot wording hard to follow. Shows the saved
+// explanation when there is one; otherwise a button that has the server
+// write it from the measure's official text (the same text for everyone
+// after). It never replaces the official summary above it.
+function MeasurePlainEnglish({ measureId }) {
+  const [state, setState] = useState({ loading: true, text: null, error: null, busy: false });
+  useEffect(() => {
+    let alive = true;
+    setState({ loading: true, text: null, error: null, busy: false });
+    fetchMeasurePlainEnglish(measureId).then(({ data }) => {
+      if (alive) setState({ loading: false, text: data?.plain_english || null, error: null, busy: false });
+    });
+    return () => { alive = false; };
+  }, [measureId]);
+
+  const explain = async () => {
+    setState((s) => ({ ...s, busy: true, error: null }));
+    const { data, error } = await generateMeasurePlainEnglish(measureId);
+    if (data?.plain_english) {
+      setState({ loading: false, text: data.plain_english, error: null, busy: false });
+    } else {
+      setState((s) => ({ ...s, busy: false, error: error || "The explanation couldn't be written. Please try again." }));
+    }
+  };
+
+  if (state.loading) return null;
+  if (!state.text) {
+    return (
+      <div style={{ marginBottom: '10px' }}>
+        <button
+          type="button"
+          onClick={explain}
+          disabled={state.busy}
+          style={{
+            padding: '4px 11px',
+            fontSize: '0.72rem',
+            fontWeight: 700,
+            background: state.busy ? 'var(--cl-bg-soft)' : 'var(--cl-warning)',
+            color: 'var(--cl-text)',
+            border: '1px solid var(--cl-warning-border)',
+            borderRadius: 999,
+            cursor: state.busy ? 'wait' : 'pointer',
+            fontFamily: 'inherit',
+          }}
+        >
+          {state.busy ? 'Explaining…' : '✨ Explain in plain English'}
+        </button>
+        {state.error && (
+          <div role="alert" style={{ marginTop: 6, fontSize: '0.72rem', color: 'var(--cl-danger-text)' }}>
+            {state.error}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  const { paras, bullets, votes } = explainerParts(state.text);
+  return (
+    <div
+      aria-live="polite"
+      style={{
+        marginBottom: '10px', padding: '10px 12px',
+        background: 'var(--cl-bg)', border: '1px solid var(--cl-border)', borderRadius: '8px',
+        fontSize: '0.8rem', lineHeight: 1.5, color: 'var(--cl-text)',
+      }}
+    >
+      <div
+        style={{
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+          fontSize: '0.66rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em',
+          color: 'var(--cl-warning-deep)', marginBottom: 6,
+        }}
+      >
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cl-warning)' }} />
+        Plain English · AI-generated
+      </div>
+      {paras.map((p, i) => (
+        <p key={`p-${i}`} style={{ margin: '0 0 8px' }}><InlineMd text={p} /></p>
+      ))}
+      {bullets.length > 0 && (
+        <ul style={{ margin: '0 0 8px', paddingLeft: 18, listStyle: 'disc' }}>
+          {bullets.map((b, i) => (
+            <li key={`b-${i}`} style={{ marginBottom: 3 }}><InlineMd text={b} /></li>
+          ))}
+        </ul>
+      )}
+      {votes.map((v, i) => (
+        <p key={`v-${i}`} style={{ margin: '0 0 4px' }}>
+          <strong>{v.label}:</strong> <InlineMd text={v.text} />
+        </p>
+      ))}
+      <div style={{ fontSize: '0.7rem', color: 'var(--cl-text-muted)', fontStyle: 'italic', marginTop: 8 }}>
+        Written by AI from the official ballot text, and it can make mistakes. The official summary above is the wording on your ballot.
+      </div>
     </div>
   );
 }

@@ -372,6 +372,28 @@ categories:
 
 ---
 
+## Shipped 2026-10-24: ballot measures in plain English
+
+People said the official wording of some ballot measures is hard to
+follow. A ballot measure's Details on the Elections tab now has
+"Explain in plain English" under the official ballot summary: a short
+paragraph, the specifics, the votes it needs, and what a Yes vote and
+a No vote mean, labeled AI-generated, with the official summary staying
+the wording that counts. It is written once per measure from the official
+text in the elections data only (`services/ballot_measure_service.py`,
+`GET /api/ballot-measures/{id}/plain-english`, `POST .../generate` in the
+AI rate limit) and saved, so everyone sees the same text. It uses Claude
+Sonnet, not Haiku: in testing Haiku added conditions the ballot text
+doesn't have. The prompt keeps it neutral and never says how to vote; an
+explanation with any figure that isn't in the official text is not
+saved. If a measure's wording changes, its explanation is written again.
+The three Florida 2026 amendments ship with explanations read before
+release (`app/data/ballot_measure_explanations.json`); checked by
+`tests/test_ballot_measure_plain_english.py` and
+`npm run test:summary-text`.
+
+---
+
 ## Shipped 2026-10-20: feed filters that filter, and hidden results that stay hidden
 
 - **Polls and Posts, States chip:** on its own it always showed an empty

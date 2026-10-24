@@ -44,6 +44,7 @@ from app.routers import (
     former as former_router,
     appeals as appeals_router,
     bills as bills_router,
+    ballot_measures as ballot_measures_router,
     bill_reactions as bill_reactions_router,
     votes as votes_router,
     eos as eos_router,
@@ -609,6 +610,8 @@ app.include_router(former_router.router, prefix="/api/former", tags=["Former off
 app.include_router(appeals_router.router, prefix="/api", tags=["Appeals"])
 # Bills router — per-bill summary cache (CRS + Haiku translation).
 app.include_router(bills_router.router, prefix="/api/bills", tags=["Bills"])
+# Plain-English explanations of ballot measures (2026-10-24).
+app.include_router(ballot_measures_router.router, prefix="/api/ballot-measures", tags=["Ballot measures"])
 # Bill likes and dislikes (2026-10-03). Per-viewer, so deliberately
 # outside the edge-cached /api/bills prefix; see the router's docstring.
 app.include_router(bill_reactions_router.router, prefix="/api/engagement", tags=["Bill reactions"])

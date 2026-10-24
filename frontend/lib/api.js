@@ -719,6 +719,30 @@ export async function translateBillSummary(congress, billType, number) {
   );
 }
 
+// ─── Ballot measure explanations (2026-10-24) ─────────────────────────
+//  • GET  /api/ballot-measures/{id}/plain-english
+//      The saved AI explanation, or plain_english: null. Never calls AI.
+//  • POST /api/ballot-measures/{id}/plain-english/generate
+//      Writes it from the measure's official text (server side) when
+//      there isn't one yet, then returns it.
+export async function fetchMeasurePlainEnglish(measureId) {
+  if (!measureId) return { data: null, error: 'missing_id' };
+  return _aiJson(
+    `/api/ballot-measures/${encodeURIComponent(measureId)}/plain-english`,
+    {},
+    'Ballot measure explanation fetch failed:',
+  );
+}
+
+export async function generateMeasurePlainEnglish(measureId) {
+  if (!measureId) return { data: null, error: 'missing_id' };
+  return _aiJson(
+    `/api/ballot-measures/${encodeURIComponent(measureId)}/plain-english/generate`,
+    { method: 'POST' },
+    'Ballot measure explanation failed:',
+  );
+}
+
 // ─── Federal officials (President, VP, Cabinet, SCOTUS, Congress lead) ─
 // Cached once for the session — the snapshot doesn't change per-state.
 let _federalOfficialsCache = null;

@@ -1,0 +1,26 @@
+{
+ "about": "Plain-English explanations of ballot measures that Jeffrey read before they went live. Written by app/services/ballot_measure_service.py from each measure's official text in app/data/<state>/elections.json; each is used only while its source_hash still matches that text, the prompt version and the model. A new or reworded measure gets one written on its first \"Explain in plain English\" tap instead.",
+ "explanations": [
+  {
+   "measure_id": "fl-2026-amend-1",
+   "source_hash": "926a2e6096a29d39cdef8e19fcbe3db5a4946cd5628dffe9527635e1245d96c4",
+   "model": "claude-sonnet-4-5-20250929",
+   "generated_at": "2026-10-24T04:37:47",
+   "plain_english": "This amendment would increase how much money the state can keep in the budget stabilization fund and require yearly deposits into it.\n\n- The maximum amount in the fund would go from 10% to 25% of general revenue collections.\n- The legislature would have to transfer the lesser of $750 million or the amount needed to reach 25% of general revenue collections each year, unless certain conditions are met.\n- The legislature could withdraw funds for critical state needs.\n- It needs 60% of the votes cast on it to pass.\n\n**A Yes vote means:** The budget stabilization fund's maximum would increase from 10% to 25% of general revenue collections, and the legislature would have to make yearly transfers to it unless certain conditions are met.\n\n**A No vote means:** The current 10% limit on the budget stabilization fund stays in place."
+  },
+  {
+   "measure_id": "fl-2026-amend-2",
+   "source_hash": "61f842f4e5801947a8ee14c2dacda57fb64f9726eaef8eb0b1b6e0c0a72f4cca",
+   "model": "claude-sonnet-4-5-20250929",
+   "generated_at": "2026-10-24T04:37:51",
+   "plain_english": "This amendment would exempt certain equipment and other tangible personal property on agricultural land from property taxes. The exemption would apply to property that is habitually located or typically present on land classified as agricultural, used in the production of agricultural products or for agritourism activities, and owned by the landowner or leaseholder of the agricultural land.\n\n- Tangible personal property on agricultural land that is habitually located or typically present there, used in the production of agricultural products or for agritourism activities, and owned by the landowner or leaseholder would be exempt from ad valorem taxation.\n- The exemption would first apply for tax years beginning January 1, 2027.\n- It needs 60% of the votes cast on it to pass.\n\n**A Yes vote means:** Tangible personal property on agricultural land that meets the specified conditions would be exempt from ad valorem taxation starting with the 2027 tax year.\n\n**A No vote means:** Current rules for taxing tangible personal property on agricultural land would stay as they are."
+  },
+  {
+   "measure_id": "fl-2026-amend-3",
+   "source_hash": "3af9821745d388541306b0bc1885bf8eb62ae223296c460795762e8ca16760bc",
+   "model": "claude-sonnet-4-5-20250929",
+   "generated_at": "2026-10-24T04:37:59",
+   "plain_english": "This amendment would increase the homestead exemption for non-school property taxes, lower the cap on how much non-homestead property assessments can increase each year, and restrict what counties and municipalities can spend property tax money on.\n\n- The homestead exemption for non-school taxes would increase to $150,000 in 2027 and $250,000 in 2028, then adjust for inflation. The Legislature must create a uniform procedure for counties and municipalities to increase the homestead exemption up to full assessed value for their own levies, and special districts could do the same with voter approval.\n\n- People who are not Florida residents on December 31, 2026 would get the existing homestead exemption when they qualify, then get the increased exemption starting in their fifth year of exemption, to the extent the U.S. Constitution allows.\n\n- The annual cap on assessment increases for non-homestead properties would drop from 10% to 5%.\n\n- Counties and municipalities could use property taxes only for public safety, education and schools, infrastructure, natural resources, bond debt service, retirement benefits for employees, and operations and administration. Other spending would require approval by county officers or the county or municipal governing body unless general law prohibits it.\n\n- It takes effect January 1, 2027.\n\n- It needs 60% of the votes cast on it to pass.\n\n**A Yes vote means:** The homestead exemption for non-school taxes would increase to $150,000 in 2027 and $250,000 in 2028, the cap on non-homestead assessment increases would drop from 10% to 5%, and counties and municipalities would be restricted to spending property taxes on the listed purposes unless their officers or governing bodies approve other spending.\n\n**A No vote means:** The current homestead exemption amounts and the 10% cap on non-homestead assessment increases would stay, and counties and municipalities would continue to levy property taxes for their respective purposes as currently allowed."
+  }
+ ]
+}

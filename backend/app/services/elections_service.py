@@ -208,6 +208,29 @@ class ElectionsService:
                 except (json.JSONDecodeError, OSError) as e:
                     logger.error("ElectionsService: failed to load %s: %s", e_path, e)
 
+    # ─── Ballot measure lookup ───────────────────────────────────────────
+
+    def get_measure(self, measure_id: str) -> Optional[dict]:
+        """One ballot measure by its `id`, statewide or county, with the
+        state it belongs to added as `state` and `state_name`. None when no
+        loaded state has it. Used by the plain-English explainer, which
+        works only from the official text in the data, never from text a
+        caller sends."""
+        if not measure_id:
+            return None
+        for code, raw in self._elections_by_state.items():
+            measures = raw.get("ballot_measures") or {}
+            if isinstance(measures, list):
+                pool = list(measures)
+            else:
+                pool = list(measures.get("state") or [])
+                for items in (measures.get("counties") or {}).values():
+                    pool.extend(items or [])
+            for m in pool:
+                if isinstance(m, dict) and m.get("id") == measure_id:
+                    return {**m, "state": code, "state_name": raw.get("state_name")}
+        return None
+
     # ─── Candidate lookup ────────────────────────────────────────────────
 
     def get_candidate(self, candidate_id: str) -> Optional[dict]:

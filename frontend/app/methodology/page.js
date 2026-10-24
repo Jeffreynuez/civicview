@@ -14,7 +14,7 @@ import LegalPageLayout from '@/components/LegalPageLayout';
 
 export default function MethodologyPage() {
   return (
-    <LegalPageLayout title="Methodology" eyebrow="How CivicView works" lastUpdated="September 25, 2026">
+    <LegalPageLayout title="Methodology" eyebrow="How CivicView works" lastUpdated="October 24, 2026">
       <p>
         CivicView surfaces what your elected officials say and do, then lets
         verified constituents respond — in their own districts. This page
@@ -89,8 +89,13 @@ export default function MethodologyPage() {
       <p>
         The "Translate to plain English" and "What was this vote?" features
         use Anthropic&apos;s Claude Haiku to rephrase official bill summaries and
-        vote questions for general readers. For these features we send the
-        model only the public text of the bill or vote question. The focus
+        vote questions for general readers, and "Explain in plain English" on
+        a ballot measure uses Claude Sonnet, which kept closer to the official
+        wording in our tests. For these features we send the model only the
+        public text of the bill, vote question or ballot measure. A ballot
+        measure explanation sits under the official ballot summary, ends with
+        what a Yes vote and a No vote mean, never says how to vote, and is
+        only saved when every figure in it appears in the official text. The focus
         areas shown for state legislators are also written by Claude, from
         the titles of their sponsored bills, and are labeled that way.
         Separately, comments and polls are sent to Claude to tag their tone

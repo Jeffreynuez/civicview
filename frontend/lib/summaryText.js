@@ -84,3 +84,35 @@ export function inlineRuns(line) {
   if (last < line.length) out.push({ text: line.slice(last) });
   return out;
 }
+
+/**
+ * A ballot measure's AI explanation (2026-10-24) in its three parts:
+ * the opening paragraph(s), the bullets, and the closing vote lines
+ * ("**A Yes vote means:** ..."). Returns { paras, bullets, votes }, where
+ * each vote is { label, text } with the label's trailing colon dropped.
+ * Lines are kept as markdown text for inlineRuns; headings read as plain
+ * lines; anything unexpected after the bullets stays a bullet, as on bills.
+ */
+export function explainerParts(markdown) {
+  const paras = [];
+  const bullets = [];
+  const votes = [];
+  if (!markdown) return { paras, bullets, votes };
+  let inBullets = false;
+  for (const raw of String(markdown).split('\n')) {
+    const line = raw.trim().replace(/^#{1,6}\s+/, '');
+    if (!line) continue;
+    const vote = line.match(/^\*\*\s*(A\s+(?:Yes|No)\s+vote\s+means)\s*:?\s*\*\*\s*:?\s*(.*)$/i);
+    if (vote) {
+      votes.push({ label: vote[1].replace(/\s+/g, ' '), text: vote[2].trim() });
+    } else if (line.startsWith('- ') || line.startsWith('* ')) {
+      inBullets = true;
+      bullets.push(line.slice(2).trim());
+    } else if (inBullets) {
+      bullets.push(line);
+    } else {
+      paras.push(line);
+    }
+  }
+  return { paras, bullets, votes };
+}

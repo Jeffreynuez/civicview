@@ -43,7 +43,7 @@ function Mail({ subject }) {
 
 export default function PrivacyPage() {
   return (
-    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 18, 2026">
+    <LegalPageLayout title="Privacy policy" eyebrow="Your data on CivicView" lastUpdated="October 24, 2026">
       <p>
         This policy explains what CivicView collects, why, who can see it,
         who else receives it, how long we keep it, and what you can do
@@ -298,7 +298,7 @@ export default function PrivacyPage() {
         <li><strong>Render:</strong> hosts our server and database.</li>
         <li><strong>Vercel:</strong> hosts the website and receives every visitor&apos;s IP address and request details.</li>
         <li><strong>Cloudflare:</strong> sits in front of our server to block attacks and speed it up. It handles the traffic to our server, including its contents, and briefly caches public responses. Cloudflare R2 stores images uploaded by officials and candidates.</li>
-        <li><strong>Anthropic (Claude AI):</strong> receives the text of comments, polls (question and options) and the posts and polls of officials and candidates, to screen them for safety and tag their topic and tone; posts when someone asks for a summary; what you type into an AI search box, with the items being searched (for comment search, that includes commenters&apos; display names and short excerpts); and public bills, votes and executive orders to summarize. It doesn&apos;t receive your email, address, verification or votes. Under its commercial terms, Anthropic doesn&apos;t use this content to train its models.</li>
+        <li><strong>Anthropic (Claude AI):</strong> receives the text of comments, polls (question and options) and the posts and polls of officials and candidates, to screen them for safety and tag their topic and tone; posts when someone asks for a summary; what you type into an AI search box, with the items being searched (for comment search, that includes commenters&apos; display names and short excerpts); and public bills, votes, executive orders and ballot measures to summarize. It doesn&apos;t receive your email, address, verification or votes. Under its commercial terms, Anthropic doesn&apos;t use this content to train its models.</li>
         <li><strong>Postmark:</strong> sends our account emails (password resets and changes, sign-in help, lockout alerts with the IP address), the weekly digest, election reminder emails you turn on and notices about former officials&apos; and candidates&apos; pages.</li>
         <li><strong>Resend:</strong> emails our administrators about new reports (the content, the reason and the reporter&apos;s display name) and appeals (the appellant&apos;s name, email and reasons), and emails you our decision on your appeal.</li>
         <li><strong>Brevo:</strong> our waitlist mailing list (email, state and the button used).</li>
