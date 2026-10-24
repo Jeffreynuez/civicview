@@ -15,7 +15,8 @@
     "lint": "eslint app components lib scripts",
     "test:notifications": "node scripts/test-notifications.mjs",
     "test:summary-text": "node scripts/test-summary-text.mjs",
-    "test:feed-filters": "node scripts/test-feed-filters.mjs"
+    "test:feed-filters": "node scripts/test-feed-filters.mjs",
+    "test:ballot-coverage": "node scripts/test-ballot-coverage.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.3",

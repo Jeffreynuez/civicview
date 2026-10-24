@@ -6,6 +6,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchElections, fetchBallotForAddress, fetchMeasurePlainEnglish, generateMeasurePlainEnglish } from '@/lib/api';
 import { explainerParts, inlineRuns } from '@/lib/summaryText';
+import { COVERAGE_TITLE, coverageSentences } from '@/lib/ballotCoverage';
 import useVoterInfo from '@/lib/useVoterInfo';
 import { getLean, setLean, subscribe as subscribeLean } from '@/lib/leaningPrefs';
 import { useIsMobile } from '@/lib/useViewport';
@@ -358,6 +359,7 @@ function buildElections(view, mode, stateCode) {
       date: primaryDate,
       races: primaryRaces,
       measures: primaryMeasures,
+      coverage: view.coverage || null,
       keyDates: buildKeyDates(view, 'primary'),
       sources: buildSources(view, 'primary'),
     });
@@ -371,6 +373,7 @@ function buildElections(view, mode, stateCode) {
       races: generalRaces,
       measures: generalMeasures,
       measuresNote: view._measures_note || null,
+      coverage: view.coverage || null,
       keyDates: buildKeyDates(view, 'general'),
       sources: buildSources(view, 'general'),
       links: buildOfficialLinks(view),
@@ -739,6 +742,32 @@ function ElectionCard({
                 </>
               ) : (
                 'Your official sample ballot shows every race on your ballot.'
+              )}
+            </div>
+          )}
+
+          {/* A state with some races listed: what the list doesn't cover
+              yet, the same sentences for every state (2026-10-24; see
+              lib/ballotCoverage.js). Without it, a partial list read as
+              the whole ballot. */}
+          {raceCount > 0 && !isPast && coverageSentences(election.coverage) && (
+            <div data-testid="ballot-coverage-line" style={{
+              padding: '10px 12px', marginBottom: '12px', background: 'var(--cl-bg)',
+              border: '1px solid var(--cl-border)', borderRadius: '10px',
+              fontSize: '0.8rem', lineHeight: 1.5, color: 'var(--cl-text)',
+            }}>
+              <strong>{COVERAGE_TITLE}</strong>{' '}
+              {coverageSentences(election.coverage)}{' '}
+              {sampleBallotUrl ? (
+                <>
+                  Your{' '}
+                  <FileLink href={sampleBallotUrl} style={{ color: 'var(--cl-accent)', fontWeight: 600 }}>
+                    official sample ballot{fileSuffix(sampleBallotUrl)}
+                  </FileLink>
+                  {' '}shows everything on your ballot.
+                </>
+              ) : (
+                'Your official sample ballot shows everything on your ballot.'
               )}
             </div>
           )}

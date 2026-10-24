@@ -150,6 +150,59 @@ def _date_sources(raw: dict) -> dict:
     return out
 
 
+# The parts of a ballot the Elections tab names when it says what the
+# list doesn't cover yet (2026-10-24). Your Ballot used to say so only
+# when a state had no races at all, so a Florida voter saw the statewide
+# and congressional races and read them as the whole ballot, with their
+# state House, court, county and school board contests missing.
+COVERAGE_PARTS = ("state_legislative", "judicial", "county_local", "statewide_measures", "local_measures")
+
+_LEGISLATIVE_CHAMBERS = ("state senate", "state house", "state assembly")
+_JUDICIAL_RE = re.compile(r"\b(judge|justice)s?\b", re.IGNORECASE)
+
+
+def _coverage(raw: dict) -> dict:
+    """For each part of the ballot, whether the state's data lists it:
+    "listed", "some" (listed, and the file's `coverage` says only some
+    are in), or "none". Read from the whole state file, never from the
+    races an address matched, so the line reads the same for everyone in
+    the state. (County and city races aren't matched to an address yet:
+    when the first ones are added, get_personalized_ballot needs a county
+    rule before they show on Your Ballot.)"""
+    races = raw.get("races") or []
+    measures = raw.get("ballot_measures") or {}
+
+    def level(r):
+        return (r.get("level") or "").lower()
+
+    local_measures = False
+    for key, group in measures.items():
+        if key == "state":
+            continue
+        if isinstance(group, dict):
+            local_measures = local_measures or any(group.values())
+        elif isinstance(group, list):
+            local_measures = local_measures or bool(group)
+
+    has = {
+        "state_legislative": any(
+            level(r) == "state" and (r.get("chamber") or "").lower().startswith(_LEGISLATIVE_CHAMBERS)
+            for r in races
+        ),
+        "judicial": any(
+            level(r) == "judicial" or _JUDICIAL_RE.search(r.get("office") or "") for r in races
+        ),
+        "county_local": any(level(r) in ("county", "local", "city", "municipal") for r in races),
+        "statewide_measures": bool(measures.get("state")),
+        "local_measures": local_measures,
+    }
+    declared = raw.get("coverage") or {}
+    return {
+        part: ("none" if not has[part] else "some" if declared.get(part) == "some" else "listed")
+        for part in COVERAGE_PARTS
+    }
+
+
 class ElectionsService:
     def __init__(self):
         # state_code -> elections payload
@@ -410,6 +463,7 @@ class ElectionsService:
             # election that already happened. A human updates it when the
             # results are actually in hand.
             "primary_status": raw.get("primary_status") or None,
+            "coverage": _coverage(raw),
             "races": [
                 self._resolve_race(
                     r,
@@ -553,6 +607,7 @@ class ElectionsService:
             "key_date_sources": _date_sources(raw),
             "voter_info": _public_voter_info(raw),
             "primary_status": raw.get("primary_status") or None,
+            "coverage": _coverage(raw),
             "geography": {
                 "state": state,
                 "county_fips": county_fips,

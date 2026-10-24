@@ -981,7 +981,7 @@ function ElectionCenter({ elections, stateCode, stateName }) {
         className="cl-body-sm"
         style={{ color: 'var(--cl-text-light)', margin: '0 0 12px' }}
       >
-        Track candidates running for federal, state, and local office. Bookmark
+        Track candidates running for federal and state office. Bookmark
         races, follow candidates, and get notified before key deadlines.
       </p>
       <div
@@ -1053,7 +1053,7 @@ function FeaturedRaceVerifyPrompt({ onRequestVerify }) {
           marginBottom: 12,
         }}
       >
-        Verify your address to see your complete ballot — federal, state, and local.
+        Verify your address to see the races CivicView lists for your district.
       </div>
       <button
         type="button"

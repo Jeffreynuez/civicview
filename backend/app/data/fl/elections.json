@@ -6,6 +6,10 @@
   "cycle": "2026",
   "closed_primary": true,
   "_closed_primary_note": "Florida is a closed-primary state: only voters registered with a party can vote in that party's primary. Voters with no party affiliation can vote in nonpartisan contests and on ballot measures, but not in the partisan primaries. The BallotTab disclosure reads from this field.",
+  "coverage": {
+    "state_legislative": "some"
+  },
+  "_coverage_note": "Only two of Florida's 2026 state legislative races (SD-40 and HD-42) are in this file, so the Elections tab says only some state legislative races are listed. Judicial retention and circuit judge races, county races and county or school district measures are not in this file yet.",
   "key_dates": {
     "primary": "2026-08-18",
     "voter_registration_deadline_primary": "2026-07-20",
