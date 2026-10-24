@@ -168,7 +168,7 @@ pyotp==2.10.0
     # via -r requirements.in
 python-dateutil==2.9.0.post0
     # via botocore
-python-dotenv==1.2.3
+python-dotenv==1.2.4
     # via
     #   -r requirements.in
     #   uvicorn
