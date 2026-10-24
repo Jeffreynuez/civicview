@@ -76,6 +76,7 @@ _AI_RE = re.compile(
     r"|eos/[^/]+/summary/translate"
     r"|votes/explain/generate"
     r"|bills/\d+/[^/]+/[^/]+/summary/translate"
+    r"|ballot-measures/[^/]+/plain-english/generate"
     r"|state-officials/[^/]+/legislator-issues)$"
 )
 

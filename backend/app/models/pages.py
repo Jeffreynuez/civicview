@@ -1964,6 +1964,29 @@ Index(
 )
 
 
+# ── Ballot measure explanations ──────────────────────────────────────
+class BallotMeasureExplanation(Base):
+    """
+    Cached AI plain-English explanation of a ballot measure (2026-10-24).
+
+    Ballot measures live in the curated elections data
+    (app/data/<state>/elections.json), each with a stable `id` and its
+    official ballot summary. The first "Explain in plain English" tap on a
+    measure writes this row from that official text; everyone after sees
+    the same saved text. `source_hash` is a SHA-256 of the official text
+    the explanation was written from: when the data file's wording changes,
+    the old row no longer matches and the next tap writes a new one.
+    """
+    __tablename__ = "ballot_measure_explanations"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    measure_id: Mapped[str] = mapped_column(String(128), unique=True, index=True)
+    source_hash: Mapped[str] = mapped_column(String(64))
+    plain_english: Mapped[str] = mapped_column(Text)
+    plain_english_model: Mapped[Optional[str]] = mapped_column(String(64), default=None)
+    generated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
 # ── Executive-order summaries ────────────────────────────────────────
 class EoSummary(Base):
     """

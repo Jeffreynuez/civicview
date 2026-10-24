@@ -102,7 +102,7 @@ const SHIPPED = [
   ['Standalone citizen polls', 'Not tied to any rep page, global rate-limited.'],
   ['Global /polls feed', 'Kind chips, comments, AI-powered semantic filter.'],
   ['AI integration', 'Claude Haiku 4.5: comment sentiment + tone, semantic filter chips, post summarization, poll classification.'],
-  ['Bill / vote / executive-order AI summaries', 'CRS summary + Haiku plain-English translation on every bill, "What was this vote?" explainer, EO abstract + Haiku translation on every EO. Cached per-bill, per-vote, per-EO.'],
+  ['Bill / vote / executive-order / ballot measure AI summaries', 'CRS summary + Haiku plain-English translation on every bill, "What was this vote?" explainer, EO abstract + Haiku translation on every EO, and "Explain in plain English" on every ballot measure (what it does, and what a Yes and a No vote mean). Cached per-bill, per-vote, per-EO, per-measure.'],
   ['Moderation system', 'Report flow on every surface, auto-hide threshold, admin queue: Dismiss / Hide / Unhide / Suspend, cascade-hide on suspension.'],
   ['Appeals system', 'Citizens and reps can appeal hidden content + suspensions; admin queue with Grant / Deny + reason logging.'],
   ['Email notifications', 'Built on Resend: moderation events, appeal submissions, decisions, suspension notices. Switches on with the launch email setup.'],
