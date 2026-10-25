@@ -42,7 +42,7 @@ import './HelpBuildThisView.css';
 // in the new platform's /en/projects/<creator>/<project> form. Check it
 // against the real page before moving past 'soon'.
 const CROWDFUND_URL = 'https://www.indiegogo.com/en/projects/civicview/civicview';
-const CROWDFUND_STAGE = 'soon';
+const CROWDFUND_STAGE = 'preview';
 const CROWDFUND_LIVE = CROWDFUND_STAGE === 'live';
 const CROWDFUND_FOLLOWABLE = CROWDFUND_STAGE === 'preview' || CROWDFUND_LIVE;
 
