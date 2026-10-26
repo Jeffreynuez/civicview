@@ -16,9 +16,9 @@ Endpoints:
   POST /api/admin/reports/{kind}/{id}/hide      — hide the target +
                                                   resolve the report
   POST /api/admin/targets/{kind}/{id}/unhide    — un-hide a target
-                                                  (clears deleted_at /
-                                                  archived_at; leaves
-                                                  report_count history)
+                                                  taken down by
+                                                  moderation and close
+                                                  its open reports
 
 `kind` is one of: post | post_comment | poll | poll_comment.
 """
@@ -30,7 +30,7 @@ from typing import Any, List, Literal, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from sqlalchemy import func, or_
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.db import get_db
@@ -46,11 +46,11 @@ from app.models.pages import (
     PostComment,
     PostReport,
     RepAccount,
-    RepEvent,
 )
 from app.services.admin_auth import get_current_admin
 from app.services.citizen_polls_service import poll_is_publicly_visible
 from app.services.log_redaction import mask_email
+from app.services.moderation import is_moderation_hidden, resolve_open_reports, target_state
 
 
 logger = logging.getLogger(__name__)
@@ -65,6 +65,12 @@ _PREVIEW_CHARS = 200
 
 
 ReportKind = Literal["post", "post_comment", "poll", "poll_comment"]
+
+# Why reported content is or is not public. See moderation.target_state.
+TargetState = Literal[
+    "visible", "admin_hidden", "auto_hidden", "threat_hidden",
+    "author_deleted", "author_closed", "closed", "missing",
+]
 
 
 class AdminWhoamiResponse(BaseModel):
@@ -106,7 +112,11 @@ class ReportRow(BaseModel):
     kind: ReportKind                     # which target type
     target_id: int                       # FK into the content table
     target_preview: str                  # first N chars of body/question
-    target_hidden: bool                  # already auto-hidden / admin-hidden?
+    target_hidden: bool                  # not on the public page, for any reason
+    # Why: only admin_hidden / auto_hidden / threat_hidden can be
+    # unhidden. author_deleted and author_closed must never be put
+    # back by an admin (2026-10-26 admin audit).
+    target_state: TargetState = "visible"
     reason: str
     detail: Optional[str] = None
     reporter_name: str
@@ -271,6 +281,7 @@ def list_reports(
             id=r.id, kind="post", target_id=r.post_id,
             target_preview=_snippet(target.body if target else None),
             target_hidden=bool(target and target.deleted_at is not None),
+            target_state=target_state(target, "post"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
             created_at=r.created_at, acted_at=r.acted_at,
@@ -291,6 +302,7 @@ def list_reports(
             id=r.id, kind="post_comment", target_id=r.comment_id,
             target_preview=_snippet(target.body if target else None),
             target_hidden=bool(target and target.deleted_at is not None),
+            target_state=target_state(target, "post_comment"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
             created_at=r.created_at, acted_at=r.acted_at,
@@ -311,6 +323,7 @@ def list_reports(
             id=r.id, kind="poll", target_id=r.poll_id,
             target_preview=_snippet(target.question if target else None),
             target_hidden=bool(target and not poll_is_publicly_visible(target)),
+            target_state=target_state(target, "poll"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
             created_at=r.created_at, acted_at=r.acted_at,
@@ -331,6 +344,7 @@ def list_reports(
             id=r.id, kind="poll_comment", target_id=r.poll_comment_id,
             target_preview=_snippet(target.body if target else None),
             target_hidden=bool(target and target.deleted_at is not None),
+            target_state=target_state(target, "poll_comment"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
             created_at=r.created_at, acted_at=r.acted_at,
@@ -421,7 +435,24 @@ def _unhide_target(target: Any, kind: str) -> bool:
     """Inverse of _hide_target. Returns True if the target was just
     un-hidden, False if it wasn't hidden to begin with. Also clears
     hide_reason / archived_reason so the appeals surface stops
-    treating the row as moderation-hidden."""
+    treating the row as moderation-hidden.
+
+    Refuses (409) content its author deleted or closed: deleted_at
+    and archived_at are shared with the author's own Delete and Close,
+    and clearing them would put the author's deleted text back in
+    public or reopen their closed poll (2026-10-26 admin audit)."""
+    state = target_state(target, kind)
+    if state == "visible":
+        return False
+    if not is_moderation_hidden(state):
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                "This was closed by its author, not hidden by moderation, so it can't be restored here."
+                if state in ("author_closed", "closed")
+                else "This was deleted by its author, not hidden by moderation, so it can't be restored here."
+            ),
+        )
     if kind == "poll":
         from sqlalchemy.orm import object_session
 
@@ -457,11 +488,7 @@ def dismiss_report(
         report.acted_at = datetime.utcnow()
         db.commit()
     target = _target_for_report(db, kind, report)
-    hidden = (
-        bool(target and getattr(target, "archived_at", None) is not None)
-        if kind == "poll"
-        else bool(target and getattr(target, "deleted_at", None) is not None)
-    )
+    hidden = target_state(target, kind) != "visible"
     logger.info(
         "Admin %s dismissed %s report id=%d.",
         mask_email(actor["email"]), kind, report_id,
@@ -496,7 +523,7 @@ def hide_target(
     # the one that triggered the hide. If 3 different users reported
     # the same comment, hiding it answers all 3 — the queue
     # shouldn't keep showing the remaining 2 as open.
-    resolved_n = _resolve_reports_against_target(
+    resolved_n = resolve_open_reports(
         db, kind=kind, target_id=getattr(target, "id", -1),
     )
     db.commit()
@@ -519,17 +546,20 @@ def unhide_target(
     db: Session = Depends(get_db),
     actor: dict = Depends(get_current_admin),
 ) -> ActionResult:
-    """Restore content that was auto-hidden or admin-hidden. Does NOT
-    resolve outstanding reports — admin should review them separately
-    (the content is visible again, but the queue still shows the
-    reports so the admin can decide whether they were spurious).
+    """Restore content that was auto-hidden or admin-hidden, and close
+    every open report on it: restoring is the admin's decision that
+    those reports did not hold up. Leaving them open (the behavior
+    before 2026-10-26) kept them counting toward auto-hide, so the
+    next single report hid the content again. Refuses content its
+    author deleted or closed (see _unhide_target).
     """
     target = _load_target_or_404(db, kind, target_id)
     newly_unhidden = _unhide_target(target, kind)
+    resolved_n = resolve_open_reports(db, kind=kind, target_id=target_id)
     db.commit()
     logger.warning(
-        "Admin %s un-hid %s target_id=%d (newly_unhidden=%s).",
-        mask_email(actor["email"]), kind, target_id, newly_unhidden,
+        "Admin %s un-hid %s target_id=%d (newly_unhidden=%s, resolved %d open report(s)).",
+        mask_email(actor["email"]), kind, target_id, newly_unhidden, resolved_n,
     )
     return ActionResult(ok=True, target_hidden=False)
 
@@ -550,25 +580,17 @@ UserKind = Literal["rep", "citizen", "candidate"]
 
 class UserSuspendPayload(BaseModel):
     reason: Optional[str] = None
-    # When True, also soft-hide every piece of content the user
-    # currently has visible. See the suspend endpoint for the
-    # exact scope (posts, post-comments, polls, poll-comments).
-    # Default False — admin must opt in per-suspension.
-    cascade_hide: bool = False
+    # There is no bulk "also hide everything they posted" option any
+    # more (removed 2026-10-26). Suspending blocks the account; content
+    # only comes down through reports, one item at a time, under the
+    # rule that reports and threat detection are the only paths to a
+    # takedown. An old client that still sends cascade_hide has it
+    # ignored.
 
 
 class UserActionResult(BaseModel):
     ok: bool = True
     suspended: bool
-    # Populated when cascade_hide=True. Empty dict otherwise.
-    # Useful for the UI to show "Suspended + hid N posts and M
-    # comments" after the action.
-    hidden_counts: dict = {}
-    # Reports against this user's content that got auto-resolved by
-    # the suspend action. Keyed by report kind. Sum lets the UI flash
-    # "...and closed 3 open reports against them" in a confirmation
-    # toast / inline message.
-    resolved_reports: dict = {}
 
 
 def _load_user_account_or_404(db: Session, kind: str, user_id: int):
@@ -583,124 +605,6 @@ def _load_user_account_or_404(db: Session, kind: str, user_id: int):
     if acc is None:
         raise HTTPException(status_code=404, detail="User not found")
     return acc
-
-
-def _resolve_reports_against_user(
-    db: Session, *, user_kind: str, user_id: int,
-) -> dict:
-    """When the admin acts against a user (suspend), every open report
-    targeting content authored by that user is implicitly resolved —
-    the admin's action IS the moderation outcome. Without this the
-    queue stays cluttered with reports for hidden content authored
-    by suspended users, which is the bug the user just hit.
-
-    Each branch matches the report's target FK back to the user via
-    the authoring chain:
-      Post / RepEvent     → author_id (rep_accounts.id)
-      PostComment         → citizen_id (citizen_accounts.id)
-      Poll (rep flavor)   → post.author_id (rep)
-      Poll (citizen)      → author_citizen_id
-      PollComment         → citizen_id
-
-    Returns counts per type, useful for the response body so the UI
-    can flash "Suspended Sweeny Tod and resolved 3 open reports."
-    """
-    now = datetime.utcnow()
-    counts = {"post": 0, "post_comment": 0, "poll": 0, "poll_comment": 0}
-
-    if user_kind == "rep":
-        # PostReports against this rep's posts.
-        for r in (
-            db.query(PostReport)
-            .join(Post, Post.id == PostReport.post_id)
-            .filter(Post.author_id == user_id, PostReport.acted_at.is_(None))
-            .all()
-        ):
-            r.acted_at = now
-            counts["post"] += 1
-        # PollReports against this rep's rep-authored polls (via the
-        # attached post).
-        for r in (
-            db.query(PollReport)
-            .join(Poll, Poll.id == PollReport.poll_id)
-            .join(Post, Post.id == Poll.post_id)
-            .filter(
-                Poll.author_kind == "rep",
-                Post.author_id == user_id,
-                PollReport.acted_at.is_(None),
-            )
-            .all()
-        ):
-            r.acted_at = now
-            counts["poll"] += 1
-        return counts
-
-    if user_kind == "candidate":
-        # Candidate accounts can't author content yet (Phase 4 ships
-        # author_candidate_id on Posts). Until then there's nothing
-        # for the suspend-cascade to resolve. Return zero counts.
-        return counts
-
-    # Citizen — comments, polls, poll-comments.
-    for r in (
-        db.query(CommentReport)
-        .join(PostComment, PostComment.id == CommentReport.comment_id)
-        .filter(PostComment.citizen_id == user_id, CommentReport.acted_at.is_(None))
-        .all()
-    ):
-        r.acted_at = now
-        counts["post_comment"] += 1
-    for r in (
-        db.query(PollReport)
-        .join(Poll, Poll.id == PollReport.poll_id)
-        .filter(
-            Poll.author_kind == "citizen",
-            Poll.author_citizen_id == user_id,
-            PollReport.acted_at.is_(None),
-        )
-        .all()
-    ):
-        r.acted_at = now
-        counts["poll"] += 1
-    for r in (
-        db.query(PollCommentReport)
-        .join(PollComment, PollComment.id == PollCommentReport.poll_comment_id)
-        .filter(PollComment.citizen_id == user_id, PollCommentReport.acted_at.is_(None))
-        .all()
-    ):
-        r.acted_at = now
-        counts["poll_comment"] += 1
-    return counts
-
-
-def _resolve_reports_against_target(
-    db: Session, *, kind: str, target_id: int,
-) -> int:
-    """Mark every open report for a specific piece of content as
-    resolved. Called when an admin hides content — the report that
-    triggered the hide is one of N reports against the same target;
-    the rest are implicitly resolved by the same action.
-
-    Returns the count of reports newly resolved (excludes those
-    already acted on)."""
-    now = datetime.utcnow()
-    table_map = {
-        "post":         (PostReport, "post_id"),
-        "post_comment": (CommentReport, "comment_id"),
-        "poll":         (PollReport, "poll_id"),
-        "poll_comment": (PollCommentReport, "poll_comment_id"),
-    }
-    if kind not in table_map:
-        return 0
-    cls, fk = table_map[kind]
-    rows = (
-        db.query(cls)
-        .filter(getattr(cls, fk) == target_id, cls.acted_at.is_(None))
-        .all()
-    )
-    for r in rows:
-        r.acted_at = now
-    return len(rows)
 
 
 @router.post(
@@ -741,112 +645,16 @@ def suspend_user(
     if payload.reason:
         acc.suspended_reason = payload.reason.strip()[:255]
 
-    hidden_counts: dict = {}
-    if payload.cascade_hide:
-        # Soft-hide all of this user's currently-visible content.
-        # "Visible" = not already deleted_at / archived_at. We skip
-        # already-hidden rows so re-running cascade doesn't reset
-        # the deleted_at timestamp on already-removed content.
-        #
-        # NOTE: this is intentionally one-way. Unsuspend does NOT
-        # automatically restore. Admin should review surviving
-        # reports + decide per-piece whether prior content was
-        # legitimate. Cascade-hide is for "this person clearly
-        # shouldn't have a public footprint right now"; surgical
-        # restore is for "and now we've reviewed it carefully."
-        now = datetime.utcnow()
-        if kind == "rep":
-            # Rep content: their authored Posts (which cascades to
-            # the attached Poll), plus any RepEvents they posted.
-            # No comments — reps don't author comments in the
-            # current data model.
-            posts = (
-                db.query(Post)
-                .filter(Post.author_id == user_id, Post.deleted_at.is_(None))
-                .all()
-            )
-            for p in posts:
-                p.deleted_at = now
-                p.hide_reason = "admin_hidden"
-            hidden_counts["posts"] = len(posts)
-            events = (
-                db.query(RepEvent)
-                .filter(RepEvent.author_id == user_id, RepEvent.deleted_at.is_(None))
-                .all()
-            )
-            for e in events:
-                e.deleted_at = now
-                # RepEvent doesn't have hide_reason — events aren't an
-                # appealable surface today (no event-detail UI for the
-                # author). If we ever ship that, mirror the column here.
-            hidden_counts["events"] = len(events)
-        elif kind == "candidate":
-            # Candidate accounts can't author content yet (Phase 4
-            # ships Posts.author_candidate_id). Until then cascade-hide
-            # is a no-op for candidates. Recording empty counts keeps
-            # the response shape uniform across kinds.
-            hidden_counts = {"posts": 0, "events": 0}
-        else:  # citizen
-            # Citizen content: post comments, citizen-authored polls
-            # (archived_at + reason='reported_user_suspended'), and
-            # comments on poll threads.
-            comments = (
-                db.query(PostComment)
-                .filter(PostComment.citizen_id == user_id, PostComment.deleted_at.is_(None))
-                .all()
-            )
-            for c in comments:
-                c.deleted_at = now
-                c.hide_reason = "admin_hidden"
-            hidden_counts["post_comments"] = len(comments)
-            polls = (
-                db.query(Poll)
-                .filter(
-                    Poll.author_kind == "citizen",
-                    Poll.author_citizen_id == user_id,
-                    # Closed pre-claim polls are still public (audit P4).
-                    or_(Poll.archived_at.is_(None), Poll.archived_reason == "rep_claimed"),
-                )
-                .all()
-            )
-            for p in polls:
-                p.archived_at = now
-                # Reuse 'admin_hidden' for consistency with the
-                # appeals surface — the author can appeal these even
-                # though the trigger was a user suspension. The
-                # earlier 'reported_user_suspended' value was finer-
-                # grained but not surfaced anywhere; admin_hidden is
-                # the appealable bucket.
-                p.archived_reason = "admin_hidden"
-            hidden_counts["polls"] = len(polls)
-            poll_comments = (
-                db.query(PollComment)
-                .filter(PollComment.citizen_id == user_id, PollComment.deleted_at.is_(None))
-                .all()
-            )
-            for pc in poll_comments:
-                pc.deleted_at = now
-                pc.hide_reason = "admin_hidden"
-            hidden_counts["poll_comments"] = len(poll_comments)
-
-    # Implicit moderation outcome: suspending the user resolves every
-    # open report against their authored content. Without this the
-    # moderation queue stays cluttered with hidden / acted-on content.
-    resolved_reports = _resolve_reports_against_user(
-        db, user_kind=kind, user_id=user_id,
-    )
-
+    # Reports on this user's content stay open: suspending the account
+    # is not a decision about any one post or comment, and closing them
+    # here (as before 2026-10-26) took reported content out of the queue
+    # unreviewed while it stayed public.
     db.commit()
     logger.warning(
-        "Admin %s suspended %s user_id=%d (reason=%r, cascade=%s, hidden=%s, resolved=%s).",
+        "Admin %s suspended %s user_id=%d (reason=%r).",
         mask_email(actor["email"]), kind, user_id, acc.suspended_reason,
-        payload.cascade_hide, hidden_counts, resolved_reports,
     )
-    return UserActionResult(
-        ok=True, suspended=True,
-        hidden_counts=hidden_counts,
-        resolved_reports=resolved_reports,
-    )
+    return UserActionResult(ok=True, suspended=True)
 
 
 @router.post(
@@ -859,9 +667,9 @@ def unsuspend_user(
     db: Session = Depends(get_db),
     actor: dict = Depends(get_current_admin),
 ) -> UserActionResult:
-    """Lift a suspension. Clears suspended_at + suspended_reason. Does
-    NOT restore any content the user had hidden — that's a separate
-    explicit unhide per piece."""
+    """Lift a suspension. Clears suspended_at + suspended_reason.
+    Content is untouched: suspending never hides anything, and anything
+    hidden through a report is restored with Unhide on that report."""
     acc = _load_user_account_or_404(db, kind, user_id)
     if acc.suspended_at is None:
         return UserActionResult(ok=True, suspended=False)

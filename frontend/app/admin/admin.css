@@ -775,6 +775,13 @@ table.ad-table {
   color: var(--cl-text-muted);
   border-color: var(--cl-border);
 }
+/* Content its author deleted or closed: not public, not ours to restore. */
+.ad-status--removed {
+  background: var(--cl-bg-soft);
+  color: var(--cl-text-light);
+  border-color: var(--cl-border);
+  border-style: dashed;
+}
 
 /* Actions */
 .ad-actions {

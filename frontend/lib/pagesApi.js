@@ -188,12 +188,13 @@ export async function adminUnhideTarget(kind, targetId) {
 
 // Suspend / unsuspend a user account. `kind` is 'rep' | 'citizen';
 // `userId` is the account row id (returned in ReportRow.target_author_id).
-// `cascadeHide=true` ALSO soft-deletes every piece of content this user
-// has currently visible (posts, comments, citizen polls, poll comments).
-export async function adminSuspendUser(kind, userId, { reason, cascadeHide = false } = {}) {
+// Suspending never hides content: the bulk "also hide everything" option
+// was removed on 2026-10-26, because reports and threat detection are
+// the only paths to a takedown.
+export async function adminSuspendUser(kind, userId, { reason } = {}) {
   return request(
     `/api/admin/users/${encodeURIComponent(kind)}/${encodeURIComponent(userId)}/suspend`,
-    { method: 'POST', body: { reason, cascade_hide: cascadeHide } },
+    { method: 'POST', body: { reason } },
   );
 }
 
