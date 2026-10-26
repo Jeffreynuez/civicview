@@ -44,6 +44,7 @@ import LocationSection from './account/LocationSection';
 import { formatDistrict } from '../lib/usStates';
 import ServedAsSection from './ServedAsSection';
 import NotificationSettings from './NotificationSettings';
+import { asUtc, serverDate } from '@/lib/serverTime';
 
 /**
  * ConstituentDashboard — the personal civic command center for a verified
@@ -585,12 +586,6 @@ function upcomingItemFromApi(u) {
     onClick = () => openDeepLink(pollDeepLink(u.official_id, u.poll_id, u.post_id));
   }
   return { id: u.id, kind: u.kind, title: u.title, when: u.when, meta: u.meta, onClick };
-}
-
-// Server times without a zone are UTC.
-function asUtc(iso) {
-  if (!iso) return iso;
-  return /[zZ]|[+-]\d\d:?\d\d$/.test(iso) ? iso : `${iso}Z`;
 }
 
 // One notification row (the same rows the bell shows) as a Recent
@@ -1588,7 +1583,7 @@ function currentMonth() {
 
 function timeAgo(iso) {
   if (!iso) return '';
-  const then = new Date(iso);
+  const then = serverDate(iso);
   const now = new Date();
   const secs = Math.floor((now - then) / 1000);
   if (secs < 60) return 'just now';

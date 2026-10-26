@@ -76,6 +76,7 @@ import {
   RESULTS_HIDDEN_SHORT,
   resultsHiddenUntil,
 } from '../../lib/pollResults';
+import { serverDate } from '../../lib/serverTime';
 
 export default function FeedCard({
   card,
@@ -1109,7 +1110,7 @@ function _reactPatch(prevCard, summary) {
 // helper dependencies beyond the API + thread imports.
 function relTime(iso) {
   if (!iso) return '';
-  const d = new Date(iso);
+  const d = serverDate(iso);
   if (isNaN(d.getTime())) return '';
   const diffSec = Math.floor((Date.now() - d.getTime()) / 1000);
   if (diffSec < 60) return 'just now';

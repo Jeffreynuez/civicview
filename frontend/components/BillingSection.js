@@ -35,6 +35,7 @@ import {
   startCheckoutSession,
   startPortalSession,
 } from '@/lib/pagesApi';
+import { serverDate } from '../lib/serverTime';
 
 export default function BillingSection({ citizen }) {
   const [billingConfig, setBillingConfig] = useState(null);  // { is_configured, price_id_present }
@@ -271,7 +272,7 @@ function primaryButton(disabled) {
 
 function formatDate(iso) {
   try {
-    return new Date(iso).toLocaleDateString(undefined, {
+    return serverDate(iso).toLocaleDateString(undefined, {
       month: 'short', day: 'numeric', year: 'numeric',
     });
   } catch {

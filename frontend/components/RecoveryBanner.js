@@ -31,6 +31,7 @@ import {
   recoverCitizenAccount,
   recoverRepAccount,
 } from '../lib/pagesApi';
+import { serverDate } from '../lib/serverTime';
 
 const KIND_LABEL = {
   rep: 'representative',
@@ -41,7 +42,7 @@ const KIND_LABEL = {
 function formatPurgeDate(iso) {
   if (!iso) return 'soon';
   try {
-    return new Date(iso).toLocaleDateString(undefined, {
+    return serverDate(iso).toLocaleDateString(undefined, {
       year: 'numeric', month: 'long', day: 'numeric',
     });
   } catch { return iso; }

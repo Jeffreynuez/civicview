@@ -44,6 +44,7 @@ import {
   setStoredCitizenToken,
   setStoredRepToken,
 } from '../lib/pagesApi';
+import { serverDate } from '../lib/serverTime';
 
 // Visual constants — keep aligned with the rest of the app's tokens.
 const STYLES = {
@@ -730,7 +731,7 @@ function ErrorBox({ text }) {
 function formatDate(iso) {
   if (!iso) return '';
   try {
-    const d = new Date(iso);
+    const d = serverDate(iso);
     if (Number.isNaN(d.getTime())) return iso;
     return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
   } catch {

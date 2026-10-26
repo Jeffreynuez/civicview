@@ -29,12 +29,13 @@ import {
   fetchActivityNotifications,
 } from '@/lib/pagesApi';
 import { notificationLink, openDeepLink, postDeepLink } from '@/lib/deepLinks';
+import { serverDate } from '@/lib/serverTime';
 
 const PAGE = 20;
 
 function fmtDate(iso) {
   try {
-    return new Date(iso).toLocaleDateString(undefined, {
+    return serverDate(iso).toLocaleDateString(undefined, {
       month: 'short', day: 'numeric', year: 'numeric',
     });
   } catch { return ''; }

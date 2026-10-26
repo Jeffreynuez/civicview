@@ -44,6 +44,7 @@ import PollDemographicsPicker from './polls/PollDemographicsPicker';
 import PollDemographicsForm from './polls/PollDemographicsForm';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
 import { formatDistrict } from '../lib/usStates';
+import { serverDate, serverMs } from '../lib/serverTime';
 
 const REPORT_REASONS = [
   { value: 'spam',           label: 'Spam' },
@@ -581,7 +582,7 @@ function CitizenPollCard({
   const inner = poll.poll || {};
   const total = inner.total_votes || 0;
   const myChoice = inner.voter_choice_id || null;
-  const isClosed = !!inner.closes_at && new Date(inner.closes_at).getTime() <= Date.now();
+  const isClosed = !!inner.closes_at && serverMs(inner.closes_at) <= Date.now();
   // Phase 2/4c self-engagement: rep / candidate owner of the page
   // this poll lives on can also vote, in addition to any signed-in
   // citizen.
@@ -860,7 +861,7 @@ function CitizenPollCard({
         </button>
         {isClosed && <span>· Closed</span>}
         {!isClosed && inner.closes_at && (
-          <span>· Closes {new Date(inner.closes_at).toLocaleDateString()}</span>
+          <span>· Closes {serverDate(inner.closes_at).toLocaleDateString()}</span>
         )}
       </div>
 
@@ -944,14 +945,14 @@ function labelForArchiveReason(r) {
 
 function relTime(iso) {
   if (!iso) return '';
-  const t = new Date(iso).getTime();
+  const t = serverMs(iso);
   if (Number.isNaN(t)) return '';
   const diff = (Date.now() - t) / 1000;
   if (diff < 60) return 'just now';
   if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
   if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
   if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`;
-  return new Date(iso).toLocaleDateString();
+  return serverDate(iso).toLocaleDateString();
 }
 
 // ─────────────────────────────────────────────────────────────────────

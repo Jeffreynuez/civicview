@@ -36,6 +36,7 @@ import {
   deleteCitizenAccount,
   deleteRepAccount,
 } from '@/lib/pagesApi';
+import { serverDate } from '@/lib/serverTime';
 
 const KIND_COPY = {
   rep: {
@@ -186,8 +187,8 @@ export default function AccountDeletePage() {
               {result.mode === 'hard'
                 ? 'You\'ve been signed out. Returning to the home page…'
                 : result.kind !== 'citizen'
-                  ? `It will be closed on ${new Date(result.purge_after).toLocaleDateString()}. Sign back in any time before then to recover. What you published stays on your page. Returning to the home page…`
-                  : `It will be permanently removed on ${new Date(result.purge_after).toLocaleDateString()}. Sign back in any time before then to recover. Returning to the home page…`}
+                  ? `It will be closed on ${serverDate(result.purge_after).toLocaleDateString()}. Sign back in any time before then to recover. What you published stays on your page. Returning to the home page…`
+                  : `It will be permanently removed on ${serverDate(result.purge_after).toLocaleDateString()}. Sign back in any time before then to recover. Returning to the home page…`}
             </p>
           </div>
         </div>

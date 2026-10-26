@@ -5,6 +5,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { fetchPollsFeed, fetchPostsFeed } from '@/lib/pagesApi';
+import { serverMs } from '@/lib/serverTime';
 
 const HOLD_MS = 60000;       // an item must be >= 60s old before it counts (no scroll-spam)
 const POLL_MS = 30000;       // re-check the feed head every 30s
@@ -35,7 +36,7 @@ export default function NewItemsPill({ tab = 'polls', serverKinds, stateFilter, 
     const ids = new Set();
     for (const it of items || []) {
       if (it && it.id != null) ids.add(it.id);
-      const t = it && it.created_at ? Date.parse(it.created_at) : 0;
+      const t = it && it.created_at ? serverMs(it.created_at) : 0;
       if (t > maxTs) maxTs = t;
     }
     knownIdsRef.current = ids;
@@ -82,7 +83,7 @@ export default function NewItemsPill({ tab = 'polls', serverKinds, stateFilter, 
         const now = Date.now();
         let c = 0;
         for (const it of data.items || []) {
-          const t = it && it.created_at ? Date.parse(it.created_at) : 0;
+          const t = it && it.created_at ? serverMs(it.created_at) : 0;
           if (!t) continue;
           if (t > baselineRef.current && now - t >= HOLD_MS && !knownIdsRef.current.has(it.id)) {
             c += 1;

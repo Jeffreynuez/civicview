@@ -65,6 +65,7 @@ import { useCitizenAuth } from '@/lib/citizenAuth';
 import { requestCitizenLogin } from '@/lib/loginRequest';
 import { useAuth as useRepAuth } from '@/lib/auth';
 import { useCandidateAuth } from '@/lib/candidateAuth';
+import { serverDate } from '@/lib/serverTime';
 import PageChrome from '@/components/PageChrome';
 import './polls.css';
 
@@ -113,7 +114,7 @@ const AI_FULL_BATCH = 300;
 
 function relTime(iso) {
   if (!iso) return '';
-  const then = new Date(iso);
+  const then = serverDate(iso);
   const secs = Math.floor((Date.now() - then.getTime()) / 1000);
   if (secs < 60) return `${secs}s ago`;
   if (secs < 3600) return `${Math.floor(secs / 60)}m ago`;
