@@ -5,7 +5,7 @@
 
 /**
  * LocationSection: the Location card in the citizen dashboard's
- * Account & settings (2026-10-03, Jeffrey: "Edit location in
+ * Settings, in the Your area group (2026-10-03, Jeffrey: "Edit location in
  * settings").
  *
  * Demo accounts can change state, district and city. Verified accounts
@@ -86,9 +86,9 @@ export default function LocationSection() {
 
   return (
     <div style={cardStyle}>
-      <div style={{ marginBottom: 8 }}>
-        <span className="cl-eyebrow">Location</span>
-      </div>
+      <h3 style={{ margin: '0 0 8px', fontSize: '0.95rem', fontWeight: 700, color: 'var(--cl-text)' }}>
+        Location
+      </h3>
       <p style={mutedText}>
         Likes, votes and comments are counted by your state and congressional
         district, so representatives can see what their own constituents

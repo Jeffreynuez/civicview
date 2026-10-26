@@ -15,7 +15,7 @@
  * fills its one district by itself.
  *
  * Used by the demo sign-up form (CitizenLoginModal), the LocationPrompt
- * and the Location card in Account & settings.
+ * and the Location card in the dashboard's Settings.
  *
  * Props:
  *   value        { state, district, city }; district is the picker value

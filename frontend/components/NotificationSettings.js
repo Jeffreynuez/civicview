@@ -6,7 +6,7 @@
 /**
  * The notification settings list (2026-10-17). One short list in place
  * of the 32 per-item switches, shown in the bell (behind its Settings
- * button) and in Dashboard, Account & settings:
+ * button) and in the dashboard's Settings:
  *
  *   This phone        push on or off here; "Open settings" when Android
  *                     has notifications off for CivicView. In a browser

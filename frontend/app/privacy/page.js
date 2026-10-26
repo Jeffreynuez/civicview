@@ -90,7 +90,7 @@ export default function PrivacyPage() {
         <li><strong>Contact email (optional, demo accounts only).</strong> If you add one, we use it only for your account: the sign-in email you can ask for when you create the account (your generated sign-in address and a link to choose a new password, never your password), password reset emails, and one notice before demo accounts are retired.</li>
         <li><strong>Display name.</strong> The name you choose. It appears on the comments and polls you write. No two accounts can share a name, and citizens can&apos;t use the names of members of Congress, other federal officials, governors and statewide officials, or officials and candidates with a CivicView account.</li>
         <li><strong>Age confirmation.</strong> When you create an account, you confirm that you&apos;re 18 or older, and we keep the time you confirmed it.</li>
-        <li><strong>State and congressional district (required) and city (optional).</strong> We use them to show you your officials, ballot and elections, and to count engagement by area. You can change them in Account &amp; settings. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved to your account. For a verified account, these come from your verification.</li>
+        <li><strong>State and congressional district (required) and city (optional).</strong> We use them to show you your officials, ballot and elections, and to count engagement by area. You can change them in Settings on your dashboard. If you use &ldquo;find my district from an address,&rdquo; the address is handled like the address lookup below and isn&apos;t saved to your account. For a verified account, these come from your verification.</li>
         <li><strong>Your settings.</strong> Your start page, notification settings (for each kind of alert, whether it reaches the bell, your phone or your email; quiet hours; how often you&apos;re alerted; whether notifications show details; and your time zone offset, which also sets the times shown in your pushes and emails), whether you want the weekly digest email (off unless you turn it on), the officials, bills and elections you track, save or feature, and the officials you mute.</li>
         <li><strong>Bills you track.</strong> Once a day we check each federal bill someone tracks on Congress.gov, the official source, and record its latest action so we can tell you when it changes. We send Congress.gov only the bill&apos;s number, never anything about you. We record which bill updates we sent you so you never get one twice.</li>
         <li><strong>Polls you voted in.</strong> When a poll closes, we use the record of who voted in it to tell those people the results are in. Your vote itself is never shown to anyone.</li>
@@ -354,7 +354,7 @@ export default function PrivacyPage() {
       <p>
         We never send advertising for other companies. Bell, push and
         email alerts are controlled in your notification settings (the
-        bell&apos;s Settings, or Account &amp; settings), and election
+        bell&apos;s Settings, or Settings on your dashboard), and election
         reminders also from any reminder.
       </p>
 
@@ -393,7 +393,7 @@ export default function PrivacyPage() {
       </p>
       <ul>
         <li><strong>Get a copy</strong> of the personal information we have about you, in a common machine-readable format.</li>
-        <li><strong>Correct it.</strong> Most of it is editable in Account &amp; settings; email us for the rest.</li>
+        <li><strong>Correct it.</strong> Most of it is editable in Settings on your dashboard; email us for the rest.</li>
         <li><strong>Delete it,</strong> with the delete page or by email (with the exceptions in <a href="#deleting">Deleting your account</a>).</li>
         <li><strong>Opt out</strong> of the sale or sharing of your information, targeted advertising and profiling. We don&apos;t do any of these.</li>
         <li><strong>Change your mind</strong> about optional things: your poll answers (until the poll closes), your saved poll profile, push, the digest and the &ldquo;Served as&rdquo; line.</li>

@@ -1,0 +1,705 @@
+/* The citizen dashboard (2026-10-26 redesign). Co-located with
+   ConstituentDashboard.js (CSS topology rule in CLAUDE.md).
+
+   Layout:
+     .cvd-head   pinned: the navbar, then one slim bar with Back and the
+                 four tabs (underlined, one row, never wraps)
+     .cvd-body   the greeting, then the open tab's panel
+
+   --cvd-pin is the pinned header's measured height, set on .cvd by the
+   component; sticky elements and scroll targets sit below it. */
+
+.cvd {
+  --cvd-pin: 100px;
+  --cvd-width: 1080px;
+  /* HiddenByModeration scrolls its list to here (deep link #moderation). */
+  --cv-scroll-margin: calc(var(--cvd-pin) + 12px);
+  min-height: 100vh;
+  background: var(--cl-bg);
+  color: var(--cl-text);
+  font-family: var(--cl-font-sans);
+}
+
+/* ── Pinned header ───────────────────────────────────────────── */
+
+.cvd-head {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.cvd-bar {
+  background: rgba(255, 255, 255, 0.86);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .cvd-bar {
+    background: rgba(255, 255, 255, 0.96);
+  }
+}
+
+.cvd-bar__inner {
+  max-width: var(--cvd-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 46px;
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.cvd-back {
+  flex-shrink: 0;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px 0 6px;
+  margin-left: -6px;
+  border: 1px solid transparent;
+  border-radius: var(--cl-radius-md);
+  background: transparent;
+  color: var(--cl-text);
+  font: 600 var(--cl-text-sm) / 1 var(--cl-font-sans);
+  cursor: pointer;
+}
+.cvd-back:hover {
+  background: #fff;
+  border-color: var(--cl-border);
+}
+.cvd-back__sep {
+  flex-shrink: 0;
+  align-self: center;
+  width: 1px;
+  height: 20px;
+  margin: 0 8px 0 4px;
+  background: var(--cl-border);
+}
+
+.cvd-tabs {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.cvd-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.cvd-tab {
+  flex-shrink: 0;
+  position: relative;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--cl-radius-md);
+  background: transparent;
+  color: var(--cl-text-light);
+  font: 600 var(--cl-text-sm) / 1 var(--cl-font-sans);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.cvd-tab:hover {
+  color: var(--cl-text);
+}
+.cvd-tab::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: transparent;
+}
+.cvd-tab.is-active {
+  color: var(--cl-accent);
+}
+.cvd-tab.is-active::after {
+  background: var(--cl-accent);
+}
+
+.cvd-back:focus-visible,
+.cvd-tab:focus-visible,
+.cvd-link:focus-visible,
+.cvd-jump button:focus-visible,
+.cvd-row:focus-visible,
+.cvd-post:focus-visible,
+.cvd-fcard__who:focus-visible {
+  outline: 2px solid var(--cl-accent);
+  outline-offset: -2px;
+}
+
+/* ── Body ────────────────────────────────────────────────────── */
+
+.cvd-body {
+  max-width: var(--cvd-width);
+  margin: 0 auto;
+  padding: 20px 24px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cvd-panel {
+  scroll-margin-top: calc(var(--cvd-pin) + 12px);
+}
+
+/* Greeting */
+.cvd-hello {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.cvd-hello__text {
+  flex: 1;
+  min-width: 0;
+}
+.cvd-hello__title {
+  margin: 0;
+  font-size: var(--cl-text-xl);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: var(--cl-tracking-tight, -0.01em);
+}
+.cvd-hello__title span {
+  color: var(--cl-accent);
+}
+.cvd-hello__meta {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text-light);
+}
+.cvd-hello__stats {
+  margin: 6px 0 0;
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text-light);
+}
+.cvd-hello__stats strong {
+  color: var(--cl-text);
+  font-weight: 700;
+}
+.cvd-hello__links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Small outline link-buttons (quick links, Manage, See all). */
+.cvd-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--cl-border);
+  border-radius: var(--cl-radius-pill);
+  background: var(--cl-card);
+  color: var(--cl-text);
+  font: 600 var(--cl-text-xs) / 1 var(--cl-font-sans);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.cvd-link:hover {
+  border-color: var(--cl-accent);
+  color: var(--cl-accent);
+}
+.cvd-link--plain {
+  border-color: transparent;
+  background: transparent;
+  color: var(--cl-accent);
+  padding: 0 4px;
+}
+
+/* Section heading, shared by the Overview sections, the Following and
+   Activity tabs and the Settings groups. */
+.cvd-sec__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.cvd-sec__title {
+  margin: 0;
+  font-size: var(--cl-text-lg);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--cl-text);
+}
+.cvd-sec__meta {
+  margin-left: 8px;
+  font-size: var(--cl-text-xs);
+  font-weight: 500;
+  color: var(--cl-text-muted, var(--cl-text-light));
+}
+.cvd-sec__note {
+  margin: 2px 0 0;
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text-light);
+  line-height: 1.45;
+}
+
+/* Overview */
+.cvd-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* A card holding rows split by hairlines (Coming up, Recent activity). */
+.cvd-list {
+  background: var(--cl-card);
+  border: 1px solid var(--cl-border);
+  border-radius: var(--cl-radius-xl);
+  overflow: hidden;
+}
+.cvd-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+}
+.cvd-row + .cvd-row {
+  border-top: 1px solid var(--cl-border);
+}
+.cvd-row.is-link {
+  cursor: pointer;
+}
+.cvd-row.is-link:hover {
+  background: var(--cl-bg-soft);
+}
+.cvd-row__main {
+  flex: 1;
+  min-width: 0;
+}
+.cvd-row__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--cl-text-2xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: var(--cl-tracking-wider, 0.06em);
+  color: var(--cl-text-light);
+}
+.cvd-row__kicker.is-accent {
+  color: var(--cl-accent);
+}
+.cvd-row__kicker.is-warning {
+  color: var(--cl-warning-text);
+}
+.cvd-row__title {
+  margin-top: 2px;
+  font-size: var(--cl-text-md);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--cl-text);
+}
+.cvd-row__body {
+  margin-top: 2px;
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cvd-row__when {
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+  font-size: var(--cl-text-2xs);
+  color: var(--cl-text-muted, var(--cl-text-light));
+  white-space: nowrap;
+}
+.cvd-row__chev {
+  flex-shrink: 0;
+  color: var(--cl-text-muted, var(--cl-text-light));
+}
+.cvd-row__icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--cl-radius-md);
+  background: var(--cl-accent-soft);
+  color: var(--cl-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cvd-row__icon.is-warning {
+  background: var(--cl-warning-soft);
+  color: var(--cl-warning-text);
+}
+.cvd-date {
+  flex-shrink: 0;
+  width: 46px;
+  text-align: center;
+  padding-right: 12px;
+  border-right: 1px solid var(--cl-border);
+}
+.cvd-date__m {
+  font-size: var(--cl-text-2xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cl-text-light);
+}
+.cvd-date__d {
+  font-size: var(--cl-text-xl);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--cl-text);
+}
+
+/* Short empty note (one or two lines, never a big empty state). */
+.cvd-empty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px dashed var(--cl-border-strong, var(--cl-border));
+  border-radius: var(--cl-radius-xl);
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text-light);
+  line-height: 1.45;
+}
+
+/* One line for an empty My polls or Saved. */
+.cvd-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  padding: 12px 14px;
+  background: var(--cl-card);
+  border: 1px solid var(--cl-border);
+  border-radius: var(--cl-radius-xl);
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text-light);
+}
+.cvd-line__title {
+  font-weight: 700;
+  color: var(--cl-text);
+}
+.cvd-lines {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+/* With a full My polls or Saved section the two read as sections. */
+.cvd-lines:has(> section) {
+  gap: 28px;
+}
+
+/* Following: the four featured picks */
+.cvd-follow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.cvd-fcard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px;
+  background: var(--cl-card);
+  border: 1px solid var(--cl-border);
+  border-radius: var(--cl-radius-xl);
+}
+.cvd-fcard.is-empty {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--cl-border-strong, var(--cl-border));
+}
+.cvd-fcard__kind {
+  font-size: var(--cl-text-2xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: var(--cl-tracking-wider, 0.06em);
+  color: var(--cl-text-light);
+}
+.cvd-fcard__who {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+}
+button.cvd-fcard__who {
+  cursor: pointer;
+}
+.cvd-fcard__name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-size: var(--cl-text-md);
+  font-weight: 700;
+  color: var(--cl-text);
+}
+.cvd-fcard__name > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cvd-fcard__sub {
+  margin-top: 2px;
+  font-size: var(--cl-text-xs);
+  color: var(--cl-text-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cvd-fcard__text {
+  margin: 0;
+  font-size: var(--cl-text-sm);
+  color: var(--cl-text-light);
+  line-height: 1.45;
+}
+.cvd-fcard__text strong {
+  color: var(--cl-text);
+  font-weight: 600;
+}
+.cvd-fcard__foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cvd-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cvd-post {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--cl-radius-md);
+  background: var(--cl-bg-soft);
+  text-align: left;
+  font-family: inherit;
+  color: var(--cl-text);
+}
+button.cvd-post {
+  cursor: pointer;
+}
+.cvd-post__text {
+  font-size: var(--cl-text-sm);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cvd-post__when {
+  margin-top: 2px;
+  font-size: var(--cl-text-2xs);
+  color: var(--cl-text-muted, var(--cl-text-light));
+}
+.cvd-clamp2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Settings: groups, with a pinned list of them on desktop */
+.cvd-settings {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.cvd-jump {
+  display: none;
+}
+.cvd-groups {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.cvd-group {
+  scroll-margin-top: calc(var(--cvd-pin) + 16px);
+}
+.cvd-group__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cvd-danger {
+  padding: 16px 18px;
+  background: #fff;
+  border: 1px solid var(--cl-danger-border);
+  border-left: 4px solid var(--cl-danger);
+  border-radius: var(--cl-radius-xl);
+}
+.cvd-danger__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cl-danger-deep);
+}
+.cvd-danger__text {
+  margin: 6px 0 12px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--cl-text-light);
+}
+.cvd-danger__btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--cl-danger);
+  border-radius: var(--cl-radius-md);
+  background: #fff;
+  color: var(--cl-danger-deep);
+  font: 700 var(--cl-text-sm) / 1 var(--cl-font-sans);
+  text-decoration: none;
+}
+.cvd-danger__btn:hover {
+  background: var(--cl-danger-soft);
+}
+.cvd-danger__btn:focus-visible {
+  outline: 2px solid var(--cl-danger);
+  outline-offset: 2px;
+}
+
+/* ── Wider screens ───────────────────────────────────────────── */
+
+/* Two across from tablet width up. */
+@media (min-width: 720px) {
+  .cvd-follow,
+  .cvd-lines {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* My polls and Saved sit side by side only while both are one line;
+     a full section takes the whole width. */
+  .cvd-lines:has(> section) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .cvd-settings {
+    grid-template-columns: 196px minmax(0, 720px);
+    gap: 40px;
+  }
+  .cvd-jump {
+    display: block;
+    position: sticky;
+    top: calc(var(--cvd-pin) + 20px);
+    align-self: start;
+  }
+  .cvd-jump__label {
+    margin: 0 0 8px 12px;
+    font-size: var(--cl-text-2xs);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: var(--cl-tracking-wider, 0.06em);
+    color: var(--cl-text-light);
+  }
+  .cvd-jump ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cvd-jump button {
+    width: 100%;
+    padding: 8px 12px;
+    border: 0;
+    border-left: 3px solid transparent;
+    border-radius: 0 var(--cl-radius-md) var(--cl-radius-md) 0;
+    background: transparent;
+    color: var(--cl-text-light);
+    font: 600 var(--cl-text-sm) / 1.3 var(--cl-font-sans);
+    text-align: left;
+    cursor: pointer;
+  }
+  .cvd-jump button:hover {
+    color: var(--cl-text);
+    background: var(--cl-bg-soft);
+  }
+  .cvd-jump button[aria-current='true'] {
+    color: var(--cl-accent);
+    border-left-color: var(--cl-accent);
+    background: var(--cl-accent-soft);
+  }
+}
+
+/* ── Phones ──────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .cvd-bar__inner {
+    padding: 0 8px;
+    gap: 0;
+  }
+  .cvd-back {
+    margin-left: 0;
+    padding: 0 6px;
+  }
+  .cvd-back__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .cvd-back__sep {
+    margin: 0 4px 0 2px;
+  }
+  .cvd-tab {
+    padding: 0 10px;
+  }
+  .cvd-tab::after {
+    left: 8px;
+    right: 8px;
+  }
+  .cvd-body {
+    padding: 16px 16px 48px;
+    gap: 16px;
+  }
+  .cvd-overview {
+    gap: 24px;
+  }
+  .cvd-hello__links {
+    width: 100%;
+  }
+  .cvd-row {
+    padding: 11px 12px;
+  }
+}

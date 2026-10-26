@@ -17,10 +17,10 @@ import TrackedManager from './TrackedManager';
  * Thin shell now: the header (title + count + "Open in dashboard" +
  * close) wraps the shared <TrackedManager> body, which owns the search,
  * category chips, the four capped/scrolling sections, and the per-item
- * alert prefs. The dashboard's "Manage Tracked" tab renders the SAME
+ * alert prefs. The dashboard's "Following" tab renders the SAME
  * TrackedManager (variant="page") so the two never diverge.
  *
- * onOpenInDashboard (optional): jumps to the dashboard's Manage Tracked
+ * onOpenInDashboard (optional): jumps to the dashboard's Following
  * tab — the full surface, where items can also be pinned to the Overview.
  */
 export default function MyTrackedModal({ open, onClose, onMemberPick, onNotify, onOpenInDashboard }) {

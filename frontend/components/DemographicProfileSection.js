@@ -75,7 +75,7 @@ export default function DemographicProfileSection() {
   return (
     <section style={{ border: '1px solid var(--cl-border, #e2e8f0)', borderRadius: 12,
                       background: '#fff', padding: '14px 16px' }}>
-      <h3 style={{ margin: '0 0 4px', fontSize: '0.98rem', fontWeight: 800 }}>Demographic profile</h3>
+      <h3 style={{ margin: '0 0 4px', fontSize: '0.95rem', fontWeight: 700 }}>Demographic profile</h3>
       <p style={{ margin: '0 0 10px', fontSize: '0.78rem', color: 'var(--cl-text-light, #64748b)', lineHeight: 1.45 }}>
         Optional. Saved on your account to auto-fill the demographic questions some polls ask, so
         you don&rsquo;t re-answer each time. Standard questions only — sensitive categories

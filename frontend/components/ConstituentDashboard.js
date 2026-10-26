@@ -4,15 +4,11 @@
 // Proprietary and confidential. See LICENSE at the repository root.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { activateOnKey } from '@/lib/a11y';
-import { useIsCompact } from '@/lib/useViewport';
 import { partyInfo } from '@/lib/party';
 import {
   Avatar,
   PartyChip,
-  Eyebrow,
   Button,
-  EmptyState,
   CheckCircle,
   CalendarCheck,
   Calendar,
@@ -35,7 +31,7 @@ import { refreshCitizenAuth } from '../lib/citizenAuth';
 import FeedCard from './polls/FeedCard';
 import HiddenByModeration from './HiddenByModeration';
 import Navbar from './Navbar';
-import StickyPageHeader from './StickyPageHeader';
+import './ConstituentDashboard.css';
 import TwoFactorSection from './TwoFactorSection';
 import BillingSection from './BillingSection';
 import DemographicProfileSection from './DemographicProfileSection';
@@ -47,48 +43,64 @@ import NotificationSettings from './NotificationSettings';
 import { asUtc, serverDate } from '@/lib/serverTime';
 
 /**
- * ConstituentDashboard — the personal civic command center for a verified
- * citizen. Built from the dashboard design: welcome header, My Reps grid,
- * Upcoming in district, Recent activity feed, right-rail Your Ballot +
- * engagement stats, Quick links, plus empty states.
+ * ConstituentDashboard: the signed-in citizen's own page.
  *
- * Phase 3C: ships as a self-contained view component that the parent
- * (page.js) decides when to render — typically right after a citizen logs
- * in, or via a "Dashboard" entry in the navbar.
+ * Layout (2026-10-26 redesign; Jeffrey asked for the same treatment as
+ * the admin page, as the dashboard "needs a UI overhaul"):
+ *   - pinned at the top: the compact navbar, then one slim bar with Back
+ *     and four underlined tabs (Overview, Following, Activity, Settings)
+ *     that stays on one row on a phone;
+ *   - a compact greeting: avatar, greeting, district and the Verified or
+ *     Demo badge; on the Overview also one line of counts (following,
+ *     and this month's comments and poll votes) and the quick links;
+ *   - Overview, time-sensitive first: Coming up, then the four starred
+ *     picks as compact cards (two across on desktop) under one Manage
+ *     link, then Recent activity, then My polls and Saved, each one
+ *     line when empty;
+ *   - Settings in five groups (Sign-in and security, Your area,
+ *     Notifications, Subscription and profile, Moderation) with a pinned
+ *     list of them on desktop, and Delete account in its own card at the
+ *     very bottom.
+ * Before this, a tall greeting card held the date and the Delete account
+ * link, the tabs were pills that turned into circles on a phone, and the
+ * Overview repeated "Manage tracked" four times above Coming up.
  *
- * Since 2026-10-19 the Overview loads its own data from
- * GET /api/activity/dashboard when the parent passes no `upcoming` or
- * `recent`: the "Your activity" counts for this month, "Recent
- * activity" (the last 7 days of the citizen's notifications) and
- * "Coming up" (their state's voting deadlines, events from officials
- * they track, polls they voted in that close soon). Before that, three
- * activity tiles read a hard-coded 0 and both cards always showed
- * their empty state, because nothing passed them data.
+ * The Overview loads its own data from GET /api/activity/dashboard
+ * (2026-10-19) when the parent passes no `upcoming` or `recent`: this
+ * month's counts, Recent activity (the last 7 days of the citizen's
+ * notifications) and Coming up (their state's voting deadlines, events
+ * from officials they track, polls they voted in that close soon).
  *
  * Data contract:
- *   citizen        — citizen me payload from useCitizenAuth (required).
- *                    Shape: { name, email, district, state, city, ... }
- *   trackedReps    — array of tracked rep objects from trackedOfficials
- *                    store. Empty array → renders "No tracked reps" state.
- *                    Each: { id, name, party, title, scope, last_active_at? }
- *   upcoming       — array of upcoming items. Each:
- *                    { kind: 'vote'|'town-hall'|'poll-closing'|'ballot',
- *                      title, when (iso), meta? (e.g. "in 6 days · 142 cosponsors"),
- *                      onClick? }
- *                    Pass [] for the "nothing scheduled" empty state.
- *   recent         — array of activity-feed items. Each:
- *                    { kind: 'post'|'reply'|'voted', title, body?, author?,
- *                      whenIso, thumbnail? (URL), onClick? }
- *                    Pass [] for the "no recent activity" empty state.
- *   ballot         — { electionName, when (iso), races: { federal, state,
- *                    local, ballot_measures }, onView? }
- *                    Optional — null hides the right-rail ballot card.
- *   onNavigate     — { manageTracked, browseReps, ballot, comparecandidates,
- *                    pollingPlace, accountSettings, viewActivity, ... }
- *                    Each entry is an optional () → void for the parent to
- *                    handle navigation.
- *   onClose        — () → void, optional. Renders the close × in the header.
+ *   citizen        citizen me payload from useCitizenAuth (required).
+ *                  Shape: { name, email, district, state, city, ... }
+ *   trackedReps    optional array overriding the tracked officials in
+ *                  the "following" count (tests).
+ *   upcoming       array of upcoming items. Each:
+ *                  { kind: 'vote'|'town-hall'|'event'|'poll-closing'|'ballot',
+ *                    title, when (iso), meta?, onClick? }
+ *                  Pass [] for the "nothing coming up" note.
+ *   recent         array of activity-feed items. Each:
+ *                  { kind: 'post'|'event'|'reply'|'voted'|'bill'|'election'|
+ *                    'moderation'|'page', title, body?, author?, whenIso,
+ *                    onClick? }
+ *                  Pass [] for the "no recent activity" note.
+ *   ballot         { electionName, when (iso), races, onView? }
+ *                  Optional; null hides the ballot card.
+ *   onNavigate     { openOfficial, openPage, compareCandidates,
+ *                    pollingPlace, ballot, viewActivity, ... }
+ *                  Each entry is an optional handler from the parent.
+ *   onClose        () => void, optional. Shows Back in the tab bar.
+ *   initialView    'overview' | 'tracked' | 'activity' | 'settings'
+ *   navbarProps    passed to the embedded compact Navbar.
  */
+const DASHBOARD_TABS = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'tracked', label: 'Following' },
+  { id: 'activity', label: 'Activity' },
+  { id: 'settings', label: 'Settings' },
+];
+
 export default function ConstituentDashboard({
   citizen,
   trackedReps = null,    // null = "load from store"; pass [] to override empty
@@ -97,49 +109,37 @@ export default function ConstituentDashboard({
   ballot = null,
   onNavigate = {},
   onClose,
-  // Which view to open on ('overview' | 'settings'). The parent uses
-  // 'settings' to deep-link straight to Account & settings (e.g. the
-  // navbar's account entry or a /?open=settings URL).
+  // Which view to open on. The parent uses 'settings' to deep-link
+  // straight to Settings (a /?open=settings URL, reminder emails).
   initialView = 'overview',
-  // Navbar props — passed straight through to the embedded compact Navbar
-  // at the top of the dashboard. The parent (app/page.js) wires login /
-  // logout / tracked / subscribe / help-build / feedback so the user can
-  // jump anywhere without backing out of the dashboard first. We
-  // deliberately don't accept onCitizenDashboard (we're already here)
-  // or onOpenCommittees (deemed out-of-scope per design feedback).
+  // Navbar props, passed straight through to the embedded compact
+  // Navbar. The parent (app/page.js) wires login / logout / tracked /
+  // subscribe / help-build / feedback so the user can jump anywhere
+  // without backing out of the dashboard first. We deliberately don't
+  // accept onCitizenDashboard (we're already here) or onOpenCommittees.
   navbarProps = {},
 }) {
-  // Tracked officials from the reactive, server-backed store. Split by
-  // role_type: reps -> My Representatives, candidates -> Tracked
-  // Candidates. The prior code read getAllTrackedOfficials() (the cache
-  // OBJECT, not an array), so reps.length was always undefined and the
-  // dashboard wrongly showed "not tracking anyone." Parent can still
-  // override the rep list via trackedReps for tests.
+  // Everything the citizen follows, from the reactive, server-backed
+  // stores: the "following" count in the greeting.
   const { list: trackedAll } = useTrackedOfficials();
-  const reps = useMemo(() => {
-    if (trackedReps !== null) return trackedReps;
-    return (trackedAll || []).filter((o) => o && o.role_type !== 'candidate');
-  }, [trackedAll, trackedReps]);
-  const today = new Date();
-  const greeting = greetingFor(today);
-  const dateLabel = formatDate(today);
-  // Compact viewports (≤1024px) collapse the two-column layout into a
-  // single stack — otherwise the right rail's 1fr share becomes too
-  // narrow for the 2×2 stats grid in YourActivityCard, which overflows.
-  const isCompact = useIsCompact();
+  const { list: trackedBillList } = useTrackedBills();
+  const { list: trackedElectionList } = useTrackedElections();
+  const followingCount = (trackedReps !== null ? trackedReps.length : (trackedAll || []).length)
+    + (trackedBillList || []).length + (trackedElectionList || []).length;
+  const greeting = greetingFor(new Date());
 
-  // Two-view layout (Task #102 reorg): 'overview' carries the civic
-  // content, 'settings' carries the account-management stack. Before
-  // this split the four account sections rendered ABOVE the civic
-  // content on mobile, pushing My Representatives below the fold.
-  const [view, setView] = useState(['settings', 'tracked', 'activity'].includes(initialView) ? initialView : 'overview');
+  const [view, setView] = useState(
+    DASHBOARD_TABS.some((t) => t.id === initialView) ? initialView : 'overview',
+  );
 
   // The Overview's own data (2026-10-19). Loaded when the Overview is
-  // shown, again each time it is reopened, so a new vote or reply
-  // shows up without a reload.
+  // shown, again each time it is reopened, so a new vote or reply shows
+  // up without a reload. Keyed on who is signed in rather than the
+  // citizen object, which the home page rebuilds on every render.
+  const citizenKey = citizen ? String(citizen.id || citizen.email || 'me') : null;
   const [dash, setDash] = useState(null);
   useEffect(() => {
-    if (view !== 'overview' || !citizen) return undefined;
+    if (view !== 'overview' || !citizenKey) return undefined;
     let cancelled = false;
     const now = new Date();
     const since = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
@@ -147,7 +147,7 @@ export default function ConstituentDashboard({
       if (!cancelled && data) setDash(data);
     });
     return () => { cancelled = true; };
-  }, [view, citizen]);
+  }, [view, citizenKey]);
   const upcomingItems = useMemo(
     () => (upcoming !== null ? upcoming : dash ? (dash.upcoming || []).map(upcomingItemFromApi) : null),
     [upcoming, dash],
@@ -157,276 +157,345 @@ export default function ConstituentDashboard({
     [recent, dash],
   );
 
-  return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: 'var(--cl-bg)',
-        fontFamily: 'var(--cl-font-sans)',
-        color: 'var(--cl-text)',
-      }}
-    >
-      {/* Embedded navbar at the top of the dashboard. Uses `compact`
-          mode which hides the search bar + committees button per
-          design feedback. We deliberately don't forward
-          onCitizenDashboard (we're already in the dashboard) or
-          onOpenCommittees (omitted). The home/CivicView-logo click
-          falls through to onHome → onClose so it doubles as a back
-          affordance. */}
-      {/* Navbar + back row pinned together (StickyPageHeader), the same
-          header as every full-page route (2026-10-03). The navbar used to
-          scroll away while a lone Back pill stuck. The dashboard mounts
-          inside a `position: fixed; overflowY: auto` wrapper (app/page.js,
-          /polls, PageChrome), so sticky anchors to that scroll context.
-          "Back" returns to whichever surface opened the dashboard. */}
-      {onClose ? (
-        <StickyPageHeader backLabel="Back" onBack={onClose}>
-          <Navbar compact {...navbarProps} onHome={onClose} />
-        </StickyPageHeader>
-      ) : (
-        <Navbar compact {...navbarProps} onHome={onClose} />
-      )}
+  // The pinned header's height (navbar plus tab bar), so sticky parts
+  // and scroll targets sit just below it on every screen size.
+  const headRef = useRef(null);
+  const [pinHeight, setPinHeight] = useState(100);
+  useEffect(() => {
+    const el = headRef.current;
+    if (!el) return undefined;
+    const measure = () => setPinHeight(Math.round(el.getBoundingClientRect().height) || 100);
+    measure();
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: '0 auto',
-          padding: '6px 24px 48px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 16,
-        }}
-      >
-        {/* Welcome header — Close × button removed per design feedback;
-            the sticky Back button above + the navbar's home affordance
-            cover the same "dismiss this surface" intent. */}
+  // Switching tabs from the pinned bar after scrolling down brings the
+  // new tab's top into view instead of leaving you partway down it.
+  const panelRef = useRef(null);
+  const firstView = useRef(true);
+  useEffect(() => {
+    if (firstView.current) { firstView.current = false; return; }
+    const el = panelRef.current;
+    if (!el) return;
+    if (el.getBoundingClientRect().top < pinHeight) el.scrollIntoView({ block: 'start' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view]);
+
+  const tabRefs = useRef({});
+  // Arrow keys, Home and End move between the tabs (selection follows
+  // focus), counted from the tab that has focus.
+  const onTabKey = (e) => {
+    const focused = DASHBOARD_TABS.findIndex((t) => tabRefs.current[t.id] === e.target);
+    const i = focused >= 0 ? focused : DASHBOARD_TABS.findIndex((t) => t.id === view);
+    let next = null;
+    if (e.key === 'ArrowRight') next = DASHBOARD_TABS[(i + 1) % DASHBOARD_TABS.length];
+    else if (e.key === 'ArrowLeft') next = DASHBOARD_TABS[(i - 1 + DASHBOARD_TABS.length) % DASHBOARD_TABS.length];
+    else if (e.key === 'Home') next = DASHBOARD_TABS[0];
+    else if (e.key === 'End') next = DASHBOARD_TABS[DASHBOARD_TABS.length - 1];
+    if (!next) return;
+    e.preventDefault();
+    setView(next.id);
+    tabRefs.current[next.id]?.focus();
+  };
+
+  const quickLinks = [
+    { label: 'Compare candidates', onClick: onNavigate.compareCandidates, Icon: Newspaper },
+    { label: 'Your polling place', onClick: onNavigate.pollingPlace, Icon: MapPin },
+  ].filter((l) => l.onClick);
+
+  return (
+    <div className="cvd" style={{ '--cvd-pin': `${pinHeight}px` }}>
+      {/* Navbar and tab bar pinned together. The dashboard mounts inside
+          a `position: fixed; overflowY: auto` wrapper (app/page.js,
+          /polls, PageChrome), so sticky anchors to that scroll context.
+          Back returns to whichever surface opened the dashboard; the
+          navbar's logo does the same through onHome. */}
+      <div className="cvd-head" ref={headRef}>
+        <Navbar compact {...navbarProps} onHome={onClose} />
+        <div className="cvd-bar">
+          <div className="cvd-bar__inner">
+            {onClose && (
+              <>
+                <button type="button" className="cvd-back" onClick={onClose} aria-label="Back">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                  <span className="cvd-back__label">Back</span>
+                </button>
+                <span className="cvd-back__sep" aria-hidden="true" />
+              </>
+            )}
+            <div className="cvd-tabs" role="tablist" aria-label="Dashboard sections" onKeyDown={onTabKey}>
+              {DASHBOARD_TABS.map((t) => {
+                const on = view === t.id;
+                return (
+                  <button
+                    key={t.id}
+                    ref={(el) => { tabRefs.current[t.id] = el; }}
+                    type="button"
+                    role="tab"
+                    id={`cvd-tab-${t.id}`}
+                    aria-selected={on}
+                    aria-controls="cvd-panel"
+                    tabIndex={on ? 0 : -1}
+                    className={`cvd-tab${on ? ' is-active' : ''}`}
+                    onClick={() => setView(t.id)}
+                  >
+                    {t.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="cvd-body">
         <WelcomeHeader
           citizen={citizen}
           greeting={greeting}
-          dateLabel={dateLabel}
+          following={followingCount}
+          counts={dash ? dash.counts : null}
+          links={quickLinks}
+          full={view === 'overview'}
         />
 
         {/* Demo-sunset contact ask (PRD §4, increment 2). Sits above the
-            tabs so it is reachable from every view, and self-hides the
-            moment it is answered either way. */}
+            tabs' content so it is reachable from every view, and hides
+            itself the moment it is answered either way. */}
         <ContactEmailPrompt citizen={citizen} />
 
-        {/* View tabs (Task #102 reorg). Overview = civic content first;
-            Account & settings = the account-management stack (2FA,
-            verification, billing, demographic profile, start page,
-            hidden-by-moderation). Mobile used to render four account
-            sections between the greeting and MY REPRESENTATIVES —
-            civic content now leads on every viewport. */}
-        <div role="tablist" aria-label="Dashboard sections" style={{ display: 'flex', gap: 8 }}>
-          {[['overview', 'Overview'], ['tracked', 'Manage Tracked'], ['activity', 'Activity'], ['settings', 'Account & settings']].map(([key, label]) => (
-            <button
-              key={key}
-              type="button"
-              role="tab"
-              aria-selected={view === key}
-              onClick={() => setView(key)}
-              style={{
-                padding: '8px 16px',
-                borderRadius: 999,
-                border: '1px solid ' + (view === key ? 'var(--cl-accent)' : 'var(--cl-border)'),
-                background: view === key ? 'var(--cl-accent-soft, rgba(37, 99, 235, 0.10))' : 'var(--cl-card)',
-                color: view === key ? 'var(--cl-accent)' : 'var(--cl-text)',
-                fontWeight: view === key ? 600 : 500,
-                fontSize: 'var(--cl-text-sm)',
-                fontFamily: 'var(--cl-font-sans)',
-                cursor: 'pointer',
-              }}
-            >
-              {label}
-            </button>
-          ))}
+        <div
+          ref={panelRef}
+          className="cvd-panel"
+          role="tabpanel"
+          id="cvd-panel"
+          aria-labelledby={`cvd-tab-${view}`}
+        >
+          {view === 'overview' && (
+            <OverviewPanel
+              citizen={citizen}
+              upcomingItems={upcomingItems}
+              recentItems={recentItems}
+              ballot={ballot}
+              onNavigate={onNavigate}
+              onManage={() => setView('tracked')}
+              onSeeAllActivity={onNavigate.viewActivity || (() => setView('activity'))}
+            />
+          )}
+
+          {view === 'tracked' && (
+            <section style={{ maxWidth: 860 }} aria-labelledby="cvd-tracked-title">
+              <SectionHeader
+                id="cvd-tracked-title"
+                title="Following"
+                note="Everything you follow. Star one in each group to feature it on your Overview."
+              />
+              <TrackedManager variant="page" onMemberPick={onNavigate.openOfficial} />
+            </section>
+          )}
+
+          {view === 'activity' && (
+            <section style={{ maxWidth: 720 }} aria-labelledby="cvd-activity-title">
+              <SectionHeader
+                id="cvd-activity-title"
+                title="Activity"
+                note="Your comments and the replies to them, kept even after you clear the bell."
+              />
+              <ActivityArchive identity="citizen" />
+            </section>
+          )}
+
+          {view === 'settings' && <SettingsPanel citizen={citizen} pin={pinHeight} />}
         </div>
-
-        {view === 'overview' && (
-          <div
-            style={{
-              display: 'grid',
-              gap: 24,
-              gridTemplateColumns: isCompact ? '1fr' : 'minmax(0, 2fr) minmax(0, 1fr)',
-            }}
-          >
-            {/* LEFT COLUMN — civic content */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-              <FollowedSpotlights onManage={() => setView('tracked')} onOpenOfficial={onNavigate.openOfficial} />
-              {/* No "See district calendar" link (2026-10-19): the parent's
-                  handler only closed the dashboard, and now that this card
-                  has rows the link would show. */}
-              <UpcomingInDistrict items={upcomingItems} />
-              <RecentActivity items={recentItems} onSeeAll={onNavigate.viewActivity || (() => setView('activity'))} />
-              <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} />
-              <SavedSection citizen={citizen} onOpenPage={onNavigate.openPage} />
-            </div>
-
-            {/* RIGHT RAIL — ballot, activity stats, quick links. The
-                account sections moved to the settings view; Quick
-                links' "Account settings" entry switches views. */}
-            <aside style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-              {ballot && <YourBallotCard ballot={ballot} onView={ballot.onView || onNavigate.ballot} />}
-              <YourActivityCard reps={reps} counts={dash ? dash.counts : null} />
-              <QuickLinksCard onNavigate={{ ...onNavigate, accountSettings: () => setView('settings') }} />
-            </aside>
-          </div>
-        )}
-
-        {view === 'tracked' && (
-          <div style={{ maxWidth: 860, width: '100%' }}>
-            <SectionHeader
-              eyebrow="Manage tracked"
-              rightLabel="Everything you follow — star one per group to feature it on your Overview"
-            />
-            <TrackedManager variant="page" onMemberPick={onNavigate.openOfficial} />
-          </div>
-        )}
-
-        {view === 'activity' && (
-          <div style={{ maxWidth: 720, width: '100%' }}>
-            <SectionHeader
-              eyebrow="Activity"
-              rightLabel="Your comments and the replies they've received — kept even after you clear the bell"
-            />
-            <ActivityArchive identity="citizen" />
-          </div>
-        )}
-
-        {view === 'settings' && (
-          <div style={{ maxWidth: 720, width: '100%', display: 'flex', flexDirection: 'column', gap: 24 }}>
-            {/* Order: security → identity → billing (most-sensitive
-                first — same rationale as the old right rail), then
-                preferences, data privacy, and moderation status. */}
-            <TwoFactorSection />
-            <VerificationSection citizen={citizen} />
-            <ServedAsSection />
-            <LocationSection />
-            <BillingSection citizen={citizen} />
-            <StartPageSection citizen={citizen} />
-            <NotificationsSection />
-            <DemographicProfileSection />
-            <HiddenByModerationSection citizen={citizen} />
-          </div>
-        )}
       </div>
     </div>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────
-// Welcome header
+// Overview: Coming up, Following, Recent activity, My polls, Saved
 // ─────────────────────────────────────────────────────────────────
-function WelcomeHeader({ citizen, greeting, dateLabel }) {
+function OverviewPanel({ citizen, upcomingItems, recentItems, ballot, onNavigate, onManage, onSeeAllActivity }) {
+  const myPolls = useMyCitizenPolls(Boolean(citizen));
+  return (
+    <div className="cvd-overview">
+      {/* No "See district calendar" link (2026-10-19): the parent's
+          handler only closed the dashboard. */}
+      <UpcomingInDistrict items={upcomingItems} />
+      {ballot && <YourBallotCard ballot={ballot} onView={ballot.onView || onNavigate.ballot} />}
+      <FollowedGrid onManage={onManage} onOpenOfficial={onNavigate.openOfficial} />
+      <RecentActivity items={recentItems} onSeeAll={onSeeAllActivity} />
+      <div className="cvd-lines">
+        <MyPollsSection citizen={citizen} onOpenPage={onNavigate.openPage} myPolls={myPolls} />
+        <SavedSection citizen={citizen} onOpenPage={onNavigate.openPage} myPolls={myPolls} />
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// Settings: five groups under one heading style, a pinned list of them
+// on desktop (stacked on a phone), and Delete account at the very
+// bottom in its own card (2026-10-26).
+// ─────────────────────────────────────────────────────────────────
+const SETTINGS_GROUPS = [
+  { id: 'security', label: 'Sign-in and security', note: 'Two-factor sign-in and identity verification.' },
+  { id: 'area', label: 'Your area', note: 'Where your likes, votes and comments are counted.' },
+  { id: 'notifications', label: 'Notifications', note: 'What reaches you, and when.' },
+  { id: 'profile', label: 'Subscription and profile', note: 'Your plan, your start page and optional profile details.' },
+  { id: 'moderation', label: 'Moderation', note: 'Anything of yours that moderation hid, with a way to appeal.' },
+];
+
+function SettingsPanel({ citizen, pin }) {
+  const [active, setActive] = useState(SETTINGS_GROUPS[0].id);
+
+  // Highlight the group in view in the desktop list.
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return undefined;
+    const els = SETTINGS_GROUPS.map((g) => document.getElementById(`set-${g.id}`)).filter(Boolean);
+    const io = new IntersectionObserver((entries) => {
+      const seen = entries.filter((e) => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (seen.length) setActive(seen[0].target.id.replace(/^set-/, ''));
+    }, { rootMargin: `-${pin + 16}px 0px -55% 0px` });
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [pin]);
+
+  const jump = (id) => {
+    setActive(id);
+    document.getElementById(`set-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const body = {
+    security: (
+      <>
+        <TwoFactorSection />
+        <VerificationSection citizen={citizen} />
+      </>
+    ),
+    area: <LocationSection />,
+    notifications: <NotificationsSection />,
+    profile: (
+      <>
+        <BillingSection citizen={citizen} />
+        <StartPageSection citizen={citizen} />
+        <ServedAsSection />
+        <DemographicProfileSection />
+      </>
+    ),
+    moderation: <HiddenByModerationSection citizen={citizen} />,
+  };
+
+  return (
+    <div className="cvd-settings">
+      <nav className="cvd-jump" aria-label="Settings groups">
+        <p className="cvd-jump__label">Settings</p>
+        <ul>
+          {SETTINGS_GROUPS.map((g) => (
+            <li key={g.id}>
+              <button type="button" aria-current={active === g.id ? 'true' : undefined} onClick={() => jump(g.id)}>
+                {g.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="cvd-groups">
+        {SETTINGS_GROUPS.map((g) => (
+          <section key={g.id} id={`set-${g.id}`} className="cvd-group" aria-labelledby={`set-${g.id}-title`}>
+            <SectionHeader id={`set-${g.id}-title`} title={g.label} note={g.note} />
+            <div className="cvd-group__body">{body[g.id]}</div>
+          </section>
+        ))}
+        <DeleteAccountCard />
+      </div>
+    </div>
+  );
+}
+
+// Self-serve account deletion (Task #81). The full warnings, the choice
+// between archiving and deleting, and the email confirmation live on
+// /account/delete itself; this card only leads there.
+function DeleteAccountCard() {
+  return (
+    <section className="cvd-danger" aria-labelledby="set-delete-title">
+      <h2 className="cvd-danger__title" id="set-delete-title">Delete account</h2>
+      <p className="cvd-danger__text">
+        Close your CivicView account. The next page lists what is removed and
+        lets you choose between archiving the account for 30 days and deleting
+        it right away.
+      </p>
+      <a className="cvd-danger__btn" href="/account/delete">Delete account</a>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// Greeting (2026-10-26 redesign): avatar, greeting, district and the
+// Verified or Demo badge on one line. On the Overview (`full`) it adds
+// one line of counts and the quick links. The old card also held
+// today's date and the Delete account link, which now sits at the
+// bottom of Settings.
+// ─────────────────────────────────────────────────────────────────
+function WelcomeHeader({ citizen, greeting, following, counts, links, full }) {
   // Accept either the mapped shape ({name, district}) the home mount
   // passes OR the raw citizen object ({display_name,
-  // congressional_district}) the /polls mount passes — otherwise the
-  // greeting falls back to 'there'/'Citizen'/'—' depending on which
+  // congressional_district}) the /polls mount passes; otherwise the
+  // greeting falls back to 'there'/'Citizen' depending on which
   // surface opened the dashboard.
   const displayName = citizen?.display_name || citizen?.name || '';
   const firstName = displayName.split(' ')[0] || 'there';
-  const district = formatDistrict(citizen?.congressional_district || citizen?.district) || '—';
+  const district = formatDistrict(citizen?.congressional_district || citizen?.district) || '';
   const city = citizen?.city || '';
   const state = citizen?.state || '';
+  const place = [city, state].filter(Boolean).join(', ');
+  // Until the counts load they read as an ellipsis, never a made-up 0.
+  const show = (v) => (counts ? (Number(v) || 0) : '…');
+  const comments = show(counts?.comments_left);
+  const votes = show(counts?.polls_cast);
 
   return (
-    <header
-      style={{
-        background: 'var(--cl-card)',
-        border: '1px solid var(--cl-border)',
-        borderRadius: 'var(--cl-radius-2xl)',
-        padding: '28px 28px',
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        gap: 16,
-        flexWrap: 'wrap',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16, minWidth: 0 }}>
-        <Avatar name={displayName || undefined} size="lg" />
-        <div style={{ minWidth: 0 }}>
-          <h1
-            className="cl-h1"
-            style={{
-              margin: 0,
-              fontSize: 'var(--cl-text-2xl)',
-              fontWeight: 700,
-              letterSpacing: 'var(--cl-tracking-tight)',
-            }}
-          >
-            Good {greeting},{' '}
-            <span style={{ color: 'var(--cl-accent)' }}>{firstName}</span>.
-          </h1>
-          <div
-            style={{
-              marginTop: 6,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              flexWrap: 'wrap',
-              fontSize: 'var(--cl-text-sm)',
-              color: 'var(--cl-text-light)',
-            }}
-          >
-            <span style={{ fontWeight: 600, color: 'var(--cl-text)' }}>
-              {displayName || 'Citizen'}
-            </span>
-            <span aria-hidden="true">·</span>
-            <span>
-              {district}
-              {city ? ` · ${city}` : ''}
-              {state ? `, ${state}` : ''}
-            </span>
-            {/* "Verified citizen" only for a real verification (ID.me),
-                read from the server's verified_person rule; every other
-                account is a demo account today, and is called one
-                (2026-10-16). Revisit if non-demo sign-ups open without
-                verification. */}
-            {citizen?.verified_person ? <VerifiedCitizenBadge /> : <DemoAccountBadge />}
-          </div>
+    <header className="cvd-hello">
+      <Avatar name={displayName || undefined} size="md" />
+      <div className="cvd-hello__text">
+        <h1 className="cvd-hello__title">
+          Good {greeting}, <span>{firstName}</span>.
+        </h1>
+        <div className="cvd-hello__meta">
+          {(district || place) && (
+            <span>{[district, place].filter(Boolean).join(' · ')}</span>
+          )}
+          {/* "Verified citizen" only for a real verification (ID.me),
+              read from the server's verified_person rule; every other
+              account is a demo account today, and is called one
+              (2026-10-16). Revisit if non-demo sign-ups open without
+              verification. */}
+          {citizen?.verified_person ? <VerifiedCitizenBadge /> : <DemoAccountBadge />}
         </div>
+        {full && (
+          <p className="cvd-hello__stats">
+            <strong className="cl-num">{following}</strong> following
+            {' · '}
+            <strong className="cl-num">{comments}</strong> {comments === 1 ? 'comment' : 'comments'} and{' '}
+            <strong className="cl-num">{votes}</strong> poll {votes === 1 ? 'vote' : 'votes'} in {currentMonth()}
+          </p>
+        )}
       </div>
-
-      <div style={{
-        display: 'flex', flexDirection: 'column', alignItems: 'flex-end',
-        justifyContent: 'space-between', gap: 12, alignSelf: 'stretch',
-        marginLeft: 'auto',
-      }}>
-        <div style={{ textAlign: 'right' }}>
-          <Eyebrow>Today</Eyebrow>
-          <div
-            className="cl-num"
-            style={{
-              marginTop: 2,
-              fontSize: 'var(--cl-text-md)',
-              fontWeight: 600,
-              color: 'var(--cl-text)',
-            }}
-          >
-            {dateLabel}
-          </div>
-        </div>
-        {/* Self-serve account deletion (Task #81) — bottom-right of
-            the hero card per design feedback. Red text so the
-            destructive intent is unambiguous at a glance, but still
-            a subtle dotted-underline link rather than a button.
-            The full warnings + email confirmation surface lives on
-            /account/delete itself. */}
-        <a
-          href="/account/delete"
-          style={{
-            fontSize: 'var(--cl-text-xs)',
-            color: '#a3261c',
-            textDecoration: 'underline',
-            textDecorationStyle: 'dotted',
-            textUnderlineOffset: '3px',
-            fontWeight: 600,
-          }}
-        >
-          Delete account
-        </a>
-      </div>
+      {full && links.length > 0 && (
+        <nav className="cvd-hello__links" aria-label="Quick links">
+          {links.map((l) => (
+            <button key={l.label} type="button" className="cvd-link" onClick={l.onClick}>
+              <l.Icon size={14} color="muted" />
+              {l.label}
+            </button>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }
@@ -476,7 +545,7 @@ function DemoAccountBadge() {
 }
 
 // ─────────────────────────────────────────────────────────────────
-// My Representatives
+// Party helpers for the Following cards
 // ─────────────────────────────────────────────────────────────────
 
 // The PartyChip key for an official's party: a known code as is (so
@@ -495,68 +564,6 @@ function dashboardPartyKey(party) {
 function avatarParty(key) {
   if (!key) return undefined;
   return key === 'R' || key === 'D' ? key : 'I';
-}
-
-function DashboardRepCard({ rep }) {
-  const partyKey = dashboardPartyKey(rep.party);
-  const lastActive = rep.last_active_at
-    ? `Active ${timeAgo(rep.last_active_at)}`
-    : 'Following';
-  return (
-    <div
-      style={{
-        background: 'var(--cl-card)',
-        border: '1px solid var(--cl-border)',
-        borderRadius: 'var(--cl-radius-xl)',
-        padding: 14,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-      }}
-    >
-      <Avatar name={rep.name} party={avatarParty(partyKey)} size="md" />
-      <div style={{ minWidth: 0, flex: 1 }}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            fontSize: 'var(--cl-text-md)',
-            fontWeight: 700,
-            color: 'var(--cl-text)',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {rep.name}
-          {partyKey && <PartyChip party={partyKey} size="xs" />}
-        </div>
-        <div
-          style={{
-            fontSize: 'var(--cl-text-xs)',
-            color: 'var(--cl-text-light)',
-            marginTop: 2,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {rep.title || rep.role || ''}{rep.scope ? ` · ${rep.scope}` : ''}
-        </div>
-        <div
-          style={{
-            fontSize: 'var(--cl-text-2xs)',
-            color: 'var(--cl-success-text)',
-            marginTop: 4,
-            fontWeight: 600,
-          }}
-        >
-          {lastActive}
-        </div>
-      </div>
-    </div>
-  );
 }
 
 // ─────────────────────────────────────────────────────────────────
@@ -616,8 +623,10 @@ function recentItemFromNotification(n) {
         body: p.action || null };
     case 'election_reminder':
       return { ...base, kind: 'election', title: p.title || 'Election reminder', body: p.body || null };
+    // Its own kind (2026-10-26): it used to borrow 'page' and read
+    // "Page change" in Recent activity.
     case 'moderation_hidden':
-      return { ...base, kind: 'page',
+      return { ...base, kind: 'moderation',
         title: p.hide_reason === 'auto_hidden'
           ? 'Something of yours was hidden after community reports'
           : 'Something of yours was hidden by a moderator',
@@ -631,31 +640,29 @@ function recentItemFromNotification(n) {
 }
 
 
-function UpcomingInDistrict({ items, onSeeCalendar }) {
+// Coming up leads the Overview (2026-10-26): the time-sensitive things
+// first, as rows in one card.
+function UpcomingInDistrict({ items }) {
   const hasItems = items && items.length > 0;
   return (
-    <section>
-      <SectionHeader
-        eyebrow="Coming up"
-        action={
-          onSeeCalendar && hasItems
-            ? { label: 'See district calendar →', onClick: onSeeCalendar }
-            : null
-        }
-      />
-      {hasItems ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+    <section aria-labelledby="cvd-upcoming-title">
+      <SectionHeader id="cvd-upcoming-title" title="Coming up" />
+      {items === null ? (
+        <div className="cvd-empty">Loading…</div>
+      ) : hasItems ? (
+        <div className="cvd-list">
           {items.slice(0, 5).map((item, i) => (
             <UpcomingRow key={item.id || `${item.kind}-${i}`} item={item} />
           ))}
         </div>
       ) : (
-        <EmptyState
-          icon={<CalendarCheck size={36} color="default" />}
-          headline="Nothing coming up yet"
-          body="Voting deadlines for your state, events from officials you track and polls you voted in that are about to close will show up here."
-          dense
-        />
+        <div className="cvd-empty">
+          <CalendarCheck size={18} color="muted" />
+          <span>
+            Nothing coming up yet. Voting deadlines for your state, events from
+            officials you follow and polls you voted in that are about to close show up here.
+          </span>
+        </div>
       )}
     </section>
   );
@@ -665,98 +672,36 @@ function UpcomingRow({ item }) {
   const meta = UPCOMING_KIND_META[item.kind] || { label: item.kind, Icon: Calendar };
   const date = item.when ? new Date(item.when) : null;
   const dayLabel = date ? formatShortDay(date) : null;
+  const Tag = item.onClick ? 'button' : 'div';
   return (
-    <div
-      role={item.onClick ? 'button' : undefined}
-      onClick={item.onClick}
-      onKeyDown={item.onClick ? activateOnKey(item.onClick) : undefined}
-      tabIndex={item.onClick ? 0 : undefined}
-      style={{
-        background: 'var(--cl-card)',
-        border: '1px solid var(--cl-border)',
-        borderRadius: 'var(--cl-radius-xl)',
-        padding: 14,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 14,
-        cursor: item.onClick ? 'pointer' : 'default',
-      }}
+    <Tag
+      className={`cvd-row${item.onClick ? ' is-link' : ''}`}
+      {...(item.onClick ? { type: 'button', onClick: item.onClick } : {})}
     >
       {dayLabel && (
-        <div
-          style={{
-            textAlign: 'center',
-            minWidth: 56,
-            padding: '4px 0',
-            borderRight: '1px solid var(--cl-border)',
-          }}
-        >
-          <div
-            className="cl-eyebrow"
-            style={{ color: 'var(--cl-text-light)' }}
-          >
-            {dayLabel.month}
-          </div>
-          <div
-            className="cl-num"
-            style={{
-              fontSize: 'var(--cl-text-xl)',
-              fontWeight: 700,
-              color: 'var(--cl-text)',
-              lineHeight: 1,
-              marginTop: 2,
-            }}
-          >
-            {dayLabel.day}
-          </div>
-        </div>
+        <span className="cvd-date" aria-hidden="true">
+          <span className="cvd-date__m" style={{ display: 'block' }}>{dayLabel.month}</span>
+          <span className="cvd-date__d cl-num" style={{ display: 'block' }}>{dayLabel.day}</span>
+        </span>
       )}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            fontSize: 'var(--cl-text-2xs)',
-            fontWeight: 800,
-            textTransform: 'uppercase',
-            letterSpacing: 'var(--cl-tracking-wider)',
-            color: 'var(--cl-accent)',
-          }}
-        >
-          <meta.Icon size={12} active color="accent" />
+      <span className="cvd-row__main">
+        <span className="cvd-row__kicker is-accent">
+          <meta.Icon size={12} color="accent" />
           {meta.label}
-        </div>
-        <div
-          style={{
-            fontSize: 'var(--cl-text-md)',
-            fontWeight: 700,
-            color: 'var(--cl-text)',
-            marginTop: 2,
-          }}
-        >
-          {item.title}
-        </div>
-        {item.meta && (
-          <div
-            style={{
-              fontSize: 'var(--cl-text-xs)',
-              color: 'var(--cl-text-light)',
-              marginTop: 2,
-            }}
-          >
-            {item.meta}
-          </div>
-        )}
-      </div>
-      {item.onClick && (
-        <Button variant="outline" size="sm" trailingIcon={<ArrowRight size={12} />}>
-          View
-        </Button>
-      )}
-    </div>
+          {date ? <span style={srOnly}>, {date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</span> : null}
+        </span>
+        <span className="cvd-row__title" style={{ display: 'block' }}>{item.title}</span>
+        {item.meta && <span className="cvd-row__body" style={{ display: 'block' }}>{item.meta}</span>}
+      </span>
+      {item.onClick && <span className="cvd-row__chev"><ArrowRight size={14} color="muted" /></span>}
+    </Tag>
   );
 }
+
+const srOnly = {
+  position: 'absolute', width: 1, height: 1, overflow: 'hidden',
+  clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap',
+};
 
 // ─────────────────────────────────────────────────────────────────
 // Recent activity feed
@@ -764,155 +709,79 @@ function UpcomingRow({ item }) {
 function RecentActivity({ items, onSeeAll }) {
   const hasItems = items && items.length > 0;
   return (
-    <section>
+    <section aria-labelledby="cvd-recent-title">
       <SectionHeader
-        eyebrow="Recent activity"
-        rightLabel="Reverse-chronological · last 7 days"
+        id="cvd-recent-title"
+        title="Recent activity"
+        meta="Last 7 days"
+        action={onSeeAll && hasItems ? { label: 'See all', onClick: onSeeAll } : null}
       />
-      {hasItems ? (
-        <>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {items.slice(0, 5).map((item, i) => (
-              <ActivityRow key={item.id || i} item={item} />
-            ))}
-          </div>
-          {onSeeAll && (
-            <div style={{ textAlign: 'center', marginTop: 12 }}>
-              <button
-                type="button"
-                onClick={onSeeAll}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: 'var(--cl-accent)',
-                  fontSize: 'var(--cl-text-sm)',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  fontFamily: 'var(--cl-font-sans)',
-                }}
-              >
-                See all activity →
-              </button>
-            </div>
-          )}
-        </>
+      {items === null ? (
+        <div className="cvd-empty">Loading…</div>
+      ) : hasItems ? (
+        <div className="cvd-list">
+          {items.slice(0, 5).map((item, i) => (
+            <ActivityRow key={item.id || i} item={item} />
+          ))}
+        </div>
       ) : (
-        <EmptyState
-          icon={<ChatCircleDots size={36} color="default" />}
-          headline="No recent activity yet"
-          body="Posts and events from people you track, results of polls you voted in, replies to your comments and election reminders from the last 7 days show up here."
-          dense
-        />
+        <div className="cvd-empty">
+          <ChatCircleDots size={18} color="muted" />
+          <span>
+            No recent activity yet. Posts and events from people you follow,
+            results of polls you voted in, replies to your comments and election
+            reminders from the last 7 days show up here.
+          </span>
+        </div>
       )}
     </section>
   );
 }
 
+const ACTIVITY_KICKER = {
+  reply: 'Reply on your comment',
+  voted: 'Poll results',
+  bill: 'Bill update',
+  election: 'Election reminder',
+  moderation: 'Moderation',
+  page: 'Page change',
+};
+
 function ActivityRow({ item }) {
-  const eyebrowColor =
-    item.kind === 'reply'
-      ? 'var(--cl-accent)'
-      : item.kind === 'voted'
-      ? 'var(--cl-warning-text)'
-      : 'var(--cl-text-light)';
-  const EYEBROWS = {
-    reply: 'Reply on your comment',
-    voted: 'Poll results',
-    bill: 'Bill update',
-    election: 'Election reminder',
-    page: 'Page change',
-  };
-  const eyebrowText = EYEBROWS[item.kind]
+  const kicker = ACTIVITY_KICKER[item.kind]
     || (item.kind === 'event'
       ? (item.author ? `${item.author} · New event` : 'New event')
       : (item.author ? `${item.author} · New post` : 'New post'));
-
+  const tone = item.kind === 'reply' ? ' is-accent'
+    : (item.kind === 'voted' || item.kind === 'moderation') ? ' is-warning' : '';
+  const Tag = item.onClick ? 'button' : 'div';
   return (
-    <div
-      role={item.onClick ? 'button' : undefined}
-      onClick={item.onClick}
-      onKeyDown={item.onClick ? activateOnKey(item.onClick) : undefined}
-      tabIndex={item.onClick ? 0 : undefined}
-      style={{
-        background: 'var(--cl-card)',
-        border: '1px solid var(--cl-border)',
-        borderRadius: 'var(--cl-radius-xl)',
-        padding: 14,
-        display: 'flex',
-        gap: 12,
-        cursor: item.onClick ? 'pointer' : 'default',
-      }}
+    <Tag
+      className={`cvd-row${item.onClick ? ' is-link' : ''}`}
+      {...(item.onClick ? { type: 'button', onClick: item.onClick } : {})}
     >
-      <div
-        style={{
-          width: 40,
-          height: 40,
-          background: 'var(--cl-accent-soft)',
-          borderRadius: 'var(--cl-radius-md)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-        }}
-      >
+      <span className={`cvd-row__icon${tone === ' is-warning' ? ' is-warning' : ''}`} aria-hidden="true">
         {item.kind === 'reply' ? (
-          <ChatCircleDots size={18} active color="accent" />
+          <ChatCircleDots size={16} color="accent" />
         ) : item.kind === 'voted' ? (
-          <CheckCircle size={18} active color="warning" />
+          <CheckCircle size={16} color="warning" />
+        ) : item.kind === 'moderation' ? (
+          <ShieldIcon />
         ) : item.kind === 'event' ? (
-          <MapPin size={18} active color="accent" />
+          <MapPin size={16} color="accent" />
         ) : item.kind === 'election' ? (
-          <CalendarCheck size={18} active color="accent" />
+          <CalendarCheck size={16} color="accent" />
         ) : (
-          <Newspaper size={18} active color="accent" />
+          <Newspaper size={16} color="accent" />
         )}
-      </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div
-          className="cl-eyebrow"
-          style={{ color: eyebrowColor }}
-        >
-          {eyebrowText}
-        </div>
-        <div
-          style={{
-            fontSize: 'var(--cl-text-md)',
-            fontWeight: 600,
-            color: 'var(--cl-text)',
-            marginTop: 2,
-          }}
-        >
-          {item.title}
-        </div>
-        {item.body && (
-          <div
-            style={{
-              fontSize: 'var(--cl-text-xs)',
-              color: 'var(--cl-text-light)',
-              marginTop: 2,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-            }}
-          >
-            {item.body}
-          </div>
-        )}
-        {item.whenIso && (
-          <div
-            style={{
-              fontSize: 'var(--cl-text-2xs)',
-              color: 'var(--cl-text-muted)',
-              marginTop: 4,
-            }}
-          >
-            {timeAgo(item.whenIso)}
-          </div>
-        )}
-      </div>
-    </div>
+      </span>
+      <span className="cvd-row__main">
+        <span className={`cvd-row__kicker${tone}`}>{kicker}</span>
+        <span className="cvd-row__title" style={{ display: 'block' }}>{item.title}</span>
+        {item.body && <span className="cvd-row__body" style={{ display: 'block' }}>{item.body}</span>}
+      </span>
+      {item.whenIso && <span className="cvd-row__when">{timeAgo(item.whenIso)}</span>}
+    </Tag>
   );
 }
 
@@ -1011,123 +880,6 @@ function YourBallotCard({ ballot, onView }) {
           View your ballot
         </Button>
       )}
-    </Card>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────
-// Right-rail: Your Activity stats
-// ─────────────────────────────────────────────────────────────────
-function YourActivityCard({ reps, counts }) {
-  const repsTracked = (reps && reps.length) || 0;
-  // This month's counts come from GET /api/activity/dashboard
-  // (2026-10-19): poll votes, comments (not deleted) and reactions on
-  // posts, polls, comments and bills since the first of the month on
-  // this device's clock. Until they load the tiles show an ellipsis,
-  // never a made-up number. Reps tracked is the live tracked list.
-  const show = (v) => (counts ? (Number(v) || 0) : '\u2026');
-  const stats = [
-    { label: 'Polls cast',    value: show(counts?.polls_cast) },
-    { label: 'Comments left', value: show(counts?.comments_left) },
-    { label: 'Reps tracked',  value: repsTracked },
-    { label: 'Reactions',     value: show(counts?.reactions) },
-  ];
-  return (
-    <Card
-      title={`Your activity · ${currentMonth()}`}
-      icon={<CheckCircle size={16} color="muted" />}
-    >
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 8,
-          marginTop: 4,
-        }}
-      >
-        {stats.map((s) => (
-          <div
-            key={s.label}
-            style={{
-              background: 'var(--cl-bg-soft)',
-              borderRadius: 'var(--cl-radius-md)',
-              padding: '10px 12px',
-              textAlign: 'center',
-            }}
-          >
-            <div
-              className="cl-num"
-              style={{
-                fontSize: 'var(--cl-text-2xl)',
-                fontWeight: 800,
-                color: 'var(--cl-text)',
-                lineHeight: 1.1,
-              }}
-            >
-              {s.value}
-            </div>
-            <div
-              className="cl-eyebrow"
-              style={{ marginTop: 2 }}
-            >
-              {s.label}
-            </div>
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────
-// Right-rail: Quick links
-// ─────────────────────────────────────────────────────────────────
-function QuickLinksCard({ onNavigate }) {
-  const links = [
-    { label: 'Compare candidates',   onClick: onNavigate.compareCandidates,  Icon: Newspaper },
-    { label: 'Find your polling place', onClick: onNavigate.pollingPlace,    Icon: MapPin    },
-    { label: 'Account settings',     onClick: onNavigate.accountSettings,    Icon: CheckCircle },
-  ].filter((l) => l.onClick);
-  if (!links.length) return null;
-  return (
-    <Card title="Quick links">
-      <ul
-        style={{
-          listStyle: 'none',
-          padding: 0,
-          margin: '4px 0 0',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 4,
-        }}
-      >
-        {links.map((l) => (
-          <li key={l.label}>
-            <button
-              type="button"
-              onClick={l.onClick}
-              style={{
-                width: '100%',
-                background: 'transparent',
-                border: 'none',
-                padding: '8px 4px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                color: 'var(--cl-text)',
-                fontSize: 'var(--cl-text-sm)',
-                cursor: 'pointer',
-                fontFamily: 'var(--cl-font-sans)',
-                textAlign: 'left',
-              }}
-            >
-              <l.Icon size={16} color="muted" />
-              <span style={{ flex: 1 }}>{l.label}</span>
-              <ArrowRight size={12} color="muted" />
-            </button>
-          </li>
-        ))}
-      </ul>
     </Card>
   );
 }
@@ -1428,7 +1180,7 @@ function NotificationsSection() {
   }
 
   return (
-    <Card title="Notifications">
+    <Card title="Bell, push and email">
       <NotificationSettings variant="dashboard" />
       <button
         type="button"
@@ -1479,46 +1231,32 @@ function NotificationsSection() {
 // Local helpers (not exported)
 // ─────────────────────────────────────────────────────────────────
 
-function SectionHeader({ eyebrow, action, rightLabel }) {
+// One heading style for every section of the dashboard (2026-10-26):
+// the Overview sections, the Following and Activity tabs and the
+// Settings groups. `meta` is a short muted note beside the title,
+// `note` a sentence under it, `action` one link on the right.
+function SectionHeader({ id, title, meta, note, action }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 10,
-        gap: 8,
-      }}
-    >
-      <Eyebrow>{eyebrow}</Eyebrow>
+    <div className="cvd-sec__head">
+      <div style={{ minWidth: 0 }}>
+        <h2 className="cvd-sec__title" id={id}>
+          {title}
+          {meta ? <span className="cvd-sec__meta">{meta}</span> : null}
+        </h2>
+        {note ? <p className="cvd-sec__note">{note}</p> : null}
+      </div>
       {action ? (
-        <button
-          type="button"
-          onClick={action.onClick}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            color: 'var(--cl-accent)',
-            fontSize: 'var(--cl-text-xs)',
-            fontWeight: 600,
-            cursor: 'pointer',
-            fontFamily: 'var(--cl-font-sans)',
-          }}
-        >
-          {action.label}
+        <button type="button" className="cvd-link cvd-link--plain" onClick={action.onClick}>
+          {action.label} <ArrowRight size={12} color="accent" />
         </button>
-      ) : rightLabel ? (
-        <span style={{ fontSize: 'var(--cl-text-2xs)', color: 'var(--cl-text-muted)' }}>
-          {rightLabel}
-        </span>
       ) : null}
     </div>
   );
 }
 
-// Simple Card with header — local to this file because the brand-system
-// Card primitive doesn't ship a title/icon slot today. Could be promoted
-// to components/ui/ in a future polish pass.
+// Simple Card with a title, local to this file because the brand-system
+// Card primitive has no title slot. The title matches the other
+// Settings cards (Identity verification, Subscription).
 function Card({ title, icon, tone, children }) {
   const tinted = tone === 'accent';
   return (
@@ -1527,19 +1265,12 @@ function Card({ title, icon, tone, children }) {
         background: tinted ? 'var(--cl-accent-soft)' : 'var(--cl-card)',
         border: `1px solid ${tinted ? 'var(--cl-success-border)' : 'var(--cl-border)'}`,
         borderRadius: 'var(--cl-radius-xl)',
-        padding: 16,
+        padding: '16px 18px',
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          marginBottom: 8,
-        }}
-      >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
         {icon}
-        <span className="cl-eyebrow">{title}</span>
+        <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: 'var(--cl-text)' }}>{title}</h3>
       </div>
       {children}
     </div>
@@ -1551,14 +1282,6 @@ function greetingFor(date) {
   if (h < 12) return 'morning';
   if (h < 18) return 'afternoon';
   return 'evening';
-}
-
-function formatDate(date) {
-  return date.toLocaleDateString('en-US', {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-  });
 }
 
 function formatLongDate(date) {
@@ -1635,11 +1358,19 @@ function prettyRaceLabel(key) {
 // ─────────────────────────────────────────────────────────────────
 function HiddenByModerationSection({ citizen }) {
   if (!citizen) return null;
+  // Settings has a Moderation group (2026-10-26), so an empty list says
+  // so in a line rather than leaving the group blank.
   return (
     <HiddenByModeration
       asKind="citizen"
+      empty={(
+        <p style={{ margin: 0, fontSize: '0.85rem', lineHeight: 1.5, color: 'var(--cl-text-light)' }}>
+          Nothing of yours is hidden. If moderators or community reports ever
+          hide a post, comment or poll of yours, it shows here with a way to appeal.
+        </p>
+      )}
       frame={(list) => (
-        <Card title="Hidden by moderation" icon={<ShieldIcon />} tone="warning">
+        <Card title="Hidden by moderation" icon={<ShieldIcon />}>
           {list}
         </Card>
       )}
@@ -1716,8 +1447,58 @@ function CompactTile({ tag, title, author, meta, onClick }) {
   );
 }
 
-function SavedSection({ citizen, onOpenPage }) {
-  const [tab, setTab] = useState('poll');           // 'poll' | 'post' | 'archived'
+// Saved shrinks to one line when there is nothing saved and nothing
+// archived (2026-10-26 redesign): two light checks (one saved poll, one
+// saved post) and the archived list the Overview already loaded for My
+// polls. Otherwise the full shelf opens on the first tab that has
+// something.
+function SavedSection({ citizen, onOpenPage, myPolls }) {
+  const [probe, setProbe] = useState(null); // null | { poll, post, failed }
+  useEffect(() => {
+    if (!citizen) return undefined;
+    let cancelled = false;
+    Promise.all([
+      fetchSaved({ itemType: 'poll', limit: 1 }),
+      fetchSaved({ itemType: 'post', limit: 1 }),
+    ]).then(([polls, posts]) => {
+      if (cancelled) return;
+      setProbe({
+        poll: polls?.data?.items?.length || 0,
+        post: posts?.data?.items?.length || 0,
+        failed: Boolean(polls?.error || posts?.error),
+      });
+    });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [citizen?.id]);
+
+  if (!citizen) return null;
+  const archived = myPolls?.data ? (myPolls.data.archived || []) : null;
+  if (!probe || (archived === null && !myPolls?.error)) {
+    return <OneLine title="Saved">Loading…</OneLine>;
+  }
+  const nothing = !probe.failed && probe.poll === 0 && probe.post === 0 && archived && archived.length === 0;
+  if (nothing) {
+    return (
+      <OneLine title="Saved">
+        Nothing saved yet. Choose Save from the ⋮ menu on any post or poll to keep it here.
+      </OneLine>
+    );
+  }
+  const initialTab = probe.poll > 0 ? 'poll' : probe.post > 0 ? 'post' : (archived && archived.length ? 'archived' : 'poll');
+  return (
+    <SavedShelf
+      citizen={citizen}
+      onOpenPage={onOpenPage}
+      initialTab={initialTab}
+      archived={archived}
+      archError={myPolls?.error || null}
+    />
+  );
+}
+
+function SavedShelf({ citizen, onOpenPage, initialTab, archived, archError }) {
+  const [tab, setTab] = useState(initialTab);           // 'poll' | 'post' | 'archived'
   // Saved (poll/post) state
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -1725,10 +1506,6 @@ function SavedSection({ citizen, onOpenPage }) {
   const [savedCursor, setSavedCursor] = useState(null);
   const [hasMore, setHasMore] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
-  // Archived state (loaded lazily on first Archived-tab open)
-  const [archived, setArchived] = useState(null);
-  const [archLoading, setArchLoading] = useState(false);
-  const [archError, setArchError] = useState(null);
   // Shared
   const [expandedId, setExpandedId] = useState(null);
   const [openCommentId, setOpenCommentId] = useState(null);
@@ -1759,19 +1536,9 @@ function SavedSection({ citizen, onOpenPage }) {
     setLoading(false);
   }, [citizen?.id, tab, _cardsForRefs]);
 
-  const loadArchived = useCallback(async () => {
-    if (!citizen) return;
-    setArchLoading(true); setArchError(null);
-    const { data, error: e } = await fetchMyCitizenPolls({ status: 'all' });
-    if (e) { setArchError(e); setArchLoading(false); return; }
-    setArchived(data?.archived || []);
-    setArchLoading(false);
-  }, [citizen?.id]);
-
   useEffect(() => {
     setExpandedId(null);
-    if (tab === 'archived') { if (archived === null) loadArchived(); }
-    else { loadSaved(); }
+    if (tab !== 'archived') loadSaved();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab, citizen?.id]);
 
@@ -1809,8 +1576,8 @@ function SavedSection({ citizen, onOpenPage }) {
   const archivedCount = archived ? archived.length : null;
 
   return (
-    <section>
-      <SectionHeader eyebrow="Saved & archived" rightLabel="Bookmarks and your archived polls" />
+    <section aria-labelledby="cvd-saved-title">
+      <SectionHeader id="cvd-saved-title" title="Saved" meta="Bookmarks and your archived polls" />
 
       <div style={savedTabRowStyle} role="tablist" aria-label="Saved and archived filter">
         {SAVED_TABS.map((t) => {
@@ -1864,12 +1631,9 @@ function SavedSection({ citizen, onOpenPage }) {
           {loading && <div style={savedMutedStyle}>Loading your saved {tab === 'post' ? 'posts' : 'polls'}…</div>}
           {error && !loading && <div style={{ color: '#c33333', fontSize: 'var(--cl-text-sm)' }}>Couldn't load: {error}</div>}
           {!loading && !error && items && items.length === 0 && (
-            <EmptyState
-              icon={<ChatCircleDots size={36} color="default" />}
-              headline={tab === 'post' ? 'No saved posts yet' : 'No saved polls yet'}
-              body={'Tap the ⋮ menu on any post or poll and choose Save. Your bookmarks collect here so you can find them later.'}
-              dense
-            />
+            <div className="cvd-empty">
+              {tab === 'post' ? 'No saved posts yet.' : 'No saved polls yet.'} Choose Save from the ⋮ menu on any post or poll.
+            </div>
           )}
           {!loading && !error && items && items.length > 0 && (
             <>
@@ -1903,17 +1667,14 @@ function SavedSection({ citizen, onOpenPage }) {
 
       {tab === 'archived' && (
         <>
-          {archLoading && <div style={savedMutedStyle}>Loading your archived polls…</div>}
-          {archError && !archLoading && <div style={{ color: '#c33333', fontSize: 'var(--cl-text-sm)' }}>Couldn't load: {archError}</div>}
-          {!archLoading && !archError && archived && archived.length === 0 && (
-            <EmptyState
-              icon={<ChatCircleDots size={36} color="default" />}
-              headline="Nothing in the archive"
-              body="When you close a poll — or a rep claims the page where you posted one — it shows up here."
-              dense
-            />
+          {archived === null && !archError && <div style={savedMutedStyle}>Loading your archived polls…</div>}
+          {archError && <div style={{ color: '#c33333', fontSize: 'var(--cl-text-sm)' }}>Couldn't load: {archError}</div>}
+          {!archError && archived && archived.length === 0 && (
+            <div className="cvd-empty">
+              Nothing in the archive. When you close a poll, or a rep claims the page where you posted one, it shows up here.
+            </div>
           )}
-          {!archLoading && !archError && archived && archived.length > 0 && (
+          {!archError && archived && archived.length > 0 && (
             <div style={SHELF_STYLE}>
               <div style={savedGridStyle}>
                 {archived.map((poll) => {
@@ -1959,35 +1720,44 @@ const savedCloseBtn = {
 };
 
 
-function MyPollsSection({ citizen, onOpenPage }) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [pendingClose, setPendingClose] = useState(null); // poll id
-
-  const reload = async () => {
-    setLoading(true);
-    setError(null);
-    const { data: d, error: e } = await fetchMyCitizenPolls({ status: 'all' });
-    if (e) {
-      setError(e);
-      setLoading(false);
-      return;
-    }
-    setData(d);
-    setLoading(false);
-  };
-
+// The citizen's own polls are loaded once for the Overview (2026-10-26):
+// My polls lists the active ones and Saved's Archived tab the archived
+// ones, so the two no longer fetch the same list separately.
+function useMyCitizenPolls(enabled) {
+  const [state, setState] = useState({ data: null, error: null, loading: true });
+  const reload = useCallback(async () => {
+    setState((s) => ({ ...s, loading: true, error: null }));
+    const { data, error } = await fetchMyCitizenPolls({ status: 'all' });
+    setState({ data: error ? null : (data || { active: [], archived: [] }), error: error || null, loading: false });
+  }, []);
   useEffect(() => {
-    if (!citizen) return;
-    reload();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [citizen?.id]);
+    if (enabled) reload();
+  }, [enabled, reload]);
+  return { ...state, reload };
+}
+
+// My polls shrinks to one line when there is no active poll (2026-10-26).
+function MyPollsSection({ citizen, onOpenPage, myPolls }) {
+  const [pendingClose, setPendingClose] = useState(null); // poll id
 
   if (!citizen) return null;
 
+  const { data, error, loading, reload } = myPolls || {};
+  if (!data && !error) {
+    return <OneLine title="My polls">Loading…</OneLine>;
+  }
+  if (error && !data) {
+    return <OneLine title="My polls">Couldn&rsquo;t load your polls: {error}</OneLine>;
+  }
+
   const active = data?.active || [];
-  const visible = active;
+  if (active.length === 0) {
+    return (
+      <OneLine title="My polls">
+        No active polls. You can start one on any rep page that hasn&rsquo;t been claimed yet.
+      </OneLine>
+    );
+  }
 
   const handleClose = async (poll) => {
     if (!window.confirm("Close this poll? It'll move to your Archived list and you can post a new poll on this page.")) return;
@@ -2002,45 +1772,34 @@ function MyPollsSection({ citizen, onOpenPage }) {
   };
 
   return (
-    <section>
+    <section aria-labelledby="cvd-mypolls-title">
       <SectionHeader
-        eyebrow="My polls"
-        rightLabel="Your active polls on rep pages"
+        id="cvd-mypolls-title"
+        title="My polls"
+        meta={loading ? 'Updating…' : 'Your active polls on rep pages'}
       />
-
-      {loading && (
-        <div style={{ color: 'var(--cl-text-light)', fontSize: 'var(--cl-text-sm)' }}>
-          Loading your polls…
-        </div>
-      )}
-      {error && !loading && (
-        <div style={{ color: '#c33333', fontSize: 'var(--cl-text-sm)' }}>
-          Couldn't load: {error}
-        </div>
-      )}
-      {!loading && !error && visible.length === 0 && (
-        <EmptyState
-          icon={<ChatCircleDots size={36} color="default" />}
-          headline="You haven't started a poll yet"
-          body="Find a rep whose page is unclaimed and start a poll on it. Your polls live there until the rep joins CivicView. Closed and archived polls move to your Saved & archived section below."
-          dense
-        />
-      )}
-      {!loading && !error && visible.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {visible.map((poll) => (
-            <MyPollRow
-              key={poll.id}
-              poll={poll}
-              filter="active"
-              busy={pendingClose === poll.id}
-              onClose={() => handleClose(poll)}
-              onOpenPage={onOpenPage}
-            />
-          ))}
-        </div>
-      )}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {active.map((poll) => (
+          <MyPollRow
+            key={poll.id}
+            poll={poll}
+            filter="active"
+            busy={pendingClose === poll.id}
+            onClose={() => handleClose(poll)}
+            onOpenPage={onOpenPage}
+          />
+        ))}
+      </div>
     </section>
+  );
+}
+
+function OneLine({ title, children }) {
+  return (
+    <div className="cvd-line">
+      <span className="cvd-line__title">{title}</span>
+      <span>{children}</span>
+    </div>
   );
 }
 
@@ -2159,12 +1918,14 @@ const myPollSecondaryBtn = {
 };
 
 // ─────────────────────────────────────────────────────────────────
-// Followed spotlights (Overview) — one featured item per category,
-// each with its latest updates. Picks come from the account-synced
-// featuredTracked store, set via the star toggle on the Manage
-// Tracked tab. No pick → an empty state that points there.
+// Following (Overview): the one representative, candidate, election and
+// bill starred on the Following tab, as compact cards, two across on
+// desktop, under one Manage link (2026-10-26 redesign; before, each was
+// a full-width block with its own "Manage tracked" link). Picks come
+// from the account-synced featuredTracked store. No pick, a short note
+// that points to the Following tab.
 // ─────────────────────────────────────────────────────────────────
-function FollowedSpotlights({ onManage, onOpenOfficial }) {
+function FollowedGrid({ onManage, onOpenOfficial }) {
   const { list: officials } = useTrackedOfficials();
   const { list: bills } = useTrackedBills();
   const { list: elections } = useTrackedElections();
@@ -2180,208 +1941,178 @@ function FollowedSpotlights({ onManage, onOpenOfficial }) {
   const election = find(elections, featured.election);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-      <OfficialSpotlight eyebrow="Followed representatives" kind="representative" official={rep} onManage={onManage} onOpen={onOpenOfficial} />
-      <OfficialSpotlight eyebrow="Followed candidates" kind="candidate" official={can} onManage={onManage} onOpen={onOpenOfficial} />
-      <ElectionSpotlight election={election} onManage={onManage} />
-      <BillSpotlight bill={bill} onManage={onManage} />
-    </div>
+    <section aria-labelledby="cvd-following-title">
+      <SectionHeader
+        id="cvd-following-title"
+        title="Following"
+        meta="Your starred picks"
+        action={onManage ? { label: 'Manage', onClick: onManage } : null}
+      />
+      <div className="cvd-follow">
+        <OfficialCard kind="representative" official={rep} onOpen={onOpenOfficial} />
+        <OfficialCard kind="candidate" official={can} onOpen={onOpenOfficial} />
+        <ElectionCard election={election} />
+        <BillCard bill={bill} />
+      </div>
+    </section>
   );
 }
 
-const SPOTLIGHT_CARD = {
-  background: 'var(--cl-card)', border: '1px solid var(--cl-border)',
-  borderRadius: 'var(--cl-radius-xl)', padding: 16,
+const FOLLOW_KIND_LABEL = {
+  representative: 'Representative',
+  candidate: 'Candidate',
+  election: 'Election',
+  bill: 'Bill',
 };
 
-function SpotlightEmpty({ body, onManage }) {
+function FollowEmpty({ kind }) {
+  const what = kind === 'election' ? 'an election' : `a ${kind}`;
   return (
-    <EmptyState
-      icon={<Newspaper size={32} color="muted" />}
-      headline="Nothing pinned yet"
-      body={body}
-      cta={onManage ? { label: 'Open Manage Tracked →', onClick: onManage } : null}
-      tone="muted"
-      dense
-    />
-  );
-}
-
-function SpotlightMuted({ children }) {
-  return <div style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text-light)' }}>{children}</div>;
-}
-
-function SpotlightInfo({ label, value }) {
-  return (
-    <div style={{ display: 'flex', gap: 8, fontSize: 'var(--cl-text-sm)' }}>
-      <span style={{ color: 'var(--cl-text-light)', minWidth: 96, fontWeight: 600 }}>{label}</span>
-      <span style={{ color: 'var(--cl-text)', flex: 1, minWidth: 0 }}>{value}</span>
+    <div className="cvd-fcard is-empty">
+      <div className="cvd-fcard__kind">{FOLLOW_KIND_LABEL[kind]}</div>
+      <p className="cvd-fcard__text">
+        Nothing featured yet. Star {what} on the Following tab to see
+        {kind === 'bill' ? ' its latest status' : kind === 'election' ? ' its countdown' : ' their latest posts'} here.
+      </p>
     </div>
   );
 }
 
-function OfficialSpotlight({ eyebrow, kind, official, onManage, onOpen }) {
+function OfficialCard({ kind, official, onOpen }) {
   const [posts, setPosts] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!official) { setPosts(null); return undefined; }
     const id = official.id || official.bioguide_id || official.key;
     if (!id) { setPosts([]); return undefined; }
     let cancelled = false;
-    setLoading(true);
-    fetchPagePosts(id, { limit: 3 })
-      .then(({ data }) => { if (!cancelled) { setPosts((data?.items || []).slice(0, 3)); setLoading(false); } })
-      .catch(() => { if (!cancelled) { setPosts([]); setLoading(false); } });
+    setPosts(null);
+    fetchPagePosts(id, { limit: 2 })
+      .then(({ data }) => { if (!cancelled) setPosts((data?.items || []).slice(0, 2)); })
+      .catch(() => { if (!cancelled) setPosts([]); });
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [official ? official.key : null]);
 
-  const partyKey = dashboardPartyKey(official?.party);
-  const open = () => { if (onOpen && official) onOpen(official); };
+  if (!official) return <FollowEmpty kind={kind} />;
+
+  const partyKey = dashboardPartyKey(official.party);
+  const open = onOpen ? () => onOpen(official) : null;
+  const sub = [
+    official.title || official.role || '',
+    official.state || '',
+    official.district ? `Dist. ${official.district}` : '',
+  ].filter(Boolean).join(' · ');
+  const Who = open ? 'button' : 'div';
 
   return (
-    <section>
-      <SectionHeader eyebrow={eyebrow} action={official ? { label: 'Manage tracked →', onClick: onManage } : null} />
-      {!official ? (
-        <SpotlightEmpty
-          body={`Star a ${kind === 'candidate' ? 'candidate' : 'representative'} on the Manage Tracked tab to feature their latest posts here.`}
-          onManage={onManage}
-        />
-      ) : (
-        <div style={SPOTLIGHT_CARD}>
-          <div
-            role={onOpen ? 'button' : undefined}
-            onClick={open}
-            tabIndex={onOpen ? 0 : undefined}
-            onKeyDown={onOpen ? activateOnKey(open) : undefined}
-            style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: onOpen ? 'pointer' : 'default' }}
-          >
-            <Avatar name={official.name} party={avatarParty(partyKey)} size="md" />
-            <div style={{ minWidth: 0, flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 'var(--cl-text-md)', fontWeight: 700, color: 'var(--cl-text)' }}>
-                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{official.name}</span>
-                {partyKey && <PartyChip party={partyKey} size="xs" />}
-              </div>
-              <div style={{ fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-light)', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {(official.title || official.role || '')}
-                {official.state ? ` · ${official.state}` : ''}
-                {official.district ? ` · Dist. ${official.district}` : ''}
-              </div>
-            </div>
-            {onOpen && <ArrowRight size={14} color="muted" />}
+    <div className="cvd-fcard">
+      <div className="cvd-fcard__kind">{FOLLOW_KIND_LABEL[kind]}</div>
+      <Who
+        className="cvd-fcard__who"
+        {...(open ? { type: 'button', onClick: open, 'aria-label': `Open ${official.name}'s page` } : {})}
+      >
+        <Avatar name={official.name} party={avatarParty(partyKey)} size="md" />
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div className="cvd-fcard__name">
+            <span>{official.name}</span>
+            {partyKey && <PartyChip party={partyKey} size="xs" />}
           </div>
-
-          <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div className="cl-eyebrow" style={{ color: 'var(--cl-text-light)' }}>Latest posts</div>
-            {loading && <SpotlightMuted>Loading latest…</SpotlightMuted>}
-            {!loading && posts && posts.length === 0 && (
-              <SpotlightMuted>No recent posts yet. Open their page for the latest.</SpotlightMuted>
-            )}
-            {!loading && posts && posts.map((p) => (
-              <SpotlightUpdate key={p.id} text={p.body || p.question || '(no text)'} whenIso={p.created_at} onClick={open} />
-            ))}
-          </div>
+          {sub && <div className="cvd-fcard__sub">{sub}</div>}
+        </div>
+        {open && <ArrowRight size={14} color="muted" />}
+      </Who>
+      {posts === null && <p className="cvd-fcard__text">Loading latest posts…</p>}
+      {posts && posts.length === 0 && (
+        <p className="cvd-fcard__text">No recent posts yet. Open their page for the latest.</p>
+      )}
+      {posts && posts.length > 0 && (
+        <div className="cvd-posts">
+          {posts.map((p) => {
+            const Tag = open ? 'button' : 'div';
+            return (
+              <Tag key={p.id} className="cvd-post" {...(open ? { type: 'button', onClick: open } : {})}>
+                <div className="cvd-post__text">{p.body || p.question || '(no text)'}</div>
+                {p.created_at && <div className="cvd-post__when">{timeAgo(p.created_at)}</div>}
+              </Tag>
+            );
+          })}
         </div>
       )}
-    </section>
+    </div>
   );
 }
 
-function SpotlightUpdate({ text, whenIso, onClick }) {
+function BillCard({ bill }) {
+  // Likes by state / district use the viewer's own geography.
+  const viewerGeo = useViewerGeo();
+  if (!bill) return <FollowEmpty kind="bill" />;
   return (
-    <div
-      role={onClick ? 'button' : undefined}
-      onClick={onClick}
-      onKeyDown={onClick ? activateOnKey(onClick) : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      style={{
-        display: 'flex', gap: 10, padding: '8px 10px',
-        background: 'var(--cl-bg-soft)', borderRadius: 'var(--cl-radius-md)',
-        cursor: onClick ? 'pointer' : 'default',
-      }}
-    >
-      <Newspaper size={14} active color="accent" />
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 'var(--cl-text-sm)', color: 'var(--cl-text)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-          {text}
-        </div>
-        {whenIso && <div style={{ fontSize: 'var(--cl-text-2xs)', color: 'var(--cl-text-muted)', marginTop: 2 }}>{timeAgo(whenIso)}</div>}
+    <div className="cvd-fcard">
+      <div className="cvd-fcard__kind">{FOLLOW_KIND_LABEL.bill}</div>
+      <div className="cvd-fcard__name" style={{ display: 'block' }}>
+        <span className="cvd-clamp2" style={{ whiteSpace: 'normal' }}>
+          {bill.citation ? <span style={{ color: 'var(--cl-accent)' }}>{bill.citation} · </span> : null}
+          {bill.title || 'Untitled bill'}
+        </span>
+      </div>
+      <p className="cvd-fcard__text">
+        {bill.latest_action ? (
+          <>
+            <strong>Latest action:</strong> {bill.latest_action}
+            {bill.latest_action_date ? ` (${bill.latest_action_date})` : ''}
+          </>
+        ) : (
+          'No recent action recorded. Use "Check for updates" on the Following tab.'
+        )}
+      </p>
+      {bill.sponsor_name && (
+        <p className="cvd-fcard__text"><strong>Sponsor:</strong> {bill.sponsor_name}</p>
+      )}
+      <div className="cvd-fcard__foot">
+        {bill.url ? (
+          <a className="cvd-link cvd-link--plain" href={bill.url} target="_blank" rel="noopener noreferrer">
+            View on Congress.gov <ArrowRight size={12} color="accent" />
+          </a>
+        ) : <span />}
+        <BillReactions billKey={bill.key} geo={viewerGeo} scopeSwitch />
       </div>
     </div>
   );
 }
 
-function BillSpotlight({ bill, onManage }) {
-  // Likes by state / district use the viewer's own geography.
-  const viewerGeo = useViewerGeo();
-  return (
-    <section>
-      <SectionHeader eyebrow="Followed bills" action={bill ? { label: 'Manage tracked →', onClick: onManage } : null} />
-      {!bill ? (
-        <SpotlightEmpty body="Star a bill on the Manage Tracked tab to follow its latest status here." onManage={onManage} />
-      ) : (
-        <div style={SPOTLIGHT_CARD}>
-          <div style={{ fontSize: 'var(--cl-text-md)', fontWeight: 700, color: 'var(--cl-text)' }}>
-            {bill.citation ? <span style={{ color: 'var(--cl-accent)' }}>{bill.citation} · </span> : null}
-            {bill.title || 'Untitled bill'}
-          </div>
-          <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {bill.latest_action ? (
-              <SpotlightInfo label="Latest action" value={`${bill.latest_action}${bill.latest_action_date ? ` (${bill.latest_action_date})` : ''}`} />
-            ) : (
-              <SpotlightMuted>No recent action recorded. Use "Check for updates" on Manage Tracked.</SpotlightMuted>
-            )}
-            {bill.policy_area && <SpotlightInfo label="Policy area" value={bill.policy_area} />}
-            {bill.sponsor_name && <SpotlightInfo label="Sponsor" value={bill.sponsor_name} />}
-          </div>
-          <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap' }}>
-            {bill.url ? (
-              <a href={bill.url} target="_blank" rel="noopener noreferrer"
-                style={{ color: 'var(--cl-accent)', textDecoration: 'none', fontWeight: 600, fontSize: 'var(--cl-text-sm)' }}>
-                View on Congress.gov →
-              </a>
-            ) : <span />}
-            <BillReactions billKey={bill.key} geo={viewerGeo} scopeSwitch />
-          </div>
-        </div>
-      )}
-    </section>
-  );
-}
-
-function ElectionSpotlight({ election, onManage }) {
-  const date = election?.date ? new Date(election.date + 'T00:00:00') : null;
+function ElectionCard({ election }) {
+  if (!election) return <FollowEmpty kind="election" />;
+  const date = election.date ? new Date(election.date + 'T00:00:00') : null;
   const days = date ? daysUntil(date) : null;
+  const where = [election.state, election.district ? `Dist. ${election.district}` : null].filter(Boolean).join(' · ');
   return (
-    <section>
-      <SectionHeader eyebrow="Followed elections" action={election ? { label: 'Manage tracked →', onClick: onManage } : null} />
-      {!election ? (
-        <SpotlightEmpty body="Star an election on the Manage Tracked tab to see its countdown and details here." onManage={onManage} />
-      ) : (
-        <div style={SPOTLIGHT_CARD}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <CalendarCheck size={20} active color="accent" />
-            <div style={{ minWidth: 0, flex: 1 }}>
-              <div style={{ fontSize: 'var(--cl-text-md)', fontWeight: 700, color: 'var(--cl-text)' }}>
-                {election.name || election.office || 'Election'}
-              </div>
-              {date && (
-                <div style={{ fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-light)', marginTop: 2 }}>
-                  {formatLongDate(date)}{days != null ? ` · ${days} ${days === 1 ? 'day' : 'days'} away` : ''}
-                </div>
-              )}
+    <div className="cvd-fcard">
+      <div className="cvd-fcard__kind">{FOLLOW_KIND_LABEL.election}</div>
+      <div className="cvd-fcard__who">
+        <span className="cvd-row__icon"><CalendarCheck size={18} color="accent" /></span>
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div className="cvd-fcard__name" style={{ display: 'block' }}>
+            <span className="cvd-clamp2" style={{ whiteSpace: 'normal' }}>
+              {election.name || election.office || 'Election'}
+            </span>
+          </div>
+          {date && (
+            <div className="cvd-fcard__sub">
+              {formatLongDate(date)}{days != null ? ` · ${days} ${days === 1 ? 'day' : 'days'} away` : ''}
             </div>
-          </div>
-          <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {election.office && <SpotlightInfo label="Office" value={election.office} />}
-            {(election.state || election.district) && (
-              <SpotlightInfo label="Where" value={[election.state, election.district ? `Dist. ${election.district}` : null].filter(Boolean).join(' · ')} />
-            )}
-            {election.candidates_count ? <SpotlightInfo label="Candidates" value={`${election.candidates_count}`} /> : null}
-          </div>
+          )}
         </div>
-      )}
-    </section>
+      </div>
+      {(election.office || where || election.candidates_count) ? (
+        <p className="cvd-fcard__text">
+          {[
+            election.office ? <span key="o"><strong>Office:</strong> {election.office}</span> : null,
+            where ? <span key="w"><strong>Where:</strong> {where}</span> : null,
+            election.candidates_count ? <span key="c"><strong>Candidates:</strong> {election.candidates_count}</span> : null,
+          ].filter(Boolean).reduce((acc, el, i) => (i ? [...acc, ' · ', el] : [el]), [])}
+        </p>
+      ) : null}
+    </div>
   );
 }
