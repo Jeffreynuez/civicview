@@ -623,10 +623,16 @@ class AdminAppealRow(BaseModel):
     acted_at: Optional[datetime] = None
     decision: Optional[str] = None
     admin_note: Optional[str] = None
+    # Who decided it (2026-10-26). Stored since appeals shipped, never
+    # sent to the page until now.
+    admin_email: Optional[str] = None
 
 
 class AdminAppealListResponse(BaseModel):
     items: List[AdminAppealRow]
+    # Whole-queue numbers for the tiles, whatever include_acted says
+    # (2026-10-26): pending, granted_week, denied_week.
+    counts: dict = {}
 
 
 def _appellant_label(db: Session, kind: str, account_id: int) -> tuple[str, str]:
@@ -702,8 +708,16 @@ def list_appeals(
             acted_at=r.acted_at,
             decision=r.decision,
             admin_note=r.admin_note,
+            admin_email=r.admin_email,
         ))
-    return AdminAppealListResponse(items=out)
+    from datetime import timedelta
+    week_ago = datetime.utcnow() - timedelta(days=7)
+    counts = {
+        "pending": db.query(Appeal).filter(Appeal.acted_at.is_(None)).count(),
+        "granted_week": db.query(Appeal).filter(Appeal.decision == "granted", Appeal.acted_at >= week_ago).count(),
+        "denied_week": db.query(Appeal).filter(Appeal.decision == "denied", Appeal.acted_at >= week_ago).count(),
+    }
+    return AdminAppealListResponse(items=out, counts=counts)
 
 
 class AdminAppealDecisionPayload(BaseModel):
@@ -765,7 +779,13 @@ def _decide_appeal(
     bg_tasks: BackgroundTasks,
 ) -> AdminAppealDecisionResult:
     """Shared core for grant + deny. Sets acted_at, decision, admin_email,
-    admin_note. Grant additionally tries to restore the target."""
+    admin_note. Grant additionally tries to restore the target. A denial
+    needs a note (the appellant reads it); both are saved to the admin
+    History."""
+    from app.services import admin_actions
+
+    if decision == "denied":
+        admin_note = admin_actions.require_reason(admin_note, "denial")
     appeal = db.get(Appeal, appeal_id)
     if appeal is None:
         raise HTTPException(status_code=404, detail="Appeal not found.")
@@ -790,6 +810,13 @@ def _decide_appeal(
     appeal.admin_email = actor["email"]
     if admin_note:
         appeal.admin_note = admin_note.strip()[:1000]
+    appellant_name, _email = _appellant_label(db, appeal.appellant_kind, appeal.appellant_id)
+    admin_actions.record(
+        db, actor, "appeal_grant" if decision == "granted" else "appeal_deny",
+        target_kind=appeal.target_kind, target_id=appeal.target_id,
+        target_label=appellant_name, reason=appeal.admin_note,
+        details={"appeal_id": appeal.id, "restored": restored},
+    )
     db.commit()
     logger.warning(
         "Admin %s %s appeal id=%d (target_restored=%s).",

@@ -106,7 +106,10 @@ const MODE_SHOWING_RECOVERY_CODES = 'showing-recovery-codes';
 const MODE_DISABLING = 'disabling';
 const MODE_REGENERATING = 'regenerating';
 
-export default function TwoFactorSection({ onClose }) {
+// `accountKind` ('citizen' | 'rep' | 'candidate') names the account this
+// panel manages. Leave it unset to let the server pick (rep, then
+// candidate, then citizen). The admin enrollment overlay sets it.
+export default function TwoFactorSection({ onClose, accountKind }) {
   const [status, setStatus] = useState(null);
   const [statusLoading, setStatusLoading] = useState(true);
   const [statusError, setStatusError] = useState(null);
@@ -135,7 +138,7 @@ export default function TwoFactorSection({ onClose }) {
   const reload = useCallback(async () => {
     setStatusLoading(true);
     setStatusError(null);
-    const { data, error } = await fetchTwoFactorStatus();
+    const { data, error } = await fetchTwoFactorStatus(accountKind);
     if (error) {
       setStatusError(error);
       setStatus(null);
@@ -143,7 +146,7 @@ export default function TwoFactorSection({ onClose }) {
       setStatus(data);
     }
     setStatusLoading(false);
-  }, []);
+  }, [accountKind]);
 
   useEffect(() => { reload(); }, [reload]);
 
@@ -202,7 +205,7 @@ export default function TwoFactorSection({ onClose }) {
   async function handleStartEnrollment() {
     setBusy(true);
     setFlashError(null);
-    const { data, error } = await startEnrollment();
+    const { data, error } = await startEnrollment(accountKind);
     if (error) {
       setFlashError(error);
       setBusy(false);
@@ -222,7 +225,7 @@ export default function TwoFactorSection({ onClose }) {
     }
     setBusy(true);
     setFlashError(null);
-    const { data, error } = await verifyEnrollment(pendingToken, code.trim());
+    const { data, error } = await verifyEnrollment(pendingToken, code.trim(), accountKind);
     setBusy(false);
     if (error) {
       setFlashError(error);
@@ -246,7 +249,7 @@ export default function TwoFactorSection({ onClose }) {
     }
     setBusy(true);
     setFlashError(null);
-    const { error } = await disableTwoFactor(code.trim());
+    const { error } = await disableTwoFactor(code.trim(), accountKind);
     setBusy(false);
     if (error) {
       setFlashError(error);
@@ -264,7 +267,7 @@ export default function TwoFactorSection({ onClose }) {
     }
     setBusy(true);
     setFlashError(null);
-    const { data, error } = await regenerateRecoveryCodes(code.trim());
+    const { data, error } = await regenerateRecoveryCodes(code.trim(), accountKind);
     setBusy(false);
     if (error) {
       setFlashError(error);
@@ -413,7 +416,7 @@ export default function TwoFactorSection({ onClose }) {
         />
       )}
 
-      {mode === MODE_IDLE && <SignOutEverywhere />}
+      {mode === MODE_IDLE && <SignOutEverywhere accountKind={accountKind} />}
 
       {/* Enrollment step 1 — show QR + secret, prompt for code */}
       {mode === MODE_ENROLLING && (
@@ -538,14 +541,14 @@ function StatusPanel({ status, onEnable, onDisable, onRegenerate, busy, flashErr
 // "Sign out of all devices": revokes every session of this account,
 // including this one, then reloads so the app drops the dead session.
 // Two clicks (ask, then confirm) because it signs this device out too.
-function SignOutEverywhere() {
+function SignOutEverywhere({ accountKind }) {
   const [confirming, setConfirming] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
 
   const run = async () => {
     setBusy(true); setErr(null);
-    const { data, error } = await signOutEverywhere();
+    const { data, error } = await signOutEverywhere(accountKind);
     if (error) { setErr(error); setBusy(false); return; }
     const clear = {
       rep: setStoredRepToken,

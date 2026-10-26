@@ -222,7 +222,9 @@ knows the integration isn't live yet.
 - **TOTP 2FA** (Task #62): pyotp for codes, Fernet for at-rest secret
   encryption keyed off `SESSION_SECRET` via HKDF. Recovery codes
   bcrypt-hashed. **Enforced** at first login for rep / candidate / admin
-  identities when `FORCE_2FA_ENABLED=1` (citizens opt-in).
+  identities when `FORCE_2FA_ENABLED=1` (citizens opt-in). Admin access
+  always needs 2FA on the admin account, whatever that flag says;
+  `ADMIN_2FA_REQUIRED=false` turns that off for local development.
 - **Password reset** (Task #87): single-use sha256-hashed tokens with
   1-hour TTL, sent via Postmark. Anti-enumeration on the request endpoint
   (always 200 regardless of email match). Confirmation email sent after

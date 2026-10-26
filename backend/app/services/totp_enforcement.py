@@ -73,3 +73,29 @@ def requires_2fa_enrollment(account_kind: str, account: Any) -> bool:
     # `totp_enabled_at` is a nullable timestamp; any non-None value
     # means the account finished enrollment at least once.
     return getattr(account, "totp_enabled_at", None) is None
+
+
+# Values that turn ADMIN_2FA_REQUIRED off. Anything else, including
+# unset, leaves it on: admin is the highest-blast-radius identity, so
+# the safe default is to require a second factor (admin audit
+# 2026-10-25, finding M6).
+_FALSY = {"0", "false", "no", "off"}
+
+
+def admin_2fa_required() -> bool:
+    """Admin access needs 2FA unless ADMIN_2FA_REQUIRED is set to a
+    false value. Independent of FORCE_2FA_ENABLED, which still governs
+    reps and candidates. Turn it off only for local development or to
+    recover from a lost authenticator with no recovery codes left."""
+    val = (os.getenv("ADMIN_2FA_REQUIRED") or "").strip().lower()
+    return val not in _FALSY
+
+
+def admin_needs_2fa(account: Any) -> bool:
+    """True when this admin account must finish 2FA enrollment before
+    any admin endpoint other than /api/admin/whoami will answer."""
+    if account is None:
+        return False
+    if not admin_2fa_required() and not force_2fa_enabled():
+        return False
+    return getattr(account, "totp_enabled_at", None) is None

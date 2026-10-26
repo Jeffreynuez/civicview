@@ -34,7 +34,7 @@
  * /Design Exports/civicview-admin-moderation-page/. Styles live in
  * ./admin.css.
  */
-import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { Suspense, useCallback, useEffect, useId, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -58,9 +58,10 @@ import HScroll from '@/components/HScroll';
 import TransitionsTab from '@/components/admin/TransitionsTab';
 import ElectionRemindersTab from '@/components/admin/ElectionRemindersTab';
 import AdminTestPush from '@/components/admin/AdminTestPush';
+import HistoryTab from '@/components/admin/HistoryTab';
 import { serverDate, serverMs } from '@/lib/serverTime';
 
-const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions', 'reminders']);
+const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions', 'reminders', 'history']);
 
 // Human-friendly type labels and icon classes — keep in sync with the
 // backend ReportKind literal.
@@ -225,7 +226,10 @@ function AdminPageInner() {
   const [includeResolvedQueue, setIncludeResolvedQueue] = useState(false);
   const [kindChip, setKindChip] = useState('all');
   const [reporterChip, setReporterChip] = useState('any');
-  const [autoOnly, setAutoOnly] = useState(false);
+  // Whole-queue numbers from the API (2026-10-26), so the tiles don't
+  // depend on the 200-row cap or on Include resolved.
+  const [reportCounts, setReportCounts] = useState(null);
+  const [appealCounts, setAppealCounts] = useState(null);
 
   const [includeResolvedAppeals, setIncludeResolvedAppeals] = useState(false);
   const [appealTypeChip, setAppealTypeChip] = useState('all'); // 'all' | 'content' | 'suspension'
@@ -248,18 +252,27 @@ function AdminPageInner() {
   // Modal state.
   const [hideModal, setHideModal] = useState(null);
   const [unhideModal, setUnhideModal] = useState(null);
+  const [unlockModal, setUnlockModal] = useState(null);
   const [suspendModal, setSuspendModal] = useState(null);
   const [appealDecisionModal, setAppealDecisionModal] = useState(null); // { appeal, decision }
   const [unsuspendModal, setUnsuspendModal] = useState(null);
   const [busyId, setBusyId] = useState(null);
 
-  // Probe admin auth on first mount.
+  // Probe admin auth on first mount. `probeTick` re-runs it from the
+  // "set up 2FA" card once enrollment is done.
+  const [probeTick, setProbeTick] = useState(0);
   useEffect(() => {
     let cancelled = false;
     (async () => {
       const { data, status, error: err } = await adminWhoami();
       if (cancelled) return;
-      if (status === 200 && data) {
+      if (status === 200 && data?.needs_2fa_enrollment) {
+        // Admin needs 2FA on this account before any admin endpoint
+        // answers (2026-10-26). The enrollment overlay covers the
+        // page; don't load lists that would only come back 403.
+        setMe(data);
+        setAuthState('needs2fa');
+      } else if (status === 200 && data) {
         setMe(data);
         setAuthState('allowed');
       } else if (status === 403) {
@@ -273,7 +286,7 @@ function AdminPageInner() {
       }
     })();
     return () => { cancelled = true; };
-  }, []);
+  }, [probeTick]);
 
   // Loaders — each tab refetches its own data when filters change.
   const loadReports = useCallback(async () => {
@@ -286,6 +299,7 @@ function AdminPageInner() {
       return;
     }
     setReports(data.items || []);
+    if (data.counts) setReportCounts(data.counts);
   }, [includeResolvedQueue]);
 
   const loadAppeals = useCallback(async () => {
@@ -298,6 +312,7 @@ function AdminPageInner() {
       return;
     }
     setAppeals(data.items || []);
+    if (data.counts) setAppealCounts(data.counts);
   }, [includeResolvedAppeals]);
 
   const loadSuspended = useCallback(async () => {
@@ -346,7 +361,9 @@ function AdminPageInner() {
         return;
       }
       setReports(data?.reports?.items || []);
+      if (data?.reports?.counts) setReportCounts(data.reports.counts);
       setAppeals(data?.appeals?.items || []);
+      if (data?.appeals?.counts) setAppealCounts(data.appeals.counts);
       setSuspended(data?.suspended?.items || []);
       setLockouts(data?.lockouts?.items || []);
     })();
@@ -365,6 +382,8 @@ function AdminPageInner() {
   const [transitionCounts, setTransitionCounts] = useState({});
   // Election reminders tab's KPI tiles, reported by the tab itself.
   const [reminderCounts, setReminderCounts] = useState({});
+  // History tab's KPI tiles, reported by the tab itself (2026-10-26).
+  const [historyCounts, setHistoryCounts] = useState({});
 
   const switchTab = (tab) => {
     const next = VALID_TABS.has(tab) ? tab : 'queue';
@@ -374,11 +393,13 @@ function AdminPageInner() {
 
   // Sub-nav badge counts — derived from loaded data.
   const subnavCounts = useMemo(() => ({
-    queue:     reports.filter((r) => reportStatus(r) === 'open').length,
-    appeals:   appeals.filter((a) => appealStatus(a) === 'pending').length,
+    // Everything waiting on a decision, hidden-but-unresolved included,
+    // the same number the navbar badge shows.
+    queue:     reportCounts ? reportCounts.unresolved : reports.filter((r) => !r.acted_at).length,
+    appeals:   appealCounts ? appealCounts.pending : appeals.filter((a) => appealStatus(a) === 'pending').length,
     suspended: suspended.length,
     lockouts: lockouts.length,
-  }), [reports, appeals, suspended, lockouts]);
+  }), [reports, appeals, suspended, lockouts, reportCounts, appealCounts]);
 
   // Action handlers — Dismiss / Unhide stay one-click. Hide / Suspend /
   // Grant / Deny / Unsuspend route through real modals.
@@ -394,20 +415,34 @@ function AdminPageInner() {
     if (reload) await reload();
   };
 
-  const handleHideConfirm = async () => {
+  // Hide and Keep hidden both need a reason; it goes into the admin
+  // History (2026-10-26). Unhide, Unsuspend and Dismiss take one if given.
+  const handleHideConfirm = async ({ reason }) => {
     if (!hideModal) return;
     const r = hideModal;
     const key = `hide-${r.kind}-${r.id}`;
     setHideModal(null);
-    await runAction(key, () => adminHideTarget(r.kind, r.id), loadReports);
+    await runAction(key, () => adminHideTarget(r.kind, r.id, { reason: reason.trim() }), loadReports);
   };
 
-  const handleUnhideConfirm = async () => {
+  const handleUnhideConfirm = async ({ reason } = {}) => {
     if (!unhideModal) return;
     const r = unhideModal;
     const key = `unhide-${r.kind}-${r.id}`;
     setUnhideModal(null);
-    await runAction(key, () => adminUnhideTarget(r.kind, r.target_id), loadReports);
+    await runAction(key, () => adminUnhideTarget(r.kind, r.target_id, { reason: (reason || '').trim() }), loadReports);
+  };
+
+  const handleUnlockConfirm = async ({ reason }) => {
+    if (!unlockModal) return;
+    const row = unlockModal;
+    const key = `unlock-${row.identity_kind}-${row.account_id}`;
+    setUnlockModal(null);
+    await runAction(
+      key,
+      () => adminUnlockAccount(row.identity_kind, row.account_id, { reason: reason.trim() }),
+      loadLockouts,
+    );
   };
 
   const handleSuspendConfirm = async ({ reason }) => {
@@ -437,14 +472,14 @@ function AdminPageInner() {
     );
   };
 
-  const handleUnsuspendConfirm = async (user) => {
+  const handleUnsuspendConfirm = async ({ reason } = {}) => {
     if (!unsuspendModal) return;
-    const u = user || unsuspendModal;
+    const u = unsuspendModal;
     const key = `unsuspend-${u.kind}-${u.id}`;
     setUnsuspendModal(null);
     await runAction(
       key,
-      () => adminUnsuspendUser(u.kind, u.id),
+      () => adminUnsuspendUser(u.kind, u.id, { reason: (reason || '').trim() }),
       async () => { await loadSuspended(); await loadAppeals(); },
     );
   };
@@ -490,6 +525,26 @@ function AdminPageInner() {
     );
   }
 
+  if (authState === 'needs2fa') {
+    return (
+      <div className="ad-root">
+        <div className="ad-access-wrap">
+          <div className="ad-access">
+            <h2 className="ad-access__title">Set up two-factor authentication</h2>
+            <p className="ad-access__body">
+              Admin needs two-factor authentication on{' '}
+              {me?.email ? <span className="ad-access__email">{me.email}</span> : 'this account'}.
+              Finish the setup, then continue.
+            </p>
+            <button type="button" className="ad-access__cta" onClick={() => setProbeTick((n) => n + 1)}>
+              Continue to admin
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (authState === 'denied') {
     return (
       <div className="ad-root">
@@ -523,6 +578,7 @@ function AdminPageInner() {
     lockouts: { crumb: 'Admin · Lockouts', title: 'Account lockouts' },
     transitions: { crumb: 'Admin · Transitions', title: 'Former officials and candidates' },
     reminders: { crumb: 'Admin · Election reminders', title: 'Election reminders preview' },
+    history: { crumb: 'Admin · History', title: 'Admin history' },
   }[activeTab];
 
   // Per-tab KPI strip.
@@ -537,10 +593,12 @@ function AdminPageInner() {
       else if (s === 'hidden') hidden += 1;
       if (r.acted_at && serverMs(r.acted_at) >= weekAgo) resolvedWeek += 1;
     }
+    // Whole-queue numbers from the API when present; the loaded rows
+    // are only the newest 200 and, by default, only unresolved ones.
     kpis = [
-      { label: 'Open reports', value: open, dot: 'open' },
-      { label: 'Hidden content', value: hidden, dot: 'hidden' },
-      { label: 'Resolved this week', value: resolvedWeek, dot: 'resolved' },
+      { label: 'Waiting for a decision', value: reportCounts ? reportCounts.unresolved : open + hidden, dot: 'open' },
+      { label: 'Hidden right now', value: reportCounts ? reportCounts.hidden_items : hidden, dot: 'hidden' },
+      { label: 'Resolved this week', value: reportCounts ? reportCounts.resolved_week : resolvedWeek, dot: 'resolved' },
     ];
   } else if (activeTab === 'appeals') {
     const now = Date.now();
@@ -555,9 +613,9 @@ function AdminPageInner() {
       }
     }
     kpis = [
-      { label: 'Open appeals', value: openA, dot: 'warning' },
-      { label: 'Granted this week', value: grantedWeek, dot: 'success' },
-      { label: 'Denied this week', value: deniedWeek, dot: 'danger' },
+      { label: 'Open appeals', value: appealCounts ? appealCounts.pending : openA, dot: 'warning' },
+      { label: 'Granted this week', value: appealCounts ? appealCounts.granted_week : grantedWeek, dot: 'success' },
+      { label: 'Denied this week', value: appealCounts ? appealCounts.denied_week : deniedWeek, dot: 'danger' },
     ];
   } else if (activeTab === 'suspended') {
     // Suspended — three lightweight tiles.
@@ -582,6 +640,12 @@ function AdminPageInner() {
       { label: 'Sending today', value: reminderCounts.sending || 0, dot: 'warning' },
       { label: 'Scheduled', value: reminderCounts.scheduled || 0, dot: 'success' },
       { label: 'Passed', value: reminderCounts.passed || 0, dot: 'muted' },
+    ];
+  } else if (activeTab === 'history') {
+    kpis = [
+      { label: 'Actions this week', value: historyCounts.week || 0, dot: 'open' },
+      { label: 'Hides and suspensions', value: historyCounts.takedowns || 0, dot: 'danger' },
+      { label: 'Restores', value: historyCounts.restores || 0, dot: 'success' },
     ];
   } else if (activeTab === 'lockouts') {
     // Lockouts — three tiles, parallel to Suspended.
@@ -623,6 +687,7 @@ function AdminPageInner() {
             <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
             <SubNavTab id="transitions" label="Transitions" badge={0} active={activeTab} onClick={switchTab} />
             <SubNavTab id="reminders" label="Election reminders" badge={0} active={activeTab} onClick={switchTab} />
+            <SubNavTab id="history" label="History" badge={0} active={activeTab} onClick={switchTab} />
           </HScroll>
           <Link className="ad-subnav__home" href="/">
             <span aria-hidden="true">←</span> CivicView home
@@ -658,13 +723,12 @@ function AdminPageInner() {
             onKindChip={setKindChip}
             reporterChip={reporterChip}
             onReporterChip={setReporterChip}
-            autoOnly={autoOnly}
-            onAutoOnly={setAutoOnly}
+            counts={reportCounts}
             onRefresh={loadReports}
             onView={openHostingPage}
             onDismiss={(r) => runAction(`dismiss-${r.kind}-${r.id}`, () => adminDismissReport(r.kind, r.id), loadReports)}
             onHide={(r) => setHideModal(r)}
-            onKeepHidden={(r) => runAction(`hide-${r.kind}-${r.id}`, () => adminHideTarget(r.kind, r.id), loadReports)}
+            onKeepHidden={(r) => setHideModal({ ...r, keep: true })}
             onUnhide={(r) => setUnhideModal(r)}
             onSuspend={(r) => setSuspendModal(r)}
           />
@@ -705,6 +769,8 @@ function AdminPageInner() {
         {activeTab === 'transitions' && <TransitionsTab onCounts={setTransitionCounts} />}
 
         {activeTab === 'reminders' && <ElectionRemindersTab onCounts={setReminderCounts} />}
+
+        {activeTab === 'history' && <HistoryTab onCounts={setHistoryCounts} />}
 
         {activeTab === 'lockouts' && (
           <section className="ad-tab-body">
@@ -758,11 +824,7 @@ function AdminPageInner() {
                               type="button"
                               className="ad-btn ad-btn--primary"
                               disabled={busyId === actionId}
-                              onClick={() => runAction(
-                                actionId,
-                                () => adminUnlockAccount(row.identity_kind, row.account_id),
-                                loadLockouts,
-                              )}
+                              onClick={() => setUnlockModal(row)}
                             >
                               {busyId === actionId ? 'Unlocking…' : 'Unlock'}
                             </button>
@@ -783,6 +845,13 @@ function AdminPageInner() {
           row={hideModal}
           onCancel={() => setHideModal(null)}
           onConfirm={handleHideConfirm}
+        />
+      )}
+      {unlockModal && (
+        <UnlockModal
+          row={unlockModal}
+          onCancel={() => setUnlockModal(null)}
+          onConfirm={handleUnlockConfirm}
         />
       )}
       {unhideModal && (
@@ -852,7 +921,6 @@ function KpiTile({ label, value, dotClass }) {
         {label}
       </div>
       <div className="ad-kpi__num cl-num">{value}</div>
-      <div className="ad-kpi__delta ad-kpi__delta--flat">&mdash;</div>
     </div>
   );
 }
@@ -865,16 +933,16 @@ function QueueView({
   includeResolved, onIncludeResolved,
   kindChip, onKindChip,
   reporterChip, onReporterChip,
-  autoOnly, onAutoOnly,
+  counts,
   onRefresh, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend,
 }) {
   const filtered = useMemo(() => {
     let list = reports;
     if (kindChip !== 'all') list = list.filter((r) => r.kind === kindChip);
     if (reporterChip !== 'any') list = list.filter((r) => r.reporter_kind === reporterChip);
-    if (autoOnly) list = list.filter((r) => r.auto_flagged);
     return list;
-  }, [reports, kindChip, reporterChip, autoOnly]);
+  }, [reports, kindChip, reporterChip]);
+  const filtersOn = kindChip !== 'all' || reporterChip !== 'any';
 
   return (
     <>
@@ -885,13 +953,11 @@ function QueueView({
         onKindChip={onKindChip}
         reporterChip={reporterChip}
         onReporterChip={onReporterChip}
-        autoOnly={autoOnly}
-        onAutoOnly={onAutoOnly}
         onRefresh={onRefresh}
         loading={loading}
       />
       {!loading && filtered.length === 0 ? (
-        includeResolved ? <EmptyAll /> : <EmptyOpen />
+        filtersOn ? <EmptyFiltered /> : includeResolved ? <EmptyAll /> : <EmptyOpen />
       ) : mobile ? (
         <CardList
           rows={filtered}
@@ -906,6 +972,8 @@ function QueueView({
       ) : (
         <QueueTable
           rows={filtered}
+          counts={counts}
+          includeResolved={includeResolved}
           busyId={busyId}
           onView={onView}
           onDismiss={onDismiss}
@@ -923,7 +991,6 @@ function QueueFilterRow({
   includeResolved, onIncludeResolved,
   kindChip, onKindChip,
   reporterChip, onReporterChip,
-  autoOnly, onAutoOnly,
   onRefresh, loading,
 }) {
   const kinds = [
@@ -971,23 +1038,7 @@ function QueueFilterRow({
         ))}
       </div>
 
-      <label className="ad-toggle">
-        <input
-          type="checkbox"
-          checked={autoOnly}
-          onChange={(e) => onAutoOnly(e.target.checked)}
-        />
-        <span className="ad-toggle__track" />
-        Auto-flagged only
-      </label>
-
       <div style={{ flex: 1 }} />
-
-      <div className="ad-search">
-        <SearchIcon size={14} />
-        <input placeholder="Search reports…" disabled />
-        <span className="ad-search__stub" title="Backend doesn't index reports yet — shipping with v2">Stub</span>
-      </div>
 
       <button type="button" className="ad-iconbtn" onClick={onRefresh} disabled={loading}>
         <RefreshIcon size={14} />
@@ -997,9 +1048,12 @@ function QueueFilterRow({
   );
 }
 
-function QueueTable({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend }) {
+function QueueTable({ rows, counts, includeResolved, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend }) {
   const open = rows.filter((r) => reportStatus(r) === 'open').length;
   const hidden = rows.filter((r) => reportStatus(r) === 'hidden').length;
+  const loadedUnresolved = rows.filter((r) => !r.acted_at).length;
+  // The API returns the newest 200 rows; say so when there are more.
+  const capped = !includeResolved && counts && counts.unresolved > loadedUnresolved;
   return (
     <div className="ad-tablewrap">
       <div className="ad-tablewrap__count">
@@ -1007,15 +1061,9 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onU
           Showing <strong>{rows.length}</strong> {rows.length === 1 ? 'report' : 'reports'}
           {' · '}<strong>{open}</strong> open
           {' · '}<strong>{hidden}</strong> hidden
+          {capped && <>{' · '}newest {loadedUnresolved} of <strong>{counts.unresolved}</strong> waiting</>}
         </span>
-        <span className="ad-tablewrap__count-actions">
-          <button type="button" className="ad-linkbtn" disabled>
-            Sort: Newest first ↓ <span className="ad-stub" style={{ marginLeft: 4 }}>Stub</span>
-          </button>
-          <button type="button" className="ad-linkbtn" disabled>
-            Density: Compact <span className="ad-stub" style={{ marginLeft: 4 }}>Stub</span>
-          </button>
-        </span>
+        <span className="ad-tablewrap__count-actions">Newest first</span>
       </div>
       <HScroll scrollerClassName="ad-tablewrap__scroll" itemCount={rows.length}>
         <table className="ad-table">
@@ -1066,7 +1114,7 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onU
                       <span className={`ad-cell-reporter__kind ad-cell-reporter__kind--${r.reporter_kind || 'citizen'}`}>
                         {r.reporter_kind === 'rep' ? 'Rep' : 'Citizen'}
                       </span>
-                      {r.auto_flagged && <span className="ad-cell-reporter__autoflag">Auto-flag</span>}
+                      <ReporterTrust r={r} />
                     </div>
                   </td>
                   <td>
@@ -1076,7 +1124,8 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onU
                     </div>
                   </td>
                   <td>
-                    <StatusPill status={status} />
+                    <StatusPill status={status} r={r} />
+                    <TrustedCount r={r} counts={counts} />
                   </td>
                   <td>
                     <RowActions
@@ -1118,7 +1167,7 @@ function CardList({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onUnh
                   <div className="ad-card__type-id">id={r.target_id}</div>
                 </div>
               </div>
-              <StatusPill status={status} />
+              <StatusPill status={status} r={r} />
             </div>
             <div className="ad-card__preview">{r.target_preview || '(empty)'}</div>
             <div className="ad-card__meta">
@@ -1142,9 +1191,7 @@ function CardList({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onUnh
                 <div style={{ fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-light)' }}>
                   {r.reporter_kind === 'rep' ? 'Rep' : 'Citizen'} · {relTime(r.created_at)}
                 </div>
-                {r.auto_flagged && (
-                  <div className="ad-cell-reporter__autoflag" style={{ marginTop: 3 }}>Auto-flag</div>
-                )}
+                <ReporterTrust r={r} />
               </div>
             </div>
             <div className="ad-card__actions">
@@ -1272,8 +1319,35 @@ function RowActions({ r, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhi
   );
 }
 
-function StatusPill({ status }) {
-  const label = status === 'hidden' ? 'Hidden'
+// Who the reporter is, as far as moderation is concerned (2026-10-26):
+// demo accounts are always labeled as demo accounts, and a report from
+// an unverified account goes to the queue but never counts toward
+// auto-hide.
+function ReporterTrust({ r }) {
+  if (r.reporter_is_demo) {
+    return <span className="ad-cell-reporter__demo" title="Demo account: its reports don't count toward auto-hide">Demo account</span>;
+  }
+  if (r.reporter_trusted === false) {
+    return <span className="ad-cell-reporter__unverified" title="Not verified: its reports don't count toward auto-hide">Not verified</span>;
+  }
+  return null;
+}
+
+// Open trusted reports against the auto-hide threshold, for items that
+// are still waiting on a decision.
+function TrustedCount({ r, counts }) {
+  if (r.acted_at || typeof r.target_trusted_reports !== 'number' || !counts?.auto_hide_threshold) return null;
+  const state = targetState(r);
+  if (state !== 'visible' && state !== 'auto_hidden') return null;
+  return (
+    <div className="ad-cell-trusted" title="Open reports from reps and verified citizens; this many hides it automatically">
+      {r.target_trusted_reports} of {counts.auto_hide_threshold} trusted
+    </div>
+  );
+}
+
+function StatusPill({ status, r }) {
+  const label = status === 'hidden' ? (r && targetState(r) === 'auto_hidden' ? 'Auto-hidden' : 'Hidden')
     : status === 'resolved' ? 'Resolved'
     : status === 'removed' ? 'Not public'
     : 'Open';
@@ -1329,11 +1403,7 @@ function AppealsView({
               Showing <strong>{filtered.length}</strong> {filtered.length === 1 ? 'appeal' : 'appeals'}
               {' · '}<strong>{filtered.filter((a) => appealStatus(a) === 'pending').length}</strong> pending
             </span>
-            <span className="ad-tablewrap__count-actions">
-              <button type="button" className="ad-linkbtn" disabled>
-                Sort: Newest first ↓ <span className="ad-stub" style={{ marginLeft: 4 }}>Stub</span>
-              </button>
-            </span>
+            <span className="ad-tablewrap__count-actions">Newest first</span>
           </div>
           {filtered.map((a) => (
             <AppealCard key={a.id} appeal={a} onGrant={onGrant} onDeny={onDeny} />
@@ -1393,12 +1463,6 @@ function AppealsFilterRow({
       </div>
 
       <div style={{ flex: 1 }} />
-
-      <div className="ad-search">
-        <SearchIcon size={14} />
-        <input placeholder="Search appeals…" disabled />
-        <span className="ad-search__stub" title="Backend doesn't index appeals yet">Stub</span>
-      </div>
 
       <button type="button" className="ad-iconbtn" onClick={onRefresh} disabled={loading}>
         <RefreshIcon size={14} />
@@ -1495,8 +1559,9 @@ function AppealCard({ appeal, onGrant, onDeny }) {
             {status === 'granted' ? '✓ Granted' : '✕ Denied'}
           </span>
           <span>{relTime(appeal.acted_at)}</span>
+          {appeal.admin_email && <span>by {appeal.admin_email}</span>}
           {appeal.admin_note && (
-            <span className="ad-appeal__resolved-note">— &ldquo;{appeal.admin_note}&rdquo;</span>
+            <span className="ad-appeal__resolved-note">&ldquo;{appeal.admin_note}&rdquo;</span>
           )}
         </footer>
       )}
@@ -1607,12 +1672,6 @@ function SuspendedFilterRow({ kindChip, onKindChip, sort, onSort, onRefresh, loa
       </div>
 
       <div style={{ flex: 1 }} />
-
-      <div className="ad-search">
-        <SearchIcon size={14} />
-        <input placeholder="Search by name or email…" disabled />
-        <span className="ad-search__stub" title="Backend doesn't index user records yet">Stub</span>
-      </div>
 
       <button type="button" className="ad-iconbtn" onClick={onRefresh} disabled={loading}>
         <RefreshIcon size={14} />
@@ -1808,6 +1867,15 @@ function EmptyOpen() {
   );
 }
 
+function EmptyFiltered() {
+  return (
+    <div className="ad-empty">
+      <h2 className="ad-empty__title">No reports match these filters.</h2>
+      <p className="ad-empty__body">Set Kind and Reporter back to All and Any to see the whole queue.</p>
+    </div>
+  );
+}
+
 function EmptyAll() {
   return (
     <div className="ad-empty">
@@ -1828,19 +1896,54 @@ function EmptyAll() {
 // ─────────────────────────────────────────────────────────────────────
 // MODALS
 // ─────────────────────────────────────────────────────────────────────
+// Reason box shared by the action modals (2026-10-26). Required reasons
+// need at least REASON_MIN characters; every reason is saved to the
+// admin History, never shown to the author unless the label says so.
+const REASON_MIN = 3;
+
+function reasonOk(text) {
+  return (text || '').trim().length >= REASON_MIN;
+}
+
+function ReasonField({ value, onChange, required, label, hint, placeholder, autoFocus }) {
+  const id = useId();
+  return (
+    <div className="ad-modal__row">
+      <label className="ad-modal__label" htmlFor={id}>{label}</label>
+      <textarea
+        id={id}
+        className="ad-modal__textarea"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        maxLength={1000}
+        autoFocus={autoFocus}
+      />
+      <span className={`ad-modal__hint ${required && !reasonOk(value) ? 'ad-modal__hint--required' : ''}`}>
+        {hint}
+      </span>
+    </div>
+  );
+}
+
 function HideModal({ row, onCancel, onConfirm }) {
   const meta = TYPE_META[row.kind] || { label: row.kind };
+  const keep = !!row.keep;
+  const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
       <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
-          <div className="ad-modal__eyebrow">Destructive action</div>
-          <h2 className="ad-modal__title">Hide this {meta.label.toLowerCase()}?</h2>
+          <div className="ad-modal__eyebrow">Reversible action</div>
+          <h2 className="ad-modal__title">
+            {keep ? `Keep this ${meta.label.toLowerCase()} hidden?` : `Hide this ${meta.label.toLowerCase()}?`}
+          </h2>
         </div>
         <div className="ad-modal__body">
           <div>
-            The content will be hidden from public view immediately. The author can see it&rsquo;s
-            been moderated, and a hide event is logged against report <strong>#{row.id}</strong>.
+            {keep
+              ? <>It stays off the public page and its open reports are closed. The author can still appeal for 30 days.</>
+              : <>It comes off the public page now, and its open reports are closed. The author sees it was moderated and can appeal for 30 days. You can Unhide it later.</>}
           </div>
           <div className="ad-modal__contentblock">
             <div className="ad-modal__contentmeta">
@@ -1855,15 +1958,29 @@ function HideModal({ row, onCancel, onConfirm }) {
             <div className="ad-modal__contentbody">&ldquo;{row.target_preview || '(empty)'}&rdquo;</div>
             {row.target_author_name && (
               <div className="ad-modal__contentauthor">
-                — {row.target_author_name}{row.target_author_kind ? ` (${row.target_author_kind})` : ''}
+                By {row.target_author_name}{row.target_author_kind ? ` (${row.target_author_kind})` : ''}
               </div>
             )}
           </div>
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            required
+            autoFocus
+            label="Your reason (required, saved to the admin History)"
+            hint="At least 3 characters. The author doesn't see this."
+            placeholder="What rule does it break? e.g. 'Threat against a named person'"
+          />
         </div>
         <div className="ad-modal__footer">
           <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
-          <button type="button" className="ad-btn ad-btn--danger" onClick={onConfirm} autoFocus>
-            Hide content
+          <button
+            type="button"
+            className="ad-btn ad-btn--danger"
+            onClick={() => onConfirm({ reason })}
+            disabled={!reasonOk(reason)}
+          >
+            {keep ? 'Keep hidden' : 'Hide content'}
           </button>
         </div>
       </div>
@@ -1874,6 +1991,7 @@ function HideModal({ row, onCancel, onConfirm }) {
 function UnhideModal({ row, onCancel, onConfirm }) {
   const meta = TYPE_META[row.kind] || { label: row.kind };
   const label = meta.label.toLowerCase();
+  const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
       <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
@@ -1899,10 +2017,16 @@ function UnhideModal({ row, onCancel, onConfirm }) {
             </div>
             <div className="ad-modal__contentbody">&ldquo;{row.target_preview || '(empty)'}&rdquo;</div>
           </div>
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            label="Your reason (optional, saved to the admin History)"
+            hint="e.g. 'Reports were a pile-on; the post is within the rules'"
+          />
         </div>
         <div className="ad-modal__footer">
           <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
-          <button type="button" className="ad-btn ad-btn--grant" onClick={onConfirm}>
+          <button type="button" className="ad-btn ad-btn--grant" onClick={() => onConfirm({ reason })}>
             Unhide
           </button>
         </div>
@@ -1912,7 +2036,9 @@ function UnhideModal({ row, onCancel, onConfirm }) {
 }
 
 function SuspendModal({ row, onCancel, onConfirm }) {
-  const [reason, setReason] = useState(row?.detail || formatReason(row?.reason) || '');
+  // Starts empty: the reason on record is the admin's, not the
+  // reporter's words (2026-10-26). The report is shown for context.
+  const [reason, setReason] = useState('');
   const authorKind = row.target_author_kind === 'rep' ? 'rep' : 'citizen';
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
@@ -1928,15 +2054,24 @@ function SuspendModal({ row, onCancel, onConfirm }) {
             <strong>Suspended users</strong> tab.
           </div>
 
-          <div className="ad-modal__row">
-            <span className="ad-modal__label">Reason on record (visible to other admins)</span>
-            <textarea
-              className="ad-modal__textarea"
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              placeholder="Why are you suspending this account?"
-            />
+          <div className="ad-modal__contentblock">
+            <div className="ad-modal__contentmeta">
+              <span>The report</span>
+              <span>·</span>
+              <span>{formatReason(row.reason)}</span>
+            </div>
+            {row.detail && <div className="ad-modal__contentbody">&ldquo;{row.detail}&rdquo;</div>}
           </div>
+
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            required
+            autoFocus
+            label="Your reason (required, saved to the admin History)"
+            hint="At least 3 characters, in your own words."
+            placeholder="Why are you suspending this account?"
+          />
 
           <div>
             Their existing posts and comments stay up. Suspending never takes content down;
@@ -1949,6 +2084,7 @@ function SuspendModal({ row, onCancel, onConfirm }) {
             type="button"
             className="ad-btn ad-btn--danger"
             onClick={() => onConfirm({ reason })}
+            disabled={!reasonOk(reason)}
           >
             Suspend {authorKind}
           </button>
@@ -1968,7 +2104,7 @@ function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
       <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
           <div className={`ad-modal__eyebrow ${isGrant ? 'ad-modal__eyebrow--success' : ''}`}>
-            {isGrant ? 'Reversible action' : 'Destructive action'}
+            {isGrant ? 'Reversible action' : 'Final decision'}
           </div>
           <h2 className="ad-modal__title">
             {isGrant
@@ -1981,24 +2117,23 @@ function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
             {isGrant
               ? isSuspension
                 ? <>The account <strong>{appeal.appellant_email}</strong> will be unsuspended and can post, comment, and vote again immediately.</>
-                : <>The <strong>{meta.label.toLowerCase()}</strong> will be reinstated to public view. The original report against it is closed as resolved.</>
-              : <>The moderation action stays in place. The appellant sees a &ldquo;Denied&rdquo; status and can read the admin note below.</>}
+                : <>The <strong>{meta.label.toLowerCase()}</strong> goes back on the public page, and its open reports are closed.</>
+              : <>The moderation action stays in place. The appellant sees &ldquo;Denied&rdquo; and reads your note below. They can&rsquo;t appeal this again.</>}
           </div>
-          <div className="ad-modal__row">
-            <span className="ad-modal__label">Admin note on record (optional, visible to appellant)</span>
-            <textarea
-              className="ad-modal__textarea"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder={isGrant
-                ? "Why are you granting this? e.g. 'Reporter retracted', 'Content was within bounds'"
-                : "Why are you denying this? e.g. 'Pattern of escalation', 'Auto-detect signals confirmed'"
-              }
-            />
-            <span className="ad-modal__hint">
-              Encouraged — the appellant sees this and the audit log preserves it.
-            </span>
-          </div>
+          <ReasonField
+            value={note}
+            onChange={setNote}
+            required={!isGrant}
+            label={isGrant
+              ? 'Note to the appellant (optional, saved to the admin History)'
+              : 'Note to the appellant (required, saved to the admin History)'}
+            hint={isGrant
+              ? 'The appellant sees this.'
+              : 'At least 3 characters. The appellant sees this, so explain the rule it breaks.'}
+            placeholder={isGrant
+              ? "e.g. 'Reporter retracted', 'Content was within the rules'"
+              : "e.g. 'The comment threatens a named person'"}
+          />
         </div>
         <div className="ad-modal__footer">
           <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
@@ -2007,7 +2142,12 @@ function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
               Grant appeal
             </button>
           ) : (
-            <button type="button" className="ad-btn ad-btn--danger" onClick={() => onConfirm({ decision: 'deny', note })}>
+            <button
+              type="button"
+              className="ad-btn ad-btn--danger"
+              onClick={() => onConfirm({ decision: 'deny', note })}
+              disabled={!reasonOk(note)}
+            >
               Deny appeal
             </button>
           )}
@@ -2018,6 +2158,7 @@ function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
 }
 
 function UnsuspendModal({ user, hasAppeal, onCancel, onConfirm }) {
+  const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
       <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
@@ -2028,7 +2169,7 @@ function UnsuspendModal({ user, hasAppeal, onCancel, onConfirm }) {
         <div className="ad-modal__body">
           <div>
             They&rsquo;ll regain the ability to post, comment, and vote immediately.
-            The suspension record stays on the audit log; you can re-suspend at any time.
+            The suspension and this unsuspend stay in the admin History; you can re-suspend at any time.
           </div>
           <div className="ad-modal__contentblock" style={{ borderLeftColor: 'var(--cl-success)' }}>
             <div className="ad-modal__contentmeta">
@@ -2059,16 +2200,61 @@ function UnsuspendModal({ user, hasAppeal, onCancel, onConfirm }) {
               borderRadius: 'var(--cl-radius-md)',
               lineHeight: 1.5,
             }}>
-              <strong>Note:</strong> this account has an open appeal. Resolve it from the
-              Appeals tab if you want the audit log to reflect a deliberate decision; an
-              unsuspend here doesn&rsquo;t auto-resolve the appeal.
+              <strong>Note:</strong> this account has an open appeal. An unsuspend here
+              doesn&rsquo;t resolve it; decide it from the Appeals tab so the appellant hears back.
             </div>
           )}
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            label="Your reason (optional, saved to the admin History)"
+            hint="e.g. 'Spoke with them; agreed to the rules'"
+          />
         </div>
         <div className="ad-modal__footer">
           <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
-          <button type="button" className="ad-btn ad-btn--grant" onClick={() => onConfirm(user)} autoFocus>
+          <button type="button" className="ad-btn ad-btn--grant" onClick={() => onConfirm({ reason })}>
             <UnhideIcon size={13} /> Unsuspend
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function UnlockModal({ row, onCancel, onConfirm }) {
+  const [reason, setReason] = useState('');
+  return (
+    <div className="ad-modal-bg" onClick={onCancel}>
+      <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="ad-modal__hdr">
+          <div className="ad-modal__eyebrow ad-modal__eyebrow--success">Reversible action</div>
+          <h2 className="ad-modal__title">Unlock {row.display_name || 'this account'}?</h2>
+        </div>
+        <div className="ad-modal__body">
+          <div>
+            They can try signing in again right away, and their failed-attempt count starts over.
+            Only unlock someone you&rsquo;ve confirmed is the account owner.
+          </div>
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            required
+            autoFocus
+            label="Your reason (required, saved to the admin History)"
+            hint="At least 3 characters, e.g. how the owner proved who they are."
+            placeholder="e.g. 'Owner called from the phone number on file'"
+          />
+        </div>
+        <div className="ad-modal__footer">
+          <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
+          <button
+            type="button"
+            className="ad-btn ad-btn--grant"
+            onClick={() => onConfirm({ reason })}
+            disabled={!reasonOk(reason)}
+          >
+            Unlock
           </button>
         </div>
       </div>
@@ -2118,14 +2304,6 @@ function RefreshIcon({ size = 14 }) {
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
       <path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
       <path d="M20 4v4h-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-    </svg>
-  );
-}
-function SearchIcon({ size = 14 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" fill="none" />
-      <path d="M16.5 16.5 21 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }

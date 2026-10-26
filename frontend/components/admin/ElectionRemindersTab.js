@@ -21,6 +21,15 @@ import { adminElectionReminderPreview } from '@/lib/electionReminders';
 
 const STATUS_LABEL = { sending: 'Sending today', scheduled: 'Scheduled', passed: 'Passed' };
 
+// What event_date is for each reminder kind (2026-10-26): only the
+// registration and mail ballot reminders count down to a deadline.
+const EVENT_LABEL = {
+  registration: 'Deadline',
+  mail_request: 'Deadline',
+  early_voting: 'Early voting starts',
+  election_day: 'Election Day',
+};
+
 export default function ElectionRemindersTab({ onCounts }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
@@ -83,7 +92,7 @@ export default function ElectionRemindersTab({ onCounts }) {
               Sends <strong>{formatLongDate(r.send_on)}</strong>
               {r.last_send_on !== r.send_on && <> (or {formatLongDate(r.last_send_on)} if missed)</>}
             </span>
-            <span>Deadline {formatLongDate(r.event_date)}</span>
+            <span>{EVENT_LABEL[(r.kind || '').split('_').slice(0, -1).join('_')] || 'Date'} {formatLongDate(r.event_date)}</span>
             <span>
               Recipients <strong>{r.recipient_count == null ? 'n/a' : r.recipient_count}</strong>
               {' '}&middot; delivered <strong>{r.delivered_count}</strong>
@@ -96,6 +105,9 @@ export default function ElectionRemindersTab({ onCounts }) {
             <span>Date source: <a {...externalLinkProps(r.source_url)}>{r.source_url}</a></span>
             {r.hours_source_url && (
               <span>Poll hours source: <a {...externalLinkProps(r.hours_source_url)}>{r.hours_source_url}</a></span>
+            )}
+            {r.note_source_url && (
+              <span>Rule source: <a {...externalLinkProps(r.note_source_url)}>{r.note_source_url}</a></span>
             )}
             <span className="tr-mono">{r.id}</span>
           </div>

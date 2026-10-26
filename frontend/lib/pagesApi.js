@@ -165,25 +165,39 @@ export async function adminListReports({ includeActed = false } = {}) {
   });
 }
 
-export async function adminDismissReport(kind, reportId) {
+// Every admin action is saved to the admin History with its reason
+// (2026-10-26). Hide needs a reason; Dismiss and Unhide take one if given.
+export async function adminDismissReport(kind, reportId, { reason } = {}) {
   return request(
     `/api/admin/reports/${encodeURIComponent(kind)}/${encodeURIComponent(reportId)}/dismiss`,
-    { method: 'POST' },
+    { method: 'POST', body: { reason: reason || null } },
   );
 }
 
-export async function adminHideTarget(kind, reportId) {
+export async function adminHideTarget(kind, reportId, { reason } = {}) {
   return request(
     `/api/admin/reports/${encodeURIComponent(kind)}/${encodeURIComponent(reportId)}/hide`,
-    { method: 'POST' },
+    { method: 'POST', body: { reason: reason || null } },
   );
 }
 
-export async function adminUnhideTarget(kind, targetId) {
+export async function adminUnhideTarget(kind, targetId, { reason } = {}) {
   return request(
     `/api/admin/targets/${encodeURIComponent(kind)}/${encodeURIComponent(targetId)}/unhide`,
-    { method: 'POST' },
+    { method: 'POST', body: { reason: reason || null } },
   );
+}
+
+// The admin History: newest first, `beforeId` for the next older page.
+export async function adminListActions({ limit = 100, beforeId, targetKind, targetId } = {}) {
+  return request('/api/admin/actions', {
+    query: {
+      limit,
+      before_id: beforeId || undefined,
+      target_kind: targetKind || undefined,
+      target_id: targetId || undefined,
+    },
+  });
 }
 
 // Suspend / unsuspend a user account. `kind` is 'rep' | 'citizen';
@@ -198,10 +212,10 @@ export async function adminSuspendUser(kind, userId, { reason } = {}) {
   );
 }
 
-export async function adminUnsuspendUser(kind, userId) {
+export async function adminUnsuspendUser(kind, userId, { reason } = {}) {
   return request(
     `/api/admin/users/${encodeURIComponent(kind)}/${encodeURIComponent(userId)}/unsuspend`,
-    { method: 'POST' },
+    { method: 'POST', body: { reason: reason || null } },
   );
 }
 
@@ -284,11 +298,12 @@ export async function adminListLockouts() {
 }
 
 // Clear lockout state on a specific account. Admin can use this when
-// a legit user calls in before their lockout window expires.
-export async function adminUnlockAccount(identityKind, accountId) {
+// a legit user calls in before their lockout window expires. Needs a
+// reason, saved to the admin History.
+export async function adminUnlockAccount(identityKind, accountId, { reason } = {}) {
   return request('/api/admin/lockout/unlock', {
     method: 'POST',
-    body: { identity_kind: identityKind, account_id: accountId },
+    body: { identity_kind: identityKind, account_id: accountId, reason: reason || null },
   });
 }
 

@@ -128,4 +128,8 @@ def admin_preview(db: Session = Depends(get_db), admin: dict = Depends(get_curre
 
 @admin_router.post("/run")
 def admin_run(db: Session = Depends(get_db), admin: dict = Depends(get_current_admin)):
-    return er.run_due(db)
+    from app.services import admin_actions
+    result = er.run_due(db)
+    admin_actions.record(db, admin, "election_reminders_run", details=admin_actions.scalars(result))
+    db.commit()
+    return result

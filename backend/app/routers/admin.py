@@ -47,8 +47,9 @@ from app.models.pages import (
     PostReport,
     RepAccount,
 )
-from app.services.admin_auth import get_current_admin
+from app.services.admin_auth import get_current_admin, get_current_admin_identity
 from app.services.citizen_polls_service import poll_is_publicly_visible
+from app.services import admin_actions
 from app.services.log_redaction import mask_email
 from app.services.moderation import is_moderation_hidden, resolve_open_reports, target_state
 
@@ -77,21 +78,23 @@ class AdminWhoamiResponse(BaseModel):
     kind: str
     id: int
     email: str
-    # 2FA Phase 4 — true when FORCE_2FA_ENABLED is set AND the admin
-    # account hasn't enrolled in TOTP yet. Frontend uses this to
-    # render the full-screen enrollment overlay before letting the
-    # admin reach /admin or any other surface. Admins ARE in the
-    # enforced set — losing admin credentials to credential theft
-    # would be the highest-blast-radius compromise on the platform.
+    # True when the admin account hasn't enrolled in TOTP yet. Since
+    # 2026-10-26 that is required for admin whatever FORCE_2FA_ENABLED
+    # says (totp_enforcement.admin_2fa_required); every other admin
+    # endpoint answers 403 until it's done. The frontend uses this to
+    # render the full-screen enrollment overlay for the account named
+    # by `kind`.
     needs_2fa_enrollment: bool = False
 
 
 @router.get("/whoami", response_model=AdminWhoamiResponse)
-def whoami(actor: dict = Depends(get_current_admin), db: Session = Depends(get_db)) -> AdminWhoamiResponse:
-    """Cheap probe — frontend hits this to decide whether to show the
+def whoami(actor: dict = Depends(get_current_admin_identity), db: Session = Depends(get_db)) -> AdminWhoamiResponse:
+    """Cheap probe: the frontend hits this to decide whether to show the
     /admin route at all. 200 means the current user has admin powers;
-    401/403 means hide the link."""
-    from app.services.totp_enforcement import requires_2fa_enrollment
+    401/403 means hide the link. Answers an admin who still has to set
+    up 2FA (needs_2fa_enrollment=true) so the overlay can show; the
+    other admin endpoints refuse that admin."""
+    from app.services.totp_enforcement import admin_needs_2fa, requires_2fa_enrollment
     # Resolve the underlying account to read totp_enabled_at. Admin
     # status is granted to either a rep or a citizen via ADMIN_EMAILS,
     # so the actor dict's `kind` tells us which table to hit.
@@ -100,7 +103,10 @@ def whoami(actor: dict = Depends(get_current_admin), db: Session = Depends(get_d
         account = db.get(RepAccount, actor["id"])
     elif actor.get("kind") == "citizen":
         account = db.get(CitizenAccount, actor["id"])
-    needs = requires_2fa_enrollment("admin", account) if account is not None else False
+    needs = (
+        requires_2fa_enrollment("admin", account) or admin_needs_2fa(account)
+        if account is not None else False
+    )
     return AdminWhoamiResponse(**actor, needs_2fa_enrollment=needs)
 
 
@@ -121,6 +127,14 @@ class ReportRow(BaseModel):
     detail: Optional[str] = None
     reporter_name: str
     reporter_kind: Literal["citizen", "rep"]
+    # Demo accounts are always labeled as demo accounts, and only
+    # trusted reporters (reps, verified non-demo citizens) count toward
+    # auto-hide (2026-10-26).
+    reporter_is_demo: bool = False
+    reporter_trusted: bool = False
+    # Open trusted reports on this item: what counts toward the next
+    # auto-hide, out of ReportListResponse.counts["auto_hide_threshold"].
+    target_trusted_reports: int = 0
     created_at: datetime
     acted_at: Optional[datetime] = None
     # Deep-link affordance: where on the public site does this target
@@ -138,6 +152,10 @@ class ReportRow(BaseModel):
 
 class ReportListResponse(BaseModel):
     items: List[ReportRow]
+    # Whole-queue numbers for the tiles, independent of the 200-row cap
+    # and of include_acted (2026-10-26): unresolved, resolved_week,
+    # hidden_items, auto_hide_threshold.
+    counts: dict = {}
 
 
 def _snippet(text: Optional[str]) -> str:
@@ -162,6 +180,50 @@ def _reporter_label(
         rep = db.get(RepAccount, rep_id)
         return ((rep.display_name if rep else "(deleted rep)"), "rep")
     return ("(anonymous)", "citizen")  # shouldn't happen — endpoints require auth
+
+
+def _reporter_flags(db: Session, *, citizen_id: Optional[int], rep_id: Optional[int]) -> dict:
+    """reporter_is_demo / reporter_trusted for a report row."""
+    from app.services.moderation import is_trusted_reporter_citizen
+    if rep_id is not None and citizen_id is None:
+        return {"reporter_is_demo": False, "reporter_trusted": True}
+    cz = db.get(CitizenAccount, citizen_id) if citizen_id is not None else None
+    if cz is None:
+        return {"reporter_is_demo": False, "reporter_trusted": False}
+    return {
+        "reporter_is_demo": (getattr(cz, "verified_method", None) or "").lower() == "demo",
+        "reporter_trusted": bool(is_trusted_reporter_citizen(cz)),
+    }
+
+
+def _queue_counts(db: Session) -> dict:
+    """Whole-queue numbers for the tiles: reports waiting for a decision,
+    reports resolved in the last 7 days, and items currently hidden by
+    moderation (distinct items, not reports)."""
+    from datetime import timedelta
+
+    from app.services.citizen_polls_service import HIDDEN_ARCHIVE_REASONS
+    from app.services.moderation import MODERATION_HIDE_REASONS, _threshold
+
+    week_ago = datetime.utcnow() - timedelta(days=7)
+    unresolved = resolved_week = 0
+    for cls in (PostReport, CommentReport, PollReport, PollCommentReport):
+        unresolved += db.query(func.count(cls.id)).filter(cls.acted_at.is_(None)).scalar() or 0
+        resolved_week += db.query(func.count(cls.id)).filter(cls.acted_at >= week_ago).scalar() or 0
+    hidden = 0
+    for cls in (Post, PostComment, PollComment):
+        hidden += db.query(func.count(cls.id)).filter(
+            cls.deleted_at.isnot(None), cls.hide_reason.in_(MODERATION_HIDE_REASONS),
+        ).scalar() or 0
+    hidden += db.query(func.count(Poll.id)).filter(
+        Poll.archived_at.isnot(None), Poll.archived_reason.in_(HIDDEN_ARCHIVE_REASONS),
+    ).scalar() or 0
+    return {
+        "unresolved": int(unresolved),
+        "resolved_week": int(resolved_week),
+        "hidden_items": int(hidden),
+        "auto_hide_threshold": _threshold(),
+    }
 
 
 def _resolve_target_context(db: Session, kind: str, target: Any) -> dict:
@@ -266,6 +328,17 @@ def list_reports(
     across all types combined.
     """
     out: List[ReportRow] = []
+    _trusted_cache: dict = {}
+
+    def _trusted_open(target, kind: str) -> int:
+        """Open trusted reports on one item, counted once per item."""
+        if target is None:
+            return 0
+        key = (kind, target.id)
+        if key not in _trusted_cache:
+            from app.services.moderation import open_trusted_report_count
+            _trusted_cache[key] = open_trusted_report_count(db, target, kind)
+        return _trusted_cache[key]
 
     # ── Post reports ─────────────────────────────────────────────
     q = db.query(PostReport)
@@ -284,6 +357,8 @@ def list_reports(
             target_state=target_state(target, "post"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
+            **_reporter_flags(db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id),
+            target_trusted_reports=_trusted_open(target, "post"),
             created_at=r.created_at, acted_at=r.acted_at,
             **ctx,
         ))
@@ -305,6 +380,8 @@ def list_reports(
             target_state=target_state(target, "post_comment"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
+            **_reporter_flags(db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id),
+            target_trusted_reports=_trusted_open(target, "post_comment"),
             created_at=r.created_at, acted_at=r.acted_at,
             **ctx,
         ))
@@ -326,6 +403,8 @@ def list_reports(
             target_state=target_state(target, "poll"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
+            **_reporter_flags(db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id),
+            target_trusted_reports=_trusted_open(target, "poll"),
             created_at=r.created_at, acted_at=r.acted_at,
             **ctx,
         ))
@@ -347,13 +426,15 @@ def list_reports(
             target_state=target_state(target, "poll_comment"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
+            **_reporter_flags(db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id),
+            target_trusted_reports=_trusted_open(target, "poll_comment"),
             created_at=r.created_at, acted_at=r.acted_at,
             **ctx,
         ))
 
     # Newest first across all types, then cap.
     out.sort(key=lambda r: r.created_at, reverse=True)
-    return ReportListResponse(items=out[:_REPORT_LIST_LIMIT])
+    return ReportListResponse(items=out[:_REPORT_LIST_LIMIT], counts=_queue_counts(db))
 
 
 # Tables-by-kind so the action endpoints can route without a chain
@@ -392,6 +473,21 @@ def _load_target_or_404(db: Session, kind: str, target_id: int):
 class ActionResult(BaseModel):
     ok: bool = True
     target_hidden: bool
+
+
+class AdminReasonPayload(BaseModel):
+    """Optional body for a moderation action: why the admin did it.
+    Required (at least 3 characters) for Hide, suspend and unlock;
+    optional for Dismiss, Unhide and unsuspend. Saved to the admin
+    History (admin_actions), never shown to the author."""
+    reason: Optional[str] = None
+
+
+def _content_label(target: Any, kind: str) -> Optional[str]:
+    """A short snapshot of reported content for the History tab."""
+    if target is None:
+        return None
+    return admin_actions.label(getattr(target, "question", None) if kind == "poll" else getattr(target, "body", None))
 
 
 def _target_for_report(db: Session, kind: str, report) -> Any:
@@ -476,18 +572,28 @@ def _unhide_target(target: Any, kind: str) -> bool:
 def dismiss_report(
     kind: ReportKind,
     report_id: int,
+    payload: Optional[AdminReasonPayload] = None,
     db: Session = Depends(get_db),
     actor: dict = Depends(get_current_admin),
 ) -> ActionResult:
     """Resolve a report without taking action on the content (e.g. the
     report was spurious / spam). Sets acted_at on the row so it falls
-    out of the default queue. Target stays visible.
+    out of the default queue. Target stays visible. Saved to the admin
+    History with the optional reason.
     """
     report = _load_report_or_404(db, kind, report_id)
-    if report.acted_at is None:
-        report.acted_at = datetime.utcnow()
-        db.commit()
     target = _target_for_report(db, kind, report)
+    already = report.acted_at is not None
+    if not already:
+        report.acted_at = datetime.utcnow()
+        admin_actions.record(
+            db, actor, "report_dismiss",
+            target_kind=kind, target_id=getattr(target, "id", None),
+            target_label=_content_label(target, kind),
+            reason=payload.reason if payload else None,
+            details={"report_id": report_id},
+        )
+        db.commit()
     hidden = target_state(target, kind) != "visible"
     logger.info(
         "Admin %s dismissed %s report id=%d.",
@@ -503,28 +609,41 @@ def dismiss_report(
 def hide_target(
     kind: ReportKind,
     report_id: int,
+    payload: Optional[AdminReasonPayload] = None,
     db: Session = Depends(get_db),
     actor: dict = Depends(get_current_admin),
 ) -> ActionResult:
-    """Hide the report's target AND resolve the report. Idempotent —
-    if the target was already hidden (by auto-hide or a previous
-    admin action), just resolves the report.
+    """Hide the report's target AND resolve the report. Idempotent:
+    if the target was already hidden (by auto-hide or a previous admin
+    action), just resolves the report; that is the page's "Keep hidden".
+    Needs a reason, saved to the admin History.
     """
+    reason = admin_actions.require_reason(payload.reason if payload else None, "hide")
     report = _load_report_or_404(db, kind, report_id)
     target = _target_for_report(db, kind, report)
     if target is None:
         # Target was already hard-deleted somehow; just resolve the report.
         if report.acted_at is None:
             report.acted_at = datetime.utcnow()
+            admin_actions.record(
+                db, actor, "content_hide", target_kind=kind, reason=reason,
+                details={"report_id": report_id, "target_missing": True},
+            )
             db.commit()
         return ActionResult(ok=True, target_hidden=True)
     newly_hidden = _hide_target(target, kind)
     # Resolve EVERY open report against this same target, not just
     # the one that triggered the hide. If 3 different users reported
-    # the same comment, hiding it answers all 3 — the queue
-    # shouldn't keep showing the remaining 2 as open.
+    # the same comment, hiding it answers all 3; the queue shouldn't
+    # keep showing the remaining 2 as open.
     resolved_n = resolve_open_reports(
         db, kind=kind, target_id=getattr(target, "id", -1),
+    )
+    admin_actions.record(
+        db, actor, "content_hide" if newly_hidden else "content_keep_hidden",
+        target_kind=kind, target_id=getattr(target, "id", None),
+        target_label=_content_label(target, kind), reason=reason,
+        details={"report_id": report_id, "reports_closed": resolved_n},
     )
     db.commit()
     logger.warning(
@@ -543,6 +662,7 @@ def hide_target(
 def unhide_target(
     kind: ReportKind,
     target_id: int,
+    payload: Optional[AdminReasonPayload] = None,
     db: Session = Depends(get_db),
     actor: dict = Depends(get_current_admin),
 ) -> ActionResult:
@@ -556,6 +676,14 @@ def unhide_target(
     target = _load_target_or_404(db, kind, target_id)
     newly_unhidden = _unhide_target(target, kind)
     resolved_n = resolve_open_reports(db, kind=kind, target_id=target_id)
+    if newly_unhidden or resolved_n:
+        admin_actions.record(
+            db, actor, "content_unhide",
+            target_kind=kind, target_id=target_id,
+            target_label=_content_label(target, kind),
+            reason=payload.reason if payload else None,
+            details={"restored": newly_unhidden, "reports_closed": resolved_n},
+        )
     db.commit()
     logger.warning(
         "Admin %s un-hid %s target_id=%d (newly_unhidden=%s, resolved %d open report(s)).",
@@ -619,10 +747,11 @@ def suspend_user(
     actor: dict = Depends(get_current_admin),
 ) -> UserActionResult:
     """Suspend a rep or citizen account. Sets suspended_at to now and
-    records a short reason. Idempotent — re-suspending an already-
-    suspended account just updates the reason (no audit log of
-    multiple suspensions today; if abuse history becomes relevant
-    a separate `user_suspensions` table is the right shape)."""
+    records the reason, which is required. Idempotent: re-suspending an
+    already-suspended account just updates the reason. Every suspension
+    is saved to the admin History, so the record survives an unsuspend
+    (which clears suspended_reason on the account)."""
+    reason = admin_actions.require_reason(payload.reason, "suspension")
     acc = _load_user_account_or_404(db, kind, user_id)
     # Self-suspension guard.
     if kind == actor["kind"] and actor["id"] == user_id:
@@ -640,10 +769,16 @@ def suspend_user(
             detail="Can't suspend a fellow admin. Remove them from ADMIN_EMAILS first.",
         )
 
+    already = acc.suspended_at is not None
     if acc.suspended_at is None:
         acc.suspended_at = datetime.utcnow()
-    if payload.reason:
-        acc.suspended_reason = payload.reason.strip()[:255]
+    acc.suspended_reason = reason[:255]
+    admin_actions.record(
+        db, actor, "user_suspend",
+        target_kind=kind, target_id=user_id,
+        target_label=getattr(acc, "display_name", None), reason=reason,
+        details={"already_suspended": already} if already else None,
+    )
 
     # Reports on this user's content stay open: suspending the account
     # is not a decision about any one post or comment, and closing them
@@ -664,6 +799,7 @@ def suspend_user(
 def unsuspend_user(
     kind: UserKind,
     user_id: int,
+    payload: Optional[AdminReasonPayload] = None,
     db: Session = Depends(get_db),
     actor: dict = Depends(get_current_admin),
 ) -> UserActionResult:
@@ -673,6 +809,13 @@ def unsuspend_user(
     acc = _load_user_account_or_404(db, kind, user_id)
     if acc.suspended_at is None:
         return UserActionResult(ok=True, suspended=False)
+    admin_actions.record(
+        db, actor, "user_unsuspend",
+        target_kind=kind, target_id=user_id,
+        target_label=getattr(acc, "display_name", None),
+        reason=payload.reason if payload else None,
+        details={"suspended_at": acc.suspended_at, "suspended_reason": acc.suspended_reason},
+    )
     acc.suspended_at = None
     acc.suspended_reason = None
     db.commit()
@@ -681,6 +824,40 @@ def unsuspend_user(
         mask_email(actor["email"]), kind, user_id,
     )
     return UserActionResult(ok=True, suspended=False)
+
+
+# ── Admin action history (2026-10-26) ────────────────────────────────
+@router.get("/actions")
+def list_admin_actions(
+    limit: int = 100,
+    before_id: Optional[int] = None,
+    action: Optional[str] = None,
+    target_kind: Optional[str] = None,
+    target_id: Optional[str] = None,
+    db: Session = Depends(get_db),
+    _actor: dict = Depends(get_current_admin),
+) -> dict:
+    """The admin History tab: every recorded admin action, newest
+    first. Page with before_id (the last id you got). Filter by action,
+    or by target_kind + target_id for one item's or account's history.
+    `has_more` says whether an older page exists."""
+    from app.models.pages import AdminAction
+
+    limit = max(1, min(int(limit or 100), 500))
+    q = db.query(AdminAction)
+    if before_id is not None:
+        q = q.filter(AdminAction.id < before_id)
+    if action:
+        q = q.filter(AdminAction.action == action)
+    if target_kind:
+        q = q.filter(AdminAction.target_kind == target_kind)
+    if target_id:
+        q = q.filter(AdminAction.target_id == str(target_id))
+    rows = q.order_by(AdminAction.id.desc()).limit(limit + 1).all()
+    return {
+        "items": [admin_actions.as_dict(r) for r in rows[:limit]],
+        "has_more": len(rows) > limit,
+    }
 
 
 # ── Unread-count endpoint for the navbar badge ──────────────────────
@@ -803,9 +980,11 @@ from typing import Literal as _UnlockLiteral  # noqa: E402 - intentional section
 
 
 class _AdminUnlockRequest(_UnlockBaseModel):
-    """Body for admin unlock. identity_kind picks which model to load."""
+    """Body for admin unlock. identity_kind picks which model to load.
+    reason is required (2026-10-26) and saved to the admin History."""
     identity_kind: _UnlockLiteral["rep", "candidate", "citizen"]
     account_id: int
+    reason: Optional[str] = None
 
 
 # ── Consolidated dashboard load (Task #63) ──────────────────────────
@@ -897,7 +1076,7 @@ def list_lockouts(
 def admin_unlock_account(
     payload: _AdminUnlockRequest,
     db: Session = Depends(get_db),
-    _actor: dict = Depends(get_current_admin),
+    actor: dict = Depends(get_current_admin),
 ):
     """Admin-only: clear lockout state on a specific account.
 
@@ -906,11 +1085,10 @@ def admin_unlock_account(
     Use case: a legit user got locked out and called for support
     before the lockout window expired; admin can unlock immediately.
 
-    Audit: doesn't write a separate admin-action row today; the
-    LoginAttempt history retains the lockout events for reference.
-    Layered admin audit (who unlocked whom + when) is a Phase 2
-    follow-up if the team grows beyond one admin.
+    Needs a reason; who unlocked whom, when and why is saved to the
+    admin History (admin_actions, 2026-10-26).
     """
+    reason = admin_actions.require_reason(payload.reason, "unlock")
     from app.services import login_attempts as _la
     from app.models.pages import (
         RepAccount as _Rep,
@@ -928,7 +1106,14 @@ def admin_unlock_account(
             status_code=404,
             detail=f"{payload.identity_kind} account {payload.account_id} not found",
         )
+    locked_until = account.locked_until
     _la.reset_counters(account)
+    admin_actions.record(
+        db, actor, "lockout_unlock",
+        target_kind=payload.identity_kind, target_id=payload.account_id,
+        target_label=getattr(account, "display_name", None), reason=reason,
+        details={"locked_until": locked_until},
+    )
     db.commit()
     return {
         "ok": True,

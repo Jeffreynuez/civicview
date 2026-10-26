@@ -116,7 +116,11 @@ def admin_headers(db) -> dict:
     from app.models.pages import RepAccount
     admin = db.query(RepAccount).filter(RepAccount.email == ADMIN_EMAIL).first()
     if admin is None:
+        from datetime import datetime
         admin = make_rep(db, "test-admin-page", "Transitions Admin", ADMIN_EMAIL, role="Admin")
+        # Admin endpoints need 2FA enrolled on the admin account (2026-10-26).
+        admin.totp_enabled_at = datetime.utcnow()
+        db.commit()
     return rep_headers(admin)
 
 

@@ -107,7 +107,8 @@ def main() -> int:
         os.environ["ADMIN_EMAILS"] = "admin.person@example.com"
         with SessionLocal() as db:
             adm = RepAccount(email="admin.person@example.com", password_hash=hash_password("pw-12345678"),
-                             display_name="Admin", official_id="admin-test-official", is_active=True)
+                             display_name="Admin", official_id="admin-test-official", is_active=True,
+                             totp_enabled_at=datetime.utcnow())  # admin needs 2FA
             db.add(adm)
             db.commit()
             adm_id = adm.id
@@ -119,7 +120,7 @@ def main() -> int:
         with SessionLocal() as db:
             rid = db.query(PollReport).filter_by(poll_id=poll_id).first().id
         c.cookies.clear()
-        r = c.post(f"/api/admin/reports/poll/{rid}/hide", headers=ah)
+        r = c.post(f"/api/admin/reports/poll/{rid}/hide", headers=ah, json={"reason": "Breaks the rules"})
         check(r.status_code == 200, f"admin hide {r.status_code} {r.text[:120]}")
         c.cookies.clear()
         r = c.get(f"/api/pages/{oid}/citizen-polls").json()

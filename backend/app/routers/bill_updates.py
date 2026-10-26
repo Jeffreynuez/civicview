@@ -27,4 +27,10 @@ def admin_status(db: Session = Depends(get_db), admin: dict = Depends(get_curren
 
 @admin_router.post("/run")
 async def admin_run(admin: dict = Depends(get_current_admin)):
-    return bill_updates.start_manual_pass()
+    from app.db import SessionLocal
+    from app.services import admin_actions
+    result = bill_updates.start_manual_pass()
+    with SessionLocal() as db:
+        admin_actions.record(db, admin, "bill_updates_run", details=admin_actions.scalars(result))
+        db.commit()
+    return result
