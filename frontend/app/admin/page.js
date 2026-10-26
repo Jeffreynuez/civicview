@@ -34,7 +34,7 @@
  * /Design Exports/civicview-admin-moderation-page/. Styles live in
  * ./admin.css.
  */
-import { Suspense, useCallback, useEffect, useId, useMemo, useState } from 'react';
+import { Suspense, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -60,6 +60,7 @@ import ElectionRemindersTab from '@/components/admin/ElectionRemindersTab';
 import AdminTestPush from '@/components/admin/AdminTestPush';
 import HistoryTab from '@/components/admin/HistoryTab';
 import { serverDate, serverMs } from '@/lib/serverTime';
+import useFocusTrap from '@/lib/useFocusTrap';
 
 const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions', 'reminders', 'history']);
 
@@ -291,18 +292,27 @@ function AdminPageInner() {
       } else if (status === 401) {
         setAuthState('unauthed');
       } else {
-        setAuthState('denied');
-        setError(err || 'Could not reach admin API.');
+        // A timeout, a cold start or a server error is not "you're not
+        // on the allowlist" (2026-10-26): say what happened, offer Retry.
+        setAuthState('unreachable');
+        setError(err || 'Could not reach CivicView.');
       }
     })();
     return () => { cancelled = true; };
   }, [probeTick]);
 
   // Loaders — each tab refetches its own data when filters change.
+  // Each list load gets a number; a response that isn't the latest is
+  // dropped, so a slow answer can't overwrite a newer one (2026-10-26).
+  const reportsSeq = useRef(0);
+  const appealsSeq = useRef(0);
+
   const loadReports = useCallback(async () => {
+    const seq = ++reportsSeq.current;
     setReportsLoading(true);
     setError(null);
     const { data, error: err } = await adminListReports({ includeActed: includeResolvedQueue });
+    if (seq !== reportsSeq.current) return;
     setReportsLoading(false);
     if (err || !data) {
       setError(err || 'Could not load reports.');
@@ -313,9 +323,11 @@ function AdminPageInner() {
   }, [includeResolvedQueue]);
 
   const loadAppeals = useCallback(async () => {
+    const seq = ++appealsSeq.current;
     setAppealsLoading(true);
     setError(null);
     const { data, error: err } = await adminListAppeals({ includeActed: includeResolvedAppeals });
+    if (seq !== appealsSeq.current) return;
     setAppealsLoading(false);
     if (err || !data) {
       setError(err || 'Could not load appeals.');
@@ -365,26 +377,41 @@ function AdminPageInner() {
   useEffect(() => {
     if (authState !== 'allowed') return;
     (async () => {
+      const reportsAt = reportsSeq.current;
+      const appealsAt = appealsSeq.current;
       const { data, error: err } = await adminLoadDashboard();
       if (err) {
         setError(err || 'Could not load admin dashboard.');
         return;
       }
-      setReports(data?.reports?.items || []);
-      if (data?.reports?.counts) setReportCounts(data.reports.counts);
-      setAppeals(data?.appeals?.items || []);
-      if (data?.appeals?.counts) setAppealCounts(data.appeals.counts);
+      // A filter change while this was loading started a newer list
+      // load; keep that one instead of these default lists.
+      if (reportsSeq.current === reportsAt) {
+        setReports(data?.reports?.items || []);
+        if (data?.reports?.counts) setReportCounts(data.reports.counts);
+      }
+      if (appealsSeq.current === appealsAt) {
+        setAppeals(data?.appeals?.items || []);
+        if (data?.appeals?.counts) setAppealCounts(data.appeals.counts);
+      }
       setSuspended(data?.suspended?.items || []);
       setLockouts(data?.lockouts?.items || []);
     })();
   }, [authState]);
 
-  // Re-fetch a tab when its filters change.
+  // Re-fetch a tab when its filters change. Not on the first run: the
+  // dashboard call above already loaded both, and firing these too sent
+  // three or four admin requests at once on every visit (2026-10-26).
+  const filtersLoadedOnce = useRef({ reports: false, appeals: false });
   useEffect(() => {
-    if (authState === 'allowed') loadReports();
+    if (authState !== 'allowed') return;
+    if (!filtersLoadedOnce.current.reports) { filtersLoadedOnce.current.reports = true; return; }
+    loadReports();
   }, [authState, loadReports]);
   useEffect(() => {
-    if (authState === 'allowed') loadAppeals();
+    if (authState !== 'allowed') return;
+    if (!filtersLoadedOnce.current.appeals) { filtersLoadedOnce.current.appeals = true; return; }
+    loadAppeals();
   }, [authState, loadAppeals]);
 
   // Former officials and candidates (2026-10-15): stage counts for the
@@ -414,7 +441,11 @@ function AdminPageInner() {
   // Action handlers — Dismiss / Unhide stay one-click. Hide / Suspend /
   // Grant / Deny / Unsuspend route through real modals.
   const runAction = async (key, fn, reload) => {
-    if (busyId) return;
+    if (busyId) {
+      // Say so instead of closing the modal and doing nothing (2026-10-26).
+      setError('Another action is still running. Try again in a moment.');
+      return;
+    }
     setBusyId(key);
     const { error: err } = await fn();
     setBusyId(null);
@@ -555,6 +586,22 @@ function AdminPageInner() {
     );
   }
 
+  if (authState === 'unreachable') {
+    return (
+      <div className="ad-root">
+        <div className="ad-access-wrap">
+          <div className="ad-access">
+            <h2 className="ad-access__title">Couldn&rsquo;t reach CivicView</h2>
+            <p className="ad-access__body">{error || 'The admin API did not answer.'} This is not an access problem.</p>
+            <button type="button" className="ad-access__cta" onClick={() => { setError(null); setAuthState('probing'); setProbeTick((n) => n + 1); }}>
+              Retry
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (authState === 'denied') {
     return (
       <div className="ad-root">
@@ -573,6 +620,9 @@ function AdminPageInner() {
               {' '}isn&rsquo;t on the moderator allowlist. Ask the deploy owner to add your
               email to <strong>ADMIN_EMAILS</strong> and redeploy.
             </p>
+            {error && error !== 'Admin access required.' && (
+              <p className="ad-access__body"><strong>The server said:</strong> {error}</p>
+            )}
             <Link className="ad-access__link" href="/">← Back to CivicView home</Link>
           </div>
         </div>
@@ -783,11 +833,11 @@ function AdminPageInner() {
         {activeTab === 'history' && <HistoryTab onCounts={setHistoryCounts} />}
 
         {activeTab === 'lockouts' && (
-          <section className="ad-tab-body">
+          <section className="ad-tab-body ad-lockouts">
             <div className="ad-toolbar" style={{ marginBottom: 12 }}>
               <button
                 type="button"
-                className="ad-btn"
+                className="ad-btn ad-btn--ghost"
                 onClick={loadLockouts}
                 disabled={lockoutsLoading}
               >
@@ -823,7 +873,7 @@ function AdminPageInner() {
                       const actionId = `unlock-${row.identity_kind}-${row.account_id}`;
                       return (
                         <tr key={actionId}>
-                          <td><span className={`ad-pill ad-pill--${row.identity_kind}`}>{row.identity_kind}</span></td>
+                          <td><span className={`ad-kindpill ad-kindpill--${kindToken(row.identity_kind)}`}>{kindLabel(row.identity_kind)}</span></td>
                           <td>{row.display_name}</td>
                           <td className="ad-mono">{row.email}</td>
                           <td>{lu.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}</td>
@@ -832,7 +882,7 @@ function AdminPageInner() {
                           <td>
                             <button
                               type="button"
-                              className="ad-btn ad-btn--primary"
+                              className="ad-btn ad-btn--grant"
                               disabled={busyId === actionId}
                               onClick={() => setUnlockModal(row)}
                             >
@@ -1907,6 +1957,20 @@ function EmptyAll() {
 // ─────────────────────────────────────────────────────────────────────
 // MODALS
 // ─────────────────────────────────────────────────────────────────────
+// Dialog behavior for the admin modals (2026-10-26): role="dialog",
+// labelled by its title, Escape closes it, Tab stays inside it.
+function useAdminDialog(onCancel) {
+  const dialogRef = useRef(null);
+  const titleId = useId();
+  useFocusTrap(dialogRef, true);
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onCancel?.(); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [onCancel]);
+  return { dialogRef, titleId };
+}
+
 // Reason box shared by the action modals (2026-10-26). Required reasons
 // need at least REASON_MIN characters; every reason is saved to the
 // admin History, never shown to the author unless the label says so.
@@ -1938,15 +2002,16 @@ function ReasonField({ value, onChange, required, label, hint, placeholder, auto
 }
 
 function HideModal({ row, onCancel, onConfirm }) {
+  const { dialogRef, titleId } = useAdminDialog(onCancel);
   const meta = TYPE_META[row.kind] || { label: row.kind };
   const keep = !!row.keep;
   const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
-      <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="ad-modal" role="dialog" aria-modal="true" aria-labelledby={titleId} ref={dialogRef} onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
           <div className="ad-modal__eyebrow">Reversible action</div>
-          <h2 className="ad-modal__title">
+          <h2 className="ad-modal__title" id={titleId}>
             {keep ? `Keep this ${meta.label.toLowerCase()} hidden?` : `Hide this ${meta.label.toLowerCase()}?`}
           </h2>
         </div>
@@ -2000,15 +2065,16 @@ function HideModal({ row, onCancel, onConfirm }) {
 }
 
 function UnhideModal({ row, onCancel, onConfirm }) {
+  const { dialogRef, titleId } = useAdminDialog(onCancel);
   const meta = TYPE_META[row.kind] || { label: row.kind };
   const label = meta.label.toLowerCase();
   const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
-      <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="ad-modal" role="dialog" aria-modal="true" aria-labelledby={titleId} ref={dialogRef} onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
           <div className="ad-modal__eyebrow ad-modal__eyebrow--success">Reversible action</div>
-          <h2 className="ad-modal__title">Unhide this {label}?</h2>
+          <h2 className="ad-modal__title" id={titleId}>Unhide this {label}?</h2>
         </div>
         <div className="ad-modal__body">
           <div>
@@ -2047,16 +2113,17 @@ function UnhideModal({ row, onCancel, onConfirm }) {
 }
 
 function SuspendModal({ row, onCancel, onConfirm }) {
+  const { dialogRef, titleId } = useAdminDialog(onCancel);
   // Starts empty: the reason on record is the admin's, not the
   // reporter's words (2026-10-26). The report is shown for context.
   const [reason, setReason] = useState('');
   const authorKind = kindLabel(row.target_author_kind).toLowerCase();
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
-      <div className="ad-modal ad-modal--wide" onClick={(e) => e.stopPropagation()}>
+      <div className="ad-modal ad-modal--wide" role="dialog" aria-modal="true" aria-labelledby={titleId} ref={dialogRef} onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
           <div className="ad-modal__eyebrow">Destructive action</div>
-          <h2 className="ad-modal__title">Suspend {row.target_author_name || 'this user'}?</h2>
+          <h2 className="ad-modal__title" id={titleId}>Suspend {row.target_author_name || 'this user'}?</h2>
         </div>
         <div className="ad-modal__body">
           <div>
@@ -2106,18 +2173,19 @@ function SuspendModal({ row, onCancel, onConfirm }) {
 }
 
 function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
+  const { dialogRef, titleId } = useAdminDialog(onCancel);
   const [note, setNote] = useState('');
   const isGrant = decision === 'grant';
   const meta = APPEAL_TARGET_META[appeal.target_kind] || { label: appeal.target_kind, type: 'content' };
   const isSuspension = meta.type === 'suspension';
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
-      <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="ad-modal" role="dialog" aria-modal="true" aria-labelledby={titleId} ref={dialogRef} onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
           <div className={`ad-modal__eyebrow ${isGrant ? 'ad-modal__eyebrow--success' : ''}`}>
             {isGrant ? 'Reversible action' : 'Final decision'}
           </div>
-          <h2 className="ad-modal__title">
+          <h2 className="ad-modal__title" id={titleId}>
             {isGrant
               ? `Grant appeal from ${appeal.appellant_name || 'this appellant'}?`
               : `Deny appeal from ${appeal.appellant_name || 'this appellant'}?`}
@@ -2169,13 +2237,14 @@ function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
 }
 
 function UnsuspendModal({ user, hasAppeal, onCancel, onConfirm }) {
+  const { dialogRef, titleId } = useAdminDialog(onCancel);
   const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
-      <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="ad-modal" role="dialog" aria-modal="true" aria-labelledby={titleId} ref={dialogRef} onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
           <div className="ad-modal__eyebrow ad-modal__eyebrow--success">Reversible action</div>
-          <h2 className="ad-modal__title">Unsuspend {user.display_name || 'this user'}?</h2>
+          <h2 className="ad-modal__title" id={titleId}>Unsuspend {user.display_name || 'this user'}?</h2>
         </div>
         <div className="ad-modal__body">
           <div>
@@ -2234,13 +2303,14 @@ function UnsuspendModal({ user, hasAppeal, onCancel, onConfirm }) {
 }
 
 function UnlockModal({ row, onCancel, onConfirm }) {
+  const { dialogRef, titleId } = useAdminDialog(onCancel);
   const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
-      <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="ad-modal" role="dialog" aria-modal="true" aria-labelledby={titleId} ref={dialogRef} onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
           <div className="ad-modal__eyebrow ad-modal__eyebrow--success">Reversible action</div>
-          <h2 className="ad-modal__title">Unlock {row.display_name || 'this account'}?</h2>
+          <h2 className="ad-modal__title" id={titleId}>Unlock {row.display_name || 'this account'}?</h2>
         </div>
         <div className="ad-modal__body">
           <div>
