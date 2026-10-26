@@ -21,7 +21,7 @@ import StickyPageHeader from '@/components/StickyPageHeader';
 import { request } from '@/lib/http';
 
 // Where each email is turned back on (2026-10-17: one settings list, in
-// the bell's Settings and in Dashboard, Account & settings, Notifications).
+// the bell's Settings and in the dashboard's Settings, Notifications).
 const WHERE_TO_TURN_ON = {
   digest: 'the bell, Settings, Weekly email digest',
   page_changes: 'the bell, Settings, Changes to pages you track (on a representative or candidate page: Dashboard, Notification settings)',

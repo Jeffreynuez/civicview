@@ -230,7 +230,7 @@ function PasswordResetInner() {
                   margin: '-8px 0 18px 0',
                 }}>
                   Demo account? Enter the email address you added when you
-                  created it (or in Account &amp; settings). We&apos;ll send the
+                  created it (or in Settings on your dashboard). We&apos;ll send the
                   link there, along with your sign-in email. Without one,
                   write to us at the address below.
                 </p>

@@ -13,7 +13,9 @@
  * way to appeal it. Their page dashboard now shows the same list.
  *
  * Renders nothing while loading or when nothing is hidden (an empty
- * card would only be noise). The `frame` prop wraps the list in the
+ * card would only be noise), unless the host passes `empty`: the
+ * citizen dashboard's Settings has a Moderation group (2026-10-26) and
+ * shows a line there instead. The `frame` prop wraps the list in the
  * host dashboard's own card.
  *
  * The bell's "was hidden" notice links here with #moderation; the list
@@ -23,6 +25,7 @@
  *   asKind  'citizen' | 'rep' | 'candidate': whose items, among the
  *           identities signed in on this browser
  *   frame   (children) => element, the card around the list
+ *   empty   optional element shown (inside frame) when nothing is hidden
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -59,7 +62,7 @@ function timeAgo(iso) {
   return then.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
-export default function HiddenByModeration({ asKind, frame }) {
+export default function HiddenByModeration({ asKind, frame, empty }) {
   const [items, setItems] = useState(null);
   const [appealTarget, setAppealTarget] = useState(null);
   const anchorRef = useRef(null);
@@ -76,12 +79,21 @@ export default function HiddenByModeration({ asKind, frame }) {
   useEffect(() => { load(); }, [load]);
 
   const hasItems = Boolean(items && items.length);
+  const showEmpty = Boolean(items && !items.length && empty);
   useEffect(() => {
-    if (!hasItems || !scrollWanted.current) return;
+    if (!(hasItems || showEmpty) || !scrollWanted.current) return;
     scrollWanted.current = false;
     anchorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [hasItems]);
+  }, [hasItems, showEmpty]);
 
+  // The host can move the scroll stop below its own pinned header with
+  // --cv-scroll-margin.
+  const anchorStyle = { scrollMarginTop: 'var(--cv-scroll-margin, 80px)' };
+
+  if (showEmpty) {
+    const none = <div id={MODERATION_ANCHOR} ref={anchorRef} style={anchorStyle}>{empty}</div>;
+    return frame ? frame(none) : none;
+  }
   if (!hasItems) return null;
 
   const onAppealSuccess = (appeal) => {
@@ -97,7 +109,7 @@ export default function HiddenByModeration({ asKind, frame }) {
   };
 
   const list = (
-    <div id={MODERATION_ANCHOR} ref={anchorRef} style={{ scrollMarginTop: 80 }}>
+    <div id={MODERATION_ANCHOR} ref={anchorRef} style={anchorStyle}>
       <p style={{ margin: '0 0 12px', fontSize: '0.85rem', color: 'var(--cl-text-light)', lineHeight: 1.5 }}>
         Content of yours that admins or the community-reports
         threshold removed. You can appeal each item once, within

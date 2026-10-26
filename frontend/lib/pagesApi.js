@@ -961,7 +961,7 @@ export async function saveContactEmail(contactEmail) {
 }
 // State, congressional district and (optional) city, 2026-10-03. Every
 // citizen needs a state and district before engaging; this saves them
-// from the location prompt and from Account & settings. district is the
+// from the location prompt and from the dashboard's Settings. district is the
 // picker value ("17" / "AL"). Pass city undefined to leave it as is.
 // Resolves to the refreshed /me payload.
 export async function saveCitizenLocation({ state, district, city } = {}) {

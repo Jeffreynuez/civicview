@@ -35,7 +35,7 @@ import { formatLongDate } from './LifecycleBanner';
  * of MyTrackedModal so the SAME surface renders in two places without
  * drifting:
  *   • variant="modal"  → inside the navbar My Tracked dialog (quick view)
- *   • variant="page"   → the dashboard's Manage Tracked tab (full)
+ *   • variant="page"   → the dashboard's Following tab (full)
  *
  * The page variant adds the star "feature" control (pin one item per
  * category to the dashboard Overview) and makes official cards clickable

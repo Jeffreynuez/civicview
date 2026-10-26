@@ -119,7 +119,7 @@ export default function LocationPrompt() {
             CivicView counts likes, votes and comments by state and
             congressional district, so representatives can see what their
             own constituents think. Choose yours to keep taking part. You
-            can change it later in Account &amp; settings.
+            can change it later in Settings on your dashboard.
           </p>
 
           <LocationFields

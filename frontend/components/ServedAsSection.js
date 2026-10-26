@@ -22,9 +22,9 @@ export default function ServedAsSection() {
   return (
     <section style={{
       border: '1px solid var(--cl-border)', borderRadius: 12, background: 'white',
-      padding: 16, marginBottom: 18,
+      padding: '16px 18px',
     }}>
-      <h3 style={{ margin: '0 0 6px', fontSize: '1rem' }}>Served as line</h3>
+      <h3 style={{ margin: '0 0 6px', fontSize: '0.95rem', fontWeight: 700 }}>Served as line</h3>
       <p style={{ margin: '0 0 10px', fontSize: '0.85rem', lineHeight: 1.45 }}>
         Your citizen card shows: <em>{line}</em>. It is plain text from CivicView&apos;s records.
       </p>
