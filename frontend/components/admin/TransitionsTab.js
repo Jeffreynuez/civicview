@@ -102,6 +102,13 @@ export default function TransitionsTab({ onCounts }) {
   const [notice, setNotice] = useState(null);
   const [stage, setStage] = useState('');
   const [q, setQ] = useState('');
+  // Search waits for a pause in typing (2026-10-26): it used to send two
+  // admin requests per keystroke.
+  const [qDebounced, setQDebounced] = useState('');
+  useEffect(() => {
+    const t = setTimeout(() => setQDebounced(q.trim()), 300);
+    return () => clearTimeout(t);
+  }, [q]);
   const [form, setForm] = useState(EMPTY_FORM);
   const [detail, setDetail] = useState(null);
   const [handoff, setHandoff] = useState({ campaignPageId: '', officialPageId: '', role: '' });
@@ -120,20 +127,28 @@ export default function TransitionsTab({ onCounts }) {
   const [withdrawBusy, setWithdrawBusy] = useState(false);
   const detailRef = useRef(null);
 
+  const loadSeq = useRef(0);
   const load = useCallback(async () => {
+    const seq = ++loadSeq.current;
     setLoading(true);
-    const { data, error: e } = await adminListTransitions({ stage: stage || undefined, q: q || undefined, limit: 300 });
+    const { data, error: e } = await adminListTransitions({ stage: stage || undefined, q: qDebounced || undefined, limit: 300 });
+    if (seq !== loadSeq.current) return;   // a newer search is on its way
     setLoading(false);
     if (e) { setError(e); return; }
     setItems(data?.items || []);
     setTotal(typeof data?.count === 'number' ? data.count : null);
     setToday(data?.today || '');
     onCounts?.(data?.counts || {});
+  }, [stage, qDebounced, onCounts]);
+
+  // Name reviews don't depend on the search; load them on their own.
+  const loadReviews = useCallback(async () => {
     const r = await adminNameReviews();
     setReviews(r.data?.items || []);
-  }, [stage, q, onCounts]);
+  }, []);
 
   useEffect(() => { load(); }, [load]);
+  useEffect(() => { loadReviews(); }, [loadReviews]);
 
   const field = (key) => ({
     value: form[key],
@@ -274,6 +289,7 @@ export default function TransitionsTab({ onCounts }) {
     setReviewConfirm(null);
     if (err) { setError(err); return; }
     setNotice(decision === 'approve' ? 'Name approved.' : 'Name refused.');
+    loadReviews();
     load();
   };
 
@@ -511,7 +527,14 @@ export default function TransitionsTab({ onCounts }) {
             </thead>
             <tbody>
               {items.map((it) => (
-                <tr key={it.page_id} onClick={() => openDetail(it.page_id)} className="tr-row">
+                <tr
+                  key={it.page_id}
+                  onClick={() => openDetail(it.page_id)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(it.page_id); } }}
+                  tabIndex={0}
+                  aria-label={`Open ${it.display_name || it.page_id}`}
+                  className="tr-row"
+                >
                   <td>
                     <div className="tr-name">{it.display_name || it.page_id}</div>
                     <div className="tr-sub">{it.title || it.office_label}</div>

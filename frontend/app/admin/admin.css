@@ -1767,3 +1767,26 @@ table.ad-table {
 }
 .ad-cell-reporter__demo { border-style: dashed; }
 .ad-cell-trusted { margin-top: 4px; font-size: 0.68rem; color: var(--cl-text-muted); white-space: nowrap; }
+
+/* Batch H polish (2026-10-26). */
+/* The toggles' checkbox stays reachable by keyboard and screen readers:
+   visually hidden instead of display:none. */
+.ad-toggle { position: relative; }
+.ad-toggle input {
+  display: inline-block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.ad-toggle input:focus-visible + .ad-toggle__track {
+  outline: 2px solid var(--cl-accent);
+  outline-offset: 2px;
+}
+/* Classes the Lockouts tab used that were defined nowhere. */
+.ad-lockouts { display: flex; flex-direction: column; }
+.ad-lockouts .ad-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ad-mono { font-family: var(--cl-font-mono); font-size: var(--cl-text-xs); }
+.ad-kpi__dot--muted { background: var(--cl-text-muted); }
