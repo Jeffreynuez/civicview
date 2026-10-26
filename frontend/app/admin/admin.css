@@ -1747,3 +1747,23 @@ table.ad-table {
 .ad-history__error { color: var(--cl-danger-deep); margin: 0; }
 .ad-history__more { display: flex; justify-content: center; }
 .ad-modal__hint--required { color: var(--cl-danger-deep); }
+
+/* Reporter trust (2026-10-26): demo accounts are always labeled, and
+   reports from unverified accounts never count toward auto-hide. */
+.ad-cell-reporter__demo,
+.ad-cell-reporter__unverified {
+  display: inline-block;
+  align-self: flex-start;
+  width: fit-content;
+  margin-top: 3px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--cl-border);
+  background: var(--cl-bg-soft);
+  color: var(--cl-text-light);
+}
+.ad-cell-reporter__demo { border-style: dashed; }
+.ad-cell-trusted { margin-top: 4px; font-size: 0.68rem; color: var(--cl-text-muted); white-space: nowrap; }

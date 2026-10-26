@@ -630,6 +630,9 @@ class AdminAppealRow(BaseModel):
 
 class AdminAppealListResponse(BaseModel):
     items: List[AdminAppealRow]
+    # Whole-queue numbers for the tiles, whatever include_acted says
+    # (2026-10-26): pending, granted_week, denied_week.
+    counts: dict = {}
 
 
 def _appellant_label(db: Session, kind: str, account_id: int) -> tuple[str, str]:
@@ -707,7 +710,14 @@ def list_appeals(
             admin_note=r.admin_note,
             admin_email=r.admin_email,
         ))
-    return AdminAppealListResponse(items=out)
+    from datetime import timedelta
+    week_ago = datetime.utcnow() - timedelta(days=7)
+    counts = {
+        "pending": db.query(Appeal).filter(Appeal.acted_at.is_(None)).count(),
+        "granted_week": db.query(Appeal).filter(Appeal.decision == "granted", Appeal.acted_at >= week_ago).count(),
+        "denied_week": db.query(Appeal).filter(Appeal.decision == "denied", Appeal.acted_at >= week_ago).count(),
+    }
+    return AdminAppealListResponse(items=out, counts=counts)
 
 
 class AdminAppealDecisionPayload(BaseModel):

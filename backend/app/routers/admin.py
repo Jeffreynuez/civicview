@@ -127,6 +127,14 @@ class ReportRow(BaseModel):
     detail: Optional[str] = None
     reporter_name: str
     reporter_kind: Literal["citizen", "rep"]
+    # Demo accounts are always labeled as demo accounts, and only
+    # trusted reporters (reps, verified non-demo citizens) count toward
+    # auto-hide (2026-10-26).
+    reporter_is_demo: bool = False
+    reporter_trusted: bool = False
+    # Open trusted reports on this item: what counts toward the next
+    # auto-hide, out of ReportListResponse.counts["auto_hide_threshold"].
+    target_trusted_reports: int = 0
     created_at: datetime
     acted_at: Optional[datetime] = None
     # Deep-link affordance: where on the public site does this target
@@ -144,6 +152,10 @@ class ReportRow(BaseModel):
 
 class ReportListResponse(BaseModel):
     items: List[ReportRow]
+    # Whole-queue numbers for the tiles, independent of the 200-row cap
+    # and of include_acted (2026-10-26): unresolved, resolved_week,
+    # hidden_items, auto_hide_threshold.
+    counts: dict = {}
 
 
 def _snippet(text: Optional[str]) -> str:
@@ -168,6 +180,50 @@ def _reporter_label(
         rep = db.get(RepAccount, rep_id)
         return ((rep.display_name if rep else "(deleted rep)"), "rep")
     return ("(anonymous)", "citizen")  # shouldn't happen — endpoints require auth
+
+
+def _reporter_flags(db: Session, *, citizen_id: Optional[int], rep_id: Optional[int]) -> dict:
+    """reporter_is_demo / reporter_trusted for a report row."""
+    from app.services.moderation import is_trusted_reporter_citizen
+    if rep_id is not None and citizen_id is None:
+        return {"reporter_is_demo": False, "reporter_trusted": True}
+    cz = db.get(CitizenAccount, citizen_id) if citizen_id is not None else None
+    if cz is None:
+        return {"reporter_is_demo": False, "reporter_trusted": False}
+    return {
+        "reporter_is_demo": (getattr(cz, "verified_method", None) or "").lower() == "demo",
+        "reporter_trusted": bool(is_trusted_reporter_citizen(cz)),
+    }
+
+
+def _queue_counts(db: Session) -> dict:
+    """Whole-queue numbers for the tiles: reports waiting for a decision,
+    reports resolved in the last 7 days, and items currently hidden by
+    moderation (distinct items, not reports)."""
+    from datetime import timedelta
+
+    from app.services.citizen_polls_service import HIDDEN_ARCHIVE_REASONS
+    from app.services.moderation import MODERATION_HIDE_REASONS, _threshold
+
+    week_ago = datetime.utcnow() - timedelta(days=7)
+    unresolved = resolved_week = 0
+    for cls in (PostReport, CommentReport, PollReport, PollCommentReport):
+        unresolved += db.query(func.count(cls.id)).filter(cls.acted_at.is_(None)).scalar() or 0
+        resolved_week += db.query(func.count(cls.id)).filter(cls.acted_at >= week_ago).scalar() or 0
+    hidden = 0
+    for cls in (Post, PostComment, PollComment):
+        hidden += db.query(func.count(cls.id)).filter(
+            cls.deleted_at.isnot(None), cls.hide_reason.in_(MODERATION_HIDE_REASONS),
+        ).scalar() or 0
+    hidden += db.query(func.count(Poll.id)).filter(
+        Poll.archived_at.isnot(None), Poll.archived_reason.in_(HIDDEN_ARCHIVE_REASONS),
+    ).scalar() or 0
+    return {
+        "unresolved": int(unresolved),
+        "resolved_week": int(resolved_week),
+        "hidden_items": int(hidden),
+        "auto_hide_threshold": _threshold(),
+    }
 
 
 def _resolve_target_context(db: Session, kind: str, target: Any) -> dict:
@@ -272,6 +328,17 @@ def list_reports(
     across all types combined.
     """
     out: List[ReportRow] = []
+    _trusted_cache: dict = {}
+
+    def _trusted_open(target, kind: str) -> int:
+        """Open trusted reports on one item, counted once per item."""
+        if target is None:
+            return 0
+        key = (kind, target.id)
+        if key not in _trusted_cache:
+            from app.services.moderation import open_trusted_report_count
+            _trusted_cache[key] = open_trusted_report_count(db, target, kind)
+        return _trusted_cache[key]
 
     # ── Post reports ─────────────────────────────────────────────
     q = db.query(PostReport)
@@ -290,6 +357,8 @@ def list_reports(
             target_state=target_state(target, "post"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
+            **_reporter_flags(db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id),
+            target_trusted_reports=_trusted_open(target, "post"),
             created_at=r.created_at, acted_at=r.acted_at,
             **ctx,
         ))
@@ -311,6 +380,8 @@ def list_reports(
             target_state=target_state(target, "post_comment"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
+            **_reporter_flags(db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id),
+            target_trusted_reports=_trusted_open(target, "post_comment"),
             created_at=r.created_at, acted_at=r.acted_at,
             **ctx,
         ))
@@ -332,6 +403,8 @@ def list_reports(
             target_state=target_state(target, "poll"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
+            **_reporter_flags(db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id),
+            target_trusted_reports=_trusted_open(target, "poll"),
             created_at=r.created_at, acted_at=r.acted_at,
             **ctx,
         ))
@@ -353,13 +426,15 @@ def list_reports(
             target_state=target_state(target, "poll_comment"),
             reason=r.reason, detail=r.detail,
             reporter_name=name, reporter_kind=kind,
+            **_reporter_flags(db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id),
+            target_trusted_reports=_trusted_open(target, "poll_comment"),
             created_at=r.created_at, acted_at=r.acted_at,
             **ctx,
         ))
 
     # Newest first across all types, then cap.
     out.sort(key=lambda r: r.created_at, reverse=True)
-    return ReportListResponse(items=out[:_REPORT_LIST_LIMIT])
+    return ReportListResponse(items=out[:_REPORT_LIST_LIMIT], counts=_queue_counts(db))
 
 
 # Tables-by-kind so the action endpoints can route without a chain

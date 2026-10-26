@@ -102,6 +102,23 @@ def _trusted_report_count(db: Session, target: Any, kind: str) -> int:
     return trusted
 
 
+def open_trusted_report_count(db: Session, target: Any, kind: str) -> int:
+    """Read-only twin of _trusted_report_count for the admin queue: the
+    open trusted reports on `target`, without flushing the session."""
+    from app.models import pages as models
+
+    model_name, fk = _REPORT_TABLES[kind]
+    model = getattr(models, model_name)
+    trusted = 0
+    for row in db.query(model).filter(getattr(model, fk) == target.id, model.acted_at.is_(None)).all():
+        if getattr(row, "reporter_rep_id", None):
+            trusted += 1
+        elif getattr(row, "reporter_citizen_id", None):
+            if is_trusted_reporter_citizen(db.get(models.CitizenAccount, row.reporter_citizen_id)):
+                trusted += 1
+    return trusted
+
+
 def record_report(db: Session, target: Any, *, kind: str) -> bool:
     """Bump a content row's report_count by 1, then auto-hide if the
     threshold is reached.

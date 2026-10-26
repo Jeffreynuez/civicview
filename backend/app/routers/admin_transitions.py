@@ -103,8 +103,13 @@ def schedule(
     rows = {r.page_id: r for r in db.query(PageTransition).all()}
     items = []
     needle = (q or "").strip().lower()
+    # The tiles count every page on the clock, whatever the stage and
+    # search filters say (2026-10-26: picking "Archived" used to read 0
+    # in the Farewell window tile).
+    counts = {}
     for pid, t in pl.all_transitions(db).items():
         st = t.stage(today)
+        counts[st] = counts.get(st, 0) + 1
         if stage and st != stage:
             continue
         if needle and needle not in pid.lower() and needle not in (t.display_name or "").lower():
@@ -119,9 +124,6 @@ def schedule(
         return (1, it.get("archive_on") or "9999")
 
     items.sort(key=next_date)
-    counts = {}
-    for it in items:
-        counts[it["stage"]] = counts.get(it["stage"], 0) + 1
     return {"today": today.isoformat(), "counts": counts, "count": len(items), "items": items[:limit]}
 
 

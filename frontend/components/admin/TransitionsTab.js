@@ -67,6 +67,8 @@ function stageLabel(stage) {
 
 export default function TransitionsTab({ onCounts }) {
   const [items, setItems] = useState([]);
+  // How many match the filters; the list shows the first 300 (2026-10-26).
+  const [total, setTotal] = useState(null);
   const [today, setToday] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -85,6 +87,7 @@ export default function TransitionsTab({ onCounts }) {
     setLoading(false);
     if (e) { setError(e); return; }
     setItems(data?.items || []);
+    setTotal(typeof data?.count === 'number' ? data.count : null);
     setToday(data?.today || '');
     onCounts?.(data?.counts || {});
     const r = await adminNameReviews();
@@ -300,6 +303,11 @@ export default function TransitionsTab({ onCounts }) {
         </div>
       )}
 
+      {total != null && total > items.length && (
+        <p className="tr-notice" role="status">
+          Showing the first {items.length} of {total}. Search by name or page id to find the others.
+        </p>
+      )}
       {items.length === 0 ? (
         <div className="ad-empty">{loading ? 'Loading…' : 'Nothing on the clock.'}</div>
       ) : (

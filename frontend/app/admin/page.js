@@ -226,7 +226,10 @@ function AdminPageInner() {
   const [includeResolvedQueue, setIncludeResolvedQueue] = useState(false);
   const [kindChip, setKindChip] = useState('all');
   const [reporterChip, setReporterChip] = useState('any');
-  const [autoOnly, setAutoOnly] = useState(false);
+  // Whole-queue numbers from the API (2026-10-26), so the tiles don't
+  // depend on the 200-row cap or on Include resolved.
+  const [reportCounts, setReportCounts] = useState(null);
+  const [appealCounts, setAppealCounts] = useState(null);
 
   const [includeResolvedAppeals, setIncludeResolvedAppeals] = useState(false);
   const [appealTypeChip, setAppealTypeChip] = useState('all'); // 'all' | 'content' | 'suspension'
@@ -296,6 +299,7 @@ function AdminPageInner() {
       return;
     }
     setReports(data.items || []);
+    if (data.counts) setReportCounts(data.counts);
   }, [includeResolvedQueue]);
 
   const loadAppeals = useCallback(async () => {
@@ -308,6 +312,7 @@ function AdminPageInner() {
       return;
     }
     setAppeals(data.items || []);
+    if (data.counts) setAppealCounts(data.counts);
   }, [includeResolvedAppeals]);
 
   const loadSuspended = useCallback(async () => {
@@ -356,7 +361,9 @@ function AdminPageInner() {
         return;
       }
       setReports(data?.reports?.items || []);
+      if (data?.reports?.counts) setReportCounts(data.reports.counts);
       setAppeals(data?.appeals?.items || []);
+      if (data?.appeals?.counts) setAppealCounts(data.appeals.counts);
       setSuspended(data?.suspended?.items || []);
       setLockouts(data?.lockouts?.items || []);
     })();
@@ -386,11 +393,13 @@ function AdminPageInner() {
 
   // Sub-nav badge counts — derived from loaded data.
   const subnavCounts = useMemo(() => ({
-    queue:     reports.filter((r) => reportStatus(r) === 'open').length,
-    appeals:   appeals.filter((a) => appealStatus(a) === 'pending').length,
+    // Everything waiting on a decision, hidden-but-unresolved included,
+    // the same number the navbar badge shows.
+    queue:     reportCounts ? reportCounts.unresolved : reports.filter((r) => !r.acted_at).length,
+    appeals:   appealCounts ? appealCounts.pending : appeals.filter((a) => appealStatus(a) === 'pending').length,
     suspended: suspended.length,
     lockouts: lockouts.length,
-  }), [reports, appeals, suspended, lockouts]);
+  }), [reports, appeals, suspended, lockouts, reportCounts, appealCounts]);
 
   // Action handlers — Dismiss / Unhide stay one-click. Hide / Suspend /
   // Grant / Deny / Unsuspend route through real modals.
@@ -584,10 +593,12 @@ function AdminPageInner() {
       else if (s === 'hidden') hidden += 1;
       if (r.acted_at && serverMs(r.acted_at) >= weekAgo) resolvedWeek += 1;
     }
+    // Whole-queue numbers from the API when present; the loaded rows
+    // are only the newest 200 and, by default, only unresolved ones.
     kpis = [
-      { label: 'Open reports', value: open, dot: 'open' },
-      { label: 'Hidden content', value: hidden, dot: 'hidden' },
-      { label: 'Resolved this week', value: resolvedWeek, dot: 'resolved' },
+      { label: 'Waiting for a decision', value: reportCounts ? reportCounts.unresolved : open + hidden, dot: 'open' },
+      { label: 'Hidden right now', value: reportCounts ? reportCounts.hidden_items : hidden, dot: 'hidden' },
+      { label: 'Resolved this week', value: reportCounts ? reportCounts.resolved_week : resolvedWeek, dot: 'resolved' },
     ];
   } else if (activeTab === 'appeals') {
     const now = Date.now();
@@ -602,9 +613,9 @@ function AdminPageInner() {
       }
     }
     kpis = [
-      { label: 'Open appeals', value: openA, dot: 'warning' },
-      { label: 'Granted this week', value: grantedWeek, dot: 'success' },
-      { label: 'Denied this week', value: deniedWeek, dot: 'danger' },
+      { label: 'Open appeals', value: appealCounts ? appealCounts.pending : openA, dot: 'warning' },
+      { label: 'Granted this week', value: appealCounts ? appealCounts.granted_week : grantedWeek, dot: 'success' },
+      { label: 'Denied this week', value: appealCounts ? appealCounts.denied_week : deniedWeek, dot: 'danger' },
     ];
   } else if (activeTab === 'suspended') {
     // Suspended — three lightweight tiles.
@@ -712,8 +723,7 @@ function AdminPageInner() {
             onKindChip={setKindChip}
             reporterChip={reporterChip}
             onReporterChip={setReporterChip}
-            autoOnly={autoOnly}
-            onAutoOnly={setAutoOnly}
+            counts={reportCounts}
             onRefresh={loadReports}
             onView={openHostingPage}
             onDismiss={(r) => runAction(`dismiss-${r.kind}-${r.id}`, () => adminDismissReport(r.kind, r.id), loadReports)}
@@ -911,7 +921,6 @@ function KpiTile({ label, value, dotClass }) {
         {label}
       </div>
       <div className="ad-kpi__num cl-num">{value}</div>
-      <div className="ad-kpi__delta ad-kpi__delta--flat">&mdash;</div>
     </div>
   );
 }
@@ -924,16 +933,16 @@ function QueueView({
   includeResolved, onIncludeResolved,
   kindChip, onKindChip,
   reporterChip, onReporterChip,
-  autoOnly, onAutoOnly,
+  counts,
   onRefresh, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend,
 }) {
   const filtered = useMemo(() => {
     let list = reports;
     if (kindChip !== 'all') list = list.filter((r) => r.kind === kindChip);
     if (reporterChip !== 'any') list = list.filter((r) => r.reporter_kind === reporterChip);
-    if (autoOnly) list = list.filter((r) => r.auto_flagged);
     return list;
-  }, [reports, kindChip, reporterChip, autoOnly]);
+  }, [reports, kindChip, reporterChip]);
+  const filtersOn = kindChip !== 'all' || reporterChip !== 'any';
 
   return (
     <>
@@ -944,13 +953,11 @@ function QueueView({
         onKindChip={onKindChip}
         reporterChip={reporterChip}
         onReporterChip={onReporterChip}
-        autoOnly={autoOnly}
-        onAutoOnly={onAutoOnly}
         onRefresh={onRefresh}
         loading={loading}
       />
       {!loading && filtered.length === 0 ? (
-        includeResolved ? <EmptyAll /> : <EmptyOpen />
+        filtersOn ? <EmptyFiltered /> : includeResolved ? <EmptyAll /> : <EmptyOpen />
       ) : mobile ? (
         <CardList
           rows={filtered}
@@ -965,6 +972,8 @@ function QueueView({
       ) : (
         <QueueTable
           rows={filtered}
+          counts={counts}
+          includeResolved={includeResolved}
           busyId={busyId}
           onView={onView}
           onDismiss={onDismiss}
@@ -982,7 +991,6 @@ function QueueFilterRow({
   includeResolved, onIncludeResolved,
   kindChip, onKindChip,
   reporterChip, onReporterChip,
-  autoOnly, onAutoOnly,
   onRefresh, loading,
 }) {
   const kinds = [
@@ -1030,23 +1038,7 @@ function QueueFilterRow({
         ))}
       </div>
 
-      <label className="ad-toggle">
-        <input
-          type="checkbox"
-          checked={autoOnly}
-          onChange={(e) => onAutoOnly(e.target.checked)}
-        />
-        <span className="ad-toggle__track" />
-        Auto-flagged only
-      </label>
-
       <div style={{ flex: 1 }} />
-
-      <div className="ad-search">
-        <SearchIcon size={14} />
-        <input placeholder="Search reports…" disabled />
-        <span className="ad-search__stub" title="Backend doesn't index reports yet — shipping with v2">Stub</span>
-      </div>
 
       <button type="button" className="ad-iconbtn" onClick={onRefresh} disabled={loading}>
         <RefreshIcon size={14} />
@@ -1056,9 +1048,12 @@ function QueueFilterRow({
   );
 }
 
-function QueueTable({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend }) {
+function QueueTable({ rows, counts, includeResolved, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend }) {
   const open = rows.filter((r) => reportStatus(r) === 'open').length;
   const hidden = rows.filter((r) => reportStatus(r) === 'hidden').length;
+  const loadedUnresolved = rows.filter((r) => !r.acted_at).length;
+  // The API returns the newest 200 rows; say so when there are more.
+  const capped = !includeResolved && counts && counts.unresolved > loadedUnresolved;
   return (
     <div className="ad-tablewrap">
       <div className="ad-tablewrap__count">
@@ -1066,15 +1061,9 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onU
           Showing <strong>{rows.length}</strong> {rows.length === 1 ? 'report' : 'reports'}
           {' · '}<strong>{open}</strong> open
           {' · '}<strong>{hidden}</strong> hidden
+          {capped && <>{' · '}newest {loadedUnresolved} of <strong>{counts.unresolved}</strong> waiting</>}
         </span>
-        <span className="ad-tablewrap__count-actions">
-          <button type="button" className="ad-linkbtn" disabled>
-            Sort: Newest first ↓ <span className="ad-stub" style={{ marginLeft: 4 }}>Stub</span>
-          </button>
-          <button type="button" className="ad-linkbtn" disabled>
-            Density: Compact <span className="ad-stub" style={{ marginLeft: 4 }}>Stub</span>
-          </button>
-        </span>
+        <span className="ad-tablewrap__count-actions">Newest first</span>
       </div>
       <HScroll scrollerClassName="ad-tablewrap__scroll" itemCount={rows.length}>
         <table className="ad-table">
@@ -1125,7 +1114,7 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onU
                       <span className={`ad-cell-reporter__kind ad-cell-reporter__kind--${r.reporter_kind || 'citizen'}`}>
                         {r.reporter_kind === 'rep' ? 'Rep' : 'Citizen'}
                       </span>
-                      {r.auto_flagged && <span className="ad-cell-reporter__autoflag">Auto-flag</span>}
+                      <ReporterTrust r={r} />
                     </div>
                   </td>
                   <td>
@@ -1135,7 +1124,8 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onU
                     </div>
                   </td>
                   <td>
-                    <StatusPill status={status} />
+                    <StatusPill status={status} r={r} />
+                    <TrustedCount r={r} counts={counts} />
                   </td>
                   <td>
                     <RowActions
@@ -1177,7 +1167,7 @@ function CardList({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onUnh
                   <div className="ad-card__type-id">id={r.target_id}</div>
                 </div>
               </div>
-              <StatusPill status={status} />
+              <StatusPill status={status} r={r} />
             </div>
             <div className="ad-card__preview">{r.target_preview || '(empty)'}</div>
             <div className="ad-card__meta">
@@ -1201,9 +1191,7 @@ function CardList({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onUnh
                 <div style={{ fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-light)' }}>
                   {r.reporter_kind === 'rep' ? 'Rep' : 'Citizen'} · {relTime(r.created_at)}
                 </div>
-                {r.auto_flagged && (
-                  <div className="ad-cell-reporter__autoflag" style={{ marginTop: 3 }}>Auto-flag</div>
-                )}
+                <ReporterTrust r={r} />
               </div>
             </div>
             <div className="ad-card__actions">
@@ -1331,8 +1319,35 @@ function RowActions({ r, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhi
   );
 }
 
-function StatusPill({ status }) {
-  const label = status === 'hidden' ? 'Hidden'
+// Who the reporter is, as far as moderation is concerned (2026-10-26):
+// demo accounts are always labeled as demo accounts, and a report from
+// an unverified account goes to the queue but never counts toward
+// auto-hide.
+function ReporterTrust({ r }) {
+  if (r.reporter_is_demo) {
+    return <span className="ad-cell-reporter__demo" title="Demo account: its reports don't count toward auto-hide">Demo account</span>;
+  }
+  if (r.reporter_trusted === false) {
+    return <span className="ad-cell-reporter__unverified" title="Not verified: its reports don't count toward auto-hide">Not verified</span>;
+  }
+  return null;
+}
+
+// Open trusted reports against the auto-hide threshold, for items that
+// are still waiting on a decision.
+function TrustedCount({ r, counts }) {
+  if (r.acted_at || typeof r.target_trusted_reports !== 'number' || !counts?.auto_hide_threshold) return null;
+  const state = targetState(r);
+  if (state !== 'visible' && state !== 'auto_hidden') return null;
+  return (
+    <div className="ad-cell-trusted" title="Open reports from reps and verified citizens; this many hides it automatically">
+      {r.target_trusted_reports} of {counts.auto_hide_threshold} trusted
+    </div>
+  );
+}
+
+function StatusPill({ status, r }) {
+  const label = status === 'hidden' ? (r && targetState(r) === 'auto_hidden' ? 'Auto-hidden' : 'Hidden')
     : status === 'resolved' ? 'Resolved'
     : status === 'removed' ? 'Not public'
     : 'Open';
@@ -1388,11 +1403,7 @@ function AppealsView({
               Showing <strong>{filtered.length}</strong> {filtered.length === 1 ? 'appeal' : 'appeals'}
               {' · '}<strong>{filtered.filter((a) => appealStatus(a) === 'pending').length}</strong> pending
             </span>
-            <span className="ad-tablewrap__count-actions">
-              <button type="button" className="ad-linkbtn" disabled>
-                Sort: Newest first ↓ <span className="ad-stub" style={{ marginLeft: 4 }}>Stub</span>
-              </button>
-            </span>
+            <span className="ad-tablewrap__count-actions">Newest first</span>
           </div>
           {filtered.map((a) => (
             <AppealCard key={a.id} appeal={a} onGrant={onGrant} onDeny={onDeny} />
@@ -1452,12 +1463,6 @@ function AppealsFilterRow({
       </div>
 
       <div style={{ flex: 1 }} />
-
-      <div className="ad-search">
-        <SearchIcon size={14} />
-        <input placeholder="Search appeals…" disabled />
-        <span className="ad-search__stub" title="Backend doesn't index appeals yet">Stub</span>
-      </div>
 
       <button type="button" className="ad-iconbtn" onClick={onRefresh} disabled={loading}>
         <RefreshIcon size={14} />
@@ -1668,12 +1673,6 @@ function SuspendedFilterRow({ kindChip, onKindChip, sort, onSort, onRefresh, loa
 
       <div style={{ flex: 1 }} />
 
-      <div className="ad-search">
-        <SearchIcon size={14} />
-        <input placeholder="Search by name or email…" disabled />
-        <span className="ad-search__stub" title="Backend doesn't index user records yet">Stub</span>
-      </div>
-
       <button type="button" className="ad-iconbtn" onClick={onRefresh} disabled={loading}>
         <RefreshIcon size={14} />
         <span>{loading ? 'Refreshing…' : 'Refresh'}</span>
@@ -1864,6 +1863,15 @@ function EmptyOpen() {
         here automatically. Toggle <em>&ldquo;Include resolved&rdquo;</em> above to review the
         last week of decisions.
       </p>
+    </div>
+  );
+}
+
+function EmptyFiltered() {
+  return (
+    <div className="ad-empty">
+      <h2 className="ad-empty__title">No reports match these filters.</h2>
+      <p className="ad-empty__body">Set Kind and Reporter back to All and Any to see the whole queue.</p>
     </div>
   );
 }
@@ -2296,14 +2304,6 @@ function RefreshIcon({ size = 14 }) {
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
       <path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
       <path d="M20 4v4h-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-    </svg>
-  );
-}
-function SearchIcon({ size = 14 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none">
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" fill="none" />
-      <path d="M16.5 16.5 21 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
