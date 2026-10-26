@@ -57,7 +57,7 @@ import './admin.css';
 import HScroll from '@/components/HScroll';
 import TransitionsTab from '@/components/admin/TransitionsTab';
 import ElectionRemindersTab from '@/components/admin/ElectionRemindersTab';
-import AdminTestPush from '@/components/admin/AdminTestPush';
+import AdminShell from '@/components/admin/AdminShell';
 import HistoryTab from '@/components/admin/HistoryTab';
 import AccountsTab from '@/components/admin/AccountsTab';
 import { serverDate, serverMs } from '@/lib/serverTime';
@@ -245,11 +245,13 @@ function AdminPageInner() {
   const [suspendedKindChip, setSuspendedKindChip] = useState('all');
   const [suspendedSort, setSuspendedSort] = useState('newest');
 
-  // Mobile collapse — table → card list.
+  // Cards instead of tables below 1366px (2026-10-26): beside the
+  // sidebar, the seven-column queue table needs a wide laptop screen;
+  // narrower, it scrolled sideways and hid Hide and Suspend.
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
-    const mq = window.matchMedia('(max-width: 640px)');
+    const mq = window.matchMedia('(max-width: 1365px)');
     const update = () => setMobile(mq.matches);
     update();
     mq.addEventListener?.('change', update);
@@ -631,20 +633,9 @@ function AdminPageInner() {
     );
   }
 
-  // Per-tab page-head config.
-  const tabConfig = {
-    queue:     { crumb: 'Admin · Moderation',  title: 'Moderation queue' },
-    appeals:   { crumb: 'Admin · Appeals',     title: 'Appeals queue' },
-    suspended: { crumb: 'Admin · Suspended users', title: 'Suspended accounts' },
-    lockouts: { crumb: 'Admin · Lockouts', title: 'Account lockouts' },
-    accounts: { crumb: 'Admin · Accounts', title: 'Account lookup' },
-    transitions: { crumb: 'Admin · Transitions', title: 'Former officials and candidates' },
-    reminders: { crumb: 'Admin · Election reminders', title: 'Election reminders preview' },
-    history: { crumb: 'Admin · History', title: 'Admin history' },
-  }[activeTab];
-
-  // Per-tab KPI strip.
-  let kpis;
+  // The counts on the line under each section title (2026-10-26:
+  // these were three large tiles).
+  let kpis = [];
   if (activeTab === 'queue') {
     const now = Date.now();
     const weekAgo = now - 7 * 24 * 3600 * 1000;
@@ -658,9 +649,9 @@ function AdminPageInner() {
     // Whole-queue numbers from the API when present; the loaded rows
     // are only the newest 200 and, by default, only unresolved ones.
     kpis = [
-      { label: 'Waiting for a decision', value: reportCounts ? reportCounts.unresolved : open + hidden, dot: 'open' },
-      { label: 'Hidden right now', value: reportCounts ? reportCounts.hidden_items : hidden, dot: 'hidden' },
-      { label: 'Resolved this week', value: reportCounts ? reportCounts.resolved_week : resolvedWeek, dot: 'resolved' },
+      { label: 'waiting', value: reportCounts ? reportCounts.unresolved : open + hidden, tone: 'open' },
+      { label: 'hidden now', value: reportCounts ? reportCounts.hidden_items : hidden, tone: 'hidden' },
+      { label: 'resolved this week', value: reportCounts ? reportCounts.resolved_week : resolvedWeek, tone: 'resolved' },
     ];
   } else if (activeTab === 'appeals') {
     const now = Date.now();
@@ -675,9 +666,9 @@ function AdminPageInner() {
       }
     }
     kpis = [
-      { label: 'Open appeals', value: appealCounts ? appealCounts.pending : openA, dot: 'warning' },
-      { label: 'Granted this week', value: appealCounts ? appealCounts.granted_week : grantedWeek, dot: 'success' },
-      { label: 'Denied this week', value: appealCounts ? appealCounts.denied_week : deniedWeek, dot: 'danger' },
+      { label: 'pending', value: appealCounts ? appealCounts.pending : openA, tone: 'warning' },
+      { label: 'granted this week', value: appealCounts ? appealCounts.granted_week : grantedWeek, tone: 'success' },
+      { label: 'denied this week', value: appealCounts ? appealCounts.denied_week : deniedWeek, tone: 'danger' },
     ];
   } else if (activeTab === 'suspended') {
     // Suspended — three lightweight tiles.
@@ -687,33 +678,34 @@ function AdminPageInner() {
       (u) => u.suspended_at && serverMs(u.suspended_at) >= weekAgo,
     ).length;
     kpis = [
-      { label: 'Currently suspended', value: suspended.length, dot: 'warning' },
-      { label: 'Suspended this week', value: suspendedThisWeek, dot: 'danger' },
-      { label: 'Reps suspended', value: suspended.filter((u) => u.kind === 'rep').length, dot: 'hidden' },
+      { label: 'suspended now', value: suspended.length, tone: 'warning' },
+      { label: 'this week', value: suspendedThisWeek, tone: 'danger' },
+      { label: 'reps', value: suspended.filter((u) => u.kind === 'rep').length, tone: 'muted' },
     ];
   } else if (activeTab === 'transitions') {
     kpis = [
-      { label: 'Farewell window', value: transitionCounts.farewell || 0, dot: 'warning' },
-      { label: 'Read-only', value: transitionCounts.read_only || 0, dot: 'hidden' },
-      { label: 'Archived', value: transitionCounts.archived || 0, dot: 'resolved' },
+      { label: 'in farewell window', value: transitionCounts.farewell || 0, tone: 'warning' },
+      { label: 'read-only', value: transitionCounts.read_only || 0, tone: 'muted' },
+      { label: 'archived', value: transitionCounts.archived || 0, tone: 'resolved' },
     ];
   } else if (activeTab === 'reminders') {
     kpis = [
-      { label: 'Sending today', value: reminderCounts.sending || 0, dot: 'warning' },
-      { label: 'Scheduled', value: reminderCounts.scheduled || 0, dot: 'success' },
-      { label: 'Passed', value: reminderCounts.passed || 0, dot: 'muted' },
+      { label: 'sending today', value: reminderCounts.sending || 0, tone: 'warning' },
+      { label: 'scheduled', value: reminderCounts.scheduled || 0, tone: 'success' },
+      { label: 'passed', value: reminderCounts.passed || 0, tone: 'muted' },
     ];
   } else if (activeTab === 'accounts') {
-    kpis = [
-      { label: 'Accounts found', value: accountCounts.found || 0, dot: 'open' },
-      { label: 'With 2FA on', value: accountCounts.twofa || 0, dot: 'success' },
-      { label: 'Suspended', value: accountCounts.suspended || 0, dot: 'warning' },
+    // Nothing to count until a lookup has run.
+    kpis = accountCounts.found === undefined ? [] : [
+      { label: accountCounts.found === 1 ? 'account found' : 'accounts found', value: accountCounts.found || 0, tone: 'open' },
+      { label: 'with 2FA on', value: accountCounts.twofa || 0, tone: 'success' },
+      { label: 'suspended', value: accountCounts.suspended || 0, tone: 'warning' },
     ];
   } else if (activeTab === 'history') {
     kpis = [
-      { label: 'Actions this week', value: historyCounts.week || 0, dot: 'open' },
-      { label: 'Hides and suspensions', value: historyCounts.takedowns || 0, dot: 'danger' },
-      { label: 'Restores', value: historyCounts.restores || 0, dot: 'success' },
+      { label: 'actions this week', value: historyCounts.week || 0, tone: 'open' },
+      { label: 'hides and suspensions', value: historyCounts.takedowns || 0, tone: 'danger' },
+      { label: 'restores', value: historyCounts.restores || 0, tone: 'success' },
     ];
   } else if (activeTab === 'lockouts') {
     // Lockouts — three tiles, parallel to Suspended.
@@ -721,65 +713,32 @@ function AdminPageInner() {
     const candidatesLocked = lockouts.filter((l) => l.identity_kind === 'candidate').length;
     const citizensLocked = lockouts.filter((l) => l.identity_kind === 'citizen').length;
     kpis = [
-      { label: 'Currently locked', value: lockouts.length, dot: 'warning' },
-      { label: 'Reps + candidates', value: repsLocked + candidatesLocked, dot: 'danger' },
-      { label: 'Citizens', value: citizensLocked, dot: 'hidden' },
+      { label: 'locked now', value: lockouts.length, tone: 'warning' },
+      { label: 'reps and candidates', value: repsLocked + candidatesLocked, tone: 'danger' },
+      { label: 'citizens', value: citizensLocked, tone: 'muted' },
     ];
   }
 
+  const banner = error ? (
+    <div className="ad-banner" role="alert">
+      <div className="ad-banner__icon">!</div>
+      <div className="ad-banner__body">
+        <div className="ad-banner__title">Couldn&rsquo;t complete that action</div>
+        <div className="ad-banner__detail">{error}</div>
+      </div>
+      <button className="ad-banner__close" onClick={() => setError(null)} aria-label="Dismiss">×</button>
+    </div>
+  ) : null;
+
   return (
-    <div className="ad-root">
-      <main className="ad-main">
-        <div className="ad-pagehead">
-          <div className="ad-pagehead__top">
-            <div className="ad-pagehead__crumb">{tabConfig.crumb}</div>
-            <h1 className="ad-pagehead__title">{tabConfig.title}</h1>
-            <div className="ad-pagehead__subline">
-              Signed in as{' '}
-              <span className="ad-pagehead__subline-mono">{me?.email}</span>
-              {' · '}{me?.kind === 'citizen' ? 'citizen' : 'rep'} account on ADMIN_EMAILS allowlist
-            </div>
-            <AdminTestPush />
-          </div>
-        </div>
-
-        {/* Section tabs and the way home stay pinned while the queue
-            scrolls (2026-10-03). A sibling of the title block rather than
-            inside it, so the sticky row's containing block is the whole
-            page, not the header band. */}
-        <div className="ad-subnav-row ad-subnav-row--sticky">
-          <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={8}>
-            <SubNavTab id="queue" label="Queue" badge={subnavCounts.queue} active={activeTab} onClick={switchTab} />
-            <SubNavTab id="appeals" label="Appeals" badge={subnavCounts.appeals} active={activeTab} onClick={switchTab} />
-            <SubNavTab id="suspended" label="Suspended users" badge={subnavCounts.suspended} active={activeTab} onClick={switchTab} />
-            <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
-            <SubNavTab id="accounts" label="Accounts" badge={0} active={activeTab} onClick={switchTab} />
-            <SubNavTab id="transitions" label="Transitions" badge={0} active={activeTab} onClick={switchTab} />
-            <SubNavTab id="reminders" label="Election reminders" badge={0} active={activeTab} onClick={switchTab} />
-            <SubNavTab id="history" label="History" badge={0} active={activeTab} onClick={switchTab} />
-          </HScroll>
-          <Link className="ad-subnav__home" href="/">
-            <span aria-hidden="true">←</span> CivicView home
-          </Link>
-        </div>
-
-        <div className="ad-kpis ad-kpis--page">
-          {kpis.map((k) => (
-            <KpiTile key={k.label} label={k.label} value={k.value} dotClass={k.dot} />
-          ))}
-        </div>
-
-        {error && (
-          <div className="ad-banner" role="alert">
-            <div className="ad-banner__icon">!</div>
-            <div className="ad-banner__body">
-              <div className="ad-banner__title">Couldn&rsquo;t complete that action</div>
-              <div className="ad-banner__detail">{error}</div>
-            </div>
-            <button className="ad-banner__close" onClick={() => setError(null)} aria-label="Dismiss">×</button>
-          </div>
-        )}
-
+    <AdminShell
+      active={activeTab}
+      counts={subnavCounts}
+      me={me}
+      onSelect={switchTab}
+      stats={kpis}
+      banner={banner}
+    >
         {activeTab === 'queue' && (
           <QueueView
             reports={reports}
@@ -913,7 +872,6 @@ function AdminPageInner() {
             )}
           </section>
         )}
-      </main>
 
       {hideModal && (
         <HideModal
@@ -959,7 +917,7 @@ function AdminPageInner() {
           onConfirm={handleUnsuspendConfirm}
         />
       )}
-    </div>
+    </AdminShell>
   );
 }
 
@@ -967,37 +925,6 @@ function openHostingPage(r) {
   if (!r.context_official_id) return;
   const url = `/?page=${encodeURIComponent(r.context_official_id)}`;
   if (typeof window !== 'undefined') window.open(url, '_blank', 'noopener,noreferrer');
-}
-
-// ─────────────────────────────────────────────────────────────────────
-// SUB-NAV TAB BUTTON
-// ─────────────────────────────────────────────────────────────────────
-function SubNavTab({ id, label, badge, active, onClick }) {
-  return (
-    <button
-      type="button"
-      className={`ad-subnav__item ${active === id ? 'ad-subnav__item--active' : ''}`}
-      onClick={() => onClick(id)}
-    >
-      {label}
-      {badge > 0 && <span className="ad-subnav__badge">{badge}</span>}
-    </button>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────
-// KPI TILE
-// ─────────────────────────────────────────────────────────────────────
-function KpiTile({ label, value, dotClass }) {
-  return (
-    <div className="ad-kpi">
-      <div className="ad-kpi__label">
-        <span className={`ad-kpi__dot ad-kpi__dot--${dotClass}`} />
-        {label}
-      </div>
-      <div className="ad-kpi__num cl-num">{value}</div>
-    </div>
-  );
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -1049,7 +976,6 @@ function QueueView({
         <QueueTable
           rows={filtered}
           counts={counts}
-          includeResolved={includeResolved}
           busyId={busyId}
           onView={onView}
           onDismiss={onDismiss}
@@ -1084,7 +1010,7 @@ function QueueFilterRow({
 
   return (
     <div className="ad-filters">
-      <label className="ad-toggle">
+      <label className="ad-toggle ad-filters__toggle">
         <input
           type="checkbox"
           checked={includeResolved}
@@ -1095,28 +1021,30 @@ function QueueFilterRow({
       </label>
 
       <div className="ad-filters__divider" />
-      <span className="ad-filters__label">Kind</span>
-      <div className="ad-filters__chips">
-        {kinds.map((k) => (
-          <button key={k.id} type="button" className={`ad-chip ${kindChip === k.id ? 'ad-chip--active' : ''}`} onClick={() => onKindChip(k.id)}>
-            {k.label}
-          </button>
-        ))}
+      <div className="ad-filters__group" role="group" aria-label="Kind">
+        <span className="ad-filters__label">Kind</span>
+        <div className="ad-filters__chips">
+          {kinds.map((k) => (
+            <button key={k.id} type="button" className={`ad-chip ${kindChip === k.id ? 'ad-chip--active' : ''}`} onClick={() => onKindChip(k.id)}>
+              {k.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="ad-filters__divider" />
-      <span className="ad-filters__label">Reporter</span>
-      <div className="ad-filters__chips">
-        {reporters.map((r) => (
-          <button key={r.id} type="button" className={`ad-chip ${reporterChip === r.id ? 'ad-chip--active' : ''}`} onClick={() => onReporterChip(r.id)}>
-            {r.label}
-          </button>
-        ))}
+      <div className="ad-filters__group" role="group" aria-label="Reporter">
+        <span className="ad-filters__label">Reporter</span>
+        <div className="ad-filters__chips">
+          {reporters.map((r) => (
+            <button key={r.id} type="button" className={`ad-chip ${reporterChip === r.id ? 'ad-chip--active' : ''}`} onClick={() => onReporterChip(r.id)}>
+              {r.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div style={{ flex: 1 }} />
-
-      <button type="button" className="ad-iconbtn" onClick={onRefresh} disabled={loading}>
+      <button type="button" className="ad-iconbtn ad-filters__refresh" onClick={onRefresh} disabled={loading}>
         <RefreshIcon size={14} />
         <span>{loading ? 'Refreshing…' : 'Refresh'}</span>
       </button>
@@ -1124,12 +1052,10 @@ function QueueFilterRow({
   );
 }
 
-function QueueTable({ rows, counts, includeResolved, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend }) {
+function QueueTable({ rows, counts, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend }) {
   const open = rows.filter((r) => reportStatus(r) === 'open').length;
   const hidden = rows.filter((r) => reportStatus(r) === 'hidden').length;
-  const loadedUnresolved = rows.filter((r) => !r.acted_at).length;
-  // The API returns the newest 200 rows; say so when there are more.
-  const capped = !includeResolved && counts && counts.unresolved > loadedUnresolved;
+  // A cut-short list is said once, above, by CapNote with Show all.
   return (
     <div className="ad-tablewrap">
       <div className="ad-tablewrap__count">
@@ -1137,7 +1063,6 @@ function QueueTable({ rows, counts, includeResolved, busyId, onView, onDismiss, 
           Showing <strong>{rows.length}</strong> {rows.length === 1 ? 'report' : 'reports'}
           {' · '}<strong>{open}</strong> open
           {' · '}<strong>{hidden}</strong> hidden
-          {capped && <>{' · '}newest {loadedUnresolved} of <strong>{counts.unresolved}</strong> waiting</>}
         </span>
         <span className="ad-tablewrap__count-actions">Newest first</span>
       </div>
@@ -1145,13 +1070,13 @@ function QueueTable({ rows, counts, includeResolved, busyId, onView, onDismiss, 
         <table className="ad-table">
           <thead>
             <tr>
-              <th style={{ width: 160 }}>Type</th>
+              <th style={{ width: 132 }}>Type</th>
               <th>Content preview</th>
-              <th style={{ width: 170 }}>Reason</th>
+              <th style={{ width: 120 }}>Reason</th>
               <th style={{ width: 130 }}>Reporter</th>
-              <th style={{ width: 90 }}>When</th>
-              <th style={{ width: 100 }}>Status</th>
-              <th style={{ width: 290 }}>Actions</th>
+              <th style={{ width: 100 }}>When</th>
+              <th style={{ width: 110 }}>Status</th>
+              <th style={{ width: 210 }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -1510,7 +1435,7 @@ function AppealsFilterRow({
   ];
   return (
     <div className="ad-filters">
-      <label className="ad-toggle">
+      <label className="ad-toggle ad-filters__toggle">
         <input
           type="checkbox"
           checked={includeResolved}
@@ -1521,28 +1446,30 @@ function AppealsFilterRow({
       </label>
 
       <div className="ad-filters__divider" />
-      <span className="ad-filters__label">Type</span>
-      <div className="ad-filters__chips">
-        {types.map((t) => (
-          <button key={t.id} type="button" className={`ad-chip ${typeChip === t.id ? 'ad-chip--active' : ''}`} onClick={() => onTypeChip(t.id)}>
-            {t.label}
-          </button>
-        ))}
+      <div className="ad-filters__group" role="group" aria-label="Type">
+        <span className="ad-filters__label">Type</span>
+        <div className="ad-filters__chips">
+          {types.map((t) => (
+            <button key={t.id} type="button" className={`ad-chip ${typeChip === t.id ? 'ad-chip--active' : ''}`} onClick={() => onTypeChip(t.id)}>
+              {t.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="ad-filters__divider" />
-      <span className="ad-filters__label">Appellant</span>
-      <div className="ad-filters__chips">
-        {kinds.map((k) => (
-          <button key={k.id} type="button" className={`ad-chip ${appellantChip === k.id ? 'ad-chip--active' : ''}`} onClick={() => onAppellantChip(k.id)}>
-            {k.label}
-          </button>
-        ))}
+      <div className="ad-filters__group" role="group" aria-label="Appellant">
+        <span className="ad-filters__label">Appellant</span>
+        <div className="ad-filters__chips">
+          {kinds.map((k) => (
+            <button key={k.id} type="button" className={`ad-chip ${appellantChip === k.id ? 'ad-chip--active' : ''}`} onClick={() => onAppellantChip(k.id)}>
+              {k.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div style={{ flex: 1 }} />
-
-      <button type="button" className="ad-iconbtn" onClick={onRefresh} disabled={loading}>
+      <button type="button" className="ad-iconbtn ad-filters__refresh" onClick={onRefresh} disabled={loading}>
         <RefreshIcon size={14} />
         <span>{loading ? 'Refreshing…' : 'Refresh'}</span>
       </button>
@@ -1759,18 +1686,20 @@ function SuspendedFilterRow({ kindChip, onKindChip, sort, onSort, onRefresh, loa
   ];
   return (
     <div className="ad-filters">
-      <span className="ad-filters__label">Kind</span>
-      <div className="ad-filters__chips">
-        {kinds.map((k) => (
-          <button key={k.id} type="button" className={`ad-chip ${kindChip === k.id ? 'ad-chip--active' : ''}`} onClick={() => onKindChip(k.id)}>
-            {k.label}
-          </button>
-        ))}
+      <div className="ad-filters__group" role="group" aria-label="Kind">
+        <span className="ad-filters__label">Kind</span>
+        <div className="ad-filters__chips">
+          {kinds.map((k) => (
+            <button key={k.id} type="button" className={`ad-chip ${kindChip === k.id ? 'ad-chip--active' : ''}`} onClick={() => onKindChip(k.id)}>
+              {k.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="ad-filters__divider" />
 
-      <div className="ad-sortselect">
+      <div className="ad-sortselect ad-filters__group">
         <span className="ad-filters__label" style={{ marginRight: 6 }}>Sort</span>
         <select className="ad-select" value={sort} onChange={(e) => onSort(e.target.value)}>
           <option value="newest">Newest first</option>
@@ -1778,9 +1707,7 @@ function SuspendedFilterRow({ kindChip, onKindChip, sort, onSort, onRefresh, loa
         </select>
       </div>
 
-      <div style={{ flex: 1 }} />
-
-      <button type="button" className="ad-iconbtn" onClick={onRefresh} disabled={loading}>
+      <button type="button" className="ad-iconbtn ad-filters__refresh" onClick={onRefresh} disabled={loading}>
         <RefreshIcon size={14} />
         <span>{loading ? 'Refreshing…' : 'Refresh'}</span>
       </button>

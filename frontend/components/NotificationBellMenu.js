@@ -30,7 +30,7 @@ import LifecycleNotice, { LIFECYCLE_KINDS } from './LifecycleNotice';
 import ElectionReminderNotice from './ElectionReminderNotice';
 // The settings list (2026-10-17): one dropdown per kind of alert, then
 // timing. Shown in place of the inbox when the gear is tapped.
-import NotificationSettings, { usePhonePush } from './NotificationSettings';
+import NotificationSettings from './NotificationSettings';
 
 // Phase 5 MVP: poll the notification inbox at this cadence. 60s is
 // frequent enough for "rep replied to my comment" to feel responsive
@@ -75,8 +75,6 @@ const MODERATION_KIND_LABEL = {
  * 2026-10-17), so the inbox stays short.
  */
 export default function NotificationBellMenu() {
-  // Push on this phone (native app only), for the yellow dot.
-  const phone = usePhonePush();
   const [open, setOpen] = useState(false);
   const [view, setView] = useState('inbox'); // 'inbox' | 'settings'
   useEffect(() => { if (!open) setView('inbox'); }, [open]);
@@ -259,9 +257,6 @@ export default function NotificationBellMenu() {
     };
   }, [open]);
 
-  // The yellow dot: push is on for this phone.
-  const enabledCount = phone.on ? 1 : 0;
-
   return (
     <div ref={containerRef} style={{ position: 'relative' }}>
       <button
@@ -275,12 +270,11 @@ export default function NotificationBellMenu() {
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
           <path d="M13.73 21a2 2 0 0 1-3.46 0" />
         </svg>
-        {/* Two distinct dots:
-            • Yellow = at least one delivery-channel preference is enabled
-              (legacy indicator, kept for visual continuity).
-            • Red (priority) = at least one unread notification in the
-              inbox. Overlays the yellow when both apply since unread
-              is the more actionable signal. */}
+        {/* One mark only: the red count of unread notifications.
+            The yellow "push is on for this phone" dot was removed
+            (2026-10-26): it looked like an unread notice that reading
+            the inbox could never clear. Push on or off is shown in
+            the bell's Settings. */}
         {unreadCount > 0 ? (
           <span style={{
             position: 'absolute', top: '2px', right: '2px',
@@ -294,12 +288,6 @@ export default function NotificationBellMenu() {
           }}>
             {unreadCount > 99 ? '99+' : unreadCount}
           </span>
-        ) : enabledCount > 0 ? (
-          <span style={{
-            position: 'absolute', top: '4px', right: '4px',
-            width: '8px', height: '8px', borderRadius: '50%',
-            background: '#ffba08', border: '2px solid var(--cl-primary)',
-          }} />
         ) : null}
       </button>
 

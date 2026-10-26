@@ -326,7 +326,9 @@ export default function TransitionsTab({ onCounts }) {
       )}
       {notice && <p className="tr-notice" role="status">{notice}</p>}
 
-      <details className="tr-card" open ref={formCardRef}>
+      {/* Both forms start folded (2026-10-26): the list is what most
+          visits are for, and on a phone the open form filled two screens. */}
+      <details className="tr-card tr-fold" ref={formCardRef}>
         <summary>Set a left-office date or a race result</summary>
         <form className="tr-form" onSubmit={submit}>
           <label>Page id<input required placeholder="fl-sen-39, B001234, fl-cand-..." {...field('page_id')} /></label>
@@ -398,7 +400,7 @@ export default function TransitionsTab({ onCounts }) {
         </p>
       </details>
 
-      <details className="tr-card">
+      <details className="tr-card tr-fold">
         <summary>Approve a winner&apos;s official page (after the swearing-in)</summary>
         <form className="tr-form" onSubmit={approveHandoff}>
           <label>Campaign page id<input required {...{ value: handoff.campaignPageId, onChange: (e) => setHandoff((h) => ({ ...h, campaignPageId: e.target.value })) }} /></label>
@@ -546,7 +548,7 @@ export default function TransitionsTab({ onCounts }) {
         <div className="ad-empty">{loading ? 'Loading…' : 'Nothing on the clock.'}</div>
       ) : (
         <div className="ad-tablewrap">
-          <table className="ad-table tr-table">
+          <table className="ad-table tr-table tr-list">
             <thead>
               <tr>
                 <th>Person</th><th>Stage</th><th>Date</th><th>Farewell ends</th><th>Archived on</th><th>Set by</th>
@@ -567,14 +569,14 @@ export default function TransitionsTab({ onCounts }) {
                     <div className="tr-sub">{it.title || it.office_label}</div>
                     <div className="tr-sub tr-mono">{it.page_id}</div>
                   </td>
-                  <td>{stageLabel(it.stage)}</td>
-                  <td>
+                  <td data-label="Stage">{stageLabel(it.stage)}</td>
+                  <td data-label="Date">
                     {it.date_line || ''}
                     {it.date_is_recorded && <div className="tr-tag">No official date yet</div>}
                   </td>
-                  <td>{formatLongDate(it.farewell_ends_on)}</td>
-                  <td>{formatLongDate(it.archive_on)}</td>
-                  <td>
+                  <td data-label="Farewell ends">{formatLongDate(it.farewell_ends_on)}</td>
+                  <td data-label="Archived on">{formatLongDate(it.archive_on)}</td>
+                  <td data-label="Set by">
                     <div>{it.set_by || ''}</div>
                     {it.set_at && <div className="tr-sub">{localDateTime(it.set_at)}</div>}
                   </td>
