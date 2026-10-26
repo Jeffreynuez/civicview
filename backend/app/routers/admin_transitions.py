@@ -11,21 +11,29 @@ it and when. No delete buttons."
   GET  /api/admin/transitions                    schedule: every page on the clock
   GET  /api/admin/transitions/page/{page_id}     one page, with its change history
   POST /api/admin/transitions                    set a left-office date or a race result
+                                                 (?dry_run=true: what it would do, saves nothing)
+  POST /api/admin/transitions/page/{id}/withdraw withdraw an admin entry: back to the data
   POST /api/admin/transitions/run                run the daily job now
+  GET  /api/admin/transitions/handoff/preview    what a hand-off would do, saves nothing
   POST /api/admin/transitions/handoff            approve a winner's official page
   GET  /api/admin/transitions/name-reviews       name hand-offs waiting for a decision
   POST /api/admin/transitions/name-reviews/{id}  approve or refuse one, with a source
 
 There is no delete route. A correction is another POST: the row is
 updated, and page_transition_log keeps the values before and after,
-who changed them and when.
+who changed them and when. A withdrawal (2026-10-26) keeps the row too:
+it stops winning over the data files, and the log keeps both sides.
+
+Sources (2026-10-26): a source that isn't a .gov, .us or .mil site needs
+source_confirmed=true, the admin's explicit "this is an official source".
 """
 from __future__ import annotations
 
 import json
 import logging
 import re
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
+from urllib.parse import urlparse
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -87,6 +95,51 @@ def _schedule_item(t: pl.Transition, row: Optional[PageTransition], today: date)
         },
     })
     return block
+
+
+_OFFICIAL_TLDS = ("gov", "us", "mil")
+
+
+def is_official_looking(url: str) -> bool:
+    """True for an https link on a .gov, .us or .mil host (federal and
+    state governments, most legislatures and election offices). Anything
+    else can still be official, but the admin has to say so."""
+    try:
+        parsed = urlparse(url or "")
+    except ValueError:
+        return False
+    host = (parsed.hostname or "").lower().rstrip(".")
+    return parsed.scheme == "https" and bool(host) and host.rsplit(".", 1)[-1] in _OFFICIAL_TLDS
+
+
+def _require_source(url: str, confirmed: bool) -> None:
+    if not (url or "").startswith("https://"):
+        raise HTTPException(status_code=400, detail="The source must be an https link to an official source.")
+    if not confirmed and not is_official_looking(url):
+        raise HTTPException(
+            status_code=400,
+            detail=("That source isn't a .gov, .us or .mil site. If it is still the official source "
+                    "(a legislature or election office on another domain), tick \"This is an official "
+                    "source\" and save again."),
+        )
+
+
+def _set_warnings(db: Session, t: pl.Transition, today: date) -> tuple[list, int]:
+    """What a save would set off, for the confirm step: the stage it
+    lands in, dates that look wrong, and how many people track the page
+    (they hear about it on the next daily run)."""
+    from app.services.page_lifecycle_job import _trackers
+
+    warnings = []
+    st = t.stage(today)
+    if st in (pl.READ_ONLY, pl.ARCHIVED):
+        warnings.append(f"The page goes straight to {st.replace('_', '-')}: the 30-day farewell window has already passed.")
+    if t.event_on and t.event_on > today:
+        warnings.append("The date is in the future.")
+    if t.event_on and t.event_on < today - timedelta(days=730):
+        warnings.append("The date is more than two years ago. Check the year.")
+    trackers = len(_trackers(db, t.page_id)) if st != pl.ACTIVE else 0
+    return warnings, trackers
 
 
 @router.get("")
@@ -162,19 +215,26 @@ class TransitionSet(BaseModel):
     linked_page_id: Optional[str] = Field(default=None, max_length=64)
     display_name: Optional[str] = Field(default=None, max_length=255)
     state: Optional[str] = Field(default=None, max_length=2)
+    # The admin's "this is an official source" for a link that isn't
+    # .gov, .us or .mil (2026-10-26).
+    source_confirmed: bool = False
 
 
 @router.post("")
-def set_transition(body: TransitionSet, db: Session = Depends(get_db), actor: dict = Depends(get_current_admin)):
+def set_transition(body: TransitionSet, dry_run: bool = Query(default=False),
+                   db: Session = Depends(get_db), actor: dict = Depends(get_current_admin)):
     """Set (or correct) when a person left office, or a race's result,
     with the official source. The data files' values fill anything left
-    blank. Admin entries win over the data."""
+    blank. Admin entries win over the data.
+
+    dry_run=true (2026-10-26) answers what the save would do (the stage,
+    the dates, warnings, how many people track the page) and saves
+    nothing; the admin page shows it as a confirm step."""
     if body.event == "left_office" and body.page_kind != "official":
         raise HTTPException(status_code=400, detail="Leaving office is for an official's page.")
     if body.event != "left_office" and body.page_kind != "candidate":
         raise HTTPException(status_code=400, detail="A race result is for a candidate's page.")
-    if not body.source_url.startswith("https://"):
-        raise HTTPException(status_code=400, detail="The source must be an https link to an official source.")
+    _require_source(body.source_url, body.source_confirmed)
     if body.event == "won" and body.incumbent and not body.linked_page_id:
         raise HTTPException(status_code=400,
                             detail="A re-elected incumbent needs the official page id (the Follow in office link).")
@@ -215,6 +275,15 @@ def set_transition(body: TransitionSet, db: Session = Depends(get_db), actor: di
     row.set_at = datetime.utcnow()
     if not row.office_label:
         raise HTTPException(status_code=400, detail="Give the office (for example \"State Senator, Ohio District 1\").")
+    if dry_run:
+        db.flush()
+        t = pl._from_row(row)
+        today = pl.today_et()
+        item = _schedule_item(t, row, today)
+        warnings, trackers = _set_warnings(db, t, today)
+        db.rollback()
+        return {"dry_run": True, "item": item, "warnings": warnings, "trackers": trackers,
+                "replaces_admin_entry": bool(before.get("origin") == "admin")}
     db.add(PageTransitionLog(page_id=body.page_id, action="set", before_json=json.dumps(before),
                              after_json=json.dumps(_row_dict(row)), actor=actor.get("email")))
     admin_actions.record(
@@ -228,6 +297,53 @@ def set_transition(body: TransitionSet, db: Session = Depends(get_db), actor: di
                 body.event, body.event_on.isoformat())
     t = pl.get_transition(db, body.page_id)
     return _schedule_item(t, row, pl.today_et())
+
+
+class WithdrawRequest(BaseModel):
+    reason: Optional[str] = Field(default=None, max_length=1000)
+
+
+@router.post("/page/{page_id}/withdraw")
+def withdraw_entry(page_id: str, body: WithdrawRequest, db: Session = Depends(get_db),
+                   actor: dict = Depends(get_current_admin)):
+    """Withdraw an admin entry made by mistake (2026-10-26): the page
+    goes back to whatever the data files say (often: still in office or
+    still running). Nothing is deleted; the row stops winning over the
+    data, and the log keeps the entry. Notices already sent can't be
+    recalled, and tracking that already ended stays ended. Needs a
+    reason. Refused after a hand-off, which made a rep account that a
+    withdrawal can't undo."""
+    reason = admin_actions.require_reason(body.reason, "withdrawal")
+    row = db.query(PageTransition).filter(PageTransition.page_id == page_id).first()
+    if row is None or row.origin != "admin":
+        raise HTTPException(status_code=404, detail="There's no admin entry for that page to withdraw.")
+    if row.handoff_on is not None:
+        raise HTTPException(status_code=409, detail=(
+            "A hand-off was already approved for this page. Withdrawing can't undo the rep account; "
+            "save a correction instead."))
+    before = _row_dict(row)
+    base = pl.registry.get(page_id)
+    row.origin = "data"
+    if base is not None:
+        from app.services.page_lifecycle_job import _sync_data_row
+        _sync_data_row(row, base)
+    row.set_by = actor.get("email")
+    row.set_at = datetime.utcnow()
+    db.add(PageTransitionLog(page_id=page_id, action="withdraw", before_json=json.dumps(before),
+                             after_json=json.dumps(_row_dict(row)), actor=actor.get("email")))
+    admin_actions.record(
+        db, actor, "transition_withdraw", target_kind="page", target_id=page_id,
+        target_label=before.get("display_name"), reason=reason,
+        details={"event": before.get("event"), "event_on": before.get("event_on"),
+                 "falls_back_to_data": base is not None},
+    )
+    db.commit()
+    pl.invalidate_cache()
+    t = pl.get_transition(db, page_id)
+    today = pl.today_et()
+    return {"ok": True, "page_id": page_id,
+            "stage": t.stage(today) if t else pl.ACTIVE,
+            "item": _schedule_item(t, row, today) if t else None}
 
 
 @router.get("/run/preview")
@@ -257,9 +373,55 @@ class HandoffRequest(BaseModel):
 
 def _role_from_label(label: str) -> str:
     """"Governor of Florida" -> "Governor"; "U.S. House, Florida
-    District 7" -> "U.S. Representative"."""
+    District 7" -> "U.S. Representative"; a label elect_title doesn't
+    know, like "State Senator, Florida District 96", -> the part before
+    the first comma ("State Senator"). Until 2026-10-26 that last case
+    came back as the whole label plus ", elect", which the hand-off
+    then saved as the rep's role."""
     elect = pl.elect_title(label)
-    return re.sub(r"-elect\b.*$", "", elect).strip() or label
+    if "-elect" in elect:
+        return re.sub(r"-elect\b.*$", "", elect).strip() or label
+    return (label or "").split(",")[0].strip() or label
+
+
+def _handoff_checks(db: Session, campaign_page_id: str, official_page_id: str):
+    """Everything a hand-off needs before it may run. Returns
+    (transition, candidate account, today) or raises."""
+    t = pl.get_transition(db, campaign_page_id)
+    if t is None or t.event != "won" or t.incumbent:
+        raise HTTPException(status_code=400, detail="Record the win first (a non-incumbent winner).")
+    today = pl.today_et()
+    if not t.sworn_in_on or today < t.sworn_in_on:
+        raise HTTPException(status_code=400, detail="The hand-off opens on the swearing-in date.")
+    cand = db.query(CandidateAccount).filter(CandidateAccount.candidate_id == campaign_page_id).first()
+    if cand is None or cand.claim_status != "active" or cand.closed_at is not None:
+        raise HTTPException(status_code=400, detail="The campaign page has no active candidate account.")
+    if db.query(RepAccount).filter(RepAccount.official_id == official_page_id).first():
+        raise HTTPException(status_code=409, detail="That official page already has an account.")
+    if db.query(RepAccount).filter(RepAccount.email == cand.email).first():
+        raise HTTPException(status_code=409, detail="A rep account already uses this email.")
+    return t, cand, today
+
+
+@router.get("/handoff/preview")
+def preview_handoff(campaign_page_id: str = Query(..., min_length=1, max_length=64),
+                    official_page_id: str = Query(..., min_length=1, max_length=64),
+                    role: Optional[str] = Query(default=None, max_length=255),
+                    db: Session = Depends(get_db), actor: dict = Depends(get_current_admin)):
+    """What "Approve hand-off" would do, before it does it (2026-10-26):
+    the same checks, the person, the role, and how many followers get
+    the "Follow in office" notice. Saves nothing."""
+    from app.services.page_lifecycle_job import _trackers
+
+    t, cand, _today = _handoff_checks(db, campaign_page_id, official_page_id)
+    return {
+        "campaign_page_id": campaign_page_id,
+        "official_page_id": official_page_id,
+        "name": cand.display_name,
+        "office_label": t.office_label,
+        "role": role or _role_from_label(t.office_label),
+        "followers": len(_trackers(db, campaign_page_id)),
+    }
 
 
 @router.post("/handoff")
@@ -276,19 +438,7 @@ def approve_handoff(body: HandoffRequest, db: Session = Depends(get_db),
     from app.services.officials_index import owner_scope_fallback
     from app.services.page_lifecycle_job import end_tracking, notify_followers_to_follow
 
-    t = pl.get_transition(db, body.campaign_page_id)
-    if t is None or t.event != "won" or t.incumbent:
-        raise HTTPException(status_code=400, detail="Record the win first (a non-incumbent winner).")
-    today = pl.today_et()
-    if not t.sworn_in_on or today < t.sworn_in_on:
-        raise HTTPException(status_code=400, detail="The hand-off opens on the swearing-in date.")
-    cand = db.query(CandidateAccount).filter(CandidateAccount.candidate_id == body.campaign_page_id).first()
-    if cand is None or cand.claim_status != "active" or cand.closed_at is not None:
-        raise HTTPException(status_code=400, detail="The campaign page has no active candidate account.")
-    if db.query(RepAccount).filter(RepAccount.official_id == body.official_page_id).first():
-        raise HTTPException(status_code=409, detail="That official page already has an account.")
-    if db.query(RepAccount).filter(RepAccount.email == cand.email).first():
-        raise HTTPException(status_code=409, detail="A rep account already uses this email.")
+    t, cand, today = _handoff_checks(db, body.campaign_page_id, body.official_page_id)
 
     state, district = owner_scope_fallback(body.official_page_id)
     rep = RepAccount(
@@ -366,13 +516,13 @@ def name_reviews(db: Session = Depends(get_db), actor: dict = Depends(get_curren
 class NameDecision(BaseModel):
     decision: str = Field(..., pattern=r"^(approve|refuse)$")
     source_url: str = Field(..., min_length=8, max_length=500)
+    source_confirmed: bool = False
 
 
 @router.post("/name-reviews/{link_id}")
 def decide_name(link_id: int, body: NameDecision, db: Session = Depends(get_db),
                 actor: dict = Depends(get_current_admin)):
-    if not body.source_url.startswith("https://"):
-        raise HTTPException(status_code=400, detail="The source must be an https link.")
+    _require_source(body.source_url, body.source_confirmed)
     link = db.get(FormerAccountLink, link_id)
     if link is None or link.name_status != "review":
         raise HTTPException(status_code=404, detail="No name review with that id.")

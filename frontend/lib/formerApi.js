@@ -62,8 +62,28 @@ export function adminTransitionDetail(pageId) {
   return request(`/api/admin/transitions/page/${encodeURIComponent(pageId)}`);
 }
 
-export function adminSetTransition(body) {
-  return request('/api/admin/transitions', { method: 'POST', body });
+// dryRun answers what the save would do (stage, dates, warnings, how
+// many people track the page) and saves nothing (2026-10-26).
+export function adminSetTransition(body, { dryRun = false } = {}) {
+  return request('/api/admin/transitions', {
+    method: 'POST', body, query: dryRun ? { dry_run: 'true' } : undefined,
+  });
+}
+
+// Withdraw an admin entry made by mistake: back to the data files.
+// Needs a reason; notices already sent can't be recalled (2026-10-26).
+export function adminWithdrawTransition(pageId, reason) {
+  return request(`/api/admin/transitions/page/${encodeURIComponent(pageId)}/withdraw`, {
+    method: 'POST', body: { reason },
+  });
+}
+
+// What a hand-off would do before it does it: the person, the role and
+// how many followers get "Follow in office" (2026-10-26).
+export function adminPreviewHandoff({ campaignPageId, officialPageId, role }) {
+  return request('/api/admin/transitions/handoff/preview', {
+    query: { campaign_page_id: campaignPageId, official_page_id: officialPageId, role: role || undefined },
+  });
 }
 
 export function adminRunTransitions() {
@@ -87,8 +107,8 @@ export function adminNameReviews() {
   return request('/api/admin/transitions/name-reviews');
 }
 
-export function adminDecideName(linkId, { decision, sourceUrl }) {
+export function adminDecideName(linkId, { decision, sourceUrl, sourceConfirmed = false }) {
   return request(`/api/admin/transitions/name-reviews/${encodeURIComponent(linkId)}`, {
-    method: 'POST', body: { decision, source_url: sourceUrl },
+    method: 'POST', body: { decision, source_url: sourceUrl, source_confirmed: !!sourceConfirmed },
   });
 }

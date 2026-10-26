@@ -157,3 +157,18 @@
   border-top: 1px solid var(--cl-border);
   font-size: 0.82rem;
 }
+
+/* Confirm steps and withdraw (2026-10-26). */
+.tr-confirm {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--cl-warning-border, #f3d27a);
+  background: var(--cl-warning-soft, #fff8e1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.86rem;
+}
+.tr-confirm p { margin: 0; }
+.tr-warnings { margin: 0; padding-left: 18px; color: var(--cl-danger-deep, #8a1c1c); }

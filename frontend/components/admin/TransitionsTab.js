@@ -3,7 +3,7 @@
 // CivicView. Copyright (c) 2026 Jeffrey De La Nuez. All rights reserved.
 // Proprietary and confidential. See LICENSE at the repository root.
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './TransitionsTab.css';
 import { formatLongDate } from '@/components/LifecycleBanner';
 import {
@@ -11,11 +11,14 @@ import {
   adminDecideName,
   adminListTransitions,
   adminNameReviews,
+  adminPreviewHandoff,
   adminPreviewTransitionsRun,
   adminRunTransitions,
   adminSetTransition,
   adminTransitionDetail,
+  adminWithdrawTransition,
 } from '@/lib/formerApi';
+import { serverDate } from '@/lib/serverTime';
 
 /**
  * Admin: former officials and candidates (2026-10-15, decision 8).
@@ -26,7 +29,31 @@ import {
  * Every entry is a POST that records who set it and when; a
  * correction is another POST, and the history keeps the values before
  * and after. There is no delete control anywhere on this tab.
+ *
+ * Since 2026-10-26 (admin audit): Save, the hand-off and name decisions
+ * show what they will do and ask to confirm first; an admin entry can be
+ * withdrawn with a reason (back to the data files, nothing deleted); a
+ * source that isn't .gov, .us or .mil needs "This is an official
+ * source"; and the times read in local time.
  */
+
+// Mirrors admin_transitions.is_official_looking on the server.
+function isOfficialLooking(url) {
+  try {
+    const u = new URL(url);
+    const tld = u.hostname.toLowerCase().replace(/\.$/, '').split('.').pop();
+    return u.protocol === 'https:' && ['gov', 'us', 'mil'].includes(tld);
+  } catch {
+    return false;
+  }
+}
+
+function localDateTime(iso) {
+  const d = serverDate(iso);
+  return d && !Number.isNaN(d.getTime())
+    ? d.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })
+    : '';
+}
 
 const STAGES = [
   ['', 'All stages'],
@@ -80,6 +107,18 @@ export default function TransitionsTab({ onCounts }) {
   const [handoff, setHandoff] = useState({ campaignPageId: '', officialPageId: '', role: '' });
   const [reviews, setReviews] = useState([]);
   const [reviewSource, setReviewSource] = useState({});
+  const [reviewOfficialOk, setReviewOfficialOk] = useState({});
+  const [reviewConfirm, setReviewConfirm] = useState(null);   // { linkId, decision }
+  // Confirm steps (2026-10-26).
+  const [sourceOk, setSourceOk] = useState(false);            // "This is an official source"
+  const [saving, setSaving] = useState(false);
+  const [pendingSave, setPendingSave] = useState(null);       // { body, result }
+  const [handoffPreview, setHandoffPreview] = useState(null);
+  const [handoffBusy, setHandoffBusy] = useState(false);
+  const [reviewBusy, setReviewBusy] = useState(false);
+  const [withdrawReason, setWithdrawReason] = useState('');
+  const [withdrawBusy, setWithdrawBusy] = useState(false);
+  const detailRef = useRef(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -101,20 +140,21 @@ export default function TransitionsTab({ onCounts }) {
     onChange: (e) => setForm((f) => ({ ...f, [key]: e.target.type === 'checkbox' ? e.target.checked : e.target.value })),
   });
 
-  const submit = async (e) => {
-    e.preventDefault();
-    setError(null);
-    const body = {
+  const buildBody = () => {
+    const won = form.event === 'won';
+    return {
       page_id: form.page_id.trim(),
       page_kind: form.event === 'left_office' ? 'official' : 'candidate',
       event: form.event,
       event_on: form.event_on,
       source_url: form.source_url.trim(),
       source_note: form.source_note.trim() || undefined,
-      incumbent: !!form.incumbent,
-      sworn_in_on: form.sworn_in_on || undefined,
+      // The winner-only fields go only with a win (2026-10-26): a hidden
+      // field must not fail the save or land on a losing candidate.
+      incumbent: won ? !!form.incumbent : false,
+      sworn_in_on: won ? (form.sworn_in_on || undefined) : undefined,
       office_label: form.office_label.trim() || undefined,
-      linked_page_id: form.linked_page_id.trim() || undefined,
+      linked_page_id: won ? (form.linked_page_id.trim() || undefined) : undefined,
       successor_ids: form.successor_ids.trim()
         ? form.successor_ids.split(',').map((s) => s.trim()).filter(Boolean)
         : undefined,
@@ -122,18 +162,57 @@ export default function TransitionsTab({ onCounts }) {
       state: form.state.trim() || undefined,
       served_from: form.served_from.trim() || undefined,
       served_to: form.served_to.trim() || undefined,
+      source_confirmed: !!sourceOk,
     };
-    const { data, error: err } = await adminSetTransition(body);
+  };
+
+  // Save shows what it will do first: a dry run, then a confirm card.
+  const submit = async (e) => {
+    e.preventDefault();
+    if (saving) return;
+    setError(null);
+    const body = buildBody();
+    setSaving(true);
+    const { data, error: err } = await adminSetTransition(body, { dryRun: true });
+    setSaving(false);
     if (err) { setError(err); return; }
-    setNotice(`Saved: ${data?.title || body.page_id} (${stageLabel(data?.stage)}).`);
+    setPendingSave({ body, result: data });
+  };
+
+  const confirmSave = async () => {
+    if (!pendingSave || saving) return;
+    setSaving(true);
+    const { data, error: err } = await adminSetTransition(pendingSave.body);
+    setSaving(false);
+    if (err) { setError(err); return; }
+    setPendingSave(null);
+    setNotice(`Saved: ${data?.title || pendingSave.body.page_id} (${stageLabel(data?.stage)}).`);
     setForm(EMPTY_FORM);
+    setSourceOk(false);
     load();
   };
 
   const openDetail = async (pageId) => {
     const { data, error: err } = await adminTransitionDetail(pageId);
     if (err) { setError(err); return; }
+    setWithdrawReason('');
     setDetail(data);
+  };
+
+  // The detail opens below up to 300 rows; bring it into view.
+  useEffect(() => {
+    if (detail && detailRef.current) detailRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [detail]);
+
+  const withdraw = async () => {
+    if (!detail || withdrawBusy || withdrawReason.trim().length < 3) return;
+    setWithdrawBusy(true);
+    const { data, error: err } = await adminWithdrawTransition(detail.page_id, withdrawReason.trim());
+    setWithdrawBusy(false);
+    if (err) { setError(err); return; }
+    setNotice(`Withdrawn: ${detail.page_id} is back to what the data files say (${stageLabel(data?.stage)}).`);
+    setDetail(null);
+    load();
   };
 
   // "Run the daily job now" shows what it would send first (2026-10-16);
@@ -159,9 +238,25 @@ export default function TransitionsTab({ onCounts }) {
     load();
   };
 
+  // The hand-off can't be undone and notifies every follower, so it
+  // shows a preview first (2026-10-26).
   const approveHandoff = async (e) => {
     e.preventDefault();
+    if (handoffBusy) return;
+    setError(null);
+    setHandoffBusy(true);
+    const { data, error: err } = await adminPreviewHandoff(handoff);
+    setHandoffBusy(false);
+    if (err) { setError(err); return; }
+    setHandoffPreview(data);
+  };
+
+  const confirmHandoff = async () => {
+    if (handoffBusy) return;
+    setHandoffBusy(true);
     const { data, error: err } = await adminApproveHandoff(handoff);
+    setHandoffBusy(false);
+    setHandoffPreview(null);
     if (err) { setError(err); return; }
     setNotice(`Hand-off approved. Rep account ${data.rep_account_id}; ${data.followers_notified} followers notified.`);
     setHandoff({ campaignPageId: '', officialPageId: '', role: '' });
@@ -169,8 +264,14 @@ export default function TransitionsTab({ onCounts }) {
   };
 
   const decide = async (linkId, decision) => {
+    if (reviewBusy) return;
     const sourceUrl = (reviewSource[linkId] || '').trim();
-    const { error: err } = await adminDecideName(linkId, { decision, sourceUrl });
+    setReviewBusy(true);
+    const { error: err } = await adminDecideName(linkId, {
+      decision, sourceUrl, sourceConfirmed: !!reviewOfficialOk[linkId],
+    });
+    setReviewBusy(false);
+    setReviewConfirm(null);
     if (err) { setError(err); return; }
     setNotice(decision === 'approve' ? 'Name approved.' : 'Name refused.');
     load();
@@ -198,6 +299,12 @@ export default function TransitionsTab({ onCounts }) {
           </label>
           <label>Date it happened (official source)<input required type="date" {...field('event_on')} /></label>
           <label>Official source (https)<input required type="url" placeholder="https://" {...field('source_url')} /></label>
+          {form.source_url.startsWith('https://') && !isOfficialLooking(form.source_url) && (
+            <label className="tr-check tr-wide">
+              <input type="checkbox" checked={sourceOk} onChange={(e) => setSourceOk(e.target.checked)} />
+              This is an official source (it isn&apos;t a .gov, .us or .mil site)
+            </label>
+          )}
           <label className="tr-wide">Note<input placeholder="Optional" {...field('source_note')} /></label>
           <label>Office (leave blank to use our data)<input placeholder="State Senator, Ohio District 1" {...field('office_label')} /></label>
           <label>Name (blank: from our data)<input {...field('display_name')} /></label>
@@ -212,11 +319,44 @@ export default function TransitionsTab({ onCounts }) {
               <label>Official page id (Follow in office)<input {...field('linked_page_id')} /></label>
             </>
           )}
-          <div className="tr-actions"><button type="submit" className="ad-btn ad-btn--grant">Save</button></div>
+          <div className="tr-actions">
+            <button type="submit" className="ad-btn ad-btn--grant" disabled={saving || !!pendingSave}>
+              {saving && !pendingSave ? 'Checking' : 'Save'}
+            </button>
+          </div>
         </form>
+        {pendingSave && (
+          <div className="tr-confirm" role="region" aria-label="Check before saving">
+            <h3 className="tr-h3">Check before saving</h3>
+            <p>
+              <strong>{pendingSave.result?.item?.display_name || pendingSave.body.page_id}</strong>
+              {pendingSave.result?.item?.title ? <> becomes &ldquo;{pendingSave.result.item.title}&rdquo;</> : null}.
+              {' '}Stage after saving: <strong>{stageLabel(pendingSave.result?.item?.stage)}</strong>.
+              {pendingSave.result?.item?.farewell_ends_on && <> Farewell ends {formatLongDate(pendingSave.result.item.farewell_ends_on)}.</>}
+              {pendingSave.result?.item?.archive_on && <> Archived on {formatLongDate(pendingSave.result.item.archive_on)}.</>}
+            </p>
+            {pendingSave.result?.trackers > 0 && (
+              <p>{pendingSave.result.trackers} people track this page. They hear about it on the next daily run, and that can&apos;t be recalled.</p>
+            )}
+            {pendingSave.result?.replaces_admin_entry && <p>This replaces the earlier admin entry; the history keeps both.</p>}
+            {(pendingSave.result?.warnings || []).length > 0 && (
+              <ul className="tr-warnings">
+                {pendingSave.result.warnings.map((w) => <li key={w}>{w}</li>)}
+              </ul>
+            )}
+            <div className="tr-actions">
+              <button type="button" className="ad-btn ad-btn--grant" onClick={confirmSave} disabled={saving}>
+                {saving ? 'Saving' : 'Confirm and save'}
+              </button>
+              <button type="button" className="ad-btn ad-btn--ghost" onClick={() => setPendingSave(null)} disabled={saving}>
+                Back to the form
+              </button>
+            </div>
+          </div>
+        )}
         <p className="tr-hint">
           Saving records who set it and when. To correct an entry, save it again; the history keeps both.
-          Nothing here deletes anything.
+          To take back an entry made by mistake, open the page below and withdraw it. Nothing here deletes anything.
         </p>
       </details>
 
@@ -226,8 +366,34 @@ export default function TransitionsTab({ onCounts }) {
           <label>Campaign page id<input required {...{ value: handoff.campaignPageId, onChange: (e) => setHandoff((h) => ({ ...h, campaignPageId: e.target.value })) }} /></label>
           <label>Official page id<input required {...{ value: handoff.officialPageId, onChange: (e) => setHandoff((h) => ({ ...h, officialPageId: e.target.value })) }} /></label>
           <label>Role (blank: from the office)<input {...{ value: handoff.role, onChange: (e) => setHandoff((h) => ({ ...h, role: e.target.value })) }} /></label>
-          <div className="tr-actions"><button type="submit" className="ad-btn ad-btn--grant">Approve hand-off</button></div>
+          <div className="tr-actions">
+            <button type="submit" className="ad-btn ad-btn--grant" disabled={handoffBusy || !!handoffPreview}>
+              {handoffBusy && !handoffPreview ? 'Checking' : 'Approve hand-off'}
+            </button>
+          </div>
         </form>
+        {handoffPreview && (
+          <div className="tr-confirm" role="region" aria-label="Check before the hand-off">
+            <h3 className="tr-h3">Check before the hand-off</h3>
+            <p>
+              <strong>{handoffPreview.name}</strong> gets the official page{' '}
+              <span className="tr-mono">{handoffPreview.official_page_id}</span> as <strong>{handoffPreview.role}</strong>,
+              signing in with the campaign account&apos;s email and password.
+              {' '}The campaign page <span className="tr-mono">{handoffPreview.campaign_page_id}</span> is archived today,
+              and its {handoffPreview.followers} {handoffPreview.followers === 1 ? 'follower gets' : 'followers get'} a
+              {' '}&ldquo;Follow in office&rdquo; notice.
+            </p>
+            <p><strong>This can&apos;t be undone.</strong></p>
+            <div className="tr-actions">
+              <button type="button" className="ad-btn ad-btn--grant" onClick={confirmHandoff} disabled={handoffBusy}>
+                {handoffBusy ? 'Approving' : 'Confirm hand-off'}
+              </button>
+              <button type="button" className="ad-btn ad-btn--ghost" onClick={() => setHandoffPreview(null)} disabled={handoffBusy}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </details>
 
       {reviews.length > 0 && (
@@ -241,8 +407,33 @@ export default function TransitionsTab({ onCounts }) {
               </div>
               <input type="url" placeholder="Source (https)" value={reviewSource[r.link_id] || ''}
                 onChange={(e) => setReviewSource((s) => ({ ...s, [r.link_id]: e.target.value }))} />
-              <button type="button" className="ad-btn ad-btn--grant" onClick={() => decide(r.link_id, 'approve')}>Approve</button>
-              <button type="button" className="ad-btn ad-btn--ghost" onClick={() => decide(r.link_id, 'refuse')}>Refuse</button>
+              {(reviewSource[r.link_id] || '').startsWith('https://') && !isOfficialLooking(reviewSource[r.link_id]) && (
+                <label className="tr-check">
+                  <input type="checkbox" checked={!!reviewOfficialOk[r.link_id]}
+                    onChange={(e) => setReviewOfficialOk((o) => ({ ...o, [r.link_id]: e.target.checked }))} />
+                  This is an official source
+                </label>
+              )}
+              {reviewConfirm?.linkId === r.link_id ? (
+                <>
+                  <span className="tr-sub">
+                    {reviewConfirm.decision === 'approve' ? 'Approve and carry the name over?' : 'Refuse the name?'} This is final.
+                  </span>
+                  <button type="button" className="ad-btn ad-btn--grant" disabled={reviewBusy}
+                    onClick={() => decide(r.link_id, reviewConfirm.decision)}>
+                    {reviewBusy ? 'Saving' : 'Confirm'}
+                  </button>
+                  <button type="button" className="ad-btn ad-btn--ghost" disabled={reviewBusy}
+                    onClick={() => setReviewConfirm(null)}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <button type="button" className="ad-btn ad-btn--grant"
+                    onClick={() => setReviewConfirm({ linkId: r.link_id, decision: 'approve' })}>Approve</button>
+                  <button type="button" className="ad-btn ad-btn--ghost"
+                    onClick={() => setReviewConfirm({ linkId: r.link_id, decision: 'refuse' })}>Refuse</button>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -332,7 +523,7 @@ export default function TransitionsTab({ onCounts }) {
                   <td>{formatLongDate(it.archive_on)}</td>
                   <td>
                     <div>{it.set_by || ''}</div>
-                    {it.set_at && <div className="tr-sub">{it.set_at.slice(0, 10)}</div>}
+                    {it.set_at && <div className="tr-sub">{localDateTime(it.set_at)}</div>}
                   </td>
                 </tr>
               ))}
@@ -342,7 +533,7 @@ export default function TransitionsTab({ onCounts }) {
       )}
 
       {detail && (
-        <div className="tr-card">
+        <div className="tr-card" ref={detailRef}>
           <div className="tr-detail-head">
             <h3 className="tr-h3">{detail.transition?.display_name || detail.page_id}</h3>
             <button type="button" className="ad-btn ad-btn--ghost" onClick={() => setDetail(null)}>Close</button>
@@ -356,11 +547,31 @@ export default function TransitionsTab({ onCounts }) {
               <dt>Notices</dt><dd>{JSON.stringify(detail.transition.notices || {})}</dd>
             </dl>
           )}
+          {detail.transition?.origin === 'admin' && (
+            <div className="tr-confirm" role="region" aria-label="Withdraw this entry">
+              <h4 className="tr-h4">Withdraw this entry</h4>
+              <p className="tr-sub">
+                For an entry made by mistake. The page goes back to what the data files say (often: still in office or
+                still running). Nothing is deleted and the history keeps it. Notices already sent can&apos;t be recalled,
+                and tracking that already ended stays ended.
+              </p>
+              <label className="tr-wide">Your reason (required)
+                <input value={withdrawReason} onChange={(e) => setWithdrawReason(e.target.value)}
+                  placeholder="e.g. 'Wrong person: the source was about a namesake'" />
+              </label>
+              <div className="tr-actions">
+                <button type="button" className="ad-btn ad-btn--ghost" onClick={withdraw}
+                  disabled={withdrawBusy || withdrawReason.trim().length < 3}>
+                  {withdrawBusy ? 'Withdrawing' : 'Withdraw this entry'}
+                </button>
+              </div>
+            </div>
+          )}
           <h4 className="tr-h4">History</h4>
           {detail.history.length === 0 ? <p className="tr-sub">No changes by hand yet.</p> : (
             <ul className="tr-history">
               {detail.history.map((h, i) => (
-                <li key={i}><strong>{h.action}</strong> by {h.actor || 'unknown'} on {h.at?.slice(0, 16).replace('T', ' ')}
+                <li key={i}><strong>{h.action}</strong> by {h.actor || 'unknown'} on {localDateTime(h.at)}
                   <pre>{JSON.stringify({ before: h.before, after: h.after }, null, 1)}</pre>
                 </li>
               ))}
