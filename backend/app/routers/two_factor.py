@@ -598,6 +598,13 @@ def admin_reset_2fa(
     bump_session_epoch(account)
     db.commit()
     deleted = recovery_codes_service.wipe_codes(db, kind, account_id)
+    from app.services import admin_actions
+    admin_actions.record(
+        db, _admin, "twofa_reset", target_kind=kind, target_id=account_id,
+        target_label=getattr(account, "display_name", None), reason=reason,
+        details={"had_2fa": had_2fa, "recovery_codes_wiped": deleted},
+    )
+    db.commit()
     logger.warning(
         "ADMIN-RESET 2FA for %s account #%d (%s) by %s. Had 2FA: %s; recovery codes wiped: %d. Reason: %s",
         kind, account_id, mask_email(getattr(account, "email", None)),

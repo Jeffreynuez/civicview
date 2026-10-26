@@ -34,7 +34,7 @@
  * /Design Exports/civicview-admin-moderation-page/. Styles live in
  * ./admin.css.
  */
-import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { Suspense, useCallback, useEffect, useId, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -58,9 +58,10 @@ import HScroll from '@/components/HScroll';
 import TransitionsTab from '@/components/admin/TransitionsTab';
 import ElectionRemindersTab from '@/components/admin/ElectionRemindersTab';
 import AdminTestPush from '@/components/admin/AdminTestPush';
+import HistoryTab from '@/components/admin/HistoryTab';
 import { serverDate, serverMs } from '@/lib/serverTime';
 
-const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions', 'reminders']);
+const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions', 'reminders', 'history']);
 
 // Human-friendly type labels and icon classes — keep in sync with the
 // backend ReportKind literal.
@@ -248,6 +249,7 @@ function AdminPageInner() {
   // Modal state.
   const [hideModal, setHideModal] = useState(null);
   const [unhideModal, setUnhideModal] = useState(null);
+  const [unlockModal, setUnlockModal] = useState(null);
   const [suspendModal, setSuspendModal] = useState(null);
   const [appealDecisionModal, setAppealDecisionModal] = useState(null); // { appeal, decision }
   const [unsuspendModal, setUnsuspendModal] = useState(null);
@@ -373,6 +375,8 @@ function AdminPageInner() {
   const [transitionCounts, setTransitionCounts] = useState({});
   // Election reminders tab's KPI tiles, reported by the tab itself.
   const [reminderCounts, setReminderCounts] = useState({});
+  // History tab's KPI tiles, reported by the tab itself (2026-10-26).
+  const [historyCounts, setHistoryCounts] = useState({});
 
   const switchTab = (tab) => {
     const next = VALID_TABS.has(tab) ? tab : 'queue';
@@ -402,20 +406,34 @@ function AdminPageInner() {
     if (reload) await reload();
   };
 
-  const handleHideConfirm = async () => {
+  // Hide and Keep hidden both need a reason; it goes into the admin
+  // History (2026-10-26). Unhide, Unsuspend and Dismiss take one if given.
+  const handleHideConfirm = async ({ reason }) => {
     if (!hideModal) return;
     const r = hideModal;
     const key = `hide-${r.kind}-${r.id}`;
     setHideModal(null);
-    await runAction(key, () => adminHideTarget(r.kind, r.id), loadReports);
+    await runAction(key, () => adminHideTarget(r.kind, r.id, { reason: reason.trim() }), loadReports);
   };
 
-  const handleUnhideConfirm = async () => {
+  const handleUnhideConfirm = async ({ reason } = {}) => {
     if (!unhideModal) return;
     const r = unhideModal;
     const key = `unhide-${r.kind}-${r.id}`;
     setUnhideModal(null);
-    await runAction(key, () => adminUnhideTarget(r.kind, r.target_id), loadReports);
+    await runAction(key, () => adminUnhideTarget(r.kind, r.target_id, { reason: (reason || '').trim() }), loadReports);
+  };
+
+  const handleUnlockConfirm = async ({ reason }) => {
+    if (!unlockModal) return;
+    const row = unlockModal;
+    const key = `unlock-${row.identity_kind}-${row.account_id}`;
+    setUnlockModal(null);
+    await runAction(
+      key,
+      () => adminUnlockAccount(row.identity_kind, row.account_id, { reason: reason.trim() }),
+      loadLockouts,
+    );
   };
 
   const handleSuspendConfirm = async ({ reason }) => {
@@ -445,14 +463,14 @@ function AdminPageInner() {
     );
   };
 
-  const handleUnsuspendConfirm = async (user) => {
+  const handleUnsuspendConfirm = async ({ reason } = {}) => {
     if (!unsuspendModal) return;
-    const u = user || unsuspendModal;
+    const u = unsuspendModal;
     const key = `unsuspend-${u.kind}-${u.id}`;
     setUnsuspendModal(null);
     await runAction(
       key,
-      () => adminUnsuspendUser(u.kind, u.id),
+      () => adminUnsuspendUser(u.kind, u.id, { reason: (reason || '').trim() }),
       async () => { await loadSuspended(); await loadAppeals(); },
     );
   };
@@ -551,6 +569,7 @@ function AdminPageInner() {
     lockouts: { crumb: 'Admin · Lockouts', title: 'Account lockouts' },
     transitions: { crumb: 'Admin · Transitions', title: 'Former officials and candidates' },
     reminders: { crumb: 'Admin · Election reminders', title: 'Election reminders preview' },
+    history: { crumb: 'Admin · History', title: 'Admin history' },
   }[activeTab];
 
   // Per-tab KPI strip.
@@ -611,6 +630,12 @@ function AdminPageInner() {
       { label: 'Scheduled', value: reminderCounts.scheduled || 0, dot: 'success' },
       { label: 'Passed', value: reminderCounts.passed || 0, dot: 'muted' },
     ];
+  } else if (activeTab === 'history') {
+    kpis = [
+      { label: 'Actions this week', value: historyCounts.week || 0, dot: 'open' },
+      { label: 'Hides and suspensions', value: historyCounts.takedowns || 0, dot: 'danger' },
+      { label: 'Restores', value: historyCounts.restores || 0, dot: 'success' },
+    ];
   } else if (activeTab === 'lockouts') {
     // Lockouts — three tiles, parallel to Suspended.
     const repsLocked = lockouts.filter((l) => l.identity_kind === 'rep').length;
@@ -651,6 +676,7 @@ function AdminPageInner() {
             <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
             <SubNavTab id="transitions" label="Transitions" badge={0} active={activeTab} onClick={switchTab} />
             <SubNavTab id="reminders" label="Election reminders" badge={0} active={activeTab} onClick={switchTab} />
+            <SubNavTab id="history" label="History" badge={0} active={activeTab} onClick={switchTab} />
           </HScroll>
           <Link className="ad-subnav__home" href="/">
             <span aria-hidden="true">←</span> CivicView home
@@ -692,7 +718,7 @@ function AdminPageInner() {
             onView={openHostingPage}
             onDismiss={(r) => runAction(`dismiss-${r.kind}-${r.id}`, () => adminDismissReport(r.kind, r.id), loadReports)}
             onHide={(r) => setHideModal(r)}
-            onKeepHidden={(r) => runAction(`hide-${r.kind}-${r.id}`, () => adminHideTarget(r.kind, r.id), loadReports)}
+            onKeepHidden={(r) => setHideModal({ ...r, keep: true })}
             onUnhide={(r) => setUnhideModal(r)}
             onSuspend={(r) => setSuspendModal(r)}
           />
@@ -733,6 +759,8 @@ function AdminPageInner() {
         {activeTab === 'transitions' && <TransitionsTab onCounts={setTransitionCounts} />}
 
         {activeTab === 'reminders' && <ElectionRemindersTab onCounts={setReminderCounts} />}
+
+        {activeTab === 'history' && <HistoryTab onCounts={setHistoryCounts} />}
 
         {activeTab === 'lockouts' && (
           <section className="ad-tab-body">
@@ -786,11 +814,7 @@ function AdminPageInner() {
                               type="button"
                               className="ad-btn ad-btn--primary"
                               disabled={busyId === actionId}
-                              onClick={() => runAction(
-                                actionId,
-                                () => adminUnlockAccount(row.identity_kind, row.account_id),
-                                loadLockouts,
-                              )}
+                              onClick={() => setUnlockModal(row)}
                             >
                               {busyId === actionId ? 'Unlocking…' : 'Unlock'}
                             </button>
@@ -811,6 +835,13 @@ function AdminPageInner() {
           row={hideModal}
           onCancel={() => setHideModal(null)}
           onConfirm={handleHideConfirm}
+        />
+      )}
+      {unlockModal && (
+        <UnlockModal
+          row={unlockModal}
+          onCancel={() => setUnlockModal(null)}
+          onConfirm={handleUnlockConfirm}
         />
       )}
       {unhideModal && (
@@ -1523,8 +1554,9 @@ function AppealCard({ appeal, onGrant, onDeny }) {
             {status === 'granted' ? '✓ Granted' : '✕ Denied'}
           </span>
           <span>{relTime(appeal.acted_at)}</span>
+          {appeal.admin_email && <span>by {appeal.admin_email}</span>}
           {appeal.admin_note && (
-            <span className="ad-appeal__resolved-note">— &ldquo;{appeal.admin_note}&rdquo;</span>
+            <span className="ad-appeal__resolved-note">&ldquo;{appeal.admin_note}&rdquo;</span>
           )}
         </footer>
       )}
@@ -1856,19 +1888,54 @@ function EmptyAll() {
 // ─────────────────────────────────────────────────────────────────────
 // MODALS
 // ─────────────────────────────────────────────────────────────────────
+// Reason box shared by the action modals (2026-10-26). Required reasons
+// need at least REASON_MIN characters; every reason is saved to the
+// admin History, never shown to the author unless the label says so.
+const REASON_MIN = 3;
+
+function reasonOk(text) {
+  return (text || '').trim().length >= REASON_MIN;
+}
+
+function ReasonField({ value, onChange, required, label, hint, placeholder, autoFocus }) {
+  const id = useId();
+  return (
+    <div className="ad-modal__row">
+      <label className="ad-modal__label" htmlFor={id}>{label}</label>
+      <textarea
+        id={id}
+        className="ad-modal__textarea"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        maxLength={1000}
+        autoFocus={autoFocus}
+      />
+      <span className={`ad-modal__hint ${required && !reasonOk(value) ? 'ad-modal__hint--required' : ''}`}>
+        {hint}
+      </span>
+    </div>
+  );
+}
+
 function HideModal({ row, onCancel, onConfirm }) {
   const meta = TYPE_META[row.kind] || { label: row.kind };
+  const keep = !!row.keep;
+  const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
       <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
-          <div className="ad-modal__eyebrow">Destructive action</div>
-          <h2 className="ad-modal__title">Hide this {meta.label.toLowerCase()}?</h2>
+          <div className="ad-modal__eyebrow">Reversible action</div>
+          <h2 className="ad-modal__title">
+            {keep ? `Keep this ${meta.label.toLowerCase()} hidden?` : `Hide this ${meta.label.toLowerCase()}?`}
+          </h2>
         </div>
         <div className="ad-modal__body">
           <div>
-            The content will be hidden from public view immediately. The author can see it&rsquo;s
-            been moderated, and a hide event is logged against report <strong>#{row.id}</strong>.
+            {keep
+              ? <>It stays off the public page and its open reports are closed. The author can still appeal for 30 days.</>
+              : <>It comes off the public page now, and its open reports are closed. The author sees it was moderated and can appeal for 30 days. You can Unhide it later.</>}
           </div>
           <div className="ad-modal__contentblock">
             <div className="ad-modal__contentmeta">
@@ -1883,15 +1950,29 @@ function HideModal({ row, onCancel, onConfirm }) {
             <div className="ad-modal__contentbody">&ldquo;{row.target_preview || '(empty)'}&rdquo;</div>
             {row.target_author_name && (
               <div className="ad-modal__contentauthor">
-                — {row.target_author_name}{row.target_author_kind ? ` (${row.target_author_kind})` : ''}
+                By {row.target_author_name}{row.target_author_kind ? ` (${row.target_author_kind})` : ''}
               </div>
             )}
           </div>
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            required
+            autoFocus
+            label="Your reason (required, saved to the admin History)"
+            hint="At least 3 characters. The author doesn't see this."
+            placeholder="What rule does it break? e.g. 'Threat against a named person'"
+          />
         </div>
         <div className="ad-modal__footer">
           <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
-          <button type="button" className="ad-btn ad-btn--danger" onClick={onConfirm} autoFocus>
-            Hide content
+          <button
+            type="button"
+            className="ad-btn ad-btn--danger"
+            onClick={() => onConfirm({ reason })}
+            disabled={!reasonOk(reason)}
+          >
+            {keep ? 'Keep hidden' : 'Hide content'}
           </button>
         </div>
       </div>
@@ -1902,6 +1983,7 @@ function HideModal({ row, onCancel, onConfirm }) {
 function UnhideModal({ row, onCancel, onConfirm }) {
   const meta = TYPE_META[row.kind] || { label: row.kind };
   const label = meta.label.toLowerCase();
+  const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
       <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
@@ -1927,10 +2009,16 @@ function UnhideModal({ row, onCancel, onConfirm }) {
             </div>
             <div className="ad-modal__contentbody">&ldquo;{row.target_preview || '(empty)'}&rdquo;</div>
           </div>
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            label="Your reason (optional, saved to the admin History)"
+            hint="e.g. 'Reports were a pile-on; the post is within the rules'"
+          />
         </div>
         <div className="ad-modal__footer">
           <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
-          <button type="button" className="ad-btn ad-btn--grant" onClick={onConfirm}>
+          <button type="button" className="ad-btn ad-btn--grant" onClick={() => onConfirm({ reason })}>
             Unhide
           </button>
         </div>
@@ -1940,7 +2028,9 @@ function UnhideModal({ row, onCancel, onConfirm }) {
 }
 
 function SuspendModal({ row, onCancel, onConfirm }) {
-  const [reason, setReason] = useState(row?.detail || formatReason(row?.reason) || '');
+  // Starts empty: the reason on record is the admin's, not the
+  // reporter's words (2026-10-26). The report is shown for context.
+  const [reason, setReason] = useState('');
   const authorKind = row.target_author_kind === 'rep' ? 'rep' : 'citizen';
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
@@ -1956,15 +2046,24 @@ function SuspendModal({ row, onCancel, onConfirm }) {
             <strong>Suspended users</strong> tab.
           </div>
 
-          <div className="ad-modal__row">
-            <span className="ad-modal__label">Reason on record (visible to other admins)</span>
-            <textarea
-              className="ad-modal__textarea"
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              placeholder="Why are you suspending this account?"
-            />
+          <div className="ad-modal__contentblock">
+            <div className="ad-modal__contentmeta">
+              <span>The report</span>
+              <span>·</span>
+              <span>{formatReason(row.reason)}</span>
+            </div>
+            {row.detail && <div className="ad-modal__contentbody">&ldquo;{row.detail}&rdquo;</div>}
           </div>
+
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            required
+            autoFocus
+            label="Your reason (required, saved to the admin History)"
+            hint="At least 3 characters, in your own words."
+            placeholder="Why are you suspending this account?"
+          />
 
           <div>
             Their existing posts and comments stay up. Suspending never takes content down;
@@ -1977,6 +2076,7 @@ function SuspendModal({ row, onCancel, onConfirm }) {
             type="button"
             className="ad-btn ad-btn--danger"
             onClick={() => onConfirm({ reason })}
+            disabled={!reasonOk(reason)}
           >
             Suspend {authorKind}
           </button>
@@ -1996,7 +2096,7 @@ function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
       <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
         <div className="ad-modal__hdr">
           <div className={`ad-modal__eyebrow ${isGrant ? 'ad-modal__eyebrow--success' : ''}`}>
-            {isGrant ? 'Reversible action' : 'Destructive action'}
+            {isGrant ? 'Reversible action' : 'Final decision'}
           </div>
           <h2 className="ad-modal__title">
             {isGrant
@@ -2009,24 +2109,23 @@ function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
             {isGrant
               ? isSuspension
                 ? <>The account <strong>{appeal.appellant_email}</strong> will be unsuspended and can post, comment, and vote again immediately.</>
-                : <>The <strong>{meta.label.toLowerCase()}</strong> will be reinstated to public view. The original report against it is closed as resolved.</>
-              : <>The moderation action stays in place. The appellant sees a &ldquo;Denied&rdquo; status and can read the admin note below.</>}
+                : <>The <strong>{meta.label.toLowerCase()}</strong> goes back on the public page, and its open reports are closed.</>
+              : <>The moderation action stays in place. The appellant sees &ldquo;Denied&rdquo; and reads your note below. They can&rsquo;t appeal this again.</>}
           </div>
-          <div className="ad-modal__row">
-            <span className="ad-modal__label">Admin note on record (optional, visible to appellant)</span>
-            <textarea
-              className="ad-modal__textarea"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder={isGrant
-                ? "Why are you granting this? e.g. 'Reporter retracted', 'Content was within bounds'"
-                : "Why are you denying this? e.g. 'Pattern of escalation', 'Auto-detect signals confirmed'"
-              }
-            />
-            <span className="ad-modal__hint">
-              Encouraged — the appellant sees this and the audit log preserves it.
-            </span>
-          </div>
+          <ReasonField
+            value={note}
+            onChange={setNote}
+            required={!isGrant}
+            label={isGrant
+              ? 'Note to the appellant (optional, saved to the admin History)'
+              : 'Note to the appellant (required, saved to the admin History)'}
+            hint={isGrant
+              ? 'The appellant sees this.'
+              : 'At least 3 characters. The appellant sees this, so explain the rule it breaks.'}
+            placeholder={isGrant
+              ? "e.g. 'Reporter retracted', 'Content was within the rules'"
+              : "e.g. 'The comment threatens a named person'"}
+          />
         </div>
         <div className="ad-modal__footer">
           <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
@@ -2035,7 +2134,12 @@ function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
               Grant appeal
             </button>
           ) : (
-            <button type="button" className="ad-btn ad-btn--danger" onClick={() => onConfirm({ decision: 'deny', note })}>
+            <button
+              type="button"
+              className="ad-btn ad-btn--danger"
+              onClick={() => onConfirm({ decision: 'deny', note })}
+              disabled={!reasonOk(note)}
+            >
               Deny appeal
             </button>
           )}
@@ -2046,6 +2150,7 @@ function AppealDecisionModal({ appeal, decision, onCancel, onConfirm }) {
 }
 
 function UnsuspendModal({ user, hasAppeal, onCancel, onConfirm }) {
+  const [reason, setReason] = useState('');
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
       <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
@@ -2056,7 +2161,7 @@ function UnsuspendModal({ user, hasAppeal, onCancel, onConfirm }) {
         <div className="ad-modal__body">
           <div>
             They&rsquo;ll regain the ability to post, comment, and vote immediately.
-            The suspension record stays on the audit log; you can re-suspend at any time.
+            The suspension and this unsuspend stay in the admin History; you can re-suspend at any time.
           </div>
           <div className="ad-modal__contentblock" style={{ borderLeftColor: 'var(--cl-success)' }}>
             <div className="ad-modal__contentmeta">
@@ -2087,16 +2192,61 @@ function UnsuspendModal({ user, hasAppeal, onCancel, onConfirm }) {
               borderRadius: 'var(--cl-radius-md)',
               lineHeight: 1.5,
             }}>
-              <strong>Note:</strong> this account has an open appeal. Resolve it from the
-              Appeals tab if you want the audit log to reflect a deliberate decision; an
-              unsuspend here doesn&rsquo;t auto-resolve the appeal.
+              <strong>Note:</strong> this account has an open appeal. An unsuspend here
+              doesn&rsquo;t resolve it; decide it from the Appeals tab so the appellant hears back.
             </div>
           )}
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            label="Your reason (optional, saved to the admin History)"
+            hint="e.g. 'Spoke with them; agreed to the rules'"
+          />
         </div>
         <div className="ad-modal__footer">
           <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
-          <button type="button" className="ad-btn ad-btn--grant" onClick={() => onConfirm(user)} autoFocus>
+          <button type="button" className="ad-btn ad-btn--grant" onClick={() => onConfirm({ reason })}>
             <UnhideIcon size={13} /> Unsuspend
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function UnlockModal({ row, onCancel, onConfirm }) {
+  const [reason, setReason] = useState('');
+  return (
+    <div className="ad-modal-bg" onClick={onCancel}>
+      <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="ad-modal__hdr">
+          <div className="ad-modal__eyebrow ad-modal__eyebrow--success">Reversible action</div>
+          <h2 className="ad-modal__title">Unlock {row.display_name || 'this account'}?</h2>
+        </div>
+        <div className="ad-modal__body">
+          <div>
+            They can try signing in again right away, and their failed-attempt count starts over.
+            Only unlock someone you&rsquo;ve confirmed is the account owner.
+          </div>
+          <ReasonField
+            value={reason}
+            onChange={setReason}
+            required
+            autoFocus
+            label="Your reason (required, saved to the admin History)"
+            hint="At least 3 characters, e.g. how the owner proved who they are."
+            placeholder="e.g. 'Owner called from the phone number on file'"
+          />
+        </div>
+        <div className="ad-modal__footer">
+          <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
+          <button
+            type="button"
+            className="ad-btn ad-btn--grant"
+            onClick={() => onConfirm({ reason })}
+            disabled={!reasonOk(reason)}
+          >
+            Unlock
           </button>
         </div>
       </div>

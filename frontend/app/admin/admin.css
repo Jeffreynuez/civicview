@@ -1734,3 +1734,16 @@ table.ad-table {
   background: var(--cl-danger-soft);
   color: var(--cl-danger-deep);
 }
+
+/* History tab (2026-10-26): the admin action log. */
+.ad-history { display: flex; flex-direction: column; gap: 14px; }
+.ad-history .ad-table thead th:last-child,
+.ad-history .ad-table tbody td:last-child { text-align: left; }
+.ad-history__mono { font-family: var(--cl-font-mono); font-size: var(--cl-text-xs); }
+.ad-history__kind { font-weight: 600; }
+.ad-history__label { color: var(--cl-text-light); font-size: var(--cl-text-xs); margin-top: 2px; }
+.ad-history__detail { color: var(--cl-text-muted); font-size: 0.7rem; margin-top: 2px; }
+.ad-history__none { color: var(--cl-text-muted); font-style: italic; }
+.ad-history__error { color: var(--cl-danger-deep); margin: 0; }
+.ad-history__more { display: flex; justify-content: center; }
+.ad-modal__hint--required { color: var(--cl-danger-deep); }

@@ -1877,6 +1877,44 @@ Index(
 )
 
 
+# ── Admin actions (2026-10-26) ────────────────────────────────────────
+class AdminAction(Base):
+    """Append-only record of what an admin did: who, what, to which
+    item or account, why, and when. Written in the same transaction as
+    the action itself by services/admin_actions.record(), and shown on
+    the admin page's History tab. Nothing updates or deletes these rows.
+
+    Before this table (admin audit 2026-10-25, finding M5) the only
+    trace of most admin actions was an app log line: unsuspend wiped
+    the suspension reason, a dismissed report and a hidden one looked
+    the same, and unlock and unhide stored nothing at all.
+
+    target_id is a string because Transitions act on page ids
+    ('fl-rep-116'); content and account ids are stored as their
+    digits. target_label is a short snapshot (a display name or the
+    first words of a post) so the history still reads after the item
+    changes."""
+    __tablename__ = "admin_actions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, index=True)
+    actor_kind: Mapped[str] = mapped_column(String(16))
+    actor_id: Mapped[int] = mapped_column(Integer)
+    actor_email: Mapped[str] = mapped_column(String(255))
+    # e.g. report_dismiss, content_hide, content_unhide, user_suspend,
+    # user_unsuspend, lockout_unlock, appeal_grant, appeal_deny,
+    # twofa_reset, transition_set, transition_handoff, name_review,
+    # lifecycle_run, election_reminders_run, bill_updates_run.
+    action: Mapped[str] = mapped_column(String(40), index=True)
+    target_kind: Mapped[Optional[str]] = mapped_column(String(32), default=None, index=True)
+    target_id: Mapped[Optional[str]] = mapped_column(String(64), default=None, index=True)
+    target_label: Mapped[Optional[str]] = mapped_column(String(200), default=None)
+    reason: Mapped[Optional[str]] = mapped_column(String(1000), default=None)
+    # Small JSON object with the action's own facts (report id, reports
+    # closed, whether anything changed). Never secrets or tokens.
+    details_json: Mapped[Optional[str]] = mapped_column(Text, default=None)
+
+
 # ── Bill summaries ────────────────────────────────────────────────────
 class BillSummary(Base):
     """

@@ -41,7 +41,7 @@ from app.models.pages import (
     PageTransitionLog,
     RepAccount,
 )
-from app.services import former_links
+from app.services import admin_actions, former_links
 from app.services import page_lifecycle as pl
 from app.services.admin_auth import get_current_admin
 
@@ -215,6 +215,11 @@ def set_transition(body: TransitionSet, db: Session = Depends(get_db), actor: di
         raise HTTPException(status_code=400, detail="Give the office (for example \"State Senator, Ohio District 1\").")
     db.add(PageTransitionLog(page_id=body.page_id, action="set", before_json=json.dumps(before),
                              after_json=json.dumps(_row_dict(row)), actor=actor.get("email")))
+    admin_actions.record(
+        db, actor, "transition_set", target_kind="page", target_id=body.page_id,
+        target_label=row.display_name, reason=body.source_note,
+        details={"event": body.event, "event_on": body.event_on, "source_url": body.source_url},
+    )
     db.commit()
     pl.invalidate_cache()
     logger.info("admin %s:%s set transition for %s: %s on %s", actor.get("kind"), actor.get("id"), body.page_id,
@@ -237,6 +242,8 @@ def run_now(db: Session = Depends(get_db), actor: dict = Depends(get_current_adm
     from app.services.page_lifecycle_job import run_page_lifecycle
     summary = run_page_lifecycle(db)
     logger.info("admin %s:%s ran the page lifecycle job: %s", actor.get("kind"), actor.get("id"), summary)
+    admin_actions.record(db, actor, "lifecycle_run", details=admin_actions.scalars(summary))
+    db.commit()
     return summary
 
 
@@ -312,6 +319,11 @@ def approve_handoff(body: HandoffRequest, db: Session = Depends(get_db),
     db.add(PageTransitionLog(page_id=body.campaign_page_id, action="handoff", before_json=json.dumps(before),
                              after_json=json.dumps({**_row_dict(row), "rep_account_id": rep.id}),
                              actor=actor.get("email")))
+    admin_actions.record(
+        db, actor, "transition_handoff", target_kind="page", target_id=body.campaign_page_id,
+        target_label=cand.display_name,
+        details={"official_page_id": body.official_page_id, "rep_account_id": rep.id},
+    )
     db.commit()
     sent = 0
     if row.followers_notice_at is None:
@@ -378,5 +390,10 @@ def decide_name(link_id: int, body: NameDecision, db: Session = Depends(get_db),
                              after_json=json.dumps({"status": link.name_status, "source": body.source_url,
                                                     "applied": applied}),
                              actor=actor.get("email")))
+    admin_actions.record(
+        db, actor, "name_review", target_kind="page", target_id=page_id,
+        target_label=former.display_name if former else None,
+        details={"decision": link.name_status, "source_url": body.source_url, "applied": applied},
+    )
     db.commit()
     return {"ok": True, "status": link.name_status, "applied": applied}

@@ -153,7 +153,7 @@ def main() -> int:
             hid_post_id = p.id
         report_post(hid_post_id, citizen())
         rid = row_for(queue(), "post", hid_post_id)[0]["id"]
-        r = admin_post(f"/api/admin/reports/post/{rid}/hide")
+        r = admin_post(f"/api/admin/reports/post/{rid}/hide", {"reason": "Breaks the rules"})
         check(r.status_code == 200, f"admin hide {r.status_code} {r.text[:120]}")
         rows = row_for(queue(), "post", hid_post_id)
         check(rows and rows[0]["acted_at"] and rows[0].get("target_state") == "admin_hidden",
