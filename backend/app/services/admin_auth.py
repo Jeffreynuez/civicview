@@ -58,52 +58,46 @@ def is_admin_email(email: Optional[str]) -> bool:
     return email.strip().lower() in _admin_emails()
 
 
-def get_current_admin(
-    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
-    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
-) -> dict:
-    """FastAPI dependency for /api/admin/* endpoints. Returns a small
-    dict describing the authenticated admin (kind + id + email) on
-    success; raises 403 otherwise — 401 would be misleading because
-    the user IS authenticated, just not authorized.
+def _resolve_admin(
+    me_rep: Optional[RepAccount], me_citizen: Optional[CitizenAccount],
+) -> tuple[dict, object]:
+    """Find the signed-in account that carries admin powers. Returns
+    (actor dict, account row). Raises 401 when nobody is signed in and
+    403 when no session matches ADMIN_EMAILS.
 
     Defense-in-depth: citizens must be verified=True to wield admin
-    powers. Reps don't have a verified flag — they're vetted at
+    powers. Reps don't have a verified flag; they're vetted at
     onboarding, so a matching email is sufficient.
 
     Why we check BOTH sessions independently rather than "rep first,
-    else citizen": the client-side mutually-exclusive-session
-    teardown can fail silently (network blip during loginCitizenApi
-    when it tries to clear the rep cookie, etc.). When that happens,
-    the user thinks they're signed in only as a citizen but a stale
-    rep cookie is still riding along. Falling back to "rep wins" in
-    that case denies admin to a verified citizen-admin just because
-    they have a leftover rep cookie — confusing failure mode. So we
-    accept whichever side actually matches ADMIN_EMAILS.
+    else citizen": the client-side mutually-exclusive-session teardown
+    can fail silently (network blip during loginCitizenApi when it
+    tries to clear the rep cookie, etc.). When that happens, the user
+    thinks they're signed in only as a citizen but a stale rep cookie
+    is still riding along. Falling back to "rep wins" in that case
+    denies admin to a verified citizen-admin just because they have a
+    leftover rep cookie. So we accept whichever side actually matches
+    ADMIN_EMAILS.
 
-    If BOTH emails are admin (unusual but legitimate — operator who
-    set up both a rep and a citizen account with admin-listed emails)
-    we prefer the verified citizen for the audit log identity.
+    If BOTH emails are admin (unusual but legitimate: operator who set
+    up both a rep and a citizen account with admin-listed emails) we
+    prefer the verified citizen for the audit log identity.
     """
-    candidates = []  # list of (kind, id, email, verified-or-None)
+    candidates = []  # list of (kind, account, verified-or-None)
     if me_rep is not None:
-        candidates.append(("rep", me_rep.id, me_rep.email, None))
+        candidates.append(("rep", me_rep, None))
     if me_citizen is not None:
-        candidates.append(("citizen", me_citizen.id, me_citizen.email, me_citizen.verified))
+        candidates.append(("citizen", me_citizen, me_citizen.verified))
 
     if not candidates:
-        # Not signed in at all — 401, distinct from 403 below.
+        # Not signed in at all: 401, distinct from 403 below.
         raise HTTPException(status_code=401, detail="Sign in to access admin.")
 
-    # Find a candidate whose email is in ADMIN_EMAILS AND (for citizens)
-    # is verified. Prefer citizens over reps on tie because verified
-    # citizens are the documented operator-admin path and audit logs
-    # read more cleanly that way.
     matched: list[tuple] = []
     rejected_unverified = False
     for cand in candidates:
-        kind, _id, email, verified = cand
-        if not is_admin_email(email):
+        kind, account, verified = cand
+        if not is_admin_email(account.email):
             continue
         if kind == "citizen" and not verified:
             rejected_unverified = True
@@ -113,12 +107,12 @@ def get_current_admin(
     if matched:
         # Prefer citizen if any matched (sort puts 'citizen' before 'rep').
         matched.sort(key=lambda c: 0 if c[0] == "citizen" else 1)
-        kind, actor_id, actor_email, _ = matched[0]
-        return {"kind": kind, "id": actor_id, "email": actor_email}
+        kind, account, _ = matched[0]
+        return {"kind": kind, "id": account.id, "email": account.email}, account
 
     # No match. Differentiate the failure mode so the operator can
-    # debug — "your email isn't on the list" vs. "your email IS on
-    # the list but the account isn't verified."
+    # debug: "your email isn't on the list" vs. "your email IS on the
+    # list but the account isn't verified."
     if rejected_unverified:
         raise HTTPException(
             status_code=403,
@@ -129,3 +123,40 @@ def get_current_admin(
             ),
         )
     raise HTTPException(status_code=403, detail="Admin access required.")
+
+
+def get_current_admin_identity(
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+) -> dict:
+    """Who the admin is, WITHOUT the 2FA requirement. Only for
+    /api/admin/whoami, which has to answer an admin who still needs to
+    enroll so the app can show the enrollment overlay. Every other
+    admin endpoint uses get_current_admin."""
+    actor, _account = _resolve_admin(me_rep, me_citizen)
+    return actor
+
+
+def get_current_admin(
+    me_rep: Optional[RepAccount] = Depends(get_optional_rep),
+    me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+) -> dict:
+    """FastAPI dependency for /api/admin/* endpoints. Returns a small
+    dict describing the authenticated admin (kind + id + email) on
+    success; raises 403 otherwise (401 would be misleading because the
+    user IS authenticated, just not authorized).
+
+    Since 2026-10-26 the admin account must also have 2FA enrolled,
+    whatever FORCE_2FA_ENABLED says (see totp_enforcement.
+    admin_2fa_required). Before that a password alone was enough to
+    hide content, suspend accounts and read the emails on the
+    suspended, lockout and appeal lists."""
+    from app.services.totp_enforcement import admin_needs_2fa
+
+    actor, account = _resolve_admin(me_rep, me_citizen)
+    if admin_needs_2fa(account):
+        raise HTTPException(
+            status_code=403,
+            detail="Set up two-factor authentication on this account to use admin.",
+        )
+    return actor

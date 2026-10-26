@@ -41,6 +41,7 @@ const KIND_LABEL = {
 
 export default function Force2FAOverlay({
   identityKind = 'rep',
+  accountKind,
   identityName,
   onComplete,
   onSignOut,
@@ -149,7 +150,7 @@ export default function Force2FAOverlay({
             onClose to onComplete here so the parent can refetch
             /me, see needs_2fa_enrollment flip to false, and drop
             the overlay automatically. */}
-        <TwoFactorSection onClose={onComplete} />
+        <TwoFactorSection onClose={onComplete} accountKind={accountKind} />
 
         {/* Escape hatch — sign out of THIS identity (the one being
             enforced). Multi-identity users can drop the enforcing

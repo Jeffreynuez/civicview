@@ -107,7 +107,8 @@ def main() -> int:
         os.environ["ADMIN_EMAILS"] = "admin.person@example.com"
         with SessionLocal() as db:
             adm = RepAccount(email="admin.person@example.com", password_hash=hash_password("pw-12345678"),
-                             display_name="Admin", official_id="admin-test-official", is_active=True)
+                             display_name="Admin", official_id="admin-test-official", is_active=True,
+                             totp_enabled_at=datetime.utcnow())  # admin needs 2FA
             db.add(adm)
             db.commit()
             adm_id = adm.id

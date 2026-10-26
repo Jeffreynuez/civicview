@@ -46,7 +46,7 @@ import logging
 from datetime import datetime, timezone
 from typing import List, Literal, Optional, Tuple
 
-from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
@@ -81,15 +81,31 @@ def resolve_caller(
     citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
     rep: Optional[RepAccount] = Depends(get_optional_rep),
     candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
+    as_kind: Optional[AccountKind] = Query(default=None, alias="as"),
 ) -> Tuple[AccountKind, AccountRow]:
     """Pick the active account for 2FA operations.
 
-    Priority order matches what an authenticated user would intuitively
-    expect: if they have multiple sessions, the most-privileged one
-    drives the 2FA flow. Rep > candidate > citizen — same as the
-    multi-identity engagement picker default in pages.py.
+    `?as=citizen|rep|candidate` names the account explicitly, among the
+    sessions this request already carries. The admin enrollment overlay
+    uses it: an admin who is a citizen account but also has a rep
+    session open would otherwise enroll the rep and stay locked out of
+    admin (2026-10-26).
 
-    Raises 401 if none of the three sessions is active."""
+    Without it, priority order matches what an authenticated user would
+    intuitively expect: if they have multiple sessions, the
+    most-privileged one drives the 2FA flow. Rep > candidate > citizen,
+    same as the multi-identity engagement picker default in pages.py.
+
+    Raises 401 if none of the three sessions is active, or if `as`
+    names a session the request doesn't carry."""
+    if as_kind is not None:
+        chosen = {"rep": rep, "candidate": candidate, "citizen": citizen}[as_kind]
+        if chosen is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail=f"Not signed in as a {as_kind} account on this device.",
+            )
+        return as_kind, chosen
     if rep is not None:
         return "rep", rep
     if candidate is not None:
@@ -516,10 +532,19 @@ def _looks_like_recovery_code(code: str) -> bool:
 # account types (admin, rep, candidate). Citizens can use the same
 # path; we don't ship an email-self-reset for them in Phase 1.
 # ─────────────────────────────────────────────────────────────────────
+class AdminReset2FARequest(BaseModel):
+    model_config = ConfigDict(from_attributes=False)
+    reason: str = Field(
+        ..., min_length=5, max_length=500,
+        description="Why the reset is needed, e.g. how the person proved who they are.",
+    )
+
+
 @router.post("/api/admin/accounts/{kind}/{account_id}/reset-2fa")
 def admin_reset_2fa(
     kind: AccountKind,
     account_id: int,
+    body: AdminReset2FARequest,
     db: Session = Depends(get_db),
     _admin=Depends(get_current_admin),
 ) -> dict:
@@ -551,6 +576,22 @@ def admin_reset_2fa(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"No {kind} account with id={account_id}.",
         )
+    # A fellow admin (or yourself) can't be reset here: an admin's
+    # second factor is what protects the moderation tools, and one
+    # admin stripping another's would undo it. Remove the address from
+    # ADMIN_EMAILS first, the same rule as suspending an admin.
+    from app.services.admin_auth import is_admin_email
+    if is_admin_email(getattr(account, "email", None)):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can't reset an admin's 2FA here. Remove them from ADMIN_EMAILS first.",
+        )
+    reason = body.reason.strip()
+    if len(reason) < 5:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Give a reason for the reset (at least 5 characters).",
+        )
     had_2fa = account.totp_enabled_at is not None
     account.totp_secret_encrypted = None
     account.totp_enabled_at = None
@@ -558,8 +599,9 @@ def admin_reset_2fa(
     db.commit()
     deleted = recovery_codes_service.wipe_codes(db, kind, account_id)
     logger.warning(
-        "ADMIN-RESET 2FA for %s account #%d (%s). Had 2FA: %s; recovery codes wiped: %d.",
-        kind, account_id, mask_email(getattr(account, "email", None)), had_2fa, deleted,
+        "ADMIN-RESET 2FA for %s account #%d (%s) by %s. Had 2FA: %s; recovery codes wiped: %d. Reason: %s",
+        kind, account_id, mask_email(getattr(account, "email", None)),
+        mask_email(_admin.get("email")), had_2fa, deleted, reason[:300],
     )
     return {"reset": True, "had_2fa": had_2fa, "recovery_codes_wiped": deleted}
 

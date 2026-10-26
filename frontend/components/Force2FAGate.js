@@ -72,18 +72,25 @@ export default function Force2FAGate({ children }) {
   // happen to need enrollment — finishing one drops the flag and the
   // next render-pass picks up the next one.
   let enforcedKind = null;
+  let enforcedAccount = null;   // which account the overlay enrolls (?as=)
   let enforcedName = '';
   let onSignOut = null;
   if (me?.needs_2fa_enrollment) {
     enforcedKind = 'rep';
+    enforcedAccount = 'rep';
     enforcedName = me.display_name;
     onSignOut = logoutRep;
   } else if (candidate?.needs_2fa_enrollment) {
     enforcedKind = 'candidate';
+    enforcedAccount = 'candidate';
     enforcedName = candidate.display_name;
     onSignOut = logoutCandidate;
   } else if (adminInfo?.needs_2fa_enrollment) {
     enforcedKind = 'admin';
+    // The admin is a rep or a citizen account. Name it, so a citizen
+    // admin with a rep session also open enrolls the citizen account
+    // instead of the rep (which would leave admin locked).
+    enforcedAccount = adminInfo.kind === 'rep' ? 'rep' : 'citizen';
     enforcedName = adminInfo.email || 'Admin';
     // Admin status is granted to either a rep or citizen account via
     // ADMIN_EMAILS — sign out the underlying account that carries it.
@@ -119,6 +126,7 @@ export default function Force2FAGate({ children }) {
       {enforcedKind && (
         <Force2FAOverlay
           identityKind={enforcedKind}
+          accountKind={enforcedAccount}
           identityName={enforcedName}
           onComplete={handleComplete}
           onSignOut={onSignOut}

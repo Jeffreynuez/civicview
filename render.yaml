@@ -177,6 +177,12 @@ services:
       # Feature switches. Unset means off.
       - key: FORCE_2FA_ENABLED
         sync: false
+      # Admin access needs 2FA on the admin account even with
+      # FORCE_2FA_ENABLED off. Unset means ON. Set it to false only to
+      # get back in after losing the authenticator AND the recovery
+      # codes, then set it back.
+      - key: ADMIN_2FA_REQUIRED
+        sync: false
       - key: DIGEST_ENABLED
         sync: false
       - key: IDME_ENABLED

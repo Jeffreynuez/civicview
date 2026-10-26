@@ -5,10 +5,13 @@
  * Two-factor authentication API client — wraps /api/2fa/*.
  *
  * The backend resolves which of the three sessions (citizen / rep /
- * candidate) is active and operates on that account. The frontend
- * doesn't pass an identity hint — whichever bearer / cookie is set
- * when the request fires wins, with the rep > candidate > citizen
- * priority enforced server-side.
+ * candidate) is active and operates on that account, with the
+ * rep > candidate > citizen priority enforced server-side. Every
+ * account-level call takes an optional `asKind` ('citizen' | 'rep' |
+ * 'candidate') that names the account instead (sent as ?as=). The
+ * admin enrollment overlay passes it, so an admin who is a citizen
+ * account but also has a rep session open enrolls the admin account
+ * (2026-10-26).
  *
  * Uses request() from lib/http.js, the shared client: every identity
  * header, X-CSRF-Token with one retry on a stale token, a timeout, and
@@ -18,8 +21,8 @@
  */
 import { request } from './http';
 
-function tfaRequest(path, { method = 'GET', body } = {}) {
-  return request(path, { method, body });
+function tfaRequest(path, { method = 'GET', body, asKind } = {}) {
+  return request(path, { method, body, query: asKind ? { as: asKind } : undefined });
 }
 
 /**
@@ -27,8 +30,8 @@ function tfaRequest(path, { method = 'GET', body } = {}) {
  *   { enabled: bool, enabled_at: ISO|null, recovery_codes_remaining: int }
  * Use this on Account Security mount to render the right panel state.
  */
-export function fetchTwoFactorStatus() {
-  return tfaRequest('/api/2fa/status');
+export function fetchTwoFactorStatus(asKind) {
+  return tfaRequest('/api/2fa/status', { asKind });
 }
 
 /**
@@ -37,8 +40,8 @@ export function fetchTwoFactorStatus() {
  * Caller MUST show secret + render QR from provisioning_uri
  * immediately; the secret isn't recoverable after this call.
  */
-export function startEnrollment() {
-  return tfaRequest('/api/2fa/enroll/start', { method: 'POST' });
+export function startEnrollment(asKind) {
+  return tfaRequest('/api/2fa/enroll/start', { method: 'POST', asKind });
 }
 
 /**
@@ -48,10 +51,11 @@ export function startEnrollment() {
  * the user with copy + download affordances. Backend stores only
  * hashes from this point on; the plaintext is not recoverable.
  */
-export function verifyEnrollment(pendingToken, code) {
+export function verifyEnrollment(pendingToken, code, asKind) {
   return tfaRequest('/api/2fa/enroll/verify', {
     method: 'POST',
     body: { pending_token: pendingToken, code },
+    asKind,
   });
 }
 
@@ -72,10 +76,11 @@ export function verifyCode(code) {
  *   { recovery_codes: string[] } — same one-time-display contract
  * as enrollment.
  */
-export function regenerateRecoveryCodes(code) {
+export function regenerateRecoveryCodes(code, asKind) {
   return tfaRequest('/api/2fa/regenerate-recovery-codes', {
     method: 'POST',
     body: { code },
+    asKind,
   });
 }
 
@@ -85,19 +90,21 @@ export function regenerateRecoveryCodes(code) {
  *   { disabled: true } on success; { disabled: true, noop: true }
  * if 2FA wasn't enabled in the first place.
  */
-export function disableTwoFactor(code) {
-  return tfaRequest('/api/2fa/disable', { method: 'POST', body: { code } });
+export function disableTwoFactor(code, asKind) {
+  return tfaRequest('/api/2fa/disable', { method: 'POST', body: { code }, asKind });
 }
 
 /**
  * Admin-only: POST /api/admin/accounts/{kind}/{id}/reset-2fa
  * Wipes the target user's TOTP + recovery codes so they can re-enroll
  * at next login. Caller must be in ADMIN_EMAILS (gated server-side).
+ * `reason` is required (5 to 500 characters), and admin accounts are
+ * refused (2026-10-26).
  */
-export function adminResetTwoFactor(kind, accountId) {
+export function adminResetTwoFactor(kind, accountId, reason) {
   return tfaRequest(
     `/api/admin/accounts/${encodeURIComponent(kind)}/${encodeURIComponent(accountId)}/reset-2fa`,
-    { method: 'POST' },
+    { method: 'POST', body: { reason } },
   );
 }
 
@@ -107,8 +114,8 @@ export function adminResetTwoFactor(kind, accountId) {
  * device included. Returns { signed_out: true, kind }. The caller drops
  * the stored token for `kind` and reloads.
  */
-export function signOutEverywhere() {
-  return tfaRequest('/api/sessions/sign-out-everywhere', { method: 'POST' });
+export function signOutEverywhere(asKind) {
+  return tfaRequest('/api/sessions/sign-out-everywhere', { method: 'POST', asKind });
 }
 
 /**

@@ -253,13 +253,21 @@ function AdminPageInner() {
   const [unsuspendModal, setUnsuspendModal] = useState(null);
   const [busyId, setBusyId] = useState(null);
 
-  // Probe admin auth on first mount.
+  // Probe admin auth on first mount. `probeTick` re-runs it from the
+  // "set up 2FA" card once enrollment is done.
+  const [probeTick, setProbeTick] = useState(0);
   useEffect(() => {
     let cancelled = false;
     (async () => {
       const { data, status, error: err } = await adminWhoami();
       if (cancelled) return;
-      if (status === 200 && data) {
+      if (status === 200 && data?.needs_2fa_enrollment) {
+        // Admin needs 2FA on this account before any admin endpoint
+        // answers (2026-10-26). The enrollment overlay covers the
+        // page; don't load lists that would only come back 403.
+        setMe(data);
+        setAuthState('needs2fa');
+      } else if (status === 200 && data) {
         setMe(data);
         setAuthState('allowed');
       } else if (status === 403) {
@@ -273,7 +281,7 @@ function AdminPageInner() {
       }
     })();
     return () => { cancelled = true; };
-  }, []);
+  }, [probeTick]);
 
   // Loaders — each tab refetches its own data when filters change.
   const loadReports = useCallback(async () => {
@@ -484,6 +492,26 @@ function AdminPageInner() {
               <strong>ADMIN_EMAILS</strong> allowlist.
             </p>
             <Link className="ad-access__cta" href="/">Go to CivicView home</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (authState === 'needs2fa') {
+    return (
+      <div className="ad-root">
+        <div className="ad-access-wrap">
+          <div className="ad-access">
+            <h2 className="ad-access__title">Set up two-factor authentication</h2>
+            <p className="ad-access__body">
+              Admin needs two-factor authentication on{' '}
+              {me?.email ? <span className="ad-access__email">{me.email}</span> : 'this account'}.
+              Finish the setup, then continue.
+            </p>
+            <button type="button" className="ad-access__cta" onClick={() => setProbeTick((n) => n + 1)}>
+              Continue to admin
+            </button>
           </div>
         </div>
       </div>

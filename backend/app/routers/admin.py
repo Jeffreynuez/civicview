@@ -47,7 +47,7 @@ from app.models.pages import (
     PostReport,
     RepAccount,
 )
-from app.services.admin_auth import get_current_admin
+from app.services.admin_auth import get_current_admin, get_current_admin_identity
 from app.services.citizen_polls_service import poll_is_publicly_visible
 from app.services.log_redaction import mask_email
 from app.services.moderation import is_moderation_hidden, resolve_open_reports, target_state
@@ -77,21 +77,23 @@ class AdminWhoamiResponse(BaseModel):
     kind: str
     id: int
     email: str
-    # 2FA Phase 4 — true when FORCE_2FA_ENABLED is set AND the admin
-    # account hasn't enrolled in TOTP yet. Frontend uses this to
-    # render the full-screen enrollment overlay before letting the
-    # admin reach /admin or any other surface. Admins ARE in the
-    # enforced set — losing admin credentials to credential theft
-    # would be the highest-blast-radius compromise on the platform.
+    # True when the admin account hasn't enrolled in TOTP yet. Since
+    # 2026-10-26 that is required for admin whatever FORCE_2FA_ENABLED
+    # says (totp_enforcement.admin_2fa_required); every other admin
+    # endpoint answers 403 until it's done. The frontend uses this to
+    # render the full-screen enrollment overlay for the account named
+    # by `kind`.
     needs_2fa_enrollment: bool = False
 
 
 @router.get("/whoami", response_model=AdminWhoamiResponse)
-def whoami(actor: dict = Depends(get_current_admin), db: Session = Depends(get_db)) -> AdminWhoamiResponse:
-    """Cheap probe — frontend hits this to decide whether to show the
+def whoami(actor: dict = Depends(get_current_admin_identity), db: Session = Depends(get_db)) -> AdminWhoamiResponse:
+    """Cheap probe: the frontend hits this to decide whether to show the
     /admin route at all. 200 means the current user has admin powers;
-    401/403 means hide the link."""
-    from app.services.totp_enforcement import requires_2fa_enrollment
+    401/403 means hide the link. Answers an admin who still has to set
+    up 2FA (needs_2fa_enrollment=true) so the overlay can show; the
+    other admin endpoints refuse that admin."""
+    from app.services.totp_enforcement import admin_needs_2fa, requires_2fa_enrollment
     # Resolve the underlying account to read totp_enabled_at. Admin
     # status is granted to either a rep or a citizen via ADMIN_EMAILS,
     # so the actor dict's `kind` tells us which table to hit.
@@ -100,7 +102,10 @@ def whoami(actor: dict = Depends(get_current_admin), db: Session = Depends(get_d
         account = db.get(RepAccount, actor["id"])
     elif actor.get("kind") == "citizen":
         account = db.get(CitizenAccount, actor["id"])
-    needs = requires_2fa_enrollment("admin", account) if account is not None else False
+    needs = (
+        requires_2fa_enrollment("admin", account) or admin_needs_2fa(account)
+        if account is not None else False
+    )
     return AdminWhoamiResponse(**actor, needs_2fa_enrollment=needs)
 
 
