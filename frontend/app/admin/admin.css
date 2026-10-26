@@ -1790,3 +1790,24 @@ table.ad-table {
 .ad-lockouts .ad-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .ad-mono { font-family: var(--cl-font-mono); font-size: var(--cl-text-xs); }
 .ad-kpi__dot--muted { background: var(--cl-text-muted); }
+
+/* Accounts tab (2026-10-26). */
+.ad-accounts { display: flex; flex-direction: column; gap: 10px; }
+.ad-accounts .ad-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ad-accounts .ad-search { min-width: min(420px, 100%); }
+.ad-accounts__label { font-size: var(--cl-text-xs); font-weight: 700; color: var(--cl-text-light); }
+.ad-accounts__help { margin: 0; font-size: var(--cl-text-xs); color: var(--cl-text-muted); }
+.ad-accounts__error {
+  padding: 8px 12px; border-radius: 8px; font-size: var(--cl-text-sm);
+  background: var(--cl-danger-soft); color: var(--cl-danger-text); border: 1px solid var(--cl-danger-border);
+}
+.ad-accounts__note {
+  padding: 8px 12px; border-radius: 8px; font-size: var(--cl-text-sm);
+  background: var(--cl-up-soft); color: var(--cl-text); border: 1px solid var(--cl-up);
+}
+.ad-accounts__tag {
+  display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 999px;
+  font-size: 0.66rem; font-weight: 700; border: 1px solid var(--cl-border);
+  background: var(--cl-bg-soft); color: var(--cl-text-light);
+}
+.ad-accounts__why { margin-top: 4px; font-size: 0.68rem; color: var(--cl-text-muted); max-width: 200px; }

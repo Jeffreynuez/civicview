@@ -34,7 +34,7 @@
  * /Design Exports/civicview-admin-moderation-page/. Styles live in
  * ./admin.css.
  */
-import { Suspense, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -59,10 +59,11 @@ import TransitionsTab from '@/components/admin/TransitionsTab';
 import ElectionRemindersTab from '@/components/admin/ElectionRemindersTab';
 import AdminTestPush from '@/components/admin/AdminTestPush';
 import HistoryTab from '@/components/admin/HistoryTab';
+import AccountsTab from '@/components/admin/AccountsTab';
 import { serverDate, serverMs } from '@/lib/serverTime';
-import useFocusTrap from '@/lib/useFocusTrap';
+import { ReasonField, kindLabel, kindToken, reasonOk, useAdminDialog } from '@/components/admin/adminUi';
 
-const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions', 'reminders', 'history']);
+const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'accounts', 'transitions', 'reminders', 'history']);
 
 // Human-friendly type labels and icon classes — keep in sync with the
 // backend ReportKind literal.
@@ -175,17 +176,6 @@ const SUSPENSION_APPEAL_KINDS = new Set(['suspension_rep', 'suspension_citizen',
 function typeLabel(r) {
   if (r.kind === 'post' && r.target_author_kind === 'candidate') return 'Candidate post';
   return (TYPE_META[r.kind] || { label: r.kind }).label;
-}
-
-function kindToken(kind) {
-  if (kind === 'rep') return 'rep';
-  if (kind === 'candidate') return 'candidate';
-  return 'citizen';
-}
-function kindLabel(kind) {
-  if (kind === 'rep') return 'Rep';
-  if (kind === 'candidate') return 'Candidate';
-  return 'Citizen';
 }
 
 // Next.js requires useSearchParams() to live under a <Suspense> boundary
@@ -421,6 +411,7 @@ function AdminPageInner() {
   const [reminderCounts, setReminderCounts] = useState({});
   // History tab's KPI tiles, reported by the tab itself (2026-10-26).
   const [historyCounts, setHistoryCounts] = useState({});
+  const [accountCounts, setAccountCounts] = useState({});
 
   const switchTab = (tab) => {
     const next = VALID_TABS.has(tab) ? tab : 'queue';
@@ -636,6 +627,7 @@ function AdminPageInner() {
     appeals:   { crumb: 'Admin · Appeals',     title: 'Appeals queue' },
     suspended: { crumb: 'Admin · Suspended users', title: 'Suspended accounts' },
     lockouts: { crumb: 'Admin · Lockouts', title: 'Account lockouts' },
+    accounts: { crumb: 'Admin · Accounts', title: 'Account lookup' },
     transitions: { crumb: 'Admin · Transitions', title: 'Former officials and candidates' },
     reminders: { crumb: 'Admin · Election reminders', title: 'Election reminders preview' },
     history: { crumb: 'Admin · History', title: 'Admin history' },
@@ -701,6 +693,12 @@ function AdminPageInner() {
       { label: 'Scheduled', value: reminderCounts.scheduled || 0, dot: 'success' },
       { label: 'Passed', value: reminderCounts.passed || 0, dot: 'muted' },
     ];
+  } else if (activeTab === 'accounts') {
+    kpis = [
+      { label: 'Accounts found', value: accountCounts.found || 0, dot: 'open' },
+      { label: 'With 2FA on', value: accountCounts.twofa || 0, dot: 'success' },
+      { label: 'Suspended', value: accountCounts.suspended || 0, dot: 'warning' },
+    ];
   } else if (activeTab === 'history') {
     kpis = [
       { label: 'Actions this week', value: historyCounts.week || 0, dot: 'open' },
@@ -740,11 +738,12 @@ function AdminPageInner() {
             inside it, so the sticky row's containing block is the whole
             page, not the header band. */}
         <div className="ad-subnav-row ad-subnav-row--sticky">
-          <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={6}>
+          <HScroll scrollerClassName="ad-subnav" ariaLabel="Admin sections" itemCount={8}>
             <SubNavTab id="queue" label="Queue" badge={subnavCounts.queue} active={activeTab} onClick={switchTab} />
             <SubNavTab id="appeals" label="Appeals" badge={subnavCounts.appeals} active={activeTab} onClick={switchTab} />
             <SubNavTab id="suspended" label="Suspended users" badge={subnavCounts.suspended} active={activeTab} onClick={switchTab} />
             <SubNavTab id="lockouts" label="Lockouts" badge={subnavCounts.lockouts} active={activeTab} onClick={switchTab} />
+            <SubNavTab id="accounts" label="Accounts" badge={0} active={activeTab} onClick={switchTab} />
             <SubNavTab id="transitions" label="Transitions" badge={0} active={activeTab} onClick={switchTab} />
             <SubNavTab id="reminders" label="Election reminders" badge={0} active={activeTab} onClick={switchTab} />
             <SubNavTab id="history" label="History" badge={0} active={activeTab} onClick={switchTab} />
@@ -831,6 +830,8 @@ function AdminPageInner() {
         {activeTab === 'reminders' && <ElectionRemindersTab onCounts={setReminderCounts} />}
 
         {activeTab === 'history' && <HistoryTab onCounts={setHistoryCounts} />}
+
+        {activeTab === 'accounts' && <AccountsTab onCounts={setAccountCounts} />}
 
         {activeTab === 'lockouts' && (
           <section className="ad-tab-body ad-lockouts">
@@ -1955,52 +1956,8 @@ function EmptyAll() {
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// MODALS
+// MODALS (dialog behavior and the reason box: components/admin/adminUi.js)
 // ─────────────────────────────────────────────────────────────────────
-// Dialog behavior for the admin modals (2026-10-26): role="dialog",
-// labelled by its title, Escape closes it, Tab stays inside it.
-function useAdminDialog(onCancel) {
-  const dialogRef = useRef(null);
-  const titleId = useId();
-  useFocusTrap(dialogRef, true);
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onCancel?.(); };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [onCancel]);
-  return { dialogRef, titleId };
-}
-
-// Reason box shared by the action modals (2026-10-26). Required reasons
-// need at least REASON_MIN characters; every reason is saved to the
-// admin History, never shown to the author unless the label says so.
-const REASON_MIN = 3;
-
-function reasonOk(text) {
-  return (text || '').trim().length >= REASON_MIN;
-}
-
-function ReasonField({ value, onChange, required, label, hint, placeholder, autoFocus }) {
-  const id = useId();
-  return (
-    <div className="ad-modal__row">
-      <label className="ad-modal__label" htmlFor={id}>{label}</label>
-      <textarea
-        id={id}
-        className="ad-modal__textarea"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        maxLength={1000}
-        autoFocus={autoFocus}
-      />
-      <span className={`ad-modal__hint ${required && !reasonOk(value) ? 'ad-modal__hint--required' : ''}`}>
-        {hint}
-      </span>
-    </div>
-  );
-}
-
 function HideModal({ row, onCancel, onConfirm }) {
   const { dialogRef, titleId } = useAdminDialog(onCancel);
   const meta = TYPE_META[row.kind] || { label: row.kind };

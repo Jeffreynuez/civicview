@@ -28,7 +28,7 @@ import logging
 from datetime import datetime
 from typing import Any, List, Literal, Optional
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -812,6 +812,70 @@ def suspend_user(
         mask_email(actor["email"]), kind, user_id, acc.suspended_reason,
     )
     return UserActionResult(ok=True, suspended=True)
+
+
+# ── Account lookup (2026-10-26) ─────────────────────────────────────────
+class AccountLookupRow(BaseModel):
+    kind: Literal["citizen", "rep", "candidate"]
+    id: int
+    display_name: str
+    email: str
+    page_id: Optional[str] = None
+    is_admin: bool
+    twofa_enabled: bool
+    suspended: bool
+    is_active: bool
+    deleted: bool
+    verified: Optional[bool] = None
+    demo: Optional[bool] = None
+    created_at: Optional[datetime] = None
+    last_login_at: Optional[datetime] = None
+
+
+class AccountLookupResponse(BaseModel):
+    items: List[AccountLookupRow]
+
+
+@router.get("/accounts", response_model=AccountLookupResponse)
+def lookup_accounts(
+    email: str = Query(..., min_length=3, max_length=255),
+    db: Session = Depends(get_db),
+    _actor: dict = Depends(get_current_admin),
+) -> AccountLookupResponse:
+    """Find the accounts with one email address, for support: the
+    Accounts tab shows who it is and whether 2FA is on, and offers
+    Reset 2FA, the only way back in for someone who lost their phone
+    and their recovery codes (admin audit L14 and L15).
+
+    Exact address only, any capitalization: a partial search would
+    make this a way to browse users. The same address can hold a
+    citizen, a rep and a candidate account. Reads only; nothing is
+    recorded. Never returns secrets, hashes or recovery codes."""
+    from app.services.admin_auth import is_admin_email
+
+    needle = email.strip().lower()
+    out: List[AccountLookupRow] = []
+    for kind, model in (("citizen", CitizenAccount), ("rep", RepAccount), ("candidate", CandidateAccount)):
+        acc = db.query(model).filter(func.lower(model.email) == needle).first()
+        if acc is None:
+            continue
+        out.append(AccountLookupRow(
+            kind=kind,
+            id=acc.id,
+            display_name=acc.display_name or "",
+            email=acc.email or "",
+            page_id=getattr(acc, "official_id", None) if kind == "rep" else getattr(acc, "candidate_id", None) if kind == "candidate" else None,
+            is_admin=is_admin_email(acc.email),
+            twofa_enabled=acc.totp_enabled_at is not None,
+            suspended=acc.suspended_at is not None,
+            is_active=bool(getattr(acc, "is_active", True)),
+            deleted=getattr(acc, "self_deleted_at", None) is not None,
+            verified=bool(acc.verified) if kind == "citizen" else None,
+            demo=(getattr(acc, "verified_method", None) == "demo") if kind == "citizen" else None,
+            created_at=getattr(acc, "created_at", None),
+            last_login_at=getattr(acc, "last_login_at", None),
+        ))
+    return AccountLookupResponse(items=out)
 
 
 @router.post(

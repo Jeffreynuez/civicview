@@ -299,6 +299,12 @@ export async function adminListLockouts() {
   return request('/api/admin/lockouts');
 }
 
+// The accounts with one email address, any capitalization (2026-10-26):
+// the Accounts tab, for support and Reset 2FA. Exact address only.
+export async function adminLookupAccounts(email) {
+  return request('/api/admin/accounts', { query: { email } });
+}
+
 // Clear lockout state on a specific account. Admin can use this when
 // a legit user calls in before their lockout window expires. Needs a
 // reason, saved to the admin History.
