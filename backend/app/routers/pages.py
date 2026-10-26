@@ -2285,10 +2285,22 @@ def delete_comment(
         .first()
         is not None
     )
+    # A reported comment is never hard-deleted (2026-10-26, admin audit
+    # L12): the FK cascade took its reports with it, so deleting a
+    # reported comment erased the moderation record and dropped it from
+    # the admin queue unreviewed. It is soft-deleted instead, text kept
+    # for the admin, and is off the page like any deleted comment.
+    has_reports = (
+        db.query(CommentReport.id).filter(CommentReport.comment_id == comment.id).first()
+        is not None
+    )
     if has_replies:
         if comment.pre_delete_text is None:
             comment.pre_delete_text = comment.body
         comment.body = "[deleted by author]"
+        comment.deleted_at = datetime.utcnow()
+        db.commit()
+    elif has_reports:
         comment.deleted_at = datetime.utcnow()
         db.commit()
     else:

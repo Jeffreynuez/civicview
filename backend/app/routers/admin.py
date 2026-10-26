@@ -60,6 +60,7 @@ router = APIRouter()
 # Limits for the report list. The admin UI paginates if we ever
 # need it; for now 200 covers a healthy demo and a small launch.
 _REPORT_LIST_LIMIT = 200
+_REPORT_LIST_MAX = 1000
 
 # Snippet length for the "preview" field on each report row.
 _PREVIEW_CHARS = 200
@@ -156,6 +157,18 @@ class ReportListResponse(BaseModel):
     # and of include_acted (2026-10-26): unresolved, resolved_week,
     # hidden_items, auto_hide_threshold.
     counts: dict = {}
+    # How many reports match include_acted in all (2026-10-26), so the
+    # page can say "the newest 200 of 340" and offer the rest.
+    total: int = 0
+
+
+def _reported_text(target: Any) -> Optional[str]:
+    """The text that was reported. An author's delete with replies swaps
+    the body for "[deleted by author]" and keeps the original in
+    pre_delete_text; the queue shows the original (2026-10-26)."""
+    if target is None:
+        return None
+    return getattr(target, "pre_delete_text", None) or getattr(target, "body", None)
 
 
 def _snippet(text: Optional[str]) -> str:
@@ -319,6 +332,7 @@ def _resolve_target_context(db: Session, kind: str, target: Any) -> dict:
 @router.get("/reports", response_model=ReportListResponse)
 def list_reports(
     include_acted: bool = False,
+    limit: int = _REPORT_LIST_LIMIT,
     db: Session = Depends(get_db),
     _actor: dict = Depends(get_current_admin),
 ) -> ReportListResponse:
@@ -328,9 +342,12 @@ def list_reports(
     `include_acted=true` returns all reports including resolved
     ones — useful for an audit / "what did I just do" view.
 
-    Sorted newest first; capped at _REPORT_LIST_LIMIT total rows
-    across all types combined.
+    Sorted newest first; capped at `limit` rows across all types
+    combined (200 unless asked, at most 1000). `total` says how many
+    match, so a cap is never silent (admin audit L3).
     """
+    limit = max(1, min(int(limit), _REPORT_LIST_MAX))
+    total = 0
     out: List[ReportRow] = []
     _trusted_cache: dict = {}
 
@@ -348,7 +365,8 @@ def list_reports(
     q = db.query(PostReport)
     if not include_acted:
         q = q.filter(PostReport.acted_at.is_(None))
-    for r in q.order_by(PostReport.created_at.desc()).limit(_REPORT_LIST_LIMIT).all():
+    total += q.count()
+    for r in q.order_by(PostReport.created_at.desc()).limit(limit).all():
         target = db.get(Post, r.post_id)
         name, kind = _reporter_label(
             db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id,
@@ -356,7 +374,7 @@ def list_reports(
         ctx = _resolve_target_context(db, "post", target)
         out.append(ReportRow(
             id=r.id, kind="post", target_id=r.post_id,
-            target_preview=_snippet(target.body if target else None),
+            target_preview=_snippet(_reported_text(target)),
             target_hidden=bool(target and target.deleted_at is not None),
             target_state=target_state(target, "post"),
             reason=r.reason, detail=r.detail,
@@ -371,7 +389,8 @@ def list_reports(
     q = db.query(CommentReport)
     if not include_acted:
         q = q.filter(CommentReport.acted_at.is_(None))
-    for r in q.order_by(CommentReport.created_at.desc()).limit(_REPORT_LIST_LIMIT).all():
+    total += q.count()
+    for r in q.order_by(CommentReport.created_at.desc()).limit(limit).all():
         target = db.get(PostComment, r.comment_id)
         name, kind = _reporter_label(
             db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id,
@@ -379,7 +398,7 @@ def list_reports(
         ctx = _resolve_target_context(db, "post_comment", target)
         out.append(ReportRow(
             id=r.id, kind="post_comment", target_id=r.comment_id,
-            target_preview=_snippet(target.body if target else None),
+            target_preview=_snippet(_reported_text(target)),
             target_hidden=bool(target and target.deleted_at is not None),
             target_state=target_state(target, "post_comment"),
             reason=r.reason, detail=r.detail,
@@ -394,7 +413,8 @@ def list_reports(
     q = db.query(PollReport)
     if not include_acted:
         q = q.filter(PollReport.acted_at.is_(None))
-    for r in q.order_by(PollReport.created_at.desc()).limit(_REPORT_LIST_LIMIT).all():
+    total += q.count()
+    for r in q.order_by(PollReport.created_at.desc()).limit(limit).all():
         target = db.get(Poll, r.poll_id)
         name, kind = _reporter_label(
             db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id,
@@ -417,7 +437,8 @@ def list_reports(
     q = db.query(PollCommentReport)
     if not include_acted:
         q = q.filter(PollCommentReport.acted_at.is_(None))
-    for r in q.order_by(PollCommentReport.created_at.desc()).limit(_REPORT_LIST_LIMIT).all():
+    total += q.count()
+    for r in q.order_by(PollCommentReport.created_at.desc()).limit(limit).all():
         target = db.get(PollComment, r.poll_comment_id)
         name, kind = _reporter_label(
             db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id,
@@ -425,7 +446,7 @@ def list_reports(
         ctx = _resolve_target_context(db, "poll_comment", target)
         out.append(ReportRow(
             id=r.id, kind="poll_comment", target_id=r.poll_comment_id,
-            target_preview=_snippet(target.body if target else None),
+            target_preview=_snippet(_reported_text(target)),
             target_hidden=bool(target and target.deleted_at is not None),
             target_state=target_state(target, "poll_comment"),
             reason=r.reason, detail=r.detail,
@@ -438,7 +459,7 @@ def list_reports(
 
     # Newest first across all types, then cap.
     out.sort(key=lambda r: r.created_at, reverse=True)
-    return ReportListResponse(items=out[:_REPORT_LIST_LIMIT], counts=_queue_counts(db))
+    return ReportListResponse(items=out[:limit], counts=_queue_counts(db), total=total)
 
 
 # Tables-by-kind so the action endpoints can route without a chain

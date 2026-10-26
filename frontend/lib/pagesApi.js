@@ -159,9 +159,11 @@ export async function adminWhoami() {
   return p;
 }
 
-export async function adminListReports({ includeActed = false } = {}) {
+// `limit` (2026-10-26): 200 unless asked, at most 1000. The answer's
+// `total` says how many match, so the page can offer the rest.
+export async function adminListReports({ includeActed = false, limit } = {}) {
   return request('/api/admin/reports', {
-    query: { include_acted: includeActed ? 'true' : undefined },
+    query: { include_acted: includeActed ? 'true' : undefined, limit },
   });
 }
 
@@ -317,9 +319,9 @@ export async function adminUnlockAccount(identityKind, accountId, { reason } = {
 
 // Admin appeals queue. Pending first by default; pass
 // includeActed=true for the audit view.
-export async function adminListAppeals({ includeActed = false } = {}) {
+export async function adminListAppeals({ includeActed = false, limit } = {}) {
   return request('/api/admin/appeals', {
-    query: { include_acted: includeActed ? 'true' : undefined },
+    query: { include_acted: includeActed ? 'true' : undefined, limit },
   });
 }
 

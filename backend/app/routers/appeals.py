@@ -634,6 +634,8 @@ class AdminAppealListResponse(BaseModel):
     # Whole-queue numbers for the tiles, whatever include_acted says
     # (2026-10-26): pending, granted_week, denied_week.
     counts: dict = {}
+    # How many appeals match include_acted in all (2026-10-26).
+    total: int = 0
 
 
 def _appellant_label(db: Session, kind: str, account_id: int) -> tuple[str, str]:
@@ -685,15 +687,24 @@ def _target_preview_for_appeal(db: Session, appeal: Appeal) -> tuple[str, Option
 @router.get("/admin/appeals", response_model=AdminAppealListResponse)
 def list_appeals(
     include_acted: bool = False,
+    limit: int = 200,
     db: Session = Depends(get_db),
     _actor: dict = Depends(get_current_admin),
 ) -> AdminAppealListResponse:
-    """Admin queue. Pending first by default; pass include_acted=true
-    to see resolved appeals too (audit view)."""
-    q = db.query(Appeal)
-    if not include_acted:
-        q = q.filter(Appeal.acted_at.is_(None))
-    rows = q.order_by(Appeal.created_at.desc()).limit(200).all()
+    """Admin queue: pending appeals first, OLDEST first, so the longest
+    wait is on top (2026-10-26, admin audit L16: one had waited 163 days
+    under newer ones). With include_acted=true the decided ones follow,
+    newest decision first. `limit` caps the rows (200 unless asked, at
+    most 1000) and `total` says how many match."""
+    limit = max(1, min(int(limit), 1000))
+    pending_q = db.query(Appeal).filter(Appeal.acted_at.is_(None))
+    total = pending_q.count()
+    rows = pending_q.order_by(Appeal.created_at.asc(), Appeal.id.asc()).limit(limit).all()
+    if include_acted:
+        acted_q = db.query(Appeal).filter(Appeal.acted_at.is_not(None))
+        total += acted_q.count()
+        if len(rows) < limit:
+            rows += acted_q.order_by(Appeal.acted_at.desc(), Appeal.id.desc()).limit(limit - len(rows)).all()
     out: List[AdminAppealRow] = []
     for r in rows:
         name, email = _appellant_label(db, r.appellant_kind, r.appellant_id)
@@ -722,7 +733,7 @@ def list_appeals(
         "granted_week": db.query(Appeal).filter(Appeal.decision == "granted", Appeal.acted_at >= week_ago).count(),
         "denied_week": db.query(Appeal).filter(Appeal.decision == "denied", Appeal.acted_at >= week_ago).count(),
     }
-    return AdminAppealListResponse(items=out, counts=counts)
+    return AdminAppealListResponse(items=out, counts=counts, total=total)
 
 
 class AdminAppealDecisionPayload(BaseModel):

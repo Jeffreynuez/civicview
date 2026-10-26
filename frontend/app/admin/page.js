@@ -212,6 +212,12 @@ function AdminPageInner() {
   // Per-tab data + load state. Kept top-level so tab switches don't
   // unmount the data; everything stays warm across navigation.
   const [reports, setReports] = useState([]);
+  // List caps (2026-10-26, admin audit L3): the lists load the newest 200
+  // unless "Show all" asks for up to 1000; total says how many match.
+  const [reportsLimit, setReportsLimit] = useState(200);
+  const [reportsTotal, setReportsTotal] = useState(null);
+  const [appealsLimit, setAppealsLimit] = useState(200);
+  const [appealsTotal, setAppealsTotal] = useState(null);
   const [reportsLoading, setReportsLoading] = useState(false);
   const [appeals, setAppeals] = useState([]);
   const [appealsLoading, setAppealsLoading] = useState(false);
@@ -301,7 +307,7 @@ function AdminPageInner() {
     const seq = ++reportsSeq.current;
     setReportsLoading(true);
     setError(null);
-    const { data, error: err } = await adminListReports({ includeActed: includeResolvedQueue });
+    const { data, error: err } = await adminListReports({ includeActed: includeResolvedQueue, limit: reportsLimit });
     if (seq !== reportsSeq.current) return;
     setReportsLoading(false);
     if (err || !data) {
@@ -309,14 +315,15 @@ function AdminPageInner() {
       return;
     }
     setReports(data.items || []);
+    setReportsTotal(typeof data.total === 'number' ? data.total : null);
     if (data.counts) setReportCounts(data.counts);
-  }, [includeResolvedQueue]);
+  }, [includeResolvedQueue, reportsLimit]);
 
   const loadAppeals = useCallback(async () => {
     const seq = ++appealsSeq.current;
     setAppealsLoading(true);
     setError(null);
-    const { data, error: err } = await adminListAppeals({ includeActed: includeResolvedAppeals });
+    const { data, error: err } = await adminListAppeals({ includeActed: includeResolvedAppeals, limit: appealsLimit });
     if (seq !== appealsSeq.current) return;
     setAppealsLoading(false);
     if (err || !data) {
@@ -324,8 +331,9 @@ function AdminPageInner() {
       return;
     }
     setAppeals(data.items || []);
+    setAppealsTotal(typeof data.total === 'number' ? data.total : null);
     if (data.counts) setAppealCounts(data.counts);
-  }, [includeResolvedAppeals]);
+  }, [includeResolvedAppeals, appealsLimit]);
 
   const loadSuspended = useCallback(async () => {
     setSuspendedLoading(true);
@@ -378,10 +386,12 @@ function AdminPageInner() {
       // load; keep that one instead of these default lists.
       if (reportsSeq.current === reportsAt) {
         setReports(data?.reports?.items || []);
+        setReportsTotal(typeof data?.reports?.total === 'number' ? data.reports.total : null);
         if (data?.reports?.counts) setReportCounts(data.reports.counts);
       }
       if (appealsSeq.current === appealsAt) {
         setAppeals(data?.appeals?.items || []);
+        setAppealsTotal(typeof data?.appeals?.total === 'number' ? data.appeals.total : null);
         if (data?.appeals?.counts) setAppealCounts(data.appeals.counts);
       }
       setSuspended(data?.suspended?.items || []);
@@ -783,6 +793,8 @@ function AdminPageInner() {
             reporterChip={reporterChip}
             onReporterChip={setReporterChip}
             counts={reportCounts}
+            total={reportsTotal}
+            onShowAll={() => setReportsLimit(1000)}
             onRefresh={loadReports}
             onView={openHostingPage}
             onDismiss={(r) => runAction(`dismiss-${r.kind}-${r.id}`, () => adminDismissReport(r.kind, r.id), loadReports)}
@@ -803,6 +815,8 @@ function AdminPageInner() {
             onTypeChip={setAppealTypeChip}
             appellantChip={appellantChip}
             onAppellantChip={setAppellantChip}
+            total={appealsTotal}
+            onShowAll={() => setAppealsLimit(1000)}
             onRefresh={loadAppeals}
             onGrant={(a) => setAppealDecisionModal({ appeal: a, decision: 'grant' })}
             onDeny={(a) => setAppealDecisionModal({ appeal: a, decision: 'deny' })}
@@ -994,7 +1008,7 @@ function QueueView({
   includeResolved, onIncludeResolved,
   kindChip, onKindChip,
   reporterChip, onReporterChip,
-  counts,
+  counts, total, onShowAll,
   onRefresh, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend,
 }) {
   const filtered = useMemo(() => {
@@ -1017,6 +1031,7 @@ function QueueView({
         onRefresh={onRefresh}
         loading={loading}
       />
+      <CapNote shown={reports.length} total={total} onShowAll={onShowAll} />
       {!loading && filtered.length === 0 ? (
         filtersOn ? <EmptyFiltered /> : includeResolved ? <EmptyAll /> : <EmptyOpen />
       ) : mobile ? (
@@ -1427,6 +1442,7 @@ function AppealsView({
   includeResolved, onIncludeResolved,
   typeChip, onTypeChip,
   appellantChip, onAppellantChip,
+  total, onShowAll,
   onRefresh, onGrant, onDeny,
 }) {
   const filtered = useMemo(() => {
@@ -1454,6 +1470,7 @@ function AppealsView({
         onRefresh={onRefresh}
         loading={loading}
       />
+      <CapNote shown={appeals.length} total={total} onShowAll={onShowAll} />
       {!loading && filtered.length === 0 ? (
         <AppealsEmpty includeResolved={includeResolved} />
       ) : (
@@ -1463,7 +1480,7 @@ function AppealsView({
               Showing <strong>{filtered.length}</strong> {filtered.length === 1 ? 'appeal' : 'appeals'}
               {' · '}<strong>{filtered.filter((a) => appealStatus(a) === 'pending').length}</strong> pending
             </span>
-            <span className="ad-tablewrap__count-actions">Newest first</span>
+            <span className="ad-tablewrap__count-actions">Pending first, longest wait on top</span>
           </div>
           {filtered.map((a) => (
             <AppealCard key={a.id} appeal={a} onGrant={onGrant} onDeny={onDeny} />
@@ -1533,6 +1550,31 @@ function AppealsFilterRow({
   );
 }
 
+// An appeal waiting longer than this is flagged (2026-10-26, admin audit
+// L16: one had waited 163 days without anything saying so).
+const APPEAL_STALE_DAYS = 7;
+
+function waitedDays(iso) {
+  if (!iso) return 0;
+  return Math.floor((Date.now() - serverMs(iso)) / 86400000);
+}
+
+// "Showing the newest 200 of 340" with a way to load the rest, so a
+// list cap is never silent (2026-10-26, admin audit L3).
+function CapNote({ shown, total, onShowAll }) {
+  if (typeof total !== 'number' || total <= shown) return null;
+  return (
+    <p className="ad-capnote" role="status">
+      Showing {shown} of {total}.{' '}
+      {shown < 1000 ? (
+        <button type="button" className="ad-capnote__btn" onClick={onShowAll}>
+          Show {total > 1000 ? 'the first 1000' : 'all'}
+        </button>
+      ) : 'Narrow the filters to see the rest.'}
+    </p>
+  );
+}
+
 function AppealCard({ appeal, onGrant, onDeny }) {
   const status = appealStatus(appeal);
   const meta = APPEAL_TARGET_META[appeal.target_kind] || { label: appeal.target_kind, type: 'content' };
@@ -1548,6 +1590,9 @@ function AppealCard({ appeal, onGrant, onDeny }) {
           <span className="ad-appeal__id">id={appeal.id}</span>
         </div>
         <div className="ad-appeal__strip-right">
+          {status === 'pending' && waitedDays(appeal.created_at) > APPEAL_STALE_DAYS && (
+            <span className="ad-appeal__stale">Waiting {waitedDays(appeal.created_at)} days</span>
+          )}
           <span className="ad-appeal__filed">Filed {relTime(appeal.created_at)}</span>
           <span className="ad-appeal__filed-abs">{absTime(appeal.created_at)}</span>
         </div>

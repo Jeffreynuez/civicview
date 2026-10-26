@@ -1811,3 +1811,19 @@ table.ad-table {
   background: var(--cl-bg-soft); color: var(--cl-text-light);
 }
 .ad-accounts__why { margin-top: 4px; font-size: 0.68rem; color: var(--cl-text-muted); max-width: 200px; }
+
+/* Batch L (2026-10-26): list caps and long-waiting appeals. */
+.ad-capnote {
+  margin: 0 0 10px; padding: 8px 12px; border-radius: 8px;
+  font-size: var(--cl-text-sm); color: var(--cl-text);
+  background: var(--cl-bg-soft); border: 1px solid var(--cl-border);
+}
+.ad-capnote__btn {
+  font: inherit; background: none; border: none; padding: 0; cursor: pointer;
+  color: var(--cl-accent); font-weight: 700; text-decoration: underline;
+}
+.ad-appeal__stale {
+  padding: 2px 8px; border-radius: 999px; font-size: 0.7rem; font-weight: 700;
+  background: var(--cl-warning-soft, #fff4d6); color: var(--cl-warning-text, #8a5a00);
+  border: 1px solid var(--cl-warning-border, #f0d48a);
+}
