@@ -259,6 +259,7 @@ _APPEAL_KIND_LABELS = {
     "poll_comment":       "Hidden poll comment",
     "suspension_rep":     "Rep suspension",
     "suspension_citizen": "Citizen suspension",
+    "suspension_candidate": "Candidate suspension",
 }
 
 

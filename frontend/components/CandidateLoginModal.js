@@ -6,6 +6,7 @@
 import { useEffect, useState } from 'react';
 import { completeLoginCandidate, loginCandidate } from '../lib/candidateAuth';
 import LoginChallengeStep from './LoginChallengeStep';
+import SuspensionAppealForm from './SuspensionAppealForm';
 import CivicViewLogo from './brand/CivicViewLogo';
 import { ModalShell, Button } from './ui';
 
@@ -14,9 +15,9 @@ import { ModalShell, Button } from './ui';
  *
  * Intentionally narrow scope: just email + password sign-in. There's
  * no demo-signup (candidates are provisioned manually by admins after
- * verifying nomination paperwork), no suspension-appeal flow (the
- * candidate pool is small enough that the email-to-civicview path is
- * fine for now — Phase 5 may add the inline appeal form).
+ * verifying nomination paperwork). A suspended candidate gets the
+ * inline appeal form (SuspensionAppealForm, 2026-10-26), like reps and
+ * citizens; before that the only way to appeal was email.
  *
  * The backend distinguishes three failure modes and we surface each
  * verbatim:
@@ -74,6 +75,9 @@ export default function CandidateLoginModal({
   // 2FA challenge state (Task #62 Phase 3). See RepLoginModal for the
   // matching state on the rep side.
   const [twoFactorChallenge, setTwoFactorChallenge] = useState(null);
+  // Suspension message from a 403 that says the account is suspended;
+  // switches the modal to the appeal form.
+  const [suspendedMessage, setSuspendedMessage] = useState(null);
 
   // Reset every field on open so a reopened modal doesn't carry
   // stale state from a previous attempt (especially the error message
@@ -87,6 +91,7 @@ export default function CandidateLoginModal({
       setErr(null);
       setBusy(false);
       setTwoFactorChallenge(null);
+      setSuspendedMessage(null);
     }
   }, [open, initialEmail]);
 
@@ -113,8 +118,12 @@ export default function CandidateLoginModal({
       setTwoFactorChallenge(result.challengeToken);
       return;
     }
-    // The backend already formats user-friendly messages for the 403
-    // paths (suspended + pending-approval). Render them verbatim.
+    // 403 is either suspended (offer the appeal) or pending approval
+    // (show the message). The backend words both for people.
+    if (result.status === 403 && /suspended/i.test(result.error || '')) {
+      setSuspendedMessage(result.error);
+      return;
+    }
     setErr(result.error || 'Sign-in failed. Try again.');
     // 423 Locked — parse the locked_until + render the lockout banner.
     if (result.status === 423) {
@@ -295,7 +304,16 @@ export default function CandidateLoginModal({
 
 
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {suspendedMessage && (
+          <SuspensionAppealForm
+            message={suspendedMessage}
+            email={email}
+            password={password}
+            onBack={() => setSuspendedMessage(null)}
+          />
+        )}
+
+        <div style={{ display: suspendedMessage ? 'none' : 'flex', flexDirection: 'column', gap: 8 }}>
           <Button
             type="button"
             variant="primary"

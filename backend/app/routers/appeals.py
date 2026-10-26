@@ -59,6 +59,7 @@ from app.auth_citizen import get_optional_citizen
 from app.db import get_db
 from app.models.pages import (
     Appeal,
+    CandidateAccount,
     CitizenAccount,
     Poll,
     PollComment,
@@ -78,6 +79,11 @@ router = APIRouter()
 # be filed. After this, the surface hides the Appeal button and the
 # endpoint refuses with a 400.
 APPEAL_WINDOW_DAYS = 30
+
+# Account model per appellant kind. Candidates were added on
+# 2026-10-26: a suspended candidate had no way to appeal.
+_ACCOUNT_MODELS = {"rep": RepAccount, "citizen": CitizenAccount, "candidate": CandidateAccount}
+_SUSPENSION_KINDS = {"suspension_rep": "rep", "suspension_citizen": "citizen", "suspension_candidate": "candidate"}
 
 # Map target_kind to (model class, FK author column attr name) so
 # the endpoints can resolve "is this the author" / "is this hidden"
@@ -306,6 +312,7 @@ def submit_suspension_appeal(
     # an enumeration attack.
     rep = db.query(RepAccount).filter(RepAccount.email == email).first()
     citizen = db.query(CitizenAccount).filter(CitizenAccount.email == email).first()
+    candidate = db.query(CandidateAccount).filter(CandidateAccount.email == email).first()
 
     appellant_kind: Optional[str] = None
     appellant_id: Optional[int] = None
@@ -321,6 +328,11 @@ def submit_suspension_appeal(
             appellant_kind = "citizen"
             appellant_id = citizen.id
             target_kind = "suspension_citizen"
+    elif candidate is not None and candidate.suspended_at is not None:
+        if verify_password(payload.password, candidate.password_hash):
+            appellant_kind = "candidate"
+            appellant_id = candidate.id
+            target_kind = "suspension_candidate"
     else:
         # Burn a bcrypt cycle on the no-account / not-suspended path
         # to keep timing uniform.
@@ -343,7 +355,7 @@ def submit_suspension_appeal(
         )
 
     # 30-day window from the suspension timestamp.
-    acc = rep if appellant_kind == "rep" else citizen
+    acc = {"rep": rep, "citizen": citizen, "candidate": candidate}[appellant_kind]
     if acc.suspended_at and (datetime.utcnow() - acc.suspended_at) > timedelta(days=APPEAL_WINDOW_DAYS):
         return SuspensionAppealResponse(
             ok=True,
@@ -639,11 +651,11 @@ def _appellant_label(db: Session, kind: str, account_id: int) -> tuple[str, str]
     """Resolve an appellant to (display_name, email) for the queue.
     Handles SET-NULL-ish cases (deleted account) by returning sentinel
     strings rather than failing the row."""
-    if kind == "rep":
-        rep = db.get(RepAccount, account_id)
-        return (rep.display_name if rep else "(deleted rep)", rep.email if rep else "")
-    cz = db.get(CitizenAccount, account_id)
-    return (cz.display_name if cz else "(deleted citizen)", cz.email if cz else "")
+    model = _ACCOUNT_MODELS.get(kind, CitizenAccount)
+    acc = db.get(model, account_id)
+    if acc is None:
+        return (f"(deleted {kind})", "")
+    return (acc.display_name, acc.email or "")
 
 
 def _target_preview_for_appeal(db: Session, appeal: Appeal) -> tuple[str, Optional[datetime]]:
@@ -651,13 +663,10 @@ def _target_preview_for_appeal(db: Session, appeal: Appeal) -> tuple[str, Option
     preview is the first ~200 chars of the body / question, or a
     descriptive fallback for suspension appeals."""
     PREVIEW = 200
-    if appeal.target_kind in ("suspension_rep", "suspension_citizen"):
+    if appeal.target_kind in _SUSPENSION_KINDS:
         # The "target" is the account itself; no body to preview.
         # Show the account's email + suspended-at instead.
-        if appeal.target_kind == "suspension_rep":
-            acc = db.get(RepAccount, appeal.target_id)
-        else:
-            acc = db.get(CitizenAccount, appeal.target_id)
+        acc = db.get(_ACCOUNT_MODELS[_SUSPENSION_KINDS[appeal.target_kind]], appeal.target_id)
         if acc is None:
             return ("(account deleted)", None)
         reason = (acc.suspended_reason or "(no reason recorded)")
@@ -734,19 +743,12 @@ def _restore_appeal_target(db: Session, appeal: Appeal) -> bool:
     """When an appeal is GRANTED, restore the underlying content or
     lift the suspension. Returns True if something was actually
     changed (i.e. the row was hidden / suspended at the time)."""
-    if appeal.target_kind == "suspension_rep":
-        rep = db.get(RepAccount, appeal.target_id)
-        if rep is None or rep.suspended_at is None:
+    if appeal.target_kind in _SUSPENSION_KINDS:
+        acc = db.get(_ACCOUNT_MODELS[_SUSPENSION_KINDS[appeal.target_kind]], appeal.target_id)
+        if acc is None or acc.suspended_at is None:
             return False
-        rep.suspended_at = None
-        rep.suspended_reason = None
-        return True
-    if appeal.target_kind == "suspension_citizen":
-        cz = db.get(CitizenAccount, appeal.target_id)
-        if cz is None or cz.suspended_at is None:
-            return False
-        cz.suspended_at = None
-        cz.suspended_reason = None
+        acc.suspended_at = None
+        acc.suspended_reason = None
         return True
 
     cfg = _CONTENT_TARGETS.get(appeal.target_kind)
@@ -826,10 +828,7 @@ def _decide_appeal(
     # Email the appellant. Resolve their account email — the appeal
     # row carries the FK loosely (no joined relationship), so we
     # look up by appellant_kind + appellant_id.
-    if appeal.appellant_kind == "rep":
-        appellant = db.get(RepAccount, appeal.appellant_id)
-    else:
-        appellant = db.get(CitizenAccount, appeal.appellant_id)
+    appellant = db.get(_ACCOUNT_MODELS.get(appeal.appellant_kind, CitizenAccount), appeal.appellant_id)
     if appellant is not None and appellant.email:
         from app.services.notifications import notify_appeal_decision
         bg_tasks.add_task(
