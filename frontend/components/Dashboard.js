@@ -8,6 +8,7 @@ import { fetchOwnerDashboard } from '../lib/pagesApi';
 import ActivityArchive from './ActivityArchive';
 import IdentityNotificationSettings from './IdentityNotificationSettings';
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
+import { serverDate } from '../lib/serverTime';
 
 /**
  * Constituent Dashboard — owner-only engagement rollup across every
@@ -189,7 +190,7 @@ export default function Dashboard({ officialId, scope, onJumpToPost, ownerIdenti
                         #{idx + 1}
                       </span>
                       <span style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
-                        {new Date(p.created_at).toLocaleDateString()}
+                        {serverDate(p.created_at).toLocaleDateString()}
                       </span>
                     </div>
                     <div style={{ fontSize: '0.86rem', color: 'var(--cl-text)', marginTop: '4px', lineHeight: 1.4 }}>

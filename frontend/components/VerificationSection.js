@@ -29,6 +29,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { fetchVerificationStatus, startVerification } from '@/lib/pagesApi';
+import { serverDate } from '@/lib/serverTime';
 
 export default function VerificationSection({ citizen }) {
   const [config, setConfig] = useState(null);
@@ -225,7 +226,7 @@ function labelMethod(method) {
 
 function formatDate(iso) {
   try {
-    return new Date(iso).toLocaleDateString(undefined, {
+    return serverDate(iso).toLocaleDateString(undefined, {
       month: 'short', day: 'numeric', year: 'numeric',
     });
   } catch {

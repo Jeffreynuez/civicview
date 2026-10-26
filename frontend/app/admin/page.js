@@ -58,6 +58,7 @@ import HScroll from '@/components/HScroll';
 import TransitionsTab from '@/components/admin/TransitionsTab';
 import ElectionRemindersTab from '@/components/admin/ElectionRemindersTab';
 import AdminTestPush from '@/components/admin/AdminTestPush';
+import { serverDate, serverMs } from '@/lib/serverTime';
 
 const VALID_TABS = new Set(['queue', 'appeals', 'suspended', 'lockouts', 'transitions', 'reminders']);
 
@@ -104,7 +105,7 @@ function formatReason(reason) {
 
 function relTime(iso) {
   if (!iso) return '';
-  const then = new Date(iso);
+  const then = serverDate(iso);
   const secs = Math.floor((Date.now() - then.getTime()) / 1000);
   if (secs < 60) return `${secs}s ago`;
   if (secs < 3600) return `${Math.floor(secs / 60)}m ago`;
@@ -114,7 +115,7 @@ function relTime(iso) {
 
 function absTime(iso) {
   if (!iso) return '';
-  const d = new Date(iso);
+  const d = serverDate(iso);
   const now = new Date();
   const sameDay = d.toDateString() === now.toDateString();
   const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -503,7 +504,7 @@ function AdminPageInner() {
       const s = reportStatus(r);
       if (s === 'open') open += 1;
       else if (s === 'hidden') hidden += 1;
-      if (r.acted_at && new Date(r.acted_at).getTime() >= weekAgo) resolvedWeek += 1;
+      if (r.acted_at && serverMs(r.acted_at) >= weekAgo) resolvedWeek += 1;
     }
     kpis = [
       { label: 'Open reports', value: open, dot: 'open' },
@@ -517,7 +518,7 @@ function AdminPageInner() {
     for (const a of appeals) {
       const s = appealStatus(a);
       if (s === 'pending') openA += 1;
-      if (a.acted_at && new Date(a.acted_at).getTime() >= weekAgo) {
+      if (a.acted_at && serverMs(a.acted_at) >= weekAgo) {
         if (s === 'granted') grantedWeek += 1;
         else if (s === 'denied') deniedWeek += 1;
       }
@@ -532,7 +533,7 @@ function AdminPageInner() {
     const now = Date.now();
     const weekAgo = now - 7 * 24 * 3600 * 1000;
     const suspendedThisWeek = suspended.filter(
-      (u) => u.suspended_at && new Date(u.suspended_at).getTime() >= weekAgo,
+      (u) => u.suspended_at && serverMs(u.suspended_at) >= weekAgo,
     ).length;
     kpis = [
       { label: 'Currently suspended', value: suspended.length, dot: 'warning' },
