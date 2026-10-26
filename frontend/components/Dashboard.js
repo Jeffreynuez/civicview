@@ -6,6 +6,7 @@
 import { useEffect, useState } from 'react';
 import { fetchOwnerDashboard } from '../lib/pagesApi';
 import ActivityArchive from './ActivityArchive';
+import HiddenByModeration from './HiddenByModeration';
 import IdentityNotificationSettings from './IdentityNotificationSettings';
 import { ThumbsUp, ThumbsDown, ChatText } from './ui';
 import { serverDate } from '../lib/serverTime';
@@ -51,28 +52,45 @@ export default function Dashboard({ officialId, scope, onJumpToPost, ownerIdenti
     return () => { cancelled = true; };
   }, [officialId, scope]);
 
+  // The owner's own hidden posts and comments, with Appeal (2026-10-26).
+  // Before, reps and candidates had no list, so a hide couldn't be
+  // appealed. First in every branch so it stays mounted while the
+  // engagement numbers load, and shows even if they fail.
+  const hidden = (
+    <HiddenByModeration
+      asKind={ownerIdentity === 'candidate' ? 'candidate' : 'rep'}
+      frame={(list) => <SectionCard title="Hidden by moderators">{list}</SectionCard>}
+    />
+  );
+
   if (loading && !data) {
     return (
-      <div style={{
-        padding: '40px', textAlign: 'center',
-        color: 'var(--cl-text-light)', fontSize: '0.9rem',
-      }}>
-        Loading dashboard…
-      </div>
+      <>
+        {hidden}
+        <div style={{
+          padding: '40px', textAlign: 'center',
+          color: 'var(--cl-text-light)', fontSize: '0.9rem',
+        }}>
+          Loading dashboard…
+        </div>
+      </>
     );
   }
   if (err) {
     return (
-      <div style={{
-        padding: '16px', border: '1px solid #f5c2c7',
-        background: '#f8d7da', color: '#842029',
-        borderRadius: '10px', fontSize: '0.85rem',
-      }}>
-        Could not load the dashboard: {err}
-      </div>
+      <>
+        {hidden}
+        <div style={{
+          padding: '16px', border: '1px solid #f5c2c7',
+          background: '#f8d7da', color: '#842029',
+          borderRadius: '10px', fontSize: '0.85rem',
+        }}>
+          Could not load the dashboard: {err}
+        </div>
+      </>
     );
   }
-  if (!data) return null;
+  if (!data) return hidden;
 
   const s = data.summary || {};
   const top = data.top_posts || [];
@@ -81,6 +99,8 @@ export default function Dashboard({ officialId, scope, onJumpToPost, ownerIdenti
   const scopeLabel = data.scope_label || 'United States';
 
   return (
+    <>
+    {hidden}
     <div>
       {/* Header */}
       <div style={{ marginBottom: '14px' }}>
@@ -283,6 +303,7 @@ export default function Dashboard({ officialId, scope, onJumpToPost, ownerIdenti
         </SectionCard>
       </div>
     </div>
+    </>
   );
 }
 

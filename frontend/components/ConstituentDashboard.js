@@ -29,11 +29,11 @@ import TrackedManager from './TrackedManager';
 import BillReactions from './bills/BillReactions';
 import { useViewerGeo } from './bills/BillScope';
 import ActivityArchive from './ActivityArchive';
-import { fetchMyCitizenPolls, closeCitizenPoll, fetchMyHiddenContent, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt, fetchCitizenDashboard } from '../lib/pagesApi';
+import { fetchMyCitizenPolls, closeCitizenPoll, fetchSaved, fetchPollsFeed, fetchPostsFeed, fetchPagePosts, saveStartPage, fetchDigestPreview, saveContactEmail, dismissContactEmailPrompt, fetchCitizenDashboard } from '../lib/pagesApi';
 import { notificationLink, openDeepLink, pollDeepLink, postDeepLink } from '../lib/deepLinks';
 import { refreshCitizenAuth } from '../lib/citizenAuth';
 import FeedCard from './polls/FeedCard';
-import AppealModal from './AppealModal';
+import HiddenByModeration from './HiddenByModeration';
 import Navbar from './Navbar';
 import StickyPageHeader from './StickyPageHeader';
 import TwoFactorSection from './TwoFactorSection';
@@ -616,6 +616,12 @@ function recentItemFromNotification(n) {
         body: p.action || null };
     case 'election_reminder':
       return { ...base, kind: 'election', title: p.title || 'Election reminder', body: p.body || null };
+    case 'moderation_hidden':
+      return { ...base, kind: 'page',
+        title: p.hide_reason === 'auto_hidden'
+          ? 'Something of yours was hidden after community reports'
+          : 'Something of yours was hidden by a moderator',
+        body: p.preview || null };
     default:
       if (p.text || p.title) {
         return { ...base, kind: 'page', title: p.title || p.text, body: p.title && p.text ? p.text : null };
@@ -1621,175 +1627,23 @@ function prettyRaceLabel(key) {
 // ─────────────────────────────────────────────────────────────────
 
 // ─────────────────────────────────────────────────────────────────
-// HiddenByModerationSection — the citizen's recourse surface.
-// Lists their content currently hidden by admin / auto-moderation
-// within the 30-day appeal window. Each row shows preview + when
-// hidden + appeal status (or an Appeal button if eligible).
-// Hidden when the citizen has no hidden content (the empty state
-// is "you have nothing to appeal" which is a happy state — we
-// don't surface an empty card cluttering the dashboard).
+// HiddenByModerationSection: the citizen's recourse surface. The list
+// itself is components/HiddenByModeration.js (shared with the rep and
+// candidate page dashboard since 2026-10-26); this wraps it in the
+// dashboard's warning card. Asks for the citizen's own items, so a
+// browser also signed in as a rep doesn't show the rep's here.
 // ─────────────────────────────────────────────────────────────────
 function HiddenByModerationSection({ citizen }) {
-  const [items, setItems] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [appealTarget, setAppealTarget] = useState(null);
-
-  const load = async () => {
-    setLoading(true);
-    const { data } = await fetchMyHiddenContent();
-    setLoading(false);
-    setItems(data?.items || []);
-  };
-  useEffect(() => { if (citizen) load(); }, [citizen]);
-
   if (!citizen) return null;
-  // Hide the section entirely during the initial fetch AND when
-  // the fetch confirms there's nothing — empty state would just
-  // say "great, no hidden content!" which is noise on a dashboard
-  // that already has plenty of cards. Hiding during load also
-  // prevents the .map() below from crashing on items=null, which
-  // was the original bug here.
-  if (loading) return null;
-  if (!items || items.length === 0) return null;
-
-  const onAppealSuccess = (appeal) => {
-    setAppealTarget(null);
-    // Patch the row in place — newly-pending state — without a
-    // refetch round-trip.
-    setItems((prev) =>
-      (prev || []).map((row) =>
-        row.target_kind === appeal.target_kind && row.target_id === appeal.target_id
-          ? { ...row, appeal_status: 'pending', appealable: false }
-          : row,
-      ),
-    );
-  };
-
   return (
-    <Card title="Hidden by moderation" icon={<ShieldIcon />} tone="warning">
-      <p style={{ margin: '0 0 12px', fontSize: '0.85rem', color: 'var(--cl-text-light)', lineHeight: 1.5 }}>
-        Content of yours that admins or the community-reports
-        threshold removed. You can appeal each item once, within
-        30 days of when it was hidden.
-      </p>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {items.map((row) => (
-          <HiddenContentRow
-            key={`${row.target_kind}-${row.target_id}`}
-            row={row}
-            onAppeal={() => setAppealTarget({
-              kind: row.target_kind,
-              id: row.target_id,
-              preview: row.preview,
-              hide_reason: row.hide_reason,
-              hidden_at: row.hidden_at,
-            })}
-          />
-        ))}
-      </div>
-      <AppealModal
-        open={!!appealTarget}
-        target={appealTarget}
-        onClose={() => setAppealTarget(null)}
-        onSuccess={onAppealSuccess}
-      />
-    </Card>
-  );
-}
-
-const HIDDEN_KIND_LABEL = {
-  post: 'Post',
-  post_comment: 'Comment',
-  poll: 'Poll',
-  poll_comment: 'Poll comment',
-};
-
-function HiddenContentRow({ row, onAppeal }) {
-  const status = row.appeal_status; // null | 'pending' | 'granted' | 'denied'
-  const statusChip =
-    status === 'pending'
-      ? { label: 'Appeal pending', bg: 'var(--cl-accent-soft)', color: 'var(--cl-accent)' }
-      : status === 'granted'
-      ? { label: 'Appeal granted ✓', bg: 'var(--cl-up-soft)', color: 'var(--cl-up)' }
-      : status === 'denied'
-      ? { label: 'Appeal denied', bg: 'var(--cl-danger-soft)', color: 'var(--cl-danger-text)' }
-      : null;
-
-  return (
-    <div
-      style={{
-        background: 'white',
-        border: '1px solid var(--cl-border)',
-        borderRadius: 8,
-        padding: '10px 12px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 8,
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
-        <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--cl-text-light)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-          {HIDDEN_KIND_LABEL[row.target_kind] || row.target_kind}
-        </div>
-        <div style={{ fontSize: '0.72rem', color: 'var(--cl-text-light)' }}>
-          Hidden {timeAgo(row.hidden_at)} · {row.hide_reason === 'auto_hidden' ? 'community reports' : 'admin action'}
-        </div>
-      </div>
-      <div
-        style={{
-          fontSize: '0.88rem',
-          color: 'var(--cl-text)',
-          maxHeight: 80,
-          overflow: 'auto',
-          whiteSpace: 'pre-wrap',
-          background: 'var(--cl-bg-soft)',
-          padding: '6px 8px',
-          borderRadius: 6,
-        }}
-      >
-        {row.preview || <em style={{ color: 'var(--cl-text-muted)' }}>(empty)</em>}
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-        {statusChip ? (
-          <span
-            style={{
-              padding: '3px 10px',
-              background: statusChip.bg,
-              color: statusChip.color,
-              borderRadius: 999,
-              fontSize: '0.74rem',
-              fontWeight: 700,
-            }}
-          >
-            {statusChip.label}
-          </span>
-        ) : <span />}
-        {row.appealable && (
-          <button
-            type="button"
-            onClick={onAppeal}
-            style={{
-              padding: '6px 12px',
-              border: '1px solid var(--cl-accent)',
-              background: 'var(--cl-accent)',
-              color: 'white',
-              borderRadius: 8,
-              fontSize: '0.78rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-            }}
-          >
-            Appeal
-          </button>
-        )}
-      </div>
-      {status && row.appeal_admin_note && (
-        <div style={{ fontSize: '0.78rem', color: 'var(--cl-text-light)', fontStyle: 'italic', borderTop: '1px solid var(--cl-border)', paddingTop: 6 }}>
-          Admin note: {row.appeal_admin_note}
-        </div>
+    <HiddenByModeration
+      asKind="citizen"
+      frame={(list) => (
+        <Card title="Hidden by moderation" icon={<ShieldIcon />} tone="warning">
+          {list}
+        </Card>
       )}
-    </div>
+    />
   );
 }
 

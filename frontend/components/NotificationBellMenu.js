@@ -44,6 +44,9 @@ const NOTIF_CATEGORIES = [
   // Election reminders (2026-10-16): voting deadlines and Election Day
   // from official state sources. First, because they are time-critical.
   { key: 'election_reminder', label: 'Election reminders', byOfficial: false },
+  // Something of yours was hidden by moderation (2026-10-26), with a
+  // way to appeal: time-limited (30 days), so near the top.
+  { key: 'moderation_hidden', label: 'Moderation', byOfficial: false },
   { key: 'reply', label: 'Replies', byOfficial: false },
   { key: 'tracked_post', label: 'Posts & polls', byOfficial: true },
   { key: 'tracked_event', label: 'Events', byOfficial: true },
@@ -57,6 +60,14 @@ const NOTIF_CATEGORIES = [
 ];
 
 const NOTIF_POLL_MS = 60000;
+
+// What was hidden, for the moderation notice (2026-10-26).
+const MODERATION_KIND_LABEL = {
+  post: 'post',
+  post_comment: 'comment',
+  poll: 'poll',
+  poll_comment: 'poll comment',
+};
 
 /**
  * Navbar bell: the notification inbox, and behind its gear the
@@ -400,7 +411,15 @@ export default function NotificationBellMenu() {
                       }}
                     >
                       <div style={{ fontSize: '0.78rem', color: 'var(--cl-text)', fontWeight: isUnread ? 700 : 500 }}>
-                        {n.kind === 'tracked_post' ? (
+                        {n.kind === 'moderation_hidden' ? (
+                          <>
+                            <span style={{ fontWeight: 800 }}>
+                              Your {MODERATION_KIND_LABEL[p.target_kind] || 'content'} was hidden
+                            </span>
+                            {p.hide_reason === 'auto_hidden' ? ' after community reports.' : ' by a moderator.'}
+                            {' '}You can appeal within 30 days.
+                          </>
+                        ) : n.kind === 'tracked_post' ? (
                           <>
                             <span style={{ fontWeight: 800 }}>{p.official_name || 'An official you track'}</span>
                             {p.has_poll ? ' posted a new update with a poll' : ' posted a new update'}

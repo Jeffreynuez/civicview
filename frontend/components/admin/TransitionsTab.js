@@ -101,6 +101,12 @@ export default function TransitionsTab({ onCounts }) {
   const [error, setError] = useState(null);
   const [notice, setNotice] = useState(null);
   const [stage, setStage] = useState('');
+  // Pages with no official date yet (2026-10-26, admin audit M12):
+  // '' (all pages), 'official' or 'candidate', and the whole counts.
+  const [needsDate, setNeedsDate] = useState('');
+  const [needsCounts, setNeedsCounts] = useState({});
+  const formCardRef = useRef(null);
+  const dateInputRef = useRef(null);
   const [q, setQ] = useState('');
   // Search waits for a pause in typing (2026-10-26): it used to send two
   // admin requests per keystroke.
@@ -131,15 +137,31 @@ export default function TransitionsTab({ onCounts }) {
   const load = useCallback(async () => {
     const seq = ++loadSeq.current;
     setLoading(true);
-    const { data, error: e } = await adminListTransitions({ stage: stage || undefined, q: qDebounced || undefined, limit: 300 });
+    const { data, error: e } = await adminListTransitions({
+      stage: stage || undefined, q: qDebounced || undefined, needsDate: needsDate || undefined, limit: 300,
+    });
     if (seq !== loadSeq.current) return;   // a newer search is on its way
     setLoading(false);
     if (e) { setError(e); return; }
     setItems(data?.items || []);
     setTotal(typeof data?.count === 'number' ? data.count : null);
     setToday(data?.today || '');
+    setNeedsCounts(data?.needs_date_counts || {});
     onCounts?.(data?.counts || {});
-  }, [stage, qDebounced, onCounts]);
+  }, [stage, qDebounced, needsDate, onCounts]);
+
+  // From a page with no official date: fill the form with its id and
+  // event, and take the admin there to add the date and source.
+  const fillFormFor = (t) => {
+    setForm({ ...EMPTY_FORM, page_id: t.page_id, event: t.event });
+    setSourceOk(false);
+    setPendingSave(null);
+    if (formCardRef.current) {
+      formCardRef.current.open = true;
+      formCardRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setTimeout(() => dateInputRef.current?.focus(), 400);
+  };
 
   // Name reviews don't depend on the search; load them on their own.
   const loadReviews = useCallback(async () => {
@@ -304,7 +326,7 @@ export default function TransitionsTab({ onCounts }) {
       )}
       {notice && <p className="tr-notice" role="status">{notice}</p>}
 
-      <details className="tr-card" open>
+      <details className="tr-card" open ref={formCardRef}>
         <summary>Set a left-office date or a race result</summary>
         <form className="tr-form" onSubmit={submit}>
           <label>Page id<input required placeholder="fl-sen-39, B001234, fl-cand-..." {...field('page_id')} /></label>
@@ -313,7 +335,7 @@ export default function TransitionsTab({ onCounts }) {
               {EVENTS.map(([k, label]) => <option key={k} value={k}>{label}</option>)}
             </select>
           </label>
-          <label>Date it happened (official source)<input required type="date" {...field('event_on')} /></label>
+          <label>Date it happened (official source)<input required type="date" ref={dateInputRef} {...field('event_on')} /></label>
           <label>Official source (https)<input required type="url" placeholder="https://" {...field('source_url')} /></label>
           {form.source_url.startsWith('https://') && !isOfficialLooking(form.source_url) && (
             <label className="tr-check tr-wide">
@@ -460,6 +482,11 @@ export default function TransitionsTab({ onCounts }) {
         <select value={stage} onChange={(e) => setStage(e.target.value)}>
           {STAGES.map(([k, label]) => <option key={k || 'all'} value={k}>{label}</option>)}
         </select>
+        <select value={needsDate} onChange={(e) => setNeedsDate(e.target.value)} aria-label="Official date">
+          <option value="">Any date</option>
+          <option value="official">Needs an official date: officials ({needsCounts.official ?? 0})</option>
+          <option value="candidate">Needs an official date: campaign pages ({needsCounts.candidate ?? 0})</option>
+        </select>
         <button type="button" className="ad-btn ad-btn--ghost" onClick={load} disabled={loading}>{loading ? 'Refreshing…' : 'Refresh'}</button>
         <button type="button" className="ad-btn ad-btn--ghost" onClick={runNow}>Run the daily job now</button>
         {today && <span className="tr-today">Today: {formatLongDate(today)}</span>}
@@ -541,7 +568,10 @@ export default function TransitionsTab({ onCounts }) {
                     <div className="tr-sub tr-mono">{it.page_id}</div>
                   </td>
                   <td>{stageLabel(it.stage)}</td>
-                  <td>{it.date_line || ''}</td>
+                  <td>
+                    {it.date_line || ''}
+                    {it.date_is_recorded && <div className="tr-tag">No official date yet</div>}
+                  </td>
                   <td>{formatLongDate(it.farewell_ends_on)}</td>
                   <td>{formatLongDate(it.archive_on)}</td>
                   <td>
@@ -569,6 +599,33 @@ export default function TransitionsTab({ onCounts }) {
               <dt>Source</dt><dd>{detail.transition.source_url ? <a href={detail.transition.source_url} target="_blank" rel="noopener noreferrer">{detail.transition.source_url}</a> : '(data file)'}</dd>
               <dt>Notices</dt><dd>{JSON.stringify(detail.transition.notices || {})}</dd>
             </dl>
+          )}
+          {detail.transition?.date_is_recorded && (
+            <div className="tr-confirm" role="region" aria-label="Needs an official date">
+              <h4 className="tr-h4">Needs an official date</h4>
+              <p className="tr-sub">
+                CivicView only knows the day its data noticed this ({formatLongDate(detail.transition.recorded_on)}),
+                so the farewell and archive clocks may have started late. Find the real date on an official site
+                (the legislature or the election office), then save it with that source.
+              </p>
+              {detail.transition.lead_url && (
+                <p className="tr-sub">
+                  A lead:{' '}
+                  <a href={detail.transition.lead_url} target="_blank" rel="noopener noreferrer">
+                    {detail.transition.lead_url.includes('github.com/openstates/') ? 'the Open States record' : 'the record our data cites for their years'}
+                  </a>
+                  {detail.transition.served_to ? <> (served until {detail.transition.served_to})</> : null}.
+                  {detail.transition.lead_url.includes('github.com/openstates/')
+                    ? ' Its role end date says where to look; Open States is not an official source.'
+                    : ' Check the date there or on the office\u2019s own site.'}
+                </p>
+              )}
+              <div className="tr-actions">
+                <button type="button" className="ad-btn ad-btn--grant" onClick={() => fillFormFor(detail.transition)}>
+                  Add the official date
+                </button>
+              </div>
+            </div>
           )}
           {detail.transition?.origin === 'admin' && (
             <div className="tr-confirm" role="region" aria-label="Withdraw this entry">

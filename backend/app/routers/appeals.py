@@ -41,6 +41,16 @@ The 30-day window is enforced server-side on POST (frontend hides
 the button past 30 days, but a stale URL or curl shouldn't bypass).
 The 'one appeal per (appellant, target) ever' rule is enforced by
 the unique index — caught at INSERT time and converted to 409.
+
+2026-10-26 (admin audit M10):
+  * Any author can appeal: candidate posts and comments written as a
+    rep or a candidate used to fail the author check, which read one
+    column per kind. services/moderation.content_author reads them all.
+  * Candidates sign in to appeal like reps and citizens, and the
+    caller's own lists take ?as=citizen|rep|candidate so a browser
+    signed in as two identities shows each dashboard its own items.
+  * One appeal per SUSPENSION, not per account for life. See
+    suspension_appeal_key().
 """
 from __future__ import annotations
 
@@ -49,15 +59,18 @@ import time
 from datetime import datetime, timedelta
 from typing import List, Literal, Optional
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request
 from pydantic import BaseModel, Field
+from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.auth import get_optional_rep, verify_password
+from app.auth_candidate import get_optional_candidate
 from app.auth_citizen import get_optional_citizen
 from app.db import get_db
 from app.models.pages import (
+    AdminAction,
     Appeal,
     CandidateAccount,
     CitizenAccount,
@@ -69,6 +82,7 @@ from app.models.pages import (
 )
 from app.services.admin_auth import get_current_admin
 from app.services.log_redaction import mask_email
+from app.services.moderation import APPEALABLE_HIDE_REASONS, CONTENT_AUTHOR_COLUMNS, content_author
 
 
 logger = logging.getLogger(__name__)
@@ -85,15 +99,67 @@ APPEAL_WINDOW_DAYS = 30
 _ACCOUNT_MODELS = {"rep": RepAccount, "citizen": CitizenAccount, "candidate": CandidateAccount}
 _SUSPENSION_KINDS = {"suspension_rep": "rep", "suspension_citizen": "citizen", "suspension_candidate": "candidate"}
 
-# Map target_kind to (model class, FK author column attr name) so
-# the endpoints can resolve "is this the author" / "is this hidden"
-# without four if/elif blocks.
+# Map target_kind to its model and hide column. Who wrote it comes
+# from services/moderation.content_author, which reads every author
+# column (citizen, rep or candidate) for the kind.
 _CONTENT_TARGETS = {
-    "post":         {"cls": Post,        "author_attr": "author_id",     "appellant_kind": "rep",     "hide_attr": "deleted_at"},
-    "post_comment": {"cls": PostComment, "author_attr": "citizen_id",    "appellant_kind": "citizen", "hide_attr": "deleted_at"},
-    "poll":         {"cls": Poll,        "author_attr": "author_citizen_id", "appellant_kind": "citizen", "hide_attr": "archived_at"},
-    "poll_comment": {"cls": PollComment, "author_attr": "citizen_id",    "appellant_kind": "citizen", "hide_attr": "deleted_at"},
+    "post":         {"cls": Post,        "hide_attr": "deleted_at"},
+    "post_comment": {"cls": PostComment, "hide_attr": "deleted_at"},
+    "poll":         {"cls": Poll,        "hide_attr": "archived_at"},
+    "poll_comment": {"cls": PollComment, "hide_attr": "deleted_at"},
 }
+
+AccountKind = Literal["citizen", "rep", "candidate"]
+
+
+def _pick_identity(as_kind: Optional[str], *, citizen, rep, candidate):
+    """(kind, account) whose own items a caller asked for.
+
+    `?as=` names the identity among the sessions the request carries:
+    the citizen dashboard passes citizen, a rep's or candidate's page
+    dashboard passes rep or candidate. Without it: rep, then candidate,
+    then citizen, as before. 401 if that session isn't there."""
+    sessions = {"citizen": citizen, "rep": rep, "candidate": candidate}
+    if as_kind is not None:
+        acc = sessions.get(as_kind)
+        if acc is None:
+            raise HTTPException(status_code=401, detail=f"Not signed in as a {as_kind} account on this device.")
+        return as_kind, acc
+    for kind in ("rep", "candidate", "citizen"):
+        if sessions[kind] is not None:
+            return kind, sessions[kind]
+    raise HTTPException(status_code=401, detail="Sign in.")
+
+
+def suspension_appeal_key(db: Session, kind: str, acc) -> int:
+    """The target_id a suspension appeal is filed under, one per
+    suspension (2026-10-26).
+
+    Appeals are unique per (appellant, target), and suspension appeals
+    used the account id as the target, so an account could appeal one
+    suspension in its whole life: a second suspension could never be
+    appealed. Now the key is minus the id of the admin History row that
+    started the current suspension (the first user_suspend at or after
+    suspended_at that wasn't a reason update on an existing one). A
+    suspension from before the History existed has no such row and
+    keeps the old key, the account id, so its appeal still counts.
+    Negative keys can never collide with account ids. Changing the key
+    needs no change to the table or its unique index."""
+    if acc is None or acc.suspended_at is None:
+        return getattr(acc, "id", 0)
+    row = (
+        db.query(AdminAction.id)
+        .filter(
+            AdminAction.action == "user_suspend",
+            AdminAction.target_kind == kind,
+            AdminAction.target_id == str(acc.id),
+            AdminAction.at >= acc.suspended_at,
+            or_(AdminAction.details_json.is_(None), ~AdminAction.details_json.contains("already_suspended")),
+        )
+        .order_by(AdminAction.at.asc(), AdminAction.id.asc())
+        .first()
+    )
+    return -row.id if row is not None else acc.id
 
 
 # ── Submit (authed) ────────────────────────────────────────────────────
@@ -136,12 +202,10 @@ def _content_is_appealable(target, kind: str) -> bool:
     # Distinguish moderation hide from author delete.
     if kind == "poll":
         reason = getattr(target, "archived_reason", None)
-        if reason not in {"admin_hidden", "auto_hidden"}:
-            return False
     else:
         reason = getattr(target, "hide_reason", None)
-        if reason not in {"admin_hidden", "auto_hidden"}:
-            return False
+    if reason not in APPEALABLE_HIDE_REASONS:
+        return False
     if datetime.utcnow() - moderation_at > timedelta(days=APPEAL_WINDOW_DAYS):
         return False
     return True
@@ -154,15 +218,17 @@ def submit_appeal(
     db: Session = Depends(get_db),
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
 ) -> AppealRead:
     """Submit an appeal for a hidden piece of content the caller authored.
 
     Validates: caller is signed in; target exists; target is hidden by
     moderation (not by the author themselves); the window is open;
-    caller is the author; no prior appeal exists for this (appellant,
-    target) pair.
+    caller is the author, as whichever identity wrote it (citizen, rep
+    or candidate); no prior appeal exists for this (appellant, target)
+    pair.
     """
-    if me_rep is None and me_citizen is None:
+    if me_rep is None and me_citizen is None and me_candidate is None:
         raise HTTPException(status_code=401, detail="Sign in to file an appeal.")
 
     cfg = _CONTENT_TARGETS[payload.target_kind]
@@ -180,22 +246,15 @@ def submit_appeal(
             detail="This content isn't eligible for appeal.",
         )
 
-    expected_appellant_kind = cfg["appellant_kind"]
-    expected_appellant_id = getattr(target, cfg["author_attr"])
-    if expected_appellant_kind == "rep":
-        if me_rep is None or me_rep.id != expected_appellant_id:
-            raise HTTPException(
-                status_code=403,
-                detail="Only the author of this content can appeal.",
-            )
-        appellant_id = me_rep.id
-    else:
-        if me_citizen is None or me_citizen.id != expected_appellant_id:
-            raise HTTPException(
-                status_code=403,
-                detail="Only the author of this content can appeal.",
-            )
-        appellant_id = me_citizen.id
+    author = content_author(target, payload.target_kind)
+    sessions = {"citizen": me_citizen, "rep": me_rep, "candidate": me_candidate}
+    me = sessions.get(author[0]) if author else None
+    if author is None or me is None or me.id != author[1]:
+        raise HTTPException(
+            status_code=403,
+            detail="Only the author of this content can appeal.",
+        )
+    expected_appellant_kind, appellant_id = author
 
     appeal = Appeal(
         target_kind=payload.target_kind,
@@ -226,12 +285,8 @@ def submit_appeal(
     # Email admins. Fire-and-forget; SMTP latency stays out of the
     # appellant's request path. Resolves the appellant's display
     # name + email here while we have them in scope.
-    if expected_appellant_kind == "rep":
-        appellant_name = me_rep.display_name
-        appellant_email = me_rep.email
-    else:
-        appellant_name = me_citizen.display_name
-        appellant_email = me_citizen.email
+    appellant_name = me.display_name
+    appellant_email = me.email
     from app.services.notifications import notify_new_appeal
     bg_tasks.add_task(
         notify_new_appeal,
@@ -366,11 +421,11 @@ def submit_suspension_appeal(
             ),
         )
 
-    # target_id for a suspension appeal is the appellant's own
-    # account id — there's no separate suspension row to FK against.
+    # One appeal per suspension (2026-10-26): the target is this
+    # suspension, not the account. See suspension_appeal_key().
     appeal = Appeal(
         target_kind=target_kind,
-        target_id=appellant_id,
+        target_id=suspension_appeal_key(db, appellant_kind, acc),
         appellant_kind=appellant_kind,
         appellant_id=appellant_id,
         rationale=rationale,
@@ -383,7 +438,7 @@ def submit_suspension_appeal(
         return SuspensionAppealResponse(
             ok=True,
             message=(
-                "An appeal for this account is already on file. The "
+                "An appeal for this suspension is already on file. The "
                 "earlier decision is final."
             ),
         )
@@ -426,7 +481,7 @@ class HiddenContentRow(BaseModel):
     target_id: int
     preview: str
     hidden_at: datetime
-    hide_reason: str  # 'admin_hidden' | 'auto_hidden'
+    hide_reason: str  # 'admin_hidden' | 'auto_hidden' | 'threat_hidden'
     # Appeal lifecycle for this specific row. NULL if no appeal
     # exists yet AND we're inside the 30-day window. NULL with
     # appealable=False means the window has closed.
@@ -454,125 +509,74 @@ def _appeal_status_for(
 
 @router.get("/me/hidden-content", response_model=HiddenContentResponse)
 def list_my_hidden_content(
+    as_kind: Optional[AccountKind] = Query(default=None, alias="as"),
     db: Session = Depends(get_db),
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
 ) -> HiddenContentResponse:
-    """List every piece of moderation-hidden content the caller
+    """List every piece of moderation-hidden content one identity
     authored, with the current appeal status per row.
 
+    `?as=citizen|rep|candidate` picks the identity (see _pick_identity).
+    Every author column counts (2026-10-26): a rep's posts and the
+    comments they wrote as the rep, a candidate's posts and comments,
+    a citizen's comments, polls and poll comments. Before, a rep saw
+    only posts, a candidate had no list at all, and a citizen who was
+    also signed in as a rep saw the rep's items on their own dashboard.
+
     Filters:
-      • hide_reason / archived_reason IS NOT NULL — author-deletes
-        don't surface here.
+      • A moderation hide reason (admin, auto or threat), not an
+        author delete. Only admin and auto hides can be appealed.
       • Within the 30-day window — older items are excluded since
-        they can no longer be appealed (frontend shouldn't show
-        them as actionable). If we ever want a "history" view of
-        old hides, that's a separate endpoint.
+        they can no longer be appealed.
 
     Pre-fetches the caller's appeals once so the per-row appeal-
     status lookup is O(1) instead of a SELECT-per-row.
     """
-    if me_rep is None and me_citizen is None:
-        raise HTTPException(status_code=401, detail="Sign in.")
+    from app.services.citizen_polls_service import HIDDEN_ARCHIVE_REASONS
+    from app.services.moderation import MODERATION_HIDE_REASONS
 
+    appellant_kind, me = _pick_identity(as_kind, citizen=me_citizen, rep=me_rep, candidate=me_candidate)
     cutoff = datetime.utcnow() - timedelta(days=APPEAL_WINDOW_DAYS)
-    appellant_kind = "rep" if me_rep is not None else "citizen"
-    appellant_id = me_rep.id if me_rep is not None else me_citizen.id
 
-    # Build the (target_kind, target_id) -> Appeal index once.
     appeals = (
         db.query(Appeal)
-        .filter(
-            Appeal.appellant_kind == appellant_kind,
-            Appeal.appellant_id == appellant_id,
-        )
+        .filter(Appeal.appellant_kind == appellant_kind, Appeal.appellant_id == me.id)
         .all()
     )
     appeals_index = {(a.target_kind, a.target_id): a for a in appeals}
 
     out: List[HiddenContentRow] = []
-
-    if me_rep is not None:
-        # Rep's own hidden posts.
-        posts = (
-            db.query(Post)
-            .filter(
-                Post.author_id == me_rep.id,
-                Post.deleted_at.is_not(None),
-                Post.hide_reason.is_not(None),
-                Post.deleted_at >= cutoff,
+    for kind, columns in CONTENT_AUTHOR_COLUMNS.items():
+        attr = next((a for a, k in columns if k == appellant_kind), None)
+        if attr is None:
+            continue
+        cls = _CONTENT_TARGETS[kind]["cls"]
+        q = db.query(cls).filter(getattr(cls, attr) == me.id)
+        if kind == "poll":
+            q = q.filter(
+                cls.archived_at.is_not(None),
+                cls.archived_reason.in_(tuple(HIDDEN_ARCHIVE_REASONS)),
+                cls.archived_at >= cutoff,
             )
-            .order_by(Post.deleted_at.desc())
-            .all()
-        )
-        for p in posts:
-            status, note = _appeal_status_for(appeals_index, "post", p.id)
-            preview = (p.body or "")[:200]
-            out.append(HiddenContentRow(
-                target_kind="post", target_id=p.id, preview=preview,
-                hidden_at=p.deleted_at, hide_reason=p.hide_reason,
-                appeal_status=status, appeal_admin_note=note,
-                appealable=(status is None),
-            ))
-    else:
-        # Citizen's hidden post-comments + polls + poll-comments.
-        comments = (
-            db.query(PostComment)
-            .filter(
-                PostComment.citizen_id == me_citizen.id,
-                PostComment.deleted_at.is_not(None),
-                PostComment.hide_reason.is_not(None),
-                PostComment.deleted_at >= cutoff,
+        else:
+            q = q.filter(
+                cls.deleted_at.is_not(None),
+                cls.hide_reason.in_(tuple(MODERATION_HIDE_REASONS)),
+                cls.deleted_at >= cutoff,
             )
-            .order_by(PostComment.deleted_at.desc())
-            .all()
-        )
-        for c in comments:
-            status, note = _appeal_status_for(appeals_index, "post_comment", c.id)
+        for row in q.all():
+            reason = row.archived_reason if kind == "poll" else row.hide_reason
+            if reason == "reported":
+                reason = "auto_hidden"  # the pre-2026 spelling
+            status, note = _appeal_status_for(appeals_index, kind, row.id)
+            body = (row.question if kind == "poll" else row.body) or ""
             out.append(HiddenContentRow(
-                target_kind="post_comment", target_id=c.id, preview=(c.body or "")[:200],
-                hidden_at=c.deleted_at, hide_reason=c.hide_reason,
+                target_kind=kind, target_id=row.id, preview=body[:200],
+                hidden_at=_moderation_timestamp(row, kind), hide_reason=reason,
                 appeal_status=status, appeal_admin_note=note,
-                appealable=(status is None),
-            ))
-        polls = (
-            db.query(Poll)
-            .filter(
-                Poll.author_kind == "citizen",
-                Poll.author_citizen_id == me_citizen.id,
-                Poll.archived_at.is_not(None),
-                Poll.archived_reason.in_(("admin_hidden", "auto_hidden")),
-                Poll.archived_at >= cutoff,
-            )
-            .order_by(Poll.archived_at.desc())
-            .all()
-        )
-        for p in polls:
-            status, note = _appeal_status_for(appeals_index, "poll", p.id)
-            out.append(HiddenContentRow(
-                target_kind="poll", target_id=p.id, preview=(p.question or "")[:200],
-                hidden_at=p.archived_at, hide_reason=p.archived_reason,
-                appeal_status=status, appeal_admin_note=note,
-                appealable=(status is None),
-            ))
-        poll_comments = (
-            db.query(PollComment)
-            .filter(
-                PollComment.citizen_id == me_citizen.id,
-                PollComment.deleted_at.is_not(None),
-                PollComment.hide_reason.is_not(None),
-                PollComment.deleted_at >= cutoff,
-            )
-            .order_by(PollComment.deleted_at.desc())
-            .all()
-        )
-        for pc in poll_comments:
-            status, note = _appeal_status_for(appeals_index, "poll_comment", pc.id)
-            out.append(HiddenContentRow(
-                target_kind="poll_comment", target_id=pc.id, preview=(pc.body or "")[:200],
-                hidden_at=pc.deleted_at, hide_reason=pc.hide_reason,
-                appeal_status=status, appeal_admin_note=note,
-                appealable=(status is None),
+                appealable=(status is None and _content_is_appealable(row, kind)),
             ))
 
     out.sort(key=lambda r: r.hidden_at, reverse=True)
@@ -581,36 +585,21 @@ def list_my_hidden_content(
 
 @router.get("/me/appeals", response_model=MyAppealsResponse)
 def list_my_appeals(
+    as_kind: Optional[AccountKind] = Query(default=None, alias="as"),
     db: Session = Depends(get_db),
     me_rep: Optional[RepAccount] = Depends(get_optional_rep),
     me_citizen: Optional[CitizenAccount] = Depends(get_optional_citizen),
+    me_candidate: Optional[CandidateAccount] = Depends(get_optional_candidate),
 ) -> MyAppealsResponse:
-    """Return every appeal this caller has filed, newest first.
-    Powers the dashboard's 'Hidden by moderation' badge state — the
-    UI checks each row against this list to know whether to show
-    the Appeal button or 'Pending / Granted ✓ / Denied' instead."""
-    if me_rep is not None:
-        rows = (
-            db.query(Appeal)
-            .filter(
-                Appeal.appellant_kind == "rep",
-                Appeal.appellant_id == me_rep.id,
-            )
-            .order_by(Appeal.created_at.desc())
-            .all()
-        )
-    elif me_citizen is not None:
-        rows = (
-            db.query(Appeal)
-            .filter(
-                Appeal.appellant_kind == "citizen",
-                Appeal.appellant_id == me_citizen.id,
-            )
-            .order_by(Appeal.created_at.desc())
-            .all()
-        )
-    else:
-        raise HTTPException(status_code=401, detail="Sign in.")
+    """Return every appeal one identity has filed, newest first.
+    `?as=` picks the identity, as for /me/hidden-content."""
+    kind, me = _pick_identity(as_kind, citizen=me_citizen, rep=me_rep, candidate=me_candidate)
+    rows = (
+        db.query(Appeal)
+        .filter(Appeal.appellant_kind == kind, Appeal.appellant_id == me.id)
+        .order_by(Appeal.created_at.desc())
+        .all()
+    )
     return MyAppealsResponse(
         items=[AppealRead.model_validate(r, from_attributes=True) for r in rows],
     )
@@ -645,6 +634,8 @@ class AdminAppealListResponse(BaseModel):
     # Whole-queue numbers for the tiles, whatever include_acted says
     # (2026-10-26): pending, granted_week, denied_week.
     counts: dict = {}
+    # How many appeals match include_acted in all (2026-10-26).
+    total: int = 0
 
 
 def _appellant_label(db: Session, kind: str, account_id: int) -> tuple[str, str]:
@@ -664,9 +655,16 @@ def _target_preview_for_appeal(db: Session, appeal: Appeal) -> tuple[str, Option
     descriptive fallback for suspension appeals."""
     PREVIEW = 200
     if appeal.target_kind in _SUSPENSION_KINDS:
-        # The "target" is the account itself; no body to preview.
-        # Show the account's email + suspended-at instead.
-        acc = db.get(_ACCOUNT_MODELS[_SUSPENSION_KINDS[appeal.target_kind]], appeal.target_id)
+        # No body to preview: show the suspension's reason and time.
+        # The account is the appellant. A negative target_id names the
+        # admin History row that started the suspension appealed
+        # (2026-10-26), which keeps its own reason after the account's
+        # is cleared or replaced by a later suspension.
+        if appeal.target_id < 0:
+            started = db.get(AdminAction, -appeal.target_id)
+            if started is not None:
+                return (f"Suspended: {started.reason or '(no reason recorded)'}", started.at)
+        acc = db.get(_ACCOUNT_MODELS[_SUSPENSION_KINDS[appeal.target_kind]], appeal.appellant_id)
         if acc is None:
             return ("(account deleted)", None)
         reason = (acc.suspended_reason or "(no reason recorded)")
@@ -689,15 +687,24 @@ def _target_preview_for_appeal(db: Session, appeal: Appeal) -> tuple[str, Option
 @router.get("/admin/appeals", response_model=AdminAppealListResponse)
 def list_appeals(
     include_acted: bool = False,
+    limit: int = 200,
     db: Session = Depends(get_db),
     _actor: dict = Depends(get_current_admin),
 ) -> AdminAppealListResponse:
-    """Admin queue. Pending first by default; pass include_acted=true
-    to see resolved appeals too (audit view)."""
-    q = db.query(Appeal)
-    if not include_acted:
-        q = q.filter(Appeal.acted_at.is_(None))
-    rows = q.order_by(Appeal.created_at.desc()).limit(200).all()
+    """Admin queue: pending appeals first, OLDEST first, so the longest
+    wait is on top (2026-10-26, admin audit L16: one had waited 163 days
+    under newer ones). With include_acted=true the decided ones follow,
+    newest decision first. `limit` caps the rows (200 unless asked, at
+    most 1000) and `total` says how many match."""
+    limit = max(1, min(int(limit), 1000))
+    pending_q = db.query(Appeal).filter(Appeal.acted_at.is_(None))
+    total = pending_q.count()
+    rows = pending_q.order_by(Appeal.created_at.asc(), Appeal.id.asc()).limit(limit).all()
+    if include_acted:
+        acted_q = db.query(Appeal).filter(Appeal.acted_at.is_not(None))
+        total += acted_q.count()
+        if len(rows) < limit:
+            rows += acted_q.order_by(Appeal.acted_at.desc(), Appeal.id.desc()).limit(limit - len(rows)).all()
     out: List[AdminAppealRow] = []
     for r in rows:
         name, email = _appellant_label(db, r.appellant_kind, r.appellant_id)
@@ -726,7 +733,7 @@ def list_appeals(
         "granted_week": db.query(Appeal).filter(Appeal.decision == "granted", Appeal.acted_at >= week_ago).count(),
         "denied_week": db.query(Appeal).filter(Appeal.decision == "denied", Appeal.acted_at >= week_ago).count(),
     }
-    return AdminAppealListResponse(items=out, counts=counts)
+    return AdminAppealListResponse(items=out, counts=counts, total=total)
 
 
 class AdminAppealDecisionPayload(BaseModel):
@@ -744,8 +751,14 @@ def _restore_appeal_target(db: Session, appeal: Appeal) -> bool:
     lift the suspension. Returns True if something was actually
     changed (i.e. the row was hidden / suspended at the time)."""
     if appeal.target_kind in _SUSPENSION_KINDS:
-        acc = db.get(_ACCOUNT_MODELS[_SUSPENSION_KINDS[appeal.target_kind]], appeal.target_id)
+        kind = _SUSPENSION_KINDS[appeal.target_kind]
+        acc = db.get(_ACCOUNT_MODELS[kind], appeal.appellant_id)
         if acc is None or acc.suspended_at is None:
+            return False
+        # Only the suspension this appeal is about. If that one was
+        # lifted and the account suspended again since, granting the
+        # old appeal must not lift the new suspension.
+        if suspension_appeal_key(db, kind, acc) != appeal.target_id:
             return False
         acc.suspended_at = None
         acc.suspended_reason = None
@@ -815,7 +828,10 @@ def _decide_appeal(
     appellant_name, _email = _appellant_label(db, appeal.appellant_kind, appeal.appellant_id)
     admin_actions.record(
         db, actor, "appeal_grant" if decision == "granted" else "appeal_deny",
-        target_kind=appeal.target_kind, target_id=appeal.target_id,
+        target_kind=appeal.target_kind,
+        # A suspension appeal is about the account (its target_id is a
+        # suspension key, see suspension_appeal_key).
+        target_id=appeal.appellant_id if appeal.target_kind in _SUSPENSION_KINDS else appeal.target_id,
         target_label=appellant_name, reason=appeal.admin_note,
         details={"appeal_id": appeal.id, "restored": restored},
     )

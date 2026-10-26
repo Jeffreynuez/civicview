@@ -424,3 +424,84 @@ def notify_appeal_decision(
         html_body=html_body,
         text_body=text_body,
     )
+
+
+# Where each kind of account signs in, for the suspension email.
+_SIGN_IN_PLACE = {
+    "citizen": "sign in with Citizen login",
+    "rep": "open your page and sign in with Rep Login",
+    "candidate": "open your campaign page and sign in with Candidate Login",
+}
+
+
+def notify_account_suspended(
+    *,
+    email: str,
+    name: str,
+    account_kind: str,
+    reason: Optional[str],
+) -> bool:
+    """Email the owner of a newly suspended account: the reason the
+    admin gave and how to appeal (2026-10-26).
+
+    A suspended account can't sign in, so an in-app notice would never
+    be read. The appeal itself happens on the sign-in form: signing in
+    shows the suspension and a box to explain why it was wrong, once
+    per suspension, within 30 days. Returns True when the provider
+    accepted the email."""
+    if not _enabled():
+        return False
+    if not email:
+        logger.info("notify_account_suspended: no email on the account; nothing sent.")
+        return False
+
+    from app.routers.appeals import APPEAL_WINDOW_DAYS
+
+    app_url = _public_app_url()
+    place = _SIGN_IN_PLACE.get(account_kind, "sign in")
+    safe_name = _html.escape(name or "")
+    safe_reason = _html.escape(reason or "")
+    subject = "[CivicView] Your account has been suspended"
+    reason_block = (
+        '<div style="background:#f4f4f6;border:1px solid #e1e1e6;'
+        'border-radius:8px;padding:12px 14px;font-size:14px;'
+        'white-space:pre-wrap;margin:12px 0;">'
+        '<div style="font-weight:700;margin-bottom:6px;">Reason given:</div>'
+        f'{safe_reason}</div>'
+        if safe_reason else ""
+    )
+    html_body = f"""\
+<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+            color:#222;max-width:560px;line-height:1.5;">
+  <h2 style="margin:0 0 6px;font-size:18px;">Your CivicView account has been suspended</h2>
+  <p style="margin:0 0 12px;color:#555;font-size:14px;">
+    {('Hi ' + safe_name + ',') if safe_name else 'Hi,'} a CivicView admin suspended your account.
+    While it is suspended you can't sign in or post.
+  </p>
+  {reason_block}
+  <p style="margin:0 0 12px;">
+    <strong>If you think this was a mistake, you can appeal.</strong>
+    Go to <a href="{app_url}">{_html.escape(app_url)}</a>, {place} using
+    your email and password. The form will show the suspension and a box to tell us why
+    it should be lifted. You can appeal once, within {APPEAL_WINDOW_DAYS} days of the suspension.
+  </p>
+  <hr style="margin:24px 0;border:0;border-top:1px solid #e1e1e6;" />
+  <p style="font-size:12px;color:#888;margin:0;">
+    You can also email civicview@civicview.app.
+  </p>
+</div>
+"""
+    text_body = (
+        "Your CivicView account has been suspended\n\n"
+        f"{('Hi ' + name + ',') if name else 'Hi,'} a CivicView admin suspended your account. "
+        "While it is suspended you can't sign in or post.\n\n"
+        + (f"Reason given:\n{reason}\n\n" if reason else "")
+        + "If you think this was a mistake, you can appeal. "
+        f"Go to {app_url}, {place} using your email and password. "
+        "The form will show the suspension and a box to tell us why it should be lifted. "
+        f"You can appeal once, within {APPEAL_WINDOW_DAYS} days of the suspension.\n\n"
+        "You can also email civicview@civicview.app.\n"
+    )
+    sent = notification_send(to=email, subject=subject, html_body=html_body, text_body=text_body)
+    logger.info("Suspension email to %s sent=%s", mask_email(email), sent)
+    return sent

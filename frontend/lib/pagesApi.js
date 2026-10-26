@@ -159,9 +159,11 @@ export async function adminWhoami() {
   return p;
 }
 
-export async function adminListReports({ includeActed = false } = {}) {
+// `limit` (2026-10-26): 200 unless asked, at most 1000. The answer's
+// `total` says how many match, so the page can offer the rest.
+export async function adminListReports({ includeActed = false, limit } = {}) {
   return request('/api/admin/reports', {
-    query: { include_acted: includeActed ? 'true' : undefined },
+    query: { include_acted: includeActed ? 'true' : undefined, limit },
   });
 }
 
@@ -240,8 +242,10 @@ export async function adminUnreadCount() {
 // "Hidden by moderation" content for the dashboard surface — every
 // piece of moderation-hidden content the caller authored, within
 // the 30-day appeal window, with current appeal status per row.
-export async function fetchMyHiddenContent() {
-  return request('/api/me/hidden-content');
+// `as` ('citizen' | 'rep' | 'candidate', 2026-10-26) names whose items,
+// among the identities signed in on this browser.
+export async function fetchMyHiddenContent({ as } = {}) {
+  return request('/api/me/hidden-content' + (as ? `?as=${encodeURIComponent(as)}` : ''));
 }
 
 // Caller's full appeal history (pending + resolved). Currently
@@ -297,6 +301,12 @@ export async function adminListLockouts() {
   return request('/api/admin/lockouts');
 }
 
+// The accounts with one email address, any capitalization (2026-10-26):
+// the Accounts tab, for support and Reset 2FA. Exact address only.
+export async function adminLookupAccounts(email) {
+  return request('/api/admin/accounts', { query: { email } });
+}
+
 // Clear lockout state on a specific account. Admin can use this when
 // a legit user calls in before their lockout window expires. Needs a
 // reason, saved to the admin History.
@@ -309,9 +319,9 @@ export async function adminUnlockAccount(identityKind, accountId, { reason } = {
 
 // Admin appeals queue. Pending first by default; pass
 // includeActed=true for the audit view.
-export async function adminListAppeals({ includeActed = false } = {}) {
+export async function adminListAppeals({ includeActed = false, limit } = {}) {
   return request('/api/admin/appeals', {
-    query: { include_acted: includeActed ? 'true' : undefined },
+    query: { include_acted: includeActed ? 'true' : undefined, limit },
   });
 }
 

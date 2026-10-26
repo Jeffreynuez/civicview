@@ -34,7 +34,7 @@ import logging
 import re
 from datetime import date, datetime, timedelta
 from urllib.parse import urlparse
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -81,6 +81,9 @@ def _schedule_item(t: pl.Transition, row: Optional[PageTransition], today: date)
         "set_by": t.set_by or (f"data: {t.data_ref}" if t.data_ref else None),
         "set_at": t.set_at.isoformat() if t.set_at else None,
         "source_note": t.source_note,
+        # A lead for the real date when only the recorded day is known
+        # (the record behind the years served), never an official source.
+        "lead_url": t.lead_url if t.date_is_recorded else None,
         "pre_archive_notice_on": t.pre_archive_notice_on.isoformat() if t.pre_archive_notice_on else None,
         "notices": None if row is None else {
             "person_left": row.person_left_notice_at.isoformat() if row.person_left_notice_at else None,
@@ -146,12 +149,20 @@ def _set_warnings(db: Session, t: pl.Transition, today: date) -> tuple[list, int
 def schedule(
     stage: Optional[str] = Query(default=None),
     q: Optional[str] = Query(default=None, max_length=80),
+    needs_date: Optional[Literal["official", "candidate"]] = Query(default=None),
     limit: int = Query(default=200, ge=1, le=1000),
     db: Session = Depends(get_db),
     actor: dict = Depends(get_current_admin),
 ):
     """Every page on the clock, soonest next date first: the next
-    farewell end or archive for pages still moving, then the archived."""
+    farewell end or archive for pages still moving, then the archived.
+
+    needs_date=official|candidate (2026-10-26, admin audit M12): only
+    official or campaign pages whose clock runs from the day our data
+    noticed the change, with no official date yet. Most state departures
+    were noticed weeks late, so their farewell and archive clocks started
+    late; each one needs its date confirmed on an official site and saved
+    here. needs_date_counts has the whole numbers by page kind."""
     today = pl.today_et()
     rows = {r.page_id: r for r in db.query(PageTransition).all()}
     items = []
@@ -160,10 +171,15 @@ def schedule(
     # search filters say (2026-10-26: picking "Archived" used to read 0
     # in the Farewell window tile).
     counts = {}
+    needs_date_counts = {"official": 0, "candidate": 0}
     for pid, t in pl.all_transitions(db).items():
         st = t.stage(today)
         counts[st] = counts.get(st, 0) + 1
+        if t.date_is_recorded:
+            needs_date_counts[t.page_kind] = needs_date_counts.get(t.page_kind, 0) + 1
         if stage and st != stage:
+            continue
+        if needs_date and not (t.date_is_recorded and t.page_kind == needs_date):
             continue
         if needle and needle not in pid.lower() and needle not in (t.display_name or "").lower():
             continue
@@ -177,7 +193,8 @@ def schedule(
         return (1, it.get("archive_on") or "9999")
 
     items.sort(key=next_date)
-    return {"today": today.isoformat(), "counts": counts, "count": len(items), "items": items[:limit]}
+    return {"today": today.isoformat(), "counts": counts, "needs_date_counts": needs_date_counts,
+            "count": len(items), "items": items[:limit]}
 
 
 @router.get("/page/{page_id}")

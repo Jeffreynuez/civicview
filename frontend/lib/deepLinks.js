@@ -49,6 +49,13 @@ export function notificationLink(kind, payload) {
       return p.official_id ? postDeepLink(p.official_id) : '/?open=notifications';
     case 'election_reminder':
       return /^[A-Z]{2}$/.test(String(p.state || '')) ? '/?state=' + encodeURIComponent(String(p.state)) : null;
+    case 'moderation_hidden':
+      // The list of hidden items with Appeal (2026-10-26): a rep's or
+      // candidate's page Dashboard, or the citizen dashboard's Account
+      // & settings tab, where the citizen list lives.
+      return p.page_id
+        ? '/?page=' + encodeURIComponent(String(p.page_id)) + '#moderation'
+        : '/?open=settings#moderation';
     default:
       return postDeepLink(p.official_id, kind === 'tracked_post' ? p.post_id : null);
   }

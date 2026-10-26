@@ -28,7 +28,7 @@ import logging
 from datetime import datetime
 from typing import Any, List, Literal, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -60,6 +60,7 @@ router = APIRouter()
 # Limits for the report list. The admin UI paginates if we ever
 # need it; for now 200 covers a healthy demo and a small launch.
 _REPORT_LIST_LIMIT = 200
+_REPORT_LIST_MAX = 1000
 
 # Snippet length for the "preview" field on each report row.
 _PREVIEW_CHARS = 200
@@ -156,6 +157,18 @@ class ReportListResponse(BaseModel):
     # and of include_acted (2026-10-26): unresolved, resolved_week,
     # hidden_items, auto_hide_threshold.
     counts: dict = {}
+    # How many reports match include_acted in all (2026-10-26), so the
+    # page can say "the newest 200 of 340" and offer the rest.
+    total: int = 0
+
+
+def _reported_text(target: Any) -> Optional[str]:
+    """The text that was reported. An author's delete with replies swaps
+    the body for "[deleted by author]" and keeps the original in
+    pre_delete_text; the queue shows the original (2026-10-26)."""
+    if target is None:
+        return None
+    return getattr(target, "pre_delete_text", None) or getattr(target, "body", None)
 
 
 def _snippet(text: Optional[str]) -> str:
@@ -319,6 +332,7 @@ def _resolve_target_context(db: Session, kind: str, target: Any) -> dict:
 @router.get("/reports", response_model=ReportListResponse)
 def list_reports(
     include_acted: bool = False,
+    limit: int = _REPORT_LIST_LIMIT,
     db: Session = Depends(get_db),
     _actor: dict = Depends(get_current_admin),
 ) -> ReportListResponse:
@@ -328,9 +342,12 @@ def list_reports(
     `include_acted=true` returns all reports including resolved
     ones — useful for an audit / "what did I just do" view.
 
-    Sorted newest first; capped at _REPORT_LIST_LIMIT total rows
-    across all types combined.
+    Sorted newest first; capped at `limit` rows across all types
+    combined (200 unless asked, at most 1000). `total` says how many
+    match, so a cap is never silent (admin audit L3).
     """
+    limit = max(1, min(int(limit), _REPORT_LIST_MAX))
+    total = 0
     out: List[ReportRow] = []
     _trusted_cache: dict = {}
 
@@ -348,7 +365,8 @@ def list_reports(
     q = db.query(PostReport)
     if not include_acted:
         q = q.filter(PostReport.acted_at.is_(None))
-    for r in q.order_by(PostReport.created_at.desc()).limit(_REPORT_LIST_LIMIT).all():
+    total += q.count()
+    for r in q.order_by(PostReport.created_at.desc()).limit(limit).all():
         target = db.get(Post, r.post_id)
         name, kind = _reporter_label(
             db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id,
@@ -356,7 +374,7 @@ def list_reports(
         ctx = _resolve_target_context(db, "post", target)
         out.append(ReportRow(
             id=r.id, kind="post", target_id=r.post_id,
-            target_preview=_snippet(target.body if target else None),
+            target_preview=_snippet(_reported_text(target)),
             target_hidden=bool(target and target.deleted_at is not None),
             target_state=target_state(target, "post"),
             reason=r.reason, detail=r.detail,
@@ -371,7 +389,8 @@ def list_reports(
     q = db.query(CommentReport)
     if not include_acted:
         q = q.filter(CommentReport.acted_at.is_(None))
-    for r in q.order_by(CommentReport.created_at.desc()).limit(_REPORT_LIST_LIMIT).all():
+    total += q.count()
+    for r in q.order_by(CommentReport.created_at.desc()).limit(limit).all():
         target = db.get(PostComment, r.comment_id)
         name, kind = _reporter_label(
             db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id,
@@ -379,7 +398,7 @@ def list_reports(
         ctx = _resolve_target_context(db, "post_comment", target)
         out.append(ReportRow(
             id=r.id, kind="post_comment", target_id=r.comment_id,
-            target_preview=_snippet(target.body if target else None),
+            target_preview=_snippet(_reported_text(target)),
             target_hidden=bool(target and target.deleted_at is not None),
             target_state=target_state(target, "post_comment"),
             reason=r.reason, detail=r.detail,
@@ -394,7 +413,8 @@ def list_reports(
     q = db.query(PollReport)
     if not include_acted:
         q = q.filter(PollReport.acted_at.is_(None))
-    for r in q.order_by(PollReport.created_at.desc()).limit(_REPORT_LIST_LIMIT).all():
+    total += q.count()
+    for r in q.order_by(PollReport.created_at.desc()).limit(limit).all():
         target = db.get(Poll, r.poll_id)
         name, kind = _reporter_label(
             db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id,
@@ -417,7 +437,8 @@ def list_reports(
     q = db.query(PollCommentReport)
     if not include_acted:
         q = q.filter(PollCommentReport.acted_at.is_(None))
-    for r in q.order_by(PollCommentReport.created_at.desc()).limit(_REPORT_LIST_LIMIT).all():
+    total += q.count()
+    for r in q.order_by(PollCommentReport.created_at.desc()).limit(limit).all():
         target = db.get(PollComment, r.poll_comment_id)
         name, kind = _reporter_label(
             db, citizen_id=r.reporter_citizen_id, rep_id=r.reporter_rep_id,
@@ -425,7 +446,7 @@ def list_reports(
         ctx = _resolve_target_context(db, "poll_comment", target)
         out.append(ReportRow(
             id=r.id, kind="poll_comment", target_id=r.poll_comment_id,
-            target_preview=_snippet(target.body if target else None),
+            target_preview=_snippet(_reported_text(target)),
             target_hidden=bool(target and target.deleted_at is not None),
             target_state=target_state(target, "poll_comment"),
             reason=r.reason, detail=r.detail,
@@ -438,7 +459,7 @@ def list_reports(
 
     # Newest first across all types, then cap.
     out.sort(key=lambda r: r.created_at, reverse=True)
-    return ReportListResponse(items=out[:_REPORT_LIST_LIMIT], counts=_queue_counts(db))
+    return ReportListResponse(items=out[:limit], counts=_queue_counts(db), total=total)
 
 
 # Tables-by-kind so the action endpoints can route without a chain
@@ -636,6 +657,11 @@ def hide_target(
             db.commit()
         return ActionResult(ok=True, target_hidden=True)
     newly_hidden = _hide_target(target, kind)
+    if newly_hidden:
+        # Tell the author, with a way to appeal (2026-10-26). Keep
+        # hidden on content already hidden sends nothing new.
+        from app.services.notifications_inapp import emit_moderation_hidden
+        emit_moderation_hidden(db, target=target, kind=kind)
     # Resolve EVERY open report against this same target, not just
     # the one that triggered the hide. If 3 different users reported
     # the same comment, hiding it answers all 3; the queue shouldn't
@@ -747,14 +773,20 @@ def suspend_user(
     kind: UserKind,
     user_id: int,
     payload: UserSuspendPayload,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     actor: dict = Depends(get_current_admin),
 ) -> UserActionResult:
-    """Suspend a rep or citizen account. Sets suspended_at to now and
-    records the reason, which is required. Idempotent: re-suspending an
-    already-suspended account just updates the reason. Every suspension
-    is saved to the admin History, so the record survives an unsuspend
-    (which clears suspended_reason on the account)."""
+    """Suspend a rep, citizen or candidate account. Sets suspended_at to
+    now and records the reason, which is required. Idempotent:
+    re-suspending an already-suspended account just updates the reason.
+    Every suspension is saved to the admin History, so the record
+    survives an unsuspend (which clears suspended_reason on the account).
+
+    A new suspension emails the account owner the reason and how to
+    appeal (2026-10-26): a suspended account can't sign in to see an
+    in-app notice, and before this nobody was told, so the 30-day
+    appeal window could pass unseen. Updating the reason sends nothing."""
     reason = admin_actions.require_reason(payload.reason, "suspension")
     acc = _load_user_account_or_404(db, kind, user_id)
     # Self-suspension guard.
@@ -789,11 +821,82 @@ def suspend_user(
     # here (as before 2026-10-26) took reported content out of the queue
     # unreviewed while it stayed public.
     db.commit()
+    if not already and getattr(acc, "email", None):
+        from app.services.notifications import notify_account_suspended
+        bg_tasks.add_task(
+            notify_account_suspended,
+            email=acc.email, name=getattr(acc, "display_name", None) or "",
+            account_kind=kind, reason=acc.suspended_reason,
+        )
     logger.warning(
         "Admin %s suspended %s user_id=%d (reason=%r).",
         mask_email(actor["email"]), kind, user_id, acc.suspended_reason,
     )
     return UserActionResult(ok=True, suspended=True)
+
+
+# ── Account lookup (2026-10-26) ─────────────────────────────────────────
+class AccountLookupRow(BaseModel):
+    kind: Literal["citizen", "rep", "candidate"]
+    id: int
+    display_name: str
+    email: str
+    page_id: Optional[str] = None
+    is_admin: bool
+    twofa_enabled: bool
+    suspended: bool
+    is_active: bool
+    deleted: bool
+    verified: Optional[bool] = None
+    demo: Optional[bool] = None
+    created_at: Optional[datetime] = None
+    last_login_at: Optional[datetime] = None
+
+
+class AccountLookupResponse(BaseModel):
+    items: List[AccountLookupRow]
+
+
+@router.get("/accounts", response_model=AccountLookupResponse)
+def lookup_accounts(
+    email: str = Query(..., min_length=3, max_length=255),
+    db: Session = Depends(get_db),
+    _actor: dict = Depends(get_current_admin),
+) -> AccountLookupResponse:
+    """Find the accounts with one email address, for support: the
+    Accounts tab shows who it is and whether 2FA is on, and offers
+    Reset 2FA, the only way back in for someone who lost their phone
+    and their recovery codes (admin audit L14 and L15).
+
+    Exact address only, any capitalization: a partial search would
+    make this a way to browse users. The same address can hold a
+    citizen, a rep and a candidate account. Reads only; nothing is
+    recorded. Never returns secrets, hashes or recovery codes."""
+    from app.services.admin_auth import is_admin_email
+
+    needle = email.strip().lower()
+    out: List[AccountLookupRow] = []
+    for kind, model in (("citizen", CitizenAccount), ("rep", RepAccount), ("candidate", CandidateAccount)):
+        acc = db.query(model).filter(func.lower(model.email) == needle).first()
+        if acc is None:
+            continue
+        out.append(AccountLookupRow(
+            kind=kind,
+            id=acc.id,
+            display_name=acc.display_name or "",
+            email=acc.email or "",
+            page_id=getattr(acc, "official_id", None) if kind == "rep" else getattr(acc, "candidate_id", None) if kind == "candidate" else None,
+            is_admin=is_admin_email(acc.email),
+            twofa_enabled=acc.totp_enabled_at is not None,
+            suspended=acc.suspended_at is not None,
+            is_active=bool(getattr(acc, "is_active", True)),
+            deleted=getattr(acc, "self_deleted_at", None) is not None,
+            verified=bool(acc.verified) if kind == "citizen" else None,
+            demo=(getattr(acc, "verified_method", None) == "demo") if kind == "citizen" else None,
+            created_at=getattr(acc, "created_at", None),
+            last_login_at=getattr(acc, "last_login_at", None),
+        ))
+    return AccountLookupResponse(items=out)
 
 
 @router.post(

@@ -515,6 +515,53 @@ def emit_tracked_content_notifications_bg(
         db.close()
 
 
+def emit_moderation_hidden(db: Session, *, target, kind: str) -> Optional[Notification]:
+    """Tell the author that moderation hid their post, comment or poll,
+    with a way to appeal it (2026-10-26). Called when an admin hides
+    content and when the trusted-report threshold auto-hides it; a
+    "Keep hidden" on content already hidden sends nothing new.
+
+    Always a bell row, whatever the author's alert settings: this is
+    about their own account, like a sign-in notice. No push. The row
+    carries no reporter or admin identity. The caller commits.
+
+    For a rep or a candidate the payload names their own page, whose
+    dashboard lists hidden content; a citizen's opens their dashboard."""
+    from app.models.pages import CandidateAccount, RepAccount
+    from app.services.moderation import APPEALABLE_HIDE_REASONS, content_author, target_state
+
+    author = content_author(target, kind)
+    if author is None:
+        return None
+    state = target_state(target, kind)
+    if state not in APPEALABLE_HIDE_REASONS:
+        return None
+    recipient_kind, recipient_id = author
+    body = getattr(target, "body", None) or getattr(target, "question", None)
+    payload = {
+        "target_kind": kind,
+        "target_id": target.id,
+        "hide_reason": state,
+        "preview": _truncate(body, 120),
+    }
+    if recipient_kind == "rep":
+        acct = db.get(RepAccount, recipient_id)
+        if acct is not None and acct.official_id:
+            payload["page_id"] = acct.official_id
+    elif recipient_kind == "candidate":
+        acct = db.get(CandidateAccount, recipient_id)
+        if acct is not None and acct.candidate_id:
+            payload["page_id"] = acct.candidate_id
+    n = Notification(
+        recipient_kind=recipient_kind,
+        recipient_id=recipient_id,
+        kind="moderation_hidden",
+        payload_json=json.dumps(payload, ensure_ascii=False),
+    )
+    db.add(n)
+    return n
+
+
 def list_for_recipient(
     db: Session, *, recipient_kind: str, recipient_id: int,
     limit: int = 50, unread_only: bool = False,
