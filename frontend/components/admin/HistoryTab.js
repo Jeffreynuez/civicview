@@ -148,7 +148,7 @@ export default function HistoryTab({ onCounts }) {
       ) : (
         <div className="ad-tablewrap">
           <div className="ad-tablewrap__scroll">
-            <table className="ad-table">
+            <table className="ad-table ad-history__table">
               <thead>
                 <tr>
                   <th style={{ width: 170 }}>When</th>
@@ -161,10 +161,10 @@ export default function HistoryTab({ onCounts }) {
               <tbody>
                 {shown.map((i) => (
                   <tr key={i.id}>
-                    <td>{when(i.at)}</td>
-                    <td className="ad-history__mono">{i.actor_email}</td>
-                    <td>{(ACTIONS[i.action] || [i.action])[0]}</td>
-                    <td>
+                    <td data-label="When">{when(i.at)}</td>
+                    <td data-label="Admin" className="ad-history__mono">{i.actor_email}</td>
+                    <td data-label="Action" className="ad-history__kind">{(ACTIONS[i.action] || [i.action])[0]}</td>
+                    <td data-label="Item">
                       {i.target_kind && (
                         <span className="ad-history__kind">
                           {TARGET_LABEL[i.target_kind] || i.target_kind}
@@ -174,7 +174,7 @@ export default function HistoryTab({ onCounts }) {
                       {i.target_label && <div className="ad-history__label">{i.target_label}</div>}
                       {detailText(i.details) && <div className="ad-history__detail">{detailText(i.details)}</div>}
                     </td>
-                    <td>{i.reason || <span className="ad-history__none">No reason given</span>}</td>
+                    <td data-label="Reason">{i.reason || <span className="ad-history__none">No reason given</span>}</td>
                   </tr>
                 ))}
               </tbody>

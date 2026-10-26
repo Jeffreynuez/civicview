@@ -184,3 +184,60 @@
   border: 1px dashed var(--cl-warning-text, #8a5a00);
   color: var(--cl-warning-text, #8a5a00);
 }
+
+/* 2026-10-26 redesign: folded forms read as two plain rows. */
+.tr-fold > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+.tr-fold > summary::-webkit-details-marker { display: none; }
+.tr-fold > summary::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-right: 2px solid var(--cl-text-light);
+  border-bottom: 2px solid var(--cl-text-light);
+  transform: rotate(45deg);
+  transition: transform 150ms ease;
+}
+.tr-fold[open] > summary::after { transform: rotate(-135deg); }
+.tr-fold[open] > summary { margin-bottom: 4px; }
+
+@media (max-width: 640px) {
+  .tr-toolbar > input,
+  .tr-toolbar > select { flex: 1 1 100%; }
+  .tr-toolbar > .ad-btn { flex: 1 1 auto; justify-content: center; }
+  .tr-today { flex-basis: 100%; }
+  .tr-form { grid-template-columns: 1fr; }
+
+  /* The list as stacked rows instead of a six-column table. */
+  .tr-list thead { display: none; }
+  .tr-list,
+  .tr-list tbody,
+  .tr-list tr,
+  .tr-list td { display: block; width: 100%; }
+  .tr-list tr { padding: 12px 14px; border-bottom: 1px solid var(--cl-border); }
+  .tr-root .tr-list.ad-table tbody td,
+  .tr-root .tr-list.ad-table tbody td:first-child,
+  .tr-root .tr-list.ad-table tbody td:last-child {
+    padding: 1px 0;
+    border: none;
+    text-align: left;
+    white-space: normal;
+    background: transparent;
+    font-size: 0.82rem;
+  }
+  .tr-list td:first-child { margin-bottom: 6px; }
+  .tr-list td[data-label]::before {
+    content: attr(data-label) ': ';
+    font-weight: 700;
+    font-size: 0.72rem;
+    color: var(--cl-text-muted);
+  }
+  .tr-list td:empty { display: none; }
+}

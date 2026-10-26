@@ -77,7 +77,7 @@ export default function ElectionRemindersTab({ onCounts }) {
           <input type="checkbox" checked={showPassed} onChange={(e) => setShowPassed(e.target.checked)} />
           Show passed
         </label>
-        <button type="button" className="ad-btn" onClick={load} disabled={loading}>
+        <button type="button" className="ad-btn ad-btn--ghost" onClick={load} disabled={loading}>
           {loading ? 'Loading…' : 'Refresh'}
         </button>
       </div>
