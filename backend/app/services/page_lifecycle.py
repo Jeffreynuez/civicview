@@ -258,6 +258,11 @@ class Transition:
     set_at: Optional[datetime] = None
     # Where the data record lives, for the admin view.
     data_ref: Optional[str] = None
+    # Where an admin might find the real date when we only know the day
+    # our data noticed (2026-10-26): the record our data took the years
+    # served from (for state legislators, the Open States record, whose
+    # role end date is a lead, never an official source).
+    lead_url: Optional[str] = None
 
     # ── clock ──
     @property
@@ -434,6 +439,7 @@ def _former_from_officials(doc: dict, state_code: Optional[str], ref: str) -> It
             source_url=rec.get("left_office_source") if event_on else None,
             source_note=rec.get("reason"),
             data_ref=ref,
+            lead_url=rec.get("years_source") or None,
         )
 
 

@@ -54,8 +54,10 @@ export async function fetchFormerSearchIndex() {
 }
 
 // ── Admin: Transitions tab ───────────────────────────────────────────
-export function adminListTransitions({ stage, q, limit } = {}) {
-  return request('/api/admin/transitions', { query: { stage, q, limit } });
+// needsDate: 'official' | 'candidate' lists only those pages whose clock
+// runs from the day our data noticed, with no official date (2026-10-26).
+export function adminListTransitions({ stage, q, limit, needsDate } = {}) {
+  return request('/api/admin/transitions', { query: { stage, q, limit, needs_date: needsDate } });
 }
 
 export function adminTransitionDetail(pageId) {

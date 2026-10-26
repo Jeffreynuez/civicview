@@ -172,3 +172,15 @@
 }
 .tr-confirm p { margin: 0; }
 .tr-warnings { margin: 0; padding-left: 18px; color: var(--cl-danger-deep, #8a1c1c); }
+
+/* No official date yet (2026-10-26). */
+.tr-tag {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  border: 1px dashed var(--cl-warning-text, #8a5a00);
+  color: var(--cl-warning-text, #8a5a00);
+}
