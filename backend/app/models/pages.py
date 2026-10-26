@@ -1805,15 +1805,26 @@ class CitizenWaitlist(Base):
 # ── Appeals ───────────────────────────────────────────────────────────
 class Appeal(Base):
     """
-    A user-filed appeal against a moderation action. Six target shapes:
-      • 'post'                — rep's hidden post (appellant: rep)
-      • 'post_comment'        — citizen's hidden comment (appellant: citizen)
+    A user-filed appeal against a moderation action. Target shapes:
+      • 'post'                : hidden post (appellant: the rep or
+                                candidate who wrote it)
+      • 'post_comment'        : hidden comment (appellant: the citizen,
+                                rep or candidate who wrote it)
       • 'poll'                — citizen's archived poll (appellant: citizen)
-      • 'poll_comment'        — citizen's hidden poll-comment (appellant: citizen)
+      • 'poll_comment'        : hidden poll comment (appellant: its
+                                citizen, rep or candidate author)
       • 'suspension_rep'      — suspended rep account (appellant: that rep)
       • 'suspension_citizen'  — suspended citizen (appellant: that citizen)
       • 'suspension_candidate' (2026-10-26): suspended candidate
         (appellant: that candidate)
+    Rep and candidate authors could appeal only some of these before
+    2026-10-26 (routers/appeals.py, admin audit M10).
+
+    For a suspension, target_id is the suspension, not the account
+    (the account is the appellant): minus the admin_actions id that
+    started it, or the account id for a suspension older than the
+    admin History. See routers/appeals.suspension_appeal_key. So each
+    suspension can be appealed once.
 
     Lifecycle:
       created_at         — submission timestamp
@@ -1828,10 +1839,6 @@ class Appeal(Base):
         (we'd need the moderation timestamp denormalized to enforce
         in-DB; cheaper to check at submit time).
 
-    Future: candidates aren't appellants today (no account model). When
-    Phase 2 ships verified-candidate accounts, add 'candidate' to
-    appellant_kind and 'suspension_candidate' to target_kind. No schema
-    rewrite needed.
     """
     __tablename__ = "appeals"
 

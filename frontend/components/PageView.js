@@ -170,6 +170,7 @@ export default function PageView({
   // page owner in the tab strip render. 'feed' stays the default so
   // citizens and unclaimed pages keep their current first impression.
   const [activeView, setActiveView] = useState(initialActiveView || 'feed');
+  const [wantModeration, setWantModeration] = useState(false);
   // When the owner clicks a post in the dashboard, we flip back to
   // the feed and tag the post id so PostCard highlighting can pulse
   // it into view. Cleared after highlight consumed.
@@ -297,6 +298,10 @@ export default function PageView({
           setActiveView('feed');
           setHighlightPollId(pm[1]);
         }
+        // The owner's hidden content (2026-10-26): the bell's "was
+        // hidden" notice opens the Dashboard, where the list is. Held
+        // until ownership is known; see the effect after isOwner.
+        if (window.location.hash === '#moderation') setWantModeration(true);
       } catch { /* malformed hash: ignore */ }
     };
     readHash();
@@ -468,6 +473,15 @@ export default function PageView({
     // match so the owner can still reach their Dashboard tab.
     || repOwnerMatch
     || candOwnerMatch;
+
+  // #moderation (2026-10-26): switch to the Dashboard once we know this
+  // viewer owns the page. Anyone else stays on the feed.
+  useEffect(() => {
+    if (wantModeration && isOwner) {
+      setWantModeration(false);
+      setActiveView('dashboard');
+    }
+  }, [wantModeration, isOwner]);
   const claimed = !!payload?.claimed;
   const ownerName = payload?.owner?.display_name || displayName || 'This official';
   // Former officials and candidates (2026-10-15): the page's stage,

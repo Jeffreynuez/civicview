@@ -180,6 +180,10 @@ def record_report(db: Session, target: Any, *, kind: str) -> bool:
         "Auto-hidden %s id=%s after %d reports (threshold=%d).",
         kind, getattr(target, "id", "?"), target.report_count, threshold,
     )
+    # Tell the author, with a way to appeal (2026-10-26). Before this
+    # nobody was told, so the 30-day appeal window could pass unseen.
+    from app.services.notifications_inapp import emit_moderation_hidden
+    emit_moderation_hidden(db, target=target, kind=kind)
     return True
 
 
@@ -229,6 +233,35 @@ def target_state(target: Any, kind: str) -> str:
 
 def is_moderation_hidden(state: str) -> bool:
     return state in MODERATION_HIDE_REASONS
+
+
+# The hides an author can appeal. Threat detection's hides are not
+# appealable while it runs in shadow mode.
+APPEALABLE_HIDE_REASONS = frozenset({"admin_hidden", "auto_hidden"})
+
+# Who wrote a piece of content: the author columns per kind, checked in
+# order, with the account kind each one points at. Exactly one is set
+# per row. Citizen polls are the only polls that can be reported.
+CONTENT_AUTHOR_COLUMNS = {
+    "post": (("author_id", "rep"), ("author_candidate_id", "candidate")),
+    "post_comment": (("citizen_id", "citizen"), ("author_rep_id", "rep"), ("author_candidate_id", "candidate")),
+    "poll": (("author_citizen_id", "citizen"),),
+    "poll_comment": (("citizen_id", "citizen"), ("author_rep_id", "rep"), ("author_candidate_id", "candidate")),
+}
+
+
+def content_author(target: Any, kind: str):
+    """(account_kind, account_id) of whoever wrote `target`, or None.
+    Before 2026-10-26 appeals read one column per kind, so candidate
+    posts and comments written as a rep or a candidate could not be
+    appealed."""
+    if target is None:
+        return None
+    for attr, account_kind in CONTENT_AUTHOR_COLUMNS.get(kind, ()):
+        account_id = getattr(target, attr, None)
+        if account_id:
+            return account_kind, account_id
+    return None
 
 
 def resolve_open_reports(db: Session, *, kind: str, target_id: int) -> int:

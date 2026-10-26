@@ -1059,8 +1059,9 @@ export default function Home() {
       // Keep a '#post-<id>' deep link (push tap, bell, archive;
       // 2026-10-16), or a '#poll-<id>' one (2026-10-17): this runs
       // before the page from ?page= has opened, and dropping the hash
-      // here meant PageView never saw it.
-      const postHash = /^#(post|poll)-/.test(window.location.hash || '') ? window.location.hash : '';
+      // here meant PageView never saw it. '#moderation' (2026-10-26)
+      // opens the hidden-content list from the bell's "was hidden" notice.
+      const postHash = /^#((post|poll)-|moderation$)/.test(window.location.hash || '') ? window.location.hash : '';
       window.history.replaceState(snapshot, '', nextUrl + postHash);
       return;
     }

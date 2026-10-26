@@ -240,8 +240,10 @@ export async function adminUnreadCount() {
 // "Hidden by moderation" content for the dashboard surface — every
 // piece of moderation-hidden content the caller authored, within
 // the 30-day appeal window, with current appeal status per row.
-export async function fetchMyHiddenContent() {
-  return request('/api/me/hidden-content');
+// `as` ('citizen' | 'rep' | 'candidate', 2026-10-26) names whose items,
+// among the identities signed in on this browser.
+export async function fetchMyHiddenContent({ as } = {}) {
+  return request('/api/me/hidden-content' + (as ? `?as=${encodeURIComponent(as)}` : ''));
 }
 
 // Caller's full appeal history (pending + resolved). Currently

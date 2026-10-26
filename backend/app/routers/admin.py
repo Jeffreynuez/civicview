@@ -28,7 +28,7 @@ import logging
 from datetime import datetime
 from typing import Any, List, Literal, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -636,6 +636,11 @@ def hide_target(
             db.commit()
         return ActionResult(ok=True, target_hidden=True)
     newly_hidden = _hide_target(target, kind)
+    if newly_hidden:
+        # Tell the author, with a way to appeal (2026-10-26). Keep
+        # hidden on content already hidden sends nothing new.
+        from app.services.notifications_inapp import emit_moderation_hidden
+        emit_moderation_hidden(db, target=target, kind=kind)
     # Resolve EVERY open report against this same target, not just
     # the one that triggered the hide. If 3 different users reported
     # the same comment, hiding it answers all 3; the queue shouldn't
@@ -747,14 +752,20 @@ def suspend_user(
     kind: UserKind,
     user_id: int,
     payload: UserSuspendPayload,
+    bg_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     actor: dict = Depends(get_current_admin),
 ) -> UserActionResult:
-    """Suspend a rep or citizen account. Sets suspended_at to now and
-    records the reason, which is required. Idempotent: re-suspending an
-    already-suspended account just updates the reason. Every suspension
-    is saved to the admin History, so the record survives an unsuspend
-    (which clears suspended_reason on the account)."""
+    """Suspend a rep, citizen or candidate account. Sets suspended_at to
+    now and records the reason, which is required. Idempotent:
+    re-suspending an already-suspended account just updates the reason.
+    Every suspension is saved to the admin History, so the record
+    survives an unsuspend (which clears suspended_reason on the account).
+
+    A new suspension emails the account owner the reason and how to
+    appeal (2026-10-26): a suspended account can't sign in to see an
+    in-app notice, and before this nobody was told, so the 30-day
+    appeal window could pass unseen. Updating the reason sends nothing."""
     reason = admin_actions.require_reason(payload.reason, "suspension")
     acc = _load_user_account_or_404(db, kind, user_id)
     # Self-suspension guard.
@@ -789,6 +800,13 @@ def suspend_user(
     # here (as before 2026-10-26) took reported content out of the queue
     # unreviewed while it stayed public.
     db.commit()
+    if not already and getattr(acc, "email", None):
+        from app.services.notifications import notify_account_suspended
+        bg_tasks.add_task(
+            notify_account_suspended,
+            email=acc.email, name=getattr(acc, "display_name", None) or "",
+            account_kind=kind, reason=acc.suspended_reason,
+        )
     logger.warning(
         "Admin %s suspended %s user_id=%d (reason=%r).",
         mask_email(actor["email"]), kind, user_id, acc.suspended_reason,

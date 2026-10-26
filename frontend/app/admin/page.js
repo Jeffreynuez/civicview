@@ -1587,7 +1587,7 @@ function AppealCard({ appeal, onGrant, onDeny }) {
           {isSuspension && (
             <>
               <span className="ad-typechip ad-typechip--suspension">Account</span>
-              <span className="ad-appeal__details-id">id={appeal.target_id}</span>
+              <span className="ad-appeal__details-id">id={appeal.appellant_id}</span>
             </>
           )}
         </div>
@@ -2019,7 +2019,7 @@ function HideModal({ row, onCancel, onConfirm }) {
           <div>
             {keep
               ? <>It stays off the public page and its open reports are closed. The author can still appeal for 30 days.</>
-              : <>It comes off the public page now, and its open reports are closed. The author sees it was moderated and can appeal for 30 days. You can Unhide it later.</>}
+              : <>It comes off the public page now, and its open reports are closed. The author gets a notice and can appeal for 30 days. You can Unhide it later.</>}
           </div>
           <div className="ad-modal__contentblock">
             <div className="ad-modal__contentmeta">
@@ -2127,9 +2127,9 @@ function SuspendModal({ row, onCancel, onConfirm }) {
         </div>
         <div className="ad-modal__body">
           <div>
-            The {authorKind} account will be unable to post, comment, or vote. They&rsquo;ll see
-            a &ldquo;Suspended&rdquo; banner on next visit. Suspension is reversible from the{' '}
-            <strong>Suspended users</strong> tab.
+            The {authorKind} account will be unable to sign in, post, comment, or vote. We email
+            them your reason and how to appeal (once, within 30 days). Suspension is reversible
+            from the <strong>Suspended users</strong> tab.
           </div>
 
           <div className="ad-modal__contentblock">
@@ -2146,8 +2146,8 @@ function SuspendModal({ row, onCancel, onConfirm }) {
             onChange={setReason}
             required
             autoFocus
-            label="Your reason (required, saved to the admin History)"
-            hint="At least 3 characters, in your own words."
+            label="Your reason (required, emailed to them and saved to the admin History)"
+            hint="At least 3 characters, in your own words. They read this, so say what they did."
             placeholder="Why are you suspending this account?"
           />
 
