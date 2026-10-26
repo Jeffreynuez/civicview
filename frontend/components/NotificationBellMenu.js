@@ -126,14 +126,15 @@ export default function NotificationBellMenu() {
       });
   }, [notifItems]);
 
+  // Answers the unread count it just loaded, or null when the fetch failed.
   const refreshNotifs = async () => {
     setNotifLoading(true);
     const { data } = await fetchNotifications({ limit: 50 });
     setNotifLoading(false);
-    if (data) {
-      setNotifItems(data.items || []);
-      setUnreadCount(data.unread_count || 0);
-    }
+    if (!data) return null;
+    setNotifItems(data.items || []);
+    setUnreadCount(data.unread_count || 0);
+    return data.unread_count || 0;
   };
 
   useEffect(() => {
@@ -149,9 +150,17 @@ export default function NotificationBellMenu() {
     };
   }, []);
 
-  // Refresh on open so the dropdown shows the freshest inbox.
+  // Refresh on open so the dropdown shows the freshest inbox. When that
+  // inbox has nothing unread, opening the bell also clears CivicView's
+  // notifications from the device (2026-10-26): a push with no bell row,
+  // such as the admin test push, otherwise has no button that clears it,
+  // so it stayed in the phone's tray and kept the app icon badge lit.
+  // Nothing is cleared when something is unread or the fetch failed.
   useEffect(() => {
-    if (open) refreshNotifs();
+    if (!open) return;
+    refreshNotifs().then((unread) => {
+      if (unread === 0) clearDeliveredNotifications();
+    });
   }, [open]);
 
   // /?open=notifications (a summary push, 2026-10-16) opens the bell.
