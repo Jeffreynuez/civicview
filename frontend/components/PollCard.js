@@ -10,6 +10,7 @@ import IdentityPicker from './IdentityPicker';
 import PollResultsModal from './polls/PollResultsModal';
 import PollDemographicsForm from './polls/PollDemographicsForm';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
+import { serverDate } from '../lib/serverTime';
 
 /**
  * Poll attached to a post.
@@ -47,7 +48,7 @@ export default function PollCard({
 
   // Ticking clock for countdown + auto-flip to closed state.
   const [nowTs, setNowTs] = useState(() => Date.now());
-  const closesAt = poll.closes_at ? new Date(poll.closes_at) : null;
+  const closesAt = serverDate(poll.closes_at);
   const isClosed = closesAt && closesAt.getTime() <= nowTs;
 
   useEffect(() => {

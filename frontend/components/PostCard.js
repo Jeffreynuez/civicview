@@ -22,10 +22,11 @@ import IdentityPicker from './IdentityPicker';
 import PostActionsMenu from './PostActionsMenu';
 import CommentsThread from './polls/CommentsThread';
 import { useActiveIdentities, pickEngagementIdentity } from '../lib/activeIdentities';
+import { serverDate } from '../lib/serverTime';
 
 function timeAgo(iso) {
   if (!iso) return '';
-  const then = new Date(iso);
+  const then = serverDate(iso);
   const now = new Date();
   const secs = Math.floor((now - then) / 1000);
   if (secs < 60) return 'just now';

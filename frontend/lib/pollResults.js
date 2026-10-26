@@ -15,6 +15,8 @@
  *                same "Show results" control the page uses.
  *   'full'       results show right away.
  */
+import { serverDate } from './serverTime';
+
 export function pollResultsView(poll) {
   if (!poll) return 'full';
   if (poll.counts_suppressed) return 'withheld';
@@ -28,7 +30,7 @@ export const RESULTS_HIDDEN_SHORT = 'Results hidden until close';
 
 export function resultsHiddenUntil(closesAt) {
   if (!closesAt) return '';
-  const d = closesAt instanceof Date ? closesAt : new Date(closesAt);
+  const d = serverDate(closesAt);
   if (Number.isNaN(d.getTime())) return '';
   return `You'll see them after ${d.toLocaleString()}.`;
 }

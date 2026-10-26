@@ -63,6 +63,7 @@ import { formatDistrict } from '../../lib/usStates';
 import IdentityPicker, { PostingAsPicker } from '../IdentityPicker';
 import PostActionsMenu from '../PostActionsMenu';
 import CitizenName from '../CitizenCard';
+import { serverDate } from '../../lib/serverTime';
 // Thread chrome styles live in FeedCard.css; import here so the
 // shared thread is styled on every surface it mounts (rep/candidate
 // pages + citizen polls), not just inside FeedCard.
@@ -1167,10 +1168,10 @@ function CommentRow({
 }
 
 // Tiny inline relative-time formatter — same shape PollCard uses.
-// Kept local so the thread file has zero shared-helper dependencies.
+// Server times have no zone; serverDate reads them as UTC (2026-10-25).
 function relTime(iso) {
   if (!iso) return '';
-  const d = new Date(iso);
+  const d = serverDate(iso);
   if (isNaN(d.getTime())) return '';
   const diffSec = Math.floor((Date.now() - d.getTime()) / 1000);
   if (diffSec < 60) return 'just now';
