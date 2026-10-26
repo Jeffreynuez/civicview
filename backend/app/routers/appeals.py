@@ -778,6 +778,12 @@ def _decide_appeal(
     restored = False
     if decision == "granted":
         restored = _restore_appeal_target(db, appeal)
+        if appeal.target_kind in _CONTENT_TARGETS:
+            # Granting is a decision about this content: close its open
+            # reports so they stop counting toward auto-hide and the
+            # next single report doesn't hide it again.
+            from app.services.moderation import resolve_open_reports
+            resolve_open_reports(db, kind=appeal.target_kind, target_id=appeal.target_id)
 
     appeal.acted_at = datetime.utcnow()
     appeal.decision = decision

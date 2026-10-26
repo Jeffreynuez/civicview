@@ -30,10 +30,12 @@ Hide mechanics:
     richer archive lifecycle; deleted_at is not the right knob
     here).
 
-The helper is intentionally NOT a no-op once a row crosses the
-threshold — if the row was un-hidden by an admin and reports
-keep coming, it'll auto-hide again. Admins who un-hide should
-either resolve the underlying reports or accept that pattern.
+Only reports nobody has reviewed yet count (acted_at is empty). An
+admin's Unhide, Keep hidden or Dismiss, and a granted appeal, all
+close the reports they answer, so content an admin restored stays up
+until enough NEW trusted reports arrive. Before 2026-10-26 every
+report row counted, so one more report after a restore hid the
+content again at once.
 """
 from __future__ import annotations
 
@@ -76,14 +78,19 @@ def is_trusted_reporter_citizen(citizen: Any) -> bool:
 
 
 def _trusted_report_count(db: Session, target: Any, kind: str) -> int:
-    """Reports on `target` filed by trusted identities: reps (manually
-    provisioned accounts) and verified, non-demo citizens."""
+    """Open reports on `target` filed by trusted identities: reps
+    (manually provisioned accounts) and verified, non-demo citizens.
+    Reports an admin already acted on do not count again."""
     from app.models import pages as models
 
     model_name, fk = _REPORT_TABLES[kind]
     model = getattr(models, model_name)
     db.flush()  # the caller just added this reporter's row
-    rows = db.query(model).filter(getattr(model, fk) == target.id).all()
+    rows = (
+        db.query(model)
+        .filter(getattr(model, fk) == target.id, model.acted_at.is_(None))
+        .all()
+    )
     trusted = 0
     for row in rows:
         if getattr(row, "reporter_rep_id", None):
@@ -157,3 +164,74 @@ def record_report(db: Session, target: Any, *, kind: str) -> bool:
         kind, getattr(target, "id", "?"), target.report_count, threshold,
     )
     return True
+
+
+# hide_reason values that mean "taken down by moderation" on posts,
+# post comments and poll comments. A NULL hide_reason with deleted_at
+# set means the author deleted it. Polls use citizen_polls_service's
+# HIDDEN_ARCHIVE_REASONS on archived_reason instead.
+MODERATION_HIDE_REASONS = frozenset({"admin_hidden", "auto_hidden", "threat_hidden"})
+
+
+def target_state(target: Any, kind: str) -> str:
+    """Why a reported piece of content is or is not public, for the
+    admin queue. One of:
+      visible         on the public page
+      admin_hidden    hidden by an admin
+      auto_hidden     hidden by the trusted-report threshold
+      threat_hidden   hidden by threat detection (not live yet)
+      author_deleted  the author deleted it
+      author_closed   a citizen poll its author closed
+      closed          a poll closed for another lifecycle reason
+      missing         the row no longer exists
+    Only the three *_hidden states are moderation takedowns, so only
+    those can be unhidden by an admin or appealed by the author."""
+    if target is None:
+        return "missing"
+    if kind == "poll":
+        from app.services.citizen_polls_service import (
+            HIDDEN_ARCHIVE_REASONS,
+            poll_is_publicly_visible,
+        )
+        if poll_is_publicly_visible(target):
+            return "visible"
+        reason = getattr(target, "archived_reason", None)
+        if reason in HIDDEN_ARCHIVE_REASONS:
+            # 'reported' is the pre-2026 spelling of an auto-hide.
+            return "admin_hidden" if reason == "admin_hidden" else "auto_hidden"
+        if reason == "citizen_closed":
+            return "author_closed"
+        return "closed"
+    if getattr(target, "deleted_at", None) is None:
+        return "visible"
+    reason = getattr(target, "hide_reason", None)
+    if reason in MODERATION_HIDE_REASONS:
+        return reason
+    return "author_deleted"
+
+
+def is_moderation_hidden(state: str) -> bool:
+    return state in MODERATION_HIDE_REASONS
+
+
+def resolve_open_reports(db: Session, *, kind: str, target_id: int) -> int:
+    """Close every open report on one piece of content. Called whenever
+    an admin decides about that content (hide, keep hidden, unhide) and
+    when an appeal on it is granted, so the decision answers all of its
+    reports and none of them count toward the next auto-hide. Caller
+    commits. Returns how many reports were closed."""
+    from app.models import pages as models
+
+    if kind not in _REPORT_TABLES:
+        return 0
+    model_name, fk = _REPORT_TABLES[kind]
+    model = getattr(models, model_name)
+    rows = (
+        db.query(model)
+        .filter(getattr(model, fk) == target_id, model.acted_at.is_(None))
+        .all()
+    )
+    now = datetime.utcnow()
+    for row in rows:
+        row.acted_at = now
+    return len(rows)

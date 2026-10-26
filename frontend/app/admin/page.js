@@ -123,9 +123,32 @@ function absTime(iso) {
   return d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' ' + time;
 }
 
+// Why reported content is or is not public (ReportRow.target_state,
+// 2026-10-26). Only these three are moderation takedowns, so only
+// these can be unhidden. Content its author deleted or closed must
+// never be put back by an admin.
+const MODERATION_HIDDEN = new Set(['admin_hidden', 'auto_hidden', 'threat_hidden']);
+const REMOVED_LABEL = {
+  author_deleted: 'Deleted by its author',
+  author_closed: 'Closed by its author',
+  closed: 'Closed',
+  missing: 'No longer exists',
+};
+
+function targetState(r) {
+  // Older API responses have no target_state; read them as before.
+  return r.target_state || (r.target_hidden ? 'admin_hidden' : 'visible');
+}
+
+function isModerationHidden(r) {
+  return MODERATION_HIDDEN.has(targetState(r));
+}
+
 function reportStatus(r) {
   if (r.acted_at) return 'resolved';
-  if (r.target_hidden) return 'hidden';
+  const state = targetState(r);
+  if (MODERATION_HIDDEN.has(state)) return 'hidden';
+  if (state !== 'visible') return 'removed';
   return 'open';
 }
 
@@ -224,6 +247,7 @@ function AdminPageInner() {
 
   // Modal state.
   const [hideModal, setHideModal] = useState(null);
+  const [unhideModal, setUnhideModal] = useState(null);
   const [suspendModal, setSuspendModal] = useState(null);
   const [appealDecisionModal, setAppealDecisionModal] = useState(null); // { appeal, decision }
   const [unsuspendModal, setUnsuspendModal] = useState(null);
@@ -378,7 +402,15 @@ function AdminPageInner() {
     await runAction(key, () => adminHideTarget(r.kind, r.id), loadReports);
   };
 
-  const handleSuspendConfirm = async ({ reason, alsoHide }) => {
+  const handleUnhideConfirm = async () => {
+    if (!unhideModal) return;
+    const r = unhideModal;
+    const key = `unhide-${r.kind}-${r.id}`;
+    setUnhideModal(null);
+    await runAction(key, () => adminUnhideTarget(r.kind, r.target_id), loadReports);
+  };
+
+  const handleSuspendConfirm = async ({ reason }) => {
     if (!suspendModal) return;
     const r = suspendModal;
     const key = `suspend-${r.target_author_kind}-${r.target_author_id}`;
@@ -387,7 +419,6 @@ function AdminPageInner() {
       key,
       () => adminSuspendUser(r.target_author_kind, r.target_author_id, {
         reason: (reason || '').trim() || null,
-        cascadeHide: !!alsoHide,
       }),
       async () => { await loadReports(); await loadSuspended(); },
     );
@@ -633,7 +664,8 @@ function AdminPageInner() {
             onView={openHostingPage}
             onDismiss={(r) => runAction(`dismiss-${r.kind}-${r.id}`, () => adminDismissReport(r.kind, r.id), loadReports)}
             onHide={(r) => setHideModal(r)}
-            onUnhide={(r) => runAction(`unhide-${r.kind}-${r.id}`, () => adminUnhideTarget(r.kind, r.target_id), loadReports)}
+            onKeepHidden={(r) => runAction(`hide-${r.kind}-${r.id}`, () => adminHideTarget(r.kind, r.id), loadReports)}
+            onUnhide={(r) => setUnhideModal(r)}
             onSuspend={(r) => setSuspendModal(r)}
           />
         )}
@@ -753,6 +785,13 @@ function AdminPageInner() {
           onConfirm={handleHideConfirm}
         />
       )}
+      {unhideModal && (
+        <UnhideModal
+          row={unhideModal}
+          onCancel={() => setUnhideModal(null)}
+          onConfirm={handleUnhideConfirm}
+        />
+      )}
       {suspendModal && (
         <SuspendModal
           row={suspendModal}
@@ -827,7 +866,7 @@ function QueueView({
   kindChip, onKindChip,
   reporterChip, onReporterChip,
   autoOnly, onAutoOnly,
-  onRefresh, onView, onDismiss, onHide, onUnhide, onSuspend,
+  onRefresh, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend,
 }) {
   const filtered = useMemo(() => {
     let list = reports;
@@ -860,6 +899,7 @@ function QueueView({
           onView={onView}
           onDismiss={onDismiss}
           onHide={onHide}
+          onKeepHidden={onKeepHidden}
           onUnhide={onUnhide}
           onSuspend={onSuspend}
         />
@@ -870,6 +910,7 @@ function QueueView({
           onView={onView}
           onDismiss={onDismiss}
           onHide={onHide}
+          onKeepHidden={onKeepHidden}
           onUnhide={onUnhide}
           onSuspend={onSuspend}
         />
@@ -956,7 +997,7 @@ function QueueFilterRow({
   );
 }
 
-function QueueTable({ rows, busyId, onView, onDismiss, onHide, onUnhide, onSuspend }) {
+function QueueTable({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend }) {
   const open = rows.filter((r) => reportStatus(r) === 'open').length;
   const hidden = rows.filter((r) => reportStatus(r) === 'hidden').length;
   return (
@@ -1044,6 +1085,7 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onUnhide, onSuspe
                       onView={() => onView(r)}
                       onDismiss={() => onDismiss(r)}
                       onHide={() => onHide(r)}
+                      onKeepHidden={() => onKeepHidden(r)}
                       onUnhide={() => onUnhide(r)}
                       onSuspend={() => onSuspend(r)}
                     />
@@ -1058,7 +1100,7 @@ function QueueTable({ rows, busyId, onView, onDismiss, onHide, onUnhide, onSuspe
   );
 }
 
-function CardList({ rows, busyId, onView, onDismiss, onHide, onUnhide, onSuspend }) {
+function CardList({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend }) {
   return (
     <div className="ad-cardlist">
       {rows.map((r) => {
@@ -1112,6 +1154,7 @@ function CardList({ rows, busyId, onView, onDismiss, onHide, onUnhide, onSuspend
                 onView={() => onView(r)}
                 onDismiss={() => onDismiss(r)}
                 onHide={() => onHide(r)}
+                onKeepHidden={() => onKeepHidden(r)}
                 onUnhide={() => onUnhide(r)}
                 onSuspend={() => onSuspend(r)}
               />
@@ -1123,15 +1166,31 @@ function CardList({ rows, busyId, onView, onDismiss, onHide, onUnhide, onSuspend
   );
 }
 
-function RowActions({ r, busyId, onView, onDismiss, onHide, onUnhide, onSuspend }) {
+function RowActions({ r, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhide, onSuspend }) {
   const status = reportStatus(r);
   const isResolved = status === 'resolved';
-  const isHidden = status === 'hidden';
+  // Hidden by moderation, whether or not the report is resolved: Unhide
+  // stays available after a Hide resolves the report (2026-10-26).
+  const modHidden = isModerationHidden(r);
+  const removed = status === 'removed';
   const dismissBusy = busyId === `dismiss-${r.kind}-${r.id}`;
   const hideBusy = busyId === `hide-${r.kind}-${r.id}`;
   const unhideBusy = busyId === `unhide-${r.kind}-${r.id}`;
   const suspendBusy = busyId === `suspend-${r.target_author_kind}-${r.target_author_id}`;
   const authorIsRep = r.target_author_kind === 'rep';
+
+  const unhideButton = (
+    <button
+      type="button"
+      className="ad-actbtn"
+      onClick={onUnhide}
+      disabled={unhideBusy}
+      title="Put it back on the public page and close its reports"
+    >
+      <UnhideIcon size={12} />
+      <span>Unhide</span>
+    </button>
+  );
 
   return (
     <div className="ad-actions">
@@ -1149,20 +1208,35 @@ function RowActions({ r, busyId, onView, onDismiss, onHide, onUnhide, onSuspend 
       {!isResolved && (
         <>
           <span className="ad-act-sep" />
-          <button type="button" className="ad-actbtn" onClick={onDismiss} disabled={dismissBusy}>
-            <DismissIcon size={12} />
-            <span>Dismiss</span>
-          </button>
-          {isHidden ? (
-            <button type="button" className="ad-actbtn" onClick={onUnhide} disabled={unhideBusy}>
-              <UnhideIcon size={12} />
-              <span>Unhide</span>
-            </button>
+          {modHidden ? (
+            <>
+              {/* Hidden content gets a real decision, not a Dismiss that
+                  closed the report and left the content hidden. */}
+              <button
+                type="button"
+                className="ad-actbtn"
+                onClick={onKeepHidden}
+                disabled={hideBusy}
+                title="Keep it hidden and close its reports"
+              >
+                <HideIcon size={12} />
+                <span>Keep hidden</span>
+              </button>
+              {unhideButton}
+            </>
           ) : (
-            <button type="button" className="ad-actbtn ad-actbtn--danger" onClick={onHide} disabled={hideBusy}>
-              <HideIcon size={12} />
-              <span>Hide</span>
-            </button>
+            <>
+              <button type="button" className="ad-actbtn" onClick={onDismiss} disabled={dismissBusy}>
+                <DismissIcon size={12} />
+                <span>Dismiss</span>
+              </button>
+              {!removed && (
+                <button type="button" className="ad-actbtn ad-actbtn--danger" onClick={onHide} disabled={hideBusy}>
+                  <HideIcon size={12} />
+                  <span>Hide</span>
+                </button>
+              )}
+            </>
           )}
           {r.target_author_id && r.target_author_kind && (
             <button
@@ -1178,9 +1252,20 @@ function RowActions({ r, busyId, onView, onDismiss, onHide, onUnhide, onSuspend 
           )}
         </>
       )}
+      {isResolved && modHidden && (
+        <>
+          <span className="ad-act-sep" />
+          {unhideButton}
+        </>
+      )}
       {isResolved && (
         <span style={{ fontSize: '0.7rem', color: 'var(--cl-text-muted)', fontStyle: 'italic', marginLeft: 6 }}>
           Resolved {relTime(r.acted_at)}
+        </span>
+      )}
+      {removed && (
+        <span style={{ fontSize: '0.7rem', color: 'var(--cl-text-muted)', fontStyle: 'italic', marginLeft: 6 }}>
+          {REMOVED_LABEL[targetState(r)] || 'Not public'}
         </span>
       )}
     </div>
@@ -1188,7 +1273,10 @@ function RowActions({ r, busyId, onView, onDismiss, onHide, onUnhide, onSuspend 
 }
 
 function StatusPill({ status }) {
-  const label = status === 'hidden' ? 'Hidden' : status === 'resolved' ? 'Resolved' : 'Open';
+  const label = status === 'hidden' ? 'Hidden'
+    : status === 'resolved' ? 'Resolved'
+    : status === 'removed' ? 'Not public'
+    : 'Open';
   return (
     <span className={`ad-status ad-status--${status}`}>
       <span className="ad-status__dot" />
@@ -1783,9 +1871,48 @@ function HideModal({ row, onCancel, onConfirm }) {
   );
 }
 
+function UnhideModal({ row, onCancel, onConfirm }) {
+  const meta = TYPE_META[row.kind] || { label: row.kind };
+  const label = meta.label.toLowerCase();
+  return (
+    <div className="ad-modal-bg" onClick={onCancel}>
+      <div className="ad-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="ad-modal__hdr">
+          <div className="ad-modal__eyebrow ad-modal__eyebrow--success">Reversible action</div>
+          <h2 className="ad-modal__title">Unhide this {label}?</h2>
+        </div>
+        <div className="ad-modal__body">
+          <div>
+            It goes back on the public page, and every open report on it is closed. Closed
+            reports stop counting toward auto-hide, so it stays up unless enough new reports
+            come in.
+          </div>
+          <div className="ad-modal__contentblock" style={{ borderLeftColor: 'var(--cl-success)' }}>
+            <div className="ad-modal__contentmeta">
+              <span>{meta.label}</span>
+              <span>·</span>
+              <span style={{ fontFamily: 'var(--cl-font-mono)', textTransform: 'none', letterSpacing: 0 }}>
+                id={row.target_id}
+              </span>
+              <span>·</span>
+              <span>{targetState(row) === 'auto_hidden' ? 'Hidden by auto-hide' : 'Hidden by an admin'}</span>
+            </div>
+            <div className="ad-modal__contentbody">&ldquo;{row.target_preview || '(empty)'}&rdquo;</div>
+          </div>
+        </div>
+        <div className="ad-modal__footer">
+          <button type="button" className="ad-btn ad-btn--ghost" onClick={onCancel}>Cancel</button>
+          <button type="button" className="ad-btn ad-btn--grant" onClick={onConfirm}>
+            Unhide
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SuspendModal({ row, onCancel, onConfirm }) {
   const [reason, setReason] = useState(row?.detail || formatReason(row?.reason) || '');
-  const [alsoHide, setAlsoHide] = useState(false);
   const authorKind = row.target_author_kind === 'rep' ? 'rep' : 'citizen';
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
@@ -1811,23 +1938,9 @@ function SuspendModal({ row, onCancel, onConfirm }) {
             />
           </div>
 
-          <div className="ad-modal__hr" />
-
-          <div className="ad-modal__checkrow">
-            <button
-              type="button"
-              className={`ad-modal__check ${alsoHide ? 'checked' : ''}`}
-              onClick={() => setAlsoHide((v) => !v)}
-              aria-pressed={alsoHide}
-              aria-label={`Also hide all of ${row.target_author_name || 'this user'}'s existing content`}
-            />
-            <div className="ad-modal__checktext">
-              <strong>Also hide all of {row.target_author_name || 'this user'}&rsquo;s existing content</strong>
-              <div style={{ marginTop: 2 }}>
-                Hides every post and comment on the account in addition to the suspension.
-                Default off — usually we leave history visible.
-              </div>
-            </div>
+          <div>
+            Their existing posts and comments stay up. Suspending never takes content down;
+            hide reported items one at a time from the queue.
           </div>
         </div>
         <div className="ad-modal__footer">
@@ -1835,7 +1948,7 @@ function SuspendModal({ row, onCancel, onConfirm }) {
           <button
             type="button"
             className="ad-btn ad-btn--danger"
-            onClick={() => onConfirm({ reason, alsoHide })}
+            onClick={() => onConfirm({ reason })}
           >
             Suspend {authorKind}
           </button>
