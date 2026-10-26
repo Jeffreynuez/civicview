@@ -145,7 +145,7 @@ class ReportRow(BaseModel):
     # defensive). `target_author_*` lets the suspend-author action
     # find the right account row to suspend.
     context_official_id: Optional[str] = None
-    target_author_kind: Optional[Literal["citizen", "rep"]] = None
+    target_author_kind: Optional[Literal["citizen", "rep", "candidate"]] = None
     target_author_id: Optional[int] = None
     target_author_name: Optional[str] = None
 
@@ -226,6 +226,33 @@ def _queue_counts(db: Session) -> dict:
     }
 
 
+def _author_fields(
+    db: Session, row: Any, *,
+    citizen_attr: Optional[str] = None,
+    rep_attr: Optional[str] = None,
+    candidate_attr: Optional[str] = None,
+) -> dict:
+    """The author of a post, comment or poll, whichever author column
+    is set: a citizen, a rep or a candidate. Before 2026-10-26 only one
+    column was read per kind, so candidate posts and comments written
+    as a rep or candidate showed no author and no Suspend button."""
+    for attr, kind, model in (
+        (citizen_attr, "citizen", CitizenAccount),
+        (rep_attr, "rep", RepAccount),
+        (candidate_attr, "candidate", CandidateAccount),
+    ):
+        account_id = getattr(row, attr, None) if attr else None
+        if account_id:
+            account = db.get(model, account_id)
+            if account is not None:
+                return {
+                    "target_author_kind": kind,
+                    "target_author_id": account.id,
+                    "target_author_name": account.display_name,
+                }
+    return {}
+
+
 def _resolve_target_context(db: Session, kind: str, target: Any) -> dict:
     """For a given report target (Post / PostComment / Poll / PollComment),
     return:
@@ -255,46 +282,26 @@ def _resolve_target_context(db: Session, kind: str, target: Any) -> dict:
 
     if kind == "post":
         out["context_official_id"] = target.official_id
-        # The post author is a rep — look up via author_id.
-        author = db.get(RepAccount, target.author_id) if target.author_id else None
-        if author is not None:
-            out["target_author_kind"] = "rep"
-            out["target_author_id"] = author.id
-            out["target_author_name"] = author.display_name
+        out.update(_author_fields(db, target, rep_attr="author_id", candidate_attr="author_candidate_id"))
 
     elif kind == "post_comment":
         post = db.get(Post, target.post_id) if target.post_id else None
         if post is not None:
             out["context_official_id"] = post.official_id
-        # Comment authors are citizens.
-        author = db.get(CitizenAccount, target.citizen_id) if target.citizen_id else None
-        if author is not None:
-            out["target_author_kind"] = "citizen"
-            out["target_author_id"] = author.id
-            out["target_author_name"] = author.display_name
+        out.update(_author_fields(db, target, citizen_attr="citizen_id", rep_attr="author_rep_id",
+                                  candidate_attr="author_candidate_id"))
 
     elif kind == "poll":
         # Two flavors of poll: rep-authored (attached to a Post) or
         # citizen-authored (target_official_id points at the page).
         if target.author_kind == "citizen":
             out["context_official_id"] = target.target_official_id
-            author = (
-                db.get(CitizenAccount, target.author_citizen_id)
-                if target.author_citizen_id else None
-            )
-            if author is not None:
-                out["target_author_kind"] = "citizen"
-                out["target_author_id"] = author.id
-                out["target_author_name"] = author.display_name
+            out.update(_author_fields(db, target, citizen_attr="author_citizen_id"))
         else:
             post = db.get(Post, target.post_id) if target.post_id else None
             if post is not None:
                 out["context_official_id"] = post.official_id
-                author = db.get(RepAccount, post.author_id) if post.author_id else None
-                if author is not None:
-                    out["target_author_kind"] = "rep"
-                    out["target_author_id"] = author.id
-                    out["target_author_name"] = author.display_name
+                out.update(_author_fields(db, post, rep_attr="author_id", candidate_attr="author_candidate_id"))
 
     elif kind == "poll_comment":
         poll = db.get(Poll, target.poll_id) if target.poll_id else None
@@ -303,11 +310,8 @@ def _resolve_target_context(db: Session, kind: str, target: Any) -> dict:
             # author is the COMMENT author, not the poll author).
             poll_ctx = _resolve_target_context(db, "poll", poll)
             out["context_official_id"] = poll_ctx["context_official_id"]
-        author = db.get(CitizenAccount, target.citizen_id) if target.citizen_id else None
-        if author is not None:
-            out["target_author_kind"] = "citizen"
-            out["target_author_id"] = author.id
-            out["target_author_name"] = author.display_name
+        out.update(_author_fields(db, target, citizen_attr="citizen_id", rep_attr="author_rep_id",
+                                  candidate_attr="author_candidate_id"))
 
     return out
 
@@ -888,8 +892,10 @@ def unread_report_count(
 # ── Suspended users index ───────────────────────────────────────────
 class SuspendedUserRow(BaseModel):
     """Normalized row for the suspended-users UI. Same row shape for
-    both rep and citizen accounts so the frontend renders one table."""
-    kind: Literal["rep", "citizen"]
+    rep, citizen and candidate accounts so the frontend renders one
+    table. "candidate" was missing from kind until 2026-10-26, so one
+    suspended candidate made this list and the whole dashboard 500."""
+    kind: Literal["rep", "citizen", "candidate"]
     id: int
     email: str
     display_name: str

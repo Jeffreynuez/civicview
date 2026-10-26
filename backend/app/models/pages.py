@@ -1812,6 +1812,8 @@ class Appeal(Base):
       • 'poll_comment'        — citizen's hidden poll-comment (appellant: citizen)
       • 'suspension_rep'      — suspended rep account (appellant: that rep)
       • 'suspension_citizen'  — suspended citizen (appellant: that citizen)
+      • 'suspension_candidate' (2026-10-26): suspended candidate
+        (appellant: that candidate)
 
     Lifecycle:
       created_at         — submission timestamp

@@ -74,7 +74,7 @@ const TYPE_META = {
 
 // Appeal target_kind → label + classification. The kind is one of:
 // post / post_comment / poll / poll_comment (content appeals) OR
-// suspension_rep / suspension_citizen (account appeals).
+// suspension_rep / suspension_citizen / suspension_candidate (account appeals).
 const APPEAL_TARGET_META = {
   post:         { label: 'Hidden post',        type: 'content', iconClass: 'post',        Icon: TypePostIcon },
   post_comment: { label: 'Hidden comment',     type: 'content', iconClass: 'comment',     Icon: TypeCommentIcon },
@@ -82,6 +82,7 @@ const APPEAL_TARGET_META = {
   poll_comment: { label: 'Hidden poll comment',type: 'content', iconClass: 'pollcomment', Icon: TypePollCommentIcon },
   suspension_rep:     { label: 'Rep suspension',     type: 'suspension' },
   suspension_citizen: { label: 'Citizen suspension', type: 'suspension' },
+  suspension_candidate: { label: 'Candidate suspension', type: 'suspension' },
 };
 
 // Reason → pill-tone mapping for the queue.
@@ -166,6 +167,15 @@ function initialsFromName(name) {
 // Helpers for the three account kinds the admin surface handles —
 // rep, citizen, and candidate. Centralized so adding kinds in the
 // future doesn't require sweeping every conditional in the page.
+const SUSPENSION_APPEAL_KINDS = new Set(['suspension_rep', 'suspension_citizen', 'suspension_candidate']);
+
+// "Rep post" or "Candidate post" by who wrote it (2026-10-26); every
+// post used to read "Rep post".
+function typeLabel(r) {
+  if (r.kind === 'post' && r.target_author_kind === 'candidate') return 'Candidate post';
+  return (TYPE_META[r.kind] || { label: r.kind }).label;
+}
+
 function kindToken(kind) {
   if (kind === 'rep') return 'rep';
   if (kind === 'candidate') return 'candidate';
@@ -879,7 +889,7 @@ function AdminPageInner() {
       {unsuspendModal && (
         <UnsuspendModal
           user={unsuspendModal}
-          hasAppeal={appeals.some((a) => appealStatus(a) === 'pending' && a.appellant_kind === unsuspendModal.kind && a.appellant_id === unsuspendModal.id && (a.target_kind === 'suspension_citizen' || a.target_kind === 'suspension_rep'))}
+          hasAppeal={appeals.some((a) => appealStatus(a) === 'pending' && a.appellant_kind === unsuspendModal.kind && a.appellant_id === unsuspendModal.id && SUSPENSION_APPEAL_KINDS.has(a.target_kind))}
           onCancel={() => setUnsuspendModal(null)}
           onConfirm={handleUnsuspendConfirm}
         />
@@ -1090,7 +1100,7 @@ function QueueTable({ rows, counts, includeResolved, busyId, onView, onDismiss, 
                         <span className={`ad-cell-type__icon ad-cell-type__icon--${meta.iconClass}`}>
                           <meta.Icon size={14} />
                         </span>
-                        {meta.label}
+                        {typeLabel(r)}
                       </div>
                       <span className="ad-cell-type__id">id={r.target_id}</span>
                     </div>
@@ -1163,7 +1173,7 @@ function CardList({ rows, busyId, onView, onDismiss, onHide, onKeepHidden, onUnh
                   <meta.Icon size={14} />
                 </span>
                 <div className="ad-card__type-text">
-                  <div className="ad-card__type-main">{meta.label}</div>
+                  <div className="ad-card__type-main">{typeLabel(r)}</div>
                   <div className="ad-card__type-id">id={r.target_id}</div>
                 </div>
               </div>
@@ -1224,7 +1234,6 @@ function RowActions({ r, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhi
   const hideBusy = busyId === `hide-${r.kind}-${r.id}`;
   const unhideBusy = busyId === `unhide-${r.kind}-${r.id}`;
   const suspendBusy = busyId === `suspend-${r.target_author_kind}-${r.target_author_id}`;
-  const authorIsRep = r.target_author_kind === 'rep';
 
   const unhideButton = (
     <button
@@ -1291,7 +1300,7 @@ function RowActions({ r, busyId, onView, onDismiss, onHide, onKeepHidden, onUnhi
               className="ad-actbtn ad-actbtn--danger-solid"
               onClick={onSuspend}
               disabled={suspendBusy}
-              title={`Suspend ${authorIsRep ? 'rep' : 'citizen'} ${r.target_author_name || ''}`}
+              title={`Suspend ${kindLabel(r.target_author_kind).toLowerCase()} ${r.target_author_name || ''}`}
             >
               <SuspendIcon size={12} />
               <span>Suspend</span>
@@ -1429,6 +1438,7 @@ function AppealsFilterRow({
     { id: 'any',     label: 'Any' },
     { id: 'citizen', label: 'Citizen' },
     { id: 'rep',     label: 'Rep' },
+    { id: 'candidate', label: 'Candidate' },
   ];
   return (
     <div className="ad-filters">
@@ -1618,7 +1628,7 @@ function SuspendedView({
       appealStatus(a) === 'pending'
       && a.appellant_kind === u.kind
       && a.appellant_id === u.id
-      && (a.target_kind === 'suspension_citizen' || a.target_kind === 'suspension_rep')
+      && SUSPENSION_APPEAL_KINDS.has(a.target_kind)
     );
     return { ...u, hasAppeal: pending };
   }), [filtered, appeals]);
@@ -1647,8 +1657,9 @@ function SuspendedView({
 function SuspendedFilterRow({ kindChip, onKindChip, sort, onSort, onRefresh, loading }) {
   const kinds = [
     { id: 'all',     label: 'All' },
-    { id: 'citizen',label: 'Citizen' },
+    { id: 'citizen', label: 'Citizen' },
     { id: 'rep',     label: 'Rep' },
+    { id: 'candidate', label: 'Candidate' },
   ];
   return (
     <div className="ad-filters">
@@ -1783,8 +1794,8 @@ function SuspendedCardList({ rows, onUnsuspend, onViewAppeal }) {
                 <div className="ad-card__type-id" style={{ fontFamily: 'inherit', fontSize: 'var(--cl-text-xs)', color: 'var(--cl-text-light)' }}>{u.email}</div>
               </div>
             </div>
-            <span className={`ad-kindpill ad-kindpill--${u.kind === 'rep' ? 'rep' : 'citizen'}`}>
-              {u.kind === 'rep' ? 'Rep' : 'Citizen'}
+            <span className={`ad-kindpill ad-kindpill--${kindToken(u.kind)}`}>
+              {kindLabel(u.kind)}
             </span>
           </div>
 
@@ -2039,7 +2050,7 @@ function SuspendModal({ row, onCancel, onConfirm }) {
   // Starts empty: the reason on record is the admin's, not the
   // reporter's words (2026-10-26). The report is shown for context.
   const [reason, setReason] = useState('');
-  const authorKind = row.target_author_kind === 'rep' ? 'rep' : 'citizen';
+  const authorKind = kindLabel(row.target_author_kind).toLowerCase();
   return (
     <div className="ad-modal-bg" onClick={onCancel}>
       <div className="ad-modal ad-modal--wide" onClick={(e) => e.stopPropagation()}>
