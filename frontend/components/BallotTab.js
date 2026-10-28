@@ -672,7 +672,7 @@ function ElectionCard({
               }}
             >
               <span style={{ flexShrink: 0, color: 'var(--cl-up-text)', display: 'inline-flex' }}>
-                <CheckCircle size={16} active color="up" />
+                <CheckCircle size={16} color="up" />
               </span>
               <div
                 style={{
@@ -1935,7 +1935,7 @@ function VoterStatusBanner({ status }) {
         }}
       >
         <span style={{ flexShrink: 0, color: 'var(--cl-warning-text)', display: 'inline-flex' }}>
-          <WarningCircle size={20} active color="warning" />
+          <WarningCircle size={20} color="warning" />
         </span>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
@@ -1977,7 +1977,7 @@ function VoterStatusBanner({ status }) {
       }}
     >
       <span style={{ flexShrink: 0, color: 'var(--cl-accent)', display: 'inline-flex' }}>
-        <CheckCircle size={20} active color="accent" />
+        <CheckCircle size={20} color="accent" />
       </span>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div

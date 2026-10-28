@@ -146,7 +146,7 @@ export default function ClaimPageModal({
 
       {done ? (
         <EmptyState
-          icon={<CheckCircle size={36} active color="accent" />}
+          icon={<CheckCircle size={36} color="accent" />}
           headline="Request received"
           body={
             <>

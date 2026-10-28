@@ -237,7 +237,7 @@ export default function NationalOfficialsPanel({
     // development database). Not an outage, so no Retry.
     return (
       <EmptyState
-        icon={<Building size={36} active color="muted" />}
+        icon={<Building size={36} color="muted" />}
         headline="Federal officials are not loaded yet"
         body="The federal officials snapshot has not been loaded on this server."
         tone="muted"
@@ -1084,7 +1084,7 @@ function FeaturedRaceVerifyPrompt({ onRequestVerify }) {
 function FeaturedRaceEmpty({ stateName }) {
   return (
     <EmptyState
-      icon={<Building size={32} active color="muted" />}
+      icon={<Building size={32} color="muted" />}
       headline={`Election results coming soon for ${stateName || 'your state'}.`}
       body="We're rolling out 2026 candidate data state by state. Tracked notifications will fire as soon as your races land."
       tone="muted"
@@ -1720,7 +1720,7 @@ function ActivityEmptyState({ error }) {
         }}
         aria-hidden
       >
-        <Building size={22} active color="accent" />
+        <Building size={22} color="accent" />
       </div>
       <div
         style={{
@@ -2137,7 +2137,7 @@ function PollsEmptyState({ error }) {
         }}
         aria-hidden
       >
-        <CheckCircle size={22} active color="accent" />
+        <CheckCircle size={22} color="accent" />
       </div>
       <div
         style={{

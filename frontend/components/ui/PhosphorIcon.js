@@ -38,7 +38,9 @@ import React from 'react';
 
 // ─────────────────────────────────────────────────────────────────
 // Color tokens for the icon. Defaults to navy stroke + accent fill,
-// the canonical resting state. Pass `active` to flip to fully-filled.
+// the canonical resting state. Pass `active` to flip to fully-filled: right for
+// solid glyphs (thumbs, arrows, the scope chips), wrong for glyphs with inner
+// detail (Newspaper, Building, CheckCircle...), which fill to a plain block.
 // ─────────────────────────────────────────────────────────────────
 const COLOR_PRESETS = {
   default: { stroke: 'var(--cl-text)',     fill: 'var(--cl-accent)' },
@@ -101,7 +103,13 @@ function IconBase({
           {underlayer}
         </g>
       )}
-      <g>{active ? <g fill={fillColor} stroke="none">{children}</g> : children}</g>
+      {/* Active fills the shapes and keeps their strokes (2026-10-28): with
+          stroke="none" here, an active icon drawn only with lines (the
+          ArrowRight beside "Find my reps", "View profile" and the rest)
+          had nothing left to draw and showed as an empty gap. Glyphs with
+          inner detail (Newspaper, Building, CheckCircle...) still fill to a
+          plain silhouette when active, so they are drawn without it. */}
+      <g>{active ? <g fill={fillColor}>{children}</g> : children}</g>
     </svg>
   );
 }

@@ -1117,7 +1117,7 @@ export default function PageView({
                 )}
                 {!loading && !error && posts.length === 0 && (
                   <EmptyState
-                    icon={<Newspaper size={36} active color="muted" />}
+                    icon={<Newspaper size={36} color="muted" />}
                     headline={
                       isOwner
                         ? 'No posts yet'

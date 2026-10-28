@@ -436,7 +436,7 @@ export default function CompareView({ open, items, onClose }) {
 
               {!loading && !loadError && sharedVotes.length === 0 && (
                 <EmptyState
-                  icon={<Newspaper size={32} active color="muted" />}
+                  icon={<Newspaper size={32} color="muted" />}
                   headline={crossChamber ? 'No shared votes' : 'No overlapping votes'}
                   body={crossChamber
                     ? 'The House and the Senate vote separately, so a representative and a senator never vote on the same roll call.'
