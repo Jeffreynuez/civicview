@@ -541,6 +541,17 @@ export default function PageView({
     return () => { document.body.style.overflow = prev; };
   }, []);
 
+  // The owner's Your view rail, shown on the Feed and Dashboard tabs.
+  const ownerScopeRail = (
+    <OwnerScopeFilter
+      scopes={payload?.allowed_engagement_scopes || []}
+      labels={payload?.engagement_scope_labels || {}}
+      value={ownerScope || 'country'}
+      onChange={(next) => setOwnerScope(next === 'country' ? null : next)}
+      collapsed={scopeFilterCollapsed}
+    />
+  );
+
   return (
     <div
       role="dialog"
@@ -927,22 +938,14 @@ export default function PageView({
               })}
             </div>
 
-            {/* Owner-only scope filter rail. Feed-view only — scope
-                filters drive engagement-metric slicing, which only
-                applies to the feed / dashboard views. Sits above the
-                composer so it's the first thing an owner sees —
-                filter state changes trigger a page refetch, which
-                recomputes poll counts + reactions + comment_count
-                server-side. */}
-            {isOwner && activeView === 'feed' && (
-              <OwnerScopeFilter
-                scopes={payload?.allowed_engagement_scopes || []}
-                labels={payload?.engagement_scope_labels || {}}
-                value={ownerScope || 'country'}
-                onChange={(next) => setOwnerScope(next === 'country' ? null : next)}
-                collapsed={scopeFilterCollapsed}
-              />
-            )}
+            {/* Owner-only scope filter rail. Scope filters drive
+                engagement-metric slicing, which applies to the feed and
+                the dashboard. On the feed it sits above the composer so
+                it's the first thing an owner sees; on the dashboard it
+                sits under Account security (below). Filter state changes
+                trigger a page refetch, which recomputes poll counts +
+                reactions + comment_count server-side. */}
+            {isOwner && activeView === 'feed' && ownerScopeRail}
 
             {/* Dashboard takes over the main column when the owner
                 toggles into it. Feed content (composer + posts) is
@@ -963,6 +966,10 @@ export default function PageView({
                 <div style={{ marginBottom: 18 }}>
                   <TwoFactorSection />
                 </div>
+                {/* The same Your view rail as the feed's (2026-10-28): the
+                    dashboard's numbers follow it, so the owner can pick the
+                    area here instead of going back to the Feed tab. */}
+                {ownerScopeRail}
                 <Dashboard
                   officialId={officialId}
                   ownerIdentity={candOwnerMatch ? 'candidate' : 'rep'}
