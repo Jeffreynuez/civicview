@@ -26,7 +26,7 @@ import HelpBuildThisView from '@/components/HelpBuildThisView';
 import FeedbackView from '@/components/FeedbackView';
 // Contextual push-notification opt-in — renders nothing on the web;
 // in the Android shell it offers push once a citizen is signed in.
-import { fetchAllStateData, fetchAllMembers, fetchMemberDetail, fetchMemberBills, fetchMemberVotes, fetchElections, fetchElectionStates, fetchCandidate, fetchStatePerson } from '@/lib/api';
+import { fetchAllStateData, fetchAllMembers, fetchMemberDetail, fetchMemberBills, fetchMemberVotes, fetchElections, fetchElectionStates, fetchCandidate, fetchStatePerson, fetchFederalPerson } from '@/lib/api';
 import { requestNotificationsOpen } from '@/lib/notificationsOpen';
 import { STATE_NAME_TO_CODE } from '@/lib/constants';
 import { useAuth, logoutRep } from '@/lib/auth';
@@ -879,6 +879,27 @@ export default function Home() {
                     displayName: candidate.name,
                     role: candidate.seeking_office || 'Candidate',
                     photoUrl: candidate.photo_url || null,
+                  });
+                  return;
+                }
+              } catch { /* fall through to the state and federal paths */ }
+              // State officials ('nc-sen-1', 'fl-rep-55') and federal
+              // officials outside Congress ('us-ag-...'), including people
+              // who have left office: their person endpoints also return
+              // the former record (2026-10-28). Without this, a direct
+              // link to any of these pages, such as the one in a "page you
+              // track changed" notice, showed 'This official'.
+              try {
+                const stateMatch = /^([a-z]{2})-/.exec(urlPage);
+                const { data: person } = urlPage.startsWith('us-')
+                  ? await fetchFederalPerson(urlPage)
+                  : (stateMatch ? await fetchStatePerson(stateMatch[1], urlPage) : { data: null });
+                if (cancelled) return;
+                if (person?.name) {
+                  setPageMeta({
+                    displayName: person.name,
+                    role: person.role || person.title || null,
+                    photoUrl: person.photo_url || person.photoUrl || null,
                   });
                 }
               } catch { /* heading stays on 'This official' fallback */ }

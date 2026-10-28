@@ -210,7 +210,7 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
               )}
               {!loading && filtered.length === 0 && (
                 <EmptyState
-                  icon={<MagnifyingGlass size={32} active color="muted" />}
+                  icon={<MagnifyingGlass size={32} color="muted" />}
                   headline={`No matches for "${query}"`}
                   body="Try a committee name, a subcommittee, or a chamber filter (House / Senate / Joint)."
                   tone="muted"
@@ -296,7 +296,7 @@ export default function CommitteesModal({ open, onClose, onMemberPick }) {
             )}
             {!selectedId && !isMobile && (
               <EmptyState
-                icon={<Building size={36} active color="default" />}
+                icon={<Building size={36} color="default" />}
                 headline="Select a committee to see its roster"
                 body="Pick a full committee or a subcommittee on the left."
               />

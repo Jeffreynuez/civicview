@@ -516,7 +516,7 @@ function VerifiedCitizenBadge() {
         fontWeight: 700,
       }}
     >
-      <CheckCircle size={12} active color="up" />
+      <CheckCircle size={12} color="up" />
       Verified citizen
     </span>
   );
@@ -795,7 +795,7 @@ function YourBallotCard({ ballot, onView }) {
     <Card
       title="Your ballot"
       tone="accent"
-      icon={<CalendarCheck size={18} active color="accent" />}
+      icon={<CalendarCheck size={18} color="accent" />}
     >
       {days != null && (
         <div style={{ marginTop: 4 }}>

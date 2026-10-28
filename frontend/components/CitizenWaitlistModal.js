@@ -116,7 +116,7 @@ export default function CitizenWaitlistModal({
 
       {done ? (
         <EmptyState
-          icon={<CheckCircle size={36} active color="accent" />}
+          icon={<CheckCircle size={36} color="accent" />}
           headline="You're on the list"
           body={
             <>
